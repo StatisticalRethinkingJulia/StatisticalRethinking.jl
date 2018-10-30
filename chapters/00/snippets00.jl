@@ -1,0 +1,34 @@
+using RDatasets, DataFrames, Plots
+
+ProjDir = dirname(@__FILE__)
+cd(ProjDir)
+
+println( "All models are wrong, but some are useful." )
+
+x = 1:3
+x = x*10
+x = log.(x)
+x = sum(x)
+x = exp(x)
+x = x*10
+x = log(x)
+x = sum(x)
+x = exp(x)
+
+log( 0.01^200 )
+200 * log(0.01)
+
+cars = dataset("datasets", "cars")
+println()
+
+m = lm(@formula(Dist ~ Speed), cars)
+
+coef(m)
+
+fig1 =scatter( cars[:Speed], residuals(m),
+  xlab="Speed", ylab="Model residual values", lab="Model residuals")
+
+#savefig("Chapter 0.pdf")
+
+# This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
+

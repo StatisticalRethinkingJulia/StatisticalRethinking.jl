@@ -1,0 +1,3 @@
+# StatisticalRethinking
+
+*Documentation goes here.*

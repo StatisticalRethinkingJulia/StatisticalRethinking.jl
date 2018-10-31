@@ -7,7 +7,7 @@ for chapter in chapters
   ProjDir = joinpath(@__DIR__, "..", "chapters", chapter)
   cd(ProjDir) do
   
-    println(ProjDir)
+    println("\nIn directory: $ProjDir\n")
     fname = "snippets" * chapter
 
     if isfile(fname * ".3.jl")

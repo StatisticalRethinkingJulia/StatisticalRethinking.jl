@@ -1,16 +1,22 @@
 using StatisticalRethinking, Literate
 using Test
 
-ProjDir = joinpath(@__DIR__, "..", "chapters", "00")
-cd(ProjDir) do
+chapters = ["00", "02"]
+
+for chapter in chapters
+  ProjDir = joinpath(@__DIR__, "..", "chapters", chapter)
+  cd(ProjDir) do
   
-println(ProjDir)
+    println(ProjDir)
+    fname = "snippets" * chapter
 
-Literate.markdown("snippets00.0.jl", ProjDir, name="snippets00.1", documenter=true)
-Literate.markdown("snippets00.0.jl", ProjDir, name="snippets00.2", documenter=false)
-Literate.script("snippets00.0.jl", ProjDir, name="snippets00.3")
-Literate.notebook("snippets00.0.jl", ProjDir, name="snippets00.4")
-
-@test 1 == 1
-
+    if isfile(fname * ".0.jl")
+      Literate.markdown(fname*".0.jl", ProjDir, name=fname*".1", documenter=true)
+      Literate.markdown(fname*".0.jl", ProjDir, name=fname*".2", documenter=false)
+      Literate.script(fname*".0.jl", ProjDir, name=fname*".3")
+      Literate.notebook(fname*".0.jl", ProjDir, name=fname*".4")
+    end
+    
+    @test 1 == 1
+  end
 end

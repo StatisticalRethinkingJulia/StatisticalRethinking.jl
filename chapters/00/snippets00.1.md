@@ -77,6 +77,8 @@ fig1 = scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
 ```
 
+Save the plot
+
 ### snippet 0.5
 
 Thie contents of this snipper is partially replaced by snippet 0.0.

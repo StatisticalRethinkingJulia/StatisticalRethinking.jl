@@ -75,8 +75,10 @@ println() #src
 
 fig1 = scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
+  
+# Save the plot
 
-#savefig("Chapter00snippet00.pdf") #src
+savefig("Chapter00snippet00.pdf") #src
 
 # ### snippet 0.5
 

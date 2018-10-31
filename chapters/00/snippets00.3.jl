@@ -1,7 +1,4 @@
-using RDatasets, DataFrames, Plots
-
-ProjDir = dirname(@__FILE__)
-cd(ProjDir)
+using RDatasets, DataFrames, GLM, Plots
 
 println( "All models are wrong, but some are useful." )
 
@@ -25,10 +22,8 @@ m = lm(@formula(Dist ~ Speed), cars)
 
 coef(m)
 
-fig1 =scatter( cars[:Speed], residuals(m),
+fig1 = scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
-
-#savefig("Chapter 0.pdf")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

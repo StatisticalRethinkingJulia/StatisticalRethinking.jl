@@ -4,7 +4,7 @@
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using RDatasets, DataFrames, Plots
+using RDatasets, DataFrames, GLM, Plots
 
 # Package `RDatasets` provides access to the often used R datasets.
 # See RData if you have local .rda files.
@@ -73,10 +73,10 @@ println() #src
 
 # Plot residuals against speed
 
-fig1 =scatter( cars[:Speed], residuals(m),
+fig1 = scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
 
-savefig("Chapter00snippet00.pdf") #src
+#savefig("Chapter00snippet00.pdf") #src
 
 # ### snippet 0.5
 

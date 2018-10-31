@@ -1,11 +1,15 @@
+```@meta
+EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
+```
+
 # Chapter 0 snippets
 
 ### snippet 0.0
 
 Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-```julia
-using RDatasets, DataFrames, Plots
+```@example snippets00.1
+using RDatasets, DataFrames, GLM, Plots
 ```
 
 Package `RDatasets` provides access to the often used R datasets.
@@ -16,14 +20,9 @@ Package `DataFrames` supports a Julia implementation DataFrames.
 Package `Plos` is one of the available plotting options in Julia.
 By default Plots uses GR as the .
 
-```julia
-ProjDir = dirname(@__FILE__)
-cd(ProjDir)
-```
-
 ### snippet 0.1
 
-```julia
+```@example snippets00.1
 println( "All models are wrong, but some are useful." )
 ```
 
@@ -31,7 +30,7 @@ println( "All models are wrong, but some are useful." )
 
 This is a StepRange, not a vector
 
-```julia
+```@example snippets00.1
 x = 1:3
 x = x*10
 x = log.(x)
@@ -45,7 +44,7 @@ x = exp(x)
 
 ### snippet 0.3
 
-```julia
+```@example snippets00.1
 log( 0.01^200 )
 200 * log(0.01)
 ```
@@ -54,30 +53,28 @@ log( 0.01^200 )
 
 `dataset(...)` provides access to often used R datasets.
 
-```julia
+```@example snippets00.1
 cars = dataset("datasets", "cars")
 println()
 ```
 
 Fit a linear regression of distance on speed
 
-```julia
+```@example snippets00.1
 m = lm(@formula(Dist ~ Speed), cars)
 ```
 
 estimated coefficients from the model
 
-```julia
+```@example snippets00.1
 coef(m)
 ```
 
 Plot residuals against speed
 
-```julia
-fig1 =scatter( cars[:Speed], residuals(m),
+```@example snippets00.1; continued = true
+fig1 = scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
-
-#savefig("Chapter 0.pdf")
 ```
 
 ### snippet 0.5

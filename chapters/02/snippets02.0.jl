@@ -4,7 +4,7 @@
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using RDatasets, DataFrames, Plots
+using Distributions, RDatasets, DataFrames, Plots
 
 # Package `RDatasets` provides access to the often used R datasets.
 # See RData if you have local .rda files.
@@ -64,9 +64,8 @@ p4 = plot!(p3, p_grid, prior2,  lab = "double_exponential" )
 
 savefig("Chapter02snippet25.pdf")
 
-#=
+# #=
 # snippet 2.6
-library(rethinking)
 globe.qa <- map(
     alist(
         w ~ dbinom(9,p) ,  # binomial likelihood
@@ -85,4 +84,5 @@ curve( dbeta( x , w+1 , n-w+1 ) , from=0 , to=1 )
 # quadratic approximation
 curve( dnorm( x , 0.67 , 0.16 ) , lty=2 , add=TRUE )
 
-=#
+# =#
+

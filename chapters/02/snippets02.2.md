@@ -1,11 +1,20 @@
-Load Julia packages (libraries) needed  in this snippet
+# Chapter 0 snippets
+
+### snippet 2.0
+
+Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 ```julia
-using Distributions
+using Distributions, RDatasets, DataFrames, Plots
 ```
 
-Package `Distributions` conatains Julia library of distributions, e.g.
-?Distributions
+Package `RDatasets` provides access to the often used R datasets.
+See RData if you have local .rda files.
+
+Package `DataFrames` supports a Julia implementation DataFrames.
+
+Package `Plos` is one of the available plotting options in Julia.
+By default Plots uses GR as the .
 
 snippet 2.1
 
@@ -26,46 +35,58 @@ snippet 2.3
 define grid
 
 ```julia
-p_grid <- seq( from=0 , to=1 , length.out=20 )
+p_grid = range( 0 , stop=1 , length=20 )
 ```
 
 define prior
 
 ```julia
-prior <- rep( 1 , 20 )
+prior = ones( 20 )
 ```
 
 compute likelihood at each value in grid
 
 ```julia
-likelihood <- dbinom( 6 , size=9 , prob=p_grid )
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
 ```
 
 compute product of likelihood and prior
 
 ```julia
-unstd.posterior <- likelihood * prior
+unstd_posterior = likelihood .* prior
 ```
 
 standardize the posterior, so it sums to 1
 
 ```julia
-posterior <- unstd.posterior / sum(unstd.posterior)
+posterior = unstd_posterior  ./ sum(unstd_posterior)
 ```
 
 snippet 2.4
 
 ```julia
-plot( p_grid , posterior , type="b" ,
-    xlab="probability of water" , ylab="posterior probability" )
-mtext( "20 points" )
+p1 = plot( p_grid , posterior ,
+    xlab="probability of water" , ylab="posterior probability",
+    lab = "interpolated", title="20 points" )
+p2 = scatter!( p1, p_grid , posterior, lab="computed" )
+
+savefig("Chapter02snippet24.pdf")
 ```
 
 snippet 2.5
 
 ```julia
-prior <- ifelse( p_grid < 0.5 , 0 , 1 )
-prior <- exp( -5*abs( p_grid - 0.5 ) )
+prior1 = [p < 0.5 ? 0 : 1 for p in p_grid]
+prior2 = [exp( -5*abs( p - 0.5 ) ) for p in p_grid]
+
+p3 = plot(p_grid, prior1,
+  xlab="probability of water" , ylab="posterior probability",
+  lab = "semi_uniform", title="Other priors" )
+p4 = plot!(p3, p_grid, prior2,  lab = "double_exponential" )
+
+savefig("Chapter02snippet25.pdf")
+
+#=
 ```
 
 snippet 2.6
@@ -99,6 +120,8 @@ quadratic approximation
 
 ```julia
 curve( dnorm( x , 0.67 , 0.16 ) , lty=2 , add=TRUE )
+
+=#
 ```
 
 *This page was generated using [Literate.jl](https://github.com/fredrikekre/Literate.jl).*

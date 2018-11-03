@@ -78,7 +78,7 @@ fig1 = scatter( cars[:Speed], residuals(m),
   
 # Save the plot
 
-savefig("Chapter00snippet00.pdf") #src
+savefig("s0_0.pdf") #src
 
 # ### snippet 0.5
 

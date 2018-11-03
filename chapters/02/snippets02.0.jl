@@ -51,7 +51,7 @@ p1 = plot( p_grid , posterior ,
     lab = "interpolated", title="20 points" )
 p2 = scatter!( p1, p_grid , posterior, lab="computed" )
 
-savefig("Chapter02snippet24.pdf")
+savefig("s2_4.pdf")
 
 # snippet 2.5
 prior1 = [p < 0.5 ? 0 : 1 for p in p_grid]
@@ -62,27 +62,33 @@ p3 = plot(p_grid, prior1,
   lab = "semi_uniform", title="Other priors" )
 p4 = plot!(p3, p_grid, prior2,  lab = "double_exponential" )
 
-savefig("Chapter02snippet25.pdf")
+savefig("s2_5.pdf")
 
 # #=
 # snippet 2.6
-globe.qa <- map(
-    alist(
-        w ~ dbinom(9,p) ,  # binomial likelihood
-        p ~ dunif(0,1)     # uniform prior
-    ) ,
-    data=list(w=6) )
+globe_qa = (
+#    (
+#        w ~ dbinom(9,p) ,  # binomial likelihood
+#        p ~ dunif(0,1)         # uniform prior
+#    ) ,
+    data=(w=6) )
 
 # display summary of quadratic approximation
-precis( globe.qa )
+#precis( globe.qa )
+
+#   R precis( globe.qa):
+#   Mean StdDev 5.5% 94.5%
+# p 0.67   0.16 0.42  0.92
 
 # snippet 2.7
 # analytical calculation
-w <- 6
-n <- 9
-curve( dbeta( x , w+1 , n-w+1 ) , from=0 , to=1 )
+w = 6
+n = 9
+x = 0:0.01:1
+plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 # quadratic approximation
-curve( dnorm( x , 0.67 , 0.16 ) , lty=2 , add=TRUE )
+plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
+savefig("s2_7.pdf")
 
 # =#
 

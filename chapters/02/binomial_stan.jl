@@ -51,7 +51,7 @@ cd(ProjDir) do
     p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
     x = 0:0.01:1
     for i in 1:4
-      res = fit_mle(Normal, df[i][:theta])
+      @show res = fit_mle(Normal, df[i][:theta])
       p[i] = @df df[i] density(:theta, lab="Chain $i density")
       plot!(p[i], x, pdf.(Normal(res.μ, res.σ), x), lab="Fitted Normal(μ, σ)")
     end

@@ -52,11 +52,13 @@ cd(ProjDir) do
     x = 0:0.01:1
     for i in 1:4
       @show res = fit_mle(Normal, df[i][:theta])
+      μ = round(res.μ, digits=2)
+      σ = round(res.σ, digits=2)
       p[i] = @df df[i] density(:theta, lab="Chain $i density")
-      plot!(p[i], x, pdf.(Normal(res.μ, res.σ), x), lab="Fitted Normal(μ, σ)")
+      plot!(p[i], x, pdf.(Normal(res.μ, res.σ), x), lab="Fitted Normal($μ, $σ)")
     end
     plot(p..., layout=(4, 1))
-    savefig("Stan theta densities.pdf")
+    savefig("s2_8.pdf")
   end
   
 end # cd

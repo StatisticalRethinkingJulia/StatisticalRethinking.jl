@@ -82,4 +82,4 @@ plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 savefig("s2_7.pdf")
 
 # snippet 2.8 
-# The example binomial_stan.jl
+# The example is in binomial_stan.jl

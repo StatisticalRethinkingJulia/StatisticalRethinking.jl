@@ -1,4 +1,4 @@
-# # Chapter 0 snippets
+# # Chapter 2 snippets
 
 # ### snippet 2.0
 
@@ -19,13 +19,13 @@ cd(ProjDir) #src
 
 # snippet 2.1
 
-ways  = [0  , 3 , 8 , 9 , 0 ];
-ways/sum(ways)
+@show ways  = [0  , 3 , 8 , 9 , 0 ];
+@show ways/sum(ways)
 
 # snippet 2.2
 
-d = Binomial(9, 0.5)
-pdf(d, 6)
+@show d = Binomial(9, 0.5);
+@show pdf(d, 6)
 
 # snippet 2.3
 
@@ -64,21 +64,12 @@ p4 = plot!(p3, p_grid, prior2,  lab = "double_exponential" )
 
 savefig("s2_5.pdf")
 
-# #=
 # snippet 2.6
-globe_qa = (
-#    (
-#        w ~ dbinom(9,p) ,  # binomial likelihood
-#        p ~ dunif(0,1)         # uniform prior
-#    ) ,
-    data=(w=6) )
-
-# display summary of quadratic approximation
-#precis( globe.qa )
-
-#   R precis( globe.qa):
-#   Mean StdDev 5.5% 94.5%
-# p 0.67   0.16 0.42  0.92
+p_grid = range(0, step=0.1, stop=1)
+prior = ones(length(p_grid))
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+posterior = likelihood .* prior
+posterior = posterior / sum(posterior)
 
 # snippet 2.7
 # analytical calculation
@@ -90,5 +81,5 @@ plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 savefig("s2_7.pdf")
 
-# =#
-
+# snippet 2.8 
+# The example binomial_stan.jl

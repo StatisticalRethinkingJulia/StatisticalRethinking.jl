@@ -1,10 +1,10 @@
 using Distributions, RDatasets, DataFrames, Plots
 
-ways  = [0  , 3 , 8 , 9 , 0 ];
-ways/sum(ways)
+@show ways  = [0  , 3 , 8 , 9 , 0 ];
+@show ways/sum(ways)
 
-d = Binomial(9, 0.5)
-pdf(d, 6)
+@show d = Binomial(9, 0.5);
+@show pdf(d, 6)
 
 p_grid = range( 0 , stop=1 , length=20 )
 
@@ -21,7 +21,7 @@ p1 = plot( p_grid , posterior ,
     lab = "interpolated", title="20 points" )
 p2 = scatter!( p1, p_grid , posterior, lab="computed" )
 
-savefig("Chapter02snippet24.pdf")
+savefig("s2_4.pdf")
 
 prior1 = [p < 0.5 ? 0 : 1 for p in p_grid]
 prior2 = [exp( -5*abs( p - 0.5 ) ) for p in p_grid]
@@ -31,27 +31,21 @@ p3 = plot(p_grid, prior1,
   lab = "semi_uniform", title="Other priors" )
 p4 = plot!(p3, p_grid, prior2,  lab = "double_exponential" )
 
-savefig("Chapter02snippet25.pdf")
+savefig("s2_5.pdf")
 
-#=
+p_grid = range(0, step=0.1, stop=1)
+prior = ones(length(p_grid))
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+posterior = likelihood .* prior
+posterior = posterior / sum(posterior)
 
-library(rethinking)
-globe.qa <- map(
-    alist(
-        w ~ dbinom(9,p) ,  # binomial likelihood
-        p ~ dunif(0,1)     # uniform prior
-    ) ,
-    data=list(w=6) )
+w = 6
+n = 9
+x = 0:0.01:1
+plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 
-precis( globe.qa )
-
-w <- 6
-n <- 9
-curve( dbeta( x , w+1 , n-w+1 ) , from=0 , to=1 )
-
-curve( dnorm( x , 0.67 , 0.16 ) , lty=2 , add=TRUE )
-
-=#
+plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
+savefig("s2_7.pdf")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

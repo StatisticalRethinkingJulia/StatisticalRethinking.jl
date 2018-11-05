@@ -1,6 +1,6 @@
 ## Binomial Example ####
 ## Note: Adapted from the Rate_4 example in Bayesian Cognitive Modeling
-##  https://github.com/stan-dev/example-models/tree/master/Bayesian_Cognitive_Modeling
+## https://github.com/stan-dev/example-models/tree/master/Bayesian_Cognitive_Modeling
 
 using CmdStan, StanDataFrames, Distributions, Statistics, StatPlots, Plots
 gr(size=(500,800))

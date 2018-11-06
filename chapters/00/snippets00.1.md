@@ -9,7 +9,7 @@ EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 ```@example snippets00.1
-using RDatasets, DataFrames, GLM, Plots
+using Distributions, RDatasets, DataFrames, GLM, StatsBase, Plots, StatPlots
 ```
 
 Package `RDatasets` provides access to the often used R datasets.

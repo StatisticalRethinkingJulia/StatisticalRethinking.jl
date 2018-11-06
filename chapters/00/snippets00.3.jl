@@ -1,4 +1,4 @@
-using RDatasets, DataFrames, GLM, Plots
+using Distributions, RDatasets, DataFrames, GLM, StatsBase, Plots, StatPlots
 
 println( "All models are wrong, but some are useful." )
 

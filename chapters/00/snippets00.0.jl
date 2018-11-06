@@ -4,7 +4,7 @@
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using RDatasets, DataFrames, GLM, Plots
+using Distributions, RDatasets, DataFrames, GLM, StatsBase, Plots, StatPlots
 
 # Package `RDatasets` provides access to the often used R datasets.
 # See RData if you have local .rda files.

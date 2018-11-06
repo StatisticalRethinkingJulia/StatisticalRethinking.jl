@@ -4,7 +4,7 @@
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using Distributions, RDatasets, DataFrames, Plots
+using Distributions, RDatasets, DataFrames, GLM, StatsBase, Plots, StatPlots
 
 # Package `RDatasets` provides access to the often used R datasets.
 # See RData if you have local .rda files.
@@ -64,7 +64,7 @@ p4 = plot!(p3, p_grid, prior2,  lab = "double_exponential" )
 
 savefig("s2_5.pdf")
 
-# snippet 2.6
+# snippet 2.6 (see snippet 3_2 for explanations)
 p_grid = range(0, step=0.001, stop=1)
 prior = ones(length(p_grid))
 likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]

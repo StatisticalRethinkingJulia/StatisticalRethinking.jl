@@ -4,7 +4,7 @@
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using Distributions, RDatasets, DataFrames, StatsBase, Plots, StatPlots
+using Distributions, RDatasets, DataFrames, GLM, StatsBase, Plots, StatPlots
 gr(size=(600,300))
 
 # Package `RDatasets` provides access to the often used R datasets.
@@ -26,12 +26,25 @@ PrP = PrPV*PrV + PrPM*(1-PrV)
 PrVP = PrPV*PrV / PrP
 
 # snippet 3.2
+
+# Grid of 1001 steps
 p_grid = range(0, step=0.001, stop=1)
+
+# all priors = 1.0
 prior = ones(length(p_grid))
+
+# Binomial pdf
 likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+
+# As Uniform priar has been used, unstandardized posterior is equal to likelihood
 posterior = likelihood .* prior
+
+# Scale posterior such that they become probabilities
 posterior = posterior / sum(posterior)
 
+# Sample using the computed posterior values as weights
+# In this example we keep the number of samples equal to the length of p_grid,
+# but that is not required.
 samples = sample(p_grid, Weights(posterior), length(p_grid))
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)

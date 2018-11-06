@@ -10,15 +10,13 @@ for chapter in chapters
     println("\nIn directory: $ProjDir\n")
     fname = "snippets" * chapter
 
-    if isfile(fname * ".3.jl")
-      
-      include(joinpath("..", "chapters", chapter,  fname*".3.jl"))
-      
-      Literate.markdown(fname*".0.jl", ProjDir, name=fname*".1", documenter=true)
-      Literate.markdown(fname*".0.jl", ProjDir, name=fname*".2", documenter=false)
-      Literate.script(fname*".0.jl", ProjDir, name=fname*".3")
-      Literate.notebook(fname*".0.jl", ProjDir, name=fname*".4")
-      
+    Literate.markdown(fname*".0.jl", ProjDir, name=fname*".1", documenter=true)
+    Literate.markdown(fname*".0.jl", ProjDir, name=fname*".2", documenter=false)
+    Literate.script(fname*".0.jl", ProjDir, name=fname*".3")
+    Literate.notebook(fname*".0.jl", ProjDir, name=fname*".4")
+    
+    if isfile(fname * ".3.jl")      
+      include(joinpath("..", "chapters", chapter,  fname*".3.jl"))      
     end
     
     @test 1 == 1

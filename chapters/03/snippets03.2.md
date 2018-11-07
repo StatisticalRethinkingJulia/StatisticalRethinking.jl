@@ -5,17 +5,9 @@
 Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 ```julia
-using Distributions, RDatasets, DataFrames, GLM, StatsBase, Plots, StatPlots
+using StatisticalRethinking
 gr(size=(600,300))
 ```
-
-Package `RDatasets` provides access to the often used R datasets.
-See RData if you have local .rda files.
-
-Package `DataFrames` supports a Julia implementation DataFrames.
-
-Package `Plots` is one of the available plotting options in Julia.
-By default Plots uses GR as the .
 
 snippet 3.1
 

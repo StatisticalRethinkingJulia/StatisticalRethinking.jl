@@ -1,6 +1,8 @@
 module StatisticalRethinking
 
-using Distributions, RDatasets, DataFrames, StatsBase, GLM
-using Plots, StatPlots
+using Reexport
+
+@reexport using Distributions, RDatasets, DataFrames, StatsBase, GLM
+@reexport using Plots, StatPlots
 
 end # module

@@ -1,4 +1,4 @@
-using Distributions, RDatasets, DataFrames, GLM, StatsBase, Plots, StatPlots
+using StatisticalRethinking
 gr(size=(600,300))
 
 PrPV = 0.95

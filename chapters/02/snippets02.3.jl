@@ -1,4 +1,5 @@
-using Distributions, RDatasets, DataFrames, GLM, StatsBase, Plots, StatPlots
+using StatisticalRethinking
+gr(size=(600,300))
 
 @show ways  = [0  , 3 , 8 , 9 , 0 ];
 @show ways/sum(ways)

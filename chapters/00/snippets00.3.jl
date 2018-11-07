@@ -1,4 +1,5 @@
-using Distributions, RDatasets, DataFrames, GLM, StatsBase, Plots, StatPlots
+using StatisticalRethinking
+gr(size=(300, 300))
 
 println( "All models are wrong, but some are useful." )
 

@@ -47,6 +47,13 @@ cars = dataset("datasets", "cars")
 println()
 ```
 
+If this is not a common R dataset, use e.g.:
+howell1 = CSV.read(joinpath(ProjDir, "..", "..",  "data", "Howell1.csv"), delim=';')
+df = convert(DataFrame, howell1)
+
+This reads the Howell1.csv dataset in the data subdirectory of this package,
+ StatisticalRethinking.jl. See also the chapter 4 snippets.
+
 Fit a linear regression of distance on speed
 
 ```julia

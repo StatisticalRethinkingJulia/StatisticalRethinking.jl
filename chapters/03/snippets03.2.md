@@ -1,6 +1,6 @@
-# Chapter 23snippets
+# Chapter 3 snippets
 
-### snippet 230
+### snippet 3.0
 
 Load Julia packages (libraries) needed  for the snippets in chapter 0
 

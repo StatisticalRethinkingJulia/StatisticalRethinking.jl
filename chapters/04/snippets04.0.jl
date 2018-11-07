@@ -12,6 +12,11 @@ cd(ProjDir) #src
 
 # snippet 4.1
 
+pos = Array{Float64, 2}(rand(Uniform(-1, 1), 32, 100));
+csum = cumsum(pos, dims=1)
+
+# snippet 4.6
+
 # Grid of 1001 steps
 p_grid = range(0, step=0.001, stop=1)
 
@@ -45,7 +50,7 @@ p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 # quadratic approximation
 plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 plot(p..., layout=(1, 2))
-savefig("s4_1.pdf")
+savefig("s4_6.pdf")
 
 # snippet 4.7
 

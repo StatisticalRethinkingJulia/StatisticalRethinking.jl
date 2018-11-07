@@ -27,7 +27,7 @@ plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 plot(p..., layout=(1, 2))
 savefig("s4_1.pdf")
 
-howell1 = CSV.read(joinpath(Case.pathof("StatisticalRethinking"), "data", "Howell1.csv"), delim=';')
+howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1)
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

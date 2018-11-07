@@ -74,7 +74,7 @@ savefig("s4_1.pdf")
 snippet 4.7
 
 ```julia
-howell1 = CSV.read(joinpath(Case.pathof("StatisticalRethinking"), "data", "Howell1.csv"), delim=';')
+howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1)
 ```
 

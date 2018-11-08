@@ -12,9 +12,26 @@ cd(ProjDir) #src
 
 # snippet 4.1
 
-pos = Array{Float64, 2}(rand(Uniform(-1, 1), 32, 100));
-csum = cumsum(pos, dims=1)
+noofsteps = 33;
+noofwalks = 50;
+pos = Array{Float64, 2}(rand(Uniform(-1, 1), noofsteps, noofwalks));
+pos[1, :] = zeros(noofwalks);
+csum = cumsum(pos, dims=1);
 
+p1 = plot(csum, leg=false, title="Random walks ($(noofwalks))")
+p2 = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
+plt = 1
+for step in [5, 9, 17, 33]
+  global plt
+  fit = fit_mle(Normal, csum[step, :])
+  x = (fit.μ-4*fit.σ):0.01:(fit.μ+4*fit.σ)
+  p2[plt] = density(csum[step, :], legend=false, title="$(step-1) steps")
+  plot!( p2[plt], x, pdf.(Normal( fit.μ , fit.σ ) , x ))
+  plt += 1
+end
+p3 = plot(p2..., layout=(1,4))
+plot(p1, p3, layout=(2,1))
+savefig("fig4_2.pdf")
 # snippet 4.6
 
 # Grid of 1001 steps

@@ -39,7 +39,6 @@ growth = [prod(1 .+ rand(Uniform(0, 0.1), 10)) for i in 1:10000];
 fit = fit_mle(Normal, growth)
 plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(growth, lab="'sample' distribution")
-savefig("s4_3.pdf")
 
 big = [prod(1 .+ rand(Uniform(0, 0.5), 12)) for i in 1:10000];
 small = [prod(1 .+ rand(Uniform(0, 0.01), 12)) for i in 1:10000];
@@ -50,25 +49,23 @@ p2 = plot(Normal(fits.μ , fits.σ ), lab="Small normal distribution", fill=(0, 
 density!(p1, big, lab="'big' distribution")
 density!(p2, small, lab="'small' distribution")
 plot(p1, p2, layout=(1, 2))
-savefig("s4_4.pdf")
 
 log_big = [log(prod(1 .+ rand(Uniform(0, 0.5), 12))) for i in 1:10000];
 fit = fit_mle(Normal, log_big)
 plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(log_big, lab="'sample' distribution")
-savefig("s4_5.pdf")
 
-p_grid = range(0, step=0.001, stop=1)
+p_grid = range(0, step=0.001, stop=1);
 
-prior = ones(length(p_grid))
+prior = ones(length(p_grid));
 
-likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid];
 
-posterior = likelihood .* prior
+posterior = likelihood .* prior;
 
-posterior = posterior / sum(posterior)
+posterior = posterior / sum(posterior);
 
-samples = sample(p_grid, Weights(posterior), length(p_grid))
+samples = sample(p_grid, Weights(posterior), length(p_grid));
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
 
@@ -82,7 +79,6 @@ p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 
 plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation", fill=(0, .5,:orange))
 plot(p..., layout=(1, 2))
-savefig("s4_6.pdf")
 
 howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1)

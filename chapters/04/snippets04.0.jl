@@ -62,7 +62,7 @@ growth = [prod(1 .+ rand(Uniform(0, 0.1), 10)) for i in 1:10000];
 fit = fit_mle(Normal, growth)
 plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(growth, lab="'sample' distribution")
-savefig("s4_3.pdf")
+savefig("s4_3.pdf") #src
 
 # snippet 4.4
 
@@ -75,7 +75,7 @@ p2 = plot(Normal(fits.μ , fits.σ ), lab="Small normal distribution", fill=(0, 
 density!(p1, big, lab="'big' distribution")
 density!(p2, small, lab="'small' distribution")
 plot(p1, p2, layout=(1, 2))
-savefig("s4_4.pdf")
+savefig("s4_4.pdf") #src
 
 
 # snippet 4.5
@@ -84,29 +84,29 @@ log_big = [log(prod(1 .+ rand(Uniform(0, 0.5), 12))) for i in 1:10000];
 fit = fit_mle(Normal, log_big)
 plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(log_big, lab="'sample' distribution")
-savefig("s4_5.pdf")
+savefig("s4_5.pdf") #src
 
 # snippet 4.6
 
 # Grid of 1001 steps
-p_grid = range(0, step=0.001, stop=1)
+p_grid = range(0, step=0.001, stop=1);
 
 # all priors = 1.0
-prior = ones(length(p_grid))
+prior = ones(length(p_grid));
 
 # Binomial pdf
-likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid];
 
 # As Uniform priar has been used, unstandardized posterior is equal to likelihood
-posterior = likelihood .* prior
+posterior = likelihood .* prior;
 
 # Scale posterior such that they become probabilities
-posterior = posterior / sum(posterior)
+posterior = posterior / sum(posterior);
 
 # Sample using the computed posterior values as weights
 # In this example we keep the number of samples equal to the length of p_grid,
 # but that is not required.
-samples = sample(p_grid, Weights(posterior), length(p_grid))
+samples = sample(p_grid, Weights(posterior), length(p_grid));
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
 
@@ -121,7 +121,7 @@ p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 # quadratic approximation
 plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation", fill=(0, .5,:orange))
 plot(p..., layout=(1, 2))
-savefig("s4_6.pdf")
+savefig("s4_6.pdf") #src
 
 # snippet 4.7
 

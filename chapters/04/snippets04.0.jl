@@ -5,7 +5,7 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
-gr(size=(600,300))
+gr(size=(600,300)) #src
 
 ProjDir = @__DIR__ #src
 cd(ProjDir) #src
@@ -50,7 +50,7 @@ end
 p3 = plot(p2..., layout=(1, 3))
 
 plot(p1, p3, layout=(2,1))
-savefig("fig4_2.pdf")
+savefig("fig4_2.pdf") #src
 
 # snippet 4.2
 

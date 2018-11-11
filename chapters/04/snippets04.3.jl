@@ -17,8 +17,8 @@ plot!(p1, [9], seriestype="vline")
 annotate!(9, mx, text("step 8", f, :left))
 plot!(p1, [17], seriestype="vline")
 annotate!(17, mx, text("step 16", f, :left))
-p2 = Vector{Plots.Plot{Plots.GRBackend}}(undef, 3)
 
+p2 = Vector{Plots.Plot{Plots.GRBackend}}(undef, 3);
 plt = 1
 for step in [4, 8, 16]
   indx = step + 1 # We aadded the first line of zeros

@@ -35,13 +35,17 @@ posterior = likelihood .* prior
 posterior = posterior / sum(posterior)
 
 # Sample using the computed posterior values as weights
+
 # In this example we keep the number of samples equal to the length of p_grid,
 # but that is not required.
-samples = sample(p_grid, Weights(posterior), length(p_grid))
+
+N = 10000
+samples = sample(p_grid, Weights(posterior), N)
+@show fitnormal= fit_mle(Normal, samples) #src
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
 
-p[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
+p[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
 
 # analytical calculation
 w = 6
@@ -50,6 +54,6 @@ x = 0:0.01:1
 p[2] = density(samples, ylim=(0.0, 5.0), lab="Sample density")
 p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 # quadratic approximation
-plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
+plot!( p[2], x, pdf.(Normal( fitnormal.μ, fitnormal.σ ) , x ), lab="Normal approximation")
 plot(p..., layout=(1, 2))
-savefig("s3_2.pdf")
+savefig("s3_1.pdf")

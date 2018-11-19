@@ -2,7 +2,7 @@
 
 # ### snippet 4.0
 
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
+# Load Julia packages (libraries) needed  for the snippets
 
 using StatisticalRethinking
 gr(size=(600,300)) #src

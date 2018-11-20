@@ -41,7 +41,7 @@ posterior = posterior / sum(posterior)
 
 N = 10000
 samples = sample(p_grid, Weights(posterior), N)
-@show fitnormal= fit_mle(Normal, samples) #src
+fitnormal= fit_mle(Normal, samples)
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
 

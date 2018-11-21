@@ -48,7 +48,6 @@ log( 0.01^200 )
 
 ```@example snippets00.1
 cars = dataset("datasets", "cars")
-println()
 ```
 
 If this is not a common R dataset, use e.g.:

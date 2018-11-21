@@ -17,7 +17,6 @@ log( 0.01^200 )
 200 * log(0.01)
 
 cars = dataset("datasets", "cars")
-println()
 
 m = lm(@formula(Dist ~ Speed), cars)
 

@@ -6,7 +6,7 @@ EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 
 ### snippet 4.0
 
-Load Julia packages (libraries) needed  for the snippets in chapter 0
+Load Julia packages (libraries) needed  for the snippets
 
 ```@example snippets04.1
 using StatisticalRethinking

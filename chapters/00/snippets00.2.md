@@ -44,7 +44,6 @@ log( 0.01^200 )
 
 ```julia
 cars = dataset("datasets", "cars")
-println()
 ```
 
 If this is not a common R dataset, use e.g.:

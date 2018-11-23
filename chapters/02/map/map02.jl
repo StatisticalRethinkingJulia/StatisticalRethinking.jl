@@ -1,6 +1,6 @@
 using Turing
 
-data = (n = 9, k = 4)
+data = (n = 9, k = 6)
 
 @model globe_toss(n, k) = begin
   #prior

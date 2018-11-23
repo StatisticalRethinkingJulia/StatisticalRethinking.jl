@@ -1,6 +1,6 @@
 using Turing
 
-@model gdemo(x, y) = begin
+@model gdemo() = begin
   #prior
   theta ~ Uniform(0, 1)
   #model

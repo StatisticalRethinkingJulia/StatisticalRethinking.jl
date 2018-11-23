@@ -1,10 +1,10 @@
 using Turing
 
-data = (n = 9, k = 6)
+data = (n = 9, k = 4)
 
 @model globe_toss(n, k) = begin
   #prior
-  theta ~ Uniform(0.5, 1)
+  theta ~ Uniform(0, 1)
   #model
   k ~ Binomial(n, theta)
 end

@@ -8,5 +8,9 @@ using Turing
   return k
 end
 
-chn = sample(gdemo(), HMC(2000, 0.75, 5))
+g = gdemo()
+g() |> display
+println()
+
+chn = sample(gdemo(), SMC(1000))
 describe(chn)

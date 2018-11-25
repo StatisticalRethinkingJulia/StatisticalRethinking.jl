@@ -1,30 +1,42 @@
 ## Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
+
 os:
   - linux
   - osx
+  
 julia:
   - 1.0
   - nightly
+  
 notifications:
   email: false
+
 git:
   depth: 99999999
+
 matrix:
   allow_failures:
-    - julia: nightly
     - os: osx
+    - julia: nightly
 
-## uncomment following lines to deploy documentation
-# jobs:
-#   include:
-#     - stage: Documentation
-#       julia: 1.0
-#       os: linux
-#       script:
-#         - julia --project=docs -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
-#         - julia --project=docs --color=yes docs/make.jl
-#       after_success: skip
+branches:
+  only:
+    - master
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+    
+jobs:
+  include:
+    - stage: Documentation
+      julia: 1.0
+      os: linux
+      script:
+        - julia --project=docs -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
+        - julia --project=docs --color=yes docs/make.jl
+      after_success: skip
+
+# before_script:
+#   - julia -e 'using Pkg; pkg"up"'
 
 after_success:
   - julia --project=test/coverage -e 'using Pkg; Pkg.instantiate()'

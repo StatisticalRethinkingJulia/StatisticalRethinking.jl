@@ -4,7 +4,7 @@ StatisticalRethinking is a Julia implementation of the code accompanying the boo
 
 
 ```@meta
-CurrentModule = HyperDualNumbers
+CurrentModule = StatisticalRethinking
 ```
 
 ## maximum_a_posteriori

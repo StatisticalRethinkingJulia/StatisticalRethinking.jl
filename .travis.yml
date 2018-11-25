@@ -9,21 +9,15 @@ julia:
   - 1.0
   - nightly
   
-notifications:
-  email: false
-
-git:
-  depth: 99999999
-
 matrix:
   allow_failures:
     - os: osx
     - julia: nightly
 
-branches:
-  only:
-    - master
-    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+#branches:
+#  only:
+#    - master
+#    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
     
 jobs:
   include:
@@ -41,3 +35,10 @@ jobs:
 after_success:
   - julia --project=test/coverage -e 'using Pkg; Pkg.instantiate()'
   - julia --project=test/coverage test/coverage/coverage.jl
+
+notifications:
+  email: false
+
+git:
+  depth: 99999999
+

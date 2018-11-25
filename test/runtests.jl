@@ -5,20 +5,22 @@ chapters = ["00", "02", "03", "04", "05"]
 
 for chapter in chapters
   ProjDir = joinpath(@__DIR__, "..", "chapters", chapter)
+  DocDir = joinpath(@__DIR__, "..", "docs", "md", chapter)
+  SnippetDir = joinpath(@__DIR__, "..", "snippets", chapter)
+  NotebookDir = joinpath(@__DIR__, "..", "notebooks", chapter)
   println("\nSwitching to directory: $ProjDir\n")
   !isdir(ProjDir) && break
   cd(ProjDir) do
   
     fname = "snippets" * chapter
 
-    Literate.markdown(fname*".0.jl", ProjDir, name=fname*".1", documenter=true)
-    Literate.markdown(fname*".0.jl", ProjDir, name=fname*".2", documenter=false)
-    Literate.script(fname*".0.jl", ProjDir, name=fname*".3")
-    Literate.notebook(fname*".0.jl", ProjDir, name=fname*".4")
+    Literate.markdown(fname*".jl", DocDir, name=fname, documenter=true)
+    Literate.script(fname*".jl", SnippetDir, name=fname)
+    Literate.notebook(fname*".jl", NotebookDir, name=fname)
    # println()
     
-    if isfile(fname * ".3.jl")      
-      include(joinpath("..", "chapters", chapter,  fname*".3.jl"))      
+    if isfile(joinpath(SnippetDir, fname, ".jl"))      
+      include(joinpath(SnippetDir, fname, ".jl"))      
     end
     
     @test 1 == 1

@@ -1,20 +1,11 @@
 # StatisticalRethinking
 
-![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)<!--
-![Lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
-![Lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)
-![Lifecycle](https://img.shields.io/badge/lifecycle-retired-orange.svg)
-![Lifecycle](https://img.shields.io/badge/lifecycle-archived-red.svg)
-![Lifecycle](https://img.shields.io/badge/lifecycle-dormant-blue.svg) -->
-
-
 | **Documentation**                                                               | **Build Status**                                                                                |
 |:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
 | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][travis-img]][travis-url] [![][appveyor-img]][appveyor-url] [![][codecov-img]][codecov-url] |
 
 
-[![Build Status](https://travis-ci.org/goedman/StatisticalRethinking.jl.svg?branch=master)](https://travis-ci.org/goedman/StatisticalRethinking.jl)
-[![codecov.io](http://codecov.io/github/goedman/StatisticalRethinking.jl/coverage.svg?branch=master)](http://codecov.io/github/goedman/StatisticalRethinking.jl?branch=master)
+![][project-status-img]
 
 ## Usage
 
@@ -45,3 +36,10 @@ Question and contributions are very welcome, as are feature requests and suggest
 
 [issues-url]: https://github.com/StanJulia/StatisticalRethinking.jl/issues
 
+[project-status-img]: https://img.shields.io/badge/lifecycle-experimental-orange.svg
+
+ <!--![Lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
+![Lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)
+![Lifecycle](https://img.shields.io/badge/lifecycle-retired-orange.svg)
+![Lifecycle](https://img.shields.io/badge/lifecycle-archived-red.svg)
+![Lifecycle](https://img.shields.io/badge/lifecycle-dormant-blue.svg) -->

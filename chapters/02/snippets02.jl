@@ -2,11 +2,10 @@
 
 # ### snippet 2.0
 
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
+# Load Julia packages (libraries) needed
 
 using StatisticalRethinking
 gr(size=(600,300))
-
 
 ProjDir = dirname(@__FILE__) #src
 cd(ProjDir) #src

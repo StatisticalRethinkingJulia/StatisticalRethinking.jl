@@ -2,6 +2,8 @@
 
 # Load Julia packages (libraries) needed
 
+# ### snippet 0.0
+
 using StatisticalRethinking
 gr(size=(300, 300))
 

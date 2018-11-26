@@ -1,11 +1,11 @@
 using StatisticalRethinking, Literate
 using Test
 
-chapters = ["00", "02", "03", "04", "05"]
+chapters = ["00", "02", "03", "04"]
+DocDir = joinpath(@__DIR__, "..", "docs", "src")
 
 for chapter in chapters
   ProjDir = joinpath(@__DIR__, "..", "chapters", chapter)
-  DocDir = joinpath(@__DIR__, "..", "docs", "md", chapter)
   SnippetDir = joinpath(@__DIR__, "..", "snippets", chapter)
   NotebookDir = joinpath(@__DIR__, "..", "notebooks", chapter)
   println("\nSwitching to directory: $ProjDir\n")
@@ -22,7 +22,5 @@ for chapter in chapters
     if isfile(joinpath(SnippetDir, fname, ".jl"))      
       include(joinpath(SnippetDir, fname, ".jl"))      
     end
-    
-    @test 1 == 1
   end
 end

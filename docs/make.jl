@@ -14,13 +14,13 @@ rel_path(parts...) = normpath(joinpath(src_path, parts...))
 
 DOC_ROOT = rel_path("../docs")
 
-chapters = ["00", "02", "03", "04", "05"]
+chapters = ["00", "02", "03", "04"]
 
 makedocs(root = DOC_ROOT,
     modules = Module[],
     sitename = "StatisticalRethinking.jl",
     pages = vcat(Any["index.md"],
-      Any["md/snippet_$(chapter).md" for chapter in chapter])
+      Any["snippets$(chapter).md" for chapter in chapters])
 )
 
 deploydocs(root = DOC_ROOT,

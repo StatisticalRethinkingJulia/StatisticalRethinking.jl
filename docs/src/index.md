@@ -7,7 +7,7 @@ StatisticalRethinking is a Julia implementation of the code accompanying the boo
 CurrentModule = StatisticalRethinking
 ```
 
-## maximum_a_posteriori
+## `maximum_a_posteriori`
 ```@docs
 maximum_a_posteriori(model, lower_bound, upper_bound)
-````
+```

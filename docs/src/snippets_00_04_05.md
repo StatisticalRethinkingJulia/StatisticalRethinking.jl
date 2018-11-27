@@ -2,11 +2,9 @@
 EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 ```
 
-# Chapter 0 snippets
+# Snippets_00_03_05
 
 Load Julia packages (libraries) needed
-
-### snippet 0.0
 
 ```@example snippets_00_04_05
 using StatisticalRethinking
@@ -47,13 +45,9 @@ fig1 = scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
 ```
 
-Save the plot
-
 ### snippet 0.5
 
-Thie contents of this snipper is partially replaced by snippet 0.0.
-If any of these packages is not installed in your Julia system,
-you can add it by e.g. `Pkg.add("RDatasets")`
+Thie contents of this snipper is replaced above preamble.
 
 *This page was generated using [Literate.jl](https://github.com/fredrikekre/Literate.jl).*
 

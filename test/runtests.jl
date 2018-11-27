@@ -17,13 +17,8 @@ for chapter in chapters
       if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"  
         
         fname = "snippets" * file[5:end-3]
-        
         Literate.markdown(file, DocDir, name=fname, documenter=true)
         Literate.notebook(file, NotebookDir, name=fname)
-        
-        if isfile(joinpath(SnippetDir, fname, ".jl"))      
-          include(joinpath(SnippetDir, fname, ".jl"))      
-        end
         
       end # if file[1:4]
     end # for file

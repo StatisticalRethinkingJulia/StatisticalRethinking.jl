@@ -2,9 +2,7 @@
 EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 ```
 
-# Chapter 2 snippets
-
-### snippet 2.0
+# Snippets_02_03_05
 
 Load Julia packages (libraries) needed
 
@@ -52,8 +50,6 @@ p1 = plot( p_grid , posterior ,
     xlab="probability of water" , ylab="posterior probability",
     lab = "interpolated", title="20 points" )
 p2 = scatter!( p1, p_grid , posterior, lab="computed" )
-
-savefig("s2_4.pdf")
 ```
 
 snippet 2.5
@@ -66,8 +62,6 @@ p3 = plot(p_grid, prior1,
   xlab="probability of water" , ylab="posterior probability",
   lab = "semi_uniform", title="Other priors" )
 p4 = plot!(p3, p_grid, prior2,  lab = "double_exponential" )
-
-savefig("s2_5.pdf")
 ```
 
 *This page was generated using [Literate.jl](https://github.com/fredrikekre/Literate.jl).*

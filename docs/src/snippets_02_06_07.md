@@ -2,9 +2,7 @@
 EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 ```
 
-# Chapter 2 snippets
-
-### snippet 2.0
+# Snippets_02_06_07
 
 Load Julia packages (libraries) needed
 
@@ -21,11 +19,9 @@ prior = ones(length(p_grid))
 likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
 posterior = likelihood .* prior
 posterior = posterior / sum(posterior)
-
 samples = sample(p_grid, Weights(posterior), length(p_grid))
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
-
 p[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
 ```
 
@@ -44,7 +40,6 @@ quadratic approximation
 ```@example snippets_02_06_07
 plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 plot(p..., layout=(1, 2))
-savefig("s2_6.pdf")
 ```
 
 snippet 2.7
@@ -61,7 +56,6 @@ quadratic approximation
 
 ```@example snippets_02_06_07
 plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
-savefig("s2_7.pdf")
 ```
 
 snippet 2.8

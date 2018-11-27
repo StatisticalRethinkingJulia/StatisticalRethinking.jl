@@ -28,9 +28,7 @@ coef(m)
 
 # Plot residuals against speed
 
-fig1 = scatter( cars[:Speed], residuals(m),
+scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
   
-# ### snippet 0.5
-
-# Thie contents of this snipper is replaced above preamble.
+# ### snippet 0.5 is replaced above `using StatisticalRethinking`.

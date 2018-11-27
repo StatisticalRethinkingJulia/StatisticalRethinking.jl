@@ -30,16 +30,20 @@ makedocs(root = DOC_ROOT,
     pages = [
       "API index" => "index.md",
       "Chapter 0" => [
-        "Snippets_00_01_03" => "snippets_00_01_03.md",
-        "Snippets_00_04_04" => "snippets_00_04_05.md"
+        "`Snippets_00_01_03`" => "snippets_00_01_03.md",
+        "`Snippets_00_04_04`" => "snippets_00_04_05.md"
       ],
       "Chapter 2" => [
-        "Snippets_02_01_02" => "snippets_02_01_02.md",
-        "Snippets_02_03_05" => "snippets_02_03_05.md",
-        "Snippets_02_06_07" => "snippets_02_06_07.md",
+        "`Snippets_02_01_02`" => "snippets_02_01_02.md",
+        "`Snippets_02_03_05`" => "snippets_02_03_05.md",
+        "`Snippets_02_06_07`" => "snippets_02_06_07.md",
       ],
-      "Chapter 3" => "snippets_03_01_02.md",
-      "Chapter 4" => "snippets_04_01_07.md"
+      "Chapter 3" => [
+        "`Snippets_03_01_02`" => "snippets_03_01_02.md"
+      ],
+      "Chapter 4" => [
+        "`Snippets_04_01_07`" => "snippets_04_01_07.md"
+      ],
     ]
 )
 

@@ -1,4 +1,4 @@
-# # Snippet_03_01_o2
+# # Snippet_03_01_02
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 

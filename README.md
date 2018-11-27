@@ -14,13 +14,10 @@ Instead of having all snippets in a single file, I plan to organize the snippets
 1. `clip_00_01_03.jl` - contains snippets 0.1 through 0.3
 2. `clip_00_04_05.jl` - contains snippets 0.4 and 0.5.
 
-These 2 files are in chapters/00. These files are later on process using Literate.jl to create 3 derived versions, e.g. from `clip_00_01_03.jl` in chapters/00:
+These 2 files are in chapters/00. These files are later on process using Literate.jl to create 2 derived versions, e.g. from `clip_00_01_03.jl` in chapters/00:
 
 1. `clip_00_01_03.md` - which is stored in docs/src and included in the documentation
 2. `clip_00_01_03.ipynb` - stored in the notebooks directory for use in Jupyter
-3. `clip_00_01_03.jl` - the final Julia snippet stored in subdirectory snippets.
-
-In chapter 0 `clip_00_04_05.jl`, snippet 0.5, produces a plot which is stored in `clip_00_05.pdf`.
 
 ## Documentation
 

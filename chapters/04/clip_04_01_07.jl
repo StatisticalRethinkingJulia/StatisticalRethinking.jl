@@ -5,11 +5,7 @@
 using StatisticalRethinking
 gr(size=(600,300))
 
-ProjDir = @__DIR__
-cd(ProjDir)
-
 # snippet 4.1
-
 # No attempt has been made to condense this too fewer lines of code
 
 noofsteps = 20;

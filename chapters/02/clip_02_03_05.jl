@@ -5,9 +5,6 @@
 using StatisticalRethinking
 gr(size=(600,300))
 
-ProjDir = dirname(@__FILE__)
-cd(ProjDir)
-
 # snippet 2.3
 
 # define grid

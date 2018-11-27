@@ -5,9 +5,6 @@
 using StatisticalRethinking
 gr(size=(300, 300))
 
-ProjDir = dirname(@__FILE__)
-cd(ProjDir)
-
 # ### snippet 0.1
 
 println( "All models are wrong, but some are useful." )

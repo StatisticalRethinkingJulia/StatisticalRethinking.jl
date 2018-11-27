@@ -5,9 +5,6 @@
 using StatisticalRethinking
 gr(size=(300, 300))
 
-ProjDir = dirname(@__FILE__) #src
-cd(ProjDir) #src
-
 # ### snippet 0.4
 
 # `dataset(...)` provides access to often used R datasets.

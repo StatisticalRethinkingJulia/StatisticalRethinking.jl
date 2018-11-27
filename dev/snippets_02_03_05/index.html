@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Chapter 2 snippets · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../">StatisticalRethinking</a></li><li><a class="toctext" href="../snippets_00_01_03/">Chapter 0 snippets</a></li><li><a class="toctext" href="../snippets_00_04_05/">Chapter 0 snippets</a></li><li><a class="toctext" href="../snippets_02_01_02/">Chapter 2 snippets</a></li><li class="current"><a class="toctext" href>Chapter 2 snippets</a><ul class="internal"></ul></li><li><a class="toctext" href="../snippets_02_06_07/">Chapter 2 snippets</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href>Chapter 2 snippets</a></li></ul><a class="edit-page" href="https://github.com/TRAVIS_REPO_SLUG/blob/master/"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Chapter 2 snippets</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="Chapter-2-snippets-1" href="#Chapter-2-snippets-1">Chapter 2 snippets</a></h1><h3><a class="nav-anchor" id="snippet-2.0-1" href="#snippet-2.0-1">snippet 2.0</a></h3><p>Load Julia packages (libraries) needed</p><div><pre><code class="language-julia">using StatisticalRethinking
+gr(size=(600,300))</code></pre><pre><code class="language-none">Plots.GRBackend()</code></pre></div><p>snippet 2.3</p><p>define grid</p><div><pre><code class="language-julia">p_grid = range( 0 , stop=1 , length=20 )</code></pre><pre><code class="language-none">0.0:0.05263157894736842:1.0</code></pre></div><p>define prior</p><div><pre><code class="language-julia">prior = ones( 20 )</code></pre><pre><code class="language-none">20-element Array{Float64,1}:
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0</code></pre></div><p>compute likelihood at each value in grid</p><div><pre><code class="language-julia">likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]</code></pre><pre><code class="language-none">20-element Array{Float64,1}:
+ 0.0
+ 1.5181489823498353e-6
+ 8.185092949558011e-5
+ 0.0007772922789631156
+ 0.0035985753655699746
+ 0.01116094609366412
+ 0.0266829865137807
+ 0.052921099147992784
+ 0.09082697598243343
+ 0.13834132601662863
+ 0.18976862279372927
+ 0.23611465826683395
+ 0.26661125168434857
+ 0.27140056190174167
+ 0.24500508864811482
+ 0.18976862279372927
+ 0.1179181175789971
+ 0.05026670207647313
+ 0.008853844865064258
+ 0.0</code></pre></div><p>compute product of likelihood and prior</p><div><pre><code class="language-julia">unstd_posterior = likelihood .* prior</code></pre><pre><code class="language-none">20-element Array{Float64,1}:
+ 0.0
+ 1.5181489823498353e-6
+ 8.185092949558011e-5
+ 0.0007772922789631156
+ 0.0035985753655699746
+ 0.01116094609366412
+ 0.0266829865137807
+ 0.052921099147992784
+ 0.09082697598243343
+ 0.13834132601662863
+ 0.18976862279372927
+ 0.23611465826683395
+ 0.26661125168434857
+ 0.27140056190174167
+ 0.24500508864811482
+ 0.18976862279372927
+ 0.1179181175789971
+ 0.05026670207647313
+ 0.008853844865064258
+ 0.0</code></pre></div><p>standardize the posterior, so it sums to 1</p><div><pre><code class="language-julia">posterior = unstd_posterior  ./ sum(unstd_posterior)</code></pre><pre><code class="language-none">20-element Array{Float64,1}:
+ 0.0
+ 7.989837111322336e-7
+ 4.307716842570822e-5
+ 0.00040907966009970354
+ 0.0018938873152764026
+ 0.005873872876336504
+ 0.014042937706860135
+ 0.02785174359436921
+ 0.0478011546857793
+ 0.07280739067692472
+ 0.09987296389152912
+ 0.12426432985697713
+ 0.14031432341419828
+ 0.14283488028690608
+ 0.12894325738133897
+ 0.09987296389152912
+ 0.06205889954697725
+ 0.026454766059438056
+ 0.0046596730033231955
+ 0.0</code></pre></div><p>snippet 2.4</p><div><pre><code class="language-julia">p1 = plot( p_grid , posterior ,
+    xlab=&quot;probability of water&quot; , ylab=&quot;posterior probability&quot;,
+    lab = &quot;interpolated&quot;, title=&quot;20 points&quot; )
+p2 = scatter!( p1, p_grid , posterior, lab=&quot;computed&quot; )
+
+savefig(&quot;s2_4.pdf&quot;)</code></pre><pre><code class="language-none">/home/travis/.julia/packages/GR/wFd9A/src/../deps/gr/bin/gksqt: error while loading shared libraries: libQt5Widgets.so.5: cannot open shared object file: No such file or directory
+connect: Connection refused
+GKS: can&#39;t connect to GKS socket application
+Did you start &#39;gksqt&#39;?
+
+GKS: Open failed in routine OPEN_WS
+GKS: GKS not in proper state. GKS must be either in the state WSOP or WSAC in routine ACTIVATE_WS</code></pre></div><p>snippet 2.5</p><div><pre><code class="language-julia">prior1 = [p &lt; 0.5 ? 0 : 1 for p in p_grid]
+prior2 = [exp( -5*abs( p - 0.5 ) ) for p in p_grid]
+
+p3 = plot(p_grid, prior1,
+  xlab=&quot;probability of water&quot; , ylab=&quot;posterior probability&quot;,
+  lab = &quot;semi_uniform&quot;, title=&quot;Other priors&quot; )
+p4 = plot!(p3, p_grid, prior2,  lab = &quot;double_exponential&quot; )
+
+savefig(&quot;s2_5.pdf&quot;)</code></pre><pre><code class="language-none">/home/travis/.julia/packages/GR/wFd9A/src/../deps/gr/bin/gksqt: error while loading shared libraries: libQt5Widgets.so.5: cannot open shared object file: No such file or directory
+connect: Connection refused
+GKS: can&#39;t connect to GKS socket application
+Did you start &#39;gksqt&#39;?
+
+GKS: Open failed in routine OPEN_WS
+GKS: GKS not in proper state. GKS must be either in the state WSOP or WSAC in routine ACTIVATE_WS</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../snippets_02_01_02/"><span class="direction">Previous</span><span class="title">Chapter 2 snippets</span></a><a class="next" href="../snippets_02_06_07/"><span class="direction">Next</span><span class="title">Chapter 2 snippets</span></a></footer></article></body></html>

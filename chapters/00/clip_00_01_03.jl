@@ -14,9 +14,22 @@ println( "All models are wrong, but some are useful." )
 # This is a StepRange, not a vector
 
 x = 1:3
+
+# Below still preserves the StepRange
+
 x = x*10
+
+# `Broadcast` log to steprange elements in x, this returms a vector!
+# Notice the log.(x) notation.
+
 x = log.(x)
+
+# We can sum the vector x
+
 x = sum(x)
+
+# Etc.
+
 x = exp(x)
 x = x*10
 x = log(x)

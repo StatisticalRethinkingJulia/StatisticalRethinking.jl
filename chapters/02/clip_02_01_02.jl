@@ -1,4 +1,4 @@
-# # Snippets_02_01_02
+# # `Snippets_02_01_02`
 
 # Load Julia packages (libraries) needed
 

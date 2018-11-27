@@ -1,16 +1,15 @@
-# # Chapter 3 snippets
-
-# ### snippet 3.0
+# # Snippet_03_01_o2
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
 gr(size=(600,300))
 
-ProjDir = dirname(@__FILE__) #src
-cd(ProjDir) #src
+ProjDir = dirname(@__FILE__)
+cd(ProjDir)
 
 # snippet 3.1
+
 PrPV = 0.95
 PrPM = 0.01
 PrV = 0.001
@@ -43,17 +42,20 @@ N = 10000
 samples = sample(p_grid, Weights(posterior), N)
 fitnormal= fit_mle(Normal, samples)
 
-p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
+# Create a vector to hold the plots so we can later combine them
 
+p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
 p[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
 
-# analytical calculation
+# Analytical calculation
+
 w = 6
 n = 9
 x = 0:0.01:1
 p[2] = density(samples, ylim=(0.0, 5.0), lab="Sample density")
 p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
-# quadratic approximation
+
+# Add quadratic approximation
+
 plot!( p[2], x, pdf.(Normal( fitnormal.μ, fitnormal.σ ) , x ), lab="Normal approximation")
 plot(p..., layout=(1, 2))
-savefig("s3_1.pdf")

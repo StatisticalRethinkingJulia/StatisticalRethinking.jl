@@ -1,14 +1,12 @@
-# # Chapter 4 snippets
+# # Snippet_04_01_07
 
-# ### snippet 4.0
-
-# Load Julia packages (libraries) needed  for the snippets
+# Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
-gr(size=(600,300)) #src
+gr(size=(600,300))
 
-ProjDir = @__DIR__ #src
-cd(ProjDir) #src
+ProjDir = @__DIR__
+cd(ProjDir)
 
 # snippet 4.1
 

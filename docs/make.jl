@@ -16,11 +16,19 @@ DOC_ROOT = rel_path("../docs")
 
 chapters = ["00", "02", "03", "04"]
 
+filelist = readdir(joinpath(DOC_ROOT, "src"))
+pagelist = String[]
+for file in filelist
+  if !isdir(file) && file[1:8] == "snippets" && file[end-2:end] == ".md"  
+    push!(pagelist, file)
+  end
+end
+
 makedocs(root = DOC_ROOT,
     modules = Module[],
     sitename = "StatisticalRethinking.jl",
     pages = vcat(Any["index.md"],
-      Any["snippets$(chapter).md" for chapter in chapters])
+      Any[file for file in pagelist])
 )
 
 deploydocs(root = DOC_ROOT,

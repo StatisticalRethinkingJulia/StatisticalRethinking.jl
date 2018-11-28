@@ -2,8 +2,6 @@
 EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 ```
 
-# Snippets_00_03_05
-
 Load Julia packages (libraries) needed
 
 ```@example snippets_00_04_05
@@ -11,7 +9,7 @@ using StatisticalRethinking
 gr(size=(300, 300))
 ```
 
-### snippet 0.4
+snippet 0.4
 
 `dataset(...)` provides access to often used R datasets.
 
@@ -41,13 +39,11 @@ coef(m)
 Plot residuals against speed
 
 ```@example snippets_00_04_05; continued = true
-fig1 = scatter( cars[:Speed], residuals(m),
+scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
 ```
 
-### snippet 0.5
-
-Thie contents of this snipper is replaced above preamble.
+snippet 0.5 is replaced above `using StatisticalRethinking`.
 
 *This page was generated using [Literate.jl](https://github.com/fredrikekre/Literate.jl).*
 

@@ -2,8 +2,6 @@
 EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 ```
 
-# Snippet_03_01_02
-
 Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 ```@example snippets_03_01_02
@@ -22,7 +20,6 @@ PrVP = PrPV*PrV / PrP
 ```
 
 snippet 3.2
-
 Grid of 1001 steps
 
 ```@example snippets_03_01_02

@@ -2,8 +2,6 @@
 EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 ```
 
-# Snippets_02_06_07
-
 Load Julia packages (libraries) needed
 
 ```@example snippets_02_06_07

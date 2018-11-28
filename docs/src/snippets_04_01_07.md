@@ -2,8 +2,6 @@
 EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 ```
 
-# Snippet_04_01_07
-
 Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 ```@example snippets_04_01_07
@@ -133,9 +131,7 @@ but that is not required.
 
 ```@example snippets_04_01_07
 samples = sample(p_grid, Weights(posterior), length(p_grid));
-
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
-
 p[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
 ```
 

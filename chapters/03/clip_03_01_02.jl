@@ -1,5 +1,3 @@
-# # Snippet_03_01_02
-
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
@@ -14,20 +12,24 @@ PrP = PrPV*PrV + PrPM*(1-PrV)
 PrVP = PrPV*PrV / PrP
 
 # snippet 3.2
-
 # Grid of 1001 steps
+
 p_grid = range(0, step=0.001, stop=1)
 
 # all priors = 1.0
+
 prior = ones(length(p_grid))
 
 # Binomial pdf
+
 likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
 
 # As Uniform priar has been used, unstandardized posterior is equal to likelihood
+
 posterior = likelihood .* prior
 
 # Scale posterior such that they become probabilities
+
 posterior = posterior / sum(posterior)
 
 # Sample using the computed posterior values as weights

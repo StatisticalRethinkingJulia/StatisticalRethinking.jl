@@ -1,5 +1,3 @@
-# # Snippets_02_06_07
-
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking

@@ -1,11 +1,9 @@
-# # Snippets_00_03_05
-
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking
 gr(size=(300, 300))
 
-# ### snippet 0.4
+# snippet 0.4
 
 # `dataset(...)` provides access to often used R datasets.
 
@@ -31,4 +29,4 @@ coef(m)
 scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
   
-# ### snippet 0.5 is replaced above `using StatisticalRethinking`.
+# snippet 0.5 is replaced above `using StatisticalRethinking`.

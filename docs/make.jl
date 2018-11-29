@@ -26,9 +26,12 @@ end
 
 makedocs(root = DOC_ROOT,
     modules = Module[],
+    clean = false,
     sitename = "StatisticalRethinking.jl",
+    authors = "Rob Goedman, Richard Torkar, and contributors.",
+    linkcheck = !("skiplinks" in ARGS),
     pages = [
-      "API index" => "index.md",
+      "Home" => "index.md",
       "Chapter 0" => [
         "`Snippets_00_01_03`" => "snippets_00_01_03.md",
         "`Snippets_00_04_04`" => "snippets_00_04_05.md"
@@ -39,12 +42,18 @@ makedocs(root = DOC_ROOT,
         "`Snippets_02_06_07`" => "snippets_02_06_07.md",
       ],
       "Chapter 3" => [
-        "`Snippets_03_01_02`" => "snippets_03_01_02.md"
+        "`Snippets_03_01_01`" => "snippets_03_01_01.md"
+        "`Snippets_03_02_02`" => "snippets_03_02_02.md"
       ],
       "Chapter 4" => [
         "`Snippets_04_01_07`" => "snippets_04_01_07.md"
       ],
-    ]
+    ],
+    Documenter.HTML(
+        # Use clean URLs, unless built as a "local" build
+        prettyurls = !("local" in ARGS),
+        canonical = "https://stanjulia.github.io/StatisticalRethinking.jl/stable/",
+    ),
 )
 
 deploydocs(root = DOC_ROOT,

@@ -2,15 +2,15 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "#",
-    "page": "API index",
-    "title": "API index",
+    "page": "Home",
+    "title": "Home",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "#StatisticalRethinking-1",
-    "page": "API index",
+    "page": "Home",
     "title": "StatisticalRethinking",
     "category": "section",
     "text": "StatisticalRethinking is a Julia implementation of the code accompanying the book StatisticalRethinking.CurrentModule = StatisticalRethinking"
@@ -18,7 +18,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "#StatisticalRethinking.maximum_a_posteriori-Tuple{Any,Any,Any}",
-    "page": "API index",
+    "page": "Home",
     "title": "StatisticalRethinking.maximum_a_posteriori",
     "category": "method",
     "text": "maximumaposterior\n\nCompute the maximumaposteriori of a model. \n\nMethod\n\nmaximum_a_posteriori(model, lower_bound, upper_bound)\n\nRequired arguments\n\n* `model::Turing model`\n* `lower_bound::Float64`\n\nReturn values\n\n* `result`                       : Maximum_a_posterior vector\n\nExamples\n\nSee ...\n\n\n\n\n\n"
@@ -26,7 +26,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "#maximum_a_posteriori-1",
-    "page": "API index",
+    "page": "Home",
     "title": "maximum_a_posteriori",
     "category": "section",
     "text": "maximum_a_posteriori(model, lower_bound, upper_bound)"
@@ -45,7 +45,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Snippets_00_01_03",
     "title": "snippet 0.2",
     "category": "section",
-    "text": "This is a StepRange, not a vectorx = 1:3Below still preserves the StepRangex = x*10Broadcast log to steprange elements in x, this returms a vector! Notice the log.(x) notation.x = log.(x)We can sum the vector xx = sum(x)Etc.x = exp(x)\nx = x*10\nx = log(x)\nx = sum(x)\nx = exp(x)snippet 0.3log( 0.01^200 )\n200 * log(0.01)This page was generated using Literate.jl."
+    "text": "This is a StepRange, not a vectorx = 1:3Below still preserves the StepRangex = x*10Broadcast log to steprange elements in x, this returms a vector! Notice the log.(x) notation.x = log.(x)We can sum the vector xx = sum(x)Etc.x = exp(x)\nx = x*10\nx = log(x)\nx = sum(x)\nx = exp(x)snippet 0.3[log(0.01^200) 200 * log(0.01)]This page was generated using Literate.jl."
 },
 
 {
@@ -61,7 +61,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Snippets_02_01_02",
     "title": "Snippets_02_01_02",
     "category": "page",
-    "text": "EditURL = \"https://github.com/TRAVIS_REPO_SLUG/blob/master/\"Load Julia packages (libraries) neededusing StatisticalRethinking\ngr(size=(600,300))snippet 2.1ways  = [0, 3, 8, 9, 0]ways/sum(ways)snippet 2.2d = Binomial(9, 0.5)\npdf(d, 6)This page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/TRAVIS_REPO_SLUG/blob/master/\"Load Julia packages (libraries) neededusing StatisticalRethinking\ngr(size=(600,300))snippet 2.1ways  = [0, 3, 8, 9, 0]ways/sum(ways)snippet 2.2 Create a distribution with n = 9 (e.g. tosses) and p = 0.5.d = Binomial(9, 0.5)Probability density for 6 waters holding n = 9 and p = 0.5.pdf(d, 6)This page was generated using Literate.jl."
 },
 
 {
@@ -69,7 +69,31 @@ var documenterSearchIndex = {"docs": [
     "page": "Snippets_02_03_05",
     "title": "Snippets_02_03_05",
     "category": "page",
-    "text": "EditURL = \"https://github.com/TRAVIS_REPO_SLUG/blob/master/\"Load Julia packages (libraries) neededusing StatisticalRethinking\ngr(size=(600,300))snippet 2.3define gridp_grid = range( 0 , stop=1 , length=20 )define priorprior = ones( 20 )compute likelihood at each value in gridlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]compute product of likelihood and priorunstd_posterior = likelihood .* priorstandardize the posterior, so it sums to 1posterior = unstd_posterior  ./ sum(unstd_posterior)snippet 2.4p1 = plot( p_grid , posterior ,\n    xlab=\"probability of water\" , ylab=\"posterior probability\",\n    lab = \"interpolated\", title=\"20 points\" )\np2 = scatter!( p1, p_grid , posterior, lab=\"computed\" )snippet 2.5prior1 = [p < 0.5 ? 0 : 1 for p in p_grid]\nprior2 = [exp( -5*abs( p - 0.5 ) ) for p in p_grid]\n\np3 = plot(p_grid, prior1,\n  xlab=\"probability of water\" , ylab=\"posterior probability\",\n  lab = \"semi_uniform\", title=\"Other priors\" )\np4 = plot!(p3, p_grid, prior2,  lab = \"double_exponential\" )This page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/TRAVIS_REPO_SLUG/blob/master/\"Load Julia packages (libraries) neededusing StatisticalRethinking\ngr(size=(600,300))"
+},
+
+{
+    "location": "snippets_02_03_05/#snippet-2.3-1",
+    "page": "Snippets_02_03_05",
+    "title": "snippet 2.3",
+    "category": "section",
+    "text": "Define a gridp_grid = range( 0 , stop=1 , length=20 )Define the (uniform) npriorprior = ones( 20 )Compute likelihood at each value in gridlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]Compute product of likelihood and priorunstd_posterior = likelihood .* priorStandardize the posterior, so it sums to 1posterior = unstd_posterior  ./ sum(unstd_posterior)"
+},
+
+{
+    "location": "snippets_02_03_05/#snippet-2.4-1",
+    "page": "Snippets_02_03_05",
+    "title": "snippet 2.4",
+    "category": "section",
+    "text": "p1 = plot( p_grid , posterior ,\n    xlab=\"probability of water\" , ylab=\"posterior probability\",\n    lab = \"interpolated\", title=\"20 points\" )\np2 = scatter!( p1, p_grid , posterior, lab=\"computed\" )"
+},
+
+{
+    "location": "snippets_02_03_05/#snippet-2.5-1",
+    "page": "Snippets_02_03_05",
+    "title": "snippet 2.5",
+    "category": "section",
+    "text": "prior1 = [p < 0.5 ? 0 : 1 for p in p_grid]\nprior2 = [exp( -5*abs( p - 0.5 ) ) for p in p_grid]\n\np3 = plot(p_grid, prior1,\n  xlab=\"probability of water\" , ylab=\"posterior probability\",\n  lab = \"semi_uniform\", title=\"Other priors\" )\np4 = plot!(p3, p_grid, prior2,  lab = \"double_exponential\" )This page was generated using Literate.jl."
 },
 
 {
@@ -81,11 +105,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "snippets_03_01_02/#",
-    "page": "Snippets_03_01_02",
-    "title": "Snippets_03_01_02",
+    "location": "snippets_03_01_01/#",
+    "page": "Snippets_03_01_01",
+    "title": "Snippets_03_01_01",
     "category": "page",
-    "text": "EditURL = \"https://github.com/TRAVIS_REPO_SLUG/blob/master/\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\ngr(size=(600,300))snippet 3.1PrPV = 0.95\nPrPM = 0.01\nPrV = 0.001\nPrP = PrPV*PrV + PrPM*(1-PrV)\nPrVP = PrPV*PrV / PrPsnippet 3.2 Grid of 1001 stepsp_grid = range(0, step=0.001, stop=1)all priors = 1.0prior = ones(length(p_grid))Binomial pdflikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]As Uniform priar has been used, unstandardized posterior is equal to likelihoodposterior = likelihood .* priorScale posterior such that they become probabilitiesposterior = posterior / sum(posterior)Sample using the computed posterior values as weightsIn this example we keep the number of samples equal to the length of p_grid, but that is not required.N = 10000\nsamples = sample(p_grid, Weights(posterior), N)\nfitnormal= fit_mle(Normal, samples)Create a vector to hold the plots so we can later combine themp = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)\np[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")Analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = density(samples, ylim=(0.0, 5.0), lab=\"Sample density\")\np[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")Add quadratic approximationplot!( p[2], x, pdf.(Normal( fitnormal.μ, fitnormal.σ ) , x ), lab=\"Normal approximation\")\nplot(p..., layout=(1, 2))This page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/TRAVIS_REPO_SLUG/blob/master/\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\ngr(size=(600,300))snippet 3.1PrPV = 0.95\nPrPM = 0.01\nPrV = 0.001\nPrP = PrPV*PrV + PrPM*(1-PrV)\nPrVP = PrPV*PrV / PrPThis page was generated using Literate.jl."
+},
+
+{
+    "location": "snippets_03_02_02/#",
+    "page": "Snippets_03_02_02",
+    "title": "Snippets_03_02_02",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/TRAVIS_REPO_SLUG/blob/master/\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\ngr(size=(600,300))snippet 3.2 Grid of 1001 stepsp_grid = range(0, step=0.001, stop=1)all priors = 1.0prior = ones(length(p_grid))Binomial pdflikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]As Uniform priar has been used, unstandardized posterior is equal to likelihoodposterior = likelihood .* priorScale posterior such that they become probabilitiesposterior = posterior / sum(posterior)Sample using the computed posterior values as weightsIn this example we keep the number of samples equal to the length of p_grid, but that is not required.N = 10000\nsamples = sample(p_grid, Weights(posterior), N)\nfitnormal= fit_mle(Normal, samples)Create a vector to hold the plots so we can later combine themp = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)\np[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")Analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = density(samples, ylim=(0.0, 5.0), lab=\"Sample density\")\np[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")Add quadratic approximationplot!( p[2], x, pdf.(Normal( fitnormal.μ, fitnormal.σ ) , x ), lab=\"Normal approximation\")\nplot(p..., layout=(1, 2))This page was generated using Literate.jl."
 },
 
 {

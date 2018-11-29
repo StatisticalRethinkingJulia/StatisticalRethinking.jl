@@ -7,9 +7,10 @@ gr(size=(600,300))
 
 # Define a grid
 
-p_grid = range( 0 , stop=1 , length=20 )
+N = 20
+p_grid = range( 0 , stop=1 , length=N )
 
-# Define the (uniform) nprior
+# Define the (uniform) prior
 
 prior = ones( 20 )
 
@@ -40,4 +41,7 @@ prior2 = [exp( -5*abs( p - 0.5 ) ) for p in p_grid]
 p3 = plot(p_grid, prior1, 
   xlab="probability of water" , ylab="posterior probability",
   lab = "semi_uniform", title="Other priors" )
-p4 = plot!(p3, p_grid, prior2,  lab = "double_exponential" )
+scatter!(p3, p_grid, prior1, lab = "semi_uniform grid point")
+plot!(p3, p_grid, prior2,  lab = "double_exponential" )
+scatter!(p3, p_grid, prior2,  lab = "double_exponential grid point" )
+

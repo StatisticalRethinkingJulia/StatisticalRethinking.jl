@@ -12,16 +12,12 @@ const src_path = @__DIR__
 "Relative path using the StatisticalRethinking src/ directory."
 rel_path(parts...) = normpath(joinpath(src_path, parts...))
 
-DOC_ROOT = rel_path("../docs/")
-
-DocDir =  rel_path("../docs/src/")
+DOC_ROOT = rel_path("..", "docs")
+DocDir =  rel_path("..", "docs", "src")
 chapters = ["00", "02", "03", "04"]
 
 for chapter in chapters
-  ProjDir = joinpath(@__DIR__, "..", "chapters", chapter)
-  NotebookDir = joinpath(@__DIR__, "..", "notebooks", chapter)
-  !isdir(NotebookDir) && mkdir(NotebookDir)
-  println("\nSwitching to directory: $ProjDir\n")
+  ProjDir = rel_path( "..", "chapters", chapter)
   !isdir(ProjDir) && break
   cd(ProjDir) do
     
@@ -29,15 +25,9 @@ for chapter in chapters
     for file in filelist
       if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"  
         
-        fname = "snippets" * file[5:end-3]
+        isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
+        Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)
         
-        isfile(joinpath(DocDir, fname, ".md")) && rm(joinpath(DocDir, fname, ".md"))
-        Literate.markdown(joinpath(ProjDir, file), DocDir, name=fname, documenter=true)
-        
-        #= 
-        isfile(joinpath(NotebookDir, fname, ".ipynb")) && rm(joinpath(NotebookDir, fname, ".ipynb"))
-        Literate.notebook(file, NotebookDir, name=fname)
-        =#
       end
     end
   end

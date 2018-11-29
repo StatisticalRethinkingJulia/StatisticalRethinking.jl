@@ -35,12 +35,12 @@ plot(p..., layout=(1, 2))
 w = 6
 n = 9
 x = 0:0.01:1
-plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
+scatter( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 
 # quadratic approximation
 
-plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
+scatter!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 
 # ### snippet 2.8 
 
-# The example is in stan_globe_toss.jl. It will be in clips_02_08_08s.jl.
+# The example is in `stan_globe_toss.jl`. It will be in `clips_02_08_08s.jl`.

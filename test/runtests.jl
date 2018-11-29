@@ -1,6 +1,7 @@
 using StatisticalRethinking, Literate
 using Test
 
+#=
 chapters = ["00", "02", "03", "04"]
 DocDir = joinpath(@__DIR__, "..", "docs", "src")
 
@@ -29,3 +30,4 @@ for chapter in chapters
   end
   println()
 end
+=#

@@ -12,24 +12,39 @@ const src_path = @__DIR__
 "Relative path using the StatisticalRethinking src/ directory."
 rel_path(parts...) = normpath(joinpath(src_path, parts...))
 
-DOC_ROOT = rel_path("../docs")
-
+DOC_ROOT = rel_path("../docs/src")
 chapters = ["00", "02", "03", "04"]
 
-filelist = readdir(joinpath(DOC_ROOT, "src"))
-pagelist = String[]
-for file in filelist
-  if !isdir(file) && file[1:8] == "snippets" && file[end-2:end] == ".md"  
-    push!(pagelist, file)
+for chapter in chapters
+  ProjDir = joinpath(@__DIR__, "..", "chapters", chapter)
+  NotebookDir = joinpath(@__DIR__, "..", "notebooks", chapter)
+  !isdir(NotebookDir) && mkdir(NotebookDir)
+  println("\nSwitching to directory: $ProjDir\n")
+  !isdir(ProjDir) && break
+  cd(ProjDir) do
+    
+    filelist = readdir()
+    for file in filelist
+      if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"  
+        
+        fname = "snippets" * file[5:end-3]
+        
+        isfile(joinpath(DocDir, fname, ".md")) && rm(joinpath(DocDir, fname, ".md"))
+        Literate.markdown(joinpath(ProjDir, file), DocDir, name=fname, documenter=true)
+            
+        isfile(joinpath(NotebookDir, fname, ".ipynb")) && rm(joinpath(NotebookDir, fname, ".ipynb"))
+        Literate.notebook(file, NotebookDir, name=fname)
+        
+      end
+    end
   end
+  println()
 end
 
 makedocs(root = DOC_ROOT,
     modules = Module[],
-    clean = false,
     sitename = "StatisticalRethinking.jl",
     authors = "Rob Goedman, Richard Torkar, and contributors.",
-    linkcheck = !("skiplinks" in ARGS),
     pages = [
       "Home" => "index.md",
       "Chapter 0" => [

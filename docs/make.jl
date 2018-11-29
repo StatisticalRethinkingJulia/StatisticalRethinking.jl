@@ -48,12 +48,7 @@ makedocs(root = DOC_ROOT,
       "Chapter 4" => [
         "`Snippets_04_01_07`" => "snippets_04_01_07.md"
       ],
-    ],
-    Documenter.HTML(
-        # Use clean URLs, unless built as a "local" build
-        prettyurls = !("local" in ARGS),
-        canonical = "https://stanjulia.github.io/StatisticalRethinking.jl/stable/",
-    ),
+    ]
 )
 
 deploydocs(root = DOC_ROOT,

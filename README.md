@@ -21,6 +21,8 @@ These 2 files are in chapters/00. These files are later on process using Literat
 1. `clip_00_01_03.md` - which is stored in docs/src and included in the documentation
 2. `clip_00_01_03.ipynb` - stored in the notebooks directory for use in Jupyter
 
+The intention is that when needed clips with names such as `clip_02_05_07t.jl`, `clip_02_05_07s.jl` and `clip_02_05_07m.jl` will show up. These will contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
+
 ## Acknowledgements
 
 Richard Torker has taken the lead in developing the Turing versions of the models in chapter 8.

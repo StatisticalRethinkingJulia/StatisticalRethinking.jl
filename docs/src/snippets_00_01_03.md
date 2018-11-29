@@ -55,8 +55,7 @@ x = exp(x)
 snippet 0.3
 
 ```@example snippets_00_01_03
-log( 0.01^200 )
-200 * log(0.01)
+[log(0.01^200) 200 * log(0.01)]
 ```
 
 *This page was generated using [Literate.jl](https://github.com/fredrikekre/Literate.jl).*

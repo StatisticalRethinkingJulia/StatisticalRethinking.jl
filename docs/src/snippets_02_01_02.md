@@ -20,9 +20,15 @@ ways/sum(ways)
 ```
 
 snippet 2.2
+Create a distribution with n = 9 (e.g. tosses) and p = 0.5.
 
 ```@example snippets_02_01_02
 d = Binomial(9, 0.5)
+```
+
+Probability density for 6 `waters` holding n = 9 and p = 0.5.
+
+```@example snippets_02_01_02
 pdf(d, 6)
 ```
 

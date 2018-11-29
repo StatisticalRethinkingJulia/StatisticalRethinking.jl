@@ -9,39 +9,39 @@ using StatisticalRethinking
 gr(size=(600,300))
 ```
 
-snippet 2.3
+##### snippet 2.3
 
-define grid
+Define a grid
 
 ```@example snippets_02_03_05
 p_grid = range( 0 , stop=1 , length=20 )
 ```
 
-define prior
+Define the (uniform) nprior
 
 ```@example snippets_02_03_05
 prior = ones( 20 )
 ```
 
-compute likelihood at each value in grid
+Compute likelihood at each value in grid
 
 ```@example snippets_02_03_05
 likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
 ```
 
-compute product of likelihood and prior
+Compute product of likelihood and prior
 
 ```@example snippets_02_03_05
 unstd_posterior = likelihood .* prior
 ```
 
-standardize the posterior, so it sums to 1
+Standardize the posterior, so it sums to 1
 
 ```@example snippets_02_03_05
 posterior = unstd_posterior  ./ sum(unstd_posterior)
 ```
 
-snippet 2.4
+##### snippet 2.4
 
 ```@example snippets_02_03_05
 p1 = plot( p_grid , posterior ,
@@ -50,7 +50,7 @@ p1 = plot( p_grid , posterior ,
 p2 = scatter!( p1, p_grid , posterior, lab="computed" )
 ```
 
-snippet 2.5
+##### snippet 2.5
 
 ```@example snippets_02_03_05
 prior1 = [p < 0.5 ? 0 : 1 for p in p_grid]

@@ -41,20 +41,20 @@ makedocs(root = DOC_ROOT,
     pages = [
       "Home" => "index.md",
       "Chapter 0" => [
-        "`Snippets_00_01_03`" => "snippets_00_01_03.md",
-        "`Snippets_00_04_04`" => "snippets_00_04_05.md"
+        "`clip_01_03`" => "clip_01_03.md",
+        "`clip_04_04`" => "clip_04_05.md"
       ],
       "Chapter 2" => [
-        "`Snippets_02_01_02`" => "snippets_02_01_02.md",
-        "`Snippets_02_03_05`" => "snippets_02_03_05.md",
-        "`Snippets_02_06_07`" => "snippets_02_06_07.md",
+        "`clip_01_02`" => "clip_01_02.md",
+        "`clip_03_05`" => "clip_03_05.md",
+        "`clip_06_07`" => "clip_06_07.md",
       ],
       "Chapter 3" => [
-        "`Snippets_03_01_01`" => "snippets_03_01_01.md"
-        "`Snippets_03_02_02`" => "snippets_03_02_02.md"
+        "`clip_01`" => "clip_01.md"
+        "`clip_02`" => "clip_02.md"
       ],
       "Chapter 4" => [
-        "`Snippets_04_01_07`" => "snippets_04_01_07.md"
+        "`clip_01_07`" => "clip_01_07.md"
       ],
     ]
 )

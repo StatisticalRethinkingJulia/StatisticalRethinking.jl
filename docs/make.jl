@@ -31,11 +31,9 @@ for chapter in chapters
         
         isfile(joinpath(DocDir, fname, ".md")) && rm(joinpath(DocDir, fname, ".md"))
         Literate.markdown(joinpath(ProjDir, file), DocDir, name=fname, documenter=true)
-        
-        #=    
+         
         isfile(joinpath(NotebookDir, fname, ".ipynb")) && rm(joinpath(NotebookDir, fname, ".ipynb"))
         Literate.notebook(file, NotebookDir, name=fname)
-        =#
         
       end
     end

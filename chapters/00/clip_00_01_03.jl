@@ -3,7 +3,7 @@
 using StatisticalRethinking
 gr(size=(300, 300))
 
-# snippet 0.1
+# ### snippet 0.1
 
 println( "All models are wrong, but some are useful." )
 
@@ -34,6 +34,6 @@ x = log(x)
 x = sum(x)
 x = exp(x)
 
-# snippet 0.3
+# ### snippet 0.3
 
 [log(0.01^200) 200 * log(0.01)]

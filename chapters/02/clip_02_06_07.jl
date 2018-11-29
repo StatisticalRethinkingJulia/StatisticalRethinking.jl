@@ -3,7 +3,7 @@
 using StatisticalRethinking
 gr(size=(600,300))
 
-# snippet 2.6 (see snippet 3_2 for explanations)
+# ### snippet 2.6 (see snippet 3_2 for explanations)
 
 p_grid = range(0, step=0.001, stop=1)
 prior = ones(length(p_grid))
@@ -28,7 +28,8 @@ p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 plot(p..., layout=(1, 2))
 
-# snippet 2.7
+# ### snippet 2.7
+
 # analytical calculation
 
 w = 6
@@ -40,5 +41,6 @@ plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 
 plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 
-# snippet 2.8 
-# The example is in stan_globe_toss.jl
+# ### snippet 2.8 
+
+# The example is in stan_globe_toss.jl. It will be in clips_02_08_08s.jl.

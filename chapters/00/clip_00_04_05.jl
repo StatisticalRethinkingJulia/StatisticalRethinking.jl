@@ -3,9 +3,9 @@
 using StatisticalRethinking
 gr(size=(300, 300))
 
-# snippet 0.4
+# ### snippet 0.4
 
-# `dataset(...)` provides access to often used R datasets.
+# Below `dataset(...)` provides access to often used R datasets.
 
 cars = dataset("datasets", "cars") 
 
@@ -29,4 +29,4 @@ coef(m)
 scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
   
-# snippet 0.5 is replaced above `using StatisticalRethinking`.
+# ### snippet 0.5 is replaced by above `using StatisticalRethinking`.

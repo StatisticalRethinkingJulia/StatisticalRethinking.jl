@@ -19,7 +19,7 @@ for chapter in chapters
         fname = "snippets" * file[5:end-3]
         
         isfile(joinpath(DocDir, fname, ".md")) && rm(joinpath(DocDir, fname, ".md"))
-        Literate.markdown(file, DocDir, name=fname, documenter=true)
+        Literate.markdown(joinpath(ProjDir, file), DocDir, name=fname, documenter=true)
             
         isfile(joinpath(NotebookDir, fname, ".ipynb")) && rm(joinpath(NotebookDir, fname, ".ipynb"))
         Literate.notebook(file, NotebookDir, name=fname)

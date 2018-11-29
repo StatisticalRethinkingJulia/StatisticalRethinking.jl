@@ -3,7 +3,7 @@
 using StatisticalRethinking
 gr(size=(600,300))
 
-# snippet 3.1
+# ### snippet 3.1
 
 PrPV = 0.95
 PrPM = 0.01

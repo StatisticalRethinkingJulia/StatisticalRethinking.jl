@@ -3,7 +3,8 @@
 using StatisticalRethinking
 gr(size=(600,300))
 
-# snippet 4.1
+# ### snippet 4.1
+
 # No attempt has been made to condense this too fewer lines of code
 
 noofsteps = 20;
@@ -44,11 +45,11 @@ p3 = plot(p2..., layout=(1, 3))
 plot(p1, p3, layout=(2,1))
 savefig("fig4_2.pdf") #src
 
-# snippet 4.2
+# ### snippet 4.2
 
 prod(1 .+ rand(Uniform(0, 0.1), 10))
 
-# snippet 4.3
+# ### snippet 4.3
 
 growth = [prod(1 .+ rand(Uniform(0, 0.1), 10)) for i in 1:10000];
 fit = fit_mle(Normal, growth)
@@ -56,7 +57,7 @@ plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(growth, lab="'sample' distribution")
 savefig("s4_3.pdf") #src
 
-# snippet 4.4
+# ### snippet 4.4
 
 big = [prod(1 .+ rand(Uniform(0, 0.5), 12)) for i in 1:10000];
 small = [prod(1 .+ rand(Uniform(0, 0.01), 12)) for i in 1:10000];
@@ -70,7 +71,7 @@ plot(p1, p2, layout=(1, 2))
 savefig("s4_4.pdf") #src
 
 
-# snippet 4.5
+# ### snippet 4.5
 
 log_big = [log(prod(1 .+ rand(Uniform(0, 0.5), 12))) for i in 1:10000];
 fit = fit_mle(Normal, log_big)
@@ -78,7 +79,7 @@ plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(log_big, lab="'sample' distribution")
 savefig("s4_5.pdf") #src
 
-# snippet 4.6
+# ### snippet 4.6
 
 # Grid of 1001 steps
 
@@ -121,7 +122,7 @@ p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation", fill=(0, .5,:orange))
 plot(p..., layout=(1, 2))
 
-# snippet 4.7
+# ### snippet 4.7
 
 howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1)

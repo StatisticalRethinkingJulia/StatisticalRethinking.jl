@@ -3,7 +3,7 @@
 using StatisticalRethinking
 gr(size=(600,300))
 
-# ##### snippet 2.3
+# ### snippet 2.3
 
 # Define a grid
 
@@ -25,14 +25,14 @@ unstd_posterior = likelihood .* prior
 
 posterior = unstd_posterior  ./ sum(unstd_posterior)
 
-# ##### snippet 2.4
+# ### snippet 2.4
 
 p1 = plot( p_grid , posterior ,
     xlab="probability of water" , ylab="posterior probability",
     lab = "interpolated", title="20 points" )
 p2 = scatter!( p1, p_grid , posterior, lab="computed" )
 
-# ##### snippet 2.5
+# ### snippet 2.5
 
 prior1 = [p < 0.5 ? 0 : 1 for p in p_grid]
 prior2 = [exp( -5*abs( p - 0.5 ) ) for p in p_grid]

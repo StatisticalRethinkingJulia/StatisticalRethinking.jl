@@ -3,7 +3,8 @@
 using StatisticalRethinking
 gr(size=(600,300))
 
-# snippet 3.2
+# ### snippet 3.2
+
 # Grid of 1001 steps
 
 p_grid = range(0, step=0.001, stop=1)

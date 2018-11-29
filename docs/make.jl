@@ -12,7 +12,9 @@ const src_path = @__DIR__
 "Relative path using the StatisticalRethinking src/ directory."
 rel_path(parts...) = normpath(joinpath(src_path, parts...))
 
-DOC_ROOT = rel_path("../docs/src")
+DOC_ROOT = rel_path("../docs/")
+
+DocDir =  rel_path("../docs/src/")
 chapters = ["00", "02", "03", "04"]
 
 for chapter in chapters
@@ -31,10 +33,11 @@ for chapter in chapters
         
         isfile(joinpath(DocDir, fname, ".md")) && rm(joinpath(DocDir, fname, ".md"))
         Literate.markdown(joinpath(ProjDir, file), DocDir, name=fname, documenter=true)
-         
+        
+        #= 
         isfile(joinpath(NotebookDir, fname, ".ipynb")) && rm(joinpath(NotebookDir, fname, ".ipynb"))
         Literate.notebook(file, NotebookDir, name=fname)
-        
+        =#
       end
     end
   end

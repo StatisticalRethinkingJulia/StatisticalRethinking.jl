@@ -21,7 +21,7 @@ These 2 files are in chapters/00. These files are later on processed by Literate
 1. `clip_01_03.md` - which is stored in docs/src and included in the documentation
 2. `clip_01_03.ipynb` - stored in the notebooks directory for use in Jupyter
 
-The intention is that when needed clips with names such as `clip_05_07t.jl`, `clip_05_07s.jl` and `clip_02_05_07m.jl` will show up. These will contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
+The intention is that when needed clips with names such as `clip_05_07t.jl`, `clip_05_07s.jl` and `clip_05_07m.jl` will show up. These will contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
 
 Occasionally a clip wil contain just a single snippet and will be refered to as `clip_02.jl`, e.g, in chapters/03
 

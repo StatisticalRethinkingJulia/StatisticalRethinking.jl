@@ -7,7 +7,7 @@ gr(size=(300, 300))
 
 # Below `dataset(...)` provides access to often used R datasets.
 
-cars = dataset("datasets", "cars") 
+cars = dataset("datasets", "cars")
 
 # If this is not a common R dataset, use e.g.:
 # howell1 = CSV.read(joinpath(ProjDir, "..", "..",  "data", "Howell1.csv"), delim=';')

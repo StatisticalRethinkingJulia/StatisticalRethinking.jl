@@ -31,6 +31,6 @@ cd(ProjDir) do
 
   plot(x, y)
   plot!(xi, yi)
-  savefig("turing_line.pdf")
+  savefig("line.pdf")
 
 end

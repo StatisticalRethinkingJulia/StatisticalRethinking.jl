@@ -30,6 +30,6 @@ yi = mean(chn[:alpha]) .+ mean(chn[:beta])*xi
 
 plot(x, y)
 plot!(xi, yi)
-savefig("turing_line2.pdf")
+savefig("line2.pdf")
 
 end

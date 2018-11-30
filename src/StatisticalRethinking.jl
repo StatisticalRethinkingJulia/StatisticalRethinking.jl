@@ -3,7 +3,7 @@ module StatisticalRethinking
 using Reexport
 
 @reexport using Distributions, RDatasets, DataFrames, StatsBase, GLM
-@reexport using Optim, Turing
+@reexport using Optim, Turing, Flux.Tracker
 @reexport using Plots, StatPlots
 @reexport using CSV, DelimitedFiles
 

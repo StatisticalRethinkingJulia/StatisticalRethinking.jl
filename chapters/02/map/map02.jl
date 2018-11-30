@@ -4,7 +4,7 @@ data = (n = 9, k = 6)
 
 @model globe_toss(n, k) = begin
   #prior
-  theta ~ Uniform(0.5, 1)
+  theta ~ Uniform(0, 1)
   #model
   k ~ Binomial(n, theta)
 end
@@ -31,4 +31,7 @@ lb = [0.0]
 ub = [1.0]
 result = optimize(nlogp, lb, ub, sm_0, Fminbox())
 
-result.minimizer
+result.minimizer |> display
+println()
+
+maximum_a_posteriori(model, lb, ub)

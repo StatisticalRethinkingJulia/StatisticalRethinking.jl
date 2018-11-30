@@ -13,7 +13,7 @@ for chapter in chapters
     
     filelist = readdir()
     for file in filelist
-      if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"  
+      if !isdir(file) && file[1:4] == "clip" && (file[end-2:end] == ".jl" && file[end-3:end] !== "t.jl")
         
         isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))
         Literate.notebook(file, NotebookDir)

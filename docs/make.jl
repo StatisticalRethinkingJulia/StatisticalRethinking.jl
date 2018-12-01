@@ -18,7 +18,10 @@ chapters = ["00", "02", "03", "04"]
 
 for chapter in chapters
   ProjDir = rel_path( "..", "chapters", chapter)
+  DocDir =  rel_path("..", "docs", "src", chapter)
+  
   !isdir(ProjDir) && break
+  
   cd(ProjDir) do
     
     filelist = readdir()
@@ -41,20 +44,21 @@ makedocs(root = DOC_ROOT,
     pages = [
       "Home" => "index.md",
       "Chapter 0" => [
-        "`clip_01_03`" => "clip_01_03.md",
-        "`clip_04_04`" => "clip_04_05.md"
+        "`clip_01_03`" => "00/clip_01_03.md",
+        "`clip_04_04`" => "00/clip_04_05.md"
       ],
       "Chapter 2" => [
-        "`clip_01_02`" => "clip_01_02.md",
-        "`clip_03_05`" => "clip_03_05.md",
-        "`clip_06_07`" => "clip_06_07.md",
+        "`clip_01_02`" => "02/clip_01_02.md",
+        "`clip_03_05`" => "02/clip_03_05.md",
+        "`clip_06_07`" => "02/clip_06_07.md",
+        "`clip_06_07t`" => "02/clip_06_07t.md"
       ],
       "Chapter 3" => [
-        "`clip_01`" => "clip_01.md"
-        "`clip_02`" => "clip_02.md"
+        "`clip_01`" => "03/clip_01.md"
+        "`clip_02`" => "03/clip_02.md"
       ],
       "Chapter 4" => [
-        "`clip_01_07`" => "clip_01_07.md"
+        "`clip_01_07`" => "04/clip_01_07.md"
       ],
     ]
 )

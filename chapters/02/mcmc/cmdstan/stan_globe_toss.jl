@@ -11,8 +11,9 @@ cd(ProjDir) do
   binomialstanmodel = "
   // Inferring a Rate
   data {
-    int<lower=1> n;
-    int<lower=0> k;
+    int N;
+    int<lower=0> k[N];
+    int<lower=1> n[N];
   }
   parameters {
     real<lower=0,upper=1> theta;
@@ -26,21 +27,21 @@ cd(ProjDir) do
     // Observed Counts
     k ~ binomial(n, theta);
   }
-  generated quantities {
-    int<lower=0> postpredk;
-    int<lower=0> priorpredk;
-    postpredk <- binomial_rng(n, theta);
-    priorpredk <- binomial_rng(n, thetaprior);
-  }
   "
 
-  global stanmodel, rc, sim
+  global stanmodel, rc, sim, binomialdata
   stanmodel = Stanmodel(name="binomial", model=binomialstanmodel, output_format=:dataframe)
 
+  N2 = 1
+  d = Binomial(9, 0.66)
+  n2 = Int.(9 * ones(Int, N2))
+  k2 = rand(d, N2)
+
   binomialdata = [
-    Dict("n" => 9, "k" => 6)
+    Dict("N" => length(n2), "n" => n2, "k" => k2)
   ]
 
+ 
   global df
   rc, df, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
               CmdStanDir=CMDSTAN_HOME)
@@ -60,4 +61,6 @@ cd(ProjDir) do
     savefig("s2_8.pdf")
   end
   
+  println()
+  display(binomialdata)
 end # cd

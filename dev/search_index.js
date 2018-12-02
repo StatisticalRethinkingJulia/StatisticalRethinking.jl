@@ -57,7 +57,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_03/#",
+    "location": "00/clip_01_03/#",
     "page": "clip_01_03",
     "title": "clip_01_03",
     "category": "page",
@@ -65,7 +65,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_03/#snippet-0.1-1",
+    "location": "00/clip_01_03/#snippet-0.1-1",
     "page": "clip_01_03",
     "title": "snippet 0.1",
     "category": "section",
@@ -73,7 +73,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_03/#snippet-0.2-1",
+    "location": "00/clip_01_03/#snippet-0.2-1",
     "page": "clip_01_03",
     "title": "snippet 0.2",
     "category": "section",
@@ -81,7 +81,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_03/#snippet-0.3-1",
+    "location": "00/clip_01_03/#snippet-0.3-1",
     "page": "clip_01_03",
     "title": "snippet 0.3",
     "category": "section",
@@ -89,7 +89,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_04_05/#",
+    "location": "00/clip_04_05/#",
     "page": "clip_04_04",
     "title": "clip_04_04",
     "category": "page",
@@ -97,7 +97,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_04_05/#snippet-0.4-1",
+    "location": "00/clip_04_05/#snippet-0.4-1",
     "page": "clip_04_04",
     "title": "snippet 0.4",
     "category": "section",
@@ -105,7 +105,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_04_05/#snippet-0.5-is-replaced-by-above-using-StatisticalRethinking.-1",
+    "location": "00/clip_04_05/#snippet-0.5-is-replaced-by-above-using-StatisticalRethinking.-1",
     "page": "clip_04_04",
     "title": "snippet 0.5 is replaced by above using StatisticalRethinking.",
     "category": "section",
@@ -113,7 +113,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_02/#",
+    "location": "02/clip_01_02/#",
     "page": "clip_01_02",
     "title": "clip_01_02",
     "category": "page",
@@ -121,7 +121,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_02/#snippet-2.1-1",
+    "location": "02/clip_01_02/#snippet-2.1-1",
     "page": "clip_01_02",
     "title": "snippet 2.1",
     "category": "section",
@@ -129,7 +129,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_02/#snippet-2.2-1",
+    "location": "02/clip_01_02/#snippet-2.2-1",
     "page": "clip_01_02",
     "title": "snippet 2.2",
     "category": "section",
@@ -137,7 +137,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_03_05/#",
+    "location": "02/clip_03_05/#",
     "page": "clip_03_05",
     "title": "clip_03_05",
     "category": "page",
@@ -145,7 +145,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_03_05/#snippet-2.3-1",
+    "location": "02/clip_03_05/#snippet-2.3-1",
     "page": "clip_03_05",
     "title": "snippet 2.3",
     "category": "section",
@@ -153,7 +153,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_03_05/#snippet-2.4-1",
+    "location": "02/clip_03_05/#snippet-2.4-1",
     "page": "clip_03_05",
     "title": "snippet 2.4",
     "category": "section",
@@ -161,7 +161,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_03_05/#snippet-2.5-1",
+    "location": "02/clip_03_05/#snippet-2.5-1",
     "page": "clip_03_05",
     "title": "snippet 2.5",
     "category": "section",
@@ -169,7 +169,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_06_07/#",
+    "location": "02/clip_06_07/#",
     "page": "clip_06_07",
     "title": "clip_06_07",
     "category": "page",
@@ -177,7 +177,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_06_07/#snippet-2.6-(see-snippet-3_2-for-explanations)-1",
+    "location": "02/clip_06_07/#snippet-2.6-(see-snippet-3_2-for-explanations)-1",
     "page": "clip_06_07",
     "title": "snippet 2.6 (see snippet 3_2 for explanations)",
     "category": "section",
@@ -185,7 +185,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_06_07/#snippet-2.7-1",
+    "location": "02/clip_06_07/#snippet-2.7-1",
     "page": "clip_06_07",
     "title": "snippet 2.7",
     "category": "section",
@@ -193,7 +193,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_06_07/#snippet-2.8-1",
+    "location": "02/clip_06_07/#snippet-2.8-1",
     "page": "clip_06_07",
     "title": "snippet 2.8",
     "category": "section",
@@ -201,7 +201,39 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01/#",
+    "location": "02/clip_06_07t/#",
+    "page": "clip_06_07t",
+    "title": "clip_06_07t",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_06_07t.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking"
+},
+
+{
+    "location": "02/clip_06_07t/#snippet-2.6t-1",
+    "page": "clip_06_07t",
+    "title": "snippet 2.6t",
+    "category": "section",
+    "text": "Define the datak = 6\nn = 9Define the model@model globe_toss(n, k) = begin\n  theta ~ Beta(1, 1) # prior\n  k ~ Binomial(n, theta) # model\n  return k, theta\nendCompute the maximumaposteriori value Set search boundslb = [0.0]\nub = [1.0]Create (compile) the modelmodel = globe_toss(n, k)Compute the maximumaposterioriresult = maximum_a_posteriori(model, lb, ub)Use Turing mcmcchn = sample(model, NUTS(1000, 0.65))Look at the generated draws (in chn)println()\ndescribe(chn[:theta])\nprintln()\nMCMCChain.hpd(chn[:theta], alpha=0.945) |> display\nprintln()\n\np_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)\nsamples = sample(p_grid, Weights(posterior), length(p_grid))\n\np = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)\np[1] = plot(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")Analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = density(samples, ylim=(0.0, 5.0), lab=\"Sample density\")\nplot!(p[2], x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")Quadratic approximationplot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")Show plotsplot(p..., layout=(1, 2))"
+},
+
+{
+    "location": "02/clip_06_07t/#snippet-2.7-1",
+    "page": "clip_06_07t",
+    "title": "snippet 2.7",
+    "category": "section",
+    "text": "analytical calculationw = 6\nn = 9\nx = 0:0.01:1\nplot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), fill=(0, .5,:orange), lab=\"Conjugate solution\")quadratic approximationplot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")Turing Chaindensity!(chn[:theta], lab=\"Turing chain\")"
+},
+
+{
+    "location": "02/clip_06_07t/#snippet-2.8-1",
+    "page": "clip_06_07t",
+    "title": "snippet 2.8",
+    "category": "section",
+    "text": "The example is in stan_globe_toss.jl. It will be in clips_02_08_08s.jl.This page was generated using Literate.jl."
+},
+
+{
+    "location": "03/clip_01/#",
     "page": "clip_01",
     "title": "clip_01",
     "category": "page",
@@ -209,7 +241,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01/#snippet-3.1-1",
+    "location": "03/clip_01/#snippet-3.1-1",
     "page": "clip_01",
     "title": "snippet 3.1",
     "category": "section",
@@ -217,7 +249,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_02/#",
+    "location": "03/clip_02/#",
     "page": "clip_02",
     "title": "clip_02",
     "category": "page",
@@ -225,7 +257,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_02/#snippet-3.2-1",
+    "location": "03/clip_02/#snippet-3.2-1",
     "page": "clip_02",
     "title": "snippet 3.2",
     "category": "section",
@@ -233,7 +265,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_07/#",
+    "location": "04/clip_01_07/#",
     "page": "clip_01_07",
     "title": "clip_01_07",
     "category": "page",
@@ -241,7 +273,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_07/#snippet-4.1-1",
+    "location": "04/clip_01_07/#snippet-4.1-1",
     "page": "clip_01_07",
     "title": "snippet 4.1",
     "category": "section",
@@ -249,7 +281,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_07/#snippet-4.2-1",
+    "location": "04/clip_01_07/#snippet-4.2-1",
     "page": "clip_01_07",
     "title": "snippet 4.2",
     "category": "section",
@@ -257,7 +289,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_07/#snippet-4.3-1",
+    "location": "04/clip_01_07/#snippet-4.3-1",
     "page": "clip_01_07",
     "title": "snippet 4.3",
     "category": "section",
@@ -265,7 +297,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_07/#snippet-4.4-1",
+    "location": "04/clip_01_07/#snippet-4.4-1",
     "page": "clip_01_07",
     "title": "snippet 4.4",
     "category": "section",
@@ -273,7 +305,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_07/#snippet-4.5-1",
+    "location": "04/clip_01_07/#snippet-4.5-1",
     "page": "clip_01_07",
     "title": "snippet 4.5",
     "category": "section",
@@ -281,7 +313,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_07/#snippet-4.6-1",
+    "location": "04/clip_01_07/#snippet-4.6-1",
     "page": "clip_01_07",
     "title": "snippet 4.6",
     "category": "section",
@@ -289,7 +321,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "clip_01_07/#snippet-4.7-1",
+    "location": "04/clip_01_07/#snippet-4.7-1",
     "page": "clip_01_07",
     "title": "snippet 4.7",
     "category": "section",

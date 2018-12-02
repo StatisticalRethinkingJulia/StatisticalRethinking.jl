@@ -8,11 +8,10 @@ using StatisticalRethinking
   return k, theta
 end
 
-N2 = 5
+N2 = 50
 d = Binomial(9, 0.66)
 n2 = Int.(9 * ones(Int, N2))
 k2 = rand(d, N2)
-println("\nN = $N2, k = $k2\n")
 
 model2 = globe_toss2(n2, k2)
 
@@ -40,3 +39,7 @@ density!(chn[:theta], lab="Turing chain")
 lb = [0.0]; ub = [1.0]
 
 result = maximum_a_posteriori(model2, lb, ub)
+println()
+println(result.minimizer)
+println()
+println("\nN = $N2, k = $k2, k_mean = $(mean(k2))\n")

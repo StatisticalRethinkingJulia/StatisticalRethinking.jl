@@ -189,47 +189,47 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_06_07",
     "title": "snippet 2.7",
     "category": "section",
-    "text": "analytical calculationw = 6\nn = 9\nx = 0:0.01:1\nscatter( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")quadratic approximationscatter!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")"
+    "text": "analytical calculationw = 6\nn = 9\nx = 0:0.01:1\nscatter( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")quadratic approximationscatter!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")This page was generated using Literate.jl."
 },
 
 {
-    "location": "02/clip_06_07/#snippet-2.8-1",
-    "page": "clip_06_07",
-    "title": "snippet 2.8",
-    "category": "section",
-    "text": "The example is in stan_globe_toss.jl. It will be in clips_02_08_08s.jl.This page was generated using Literate.jl."
-},
-
-{
-    "location": "02/clip_06_07t/#",
-    "page": "clip_06_07t",
-    "title": "clip_06_07t",
+    "location": "02/clip_08t/#",
+    "page": "clip_08t",
+    "title": "clip_08t",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_06_07t.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08t.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking"
 },
 
 {
-    "location": "02/clip_06_07t/#snippet-2.6t-1",
-    "page": "clip_06_07t",
+    "location": "02/clip_08t/#snippet-2.6t-1",
+    "page": "clip_08t",
     "title": "snippet 2.6t",
     "category": "section",
     "text": "Define the datak = 6\nn = 9Define the model@model globe_toss(n, k) = begin\n  theta ~ Beta(1, 1) # prior\n  k ~ Binomial(n, theta) # model\n  return k, theta\nendCompute the maximumaposteriori value Set search boundslb = [0.0]\nub = [1.0]Create (compile) the modelmodel = globe_toss(n, k)Compute the maximumaposterioriresult = maximum_a_posteriori(model, lb, ub)Use Turing mcmcchn = sample(model, NUTS(1000, 0.65))Look at the generated draws (in chn)println()\ndescribe(chn[:theta])\nprintln()\nMCMCChain.hpd(chn[:theta], alpha=0.945) |> display\nprintln()\n\np_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)\nsamples = sample(p_grid, Weights(posterior), length(p_grid))\n\np = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)\np[1] = plot(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")Analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = density(samples, ylim=(0.0, 5.0), lab=\"Sample density\")\nplot!(p[2], x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")Quadratic approximationplot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")Show plotsplot(p..., layout=(1, 2))"
 },
 
 {
-    "location": "02/clip_06_07t/#snippet-2.7-1",
-    "page": "clip_06_07t",
+    "location": "02/clip_08t/#snippet-2.7-1",
+    "page": "clip_08t",
     "title": "snippet 2.7",
     "category": "section",
     "text": "analytical calculationw = 6\nn = 9\nx = 0:0.01:1\nplot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), fill=(0, .5,:orange), lab=\"Conjugate solution\")quadratic approximationplot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")Turing Chaindensity!(chn[:theta], lab=\"Turing chain\")"
 },
 
 {
-    "location": "02/clip_06_07t/#snippet-2.8-1",
-    "page": "clip_06_07t",
+    "location": "02/clip_08t/#snippet-2.8-1",
+    "page": "clip_08t",
     "title": "snippet 2.8",
     "category": "section",
     "text": "The example is in stan_globe_toss.jl. It will be in clips_02_08_08s.jl.This page was generated using Literate.jl."
+},
+
+{
+    "location": "02/clip_08s/#",
+    "page": "clip_08s",
+    "title": "clip_08s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08s.jl\"using CmdStan, StanMCMCChain, Distributions, Statistics, StatPlots, Plots\ngr(size=(500,800))\n\nProjDir = @__DIR__\ncd(ProjDir) do\n\n  binomialstanmodel = \"\n  // Inferring a Rate\n  data {\n    int N;\n    int<lower=0> k[N];\n    int<lower=1> n[N];\n  }\n  parameters {\n    real<lower=0,upper=1> theta;\n    real<lower=0,upper=1> thetaprior;\n  }\n  model {\n    // Prior Distribution for Rate Theta\n    theta ~ beta(1, 1);\n    thetaprior ~ beta(1, 1);\n\n    // Observed Counts\n    k ~ binomial(n, theta);\n  }\n  \"\n\n  global stanmodel, chn, sim, binomialdata, hpd_array\n  stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n    output_format=:mcmcchain)\n\n  hpd_array = Vector{MCMCChain.ChainSummary}(undef, 10)\n\n  for j in 0:9\n\n    N2 = 2^j\n    d = Binomial(9, 0.66)\n    n2 = Int.(9 * ones(Int, N2))\n    #k2 = Int.(6 * ones(Int, N2))\n    k2 = rand(d, N2)\n\n    binomialdata = [\n      Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2)\n    ]\n\n\n    global df\n    rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n      CmdStanDir=CMDSTAN_HOME)\n\n    if rc == 0\n      println()\n      p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)\n      x = 0:0.001:1\n      for i in 1:4\n        vals = convert.(Float64, chn.value[:, 1, i])\n        @show res = fit_mle(Normal, vals)\n        μ = round(res.μ, digits=2)\n        σ = round(res.σ, digits=2)\n        p[i] = density(vals, lab=\"Chain $i density\", title=\"$(N2) data points\")\n        plot!(p[i], x, pdf.(Normal(res.μ, res.σ), x), lab=\"Fitted Normal($μ, $σ)\")\n      end\n      plot(p..., layout=(4, 1))\n    end\n\n    println()\n    display(binomialdata)\n    describe(chn)\n    hpd_array[j+1] = MCMCChain.hpd(chn)\n  end\nend # cdThis page was generated using Literate.jl."
 },
 
 {

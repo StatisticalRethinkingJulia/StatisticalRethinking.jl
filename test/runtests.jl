@@ -18,7 +18,7 @@ for chapter in chapters
         isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
           rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))
           
-        if file[end-3:end] == "t.jl"
+        if file[end-3:end] == "t.jl" || file[end-3:end] == "s.jl"
           # For now execution will fail for Turing notebooks
           Literate.notebook(file, NotebookDir, execute=false)
         else

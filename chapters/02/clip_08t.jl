@@ -18,13 +18,15 @@ n = 9
   return k, theta
 end
 
-# Compute the maximum_a_posteriori value
+# Compute the `maximum_a_posteriori` value
+
 # Set search bounds
 
 lb = [0.0]
 ub = [1.0]
 
 # Create (compile) the model 
+
 model = globe_toss(n, k)
 
 # Compute the maximum_a_posteriori
@@ -37,6 +39,7 @@ println("\nMaximum_a_posteriori = $(result.minimizer)\n") #src
 chn = sample(model, NUTS(1000, 0.65))
 
 # Look at the generated draws (in chn)
+
 println()
 describe(chn[:theta])
 println()

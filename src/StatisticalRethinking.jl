@@ -1,12 +1,15 @@
 module StatisticalRethinking
 
+using Pkg
 using Reexport
 
 @reexport using Distributions, RDatasets, DataFrames, StatsBase, GLM
-@reexport using Optim, Turing, Flux.Tracker
+@reexport using CmdStan, StanMCMCChain, MCMCChain
+@reexport using StatsFuns, Optim, Turing, Flux.Tracker
 @reexport using Plots, StatPlots
 @reexport using CSV, DelimitedFiles
-@reexport using CmdStan, StanMCMCChain, MCMCChain
+
+Pkg.resolve()
 
 include("maximum_a_posteriori.jl")
 

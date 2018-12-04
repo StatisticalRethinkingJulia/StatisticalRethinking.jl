@@ -1,8 +1,14 @@
+# Load Julia packages (libraries) needed
+
 using CmdStan, StanMCMCChain, Distributions, Statistics, StatPlots, Plots
 gr(size=(500,800))
 
+# CmdStan uses a tmp directory to store the output of cmdstan
+
 ProjDir = @__DIR__
 cd(ProjDir) do
+
+# Define the Stan language model
 
   binomialstanmodel = "
   // Inferring a Rate
@@ -25,9 +31,16 @@ cd(ProjDir) do
   }
   "
 
+# Make variables visible outisde the do loop
+
   global stanmodel, chn, sim, binomialdata, hpd_array
+  
+# Define the Stanmodel and set the output format to :mcmcchain.
+
   stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
     output_format=:mcmcchain)
+
+# Make 10 cmdstan runs using 1,2, 4 .. 215 data points to compare hpd regions
 
   hpd_array = Vector{MCMCChain.ChainSummary}(undef, 10)
   
@@ -39,12 +52,14 @@ cd(ProjDir) do
     #k2 = Int.(6 * ones(Int, N2))
     k2 = rand(d, N2)
 
+# Input data for cmdstan
+
     binomialdata = [
       Dict("N" => length(n2), "n" => n2, "k" => k2)
     ]
 
+# Sample using cmdstan
  
-    global df
     rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
       CmdStanDir=CMDSTAN_HOME)
 
@@ -69,4 +84,5 @@ cd(ProjDir) do
     describe(chn)
     hpd_array[j+1] = MCMCChain.hpd(chn)
   end
+  
 end # cd

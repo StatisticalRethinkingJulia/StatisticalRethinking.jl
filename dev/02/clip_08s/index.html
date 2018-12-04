@@ -1,11 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip_08s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../">Home</a></li><li><span class="toctext">Chapter 0</span><ul><li><a class="toctext" href="../../00/clip_01_03/"><code>clip_01_03</code></a></li><li><a class="toctext" href="../../00/clip_04_05/"><code>clip_04_04</code></a></li></ul></li><li><span class="toctext">Chapter 2</span><ul><li><a class="toctext" href="../clip_01_02/"><code>clip_01_02</code></a></li><li><a class="toctext" href="../clip_03_05/"><code>clip_03_05</code></a></li><li><a class="toctext" href="../clip_06_07/"><code>clip_06_07</code></a></li><li><a class="toctext" href="../clip_08t/"><code>clip_08t</code></a></li><li class="current"><a class="toctext" href><code>clip_08s</code></a><ul class="internal"></ul></li></ul></li><li><span class="toctext">Chapter 3</span><ul><li><a class="toctext" href="../../03/clip_01/"><code>clip_01</code></a></li><li><a class="toctext" href="../../03/clip_02/"><code>clip_02</code></a></li></ul></li><li><span class="toctext">Chapter 4</span><ul><li><a class="toctext" href="../../04/clip_01_07/"><code>clip_01_07</code></a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 2</li><li><a href><code>clip_08s</code></a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip_08s</span><a class="fa fa-bars" href="#"></a></div></header><pre><code class="language-">using CmdStan, StanMCMCChain, Distributions, Statistics, StatPlots, Plots
-gr(size=(500,800))
-
-ProjDir = @__DIR__
-cd(ProjDir) do
-
-  binomialstanmodel = &quot;
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip_08s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../">Home</a></li><li><span class="toctext">Chapter 0</span><ul><li><a class="toctext" href="../../00/clip_01_03/"><code>clip_01_03</code></a></li><li><a class="toctext" href="../../00/clip_04_05/"><code>clip_04_04</code></a></li></ul></li><li><span class="toctext">Chapter 2</span><ul><li><a class="toctext" href="../clip_01_02/"><code>clip_01_02</code></a></li><li><a class="toctext" href="../clip_03_05/"><code>clip_03_05</code></a></li><li><a class="toctext" href="../clip_06_07/"><code>clip_06_07</code></a></li><li><a class="toctext" href="../clip_08t/"><code>clip_08t</code></a></li><li class="current"><a class="toctext" href><code>clip_08s</code></a><ul class="internal"></ul></li></ul></li><li><span class="toctext">Chapter 3</span><ul><li><a class="toctext" href="../../03/clip_01/"><code>clip_01</code></a></li><li><a class="toctext" href="../../03/clip_02/"><code>clip_02</code></a></li></ul></li><li><span class="toctext">Chapter 4</span><ul><li><a class="toctext" href="../../04/clip_01_07/"><code>clip_01_07</code></a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 2</li><li><a href><code>clip_08s</code></a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip_08s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed</p><pre><code class="language-">using CmdStan, StanMCMCChain, Distributions, Statistics, StatPlots, Plots
+gr(size=(500,800))</code></pre><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = @__DIR__
+cd(ProjDir) do</code></pre></div><p>Define the Stan language model</p><div><pre><code class="language-julia">  binomialstanmodel = &quot;
   // Inferring a Rate
   data {
     int N;
@@ -24,13 +20,8 @@ cd(ProjDir) do
     // Observed Counts
     k ~ binomial(n, theta);
   }
-  &quot;
-
-  global stanmodel, chn, sim, binomialdata, hpd_array
-  stanmodel = Stanmodel(name=&quot;binomial&quot;, monitors = [&quot;theta&quot;], model=binomialstanmodel,
-    output_format=:mcmcchain)
-
-  hpd_array = Vector{MCMCChain.ChainSummary}(undef, 10)
+  &quot;</code></pre></div><p>Make variables visible outisde the do loop</p><div><pre><code class="language-julia">  global stanmodel, chn, sim, binomialdata, hpd_array</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchain.</p><div><pre><code class="language-julia">  stanmodel = Stanmodel(name=&quot;binomial&quot;, monitors = [&quot;theta&quot;], model=binomialstanmodel,
+    output_format=:mcmcchain)</code></pre></div><p>Make 10 cmdstan runs using 1,2, 4 .. 215 data points to compare hpd regions</p><div><pre><code class="language-julia">  hpd_array = Vector{MCMCChain.ChainSummary}(undef, 10)
 
   for j in 0:9
 
@@ -38,15 +29,9 @@ cd(ProjDir) do
     d = Binomial(9, 0.66)
     n2 = Int.(9 * ones(Int, N2))
     #k2 = Int.(6 * ones(Int, N2))
-    k2 = rand(d, N2)
-
-    binomialdata = [
+    k2 = rand(d, N2)</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">    binomialdata = [
       Dict(&quot;N&quot; =&gt; length(n2), &quot;n&quot; =&gt; n2, &quot;k&quot; =&gt; k2)
-    ]
-
-
-    global df
-    rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
+    ]</code></pre></div><p>Sample using cmdstan</p><pre><code class="language-">    rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
       CmdStanDir=CMDSTAN_HOME)
 
     if rc == 0
@@ -69,4 +54,5 @@ cd(ProjDir) do
     describe(chn)
     hpd_array[j+1] = MCMCChain.hpd(chn)
   end
+
 end # cd</code></pre><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip_08t/"><span class="direction">Previous</span><span class="title"><code>clip_08t</code></span></a><a class="next" href="../../03/clip_01/"><span class="direction">Next</span><span class="title"><code>clip_01</code></span></a></footer></article></body></html>

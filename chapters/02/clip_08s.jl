@@ -86,3 +86,7 @@ cd(ProjDir) do
   end
   
 end # cd
+
+# Show the hpd intervals
+
+hpd_array

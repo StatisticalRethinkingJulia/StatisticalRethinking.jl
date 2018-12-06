@@ -1,12 +1,12 @@
 using StatisticalRethinking
 
-# Can't really set a U[-Inf,Inf] on \sigma AFAICT so this will not be 1:1 w/ Rethinking
+# Can't really set a U[-Inf,Inf] on \sigma AFAICT so this will not be 1:1
+# w/ Rethinking
 @model m8_4(y) = begin
-    N = length(y)
     α₁ ~ Uniform(-Inf, Inf)
     α₂ ~ Uniform(-Inf, Inf)
     σ ~ Truncated(Cauchy(0,1), 0, Inf)
-    
+
     for i ∈ 1:length(y)
         y[i] ~ Normal(α₁ + α₂, σ)
     end

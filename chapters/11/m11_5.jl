@@ -22,7 +22,7 @@ size(d) # Should be 12x5
         alpha = prob * θ
         beta = (1 - prob) * θ
 
-        admit[i] ~ BetaBinomial(N, alpha, beta)
+        applications[i] ~ BetaBinomial(N, alpha, beta)
     end
 end
 

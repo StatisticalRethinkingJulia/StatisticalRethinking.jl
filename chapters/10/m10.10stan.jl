@@ -21,8 +21,8 @@ d[:contact_high] = map(x -> ifelse(x=="high", 1, 0), d[:contact])
     βpc ~ Normal(0, 1)
 
     for i ∈ 1:length(total_tools)
-        λ = logistic(α + βp*log_pop[i] + βc*contact_high[i] +
-            βpc*contact_high[i]*log_pop[i]) #should be exp()?
+        λ = exp(α + βp*log_pop[i] + βc*contact_high[i] +
+            βpc*contact_high[i]*log_pop[i])
         total_tools[i] ~ Poisson(λ)
     end
 end

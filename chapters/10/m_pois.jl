@@ -1,6 +1,5 @@
 using StatisticalRethinking
 using Turing
-using StatsFuns #logistic
 
 Turing.setadbackend(:reverse_diff)
 
@@ -9,10 +8,7 @@ d = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data",
 size(d) # Should be 12x5
 
 # Change male/female to 1/0
-d[:admit] = map(x -> ifelse(x=="male", 1, 0), d[:admit])
-
-# reject is a keyword
-#rename!(d, :reject => :rej)
+d[:applicant_gender] = map(x -> ifelse(x=="male", 1, 0), d[:applicant_gender])
 
 @model m_pois(admit, reject) = begin
    α₁ ~ Normal(0,100)
@@ -28,3 +24,9 @@ end
 
 posterior = sample(m_pois(d[:admit], d[:reject]), Turing.NUTS(2000, 1000, 0.95))
 describe(posterior)
+
+
+# Rethinking
+#    mean   sd 5.5% 94.5% n_eff Rhat
+# a1 4.99 0.02 4.95  5.02  2201    1
+# a2 5.44 0.02 5.41  5.47  2468    1

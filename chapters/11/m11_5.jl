@@ -8,28 +8,25 @@ d = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data",
     "UCBadmit.csv"), delim=';')
 size(d) # Should be 12x5
 
-# Change male/female to 1/0
-d[:admit] = map(x -> ifelse(x=="male", 1, 0), d[:admit])
-
-@model m11_5(admit, applications) = begin
-    N=length(admit)
+@model m11_5(applications) = begin
+    N=length(applications)
     θ ~ Truncated(Exponential(1), 0, Inf)
     α ~ Normal(0,2)
 
     for i ∈ 1:N
         prob = logistic(α)
 
-        # alpha and beta for the distribution must be provided
+        # alpha and beta for the BetaBinomial must be provided.
         # The two parameterizations are related by
         # alpha = prob * theta, beta = (1-prob) * theta.
         alpha = prob * θ
-        beta = (1-prob) * θ
+        beta = (1 - prob) * θ
 
         admit[i] ~ BetaBinomial(N, alpha, beta)
     end
 end
 
-posterior = sample(m11_5(d[:admit], d[:applications]), Turing.NUTS(4000, 1000, 0.95))
+posterior = sample(m11_5(d[:applications]), Turing.NUTS(4000, 1000, 0.95))
 describe(posterior)
 #             Mean          SD        Naive SE       MCSE        ESS
 #        α  -2.168236419  0.478131458 0.0075599221 0.048595163   96.807399

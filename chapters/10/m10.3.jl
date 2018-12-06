@@ -12,8 +12,8 @@ size(d) # Should be 504x8
     βpC ~ Normal(0, 10)
 
     for i ∈ 1:length(y)
-        p = α + (βp + βpC * x₁[i]) * x₂[i]
-        y[i] ~ Binomial(1, logistic(p))
+        p = logistic(α + (βp + βpC * x₁[i]) * x₂[i])
+        y[i] ~ Binomial(1, p)
     end
 end
 

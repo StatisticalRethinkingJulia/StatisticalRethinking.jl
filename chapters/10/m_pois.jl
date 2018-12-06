@@ -7,9 +7,6 @@ d = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data",
     "UCBadmit.csv"), delim=';')
 size(d) # Should be 12x5
 
-# Change male/female to 1/0
-d[:applicant_gender] = map(x -> ifelse(x=="male", 1, 0), d[:applicant_gender])
-
 @model m_pois(admit, reject) = begin
    α₁ ~ Normal(0,100)
    α₂ ~ Normal(0,100)

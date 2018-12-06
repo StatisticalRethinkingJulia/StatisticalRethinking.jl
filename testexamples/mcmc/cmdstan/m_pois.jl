@@ -9,7 +9,7 @@ d = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data",
 size(d) # Should be 12x5
 
 # Change male/female to 1/0
-d[:admit] = map(x -> ifelse(x=="male", 1, 0), d[:admit])
+d[:gender] = map(x -> ifelse(x=="male", 1, 0), d[:gender])
 
 # reject is a keyword
 rename!(d, :reject => :rej)

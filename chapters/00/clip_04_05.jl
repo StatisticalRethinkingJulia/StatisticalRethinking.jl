@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking
+using StatisticalRethinking, GLM
 gr(size=(300, 300))
 
 # ### snippet 0.4

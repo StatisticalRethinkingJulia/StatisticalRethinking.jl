@@ -1,3 +1,5 @@
+using Turing, Flux.Tracker, Optim
+
 """
 
 # maximum_a_posterior 

@@ -1,5 +1,5 @@
 using StatisticalRethinking
-using Turing
+#using Turing
 using StatsFuns #logistic
 
 Turing.setadbackend(:reverse_diff)

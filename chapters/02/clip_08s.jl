@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed
 
-using CmdStan, StanMCMCChain, Distributions, Statistics, StatPlots, Plots
+using CmdStan, StanMCMCChain, MCMCChain, Distributions, Statistics, StatPlots, Plots
 gr(size=(500,800))
 
 # CmdStan uses a tmp directory to store the output of cmdstan
@@ -40,13 +40,13 @@ cd(ProjDir) do
   stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
     output_format=:mcmcchain)
 
-# Make 10 cmdstan runs using 1,2, 4 .. 215 data points to compare hpd regions
+# Make 5 cmdstan runs using 1, 4, 16, 64 and 256 data points to compare hpd regions
 
-  hpd_array = Vector{MCMCChain.ChainSummary}(undef, 10)
+  hpd_array = Vector{MCMCChain.ChainSummary}(undef, 5)
   
-  for j in 0:9
+  for j in 0:4
  
-    N2 = 2^j
+    N2 = 4^j
     d = Binomial(9, 0.66)
     n2 = Int.(9 * ones(Int, N2))
     #k2 = Int.(6 * ones(Int, N2))

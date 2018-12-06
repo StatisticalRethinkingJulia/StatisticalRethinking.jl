@@ -1,6 +1,7 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking
+#using StatsFuns, Optim, Turing, Flux.Tracker
 gr(size=(600,300)) #src
 
 # ### snippet 2.6t

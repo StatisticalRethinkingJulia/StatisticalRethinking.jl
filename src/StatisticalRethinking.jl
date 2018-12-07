@@ -5,7 +5,7 @@ using Reexport
 @reexport using Distributions, RDatasets, DataFrames, StatsBase
 @reexport using Plots, StatPlots, MCMCChain
 @reexport using CSV, DelimitedFiles
-@reexport using Turing
+@reexport using Turing, StatsFuns
 
 include("maximum_a_posteriori.jl")
 

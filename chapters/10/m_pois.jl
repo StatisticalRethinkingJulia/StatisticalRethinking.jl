@@ -21,6 +21,8 @@ end
 
 posterior = sample(m_pois(d[:admit], d[:reject]), Turing.NUTS(2000, 1000, 0.95))
 describe(posterior)
+# ERROR: MethodError: no method matching logpdf(::Poisson{Float64}, ::String)
+# https://github.com/TuringLang/Turing.jl/issues/615
 
 
 # Rethinking

@@ -7,7 +7,7 @@ gr(size=(500,800))
 # CmdStan uses a tmp directory to store the output of cmdstan
 
 ProjDir = @__DIR__
-cd(ProjDir) #do
+cd(ProjDir) do
 
 # Define the Stan language model
 

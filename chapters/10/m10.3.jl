@@ -23,8 +23,8 @@ describe(posterior)
 #     Empirical Posterior Estimates:
 #              Mean           SD        Naive SE       MCSE         ESS
 # α           0.053228176  0.148432403 0.0033190494 0.0072162528  423.091170
-# βpC        -0.074156932  0.278219321 0.0062211731 0.0279932431   98.779800
 # βp          0.604297351  0.241527734 0.0054007243 0.0212696753  128.947312
+# βpC        -0.074156932  0.278219321 0.0062211731 0.0279932431   98.779800
 
 #StatisticalRethinking
 #      Mean StdDev lower 0.89 upper 0.89 n_eff Rhat

@@ -1,6 +1,5 @@
 using StatisticalRethinking
 using Turing
-using StatsFuns #logistic
 
 Turing.setadbackend(:reverse_diff)
 
@@ -18,7 +17,7 @@ size(d) # Should be 12x5
 
         # alpha and beta for the BetaBinomial must be provided.
         # The two parameterizations are related by
-        # alpha = prob * theta, beta = (1-prob) * theta.
+        # alpha = prob * theta, and beta = (1-prob) * theta.
         alpha = prob * θ
         beta = (1 - prob) * θ
 

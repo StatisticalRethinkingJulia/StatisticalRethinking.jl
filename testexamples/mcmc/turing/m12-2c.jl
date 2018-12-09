@@ -29,7 +29,7 @@ d[:tank] = 1:size(d,1)
     surv ~ VecBinomialLogit(density, logitp)
 end
 
-posteriorb = sample(m12_2b(Vector{Int}(d[:density]), d[:tank], Vector{Int}(d[:surv])),
+posteriorc = sample(m12_2b(Vector{Int}(d[:density]), d[:tank], Vector{Int}(d[:surv])),
     Turing.HMC(4000, 0.05, 20))
 
 describe(posteriorc)

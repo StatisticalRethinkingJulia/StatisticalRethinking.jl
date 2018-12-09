@@ -18,6 +18,7 @@ size(d) # Should be 12x5
         # alpha and beta for the BetaBinomial must be provided.
         # The two parameterizations are related by
         # alpha = prob * theta, and beta = (1-prob) * theta.
+        # See https://github.com/rmcelreath/rethinking/blob/master/man/dbetabinom.Rd
         alpha = prob * θ
         beta = (1 - prob) * θ
 
@@ -25,11 +26,9 @@ size(d) # Should be 12x5
     end
 end
 
+# Here Turing hangs atm 2018-12-09
 posterior = sample(m11_5(d[:applications]), Turing.NUTS(4000, 1000, 0.95))
 describe(posterior)
-#             Mean          SD        Naive SE       MCSE        ESS
-#        α  -2.168236419  0.478131458 0.0075599221 0.048595163   96.807399
-#        θ   3.150233868  1.599696366 0.0252934204 0.149353822  114.720871
 
 # Rethinking
 #        mean   sd  5.5% 94.5% n_eff Rhat

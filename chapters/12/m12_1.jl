@@ -25,7 +25,7 @@ d[:tank] = 1:size(d,1)
     surv ~ VecBinomialLogit(density, logitp)
 end
 
-posterior = sample(m12_1(Vector{Int64}(d[:density]), d[:tank],
+posterior = sample(m12_1(Vector{Int64}(d[:density]), Vector{Int64}(d[:tank]),
     Vector{Int64}(d[:surv])), Turing.NUTS(4000, 1000, 0.8))
 describe(posterior)
 #                 Mean           SD         Naive SE       MCSE         ESS

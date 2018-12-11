@@ -249,19 +249,51 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "03/clip_02/#",
-    "page": "clip_02",
-    "title": "clip_02",
+    "location": "03/clip_02_05/#",
+    "page": "clip_02_05",
+    "title": "clip_02_05",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/03/clip_02.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\ngr(size=(600,300))"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/03/clip_02_05.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\ngr(size=(600,300))"
 },
 
 {
-    "location": "03/clip_02/#snippet-3.2-1",
-    "page": "clip_02",
+    "location": "03/clip_02_05/#snippet-3.2-1",
+    "page": "clip_02_05",
     "title": "snippet 3.2",
     "category": "section",
-    "text": "Grid of 1001 stepsp_grid = range(0, step=0.001, stop=1)all priors = 1.0prior = ones(length(p_grid))Binomial pdflikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]As Uniform priar has been used, unstandardized posterior is equal to likelihoodposterior = likelihood .* priorScale posterior such that they become probabilitiesposterior = posterior / sum(posterior)Sample using the computed posterior values as weightsIn this example we keep the number of samples equal to the length of p_grid, but that is not required.N = 10000\nsamples = sample(p_grid, Weights(posterior), N)\nfitnormal= fit_mle(Normal, samples)Create a vector to hold the plots so we can later combine themp = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)\np[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")Analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = density(samples, ylim=(0.0, 5.0), lab=\"Sample density\")\np[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")Add quadratic approximationplot!( p[2], x, pdf.(Normal( fitnormal.μ, fitnormal.σ ) , x ), lab=\"Normal approximation\")\nplot(p..., layout=(1, 2))This page was generated using Literate.jl."
+    "text": "Grid of 1001 stepsp_grid = range(0, step=0.001, stop=1)all priors = 1.0prior = ones(length(p_grid))Binomial pdflikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]As Uniform priar has been used, unstandardized posterior is equal to likelihoodposterior = likelihood .* priorScale posterior such that they become probabilitiesposterior = posterior / sum(posterior)"
+},
+
+{
+    "location": "03/clip_02_05/#snippet-3.3-1",
+    "page": "clip_02_05",
+    "title": "snippet 3.3",
+    "category": "section",
+    "text": "Sample using the computed posterior values as weightsIn this example we keep the number of samples equal to the length of p_grid, but that is not required.N = 10000\nsamples = sample(p_grid, Weights(posterior), N)\nfitnormal= fit_mle(Normal, samples)"
+},
+
+{
+    "location": "03/clip_02_05/#snippet-3.4-1",
+    "page": "clip_02_05",
+    "title": "snippet 3.4",
+    "category": "section",
+    "text": "Create a vector to hold the plots so we can later combine themp = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)\np[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")"
+},
+
+{
+    "location": "03/clip_02_05/#snippet-3.5-1",
+    "page": "clip_02_05",
+    "title": "snippet 3.5",
+    "category": "section",
+    "text": "Analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = density(samples, ylim=(0.0, 5.0), lab=\"Sample density\")\np[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")Add quadratic approximationplot!( p[2], x, pdf.(Normal( fitnormal.μ, fitnormal.σ ) , x ), lab=\"Normal approximation\")\nplot(p..., layout=(1, 2))This page was generated using Literate.jl."
+},
+
+{
+    "location": "03/clip_05s/#",
+    "page": "clip_05s",
+    "title": "clip_05s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/03/clip_05s.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking\ngr(size=(500,800))CmdStan uses a tmp directory to store the output of cmdstanProjDir = @__DIR__\ncd(ProjDir) doDefine the Stan language model  binomialstanmodel = \"\n  // Inferring a Rate\n  data {\n    int N;\n    int<lower=0> k[N];\n    int<lower=1> n[N];\n  }\n  parameters {\n    real<lower=0,upper=1> theta;\n    real<lower=0,upper=1> thetaprior;\n  }\n  model {\n    // Prior Distribution for Rate Theta\n    theta ~ beta(1, 1);\n    thetaprior ~ beta(1, 1);\n\n    // Observed Counts\n    k ~ binomial(n, theta);\n  }\n  \"Make variables visible outisde the do loop  global stanmodel, chn, sim, binomialdataDefine the Stanmodel and set the output format to :mcmcchain.  stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n    output_format=:mcmcchain)Use 16 observations    N2 = 4^2\n    d = Binomial(9, 0.66)\n    n2 = Int.(9 * ones(Int, N2))\n    k2 = rand(d, N2)Input data for cmdstan    binomialdata = [\n      Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2)\n    ]Sample using cmdstan    rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n      CmdStanDir=CMDSTAN_HOME)Describe the draws    describe(chn)Plot the 4 chains    if rc == 0\n      plot(chn)\n    end\n\nend # cdThis page was generated using Literate.jl."
 },
 
 {

@@ -77,5 +77,16 @@ rc, chn, cnames = stan(stanmodel, m12_2_data, ProjDir, diagnostics=false,
 
 describe(chn)  
 
+JLD.save("chn.jld", 
+  "range", chn.range, 
+  "a3d", chn.value,
+  "names", chn.names, 
+  "chains", chn.chains)
+    
+d = JLD.load(joinpath(ProjDir, "chn.jld"))
+
+chn2 = MCMCChain.Chains(d["a3d"], names=d["names"])
+describe(chn) 
+
 end # cd
 

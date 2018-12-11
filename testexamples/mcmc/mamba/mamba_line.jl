@@ -52,3 +52,17 @@ setsamplers!(model, scheme)
 ## MCMC Simulation with Approximate Bayesian Computation
 sim = mcmc(model, line, inits, 10000, burnin=1000, chains=3)
 describe(sim)
+
+ProjDir = @__DIR__
+cd(ProjDir) do
+  
+  save("sim.jld", 
+    "range", sim.range, 
+    "values", sim.value,
+    "names", sim.names, 
+    "chains", sim.chains)
+    
+end
+
+d = load(joinpath(ProjDir, "sim.jld"))
+

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip_08s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../">Home</a></li><li><span class="toctext">Chapter 0</span><ul><li><a class="toctext" href="../../00/clip_01_03/"><code>clip_01_03</code></a></li><li><a class="toctext" href="../../00/clip_04_05/"><code>clip_04_04</code></a></li></ul></li><li><span class="toctext">Chapter 2</span><ul><li><a class="toctext" href="../clip_01_02/"><code>clip_01_02</code></a></li><li><a class="toctext" href="../clip_03_05/"><code>clip_03_05</code></a></li><li><a class="toctext" href="../clip_06_07/"><code>clip_06_07</code></a></li><li><a class="toctext" href="../clip_08t/"><code>clip_08t</code></a></li><li class="current"><a class="toctext" href><code>clip_08s</code></a><ul class="internal"></ul></li></ul></li><li><span class="toctext">Chapter 3</span><ul><li><a class="toctext" href="../../03/clip_01/"><code>clip_01</code></a></li><li><a class="toctext" href="../../03/clip_02/"><code>clip_02</code></a></li></ul></li><li><span class="toctext">Chapter 4</span><ul><li><a class="toctext" href="../../04/clip_01_06/"><code>clip_01_06</code></a></li><li><a class="toctext" href="../../04/clip_07_07/"><code>clip_07_07</code></a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 2</li><li><a href><code>clip_08s</code></a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip_08s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed</p><pre><code class="language-">using CmdStan, StanMCMCChain, MCMCChain, Distributions, Statistics, StatPlots, Plots
-gr(size=(500,800))</code></pre><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = @__DIR__
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip_08s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../">Home</a></li><li><span class="toctext">Chapter 0</span><ul><li><a class="toctext" href="../../00/clip_01_03/"><code>clip_01_03</code></a></li><li><a class="toctext" href="../../00/clip_04_05/"><code>clip_04_04</code></a></li></ul></li><li><span class="toctext">Chapter 2</span><ul><li><a class="toctext" href="../clip_01_02/"><code>clip_01_02</code></a></li><li><a class="toctext" href="../clip_03_05/"><code>clip_03_05</code></a></li><li><a class="toctext" href="../clip_06_07/"><code>clip_06_07</code></a></li><li><a class="toctext" href="../clip_08t/"><code>clip_08t</code></a></li><li class="current"><a class="toctext" href><code>clip_08s</code></a><ul class="internal"></ul></li></ul></li><li><span class="toctext">Chapter 3</span><ul><li><a class="toctext" href="../../03/clip_01/"><code>clip_01</code></a></li><li><a class="toctext" href="../../03/clip_02/"><code>clip_02</code></a></li></ul></li><li><span class="toctext">Chapter 4</span><ul><li><a class="toctext" href="../../04/clip_01_06/"><code>clip_01_06</code></a></li><li><a class="toctext" href="../../04/clip_07_07/"><code>clip_07_07</code></a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 2</li><li><a href><code>clip_08s</code></a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip_08s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed</p><div><pre><code class="language-julia">#using CmdStan, StanMCMCChain, MCMCChain, Distributions, Statistics, StatPlots, Plots
+using StatisticalRethinking
+gr(size=(500,800))</code></pre><pre><code class="language-none">Plots.GRBackend()</code></pre></div><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = @__DIR__
 cd(ProjDir) do</code></pre></div><p>Define the Stan language model</p><div><pre><code class="language-julia">  binomialstanmodel = &quot;
   // Inferring a Rate
   data {
@@ -31,7 +32,7 @@ cd(ProjDir) do</code></pre></div><p>Define the Stan language model</p><div><pre>
     #k2 = Int.(6 * ones(Int, N2))
     k2 = rand(d, N2)</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">    binomialdata = [
       Dict(&quot;N&quot; =&gt; length(n2), &quot;n&quot; =&gt; n2, &quot;k&quot; =&gt; k2)
-    ]</code></pre></div><p>Sample using cmdstan</p><pre><code class="language-">    rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
+    ]</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">    rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
       CmdStanDir=CMDSTAN_HOME)
 
     if rc == 0
@@ -55,4 +56,280 @@ cd(ProjDir) do</code></pre></div><p>Define the Stan language model</p><div><pre>
     hpd_array[j+1] = MCMCChain.hpd(chn)
   end
 
-end # cd</code></pre><p>Show the hpd intervals</p><pre><code class="language-">hpd_array#-</code></pre><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip_08t/"><span class="direction">Previous</span><span class="title"><code>clip_08t</code></span></a><a class="next" href="../../03/clip_01/"><span class="direction">Next</span><span class="title"><code>clip_01</code></span></a></footer></article></body></html>
+end # cd</code></pre><pre><code class="language-none">=====&gt; /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02
+
+
+File /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.stan will be updated.
+
+
+
+--- Translating Stan model to C++ code ---
+bin/stanc  /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.stan --o=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.hpp
+Model name=binomial_model
+Input file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.stan
+Output file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.hpp
+Compiling pre-compiled header
+g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe  -c -O3 stan/src/stan/model/model_header.hpp -o stan/src/stan/model/model_header.hpp.gch
+
+--- Linking C++ model ---
+g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial -include /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a
+
+Length of data array is not equal to nchains,
+all chains will use the first data dictionary.
+
+Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
+
+Inference for Stan model: binomial_model
+4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
+
+Warmup took (0.014, 0.018, 0.018, 0.018) seconds, 0.069 seconds total
+Sampling took (0.024, 0.028, 0.025, 0.029) seconds, 0.11 seconds total
+
+                Mean     MCSE  StdDev     5%   50%   95%    N_Eff  N_Eff/s    R_hat
+lp__            -9.0  2.8e-02     1.1    -11  -8.7  -7.9  1.6e+03  1.5e+04  1.0e+00
+accept_stat__   0.89  2.2e-03    0.15   0.57  0.95   1.0  4.6e+03  4.3e+04  1.0e+00
+stepsize__      0.90  1.0e-02   0.015   0.88  0.90  0.92  2.0e+00  1.9e+01  7.1e+12
+treedepth__      1.9  9.9e-03    0.54    1.0   2.0   3.0  3.0e+03  2.8e+04  1.0e+00
+n_leapfrog__     3.7  7.5e-02     3.1    1.0   3.0   7.0  1.7e+03  1.6e+04  1.0e+00
+divergent__     0.00     -nan    0.00   0.00  0.00  0.00     -nan     -nan     -nan
+energy__          10  3.9e-02     1.5    8.3   9.7    13  1.5e+03  1.4e+04  1.0e+00
+theta           0.73  2.2e-03    0.13   0.50  0.74  0.91  3.4e+03  3.2e+04  1.0e+00
+thetaprior      0.51  4.6e-03    0.30  0.051  0.52  0.95  4.1e+03  3.8e+04  1.0e+00
+
+Samples were drawn using hmc with nuts.
+For each parameter, N_Eff is a crude measure of effective sample size,
+and R_hat is the potential scale reduction factor on split chains (at
+convergence, R_hat=1).
+
+
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.7263530050000013, σ=0.12407785029408337)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.7254591160000002, σ=0.1252444877716004)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.7290284770000001, σ=0.1318506445559803)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.7348582919999996, σ=0.1274721106826146)
+
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+         Mean        SD       Naive SE       MCSE      ESS
+theta 0.72892472 0.12726475 0.0020122324 0.0021803158 1000
+
+Quantiles:
+         2.5%      25.0%     50.0%     75.0%     97.5%
+theta 0.4461805 0.64678325 0.743114 0.82511425 0.9317386
+
+
+make: `/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial&#39; is up to date.
+
+Length of data array is not equal to nchains,
+all chains will use the first data dictionary.
+
+Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
+
+Inference for Stan model: binomial_model
+4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
+
+Warmup took (0.011, 0.011, 0.011, 0.011) seconds, 0.045 seconds total
+Sampling took (0.020, 0.018, 0.019, 0.021) seconds, 0.078 seconds total
+
+                Mean     MCSE  StdDev     5%   50%   95%    N_Eff  N_Eff/s    R_hat
+lp__             -27  2.7e-02     1.1    -29   -27   -26  1.6e+03  2.0e+04  1.0e+00
+accept_stat__   0.92  1.6e-03    0.11   0.70  0.96   1.0  4.7e+03  6.0e+04  1.0e+00
+stepsize__      0.81  2.6e-02   0.037   0.77  0.81  0.87  2.0e+00  2.6e+01  2.2e+13
+treedepth__      2.1  1.3e-02    0.75    1.0   2.0   3.0  3.1e+03  4.0e+04  1.0e+00
+n_leapfrog__     5.3  1.1e-01     6.2    1.0   3.0    15  3.2e+03  4.1e+04  1.0e+00
+divergent__     0.00     -nan    0.00   0.00  0.00  0.00     -nan     -nan     -nan
+energy__          28  3.9e-02     1.5     26    28    31  1.4e+03  1.8e+04  1.0e+00
+theta           0.66  1.4e-03   0.074   0.53  0.66  0.77  2.7e+03  3.5e+04  1.0e+00
+thetaprior      0.50  5.1e-03    0.29  0.048  0.50  0.95  3.2e+03  4.1e+04  1.0e+00
+
+Samples were drawn using hmc with nuts.
+For each parameter, N_Eff is a crude measure of effective sample size,
+and R_hat is the potential scale reduction factor on split chains (at
+convergence, R_hat=1).
+
+
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6540010109999987, σ=0.07190542680857179)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6586703139999994, σ=0.07632599086965985)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6563629529999995, σ=0.07449130813288753)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6606358029999996, σ=0.07228276730171718)
+
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+         Mean        SD       Naive SE       MCSE      ESS
+theta 0.65741752 0.07382405 0.0011672607 0.0010610031 1000
+
+Quantiles:
+         2.5%     25.0%    50.0%    75.0%      97.5%
+theta 0.50583375 0.61036 0.659973 0.7082495 0.79424417
+
+
+make: `/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial&#39; is up to date.
+
+Length of data array is not equal to nchains,
+all chains will use the first data dictionary.
+
+Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
+
+Inference for Stan model: binomial_model
+4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
+
+Warmup took (0.014, 0.016, 0.015, 0.015) seconds, 0.060 seconds total
+Sampling took (0.024, 0.023, 0.022, 0.020) seconds, 0.090 seconds total
+
+                Mean     MCSE  StdDev     5%   50%   95%    N_Eff  N_Eff/s    R_hat
+lp__            -103  3.0e-02     1.1   -105  -103  -102  1.3e+03  1.5e+04  1.0e+00
+accept_stat__   0.92  1.7e-03    0.11   0.67  0.96   1.0  4.7e+03  5.3e+04  1.0e+00
+stepsize__      0.80  3.6e-02   0.051   0.75  0.82  0.88  2.0e+00  2.2e+01  3.6e+13
+treedepth__      2.1  2.8e-02    0.74    1.0   2.0   4.0  7.1e+02  7.9e+03  1.0e+00
+n_leapfrog__     5.1  1.1e-01     5.4    1.0   3.0    15  2.6e+03  2.9e+04  1.0e+00
+divergent__     0.00     -nan    0.00   0.00  0.00  0.00     -nan     -nan     -nan
+energy__         104  4.1e-02     1.5    102   104   107  1.3e+03  1.4e+04  1.0e+00
+theta           0.55  8.1e-04   0.041   0.48  0.55  0.62  2.6e+03  2.9e+04  1.0e+00
+thetaprior      0.50  5.0e-03    0.29  0.053  0.50  0.94  3.2e+03  3.6e+04  1.0e+00
+
+Samples were drawn using hmc with nuts.
+For each parameter, N_Eff is a crude measure of effective sample size,
+and R_hat is the potential scale reduction factor on split chains (at
+convergence, R_hat=1).
+
+
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.5465149310000001, σ=0.04182210941196342)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.5493977110000005, σ=0.042302547378963815)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.5500232580000001, σ=0.041398170660977694)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.5463679429999994, σ=0.03976928622210551)
+
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+        Mean       SD      Naive SE        MCSE      ESS
+theta 0.548076 0.0413721 0.0006541504 0.00076746605 1000
+
+Quantiles:
+         2.5%      25.0%     50.0%     75.0%     97.5%
+theta 0.46626095 0.5201083 0.5480975 0.5759462 0.6307961
+
+
+make: `/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial&#39; is up to date.
+
+Length of data array is not equal to nchains,
+all chains will use the first data dictionary.
+
+Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
+
+Inference for Stan model: binomial_model
+4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
+
+Warmup took (0.029, 0.030, 0.031, 0.030) seconds, 0.12 seconds total
+Sampling took (0.031, 0.026, 0.034, 0.030) seconds, 0.12 seconds total
+
+                Mean     MCSE  StdDev     5%   50%   95%    N_Eff  N_Eff/s    R_hat
+lp__            -380  2.7e-02     1.0   -382  -379  -378  1.5e+03  1.2e+04  1.0e+00
+accept_stat__   0.92  1.6e-03    0.11   0.69  0.97   1.0  4.4e+03  3.6e+04  1.0e+00
+stepsize__      0.79  7.0e-02   0.099   0.69  0.82  0.94  2.0e+00  1.6e+01  6.3e+13
+treedepth__      2.1  7.7e-02    0.64    1.0   2.0   3.0  7.1e+01  5.8e+02  1.0e+00
+n_leapfrog__     4.4  2.9e-01     2.9    1.0   3.0   9.0  9.7e+01  8.0e+02  1.0e+00
+divergent__     0.00     -nan    0.00   0.00  0.00  0.00     -nan     -nan     -nan
+energy__         380  4.0e-02     1.4    379   380   383  1.3e+03  1.0e+04  1.0e+00
+theta           0.64  3.8e-04   0.020   0.61  0.64  0.67  2.7e+03  2.2e+04  1.0e+00
+thetaprior      0.50  4.7e-03    0.29  0.050  0.50  0.95  3.6e+03  3.0e+04  1.0e+00
+
+Samples were drawn using hmc with nuts.
+For each parameter, N_Eff is a crude measure of effective sample size,
+and R_hat is the potential scale reduction factor on split chains (at
+convergence, R_hat=1).
+
+
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6421756699999991, σ=0.018423124089825244)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6414022629999999, σ=0.018821097146708276)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6417026240000001, σ=0.021007318395612134)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.640518774, σ=0.020409283163622467)
+
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+         Mean        SD       Naive SE        MCSE      ESS
+theta 0.6414498 0.019706215 0.0003115826 0.00032076905 1000
+
+Quantiles:
+         2.5%     25.0%     50.0%     75.0%      97.5%
+theta 0.6015415 0.6280835 0.642008 0.65458275 0.67917922
+
+
+make: `/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial&#39; is up to date.
+
+Length of data array is not equal to nchains,
+all chains will use the first data dictionary.
+
+Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
+
+Inference for Stan model: binomial_model
+4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
+
+Warmup took (0.089, 0.091, 0.097, 0.088) seconds, 0.36 seconds total
+Sampling took (0.067, 0.069, 0.050, 0.060) seconds, 0.25 seconds total
+
+                 Mean     MCSE   StdDev     5%    50%    95%    N_Eff  N_Eff/s    R_hat
+lp__            -1490  3.1e-02  1.2e+00  -1493  -1490  -1489  1.4e+03  5.7e+03  1.0e+00
+accept_stat__    0.88  2.2e-03  1.5e-01   0.55   0.94    1.0  4.7e+03  1.9e+04  1.0e+00
+stepsize__       0.86  4.1e-02  5.7e-02   0.79   0.86   0.95  2.0e+00  8.1e+00  4.6e+13
+treedepth__       1.9  3.6e-02  5.9e-01    1.0    2.0    3.0  2.7e+02  1.1e+03  1.0e+00
+n_leapfrog__      3.8  2.9e-01  3.5e+00    1.0    3.0    7.0  1.5e+02  6.0e+02  1.0e+00
+divergent__      0.00     -nan  0.0e+00   0.00   0.00   0.00     -nan     -nan     -nan
+energy__         1491  4.4e-02  1.6e+00   1490   1491   1495  1.2e+03  5.1e+03  1.0e+00
+theta            0.65  1.7e-04  9.9e-03   0.64   0.65   0.67  3.4e+03  1.4e+04  1.0e+00
+thetaprior       0.50  4.7e-03  2.9e-01  0.050   0.50   0.95  3.9e+03  1.6e+04  1.0e+00
+
+Samples were drawn using hmc with nuts.
+For each parameter, N_Eff is a crude measure of effective sample size,
+and R_hat is the potential scale reduction factor on split chains (at
+convergence, R_hat=1).
+
+
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6540095370000002, σ=0.010350676025005851)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6541534079999997, σ=0.009869799917705327)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6530855160000005, σ=0.009614505657689532)
+res = fit_mle(Normal, vals) = Normal{Float64}(μ=0.6534000160000004, σ=0.009856907607142517)
+
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+         Mean         SD       Naive SE        MCSE      ESS
+theta 0.65366212 0.009937414 0.0001571243 0.00013221952 1000
+
+Quantiles:
+         2.5%      25.0%     50.0%    75.0%    97.5%
+theta 0.63417535 0.6469172 0.6536555 0.66018 0.6736052</code></pre></div><p>Show the hpd intervals</p><div><pre><code class="language-julia">hpd_array#-</code></pre><pre><code class="language-none">5-element Array{MCMCChain.ChainSummary,1}:
+       95% Lower 95% Upper
+theta  0.488546  0.956426
+
+
+       95% Lower 95% Upper
+theta  0.508151  0.795982
+
+
+       95% Lower 95% Upper
+theta  0.471149  0.633551
+
+
+       95% Lower 95% Upper
+theta  0.601809  0.679231
+
+
+       95% Lower 95% Upper
+theta  0.634625  0.673925</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip_08t/"><span class="direction">Previous</span><span class="title"><code>clip_08t</code></span></a><a class="next" href="../../03/clip_01/"><span class="direction">Next</span><span class="title"><code>clip_01</code></span></a></footer></article></body></html>

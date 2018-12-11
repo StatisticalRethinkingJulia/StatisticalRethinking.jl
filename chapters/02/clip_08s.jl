@@ -1,6 +1,5 @@
 # Load Julia packages (libraries) needed
 
-#using CmdStan, StanMCMCChain, MCMCChain, Distributions, Statistics, StatPlots, Plots
 using StatisticalRethinking
 gr(size=(500,800))
 
@@ -34,23 +33,18 @@ cd(ProjDir) do
 
 # Make variables visible outisde the do loop
 
-  global stanmodel, chn, sim, binomialdata, hpd_array
+  global stanmodel, chn, sim, binomialdata
   
 # Define the Stanmodel and set the output format to :mcmcchain.
 
   stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
     output_format=:mcmcchain)
 
-# Make 5 cmdstan runs using 1, 4, 16, 64 and 256 data points to compare hpd regions
+# Use 16 observations
 
-  hpd_array = Vector{MCMCChain.ChainSummary}(undef, 5)
-  
-  for j in 0:4
- 
-    N2 = 4^j
+    N2 = 4^2
     d = Binomial(9, 0.66)
     n2 = Int.(9 * ones(Int, N2))
-    #k2 = Int.(6 * ones(Int, N2))
     k2 = rand(d, N2)
 
 # Input data for cmdstan
@@ -64,8 +58,13 @@ cd(ProjDir) do
     rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
       CmdStanDir=CMDSTAN_HOME)
 
+# Describe the draws
+
+    describe(chn)
+
+# Plot the 4 chains
+
     if rc == 0
-      println()
       p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
       x = 0:0.001:1
       for i in 1:4
@@ -77,17 +76,7 @@ cd(ProjDir) do
         plot!(p[i], x, pdf.(Normal(res.μ, res.σ), x), lab="Fitted Normal($μ, $σ)")
       end
       plot(p..., layout=(4, 1))
-      savefig("s2_8_$j.pdf") #src
     end
-  
-    println()
-    display(binomialdata)
-    describe(chn)
-    hpd_array[j+1] = MCMCChain.hpd(chn)
-  end
-  
+
 end # cd
 
-# Show the hpd intervals
-
-hpd_array

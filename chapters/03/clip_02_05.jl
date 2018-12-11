@@ -25,6 +25,8 @@ posterior = likelihood .* prior
 
 posterior = posterior / sum(posterior)
 
+# ### snippet 3.3
+
 # Sample using the computed posterior values as weights
 
 # In this example we keep the number of samples equal to the length of p_grid,
@@ -34,10 +36,14 @@ N = 10000
 samples = sample(p_grid, Weights(posterior), N)
 fitnormal= fit_mle(Normal, samples)
 
+# ### snippet 3.4
+
 # Create a vector to hold the plots so we can later combine them
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
 p[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
+
+# ### snippet 3.5
 
 # Analytical calculation
 

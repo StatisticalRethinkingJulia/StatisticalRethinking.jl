@@ -19,7 +19,7 @@ n = 9
   return k, theta
 end
 
-# Compute the `maximum_a_posteriori` value
+# Compute the "maximum_a_posteriori" value
 
 # Set search bounds
 

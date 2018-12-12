@@ -25,6 +25,8 @@ The intention is that when needed clips with names such as `clip_05_07t.jl`, `cl
 
 Occasionally a clip wil contain just a single snippet and will be refered to as `clip_02.jl`, e.g, in chapters/03
 
+From chapter 8 onwards, the **Turing** versions of the mcmc models are available as e.g. chapters/08/m8.1.jl. Equivalent **CmdStan** versions are in the clip files.
+
 ## Acknowledgements
 
 Richard Torker has taken the lead in developing the Turing versions of the models in chapter 8.

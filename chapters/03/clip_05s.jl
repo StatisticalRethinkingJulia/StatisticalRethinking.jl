@@ -33,7 +33,7 @@ cd(ProjDir) do
 
 # Make variables visible outisde the do loop
 
-  global stanmodel, chn, sim, binomialdata
+  global stanmodel, chn
   
 # Define the Stanmodel and set the output format to :mcmcchain.
 

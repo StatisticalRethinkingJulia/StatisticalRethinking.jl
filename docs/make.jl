@@ -58,8 +58,7 @@ makedocs(root = DOC_ROOT,
         "`clip_01`" => "03/clip_01.md",
         "`clip_02_05`" => "03/clip_02_05.md",
         "`clip_05s`" => "03/clip_05s.md",
-        "`clip_06_08s`" => "03/clip_06_08s.md",
-        "`clip_09_13s`" => "03/clip_09_13s.md",
+        "`clip_06_16s`" => "03/clip_06_16s.md"
       ],
       "Chapter 4" => [
         "`clip_01_06`" => "04/clip_01_06.md"

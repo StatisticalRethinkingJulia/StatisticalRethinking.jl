@@ -42,10 +42,9 @@ cd(ProjDir) do
 
 # Use 16 observations
 
-    N2 = 4^2
-    d = Binomial(9, 0.66)
+    N2 = 4
     n2 = Int.(9 * ones(Int, N2))
-    k2 = rand(d, N2)
+    k2 = [6, 5, 7, 6]
 
 # Input data for cmdstan
 
@@ -62,10 +61,17 @@ cd(ProjDir) do
 
     describe(chn)
 
+# Look at area of hpd
+
+    MCMCChain.hpd(chn)
+
 # Plot the 4 chains
 
     if rc == 0
-      plot(chn)
+      mixeddensity(chn)
+      bnds = MCMCChain.hpd(convert(Vector{Float64}, chn.value[:,1,1]))
+      vline!([bnds[1]], line=:dash)
+      vline!([bnds[2]], line=:dash)
     end
 
 end # cd

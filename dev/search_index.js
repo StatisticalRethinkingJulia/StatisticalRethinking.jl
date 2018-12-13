@@ -381,7 +381,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_07_07",
     "title": "snippet 4.7",
     "category": "section",
-    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1)Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Plot height densitydensity(df2[:height])\n\n#=\n@model heights(h) = begin\n  μ ~ Uniform(100, 200) # prior on μ\n  σ ~ InverseGamma(0.001, 0.001) # prior on σ\n  h ~ Normal(μ, σ) # model\n  return h\nendCreate (compile) the modelmodel = heights(df2[:height])Use Turing mcmcchn = sample(model, Turing.NUTS(1000, 0.65))Look at the generated draws (in chn)println()\ndescribe(chn)\nprintln()\nMCMCChain.hpd(chn[:h], alpha=0.945) |> display\nprintln()\n=#This page was generated using Literate.jl."
+    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1)Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Plot height densitydensity(df2[:height])This page was generated using Literate.jl."
 },
 
 {

@@ -7,6 +7,7 @@ os:
   
 julia:
   - 1.0
+  - 1.1
   #- nightly
   
 notifications:
@@ -36,8 +37,8 @@ jobs:
         - cd $HOME/cmdstan; git checkout v2.18.0; make stan-update; make build
         - export JULIA_CMDSTAN_HOME=$HOME/cmdstan
         - cd $TRAVIS_BUILD_DIR
-        - julia -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
-        - julia --color=yes docs/make.jl
+        - julia --project=docs -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
+        - julia --project=docs --color=yes docs/make.jl
       after_success: skip
 
 # before_script:

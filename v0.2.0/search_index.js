@@ -37,7 +37,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Acknowledgements",
     "category": "section",
-    "text": "Richard Torker has taken the lead in developing the Turing versions of the models in chapter 8.The TuringLang team and #turing contributors on Slack have been extremely helpful!The mcmc components are based on:TuringLang\nStanJuliaCurrentModule = StatisticalRethinking"
+    "text": "Richard Torkar has taken the lead in developing the Turing versions of the models from chapter 8 onwards.The TuringLang team and #turing contributors on Slack have been extremely helpful!The mcmc components are based on:TuringLang\nStanJulia\nMambaCurrentModule = StatisticalRethinking"
 },
 
 {
@@ -229,7 +229,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_08m",
     "title": "clip_08m",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08m.jl\"using Mamba, Gadfly\n#using Distrubuted\n#@everywhere using MambaDataglobe_toss = Dict{Symbol, Any}(\n  :w => [6, 7, 5, 6, 6],\n  :n => [9, 9, 9, 9, 9]\n)\nglobe_toss[:N] = length(globe_toss[:w])Model Specificationmodel = Model(\n  w = Stochastic(1,\n    (n, p, N) ->\n      UnivariateDistribution[Binomial(n[i], p) for i in 1:N],\n    false\n  ),\n  p = Stochastic(() -> Beta(1, 1))\n)Initial Valuesinits = [\n  Dict(:w => globe_toss[:w], :n => globe_toss[:n], :p => 0.5),\n  Dict(:w => globe_toss[:w], :n => globe_toss[:n], :p => rand(Beta(1, 1)))\n]Sampling Schemescheme = [NUTS(:p)]\nsetsamplers!(model, scheme)MCMC Simulationssim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)Describe drawsdescribe(sim)Plot posterior draws and densityplot(sim)#-This page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08m.jl\"using Distributed, Gadfly\n@everywhere using MambaDataglobe_toss = Dict{Symbol, Any}(\n  :w => [6, 7, 5, 6, 6],\n  :n => [9, 9, 9, 9, 9]\n)\nglobe_toss[:N] = length(globe_toss[:w])Model Specificationmodel = Model(\n  w = Stochastic(1,\n    (n, p, N) ->\n      UnivariateDistribution[Binomial(n[i], p) for i in 1:N],\n    false\n  ),\n  p = Stochastic(() -> Beta(1, 1))\n)Initial Valuesinits = [\n  Dict(:w => globe_toss[:w], :n => globe_toss[:n], :p => 0.5),\n  Dict(:w => globe_toss[:w], :n => globe_toss[:n], :p => rand(Beta(1, 1)))\n]Sampling Schemescheme = [NUTS(:p)]\nsetsamplers!(model, scheme)MCMC Simulationssim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)Describe drawsdescribe(sim)Plot posterior draws and densityplot(sim)#-This page was generated using Literate.jl."
 },
 
 {
@@ -373,7 +373,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_07_07",
     "title": "clip_07_07",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/04/clip_07_07.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\ngr(size=(600,300))"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/04/clip_07_07.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, Turing\ngr(size=(600,300))"
 },
 
 {
@@ -381,7 +381,23 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_07_07",
     "title": "snippet 4.7",
     "category": "section",
-    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1)This page was generated using Literate.jl."
+    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1)Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Plot height densitydensity(df2[:height])\n\n#=\n@model heights(h) = begin\n  μ ~ Uniform(100, 200) # prior on μ\n  σ ~ InverseGamma(0.001, 0.001) # prior on σ\n  h ~ Normal(μ, σ) # model\n  return h\nendCreate (compile) the modelmodel = heights(df2[:height])Use Turing mcmcchn = sample(model, Turing.NUTS(1000, 0.65))Look at the generated draws (in chn)println()\ndescribe(chn)\nprintln()\nMCMCChain.hpd(chn[:h], alpha=0.945) |> display\nprintln()\n=#This page was generated using Literate.jl."
+},
+
+{
+    "location": "04/clip_07_07s/#",
+    "page": "clip_07_07s",
+    "title": "clip_07_07s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/04/clip_07_07s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain, MCMCChain, Distributions, Statistics, StatPlots, Plots\ngr(size=(500,800))CmdStan uses a tmp directory to store the output of cmdstanProjDir = @__DIR__\ncd(ProjDir) #do"
+},
+
+{
+    "location": "04/clip_07_07s/#snippet-4.7-1",
+    "page": "clip_07_07s",
+    "title": "snippet 4.7",
+    "category": "section",
+    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1)Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Define the Stan language model  heightsmodel = \"\n  // Inferring a Rate\n  data {\n    int N;\n    real<lower=0> h[N];\n  }\n  parameters {\n    real<lower=0> sigma;\n    real<lower=0,upper=250> mu;\n  }\n  model {\n    // Priors for mu and sigma\n    mu ~ uniform(100, 250);\n    sigma ~ cauchy( 0 , 1 );\n\n    // Observed heights\n    h ~ normal(mu, sigma);\n  }\n  \"Make variables visible outisde the do loop  global stanmodel, chnDefine the Stanmodel and set the output format to :mcmcchain.  stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n    output_format=:mcmcchain)Input data for cmdstan    heightsdata = [\n      Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height])\n    ]Sample using cmdstan    rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n      CmdStanDir=CMDSTAN_HOME)Describe the draws    display(describe(chn))Plot the density of posterior draws    plot(chn)#-This page was generated using Literate.jl."
 },
 
 ]}

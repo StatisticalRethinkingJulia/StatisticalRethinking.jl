@@ -22,7 +22,7 @@ Occasionally a clip contains a single snippet and will be refered to as `clip_02
 
 ## Acknowledgements
 
-Richard Torker has taken the lead in developing the Turing versions of the models in chapter 8.
+Richard Torkar has taken the lead in developing the Turing versions of the models from chapter 8 onwards.
 
 The TuringLang team and #turing contributors on Slack have been extremely helpful!
 
@@ -30,6 +30,7 @@ The mcmc components are based on:
 
 1. [TuringLang](https://github.com/TuringLang)
 2. [StanJulia](https://github.com/StanJulia)
+3. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
 
 
 

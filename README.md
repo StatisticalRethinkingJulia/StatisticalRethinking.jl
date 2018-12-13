@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This package contains the Julia versions of the snippets contained in the R package "rethinking" associated with the book [Statisticasl Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
+This package will contain Julia versions of most snippets contained in the R package "rethinking" associated with the book [Statisticasl Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
 ## Layout of the package
 
@@ -25,7 +25,7 @@ The intention is that when needed clips with names such as `clip_05_07t.jl`, `cl
 
 Occasionally a clip will contain just a single snippet and will be referred to as `clip_02.jl`, e.g, in chapters/03
 
-From chapter 8 onwards, the **Turing** versions of the mcmc models are available as e.g. chapters/08/m8.1.jl. Equivalent **CmdStan** versions are in the clip files.
+From chapter 8 onwards, the **Turing** versions of the mcmc models are available as e.g. chapters/08/m8.1.jl. In a few cases **Mamba** models are provided as well. Equivalent **CmdStan** versions are in the clip files.
 
 ## Acknowledgements
 
@@ -37,6 +37,7 @@ The mcmc components are based on:
 
 1. [TuringLang](https://github.com/TuringLang)
 2. [StanJulia](https://github.com/StanJulia)
+3. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
 
 ## Documentation
 

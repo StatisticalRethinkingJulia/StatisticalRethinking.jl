@@ -23,13 +23,13 @@ These 2 files are in chapters/00. These files are later on processed by Literate
 
 The intention is that when needed clips with names such as `clip_05_07t.jl`, `clip_05_07s.jl` and `clip_05_07m.jl` will show up. These will contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
 
-Occasionally a clip wil contain just a single snippet and will be refered to as `clip_02.jl`, e.g, in chapters/03
+Occasionally a clip will contain just a single snippet and will be referred to as `clip_02.jl`, e.g, in chapters/03
 
 From chapter 8 onwards, the **Turing** versions of the mcmc models are available as e.g. chapters/08/m8.1.jl. Equivalent **CmdStan** versions are in the clip files.
 
 ## Acknowledgements
 
-Richard Torker has taken the lead in developing the Turing versions of the models in chapter 8.
+Richard Torkar has taken the lead in developing the Turing versions of the models in chapter 8.
 
 The TuringLang team and #turing contributors on Slack have been extremely helpful!
 
@@ -45,7 +45,7 @@ The mcmc components are based on:
 
 ## Questions and issues
 
-Question and contributions are very welcome, as are feature requests and suggestions. Please open an [issue][issues-url] if you encounter any problems or have a question. 
+Question and contributions are very welcome, as are feature requests and suggestions. Please open an [issue][issues-url] if you encounter any problems or have a question.
 
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
 [docs-dev-url]: https://stanjulia.github.io/StatisticalRethinking.jl/latest

@@ -62,5 +62,8 @@ df2 = filter(row -> row[:age] >= 18, df)
 
 # Describe the draws
 
-    describe(chn)
+    display(describe(chn))
 
+# Plot the density of posterior draws
+
+    plot(chn)

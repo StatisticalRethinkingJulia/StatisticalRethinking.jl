@@ -20,7 +20,7 @@ cd(ProjDir) do
       end
   end
   
-  chn = sample(line(y, x), NUTS(1000, 0.65))
+  chn = sample(line(y, x), Turing.NUTS(1000, 0.65))
 
   println()
   describe(chn)

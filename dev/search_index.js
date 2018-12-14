@@ -369,35 +369,35 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "04/clip_07_07/#",
-    "page": "clip_07_07",
-    "title": "clip_07_07",
+    "location": "04/clip_07s/#",
+    "page": "clip_07s",
+    "title": "clip_07s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/04/clip_07_07.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, Turing\ngr(size=(600,300))"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/04/clip_07s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,800))CmdStan uses a tmp directory to store the output of cmdstanProjDir = @__DIR__\ncd(ProjDir)"
 },
 
 {
-    "location": "04/clip_07_07/#snippet-4.7-1",
-    "page": "clip_07_07",
+    "location": "04/clip_07s/#snippet-4.7-1",
+    "page": "clip_07s",
     "title": "snippet 4.7",
     "category": "section",
-    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1)Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Plot height densitydensity(df2[:height])This page was generated using Literate.jl."
+    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ normal(178, 20);\n  sigma ~ uniform( 0 , 50 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\"Make variables visible outisde the do loopglobal stanmodel, chnDefine the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain)Input data for cmdstanheightsdata = [\n  Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height])\n]Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME)Describe the drawsdescribe(chn)Plot the density of posterior drawsdensity(chn)This page was generated using Literate.jl."
 },
 
 {
-    "location": "04/clip_07_07s/#",
-    "page": "clip_07_07s",
-    "title": "clip_07_07s",
+    "location": "04/clip_07.1s/#",
+    "page": "clip_07.1s",
+    "title": "clip_07.1s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/04/clip_07_07s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain, MCMCChain, Distributions, Statistics, StatPlots, Plots\ngr(size=(500,800))CmdStan uses a tmp directory to store the output of cmdstanProjDir = @__DIR__\ncd(ProjDir) #do"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/04/clip_07.1s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,800))CmdStan uses a tmp directory to store the output of cmdstanProjDir = @__DIR__\ncd(ProjDir)"
 },
 
 {
-    "location": "04/clip_07_07s/#snippet-4.7-1",
-    "page": "clip_07_07s",
+    "location": "04/clip_07.1s/#snippet-4.7-1",
+    "page": "clip_07.1s",
     "title": "snippet 4.7",
     "category": "section",
-    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1)Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ uniform(100, 250);\n  sigma ~ cauchy( 0 , 1 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\"Make variables visible outisde the do loopglobal stanmodel, chnDefine the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain)Input data for cmdstanheightsdata = [\n  Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height])\n]Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME)Describe the drawsdisplay(describe(chn))Plot the density of posterior drawsdensity(chn)#-This page was generated using Literate.jl."
+    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ uniform(100, 250);\n  sigma ~ cauchy( 0 , 1 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\"Make variables visible outisde the do loopglobal stanmodel, chnDefine the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain)Input data for cmdstanheightsdata = [\n  Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height])\n]Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME)Describe the drawsdescribe(chn)Plot the density of posterior drawsdensity(chn)This page was generated using Literate.jl."
 },
 
 {

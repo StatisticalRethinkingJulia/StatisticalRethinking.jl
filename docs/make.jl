@@ -14,7 +14,7 @@ rel_path(parts...) = normpath(joinpath(src_path, parts...))
 
 DOC_ROOT = rel_path("..", "docs")
 DocDir =  rel_path("..", "docs", "src")
-chapters = ["00", "02", "03", "04"]
+chapters = ["00", "02", "03", "04", "08", "10", "11", "12"]
 
 for chapter in chapters
   ProjDir = rel_path( "..", "chapters", chapter)
@@ -27,6 +27,11 @@ for chapter in chapters
     filelist = readdir()
     for file in filelist
       if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"  
+        
+        isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
+        Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)
+        
+      elseif !isdir(file) && file[1] == 'm' && file[end-2:end] == ".jl"  
         
         isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
         Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)
@@ -65,6 +70,24 @@ makedocs(root = DOC_ROOT,
         "`clip_01_06`" => "04/clip_01_06.md",
         "`clip_07_07`" => "04/clip_07_07.md",
         "`clip_07_07s`" => "04/clip_07_07s.md"
+      ],
+      "Chapter 8" => [
+        "`m8.1.jl`" => "08/m8.1.md",
+        "`m8.2.jl`" => "08/m8.2.md",
+        "`m8.3.jl`" => "08/m8.3.md",
+        "`m8.4.jl`" => "08/m8.4.md"
+      ],
+      "Chapter 10" => [
+        "`m10.3.jl`" => "10/m10.3.md",
+        "`m10.4.jl`" => "10/m10.4.md"
+      ],
+      "Chapter 11" => [
+        "`m11.5.jl`" => "11/m11_5.md"
+      ],
+      "Chapter 12" => [
+        "`m12.1.jl`" => "12/m12_1.md",
+        "`m12.2.jl`" => "12/m12_2.md",
+        "`m12.3.jl`" => "12/m12_3.md"
       ],
     ]
 )

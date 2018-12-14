@@ -20,50 +20,50 @@ df2 = filter(row -> row[:age] >= 18, df)
 
 # Define the Stan language model
 
-  heightsmodel = "
-  // Inferring a Rate
-  data {
-    int N;
-    real<lower=0> h[N];
-  }
-  parameters {
-    real<lower=0> sigma;
-    real<lower=0,upper=250> mu;
-  }
-  model {
-    // Priors for mu and sigma
-    mu ~ uniform(100, 250);
-    sigma ~ cauchy( 0 , 1 );
+heightsmodel = "
+// Inferring a Rate
+data {
+  int N;
+  real<lower=0> h[N];
+}
+parameters {
+  real<lower=0> sigma;
+  real<lower=0,upper=250> mu;
+}
+model {
+  // Priors for mu and sigma
+  mu ~ uniform(100, 250);
+  sigma ~ cauchy( 0 , 1 );
 
-    // Observed heights
-    h ~ normal(mu, sigma);
-  }
-  "
+  // Observed heights
+  h ~ normal(mu, sigma);
+}
+"
 
 # Make variables visible outisde the do loop
 
-  global stanmodel, chn
+global stanmodel, chn
   
 # Define the Stanmodel and set the output format to :mcmcchain.
 
-  stanmodel = Stanmodel(name="heights", monitors = ["mu", "sigma"],model=heightsmodel,
-    output_format=:mcmcchain)
+stanmodel = Stanmodel(name="heights", monitors = ["mu", "sigma"],model=heightsmodel,
+  output_format=:mcmcchain)
 
 # Input data for cmdstan
 
-    heightsdata = [
-      Dict("N" => length(df2[:height]), "h" => df2[:height])
-    ]
+heightsdata = [
+  Dict("N" => length(df2[:height]), "h" => df2[:height])
+]
 
 # Sample using cmdstan
 
-    rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-      CmdStanDir=CMDSTAN_HOME)
+rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
+  CmdStanDir=CMDSTAN_HOME)
 
 # Describe the draws
 
-    display(describe(chn))
+display(describe(chn))
 
 # Plot the density of posterior draws
 
-    plot(chn)
+density(chn)

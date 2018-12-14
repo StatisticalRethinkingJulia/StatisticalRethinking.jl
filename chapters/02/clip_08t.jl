@@ -1,8 +1,10 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking
-#using StatsFuns, Optim, Turing, Flux.Tracker
+using StatsFuns, Optim, Turing, Flux.Tracker
 gr(size=(600,300)) #src
+
+Turing.setadbackend(:reverse_diff)
 
 # ### snippet 2.6t
 

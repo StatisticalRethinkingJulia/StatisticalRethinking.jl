@@ -197,7 +197,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_08t",
     "title": "clip_08t",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08t.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking\n#using StatsFuns, Optim, Turing, Flux.Tracker"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08t.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking\nusing StatsFuns, Optim, Turing, Flux.Tracker\n\nTuring.setadbackend(:reverse_diff)"
 },
 
 {
@@ -397,7 +397,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_07_07s",
     "title": "snippet 4.7",
     "category": "section",
-    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1)Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Define the Stan language model  heightsmodel = \"\n  // Inferring a Rate\n  data {\n    int N;\n    real<lower=0> h[N];\n  }\n  parameters {\n    real<lower=0> sigma;\n    real<lower=0,upper=250> mu;\n  }\n  model {\n    // Priors for mu and sigma\n    mu ~ uniform(100, 250);\n    sigma ~ cauchy( 0 , 1 );\n\n    // Observed heights\n    h ~ normal(mu, sigma);\n  }\n  \"Make variables visible outisde the do loop  global stanmodel, chnDefine the Stanmodel and set the output format to :mcmcchain.  stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n    output_format=:mcmcchain)Input data for cmdstan    heightsdata = [\n      Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height])\n    ]Sample using cmdstan    rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n      CmdStanDir=CMDSTAN_HOME)Describe the draws    display(describe(chn))Plot the density of posterior draws    plot(chn)#-This page was generated using Literate.jl."
+    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1)Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ uniform(100, 250);\n  sigma ~ cauchy( 0 , 1 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\"Make variables visible outisde the do loopglobal stanmodel, chnDefine the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain)Input data for cmdstanheightsdata = [\n  Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height])\n]Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME)Describe the drawsdisplay(describe(chn))Plot the density of posterior drawsdensity(chn)#-This page was generated using Literate.jl."
 },
 
 ]}

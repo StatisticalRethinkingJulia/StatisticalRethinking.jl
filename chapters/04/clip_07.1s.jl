@@ -64,6 +64,32 @@ rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
 
 describe(chn)
 
+# Compare with previous result
+
+clip_07s = "
+
+Samples were drawn using hmc with nuts.
+For each parameter, N_Eff is a crude measure of effective sample size,
+and R_hat is the potential scale reduction factor on split chains (at 
+convergence, R_hat=1).
+
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+          Mean        SD      Naive SE      MCSE      ESS
+sigma   7.7641718 0.3055115 0.004830561 0.0047596714 1000
+   mu 154.6042417 0.4158242 0.006574758 0.0068304868 1000
+
+Quantiles:
+         2.5%       25.0%       50.0%      75.0%      97.5%  
+sigma   7.198721   7.5573575   7.749435   7.960795   8.393317
+   mu 153.795975 154.3307500 154.610000 154.884000 155.391050
+
+"
+
 # Plot the density of posterior draws
 
 density(chn)

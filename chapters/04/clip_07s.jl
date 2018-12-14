@@ -17,6 +17,17 @@ df = convert(DataFrame, howell1);
 # Use only adults
 
 df2 = filter(row -> row[:age] >= 18, df)
+female_df = filter(row -> row[:male] == 0, df2)
+male_df = filter(row -> row[:male] == 1, df2)
+
+# Plot the densities.
+
+density(df2[:height], lab="All heights")
+
+# Is it bi-modal?
+
+density!(female_df[:height], lab="Female heights")
+density!(male_df[:height], lab="Male heights")
 
 # Define the Stan language model
 
@@ -66,4 +77,5 @@ describe(chn)
 
 # Plot the density of posterior draws
 
-density(chn)
+density(chn, lab="All heights")
+

@@ -1,18 +1,18 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
-using CmdStan, StanMCMCChain, MCMCChain, Distributions, Statistics, StatPlots, Plots
+using CmdStan, StanMCMCChain
 gr(size=(500,800))
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
 ProjDir = @__DIR__
-cd(ProjDir) #do
+cd(ProjDir)
 
 # ### snippet 4.7
 
 howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data", "Howell1.csv"), delim=';')
-df = convert(DataFrame, howell1)
+df = convert(DataFrame, howell1);
 
 # Use only adults
 
@@ -62,7 +62,7 @@ rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
 
 # Describe the draws
 
-display(describe(chn))
+describe(chn)
 
 # Plot the density of posterior draws
 

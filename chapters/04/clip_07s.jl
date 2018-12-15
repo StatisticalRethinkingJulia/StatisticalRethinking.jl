@@ -7,7 +7,7 @@ gr(size=(500,800))
 # CmdStan uses a tmp directory to store the output of cmdstan
 
 ProjDir = @__DIR__
-cd(ProjDir)
+cd(ProjDir) do
 
 # ### snippet 4.7
 
@@ -79,3 +79,6 @@ describe(chn)
 
 density(chn, lab="All heights")
 
+# End cd(ProjDir) do loop
+  
+end

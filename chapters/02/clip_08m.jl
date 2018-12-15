@@ -18,7 +18,7 @@ model = Model(
     false
   ),
   p = Stochastic(() -> Beta(1, 1))
-)
+);
 
 # Initial Values
 
@@ -30,7 +30,7 @@ inits = [
 # Sampling Scheme
 
 scheme = [NUTS(:p)]
-setsamplers!(model, scheme)
+setsamplers!(model, scheme);
 
 # MCMC Simulations
 
@@ -39,7 +39,3 @@ sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)
 # Describe draws
 
 describe(sim)
-
-# Plot posterior draws and density
-
-plot(sim)

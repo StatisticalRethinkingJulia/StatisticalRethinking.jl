@@ -1,5 +1,5 @@
 using Distributed, Gadfly
-@everywhere using Mamba
+using Mamba
 
 # Data
 

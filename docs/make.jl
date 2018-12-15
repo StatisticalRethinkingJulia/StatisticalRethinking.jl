@@ -26,21 +26,32 @@ for chapter in chapters
     
     filelist = readdir()
     for file in filelist
+      # Check existance of file
       if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"  
         
-        isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
-        Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)
-        
-      elseif !isdir(file) && file[1] == 'm' && file[end-2:end] == ".jl"  
-        
-        isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
-        Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)
-        
-      end
-    end
-  end
+        # Process CmdStan files
+        if isfile(joinpath(DocDir, file[1:end-4], "t.md"))
+          isfile(joinpath(DocDir, file[1:end-4], "t.md")) && rm(joinpath(DocDir, file[1:end-4], "t.md"))
+          Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
+        # Process Mamba files
+        elseif isfile(joinpath(DocDir, file[1:end-4], "m.md"))
+          isfile(joinpath(DocDir, file[1:end-4], "m.md")) && rm(joinpath(DocDir, file[1:end-4], "m.md"))
+          Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
+        # Process model files files
+        elseif !isdir(file) && file[1] == 'm' && file[end-2:end] == ".jl"          
+          isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
+          Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)
+        # Process all remaining files (neither CmdStan, Turing or Mamba)
+        else        
+          rm(joinpath(DocDir, file[1:end-3], ".md"))
+          Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
+        end
+              
+      end # if !isdir
+    end # for
+  end # cd
   println()
-end
+end # for chapter
 
 makedocs(root = DOC_ROOT,
     modules = Module[],

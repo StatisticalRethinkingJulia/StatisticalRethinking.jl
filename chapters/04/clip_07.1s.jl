@@ -7,7 +7,7 @@ gr(size=(500,800))
 # CmdStan uses a tmp directory to store the output of cmdstan
 
 ProjDir = @__DIR__
-cd(ProjDir)
+cd(ProjDir) do
 
 # ### snippet 4.7
 
@@ -66,7 +66,7 @@ describe(chn)
 
 # Compare with previous result
 
-clip_07s = "
+clip_07s_example_output = "
 
 Samples were drawn using hmc with nuts.
 For each parameter, N_Eff is a crude measure of effective sample size,
@@ -93,3 +93,7 @@ sigma   7.198721   7.5573575   7.749435   7.960795   8.393317
 # Plot the density of posterior draws
 
 density(chn)
+
+# Close cd(ProjDir) do block
+
+end

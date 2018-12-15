@@ -17,7 +17,7 @@ size(d) # Should be 504x8
 
     # Number of unique actors in the data set
     N_actor = length(unique(actor)) #7
-    N_block = length(unique(actor))
+    N_block = length(unique(block))
 
     # Vector of actors (1,..,7) which we'll set priors on
     α_actor = Vector{Real}(undef, N_actor)

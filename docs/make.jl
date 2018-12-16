@@ -30,8 +30,8 @@ for chapter in chapters
       if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"  
         
         # Process CmdStan files
-        if isfile(joinpath(DocDir, file[1:end-4], "t.md"))
-          isfile(joinpath(DocDir, file[1:end-4], "t.md")) && rm(joinpath(DocDir, file[1:end-4], "t.md"))
+        if isfile(joinpath(DocDir, file[1:end-4], "s.md"))
+          isfile(joinpath(DocDir, file[1:end-4], "s.md")) && rm(joinpath(DocDir, file[1:end-4], "s.md"))
           Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
         # Process Mamba files
         elseif isfile(joinpath(DocDir, file[1:end-4], "m.md"))

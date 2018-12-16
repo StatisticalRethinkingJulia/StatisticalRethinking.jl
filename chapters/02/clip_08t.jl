@@ -44,10 +44,9 @@ chn = sample(model, NUTS(1000, 0.65));
 println() #src
 describe(chn[:theta])
 
-# Look at hpd region
+# Compute at hpd region
 println()#src
-MCMCChain.hpd(chn[:theta], alpha=0.945) |> display
-println()#src
+bnds = MCMCChain.hpd(chn[:theta], alpha=0.05);
 
 # analytical calculation
 
@@ -60,6 +59,12 @@ plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), fill=(0, .5,:orange), lab="Conjugate so
 
 plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 
-# Turing Chain
+# Turing Chain &  89%hpd region boundaries
 
 density!(chn[:theta], lab="Turing chain")
+vline!([bnds[1]], line=:dash, lab="hpd lower bound")
+vline!([bnds[2]], line=:dash, lab="hpd upper bound")
+
+# Show hpd region
+
+println("hpd bounds = $bnds\n")

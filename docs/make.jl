@@ -30,26 +30,26 @@ for chapter in chapters
       if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"  
         
         # Process CmdStan files
-        if isfile(joinpath(ProjDir, file[1:end-4], "s.jl"))
+        if file[end-4:end] == "s.jl"
           println("\nCmdStan file $file\n")
           isfile(joinpath(DocDir, file[1:end-4], "s.md")) && rm(joinpath(DocDir, file[1:end-4], "s.md"))
           Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
         # Process Mamba files
-        elseif isfile(joinpath(ProjDir, file[1:end-4], "m.jl"))
+        elseif i file[end-4:end] == "m.jl"
           println("\nMamba file $file\n")
           isfile(joinpath(DocDir, file[1:end-4], "m.md")) && rm(joinpath(DocDir, file[1:end-4], "m.md"))
           Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
         # Process Turing files
-        elseif isfile(joinpath(ProjDir, file[1:end-4], "t.jl"))
+        elseif file[1:end-4] == "t.jl"
           println("\nTuring file $file, skipped\n")
           break       
         # Process model files files
-        elseif !isdir(joinpath(ProjDir, file) && file[1] == 'm' && file[end-2:end] == ".jl"          
+        elseif  file[1] == 'm' && file[end-2:end] == ".jl"          
           println("\nModel file $file\n")
           isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
           Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)
-        # Process all remaining files (neither CmdStan, Turing, Mamba or models)
-        else        
+        # Process all remaining clip  files (neither CmdStan, Turing, Mamba or models)
+        elseif       
           println("\nOther file $file\n")
           isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
           Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        

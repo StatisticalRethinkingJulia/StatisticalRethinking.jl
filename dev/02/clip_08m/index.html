@@ -11,50 +11,34 @@ globe_toss[:N] = length(globe_toss[:w])</code></pre><pre><code class="language-n
     false
   ),
   p = Stochastic(() -&gt; Beta(1, 1))
-)</code></pre><pre><code class="language-none">Object of type &quot;Mamba.Model&quot;
--------------------------------------------------------------------------------
-w:
-An unmonitored node of type &quot;0-element Mamba.ArrayStochastic{1}&quot;
-Float64[]
--------------------------------------------------------------------------------
-p:
-A monitored node of type &quot;Mamba.ScalarStochastic&quot;
-NaN</code></pre></div><p>Initial Values</p><div><pre><code class="language-julia">inits = [
+);</code></pre></div><p>Initial Values</p><div><pre><code class="language-julia">inits = [
   Dict(:w =&gt; globe_toss[:w], :n =&gt; globe_toss[:n], :p =&gt; 0.5),
   Dict(:w =&gt; globe_toss[:w], :n =&gt; globe_toss[:n], :p =&gt; rand(Beta(1, 1)))
 ]</code></pre><pre><code class="language-none">2-element Array{Dict{Symbol,Any},1}:
  Dict(:w=&gt;[6, 7, 5, 6, 6],:p=&gt;0.5,:n=&gt;[9, 9, 9, 9, 9])
  Dict(:w=&gt;[6, 7, 5, 6, 6],:p=&gt;0.134808,:n=&gt;[9, 9, 9, 9, 9])</code></pre></div><p>Sampling Scheme</p><div><pre><code class="language-julia">scheme = [NUTS(:p)]
-setsamplers!(model, scheme)</code></pre><pre><code class="language-none">Object of type &quot;Mamba.Model&quot;
--------------------------------------------------------------------------------
-w:
-An unmonitored node of type &quot;0-element Mamba.ArrayStochastic{1}&quot;
-Float64[]
--------------------------------------------------------------------------------
-p:
-A monitored node of type &quot;Mamba.ScalarStochastic&quot;
-NaN</code></pre></div><p>MCMC Simulations</p><div><pre><code class="language-julia">sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)</code></pre><pre><code class="language-none">MCMC Simulation of 10000 Iterations x 2 Chains...
+setsamplers!(model, scheme);</code></pre></div><p>MCMC Simulations</p><div><pre><code class="language-julia">sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)</code></pre><pre><code class="language-none">MCMC Simulation of 10000 Iterations x 2 Chains...
 
-Chain 1:   0% [0:33:23 of 0:33:25 remaining]
-Chain 1:  10% [0:00:19 of 0:00:21 remaining]
-Chain 1:  20% [0:00:09 of 0:00:11 remaining]
-Chain 1:  30% [0:00:06 of 0:00:09 remaining]
-Chain 1:  40% [0:00:04 of 0:00:07 remaining]
-Chain 1:  50% [0:00:03 of 0:00:06 remaining]
-Chain 1:  60% [0:00:02 of 0:00:05 remaining]
-Chain 1:  70% [0:00:01 of 0:00:05 remaining]
-Chain 1:  80% [0:00:01 of 0:00:04 remaining]
-Chain 1:  90% [0:00:00 of 0:00:04 remaining]
-Chain 1: 100% [0:00:00 of 0:00:04 remaining]
+Chain 1:   0% [0:25:04 of 0:25:06 remaining]
+Chain 1:  10% [0:00:14 of 0:00:16 remaining]
+Chain 1:  20% [0:00:07 of 0:00:09 remaining]
+Chain 1:  30% [0:00:05 of 0:00:07 remaining]
+Chain 1:  40% [0:00:03 of 0:00:06 remaining]
+Chain 1:  50% [0:00:02 of 0:00:05 remaining]
+Chain 1:  60% [0:00:02 of 0:00:04 remaining]
+Chain 1:  70% [0:00:01 of 0:00:04 remaining]
+Chain 1:  80% [0:00:01 of 0:00:03 remaining]
+Chain 1:  90% [0:00:00 of 0:00:03 remaining]
+Chain 1: 100% [0:00:00 of 0:00:03 remaining]
 
 Chain 2:   0% [0:00:01 of 0:00:01 remaining]
-Chain 2:  10% [0:00:01 of 0:00:01 remaining]
-Chain 2:  20% [0:00:01 of 0:00:01 remaining]
-Chain 2:  30% [0:00:01 of 0:00:01 remaining]
-Chain 2:  40% [0:00:01 of 0:00:01 remaining]
-Chain 2:  50% [0:00:01 of 0:00:01 remaining]
-Chain 2:  60% [0:00:00 of 0:00:01 remaining]
-Chain 2:  70% [0:00:00 of 0:00:01 remaining]
+Chain 2:  10% [0:00:01 of 0:00:02 remaining]
+Chain 2:  20% [0:00:02 of 0:00:03 remaining]
+Chain 2:  30% [0:00:01 of 0:00:02 remaining]
+Chain 2:  40% [0:00:01 of 0:00:02 remaining]
+Chain 2:  50% [0:00:01 of 0:00:02 remaining]
+Chain 2:  60% [0:00:01 of 0:00:02 remaining]
+Chain 2:  70% [0:00:00 of 0:00:02 remaining]
 Chain 2:  80% [0:00:00 of 0:00:01 remaining]
 Chain 2:  90% [0:00:00 of 0:00:01 remaining]
 Chain 2: 100% [0:00:00 of 0:00:01 remaining]
@@ -79,17 +63,4 @@ p 0.6589088 0.06839548 0.0005584468 0.00062540144 7500
 
 Quantiles:
      2.5%     25.0%     50.0%     75.0%      97.5%
-p 0.5160799 0.6135111 0.6627785 0.7068447 0.78476273</code></pre></div><p>Plot posterior draws and density</p><div><pre><code class="language-julia">plot(sim)#-</code></pre><pre><code class="language-none">2×1 Array{Gadfly.Plot,2}:
- Gadfly.Plot(Gadfly.Layer[Layer(nothing, Dict{Any,Any}(), Gadfly.StatisticElement[], LineGeometry(Identity(), false, 2, Symbol(&quot;&quot;)), nothing, 0)], nothing, Data(
-  x=[2501, 2502, 2503, 2504, 2505, 2506, 2507, 2508, 2509, 2510  …  9991, 9992, 9993, 9994, 9995, 9996, 9997, 9998, 9999, 10000]
-  y=[0.57806, 0.57806, 0.57806, 0.551669, 0.801368, 0.764435, 0.621844, 0.621844, 0.780565, 0.648737  …  0.59508, 0.715971, 0.646083, 0.646083, 0.630909, 0.630909, 0.630909, 0.751753, 0.546535, 0.546535]
-  color=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1  …  2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
-  titles=Dict{Symbol,AbstractString}(:color=&gt;&quot;color&quot;,:y=&gt;&quot;y&quot;,:x=&gt;&quot;x&quot;)
-)
-, Gadfly.ScaleElement[DiscreteColorScale(default_discrete_colors, nothing, nothing, true)], Gadfly.StatisticElement[], nothing, Gadfly.GuideElement[ColorKey(&quot;Chain&quot;, nothing, nothing), XLabel(&quot;Iteration&quot;, :horizontal), YLabel(&quot;Value&quot;, :vertical), Title(&quot;p&quot;)], Gadfly.Theme(LCHab{Float32}(70.0f0,60.0f0,240.0f0), 0.9mm, 0.45mm, 1.8mm, Function[circle, square, diamond, cross, xcross, utriangle, dtriangle, star1, star2, hexagon, octagon, hline, vline], 0.3mm, Symbol[:solid, :dash, :dot, :dashdot, :dashdotdot, :ldash, :ldashdash, :ldashdot, :ldashdashdot], nothing, nothing, 0.0, nothing, Measures.Length{:mm,Float64}[5.0mm], RGB{N0f8}(0.816,0.816,0.878), Measures.Length{:mm,Float64}[0.5mm, 0.5mm], RGB{N0f8}(0.627,0.627,0.627), 0.2mm, &quot;&#39;PT Sans Caption&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,sans-serif&quot;, 2.822222222222222mm, RGB{N0f8}(0.424,0.376,0.42), &quot;&#39;PT Sans&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,sans-serif&quot;, 3.880555555555555mm, RGB{N0f8}(0.337,0.29,0.333), &quot;&#39;PT Sans Caption&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,sans-serif&quot;, 2.822222222222222mm, RGB{N0f8}(0.298,0.251,0.294), &quot;&#39;PT Sans&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,sans-serif&quot;, 3.880555555555555mm, RGB{N0f8}(0.212,0.165,0.208), &quot;&#39;PT Sans&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,sans-serif&quot;, 2.822222222222222mm, RGB{N0f8}(0.298,0.251,0.294), 40, -0.05mm, 1.0mm, 3.0mm, Gadfly.default_stroke_color, 0.3mm, Gadfly.default_discrete_highlight_color, Gadfly.default_continuous_highlight_color, Gadfly.default_lowlight_color, 0.6, Gadfly.default_middle_color, 0.6mm, :left, :square, Gadfly.Shape.square, nothing, :none, nothing, 2.0mm, 1000, 10.0, 0.5, 0.2, 1.0mm, 4, Gadfly.Scale.DiscreteColorScale(Gadfly.Scale.default_discrete_colors, nothing, nothing, true), Gadfly.Scale.ContinuousColorScale(getfield(Gadfly.Scale, Symbol(&quot;##70#74&quot;)){Int64,Int64,Int64,Int64,Float64,Int64}(100, 40, 260, 10, 1.5, 70), Gadfly.Scale.ContinuousScaleTransform(identity, identity, Gadfly.Scale.identity_formatter), nothing, nothing)), Dict{Symbol,Any}(:color=&gt;[1, 1, 1, 1, 1, 1, 1, 1, 1, 1  …  2, 2, 2, 2, 2, 2, 2, 2, 2, 2],:y=&gt;[0.57806, 0.57806, 0.57806, 0.551669, 0.801368, 0.764435, 0.621844, 0.621844, 0.780565, 0.648737  …  0.59508, 0.715971, 0.646083, 0.646083, 0.630909, 0.630909, 0.630909, 0.751753, 0.546535, 0.546535],:x=&gt;[2501, 2502, 2503, 2504, 2505, 2506, 2507, 2508, 2509, 2510  …  9991, 9992, 9993, 9994, 9995, 9996, 9997, 9998, 9999, 10000]))
- Gadfly.Plot(Gadfly.Layer[Layer(nothing, Dict{Any,Any}(), Gadfly.StatisticElement[], LineGeometry(DensityStatistic(256, -Inf), false, 2, Symbol(&quot;&quot;)), nothing, 0)], nothing, Data(
-  x=[0.57806, 0.57806, 0.57806, 0.551669, 0.764435, 0.621844, 0.621844, 0.780565, 0.648737, 0.648737  …  0.59508, 0.715971, 0.646083, 0.646083, 0.630909, 0.630909, 0.630909, 0.751753, 0.546535, 0.546535]
-  color=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1  …  2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
-  titles=Dict{Symbol,AbstractString}(:color=&gt;&quot;color&quot;,:x=&gt;&quot;x&quot;)
-)
-, Gadfly.ScaleElement[DiscreteColorScale(default_discrete_colors, nothing, nothing, true)], Gadfly.StatisticElement[], nothing, Gadfly.GuideElement[ColorKey(&quot;Chain&quot;, nothing, nothing), XLabel(&quot;Value&quot;, :horizontal), YLabel(&quot;Density&quot;, :vertical), Title(&quot;p&quot;)], Gadfly.Theme(LCHab{Float32}(70.0f0,60.0f0,240.0f0), 0.9mm, 0.45mm, 1.8mm, Function[circle, square, diamond, cross, xcross, utriangle, dtriangle, star1, star2, hexagon, octagon, hline, vline], 0.3mm, Symbol[:solid, :dash, :dot, :dashdot, :dashdotdot, :ldash, :ldashdash, :ldashdot, :ldashdashdot], nothing, nothing, 0.0, nothing, Measures.Length{:mm,Float64}[5.0mm], RGB{N0f8}(0.816,0.816,0.878), Measures.Length{:mm,Float64}[0.5mm, 0.5mm], RGB{N0f8}(0.627,0.627,0.627), 0.2mm, &quot;&#39;PT Sans Caption&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,sans-serif&quot;, 2.822222222222222mm, RGB{N0f8}(0.424,0.376,0.42), &quot;&#39;PT Sans&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,sans-serif&quot;, 3.880555555555555mm, RGB{N0f8}(0.337,0.29,0.333), &quot;&#39;PT Sans Caption&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,sans-serif&quot;, 2.822222222222222mm, RGB{N0f8}(0.298,0.251,0.294), &quot;&#39;PT Sans&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,sans-serif&quot;, 3.880555555555555mm, RGB{N0f8}(0.212,0.165,0.208), &quot;&#39;PT Sans&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,sans-serif&quot;, 2.822222222222222mm, RGB{N0f8}(0.298,0.251,0.294), 40, -0.05mm, 1.0mm, 3.0mm, Gadfly.default_stroke_color, 0.3mm, Gadfly.default_discrete_highlight_color, Gadfly.default_continuous_highlight_color, Gadfly.default_lowlight_color, 0.6, Gadfly.default_middle_color, 0.6mm, :left, :square, Gadfly.Shape.square, nothing, :none, nothing, 2.0mm, 1000, 10.0, 0.5, 0.2, 1.0mm, 4, Gadfly.Scale.DiscreteColorScale(Gadfly.Scale.default_discrete_colors, nothing, nothing, true), Gadfly.Scale.ContinuousColorScale(getfield(Gadfly.Scale, Symbol(&quot;##70#74&quot;)){Int64,Int64,Int64,Int64,Float64,Int64}(100, 40, 260, 10, 1.5, 70), Gadfly.Scale.ContinuousScaleTransform(identity, identity, Gadfly.Scale.identity_formatter), nothing, nothing)), Dict{Symbol,Any}(:color=&gt;[1, 1, 1, 1, 1, 1, 1, 1, 1, 1  …  2, 2, 2, 2, 2, 2, 2, 2, 2, 2],:x=&gt;[0.57806, 0.57806, 0.57806, 0.551669, 0.764435, 0.621844, 0.621844, 0.780565, 0.648737, 0.648737  …  0.59508, 0.715971, 0.646083, 0.646083, 0.630909, 0.630909, 0.630909, 0.751753, 0.546535, 0.546535]))</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip_08t/"><span class="direction">Previous</span><span class="title"><code>clip_08t</code></span></a><a class="next" href="../clip_08s/"><span class="direction">Next</span><span class="title"><code>clip_08s</code></span></a></footer></article></body></html>
+p 0.5160799 0.6135111 0.6627785 0.7068447 0.78476273</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip_08t/"><span class="direction">Previous</span><span class="title"><code>clip_08t</code></span></a><a class="next" href="../clip_08s/"><span class="direction">Next</span><span class="title"><code>clip_08s</code></span></a></footer></article></body></html>

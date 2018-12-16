@@ -197,31 +197,15 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_08t",
     "title": "clip_08t",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08t.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking\nusing StatsFuns, Optim, Turing, Flux.Tracker\n\nTuring.setadbackend(:reverse_diff)"
+    "text": "EditURL = \"https://github.com/TRAVIS_REPO_SLUG/blob/master/\"Load Julia packages (libraries) neededusing StatisticalRethinking\nusing StatsFuns, Optim, Turing, Flux.Tracker\n\nTuring.setadbackend(:reverse_diff)"
 },
 
 {
-    "location": "02/clip_08t/#snippet-2.6t-1",
+    "location": "02/clip_08t/#snippet-2.8t-1",
     "page": "clip_08t",
-    "title": "snippet 2.6t",
+    "title": "snippet 2.8t",
     "category": "section",
-    "text": "Define the datak = 6\nn = 9Define the model@model globe_toss(n, k) = begin\n  theta ~ Beta(1, 1) # prior\n  k ~ Binomial(n, theta) # model\n  return k, theta\nendCompute the \"maximumaposteriori\" valueSet search boundslb = [0.0]\nub = [1.0]Create (compile) the modelmodel = globe_toss(n, k)Compute the maximumaposterioriresult = maximum_a_posteriori(model, lb, ub)Use Turing mcmcchn = sample(model, NUTS(1000, 0.65))Look at the generated draws (in chn)println()\ndescribe(chn[:theta])\nprintln()\nMCMCChain.hpd(chn[:theta], alpha=0.945) |> display\nprintln()\n\np_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)\nsamples = sample(p_grid, Weights(posterior), length(p_grid))\n\np = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)\np[1] = plot(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")Analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = density(samples, ylim=(0.0, 5.0), lab=\"Sample density\")\nplot!(p[2], x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")Quadratic approximationplot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")Show plotsplot(p..., layout=(1, 2))"
-},
-
-{
-    "location": "02/clip_08t/#snippet-2.7-1",
-    "page": "clip_08t",
-    "title": "snippet 2.7",
-    "category": "section",
-    "text": "analytical calculationw = 6\nn = 9\nx = 0:0.01:1\nplot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), fill=(0, .5,:orange), lab=\"Conjugate solution\")quadratic approximationplot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")Turing Chaindensity!(chn[:theta], lab=\"Turing chain\")"
-},
-
-{
-    "location": "02/clip_08t/#snippet-2.8-1",
-    "page": "clip_08t",
-    "title": "snippet 2.8",
-    "category": "section",
-    "text": "The example is in stan_globe_toss.jl. It will be in clips_02_08_08s.jl.This page was generated using Literate.jl."
+    "text": "Define the datak = 6; n = 9;Define the model@model globe_toss(n, k) = begin\n  theta ~ Beta(1, 1) # prior\n  k ~ Binomial(n, theta) # model\n  return k, theta\nend;Compute the \"maximumaposteriori\" valueSet search boundslb = [0.0]; ub = [1.0];Create (compile) the modelmodel = globe_toss(n, k);Compute the maximumaposterioriresult = maximum_a_posteriori(model, lb, ub)Use Turing mcmcchn = sample(model, NUTS(1000, 0.65));Look at the generated draws (in chn)describe(chn[:theta])Look at hpd regionMCMCChain.hpd(chn[:theta], alpha=0.945) |> displayanalytical calculationw = 6\nn = 9\nx = 0:0.01:1\nplot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), fill=(0, .5,:orange), lab=\"Conjugate solution\")quadratic approximationplot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")Turing Chaindensity!(chn[:theta], lab=\"Turing chain\")This page was generated using Literate.jl."
 },
 
 {
@@ -229,7 +213,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_08m",
     "title": "clip_08m",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08m.jl\"using Distributed, Gadfly\nusing MambaDataglobe_toss = Dict{Symbol, Any}(\n  :w => [6, 7, 5, 6, 6],\n  :n => [9, 9, 9, 9, 9]\n)\nglobe_toss[:N] = length(globe_toss[:w])Model Specificationmodel = Model(\n  w = Stochastic(1,\n    (n, p, N) ->\n      UnivariateDistribution[Binomial(n[i], p) for i in 1:N],\n    false\n  ),\n  p = Stochastic(() -> Beta(1, 1))\n)Initial Valuesinits = [\n  Dict(:w => globe_toss[:w], :n => globe_toss[:n], :p => 0.5),\n  Dict(:w => globe_toss[:w], :n => globe_toss[:n], :p => rand(Beta(1, 1)))\n]Sampling Schemescheme = [NUTS(:p)]\nsetsamplers!(model, scheme)MCMC Simulationssim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)Describe drawsdescribe(sim)Plot posterior draws and densityplot(sim)#-This page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip_08m.jl\"using Distributed, Gadfly\nusing MambaDataglobe_toss = Dict{Symbol, Any}(\n  :w => [6, 7, 5, 6, 6],\n  :n => [9, 9, 9, 9, 9]\n)\nglobe_toss[:N] = length(globe_toss[:w])Model Specificationmodel = Model(\n  w = Stochastic(1,\n    (n, p, N) ->\n      UnivariateDistribution[Binomial(n[i], p) for i in 1:N],\n    false\n  ),\n  p = Stochastic(() -> Beta(1, 1))\n);Initial Valuesinits = [\n  Dict(:w => globe_toss[:w], :n => globe_toss[:n], :p => 0.5),\n  Dict(:w => globe_toss[:w], :n => globe_toss[:n], :p => rand(Beta(1, 1)))\n]Sampling Schemescheme = [NUTS(:p)]\nsetsamplers!(model, scheme);MCMC Simulationssim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)Describe drawsdescribe(sim)This page was generated using Literate.jl."
 },
 
 {
@@ -381,7 +365,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_07s",
     "title": "snippet 4.7",
     "category": "section",
-    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df)\nfemale_df = filter(row -> row[:male] == 0, df2)\nmale_df = filter(row -> row[:male] == 1, df2)Plot the densities.density(df2[:height], lab=\"All heights\")Is it bi-modal?density!(female_df[:height], lab=\"Female heights\")\ndensity!(male_df[:height], lab=\"Male heights\")Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ normal(178, 20);\n  sigma ~ uniform( 0 , 50 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\"Make variables visible outisde the do loopglobal stanmodel, chnDefine the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain)Input data for cmdstanheightsdata = [\n  Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height])\n]Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME)Describe the drawsdescribe(chn)Plot the density of posterior drawsdensity(chn, lab=\"All heights\")This page was generated using Literate.jl."
+    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df)\nfemale_df = filter(row -> row[:male] == 0, df2)\nmale_df = filter(row -> row[:male] == 1, df2)Plot the densities.density(df2[:height], lab=\"All heights\")Is it bi-modal?density!(female_df[:height], lab=\"Female heights\")\ndensity!(male_df[:height], lab=\"Male heights\")Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ normal(178, 20);\n  sigma ~ uniform( 0 , 50 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\"Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain)Input data for cmdstanheightsdata = [\n  Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height])\n]Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME)Describe the drawsdescribe(chn)Plot the density of posterior drawsdensity(chn, lab=\"All heights\")This page was generated using Literate.jl."
 },
 
 {
@@ -389,7 +373,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_07.1s",
     "title": "clip_07.1s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/04/clip_07.1s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,800))CmdStan uses a tmp directory to store the output of cmdstanProjDir = @__DIR__\ncd(ProjDir) do"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/04/clip_07.1s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,800))CmdStan uses a tmp directory to store the output of cmdstanProjDir = @__DIR__\ncd(ProjDir)"
 },
 
 {
@@ -397,7 +381,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip_07.1s",
     "title": "snippet 4.7",
     "category": "section",
-    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ uniform(100, 250);\n  sigma ~ cauchy( 0 , 1 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\"Make variables visible outisde the do loopglobal stanmodel, chnDefine the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain)Input data for cmdstanheightsdata = [\n  Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height])\n]Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME)Describe the drawsdescribe(chn)Compare with previous resultclip_07s_example_output = \"\n\nSamples were drawn using hmc with nuts.\nFor each parameter, N_Eff is a crude measure of effective sample size,\nand R_hat is the potential scale reduction factor on split chains (at\nconvergence, R_hat=1).\n\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n          Mean        SD      Naive SE      MCSE      ESS\nsigma   7.7641718 0.3055115 0.004830561 0.0047596714 1000\n   mu 154.6042417 0.4158242 0.006574758 0.0068304868 1000\n\nQuantiles:\n         2.5%       25.0%       50.0%      75.0%      97.5%\nsigma   7.198721   7.5573575   7.749435   7.960795   8.393317\n   mu 153.795975 154.3307500 154.610000 154.884000 155.391050\n\n\"Plot the density of posterior drawsdensity(chn)Close cd(ProjDir) do blockend#-This page was generated using Literate.jl."
+    "text": "howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df)Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ uniform(100, 250);\n  sigma ~ cauchy( 0 , 1 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\"Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain)Input data for cmdstanheightsdata = [\n  Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height])\n]Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME)Describe the drawsdescribe(chn)Compare with previous resultclip_07s_example_output = \"\n\nSamples were drawn using hmc with nuts.\nFor each parameter, N_Eff is a crude measure of effective sample size,\nand R_hat is the potential scale reduction factor on split chains (at\nconvergence, R_hat=1).\n\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n          Mean        SD      Naive SE      MCSE      ESS\nsigma   7.7641718 0.3055115 0.004830561 0.0047596714 1000\n   mu 154.6042417 0.4158242 0.006574758 0.0068304868 1000\n\nQuantiles:\n         2.5%       25.0%       50.0%      75.0%      97.5%\nsigma   7.198721   7.5573575   7.749435   7.960795   8.393317\n   mu 153.795975 154.3307500 154.610000 154.884000 155.391050\n\n\"Plot the density of posterior drawsdensity(chn)Close cd(ProjDir) do blockThis page was generated using Literate.jl."
 },
 
 {

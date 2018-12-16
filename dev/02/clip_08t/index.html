@@ -2,78 +2,53 @@
 <html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip_08t · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../">Home</a></li><li><span class="toctext">Chapter 0</span><ul><li><a class="toctext" href="../../00/clip_01_03/"><code>clip_01_03</code></a></li><li><a class="toctext" href="../../00/clip_04_05/"><code>clip_04_04</code></a></li></ul></li><li><span class="toctext">Chapter 2</span><ul><li><a class="toctext" href="../clip_01_02/"><code>clip_01_02</code></a></li><li><a class="toctext" href="../clip_03_05/"><code>clip_03_05</code></a></li><li><a class="toctext" href="../clip_06_07/"><code>clip_06_07</code></a></li><li class="current"><a class="toctext" href><code>clip_08t</code></a><ul class="internal"></ul></li><li><a class="toctext" href="../clip_08m/"><code>clip_08m</code></a></li><li><a class="toctext" href="../clip_08s/"><code>clip_08s</code></a></li></ul></li><li><span class="toctext">Chapter 3</span><ul><li><a class="toctext" href="../../03/clip_01/"><code>clip_01</code></a></li><li><a class="toctext" href="../../03/clip_02_05/"><code>clip_02_05</code></a></li><li><a class="toctext" href="../../03/clip_05s/"><code>clip_05s</code></a></li><li><a class="toctext" href="../../03/clip_06_16s/"><code>clip_06_16s</code></a></li></ul></li><li><span class="toctext">Chapter 4</span><ul><li><a class="toctext" href="../../04/clip_01_06/"><code>clip_01_06</code></a></li><li><a class="toctext" href="../../04/clip_07s/"><code>clip_07s</code></a></li><li><a class="toctext" href="../../04/clip_07.1s/"><code>clip_07.1s</code></a></li></ul></li><li><span class="toctext">Chapter 8</span><ul><li><a class="toctext" href="../../08/m8.1/"><code>m8.1.jl</code></a></li><li><a class="toctext" href="../../08/m8.2/"><code>m8.2.jl</code></a></li><li><a class="toctext" href="../../08/m8.3/"><code>m8.3.jl</code></a></li><li><a class="toctext" href="../../08/m8.4/"><code>m8.4.jl</code></a></li></ul></li><li><span class="toctext">Chapter 10</span><ul><li><a class="toctext" href="../../10/m10.3/"><code>m10.3.jl</code></a></li><li><a class="toctext" href="../../10/m10.4/"><code>m10.4.jl</code></a></li></ul></li><li><span class="toctext">Chapter 11</span><ul><li><a class="toctext" href="../../11/m11_5/"><code>m11.5.jl</code></a></li></ul></li><li><span class="toctext">Chapter 12</span><ul><li><a class="toctext" href="../../12/m12_1/"><code>m12.1.jl</code></a></li><li><a class="toctext" href="../../12/m12_2/"><code>m12.2.jl</code></a></li><li><a class="toctext" href="../../12/m12_3/"><code>m12.3.jl</code></a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 2</li><li><a href><code>clip_08t</code></a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/docs/src/02/clip_08t.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip_08t</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed</p><pre><code class="language-julia">using StatisticalRethinking
 using StatsFuns, Optim, Turing, Flux.Tracker
 
-Turing.setadbackend(:reverse_diff)</code></pre><pre><code class="language-none">loaded
-
-
-┌ Warning: Package Turing does not have CmdStan in its dependencies:
-│ - If you have Turing checked out for development and have
-│   added CmdStan as a dependency but haven&#39;t updated your primary
-│   environment&#39;s manifest file, try `Pkg.resolve()`.
-│ - Otherwise you may need to report an issue with Turing
-│ Loading CmdStan into Turing from project dependency, future warnings for Turing are suppressed.
-└ @ nothing nothing:840
-WARNING: using CmdStan.Sample in module Turing conflicts with an existing identifier.
-
-
-
-
-
-:reverse_diff</code></pre><h3><a class="nav-anchor" id="snippet-2.8t-1" href="#snippet-2.8t-1">snippet 2.8t</a></h3><p>Define the data</p><pre><code class="language-julia">k = 6; n = 9;</code></pre><p>Define the model</p><pre><code class="language-julia">@model globe_toss(n, k) = begin
+Turing.setadbackend(:reverse_diff)</code></pre><pre><code class="language-none">:reverse_diff</code></pre><h3><a class="nav-anchor" id="snippet-2.8t-1" href="#snippet-2.8t-1">snippet 2.8t</a></h3><p>Define the data</p><pre><code class="language-julia">k = 6; n = 9;</code></pre><p>Define the model</p><pre><code class="language-julia">@model globe_toss(n, k) = begin
   theta ~ Beta(1, 1) # prior
   k ~ Binomial(n, theta) # model
   return k, theta
 end;</code></pre><p>Compute the &quot;maximum<em>a</em>posteriori&quot; value</p><p>Set search bounds</p><pre><code class="language-julia">lb = [0.0]; ub = [1.0];</code></pre><p>Create (compile) the model</p><pre><code class="language-julia">model = globe_toss(n, k);</code></pre><p>Compute the maximum<em>a</em>posteriori</p><pre><code class="language-julia">result = maximum_a_posteriori(model, lb, ub)</code></pre><pre><code class="language-none">Results of Optimization Algorithm
  * Algorithm: Fminbox with L-BFGS
- * Starting Point: [0.8519449399034017]
- * Minimizer: [0.6666666665863572]
+ * Starting Point: [0.4025469894808926]
+ * Minimizer: [0.6666666665600872]
  * Minimum: 1.297811e+00
  * Iterations: 3
  * Convergence: true
    * |x - x&#39;| ≤ 0.0e+00: false 
-     |x - x&#39;| = 6.17e-08 
+     |x - x&#39;| = 8.80e-08 
    * |f(x) - f(x&#39;)| ≤ 0.0e+00 |f(x)|: false
-     |f(x) - f(x&#39;)| = 5.95e-14 |f(x)|
+     |f(x) - f(x&#39;)| = 1.21e-13 |f(x)|
    * |g(x)| ≤ 1.0e-08: true 
-     |g(x)| = 2.49e-09 
+     |g(x)| = 3.57e-09 
    * Stopped by an increasing objective: false
    * Reached Maximum Number of Iterations: false
- * Objective Calls: 49
- * Gradient Calls: 49</code></pre><p>Use Turing mcmc</p><pre><code class="language-julia">chn = sample(model, NUTS(1000, 0.65));</code></pre><pre><code class="language-none">┌ Info: [Turing] looking for good initial eps...
+ * Objective Calls: 52
+ * Gradient Calls: 52</code></pre><p>Use Turing mcmc</p><pre><code class="language-julia">chn = sample(model, NUTS(1000, 0.65));</code></pre><pre><code class="language-none">┌ Info: [Turing] looking for good initial eps...
 └ @ Turing /Users/rob/.julia/packages/Turing/pRhjG/src/samplers/support/hmc_core.jl:246
-[NUTS{Any}] found initial ϵ: 0.8
+[NUTS{Any}] found initial ϵ: 1.6
 └ @ Turing /Users/rob/.julia/packages/Turing/pRhjG/src/samplers/support/hmc_core.jl:291
-[32m[NUTS] Sampling...  0%  ETA: 1:25:30[39m
-[34m  ϵ:         0.8[39m
-[34m  α:         0.9642435997768821[39m
-[A4m  pre_cond:  [1.0][39m┌ Warning: Numerical error has been found in gradients.
+┌ Warning: Numerical error has been found in gradients.
 └ @ Turing /Users/rob/.julia/packages/Turing/pRhjG/src/core/ad.jl:114
 ┌ Warning: grad = [NaN]
 └ @ Turing /Users/rob/.julia/packages/Turing/pRhjG/src/core/ad.jl:115
-┌ Info:  Adapted ϵ = 0.9635397356352554, std = [1.0]; 500 iterations is used for adaption.
+┌ Info:  Adapted ϵ = 0.9229926068166693, std = [1.0]; 500 iterations is used for adaption.
 └ @ Turing /Users/rob/.julia/packages/Turing/pRhjG/src/samplers/adapt/adapt.jl:91
 
 
-
-
-
 [NUTS] Finished with
-  Running time        = 5.4401143379999874;
-  #lf / sample        = 0.005;
-  #evals / sample     = 6.939;
-  pre-cond. metric    = [1.0].
-
-
-[32m[NUTS] Sampling...100% Time: 0:00:06[39m</code></pre><p>Look at the generated draws (in chn)</p><pre><code class="language-julia">describe(chn[:theta])</code></pre><pre><code class="language-none">Summary Stats:
-Mean:           0.633588
-Minimum:        0.255925
-1st Quartile:   0.542856
-Median:         0.639576
-3rd Quartile:   0.736073
-Maximum:        0.939777
+  Running time        = 0.36302001400000006;
+  #lf / sample        = 0.006;
+  #evals / sample     = 7.195;
+  pre-cond. metric    = [1.0].</code></pre><p>Look at the generated draws (in chn)</p><pre><code class="language-julia">describe(chn[:theta])</code></pre><pre><code class="language-none">Summary Stats:
+Mean:           0.632864
+Minimum:        0.116554
+1st Quartile:   0.549645
+Median:         0.641930
+3rd Quartile:   0.726905
+Maximum:        0.958864
 Length:         1000
-Type:           Float64</code></pre><p>Look at hpd region</p><pre><code class="language-julia">MCMCChain.hpd(chn[:theta], alpha=0.945) |&gt; display</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
- 0.6797033967317547
- 0.6945696249153539</code></pre><p>analytical calculation</p><pre><code class="language-julia">w = 6
+Type:           Float64</code></pre><p>Compute at hpd region</p><pre><code class="language-julia">bnds = MCMCChain.hpd(chn[:theta], alpha=0.05);</code></pre><p>analytical calculation</p><pre><code class="language-julia">w = 6
 n = 9
 x = 0:0.01:1
-plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), fill=(0, .5,:orange), lab=&quot;Conjugate solution&quot;)</code></pre><p><img src="../output_21_0.svg" alt="svg"/></p><p>quadratic approximation</p><pre><code class="language-julia">plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=&quot;Normal approximation&quot;)</code></pre><p><img src="../output_23_0.svg" alt="svg"/></p><p>Turing Chain</p><pre><code class="language-julia">density!(chn[:theta], lab=&quot;Turing chain&quot;)</code></pre><p><img src="../output_25_0.svg" alt="svg"/></p><p><em>This notebook was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip_06_07/"><span class="direction">Previous</span><span class="title"><code>clip_06_07</code></span></a><a class="next" href="../clip_08m/"><span class="direction">Next</span><span class="title"><code>clip_08m</code></span></a></footer></article></body></html>
+plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), fill=(0, .5,:orange), lab=&quot;Conjugate solution&quot;)</code></pre><p><img src="../output_21_0.svg" alt="svg"/></p><p>quadratic approximation</p><pre><code class="language-julia">plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=&quot;Normal approximation&quot;)</code></pre><p><img src="../output_23_0.svg" alt="svg"/></p><p>Turing Chain &amp;  89%hpd region boundaries</p><pre><code class="language-julia">density!(chn[:theta], lab=&quot;Turing chain&quot;)
+vline!([bnds[1]], line=:dash, lab=&quot;hpd lower bound&quot;)
+vline!([bnds[2]], line=:dash, lab=&quot;hpd upper bound&quot;)</code></pre><p><img src="../output_25_0.svg" alt="svg"/></p><p>Show hpd region</p><pre><code class="language-julia">println(&quot;hpd bounds = $bnds\n&quot;)</code></pre><pre><code class="language-none">hpd bounds = [0.388854, 0.856032]</code></pre><p><em>This notebook was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip_06_07/"><span class="direction">Previous</span><span class="title"><code>clip_06_07</code></span></a><a class="next" href="../clip_08m/"><span class="direction">Next</span><span class="title"><code>clip_08m</code></span></a></footer></article></body></html>

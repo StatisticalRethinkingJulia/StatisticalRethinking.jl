@@ -7,7 +7,7 @@ gr(size=(500,800))
 # CmdStan uses a tmp directory to store the output of cmdstan
 
 ProjDir = @__DIR__
-cd(ProjDir) do
+cd(ProjDir)
 
 # ### snippet 4.7
 
@@ -51,10 +51,6 @@ model {
 }
 "
 
-# Make variables visible outisde the do loop
-
-global stanmodel, chn
-  
 # Define the Stanmodel and set the output format to :mcmcchain.
 
 stanmodel = Stanmodel(name="heights", monitors = ["mu", "sigma"],model=heightsmodel,
@@ -78,7 +74,3 @@ describe(chn)
 # Plot the density of posterior draws
 
 density(chn, lab="All heights")
-
-# End cd(ProjDir) do loop
-  
-end

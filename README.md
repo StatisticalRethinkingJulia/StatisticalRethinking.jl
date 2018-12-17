@@ -21,11 +21,11 @@ These 2 files are in chapters/00. These files are later on processed by Literate
 1. `clip_01_03.md` - which is stored in docs/src and included in the documentation
 2. `clip_01_03.ipynb` - stored in the notebooks directory for use in Jupyter
 
-The intention is that when needed clips with names such as `clip_05_07t.jl`, `clip_05_07s.jl` and `clip_05_07m.jl` will show up. These will contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
+The intention is that when needed clips with names such as `02/clip_08t.jl`, `clip_08s.jl` and `clip_08m.jl` will show up. These will contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
 
-Occasionally a clip will contain just a single snippet and will be referred to as `clip_02.jl`, e.g, in chapters/03
+Occasionally a clip will contain just a single snippet and will be referred to as `03/clip_02.jl`. Almost identical models are named e.g. `04/clip_07.0s.jl` and `04/clip_07.1s.jl`. In that example just the priors differ.
 
-From chapter 8 onwards, the **Turing** versions of the mcmc models are available as e.g. chapters/08/m8.1.jl. In a few cases **Mamba** models are provided as well. Equivalent **CmdStan** versions are in the clip files.
+From chapter 8 onwards, the **Turing** versions of the mcmc models are available as e.g. chapters/08/m8.1t.jl. Equivalent **CmdStan** versions and, in a few cases **Mamba** models, are provided as well.
 
 ## Acknowledgements
 

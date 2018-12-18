@@ -7,9 +7,9 @@
 
 ## Introduction
 
-This package will contain Julia versions of selected code snippets contained in the R package "rethinking" associated with the book [Statisticasl Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
+This package will contain Julia versions of selected code snippets contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
-In the book, the author states: "". This package allows experimenting with this learning process using 3 available mcmc options in Julia.
+In the book, the author states: "*If that (a model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*". This package allows experimenting with this learning process using 3 available mcmc options in Julia.
 
 ## Layout of the package
 

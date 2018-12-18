@@ -2,27 +2,19 @@
 
 ## Introduction
 
-This package contains the Julia versions of the snippets contained in the R package "rethinking" associated with the book [Statisticasl Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
+This package will contain Julia versions of selected code snippets contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
-## Layout of the package
+In the book, the author states: "*If that (a model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*". This package allows experimenting with this learning process using 3 available mcmc options in Julia.
 
-Instead of having all snippets in a single file, the snippets are organized by chapter and grouped into clips of related snippets. E.g. chapter 0 of the R package [rethinking](https://github.com/rmcelreath/rethinking) has snippets 0.1 to 0.5. These are divided over 2 clips:
+The intention is that when needed clips with names such as `02/clip_08t.jl`, `clip_08s.jl` and `clip_08m.jl` will show up. These will contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
 
-1. `clip_01_03.jl` - contains snippets 0.1 through 0.3
-2. `clip_04_05.jl` - contains snippets 0.4 and 0.5.
+Occasionally a clip will contain just a single snippet and will be referred to as `03/clip_02.jl`. Almost identical models are named e.g. `04/clip_07.0s.jl` and `04/clip_07.1s.jl`. In that example just the priors differ.
 
-These 2 files are in chapters/00. These files are later on processed by Literate.jl to create 2 derived versions, e.g. from `clip_01_03.jl` in chapters/00:
-
-1. `clip_01_03.md` - which is stored in docs/src and included in the documentation
-2. `clip_01_03.ipynb` - stored in the notebooks directory for use in Jupyter
-
-The intention is that when needed clips with names such as `clip_05_07t.jl`, `clip_05_07s.jl` and `clip_05_07m.jl` will show up. These will contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
-
-Occasionally a clip contains a single snippet and will be refered to as `clip_02.jl`, e.g. in chapters/03
+From chapter 8 onwards, the **Turing** versions of the mcmc models are available as e.g. chapters/08/m8.1t.jl. Equivalent **CmdStan** versions and, in a few cases **Mamba** models, are provided as well.
 
 ## Acknowledgements
 
-Richard Torkar has taken the lead in developing the Turing versions of the models from chapter 8 onwards.
+Richard Torkar has taken the lead in developing the Turing versions of the models in chapter 8.
 
 The TuringLang team and #turing contributors on Slack have been extremely helpful!
 
@@ -32,6 +24,14 @@ The mcmc components are based on:
 2. [StanJulia](https://github.com/StanJulia)
 3. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
 
+At least 2 other mcmc options are available for mcmc in Julia:
+
+4. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
+5. [Klara](https://github.com/JuliaStats/Klara.jl)
+
+Time constraints prevents inclusion of those right now, although e.g. the example `chapters/04/clip_38.1m.jl` almost begs for a `clip_38d.jl'. For now the linear regression example in  [DynamicHMCExamples](https://tpapp.github.io/DynamicHMCExamples.jl/latest/example_linear_regression/) is a good starting point.
+
+As a final note, the Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
 
 
 ```@meta

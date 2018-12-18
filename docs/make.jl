@@ -42,7 +42,6 @@ for chapter in chapters
         # Process Turing files
         elseif file[end-3:end] == "t.jl"
           println("\nTuring file $file, skipped\n")
-          break       
         # Process model files files
         elseif file[1] == 'm' && file[end-2:end] == ".jl"          
           println("\nModel file $file\n")

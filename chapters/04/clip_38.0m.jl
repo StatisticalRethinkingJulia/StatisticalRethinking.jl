@@ -1,5 +1,5 @@
 using StatisticalRethinking, Distributed, JLD
-@everywhere using Mamba
+using Mamba
 
 ## Data
 line = Dict{Symbol, Any}()

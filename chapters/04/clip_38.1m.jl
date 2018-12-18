@@ -1,5 +1,5 @@
 using StatisticalRethinking, Distributed, JLD, LinearAlgebra
-@everywhere using Mamba
+using Mamba
 
 # Data
 

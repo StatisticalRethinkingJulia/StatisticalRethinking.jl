@@ -6,7 +6,7 @@ using Reexport
 @reexport using Plots, StatPlots, StatsFuns, MCMCChain
 @reexport using JLD, CSV, DelimitedFiles
 @reexport using CmdStan, StanMCMCChain
-using Turing
+@reexport using Turing
 
 include("maximum_a_posteriori.jl")
 

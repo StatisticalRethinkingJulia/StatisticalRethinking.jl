@@ -18,7 +18,7 @@ Instead of having all snippets in a single file, the snippets are organized by c
 
 These 2 files are in chapters/00. These files are later on processed by Literate.jl to create 2 derived versions, e.g. from `clip_01_03.jl` in chapters/00:
 
-1. `clip_01_03.md` - which is stored in docs/src and included in the documentation
+1. `clip_01_03.md` - included in the documentation
 2. `clip_01_03.ipynb` - stored in the notebooks directory for use in Jupyter
 
 The intention is that when needed clips with names such as `02/clip_08t.jl`, `clip_08s.jl` and `clip_08m.jl` will show up. These will contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.

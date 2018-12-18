@@ -88,10 +88,16 @@ makedocs(root = DOC_ROOT,
       "Chapter 4" => [
         "`clip_01_06`" => "04/clip_01_06.md",
         "`clip_07.0s`" => "04/clip_07.0s.md",
-        "`clip_07.1s`" => "04/clip_07.1s.md"
+        "`clip_07.1s`" => "04/clip_07.1s.md",
+        "`clip_38.0s`" => "04/clip_38.0s.md",
+        "`clip_38.1s`" => "04/clip_38.1s.md",
+        "`clip_38.0m`" => "04/clip_38.0m.md",
+        "`clip_38.1m`" => "04/clip_38.1m.md",
+        "`clip_38.t`" => "04/clip_38t.md"
       ],
       "Chapter 8" => [
         "`m8.1.jl`" => "08/m8.1.md",
+        "`m8.1t.jl`" => "08/m8.1t.md",
         "`m8.2.jl`" => "08/m8.2.md",
         "`m8.3.jl`" => "08/m8.3.md",
         "`m8.4.jl`" => "08/m8.4.md"

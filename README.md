@@ -9,7 +9,7 @@
 
 This package will contain Julia versions of selected code snippets contained in the R package "rethinking" associated with the book [Statisticasl Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
-In the book, the author states: "". This package allows experimenting with this learning process in Julia using 3 available mcmc options in Julia.
+In the book, the author states: "". This package allows experimenting with this learning process using 3 available mcmc options in Julia.
 
 ## Layout of the package
 
@@ -46,7 +46,9 @@ At least 2 other mcmc options are available for mcmc in Julia:
 4. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
 5. [Klara](https://github.com/JuliaStats/Klara.jl)
 
-Time constraints prevents inclusion of those right now, although e.g. the example `chapters/04/clip_38.1m.jl` almost begs for a `clip_38d.jl`example.
+Time constraints prevents inclusion of those right now, although e.g. the example `chapters/04/clip_38.1m.jl` almost begs for a `clip_38d.jl'. For now the linear regression example in  [DynamicHMCExamples](https://tpapp.github.io/DynamicHMCExamples.jl/latest/example_linear_regression/) is a good starting point.
+
+As a final note, the Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
 
 ## Documentation
 
@@ -56,6 +58,11 @@ Time constraints prevents inclusion of those right now, although e.g. the exampl
 ## Questions and issues
 
 Question and contributions are very welcome, as are feature requests and suggestions. Please open an [issue][issues-url] if you encounter any problems or have a question.
+
+## To do
+
+1. Automatically generate the table of contents in docs/make.jl
+
 
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
 [docs-dev-url]: https://stanjulia.github.io/StatisticalRethinking.jl/latest

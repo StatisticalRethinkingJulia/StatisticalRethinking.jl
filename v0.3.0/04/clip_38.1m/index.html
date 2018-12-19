@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip_38.1m · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../">Home</a></li><li><span class="toctext">Chapter 0</span><ul><li><a class="toctext" href="../../00/clip_01_03/"><code>clip_01_03</code></a></li><li><a class="toctext" href="../../00/clip_04_05/"><code>clip_04_04</code></a></li></ul></li><li><span class="toctext">Chapter 2</span><ul><li><a class="toctext" href="../../02/clip_01_02/"><code>clip_01_02</code></a></li><li><a class="toctext" href="../../02/clip_03_05/"><code>clip_03_05</code></a></li><li><a class="toctext" href="../../02/clip_06_07/"><code>clip_06_07</code></a></li><li><a class="toctext" href="../../02/clip_08t/"><code>clip_08t</code></a></li><li><a class="toctext" href="../../02/clip_08m/"><code>clip_08m</code></a></li><li><a class="toctext" href="../../02/clip_08s/"><code>clip_08s</code></a></li></ul></li><li><span class="toctext">Chapter 3</span><ul><li><a class="toctext" href="../../03/clip_01/"><code>clip_01</code></a></li><li><a class="toctext" href="../../03/clip_02_05/"><code>clip_02_05</code></a></li><li><a class="toctext" href="../../03/clip_05s/"><code>clip_05s</code></a></li><li><a class="toctext" href="../../03/clip_06_16s/"><code>clip_06_16s</code></a></li></ul></li><li><span class="toctext">Chapter 4</span><ul><li><a class="toctext" href="../clip_01_06/"><code>clip_01_06</code></a></li><li><a class="toctext" href="../clip_07.0s/"><code>clip_07.0s</code></a></li><li><a class="toctext" href="../clip_07.1s/"><code>clip_07.1s</code></a></li><li><a class="toctext" href="../clip_38.0s/"><code>clip_38.0s</code></a></li><li><a class="toctext" href="../clip_38.1s/"><code>clip_38.1s</code></a></li><li><a class="toctext" href="../clip_38.0m/"><code>clip_38.0m</code></a></li><li class="current"><a class="toctext" href><code>clip_38.1m</code></a><ul class="internal"></ul></li><li><a class="toctext" href="../clip_38t/"><code>clip_38.t</code></a></li></ul></li><li><span class="toctext">Chapter 8</span><ul><li><a class="toctext" href="../../08/m8.1/"><code>m8.1.jl</code></a></li><li><a class="toctext" href="../../08/m8.1t/"><code>m8.1t.jl</code></a></li><li><a class="toctext" href="../../08/m8.2/"><code>m8.2.jl</code></a></li><li><a class="toctext" href="../../08/m8.3/"><code>m8.3.jl</code></a></li><li><a class="toctext" href="../../08/m8.4/"><code>m8.4.jl</code></a></li></ul></li><li><span class="toctext">Chapter 10</span><ul><li><a class="toctext" href="../../10/m10.3/"><code>m10.3.jl</code></a></li><li><a class="toctext" href="../../10/m10.4/"><code>m10.4.jl</code></a></li></ul></li><li><span class="toctext">Chapter 11</span><ul><li><a class="toctext" href="../../11/m11_5/"><code>m11.5.jl</code></a></li></ul></li><li><span class="toctext">Chapter 12</span><ul><li><a class="toctext" href="../../12/m12_1/"><code>m12.1.jl</code></a></li><li><a class="toctext" href="../../12/m12_2/"><code>m12.2.jl</code></a></li><li><a class="toctext" href="../../12/m12_3/"><code>m12.3.jl</code></a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 4</li><li><a href><code>clip_38.1m</code></a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/04/clip_38.1m.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip_38.1m</span><a class="fa fa-bars" href="#"></a></div></header><div><pre><code class="language-julia">using StatisticalRethinking, Distributed, JLD, LinearAlgebra
+using Mamba</code></pre></div><p>Data</p><div><pre><code class="language-julia">howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), &quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
+df = convert(DataFrame, howell1);</code></pre></div><p>Use only adults</p><div><pre><code class="language-julia">df2 = filter(row -&gt; row[:age] &gt;= 18, df);</code></pre></div><p>Input data for Mamba</p><div><pre><code class="language-julia">data = Dict(
+  :x =&gt; convert(Array{Float64,1}, df2[:weight]),
+  :y =&gt; convert(Array{Float64,1}, df2[:height])
+)</code></pre><pre><code class="language-none">Dict{Symbol,Array{Float64,1}} with 2 entries:
+  :y =&gt; [151.765, 139.7, 136.525, 156.845, 145.415, 163.83, 149.225, 168.91, 14…
+  :x =&gt; [47.8256, 36.4858, 31.8648, 53.0419, 41.2769, 62.9926, 38.2435, 55.48, …</code></pre></div><p>Log-transformed Posterior(b0, b1, log(s2)) + Constant and Gradient Vector</p><div><pre><code class="language-julia">logfgrad = function(x::DenseVector)
+  b0 = x[1]
+  b1 = x[2]
+  logs2 = x[3]
+  r = data[:y] .- b0 .- b1 .* data[:x]
+  logf = (-0.5 * length(data[:y]) - 0.001) * logs2 -
+           (0.5 * dot(r, r) + 0.001) / exp(logs2) -
+           0.5 * b0^2 / 1000 - 0.5 * b1^2 / 1000
+  grad = [
+    sum(r) / exp(logs2) - b0 / 1000,
+    sum(data[:x] .* r) / exp(logs2) - b1 / 1000,
+    -0.5 * length(data[:y]) - 0.001 + (0.5 * dot(r, r) + 0.001) / exp(logs2)
+  ]
+  logf, grad
+end
+
+# MCMC Simulation with No-U-Turn Sampling
+
+n = 5000
+burnin = 1000
+sim = Mamba.Chains(n, 3, start = (burnin + 1), names = [&quot;b0&quot;, &quot;b1&quot;, &quot;s2&quot;])
+theta = NUTSVariate([0.0, 0.0, 0.0], logfgrad)
+for i in 1:n
+  sample!(theta, adapt = (i &lt;= burnin))
+  if i &gt; burnin
+    sim[i, :, 1] = [theta[1:2]; exp(theta[3])]
+  end
+end</code></pre></div><p>Summarize draws</p><div><pre><code class="language-julia">describe(sim)#-</code></pre><pre><code class="language-none">Iterations = 1001:5000
+Thinning interval = 1
+Chains = 1
+Samples per chain = 4000
+
+Empirical Posterior Estimates:
+       Mean          SD       Naive SE       MCSE         ESS
+b0 113.55063076 2.044149868 0.0323208473 0.1141517020  320.67174
+b1   0.91226476 0.044723043 0.0007071334 0.0024656788  328.99531
+s2  26.02196258 1.954176725 0.0308982470 0.0506641103 1487.73929
+
+Quantiles:
+       2.5%        25.0%       50.0%       75.0%       97.5%
+b0 109.19893751 112.3235613 113.558488 114.91439736 117.6074127
+b1   0.82371558   0.8842933   0.910974   0.93910943   1.0080595
+s2  22.50528704  24.6187215  25.903577  27.30734239  30.0766665</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip_38.0m/"><span class="direction">Previous</span><span class="title"><code>clip_38.0m</code></span></a><a class="next" href="../clip_38t/"><span class="direction">Next</span><span class="title"><code>clip_38.t</code></span></a></footer></article></body></html>

@@ -6,7 +6,7 @@ gr(size=(500,800))
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path("..", "chapters", "04")
+ProjDir = @__DIR__
 cd(ProjDir)
 
 # ### snippet 4.7
@@ -17,6 +17,8 @@ df = convert(DataFrame, howell1);
 # Use only adults
 
 df2 = filter(row -> row[:age] >= 18, df)
+mean_weight = mean(df2[:weight])
+df2[:weight] = convert(Vector{Float64}, df2[:weight]) .- mean_weight 
 
 # Define the Stan language model
 
@@ -95,7 +97,7 @@ plot(chn)
 
 # Plot regression line using means and observations
 
-xi = 30.0:0.1:65.0
+xi = -16.0:0.1:18.0
 rws, vars, chns = size(chn[:, 1, :])
 alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))
 beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)))

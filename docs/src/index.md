@@ -17,7 +17,7 @@ m4.3 <- map(
 )
 ```
 
-The author states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page ...).
+The author states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*"  (page 77).
 
 This package is intended to allow experimenting with this learning process using 3 available mcmc options in Julia.
 
@@ -58,7 +58,7 @@ At least 2 other mcmc options are available for mcmc in Julia:
 4. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
 5. [Klara](https://github.com/JuliaStats/Klara.jl)
 
-Time constraints prevents inclusion of those right now, although e.g. the example `chapters/04/clip_38.1m.jl` almost begs for a `clip_38d.jl'. For now the linear regression example in  [DynamicHMCExamples](https://tpapp.github.io/DynamicHMCExamples.jl/latest/example_linear_regression/) is a good starting point.
+Time constraints prevents inclusion of those right now, although e.g. the example `chapters/04/clip_38.1m.jl` almost begs for a `clip_38d.jl`. For now the linear regression example in  [DynamicHMCExamples](https://tpapp.github.io/DynamicHMCExamples.jl/latest/example_linear_regression/) is a good starting point.
 
 As a final note, the Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
 

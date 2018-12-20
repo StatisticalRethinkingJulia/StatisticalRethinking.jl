@@ -24,7 +24,7 @@ m4.3 <- map(
 )
 ```
 
-The author states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page ...).
+The author states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
 This package is intended to allow experimenting with this learning process using 3 available mcmc options in Julia.
 

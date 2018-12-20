@@ -6,7 +6,7 @@ gr(size=(500,800))
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = @__DIR__
+ProjDir = rel_path("..", "chapters", "04")
 cd(ProjDir)
 
 # ### snippet 4.7

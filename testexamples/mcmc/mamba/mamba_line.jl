@@ -48,7 +48,7 @@ setsamplers!(model, scheme)
 sim = mcmc(model, line, inits, 10000, burnin=1000, chains=3)
 describe(sim)
 
-ProjDir = @__DIR__
+ProjDir = rel_path("..", "testexamples", "mcmc", "mamba")
 cd(ProjDir) do
   
   save("sim.jld", 

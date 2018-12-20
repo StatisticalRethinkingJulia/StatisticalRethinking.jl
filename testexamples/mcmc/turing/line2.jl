@@ -1,8 +1,8 @@
 using Turing, MCMCChain, Plots
 gr(size=(400, 400))
 
-ProjDir = @__DIR__
-cd(ProjDir) do
+ProjDir = rel_path("..", "testexamples", "mcmc", "turing")
+cd(ProjDir)
 
 x = collect(0.0:1:10)
 y = x + rand(Normal(0.0, 0.1), length(x))
@@ -31,5 +31,3 @@ yi = mean(chn[:alpha]) .+ mean(chn[:beta])*xi
 plot(x, y)
 plot!(xi, yi)
 savefig("line2.pdf")
-
-end

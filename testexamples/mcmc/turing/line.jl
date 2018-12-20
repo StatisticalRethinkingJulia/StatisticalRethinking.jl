@@ -1,7 +1,7 @@
 using Turing, MCMCChain, Plots
 gr(size=(300,300))
 
-ProjDir = @__DIR__
+ProjDir = rel_path("..", "testexamples", "mcmc", "turing")
 cd(ProjDir) do
 
   y = [1.0, 3.0, 3.0, 3.0, 5.0]

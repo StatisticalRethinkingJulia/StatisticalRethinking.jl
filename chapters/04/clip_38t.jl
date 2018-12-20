@@ -3,7 +3,7 @@ gr(size=(300,300))
 
 Turing.setadbackend(:reverse_diff)
 
-ProjDir = @__DIR__
+ProjDir = rel_path("..", "chapters", "04")
 cd(ProjDir)
 
 # ### snippet 4.38

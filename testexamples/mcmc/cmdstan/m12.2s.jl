@@ -6,8 +6,8 @@ gr(size=(500,800))
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = @__DIR__
-cd(ProjDir) do
+ProjDir = rel_path("..", "testexamples", "mcmc", "mamba")
+cd(ProjDir)
 
 # Define the Stan language model
 
@@ -49,10 +49,6 @@ m12_2_model = "
   }
 "
 
-# Make variables visible outisde the do loop
-
-global stanmodel, chn, sim, m12_2_data
-  
 # Define the Stanmodel and set the output format to :mcmcchain.
 
 stanmodel = Stanmodel(name="m12_2", model=m12_2_model,
@@ -60,15 +56,15 @@ stanmodel = Stanmodel(name="m12_2", model=m12_2_model,
 
 # Input data for cmdstan
 
-    m12_2_data = [
-      Dict(
-        "N" => size(d, 1), 
-        "N_tank" => size(d, 1), 
-        "surv" => d[:surv],
-        "density" => d[:density],
-        "tank" => d[:tank]
-        )
-    ]
+m12_2_data = [
+  Dict(
+    "N" => size(d, 1), 
+    "N_tank" => size(d, 1), 
+    "surv" => d[:surv],
+    "density" => d[:density],
+    "tank" => d[:tank]
+    )
+]
 
 # Sample using cmdstan
  
@@ -87,6 +83,3 @@ d = JLD.load(joinpath(ProjDir, "tmp", "chn.jld"))
 
 chn2 = MCMCChain.Chains(d["a3d"], names=d["names"])
 describe(chn) 
-
-end # cd
-

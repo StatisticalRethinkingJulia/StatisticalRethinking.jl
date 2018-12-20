@@ -7,7 +7,7 @@
 using StatisticalRethinking
 gr(size=(600,300))
 
-ProjDir = @__DIR__ #src
+ProjDir = rel_path("..", "test")
 cd(ProjDir) #src
 
 let μ = 1500,

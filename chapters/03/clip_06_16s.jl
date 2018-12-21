@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking
-gr(size=(500,800))
+gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -29,12 +29,12 @@ model {
   // Observed Counts
   k ~ binomial(n, theta);
 }
-"
+";
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
 stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
-  output_format=:mcmcchain)
+  output_format=:mcmcchain);
 
 # Use 16 observations
 
@@ -46,12 +46,12 @@ k2 = [6, 5, 7, 6]
 
 binomialdata = [
   Dict("N" => length(n2), "n" => n2, "k" => k2)
-]
+];
 
 # Sample using cmdstan
  
 rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME)
+  CmdStanDir=CMDSTAN_HOME);
 
 # Describe the draws
 
@@ -64,10 +64,10 @@ MCMCChain.hpd(chn)
 # Plot the 4 chains
 
 if rc == 0
-  mixeddensity(chn)
+  mixeddensity(chn, xlab="height [cm]", ylab="density")
   bnds = MCMCChain.hpd(convert(Vector{Float64}, chn.value[:,1,1]))
   vline!([bnds[1]], line=:dash)
   vline!([bnds[2]], line=:dash)
 end
 
-# End of clip_06_16s.jl
+# End of `clip_06_16s.jl`

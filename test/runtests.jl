@@ -23,7 +23,7 @@ for chapter in chapters
        elseif file[end-3:end] == "s.jl"
           isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
             rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          
-          Literate.notebook(file, NotebookDir, execute=false)
+          Literate.notebook(file, NotebookDir, execute=true)
         else
           isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
             rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          

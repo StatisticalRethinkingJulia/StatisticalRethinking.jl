@@ -1,8 +1,7 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking
-using CmdStan, StanMCMCChain
-gr(size=(500,800))
+using StatisticalRethinking, CmdStan, StanMCMCChain
+gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -38,7 +37,7 @@ model {
   // Observed heights
   h ~ normal(mu, sigma);
 }
-"
+";
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
@@ -88,6 +87,6 @@ sigma   7.198721   7.5573575   7.749435   7.960795   8.393317
 
 # Plot the density of posterior draws
 
-density(chn)
+density(chn, xlab="height [cm]", ylab="density")
 
 # Close cd(ProjDir) do block

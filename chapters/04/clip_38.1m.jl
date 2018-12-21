@@ -15,7 +15,7 @@ df2 = filter(row -> row[:age] >= 18, df);
 data = Dict(
   :x => convert(Array{Float64,1}, df2[:weight]),
   :y => convert(Array{Float64,1}, df2[:height])
-)
+);
 
 # Log-transformed Posterior(b0, b1, log(s2)) + Constant and Gradient Vector
 

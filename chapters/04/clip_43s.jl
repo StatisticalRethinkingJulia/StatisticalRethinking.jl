@@ -2,7 +2,7 @@
 
 using StatisticalRethinking
 using CmdStan, StanMCMCChain
-gr(size=(500,800))
+gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -18,7 +18,7 @@ df = convert(DataFrame, howell1);
 
 df2 = filter(row -> row[:age] >= 18, df)
 mean_weight = mean(df2[:weight])
-df2[:weight] = convert(Vector{Float64}, df2[:weight]) .- mean_weight 
+df2[:weight] = convert(Vector{Float64}, df2[:weight]) .- mean_weight ;
 
 # Define the Stan language model
 
@@ -41,18 +41,18 @@ model {
 
 generated quantities {
 } 
-"
+";
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
 stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],model=weightsmodel,
-  output_format=:mcmcchain)
+  output_format=:mcmcchain);
 
 # Input data for cmdstan
 
 heightsdata = [
   Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight])
-]
+];
 
 # Sample using cmdstan
 
@@ -89,7 +89,7 @@ alpha 110.1927000 112.4910000 113.7905000 115.1322500 117.5689750
  beta   0.8257932   0.8775302   0.9069425   0.9357115   0.9862574
 sigma   4.7308260   4.9644050   5.0958800   5.2331875   5.5133417
 
-"
+";
 
 # Plot the density of posterior draws
 
@@ -103,7 +103,8 @@ alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))
 beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)))
 yi = mean(alpha_vals) .+ mean(beta_vals)*xi
 
-scatter(df2[:weight], df2[:height], lab="Observations")
+scatter(df2[:weight], df2[:height], lab="Observations",
+  ylab="height [cm]", xlab="weight[kg]")
 plot!(xi, yi, lab="Regression line")
 
-# End of clip_38.0s.jl
+# End of `clip_43s.jl`

@@ -2,7 +2,7 @@
 
 using StatisticalRethinking
 using CmdStan, StanMCMCChain
-gr(size=(500,800))
+gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -45,23 +45,23 @@ model {
 
 generated quantities {
 } 
-"
+";
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
 stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],model=weightsmodel,
-  output_format=:mcmcchain)
+  output_format=:mcmcchain);
 
 # Input data for cmdstan
 
 weightsdata = [
   Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight])
-]
+];
 
 # Sample using cmdstan
 
 rc, chn, cnames = stan(stanmodel, weightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME)
+  CmdStanDir=CMDSTAN_HOME);
 
 # Describe the draws
 
@@ -93,8 +93,7 @@ alpha 110.1927000 112.4910000 113.7905000 115.1322500 117.5689750
  beta   0.8257932   0.8775302   0.9069425   0.9357115   0.9862574
 sigma   4.7308260   4.9644050   5.0958800   5.2331875   5.5133417
 sigma   3.9447100   4.1530675   4.254755   4.36483000   4.5871028
-
-"
+";
 
 # Plot the density of posterior draws
 
@@ -108,7 +107,8 @@ alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))
 beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)))
 yi = mean(alpha_vals) .+ mean(beta_vals)*xi
 
-scatter(df2[:weight], df2[:height], lab="Observations")
+scatter(df2[:weight], df2[:height], lab="Observations",
+  xlab="weight [kg]", ylab="heigth [cm]")
 plot!(xi, yi, lab="Regression line")
 
-# End of clip_38.1s.jl
+# End of `clip_38.1s.jl`

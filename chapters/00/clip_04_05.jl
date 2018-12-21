@@ -1,7 +1,9 @@
 # Load Julia packages (libraries) needed
 
+# ### snippet 0.5 is replaced by below `using StatisticalRethinking`.
+
 using StatisticalRethinking, GLM
-gr(size=(300, 300))
+gr(size=(500, 500));
 
 # ### snippet 0.4
 
@@ -29,4 +31,4 @@ coef(m)
 scatter( cars[:Speed], residuals(m),
   xlab="Speed", ylab="Model residual values", lab="Model residuals")
   
-# ### snippet 0.5 is replaced by above `using StatisticalRethinking`.
+# End of `clip_04_05.jl`

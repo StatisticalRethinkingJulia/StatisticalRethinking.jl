@@ -1,11 +1,10 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
-gr(size=(300, 300))
 
 # ### snippet 0.1
 
-println( "All models are wrong, but some are useful." )
+println( "All models are wrong, but some are useful." );
 
 # ### snippet 0.2
 

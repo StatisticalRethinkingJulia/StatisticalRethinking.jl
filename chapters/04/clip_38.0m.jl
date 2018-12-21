@@ -61,4 +61,4 @@ sim = mcmc(model, line, inits, 10000, burnin=1000, chains=3)
 
 describe(sim)
 
-#
+# End of `clip_38.0m.jl`

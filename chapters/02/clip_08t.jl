@@ -2,7 +2,7 @@
 
 using StatisticalRethinking
 using StatsFuns, Optim, Turing, Flux.Tracker
-gr(size=(600,300)) #src
+gr(size=(600,300));
 
 Turing.setadbackend(:reverse_diff)
 
@@ -68,3 +68,5 @@ vline!([bnds[2]], line=:dash, lab="hpd upper bound")
 # Show hpd region
 
 println("hpd bounds = $bnds\n")
+
+# End of `clip_08t.jl`

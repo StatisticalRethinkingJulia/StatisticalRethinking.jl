@@ -67,12 +67,14 @@ At least 2 other mcmc options are available for mcmc in Julia:
 
 Time constraints prevents inclusion of those, although e.g. the example `chapters/04/clip_38.1m.jl` almost begs for a `clip_38d.jl'. The linear regression example in [DynamicHMCExamples](https://tpapp.github.io/DynamicHMCExamples.jl/latest/example_linear_regression/) is a good starting point.
 
-As a final note, the Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
+The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
 
 ## Documentation
 
 - [**STABLE**][docs-stable-url] &mdash; **documentation of the most recently tagged version.**
 - [**DEVEL**][docs-dev-url] &mdash; *documentation of the in-development version.*
+
+The  documentation has been generated using Literate.jl based on several ideas of Tamas Papp demonstrated in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
 
 ## Questions and issues
 

@@ -11,15 +11,15 @@ p_grid = range(0, step=0.001, stop=1)
 
 # all priors = 1.0
 
-prior = ones(length(p_grid))
+prior = ones(length(p_grid));
 
 # Binomial pdf
 
-likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid];
 
 # As Uniform priar has been used, unstandardized posterior is equal to likelihood
 
-posterior = likelihood .* prior
+posterior = likelihood .* prior;
 
 # Scale posterior such that they become probabilities
 
@@ -57,3 +57,5 @@ p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 
 plot!( p[2], x, pdf.(Normal( fitnormal.μ, fitnormal.σ ) , x ), lab="Normal approximation")
 plot(p..., layout=(1, 2))
+
+# End of `clip_02_05.jl`

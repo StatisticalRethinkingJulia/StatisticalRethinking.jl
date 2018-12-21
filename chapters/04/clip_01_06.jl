@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
-gr(size=(600,300))
+gr(size=(600,300));
 
 # ### snippet 4.1
 
@@ -121,3 +121,5 @@ p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 
 plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation", fill=(0, .5,:orange))
 plot(p..., layout=(1, 2))
+
+# End of `clip_01_06.jl`

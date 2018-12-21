@@ -7,7 +7,7 @@ globe_toss = Dict{Symbol, Any}(
   :w => [6, 7, 5, 6, 6],
   :n => [9, 9, 9, 9, 9]
 )
-globe_toss[:N] = length(globe_toss[:w])
+globe_toss[:N] = length(globe_toss[:w]);
 
 # Model Specification
 
@@ -25,7 +25,7 @@ model = Model(
 inits = [
   Dict(:w => globe_toss[:w], :n => globe_toss[:n], :p => 0.5),
   Dict(:w => globe_toss[:w], :n => globe_toss[:n], :p => rand(Beta(1, 1)))
-]
+];
 
 # Sampling Scheme
 
@@ -39,3 +39,5 @@ sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)
 # Describe draws
 
 describe(sim)
+
+# End of `clip_08m.jl`

@@ -61,6 +61,14 @@ rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
 
 describe(chn)
 
+# Allocate array of Normal fits
+
+fits = Vector{Normal{Float64}}(undef, 4)
+for i in 1:4
+  fits[i] = fit_mle(Normal, convert.(Float64, chn.value[:, 1, i]))
+  println(fits[i])
+end
+
 # Plot the 4 chains
 
 if rc == 0
@@ -68,13 +76,13 @@ if rc == 0
   x = 0:0.001:1
   for i in 1:4
     vals = convert.(Float64, chn.value[:, 1, i])
-    @show res = fit_mle(Normal, vals)
-    μ = round(res.μ, digits=2)
-    σ = round(res.σ, digits=2)
-    p[i] = density(vals, lab="Chain $i density", title="$(N2) data points")
-    plot!(p[i], x, pdf.(Normal(res.μ, res.σ), x), lab="Fitted Normal($μ, $σ)")
+    μ = round(fits[i].μ, digits=2)
+    σ = round(fits[i].σ, digits=2)
+    p[i] = density(vals, lab="Chain $i density",
+       xlim=(0.45, 1.0), title="$(N2) data points")
+    plot!(p[i], x, pdf.(Normal(fits[i].μ, fits[i].σ), x), lab="Fitted Normal($μ, $σ)")
   end
   plot(p..., layout=(4, 1))
 end
 
-#
+# End of `clip_08s.jl`

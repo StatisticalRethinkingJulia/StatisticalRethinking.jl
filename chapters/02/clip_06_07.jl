@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking
-gr(size=(600,300))
+gr(size=(600,300));
 
 # ### snippet 2.6 (see snippet 3_2 for explanations)
 
@@ -40,3 +40,5 @@ scatter( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 # quadratic approximation
 
 scatter!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
+
+# End of `clip_06_07.jl`

@@ -2,13 +2,16 @@ using StatisticalRethinking, Literate
 using Test
 
 chapters = ["00", "02", "03", "04", "08", "10", "11", "12"]
-DocDir = joinpath(@__DIR__, "..", "docs", "src")
+#chapters = ["00", "02"]
+DocDir = rel_path("..", "docs", "src")
 
 for chapter in chapters
-  ProjDir = joinpath(@__DIR__, "..", "chapters", chapter)
-  NotebookDir = joinpath(@__DIR__, "..", "notebooks", chapter)
+  ProjDir = rel_path("..", "chapters", chapter)
+  NotebookDir = rel_path("..", "notebooks", chapter)
+  
   !isdir(NotebookDir) && mkdir(NotebookDir)
   !isdir(ProjDir) && break
+  
   cd(ProjDir) do
     
     filelist = readdir()
@@ -20,7 +23,7 @@ for chapter in chapters
           isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
             rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          
           Literate.notebook(file, NotebookDir, execute=true)
-       elseif file[end-3:end] == "s.jl"
+        elseif file[end-3:end] == "s.jl"
           isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
             rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          
           Literate.notebook(file, NotebookDir, execute=true)
@@ -36,6 +39,12 @@ for chapter in chapters
          Literate.notebook(file, NotebookDir, execute=false)
       end
     end
+    
+    # Remove tmp directory used by cmdstan 
+    isdir("tmp") && rm("tmp", recursive=true);
+    
   end
-  println()
+  
+  println("\nCompleted notebook generation for chapter $chapter\n")
+  
 end

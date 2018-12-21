@@ -2,7 +2,7 @@
 
 using StatisticalRethinking
 using CmdStan, StanMCMCChain
-gr(size=(500,500))
+gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -39,18 +39,18 @@ model {
 
 generated quantities {
 } 
-"
+";
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
 stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],model=weightsmodel,
-  output_format=:mcmcchain)
+  output_format=:mcmcchain);
 
 # Input data for cmdstan
 
 heightsdata = [
   Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight])
-]
+];
 
 # Sample using cmdstan
 
@@ -87,4 +87,4 @@ for i in 1:length(nvals)
 end
 plot(p..., layout=(2, 2))
 
-# End of clip_45_47s.jl
+# End of `clip_45_47s.jl`

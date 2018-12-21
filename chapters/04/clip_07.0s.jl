@@ -73,3 +73,5 @@ describe(chn)
 # Plot the density of posterior draws
 
 density(chn, lab="All heights", xlab="height [cm]", ylab="density")
+
+# End of `clip_07.0s.jl`

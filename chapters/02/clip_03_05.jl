@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking
-gr(size=(600,300))
+gr(size=(600,300));
 
 # ### snippet 2.3
 
@@ -12,7 +12,7 @@ p_grid = range( 0 , stop=1 , length=N )
 
 # Define the (uniform) prior
 
-prior = ones( 20 )
+prior = ones( 20 );
 
 # Compute likelihood at each value in grid
 
@@ -20,11 +20,11 @@ likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
 
 # Compute product of likelihood and prior
 
-unstd_posterior = likelihood .* prior
+unstd_posterior = likelihood .* prior;
 
 # Standardize the posterior, so it sums to 1
 
-posterior = unstd_posterior  ./ sum(unstd_posterior)
+posterior = unstd_posterior  ./ sum(unstd_posterior);
 
 # ### snippet 2.4
 
@@ -45,3 +45,4 @@ scatter!(p3, p_grid, prior1, lab = "semi_uniform grid point")
 plot!(p3, p_grid, prior2,  lab = "double_exponential" )
 scatter!(p3, p_grid, prior2,  lab = "double_exponential grid point" )
 
+# End of `clip_03_05.jl`

@@ -42,18 +42,18 @@ model {
 # Define the Stanmodel and set the output format to :mcmcchain.
 
 stanmodel = Stanmodel(name="heights", monitors = ["mu", "sigma"],model=heightsmodel,
-  output_format=:mcmcchain)
+  output_format=:mcmcchain);
 
 # Input data for cmdstan
 
 heightsdata = [
   Dict("N" => length(df2[:height]), "h" => df2[:height])
-]
+];
 
 # Sample using cmdstan
 
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME)
+  CmdStanDir=CMDSTAN_HOME);
 
 # Describe the draws
 
@@ -83,10 +83,10 @@ Quantiles:
 sigma   7.198721   7.5573575   7.749435   7.960795   8.393317
    mu 153.795975 154.3307500 154.610000 154.884000 155.391050
 
-"
+";
 
 # Plot the density of posterior draws
 
 density(chn, xlab="height [cm]", ylab="density")
 
-# Close cd(ProjDir) do block
+# End of `clip_07.1s.jl`

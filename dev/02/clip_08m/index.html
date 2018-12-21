@@ -4,7 +4,7 @@ using Mamba</code></pre><pre><code class="language-none">[ Info: Loading DataFra
   :w =&gt; [6, 7, 5, 6, 6],
   :n =&gt; [9, 9, 9, 9, 9]
 )
-globe_toss[:N] = length(globe_toss[:w])</code></pre><pre><code class="language-none">5</code></pre></div><p>Model Specification</p><div><pre><code class="language-julia">model = Model(
+globe_toss[:N] = length(globe_toss[:w]);</code></pre></div><p>Model Specification</p><div><pre><code class="language-julia">model = Model(
   w = Stochastic(1,
     (n, p, N) -&gt;
       UnivariateDistribution[Binomial(n[i], p) for i in 1:N],
@@ -14,19 +14,17 @@ globe_toss[:N] = length(globe_toss[:w])</code></pre><pre><code class="language-n
 );</code></pre></div><p>Initial Values</p><div><pre><code class="language-julia">inits = [
   Dict(:w =&gt; globe_toss[:w], :n =&gt; globe_toss[:n], :p =&gt; 0.5),
   Dict(:w =&gt; globe_toss[:w], :n =&gt; globe_toss[:n], :p =&gt; rand(Beta(1, 1)))
-]</code></pre><pre><code class="language-none">2-element Array{Dict{Symbol,Any},1}:
- Dict(:w=&gt;[6, 7, 5, 6, 6],:p=&gt;0.5,:n=&gt;[9, 9, 9, 9, 9])
- Dict(:w=&gt;[6, 7, 5, 6, 6],:p=&gt;0.134808,:n=&gt;[9, 9, 9, 9, 9])</code></pre></div><p>Sampling Scheme</p><div><pre><code class="language-julia">scheme = [NUTS(:p)]
+];</code></pre></div><p>Sampling Scheme</p><div><pre><code class="language-julia">scheme = [NUTS(:p)]
 setsamplers!(model, scheme);</code></pre></div><p>MCMC Simulations</p><div><pre><code class="language-julia">sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)</code></pre><pre><code class="language-none">MCMC Simulation of 10000 Iterations x 2 Chains...
 
-Chain 1:   0% [0:23:49 of 0:23:50 remaining]
-Chain 1:  10% [0:00:14 of 0:00:15 remaining]
-Chain 1:  20% [0:00:06 of 0:00:08 remaining]
+Chain 1:   0% [0:26:18 of 0:26:19 remaining]
+Chain 1:  10% [0:00:15 of 0:00:17 remaining]
+Chain 1:  20% [0:00:07 of 0:00:09 remaining]
 Chain 1:  30% [0:00:05 of 0:00:07 remaining]
-Chain 1:  40% [0:00:03 of 0:00:05 remaining]
-Chain 1:  50% [0:00:02 of 0:00:04 remaining]
+Chain 1:  40% [0:00:03 of 0:00:06 remaining]
+Chain 1:  50% [0:00:02 of 0:00:05 remaining]
 Chain 1:  60% [0:00:02 of 0:00:04 remaining]
-Chain 1:  70% [0:00:01 of 0:00:03 remaining]
+Chain 1:  70% [0:00:01 of 0:00:04 remaining]
 Chain 1:  80% [0:00:01 of 0:00:03 remaining]
 Chain 1:  90% [0:00:00 of 0:00:03 remaining]
 Chain 1: 100% [0:00:00 of 0:00:03 remaining]
@@ -36,7 +34,7 @@ Chain 2:  10% [0:00:01 of 0:00:01 remaining]
 Chain 2:  20% [0:00:01 of 0:00:01 remaining]
 Chain 2:  30% [0:00:01 of 0:00:01 remaining]
 Chain 2:  40% [0:00:01 of 0:00:01 remaining]
-Chain 2:  50% [0:00:00 of 0:00:01 remaining]
+Chain 2:  50% [0:00:01 of 0:00:01 remaining]
 Chain 2:  60% [0:00:00 of 0:00:01 remaining]
 Chain 2:  70% [0:00:00 of 0:00:01 remaining]
 Chain 2:  80% [0:00:00 of 0:00:01 remaining]
@@ -63,4 +61,4 @@ p 0.6589088 0.06839548 0.0005584468 0.00062540144 7500
 
 Quantiles:
      2.5%     25.0%     50.0%     75.0%      97.5%
-p 0.5160799 0.6135111 0.6627785 0.7068447 0.78476273</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip_08t/"><span class="direction">Previous</span><span class="title"><code>clip_08t</code></span></a><a class="next" href="../clip_08s/"><span class="direction">Next</span><span class="title"><code>clip_08s</code></span></a></footer></article></body></html>
+p 0.5160799 0.6135111 0.6627785 0.7068447 0.78476273</code></pre></div><p>End of <code>clip_08m.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip_08t/"><span class="direction">Previous</span><span class="title"><code>clip_08t</code></span></a><a class="next" href="../clip_08s/"><span class="direction">Next</span><span class="title"><code>clip_08s</code></span></a></footer></article></body></html>

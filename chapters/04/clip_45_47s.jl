@@ -61,10 +61,10 @@ rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
 
 display(chn.value[1:5,:,1])
 
-# Plot estimates using the first N = 10 observations
+# Plot estimates using the N = [10, 50, 150, 352] observations
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
-nvals = [10, 50, 150, 200]
+nvals = [10, 50, 150, 352]
 
 for i in 1:length(nvals)
   N = nvals[i]

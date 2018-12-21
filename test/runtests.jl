@@ -16,10 +16,14 @@ for chapter in chapters
       if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"        
         isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
           rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          
-        if file[end-3:end] == "s.jl" || file[end-3:end] == "m.jl"
+        if file[end-3:end] == "m.jl"
           isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
             rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          
           Literate.notebook(file, NotebookDir, execute=true)
+       elseif file[end-3:end] == "s.jl"
+          isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
+            rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          
+          Literate.notebook(file, NotebookDir, execute=false)
         else
           isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
             rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          

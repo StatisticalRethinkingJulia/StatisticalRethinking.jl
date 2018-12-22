@@ -14,7 +14,7 @@ rel_path(parts...) = normpath(joinpath(src_path, parts...))
 
 DOC_ROOT = rel_path("..", "docs")
 DocDir =  rel_path("..", "docs", "src")
-chapters = ["00", "02", "03", "04", "08", "10", "11", "12"]
+chapters = ["00", "02", "03", "04", "05", "08", "10", "11", "12"]
 
 for chapter in chapters
   ProjDir = rel_path( "..", "chapters", chapter)

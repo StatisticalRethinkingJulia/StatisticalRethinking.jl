@@ -4,7 +4,7 @@ using Mamba
 ## Data
 line = Dict{Symbol, Any}()
 
-howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data", "Howell1.csv"), delim=';')
+howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
 
 # Use only adults
@@ -23,7 +23,6 @@ model = Model(
   beta = Stochastic(1, () -> MvNormal([178, 0], [sqrt(10000), sqrt(100)])),
   s2 = Stochastic(() -> Uniform(0, 50))
 )
-
 
 ## Initial Values
 inits = [

@@ -60,8 +60,11 @@ At least 2 other mcmc options are available for mcmc in Julia:
 
 Time constraints prevents inclusion of those right now, although e.g. the example `chapters/04/clip_38.1m.jl` almost begs for a `clip_38d.jl`. For now the linear regression example in  [DynamicHMCExamples](https://tpapp.github.io/DynamicHMCExamples.jl/latest/example_linear_regression/) is a good starting point.
 
-As a final note, the Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
+The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
 
+The  documentation has been generated using Literate.jl based on several ideas of Tamas Papp demonstrated in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
+
+## Functions added by StatisticalRethinking
 
 ```@meta
 CurrentModule = StatisticalRethinking
@@ -70,4 +73,9 @@ CurrentModule = StatisticalRethinking
 ## `maximum_a_posteriori`
 ```@docs
 maximum_a_posteriori(model, lower_bound, upper_bound)
+```
+
+## `rel_path`
+```@docs
+rel_path(parts...)
 ```

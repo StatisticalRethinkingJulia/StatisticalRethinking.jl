@@ -10,7 +10,7 @@ using StatisticalRethinking
 
 # Read in rugged data as a DataFrame
 
-d = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data",
+d = CSV.read(rel_path("..", "data",
     "rugged.csv"), delim=';');
 
 # Show size of the DataFrame (should be 234x51)

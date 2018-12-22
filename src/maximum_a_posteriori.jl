@@ -23,7 +23,7 @@ maximum_a_posteriori(model, lower_bound, upper_bound)
 
 ### Examples
 
-See ...
+See [02/clip_08t.jl](https://stanjulia.github.io/StatisticalRethinking.jl/stable/02/clip_08t/)
 
 """
 function maximum_a_posteriori(model, lower_bound, upper_bound)

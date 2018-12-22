@@ -9,9 +9,9 @@ gr(size=(500,500));
 ProjDir = rel_path("..", "chapters", "04")
 cd(ProjDir)
 
-# ### snippet 4.7
+# ### snippet 4.38
 
-howell1 = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data", "Howell1.csv"), delim=';')
+howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
 
 # Use only adults

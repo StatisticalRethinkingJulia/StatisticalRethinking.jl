@@ -18,7 +18,7 @@ static int current_statement_begin__;
 stan::io::program_reader prog_reader__() {
     stan::io::program_reader reader;
     reader.add_event(0, 0, "start", "/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan");
-    reader.add_event(20, 18, "end", "/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan");
+    reader.add_event(23, 21, "end", "/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan");
     return reader;
 }
 
@@ -165,7 +165,7 @@ public:
         double sigma(0);
         sigma = vals_r__[pos__++];
         try {
-            writer__.scalar_lb_unconstrain(0,sigma);
+            writer__.scalar_lub_unconstrain(0,50,sigma);
         } catch (const std::exception& e) { 
             throw std::runtime_error(std::string("Error transforming variable sigma: ") + e.what());
         }
@@ -220,9 +220,9 @@ public:
             local_scalar_t__ sigma;
             (void) sigma;  // dummy to suppress unused var warning
             if (jacobian__)
-                sigma = in__.scalar_lb_constrain(0,lp__);
+                sigma = in__.scalar_lub_constrain(0,50,lp__);
             else
-                sigma = in__.scalar_lb_constrain(0);
+                sigma = in__.scalar_lub_constrain(0,50);
 
 
             // transformed parameters
@@ -237,7 +237,13 @@ public:
             // model body
 
             current_statement_begin__ = 14;
-            lp_accum__.add(normal_log<propto__>(height, add(alpha,multiply(weight,beta)), sigma));
+            lp_accum__.add(normal_log<propto__>(alpha, 178, 100));
+            current_statement_begin__ = 15;
+            lp_accum__.add(normal_log<propto__>(beta, 0, 10));
+            current_statement_begin__ = 16;
+            lp_accum__.add(uniform_log<propto__>(sigma, 0, 50));
+            current_statement_begin__ = 17;
+            lp_accum__.add(normal_log<propto__>(height, add(alpha,multiply(beta,weight)), sigma));
 
         } catch (const std::exception& e) {
             stan::lang::rethrow_located(e, current_statement_begin__, prog_reader__());
@@ -298,7 +304,7 @@ public:
         // read-transform, write parameters
         double alpha = in__.scalar_constrain();
         double beta = in__.scalar_constrain();
-        double sigma = in__.scalar_lb_constrain(0);
+        double sigma = in__.scalar_lub_constrain(0,50);
         vars__.push_back(alpha);
         vars__.push_back(beta);
         vars__.push_back(sigma);

@@ -1,17 +1,20 @@
 data {
- int < lower = 1 > N; // Sample size
- vector[N] height; // Predictor
- vector[N] weight; // Outcome
+ int < lower = 1 > N;
+ vector[N] height;
+ vector[N] weight;
 }
 
 parameters {
- real alpha; // Intercept
- real beta; // Slope (regression coefficients)
- real < lower = 0 > sigma; // Error SD
+ real alpha;
+ real beta;
+ real < lower = 0, upper = 50 > sigma;
 }
 
 model {
- height ~ normal(alpha + weight * beta , sigma);
+  alpha ~ normal(178, 100);
+  beta ~ normal(0, 10);
+  sigma ~ uniform(0, 50);
+  height ~ normal(alpha + beta*weight , sigma);
 }
 
 generated quantities {

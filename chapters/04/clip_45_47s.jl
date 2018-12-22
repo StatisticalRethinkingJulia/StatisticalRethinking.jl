@@ -57,9 +57,9 @@ heightsdata = [
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME)
 
-# Show individual draws of correlated parameter values
+# Show first 5 individual draws of correlated parameter values in chain 1
 
-display(chn.value[1:5,:,1])
+chn.value[1:5,:,1]
 
 # Plot estimates using the N = [10, 50, 150, 352] observations
 

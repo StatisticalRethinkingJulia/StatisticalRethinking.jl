@@ -16,26 +16,26 @@ dsim = DataFrame(pond = 1:nponds, ni = ni, true_a = a_pond)
 prob = logistic.(Vector{Real}(dsim[:true_a]))
 
 dsim[:si] = [rand(Binomial(ni[i], prob[i])) for i = 1:nponds]</code></pre><pre><code class="language-none">60-element Array{Int64,1}:
+  5
   3
+  3
+  5
   5
   5
   5
   4
-  5
-  3
-  1
   5
   4
   ⋮
+ 30
+ 23
  27
- 21
- 29
+ 19
+ 19
  22
- 26
- 34
- 32
- 26
- 30</code></pre></div><p>Used only in the continuation of this example</p><div><pre><code class="language-julia">dsim[:p_nopool] = dsim[:si] ./ dsim[:ni]
+ 33
+ 31
+ 21</code></pre></div><p>Used only in the continuation of this example</p><div><pre><code class="language-julia">dsim[:p_nopool] = dsim[:si] ./ dsim[:ni]
 
 @model m12_3(pond, si, ni) = begin</code></pre></div><p>Separate priors on μ and σ for each pond</p><div><pre><code class="language-julia">    σ ~ Truncated(Cauchy(0, 1), 0, Inf)
     μ ~ Normal(0, 1)</code></pre></div><p>Number of ponds in the data set</p><div><pre><code class="language-julia">    N_ponds = length(pond)</code></pre></div><p>vector for the priors for each pond</p><div><pre><code class="language-julia">    a_pond = Vector{Real}(undef, N_ponds)</code></pre></div><p>For each pond set a prior. Note the [] around Normal(), i.e.,</p><div><pre><code class="language-julia">    a_pond ~ [Normal(μ, σ)]</code></pre></div><p>Observation</p><pre><code class="language-">    logitp = [a_pond[pond[i]] for i = 1:N_ponds]

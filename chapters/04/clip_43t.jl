@@ -6,7 +6,7 @@ Turing.setadbackend(:reverse_diff)
 ProjDir = rel_path("..", "chapters", "04")
 cd(ProjDir)
 
-# ### snippet 4.38
+# ### snippet 4.43
 
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
@@ -71,16 +71,26 @@ alpha 154.0610000 154.4150000 154.5980000 154.7812500 155.1260000
 sigma   4.7524368   4.9683400   5.0994450   5.2353100   5.5090128
 ";
 
-# Example result for Turing with centered weights
+# Example result for Turing with centered weights (appears biased)
 
-clip_43t_example_hpd = "
+clip_43t_example_output = "
 
-MCMCChain.hpd(chn)
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1
+Samples per chain = 1000
 
-             95% Lower        95% Upper  
-   alpha   126.00203040343   170.13685381
-    beta     0.77550323206     1.12283412
-       s     4.59914079361    44.68498531
+Empirical Posterior Estimates:
+              Mean            SD        Naive SE        MCSE         ESS    
+   alpha   153.14719937  10.810424888 0.3418556512  1.4582064846   54.960095
+    beta     0.90585034   0.079704618 0.0025204813  0.0016389693 1000.000000
+  lf_num     0.00200000   0.063245553 0.0020000000  0.0020000000 1000.000000
+       s     6.00564996   5.329796821 0.1685429742  0.8996190097   35.099753
+ elapsed     0.09374649   0.099242518 0.0031383240  0.0055587373  318.744897
+ epsilon     0.07237568   0.136671220 0.0043219234  0.0087528107  243.814242
+      lp -1112.05625117 171.984325602 5.4386219075 28.3846353549   36.712258
+eval_num    20.27200000  20.520309430 0.6489091609  1.1679058181  308.711044
+  lf_eps     0.07237568   0.136671220 0.0043219234  0.0087528107  243.814242
 
 ";
 
@@ -92,4 +102,4 @@ yi = mean(chn[:alpha]) .+ mean(chn[:beta])*xi
 scatter(x, y, lab="Observations", xlab="weight", ylab="height")
 plot!(xi, yi, lab="Regression line")
 
-# End of `clip_38t.jl`
+# End of `clip_43t.jl`

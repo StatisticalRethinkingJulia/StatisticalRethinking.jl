@@ -102,7 +102,7 @@ for i in 1:length(nvals)
       "median_age" => df[1:N, :MedianAgeMarriage])
   ]
   rc, chnN, cnames = stan(stanmodel, maddataN, ProjDir, diagnostics=false,
-    CmdStanDir=CMDSTAN_HOME)
+    summary=false, CmdStanDir=CMDSTAN_HOME)
 
   xi = -3.0:0.1:3.0
   rws, vars, chns = size(chnN[:, 1, :])

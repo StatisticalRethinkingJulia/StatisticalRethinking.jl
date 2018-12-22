@@ -90,6 +90,8 @@ makedocs(root = DOC_ROOT,
         "`clip_07.1s`" => "04/clip_07.1s.md",
         "`clip_38.0s`" => "04/clip_38.0s.md",
         "`clip_38.1s`" => "04/clip_38.1s.md",
+        "`clip_38.2s`" => "04/clip_38.2s.md",
+        "`clip_38.3s`" => "04/clip_38.3s.md",
         "`clip_38.0m`" => "04/clip_38.0m.md",
         "`clip_38.1m`" => "04/clip_38.1m.md",
         "`clip_38t`" => "04/clip_38t.md",
@@ -97,7 +99,7 @@ makedocs(root = DOC_ROOT,
         "`clip_45_47s`" => "04/clip_45_47s.md"
       ],
       "Chapter 5" => [
-        "`clip_01s`" => "04/clip_01s.md"
+        "`clip_01s`" => "05/clip_01s.md"
       ],
       "Chapter 8" => [
         "`m8.1.jl`" => "08/m8.1.md",

@@ -72,7 +72,7 @@ for i in 1:length(nvals)
     Dict("N" => N, "height" => df2[1:N, :height], "weight" => df2[1:N, :weight])
   ]
   rc, chnN, cnames = stan(stanmodel, heightsdataN, ProjDir, diagnostics=false,
-    CmdStanDir=CMDSTAN_HOME)
+    summary=false, CmdStanDir=CMDSTAN_HOME)
 
   xi = 30.0:0.1:65.0
   rws, vars, chns = size(chnN[:, 1, :])

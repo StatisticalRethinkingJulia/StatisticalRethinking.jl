@@ -19,7 +19,7 @@ df2 = filter(row -> row[:age] >= 18, df);
 
 mean_weight = mean(df2[:weight])
 df2 = hcat(df2, df2[:weight] .- mean_weight)
-rename!(df2, :x1 => :weight_c) # Rename our col x1 => log_gdp
+rename!(df2, :x1 => :weight_c); # Rename our col :x1 => :weight_c
 
 # Extract variables for Turing model
 

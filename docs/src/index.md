@@ -17,7 +17,7 @@ m4.3 <- map(
 )
 ```
 
-The author states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*"  (page 77).
+The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*"  (page 77).
 
 This package is intended to allow experimenting with this learning process using 3 available mcmc options in Julia.
 
@@ -62,9 +62,31 @@ Time constraints prevents inclusion of those right now, although e.g. the exampl
 
 The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
 
-The  documentation has been generated using Literate.jl based on several ideas of Tamas Papp demonstrated in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
+The  documentation has been generated using Literate.jl based on several ideas demonstrated by Tamas Papp in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
 
-## Functions added by StatisticalRethinking
+## References
+
+There is no shortage of good books on Bayesian statistics. A few of my favorites are:
+
+1. [Bolstad: Introduction to Bayesian statistics](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118593227.html)
+
+2. [Bolstad: Understanding Computational Bayesian Statistics](http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470046090.html)
+
+3. [Gelman, Hill: Data Analysis using regression and multileve,/hierachical models](http://www.stat.columbia.edu/~gelman/arm/)
+
+4. [McElreath: Statistical Rethinking](http://xcelab.net/rm/statistical-rethinking/)
+
+5. [Gelman, Carlin, and others: Bayesian Data Analysis](http://www.stat.columbia.edu/~gelman/book/)
+
+6. [Lee, Wagenmakers: Bayesian Cognitive Modeling](https://www.cambridge.org/us/academic/subjects/psychology/psychology-research-methods-and-statistics/bayesian-cognitive-modeling-practical-course?format=PB&isbn=9781107603578)
+
+7. [Kruschke:Doing Bayesian Data Analysis](https://sites.google.com/site/doingbayesiandataanalysis/what-s-new-in-2nd-ed)
+
+and a great read (and implementation in DynamicHMC.jl):
+
+8. [Betancourt: A Conceptual Introduction to Hamiltonian Monte Carlo](https://arxiv.org/abs/1701.02434)
+
+## Functions:
 
 ```@meta
 CurrentModule = StatisticalRethinking

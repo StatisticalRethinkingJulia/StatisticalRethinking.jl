@@ -24,7 +24,7 @@ m4.3 <- map(
 )
 ```
 
-The author states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
+The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
 This package is intended to allow experimenting with this learning process using 3 available mcmc options in Julia.
 
@@ -74,7 +74,7 @@ The Mamba examples should really use `@everywhere using Mamba` in stead of `usin
 - [**STABLE**][docs-stable-url] &mdash; **documentation of the most recently tagged version.**
 - [**DEVEL**][docs-dev-url] &mdash; *documentation of the in-development version.*
 
-The  documentation has been generated using Literate.jl based on several ideas of Tamas Papp demonstrated in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
+The  documentation has been generated using Literate.jl and Documenter.jl based on several ideas demonstrated by Tamas Papp in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
 
 ## Questions and issues
 

@@ -41,13 +41,20 @@ x = convert(Vector{Float64}, df2[:weight_c]);
     end
 end;
 
+# Disable updating progress of sampling process
+
+Turing.turnprogress(false);
+
 # Draw the samples
 
-chn = sample(line(y, x), Turing.NUTS(1000, 0.65));
+chn = sample(line(y, x), Turing.NUTS(2000, 1000, 0.65));
 
 # Describe the chain result
 
-describe(chn)
+#describe(chn)
+for var in [:alpha, :beta, :s]
+  println("$var = ",  mean_and_std(chn[Symbol(var)][1001:2000]))
+end
 
 # Compare with a previous result
 
@@ -75,22 +82,16 @@ sigma   4.7524368   4.9683400   5.0994450   5.2353100   5.5090128
 
 clip_43t_example_output = "
 
-Iterations = 1:1000
-Thinning interval = 1
-Chains = 1
-Samples per chain = 1000
-
-Empirical Posterior Estimates:
-              Mean            SD        Naive SE        MCSE         ESS    
-   alpha   153.14719937  10.810424888 0.3418556512  1.4582064846   54.960095
-    beta     0.90585034   0.079704618 0.0025204813  0.0016389693 1000.000000
-  lf_num     0.00200000   0.063245553 0.0020000000  0.0020000000 1000.000000
-       s     6.00564996   5.329796821 0.1685429742  0.8996190097   35.099753
- elapsed     0.09374649   0.099242518 0.0031383240  0.0055587373  318.744897
- epsilon     0.07237568   0.136671220 0.0043219234  0.0087528107  243.814242
-      lp -1112.05625117 171.984325602 5.4386219075 28.3846353549   36.712258
-eval_num    20.27200000  20.520309430 0.6489091609  1.1679058181  308.711044
-  lf_eps     0.07237568   0.136671220 0.0043219234  0.0087528107  243.814242
+[NUTS] Finished with
+  Running time        = 163.20725027799972;
+  #lf / sample        = 0.006;
+  #evals / sample     = 19.824;
+  pre-cond. metric    = [1.0, 1.0, 1.0].
+  
+                       Mean                              SD
+alpha = (154.6020248402468, 0.24090814737592972)
+beta   = (0.9040183717679473, 0.0422796486734481)
+s        = (5.095714121087817, 0.18455074897377258)
 
 ";
 

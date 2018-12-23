@@ -32,9 +32,7 @@ plot(p..., layout=(1, 2))
 
 # analytical calculation
 
-w = 6
-n = 9
-x = 0:0.01:1
+w = 6; n = 9; x = 0:0.01:1
 scatter( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 
 # quadratic approximation

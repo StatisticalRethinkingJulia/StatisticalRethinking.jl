@@ -25,9 +25,11 @@ rel_path("..", "data")
 rel_path(parts...) = normpath(joinpath(src_path, parts...))
 
 include("maximum_a_posteriori.jl")
+include("link.jl")
 
 export
   maximum_a_posteriori,
+  link,
   rel_path
 
 end # module

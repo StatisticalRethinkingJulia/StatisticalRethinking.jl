@@ -14,6 +14,7 @@ maximum_a_posteriori(model, lower_bound, upper_bound)
 ```julia
 * `model::Turing model`
 * `lower_bound::Float64`
+* `upper_bound::Float64`
 ```
 
 ### Return values

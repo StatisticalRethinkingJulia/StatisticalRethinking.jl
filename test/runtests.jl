@@ -2,7 +2,7 @@ using StatisticalRethinking, Literate
 using Test
 
 chapters = ["00", "02", "03", "04", "05", "08", "10", "11", "12"]
-#chapters = ["04"]
+#chapters = ["00"]
 DocDir = rel_path("..", "docs", "src")
 
 for chapter in chapters

@@ -47,11 +47,14 @@ Turing.turnprogress(false);
 
 # Draw the samples
 
-chn = sample(line(y, x), Turing.NUTS(2000, 1000, 0.65));
+chn = sample(line(y, x), Turing.NUTS(2000, 200, 0.65));
 
 # Describe the chain result
 
-#describe(chn)
+describe(chn)
+
+# Show corrected results (Drop adaptation samples)
+
 for var in [:alpha, :beta, :s]
   println("$var = ",  mean_and_std(chn[Symbol(var)][1001:2000]))
 end

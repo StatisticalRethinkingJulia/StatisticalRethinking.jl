@@ -9,20 +9,21 @@ gr(size=(500,500));
 ProjDir = rel_path("..", "chapters", "04")
 cd(ProjDir)
 
-# ### snippet 4.48
+# ### Preliminary snippets
 
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
 
 # Use only adults
 
-df2 = filter(row -> row[:age] >= 18, df)
+df2 = filter(row -> row[:age] >= 18, df);
 
 # Center weight and store as weight_c
 
 mean_weight = mean(df2[:weight])
 df2 = hcat(df2, df2[:weight] .- mean_weight)
 rename!(df2, :x1 => :weight_c); # Rename our col :x1 => :weight_c
+df2
 
 # Define the Stan language model
 
@@ -42,9 +43,6 @@ parameters {
 model {
  height ~ normal(alpha + weight * beta , sigma);
 }
-
-generated quantities {
-} 
 ";
 
 # Define the Stanmodel and set the output format to :mcmcchain.
@@ -52,7 +50,7 @@ generated quantities {
 stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],model=weightsmodel,
   output_format=:mcmcchain);
 
-# Input data for cmdstan
+# Input data for cmdstan.
 
 heightsdata = [
   Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight_c])
@@ -61,7 +59,7 @@ heightsdata = [
 # Sample using cmdstan
 
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME)
+  CmdStanDir=CMDSTAN_HOME);
 
 # ### Snippet 4.47
 
@@ -73,11 +71,11 @@ chn.value[1:5,:,1]
 
 # Plot estimates using the N = [10, 50, 150, 352] observations
 
+nvals = [10, 50, 150, 352];
+
+# Create the 4 nvals plots
+
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
-nvals = [10, 50, 150, 352]
-
-# Create plots
-
 for i in 1:length(nvals)
   N = nvals[i]
   heightsdataN = [

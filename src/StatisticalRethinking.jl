@@ -6,7 +6,7 @@ using Reexport
 @reexport using Plots, StatPlots, StatsFuns, MCMCChain
 @reexport using JLD, CSV, DelimitedFiles
 @reexport using CmdStan, StanMCMCChain
-@reexport using Turing
+@reexport using Turing, MLDataUtils
 
 const src_path = @__DIR__
 

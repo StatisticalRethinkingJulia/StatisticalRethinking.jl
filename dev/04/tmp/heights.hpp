@@ -204,9 +204,9 @@ public:
             // model body
 
             current_statement_begin__ = 12;
-            lp_accum__.add(uniform_log<propto__>(mu, 100, 250));
+            lp_accum__.add(normal_log<propto__>(mu, 178, 20));
             current_statement_begin__ = 13;
-            lp_accum__.add(cauchy_log<propto__>(sigma, 0, 1));
+            lp_accum__.add(uniform_log<propto__>(sigma, 0, 50));
             current_statement_begin__ = 16;
             lp_accum__.add(normal_log<propto__>(h, mu, sigma));
 

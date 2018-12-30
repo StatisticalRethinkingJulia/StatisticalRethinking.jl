@@ -9,8 +9,8 @@ parameters {
 }
 model {
   // Priors for mu and sigma
-  mu ~ uniform(100, 250);
-  sigma ~ cauchy( 0 , 1 );
+  mu ~ normal(178, 20);
+  sigma ~ uniform( 0 , 50 );
 
   // Observed heights
   h ~ normal(mu, sigma);

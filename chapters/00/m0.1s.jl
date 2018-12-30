@@ -8,8 +8,6 @@
 
 # We begin by importing all the necessary libraries.
 
-# Import StratisticalRethinking.
-
 using StatisticalRethinking, CmdStan, StanMCMCChain, GLM
 gr(size=(500,500))
 

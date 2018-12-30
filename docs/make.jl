@@ -43,11 +43,15 @@ for chapter in chapters
         elseif file[end-3:end] == "t.jl"
           println("\nTuring file $file, skipped\n")
         # Process model files files
-        elseif file[1] == 'm' && file[end-2:end] == ".jl"          
+        elseif file[1] == 'm' && file[end-2:end] == ".jl"        
           println("\nModel file $file\n")
-          isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
-          Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)
-        # Process all remaining clip  files (neither CmdStan, Turing, Mamba or models)
+          if file[end-3:end] == "t.jl"
+            println("\nTuring file $file, skipped\n")
+          else
+            isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
+            Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)
+          end
+        # Process remaining  files (neither CmdStan, Turing, Mamba or models)
         else       
           println("\nOther file $file\n")
           isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
@@ -69,8 +73,7 @@ makedocs(root = DOC_ROOT,
       "Chapter 0" => [
         "`clip_01_03`" => "00/clip_01_03.md",
         "`clip_04_04`" => "00/clip_04_05.md",
-        "m0.1s" => "00/m0.1s.md",
-        "m0.1t" => "00/m0.1t.md"
+        "m0.1s" => "00/m0.1s.md"
       ],
       "Chapter 2" => [
         "`clip_01_02`" => "02/clip_01_02.md",

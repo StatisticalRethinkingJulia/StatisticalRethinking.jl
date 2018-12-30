@@ -26,8 +26,8 @@ for chapter in chapters
     
     filelist = readdir()
     for file in filelist
-      # Check existance of file
-      if !isdir(file) && (file[1:4] == "clip" || file[1] == 'm') && file[end-2:end] == ".jl"  
+      # Check existance of clip files
+      if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"  
         
         # Process CmdStan files
         if file[end-3:end] == "s.jl"
@@ -42,24 +42,30 @@ for chapter in chapters
         # Process Turing files
         elseif file[end-3:end] == "t.jl"
           println("\nTuring file $file, skipped\n")
-        # Process model files files
-        elseif file[1] == 'm' && file[end-2:end] == ".jl"        
-          println("\nModel file $file\n")
-          if file[end-3:end] == "t.jl"
-            println("\nTuring file $file, skipped\n")
-          else
-            isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
-            Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)
-          end
-        # Process remaining  files (neither CmdStan, Turing, Mamba or models)
-        else       
-          println("\nOther file $file\n")
-          isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
-          Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
         end
-              
       end # if !isdir
+      
+      # Check existance of model files
+      if !isdir(file) && file[1] == 'm' && file[end-2:end] == ".jl"  
+              
+        # Process CmdStan files
+        if file[end-3:end] == "s.jl" && file[2] != '_'
+          println("\nCmdStan file $file\n")
+          isfile(joinpath(DocDir, file[1:end-4], "s.md")) && rm(joinpath(DocDir, file[1:end-4], "s.md"))
+          Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
+        # Process Mamba files
+        elseif file[end-3:end] == "m.jl"
+          println("\nMamba file $file\n")
+          isfile(joinpath(DocDir, file[1:end-4], "m.md")) && rm(joinpath(DocDir, file[1:end-4], "m.md"))
+          Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
+        # Process Turing files
+        elseif file[end-3:end] == "t.jl"
+          println("\nTuring file $file, skipped\n")          
+        end
+      end # if !isdir
+      
     end # for
+    
   end # cd
   println()
 end # for chapter

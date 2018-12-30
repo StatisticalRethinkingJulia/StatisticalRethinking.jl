@@ -10,8 +10,8 @@ Random.seed!(UInt32[0x57a97f0d, 0x1a38664c, 0x0dddb228, 0x7dbba96f])
 DOC_ROOT = rel_path("..", "docs")
 DocDir =  rel_path("..", "docs", "src")
 
-chapters = ["00", "02", "03", "04", "05", "08", "10", "11", "12"]
-#chapters = ["00", "02"]
+#chapters = ["00", "02", "03", "04", "05", "08", "10", "11", "12"]
+chapters = ["00", "02", "03", "04", "05", "08"]
 
 for chapter in chapters
   ProjDir = rel_path( "..", "chapters", chapter)
@@ -114,6 +114,10 @@ makedocs(root = DOC_ROOT,
         "`clip_01s`" => "05/clip_01s.md"
       ],
       "Chapter 8" => [
+        "`m8.1t.jl`" => "08/m8.1t.md"
+      ]
+      #=
+      "Chapter 8" => [
         "`m8.1.jl`" => "08/m8.1.md",
         "`m8.1t.jl`" => "08/m8.1t.md",
         "`m8.2.jl`" => "08/m8.2.md",
@@ -135,6 +139,7 @@ makedocs(root = DOC_ROOT,
         "`m12.5.jl`" => "12/m12_5.md",
         "`m12.6.jl`" => "12/m12_6.md"
       ]
+      =#
     ]
 )
 

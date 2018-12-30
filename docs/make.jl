@@ -5,16 +5,13 @@ using Random
 Random.seed!(UInt32[0x57a97f0d, 0x1a38664c, 0x0dddb228, 0x7dbba96f])
 
 # The idea: generate both docs and notebooks using Literate
-# Again based on ideas from Tamas Papp!
-
-const src_path = @__DIR__
-
-"Relative path using the StatisticalRethinking src/ directory."
-rel_path(parts...) = normpath(joinpath(src_path, parts...))
+# Based on ideas and work from Tamas Papp!
 
 DOC_ROOT = rel_path("..", "docs")
 DocDir =  rel_path("..", "docs", "src")
+
 chapters = ["00", "02", "03", "04", "05", "08", "10", "11", "12"]
+#chapters = ["00", "02"]
 
 for chapter in chapters
   ProjDir = rel_path( "..", "chapters", chapter)
@@ -31,17 +28,21 @@ for chapter in chapters
         
         # Process CmdStan files
         if file[end-3:end] == "s.jl"
-          println("\nCmdStan file $file\n")
+          println("\nCmdStan file $chapter/$file\n")
           isfile(joinpath(DocDir, file[1:end-4], "s.md")) && rm(joinpath(DocDir, file[1:end-4], "s.md"))
           Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
         # Process Mamba files
         elseif file[end-3:end] == "m.jl"
-          println("\nMamba file $file\n")
+          println("\nMamba file $chapter/$file\n")
           isfile(joinpath(DocDir, file[1:end-4], "m.md")) && rm(joinpath(DocDir, file[1:end-4], "m.md"))
           Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
         # Process Turing files
         elseif file[end-3:end] == "t.jl"
-          println("\nTuring file $file, skipped\n")
+          println("\nTuring file $chapter/$file, skipped\n")
+        else
+          println("\nOther clip file $chapter/$file\n")
+          isfile(joinpath(DocDir, file[1:end-3], ".md")) && rm(joinpath(DocDir, file[1:end-3], ".md"))
+          Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
         end
       end # if !isdir
       
@@ -49,25 +50,24 @@ for chapter in chapters
       if !isdir(file) && file[1] == 'm' && file[end-2:end] == ".jl"  
               
         # Process CmdStan files
-        if file[end-3:end] == "s.jl" && file[2] != '_'
-          println("\nCmdStan file $file\n")
+        if file[end-3:end] == "s.jl" && !(file[2] == '_')
+          println("\nCmdStan file $chapter/$file\n")
           isfile(joinpath(DocDir, file[1:end-4], "s.md")) && rm(joinpath(DocDir, file[1:end-4], "s.md"))
           Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
         # Process Mamba files
         elseif file[end-3:end] == "m.jl"
-          println("\nMamba file $file\n")
+          println("\nMamba file $chapter/$file\n")
           isfile(joinpath(DocDir, file[1:end-4], "m.md")) && rm(joinpath(DocDir, file[1:end-4], "m.md"))
           Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
         # Process Turing files
         elseif file[end-3:end] == "t.jl"
-          println("\nTuring file $file, skipped\n")          
+          println("\nTuring file $chapter/$file, skipped\n")          
         end
       end # if !isdir
       
     end # for
     
   end # cd
-  println()
 end # for chapter
 
 makedocs(root = DOC_ROOT,
@@ -130,7 +130,10 @@ makedocs(root = DOC_ROOT,
       "Chapter 12" => [
         "`m12.1.jl`" => "12/m12_1.md",
         "`m12.2.jl`" => "12/m12_2.md",
-        "`m12.3.jl`" => "12/m12_3.md"
+        "`m12.3.jl`" => "12/m12_3.md",
+        "`m12.4.jl`" => "12/m12_4.md",
+        "`m12.5.jl`" => "12/m12_5.md",
+        "`m12.6.jl`" => "12/m12_6.md"
       ]
     ]
 )

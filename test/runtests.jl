@@ -16,6 +16,7 @@ for chapter in chapters
     
     filelist = readdir()
     for file in filelist
+      
       if !isdir(file) && file[1:4] == "clip" && file[end-2:end] == ".jl"        
         isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
           rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          
@@ -32,7 +33,7 @@ for chapter in chapters
             rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          
           # Execution will fail for Turing notebooks
           Literate.notebook(file, NotebookDir, execute=false)
-        end        
+        end    
       elseif !isdir(file) && file[1] == 'm' && file[end-2:end] == ".jl"        
         isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
           rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          

@@ -7,6 +7,7 @@ using Reexport
 @reexport using JLD, CSV, DelimitedFiles
 @reexport using CmdStan, StanMCMCChain
 @reexport using Turing, MLDataUtils
+using DataStructures
 
 const src_path = @__DIR__
 
@@ -26,10 +27,13 @@ rel_path(parts...) = normpath(joinpath(src_path, parts...))
 
 include("maximum_a_posteriori.jl")
 include("link.jl")
+include("script_entries.jl")
 
 export
   maximum_a_posteriori,
   link,
-  rel_path
+  rel_path,
+  Script_entry,
+  script_dict
 
 end # module

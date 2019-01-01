@@ -1,5 +1,3 @@
-## Functions:
-
 ```@meta
 CurrentModule = StatisticalRethinking
 ```

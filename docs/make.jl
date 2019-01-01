@@ -8,6 +8,12 @@ using Documenter
 DOC_ROOT = rel_path("..", "docs")
 DocDir =  rel_path("..", "docs", "src")
 
+page_list = Array{Pair{String, Any}, 1}();
+append!(page_list, [Pair("Home", "intro.md")]);
+append!(page_list, [Pair("Layout", "layout.md")])
+append!(page_list, [Pair("Acknowledgements", "acknowledgements.md")]);
+append!(page_list, [Pair("References", "references.md")])
+
 for chapter in keys(script_dict)
   ProjDir = rel_path( "..", "chapters", chapter)
   DocDir =  rel_path("..", "docs", "src", chapter)
@@ -16,43 +22,34 @@ for chapter in keys(script_dict)
   
   cd(ProjDir) do
     
+    script_list = Array{Pair{String, Any}, 1}();
     for script in script_dict[chapter]
-      file = script.script
-      if script.doc && script.exe && isfile(file)
-        isfile(joinpath(DocDir, file[1:end-3], ".md")) &&
-          rm(joinpath(DocDir, file[1:end-3], ".md"))
-        Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
+      if script.doc
+        file = script.script
+        append!(script_list, [Pair(file[1:end-3], "$(chapter)/$(file[1:end-3]).md")])
+        if script.exe && isfile(file)
+          isfile(joinpath(DocDir, file[1:end-3], ".md")) &&
+            rm(joinpath(DocDir, file[1:end-3], ".md"))
+          Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        
+        end
       end
     end
     
     # Remove tmp directory used by cmdstan 
+    append!(page_list, [Pair("Chapter $(chapter)", script_list)])
     isdir("tmp") && rm("tmp", recursive=true);
     println("\nCompleted documentation generation for chapter $chapter\n")
     
   end # cd
 end # for chapter
 
+append!(page_list, [Pair("Functions", "index.md")])
+
 makedocs(root = DOC_ROOT,
     modules = Module[],
     sitename = "StatisticalRethinking.jl",
     authors = "Rob Goedman, Richard Torkar, and contributors.",
-    pages = [
-      "Home" => "intro.md",
-      "Layout" => "layout.md",
-      "Acknowledgements" => "acknowledgements.md",
-      "References" => "references.md",
-      "Chapter 0" => [
-        "`clip_01_03`" => "00/clip_01_03.md",
-        "`clip_04_04`" => "00/clip_04_05.md"
-      ],
-      "Chapter 2" => [
-        "`clip_01_02`" => "02/clip_01_02.md",
-        "`clip_03_05`" => "02/clip_03_05.md",
-        "`clip_06_07`" => "02/clip_06_07.md",
-        "`clip_08s`" => "02/clip_08s.md"
-      ],
-      "Functions" => "index.md"
-      ]
+    pages = page_list
 )
 
 deploydocs(root = DOC_ROOT,

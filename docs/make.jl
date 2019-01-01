@@ -18,7 +18,7 @@ for chapter in keys(script_dict)
     
     for script in script_dict[chapter]
       file = script.script
-      if script.nb && isfile(file)
+      if script.doc && script.exe && isfile(file)
         isfile(joinpath(DocDir, file[1:end-4], "s.md")) &&
           rm(joinpath(DocDir, file[1:end-4], "s.md"))
         Literate.markdown(joinpath(ProjDir, file), DocDir, documenter=true)        

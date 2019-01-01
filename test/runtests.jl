@@ -5,9 +5,11 @@ DocDir = rel_path("..", "docs", "src")
 
 for chapter in keys(script_dict)
   ProjDir = rel_path("..", "chapters", chapter)
-  NotebookDir = rel_path("..", "notebooks", chapter)
-  
+  NotebookDir = rel_path("..", "notebooks")
   !isdir(NotebookDir) && mkdir(NotebookDir)
+  
+  NotebookDir = rel_path("..", "notebooks", "$(chapter)")
+  
   !isdir(ProjDir) && break
   
   cd(ProjDir) do

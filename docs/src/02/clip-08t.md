@@ -4,7 +4,7 @@ Load Julia packages (libraries) needed
 
 ```julia
 using StatisticalRethinking
-using StatsFuns, Optim, Turing, Flux.Tracker
+using Optim, Turing, Flux.Tracker
 gr(size=(600,300));
 
 Turing.setadbackend(:reverse_diff)
@@ -78,21 +78,21 @@ result = maximum_a_posteriori(model, lb, ub)
 
     Results of Optimization Algorithm
      * Algorithm: Fminbox with L-BFGS
-     * Starting Point: [0.7434783876300437]
-     * Minimizer: [0.66666666662285]
+     * Starting Point: [0.7074651788576896]
+     * Minimizer: [0.6666666666346246]
      * Minimum: 1.297811e+00
      * Iterations: 3
      * Convergence: true
        * |x - x'| ≤ 0.0e+00: false 
-         |x - x'| = 2.56e-08 
+         |x - x'| = 1.36e-08 
        * |f(x) - f(x')| ≤ 0.0e+00 |f(x)|: false
-         |f(x) - f(x')| = 1.03e-14 |f(x)|
+         |f(x) - f(x')| = 2.91e-15 |f(x)|
        * |g(x)| ≤ 1.0e-08: true 
-         |g(x)| = 1.03e-09 
+         |g(x)| = 5.49e-10 
        * Stopped by an increasing objective: false
        * Reached Maximum Number of Iterations: false
-     * Objective Calls: 46
-     * Gradient Calls: 46
+     * Objective Calls: 40
+     * Gradient Calls: 40
 
 
 
@@ -114,14 +114,34 @@ chn = sample(model, NUTS(2000, 1000, 0.65));
     └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:154
     ┌ Warning: grad = [NaN]
     └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:155
-    ┌ Info:  Adapted ϵ = 0.8813360600868692, std = [1.0]; 1000 iterations is used for adaption.
+    ┌ Warning: Numerical error has been found in gradients.
+    └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:154
+    ┌ Warning: grad = [NaN]
+    └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:155
+    ┌ Warning: Numerical error has been found in gradients.
+    └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:154
+    ┌ Warning: grad = [NaN]
+    └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:155
+    ┌ Warning: Numerical error has been found in gradients.
+    └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:154
+    ┌ Warning: grad = [NaN]
+    └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:155
+    ┌ Warning: Numerical error has been found in gradients.
+    └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:154
+    ┌ Warning: grad = [NaN]
+    └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:155
+    ┌ Warning: Numerical error has been found in gradients.
+    └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:154
+    ┌ Warning: grad = [NaN]
+    └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:155
+    ┌ Info:  Adapted ϵ = 0.9578390791627754, std = [1.0]; 1000 iterations is used for adaption.
     └ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/samplers/adapt/adapt.jl:91
 
 
     [NUTS] Finished with
-      Running time        = 7.983057395;
+      Running time        = 5.0150662429999855;
       #lf / sample        = 0.003;
-      #evals / sample     = 7.1935;
+      #evals / sample     = 6.861;
       pre-cond. metric    = [1.0].
 
 
@@ -138,24 +158,24 @@ describe(chn)
     Samples per chain = 2000
     
     Empirical Posterior Estimates:
-                 Mean         SD       Naive SE       MCSE         ESS   
-      lf_num  0.003000000 0.13416408 0.0030000000 0.0030000000 2000.00000
-     elapsed  0.003991529 0.12238218 0.0027365488 0.0034807975 1236.17191
-     epsilon  1.050938864 0.73716204 0.0164834444 0.0425976965  299.47026
-       theta  0.632865211 0.13667539 0.0030561547 0.0046385255  868.20199
-          lp -3.281397546 0.68796522 0.0153833700 0.0244474040  791.89475
-    eval_num  7.193500000 4.21366055 0.0942203142 0.1510215652  778.46870
-      lf_eps  1.050938864 0.73716204 0.0164834444 0.0425976965  299.47026
+                  Mean          SD       Naive SE       MCSE         ESS   
+      lf_num  0.0030000000 0.134164079 0.0030000000 0.0030000000 2000.00000
+     elapsed  0.0025075331 0.076118594 0.0017020635 0.0021953340 1202.20989
+     epsilon  1.1224381138 1.169459120 0.0261499009 0.0493105061  562.45939
+       theta  0.6360030739 0.141416742 0.0031621745 0.0051225094  762.14241
+          lp -3.3190592140 0.784351311 0.0175386285 0.0269713545  845.69885
+    eval_num  6.8610000000 4.105375263 0.0917989816 0.1380253600  884.68354
+      lf_eps  1.1224381138 1.169459120 0.0261499009 0.0493105061  562.45939
     
     Quantiles:
-                  2.5%          25.0%         50.0%        75.0%         97.5%    
-      lf_num  0.00000000000  0.0000000000  0.000000000  0.0000000000  0.0000000000
-     elapsed  0.00016189595  0.0002256595  0.000379562  0.0007251345  0.0012314391
-     epsilon  0.37115625009  0.8813360601  0.881336060  1.0154807930  2.5551687076
-       theta  0.36302409660  0.5337383654  0.637607757  0.7378252078  0.8783054403
-          lp -5.21044285352 -3.4216496169 -3.038448885 -2.8403303752 -2.7799811202
-    eval_num  4.00000000000  4.0000000000  4.000000000 10.0000000000 16.0000000000
-      lf_eps  0.37115625009  0.8813360601  0.881336060  1.0154807930  2.5551687076
+                  2.5%           25.0%         50.0%        75.0%          97.5%    
+      lf_num  0.00000000000  0.00000000000  0.000000000  0.0000000000  0.00000000000
+     elapsed  0.00015128197  0.00015763575  0.000171609  0.0004108415  0.00092276617
+     epsilon  0.37088676482  0.95783907916  0.957839079  1.0079548635  2.57305557179
+       theta  0.33883816330  0.54280720291  0.646171490  0.7438412205  0.87079519843
+          lp -5.35598404924 -3.51435734171 -3.037441877 -2.8405070850 -2.78040346743
+    eval_num  4.00000000000  4.00000000000  4.000000000 10.0000000000 22.00000000000
+      lf_eps  0.37088676482  0.95783907916  0.957839079  1.0079548635  2.57305557179
     
 
 
@@ -167,7 +187,7 @@ println("\ntheta = $(mean_and_std(chn[:theta][1001:2000]))\n")
 ```
 
     
-    theta = (0.6340109002953115, 0.14368913428146277)
+    theta = (0.6451384410698796, 0.1396889134652362)
     
 
 
@@ -230,7 +250,7 @@ Show hpd region
 println("hpd bounds = $bnds\n")
 ```
 
-    hpd bounds = [0.399787, 0.893698]
+    hpd bounds = [0.38923, 0.899449]
     
 
 

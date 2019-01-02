@@ -150,20 +150,18 @@ end
 
 train_cut.BayesPredictions = unstandardize(prediction(chain, train), train_l_orig);
 test_cut.BayesPredictions = unstandardize(prediction(chain, test), test_l_orig);
-#train_cut.BayesPredictions = prediction(chain, train);
-#test_cut.BayesPredictions = prediction(chain, test);
 
 # Show the first side rows of the modified dataframe.
 
-remove_names = filter(x->!in(x, [:age, :male]), names(test_cut))
-test_cut = test_cut[remove_names]
-first(test_cut, 6) |> display
+remove_names = filter(x->!in(x, [:age, :male]), names(test_cut));
+test_cut = test_cut[remove_names];
+first(test_cut, 6)
 
-bayes_loss1 = sum((train_cut.BayesPredictions - train_cut.height).^2)
-ols_loss1 = sum((train_cut.OLSPrediction - train_cut.height).^2)
+bayes_loss1 = sum((train_cut.BayesPredictions - train_cut.height).^2);
+ols_loss1 = sum((train_cut.OLSPrediction - train_cut.height).^2);
 
-bayes_loss2 = sum((test_cut.BayesPredictions - test_cut.height).^2)
-ols_loss2 = sum((test_cut.OLSPrediction - test_cut.height).^2)
+bayes_loss2 = sum((test_cut.BayesPredictions - test_cut.height).^2);
+ols_loss2 = sum((test_cut.OLSPrediction - test_cut.height).^2);
 
 println("\nTraining set:")
 println("  Bayes loss: $bayes_loss1")

@@ -34,6 +34,34 @@ struct ScriptEntry
   doc::Bool
 end
 
+"""
+
+# scriptentry
+
+Constructor for ScriptEntry objects.
+
+### Constructor
+```julia
+scriptentry(scriptfile;; nb=true, exe=true, doc=true)
+```
+
+### Required arguments
+```julia
+* `scriptfile::AbstractString`        : Script file
+```
+
+### Optional arguments
+```julia
+* `nb::Bool`      : Generate a notebook version in notebooks directory
+* `exe::Bool`     : Execute the notebook (for testing or documentation purposes)
+* `doc::Bool`     : Insert documention into Github pages
+```
+
+If exe = false and doc = true it is assumed the appropriate .md files
+have been manually created and stored in docs/src/_nn_/... (Travis
+will terminate if runs take too long).
+
+"""
 scriptentry(scriptfile; nb=true, exe=true, doc=true) = ScriptEntry(scriptfile, nb, exe, doc)
 
 script_dict = DataStructures.OrderedDict{AbstractString, Vector{ScriptEntry}}(

@@ -12,6 +12,11 @@ maximum_a_posteriori(model, lower_bound, upper_bound)
 rel_path(parts...)
 ```
 
+## `ScriptEntry`
+```@docs
+ScriptEntry
+```
+
 ## `scriptentry`
 ```@docs
 scriptentry(scriptfile; nb = true, exe = true, doc = true)

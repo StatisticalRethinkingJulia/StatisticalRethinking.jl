@@ -10,6 +10,7 @@ Compute the maximum_a_posteriori of a model.
 ```julia
 maximum_a_posteriori(model, lower_bound, upper_bound)
 ```
+
 ### Required arguments
 ```julia
 * `model::Turing model`

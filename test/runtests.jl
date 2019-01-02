@@ -14,7 +14,7 @@ for chapter in keys(script_dict)
   
   cd(ProjDir) do
     for script in script_dict[chapter]
-      file = script.script
+      file = script.scriptfile
       if script.nb && isfile(file)
         isfile(joinpath(NotebookDir, file[1:end-3], ".ipynb")) && 
           rm(joinpath(NotebookDir, file[1:end-3], ".ipynb"))          

@@ -98,3 +98,4 @@ Question and contributions are very welcome, as are feature requests and suggest
 [issues-url]: https://github.com/StanJulia/StatisticalRethinking.jl/issues
 
 [project-status-img]: https://img.shields.io/badge/lifecycle-wip-orange.svg
+

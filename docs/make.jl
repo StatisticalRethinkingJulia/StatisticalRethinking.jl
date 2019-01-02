@@ -25,7 +25,7 @@ for chapter in keys(script_dict)
     script_list = Array{Pair{String, Any}, 1}();
     for script in script_dict[chapter]
       if script.doc
-        file = script.sriptfile
+        file = script.scriptfile
         append!(script_list, [Pair(file[1:end-3], "$(chapter)/$(file[1:end-3]).md")])
         if script.exe && isfile(file)
           isfile(joinpath(DocDir, file[1:end-3], ".md")) &&

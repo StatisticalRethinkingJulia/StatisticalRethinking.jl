@@ -1,4 +1,4 @@
-# Default for each script is to generate a notebook (nb = true), execute/test that generated notebook (exe = true) and include the results in the documentation (doc = true). 
+# Default for each script is to generate a notebook (nb = true), execute/test that generated notebook (exe = true) and include the results in the documentation (doc = true). If exe = false and doc = true it is assumed the appropriate .md files are created and stored in docs/src/chapter/... (this is useful for very long runs that will terminate Travis).
 
 struct Script_entry
   script::AbstractString
@@ -18,9 +18,9 @@ script_dict = DataStructures.OrderedDict{AbstractString, Vector{Script_entry}}(
     script_entry("clip-01-02.jl"),
     script_entry("clip-03-05.jl"),
     script_entry("clip-06-07.jl"),
-    script_entry("clip-08m.jl", exe = false, doc = false), 
+    script_entry("clip-08m.jl"), 
     script_entry("clip-08s.jl"),
-    script_entry("clip-08t.jl", exe = false, doc = false)
+    script_entry("clip-08t.jl")
   ],
   "03" => [
     script_entry("clip-01.jl"),
@@ -43,7 +43,7 @@ script_dict = DataStructures.OrderedDict{AbstractString, Vector{Script_entry}}(
     script_entry("clip-38.6s.jl", nb = false, exe = false, doc = false),
     script_entry("clip-38.7s.jl"),
     script_entry("clip-43s.jl"),
-    script_entry("clip-43t.jl", exe = false, doc = false),
+    script_entry("clip-43t.jl"),
     script_entry("clip-45-47s.jl"),
     script_entry("clip-48-54s.jl")
   ],
@@ -51,7 +51,7 @@ script_dict = DataStructures.OrderedDict{AbstractString, Vector{Script_entry}}(
     script_entry("clip-01s.jl")
   ],
   "08" => [
-    script_entry("m8.1t.jl", exe = false, doc = false),
+    script_entry("m8.1t.jl"),
     script_entry("m8.1.jl", exe = false, doc = false),
     script_entry("m8.2.jl", exe = false, doc = false),
     script_entry("m8.3.jl", exe = false, doc = false),

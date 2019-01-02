@@ -15,7 +15,7 @@ append!(page_list, [Pair("Acknowledgements", "acknowledgements.md")]);
 append!(page_list, [Pair("References", "references.md")])
 
 for chapter in keys(script_dict)
-  ProjDir = rel_path( "..", "chapters", chapter)
+  ProjDir = rel_path( "..", "scripts", chapter)
   DocDir =  rel_path("..", "docs", "src", chapter)
   
   !isdir(ProjDir) && break

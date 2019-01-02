@@ -80,11 +80,6 @@ The  documentation has been generated using Literate.jl and Documenter.jl based 
 
 Question and contributions are very welcome, as are feature requests and suggestions. Please open an [issue][issues-url] if you encounter any problems or have a question.
 
-## To do
-
-1. Automatically generate the table of contents in docs/make.jl
-
-
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
 [docs-dev-url]: https://stanjulia.github.io/StatisticalRethinking.jl/latest
 

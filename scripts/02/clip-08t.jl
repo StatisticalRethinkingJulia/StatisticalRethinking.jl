@@ -4,7 +4,9 @@ using StatisticalRethinking
 using Optim, Turing, Flux.Tracker
 gr(size=(600,300));
 
-Turing.setadbackend(:reverse_diff)
+#-
+
+Turing.setadbackend(:reverse_diff);
 #nb Turing.turnprogress(false)
 
 # ### snippet 2.8t
@@ -34,12 +36,11 @@ model = globe_toss(n, k);
 # Compute the maximum_a_posteriori
 
 result = maximum_a_posteriori(model, lb, ub)
-println("\nMaximum_a_posteriori = $(result.minimizer)\n") #src
+#src println("\nMaximum_a_posteriori = $(result.minimizer)\n")
 
 # Use Turing mcmc
 
-Turing.turnprogress(false)
-chn = sample(model, NUTS(2000, 1000, 0.65));
+chn = sample(model, NUTS(2000, 200, 0.65));
 
 # Look at the generated draws (in chn)
 

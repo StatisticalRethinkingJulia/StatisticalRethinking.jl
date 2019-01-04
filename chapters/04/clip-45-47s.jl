@@ -8,7 +8,8 @@ cd(ProjDir)
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
 
-df2 = filter(row -> row[:age] >= 18, df)
+df2 = filter(row -> row[:age] >= 18, df);
+first(df2, 5)
 
 weightsmodel = "
 data {
@@ -34,7 +35,8 @@ generated quantities {
 stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],model=weightsmodel,
   output_format=:mcmcchain);
 
-heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight]);
+heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height],
+  "weight" => df2[:weight]);
 
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME)
@@ -42,7 +44,7 @@ rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
 chn.value[1:5,:,1]
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
-nvals = [10, 50, 150, 352]
+nvals = [10, 50, 150, 352];
 
 for i in 1:length(nvals)
   N = nvals[i]

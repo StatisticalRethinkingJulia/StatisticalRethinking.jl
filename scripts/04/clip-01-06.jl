@@ -13,6 +13,8 @@ pos = Array{Float64, 2}(rand(Uniform(-1, 1), noofsteps, noofwalks));
 pos[1, :] = zeros(noofwalks);
 csum = cumsum(pos, dims=1);
 
+#-
+
 f = Plots.font("DejaVu Sans", 6)
 mx = minimum(csum) * 0.9
 
@@ -41,9 +43,8 @@ for step in [4, 8, 16]
   plt += 1
 end
 p3 = plot(p2..., layout=(1, 3))
-
 plot(p1, p3, layout=(2,1))
-savefig("fig4_2.pdf") #src
+#src savefig("fig4_2.pdf")
 
 # ### snippet 4.2
 

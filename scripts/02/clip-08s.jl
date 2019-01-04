@@ -42,9 +42,10 @@ N2 = 4^2
 d = Binomial(9, 0.66)
 n2 = Int.(9 * ones(Int, N2));
 
-# Show (generated) observations
+# Show first 5 (generated) observations
 
-k2 = rand(d, N2)
+k2 = rand(d, N2);
+k2[1:5]
 
 # Input data for cmdstan
 

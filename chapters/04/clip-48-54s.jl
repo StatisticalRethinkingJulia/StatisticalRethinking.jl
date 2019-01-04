@@ -13,7 +13,7 @@ df2 = filter(row -> row[:age] >= 18, df);
 mean_weight = mean(df2[:weight])
 df2 = hcat(df2, df2[:weight] .- mean_weight)
 rename!(df2, :x1 => :weight_c); # Rename our col :x1 => :weight_c
-df2
+first(df2, 5)
 
 weightsmodel = "
 data {
@@ -78,7 +78,6 @@ for i in 1:size(mu, 1)
   q[i] = density(mu[i], ylim=(0.0, 1.5),
     leg=false, title="mu_bar = $(round(mean(mu[i]), digits=1))")
 end
-
 plot(q..., layout=(2, 3), ticks=(3))
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

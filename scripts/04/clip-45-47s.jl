@@ -16,7 +16,8 @@ df = convert(DataFrame, howell1);
 
 # Use only adults
 
-df2 = filter(row -> row[:age] >= 18, df)
+df2 = filter(row -> row[:age] >= 18, df);
+first(df2, 5)
 
 # Define the Stan language model
 
@@ -48,7 +49,8 @@ stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],mode
 
 # Input data for cmdstan
 
-heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight]);
+heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height],
+  "weight" => df2[:weight]);
 
 # Sample using cmdstan
 
@@ -62,7 +64,9 @@ chn.value[1:5,:,1]
 # Plot estimates using the N = [10, 50, 150, 352] observations
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
-nvals = [10, 50, 150, 352]
+nvals = [10, 50, 150, 352];
+
+#-
 
 for i in 1:length(nvals)
   N = nvals[i]

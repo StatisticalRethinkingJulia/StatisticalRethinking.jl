@@ -16,7 +16,8 @@ prior = ones( 20 );
 
 # Compute likelihood at each value in grid
 
-likelihood = [pdf(Binomial(9, p), 6) for p in p_grid] 
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+likelihood[1:5]
 
 # Compute product of likelihood and prior
 

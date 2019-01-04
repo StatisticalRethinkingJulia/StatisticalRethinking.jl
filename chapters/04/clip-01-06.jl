@@ -31,7 +31,6 @@ for step in [4, 8, 16]
   plt += 1
 end
 p3 = plot(p2..., layout=(1, 3))
-
 plot(p1, p3, layout=(2,1))
 
 prod(1 .+ rand(Uniform(0, 0.1), 10))

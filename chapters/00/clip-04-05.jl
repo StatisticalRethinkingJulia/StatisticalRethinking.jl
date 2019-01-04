@@ -1,7 +1,8 @@
 using StatisticalRethinking, GLM
 gr(size=(500, 500));
 
-cars = dataset("datasets", "cars")
+cars = dataset("datasets", "cars");
+first(cars, 5)
 
 m = lm(@formula(Dist ~ Speed), cars)
 

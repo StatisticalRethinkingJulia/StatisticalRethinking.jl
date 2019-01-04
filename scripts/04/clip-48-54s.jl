@@ -23,7 +23,7 @@ df2 = filter(row -> row[:age] >= 18, df);
 mean_weight = mean(df2[:weight])
 df2 = hcat(df2, df2[:weight] .- mean_weight)
 rename!(df2, :x1 => :weight_c); # Rename our col :x1 => :weight_c
-df2
+first(df2, 5)
 
 # Define the Stan language model
 
@@ -61,7 +61,7 @@ rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
 
 # ### Snippet 4.47
 
-# Show first 5 individual draws of correlated parameter values in chain 1
+# Show first 5 draws of correlated parameter values in chain 1
 
 chn.value[1:5,:,1]
 
@@ -114,7 +114,6 @@ for i in 1:size(mu, 1)
   q[i] = density(mu[i], ylim=(0.0, 1.5),
     leg=false, title="mu_bar = $(round(mean(mu[i]), digits=1))")
 end
-
 plot(q..., layout=(2, 3), ticks=(3))
 
 # End of `clip_48_54s.jl`

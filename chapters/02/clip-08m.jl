@@ -1,5 +1,4 @@
-using Distributed
-using Mamba, Gadfly
+using Mamba
 
 globe_toss = Dict{Symbol, Any}(
   :w => [6, 7, 5, 6, 6],
@@ -24,7 +23,7 @@ inits = [
 scheme = [NUTS(:p)]
 setsamplers!(model, scheme);
 
-sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)
+sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2);
 
 describe(sim)
 

@@ -7,6 +7,7 @@ p_grid = range( 0 , stop=1 , length=N )
 prior = ones( 20 );
 
 likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+likelihood[1:5]
 
 unstd_posterior = likelihood .* prior;
 

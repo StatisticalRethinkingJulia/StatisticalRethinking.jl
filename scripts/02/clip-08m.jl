@@ -1,5 +1,4 @@
-using Distributed
-using Mamba, Gadfly
+using Mamba
 
 # Data
 
@@ -34,7 +33,7 @@ setsamplers!(model, scheme);
 
 # MCMC Simulations
 
-sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)
+sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2);
 
 # Describe draws
 

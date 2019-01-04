@@ -6,7 +6,8 @@ prior = ones(length(p_grid))
 likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
 posterior = likelihood .* prior
 posterior = posterior / sum(posterior)
-samples = sample(p_grid, Weights(posterior), length(p_grid))
+samples = sample(p_grid, Weights(posterior), length(p_grid));
+samples[1:5]
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
 p[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")

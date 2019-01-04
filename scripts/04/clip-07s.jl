@@ -18,6 +18,7 @@ df = convert(DataFrame, howell1);
 df2 = filter(row -> row[:age] >= 18, df)
 female_df = filter(row -> row[:male] == 0, df2)
 male_df = filter(row -> row[:male] == 1, df2)
+first(male_df, 5)
 
 # Plot the densities.
 

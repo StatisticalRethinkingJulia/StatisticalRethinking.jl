@@ -1,8 +1,8 @@
 using StatisticalRethinking, Turing
 gr(size=(500,500));
 
-Turing.setadbackend(:reverse_diff)
-#nb Turing.turnprogress(false)
+Turing.setadbackend(:reverse_diff);
+#nb Turing.turnprogress(false);
 
 ProjDir = rel_path("..", "chapters", "04")
 cd(ProjDir)
@@ -21,6 +21,7 @@ df2 = filter(row -> row[:age] >= 18, df);
 mean_weight = mean(df2[:weight])
 df2 = hcat(df2, df2[:weight] .- mean_weight)
 rename!(df2, :x1 => :weight_c); # Rename our col :x1 => :weight_c
+first(df2, 5)
 
 # Extract variables for Turing model
 
@@ -42,10 +43,6 @@ x = convert(Vector{Float64}, df2[:weight_c]);
     end
 end;
 
-# Disable updating progress of sampling process
-
-Turing.turnprogress(false);
-
 # Draw the samples
 
 chn = sample(line(y, x), Turing.NUTS(2000, 200, 0.65));
@@ -54,7 +51,7 @@ chn = sample(line(y, x), Turing.NUTS(2000, 200, 0.65));
 
 describe(chn)
 
-# Show corrected results (Drop adaptation samples)
+# Show corrected results (drop adaptation samples)
 
 for var in [:alpha, :beta, :s]
   println("$var = ",  mean_and_std(chn[Symbol(var)][1001:2000]))
@@ -82,29 +79,11 @@ alpha 154.0610000 154.4150000 154.5980000 154.7812500 155.1260000
 sigma   4.7524368   4.9683400   5.0994450   5.2353100   5.5090128
 ";
 
-# Example result for Turing with centered weights (appears biased)
-
-clip_43t_example_output = "
-
-[NUTS] Finished with
-  Running time        = 163.20725027799972;
-  #lf / sample        = 0.006;
-  #evals / sample     = 19.824;
-  pre-cond. metric    = [1.0, 1.0, 1.0].
-  
-                       Mean                              SD
-alpha = (154.6020248402468, 0.24090814737592972)
-beta   = (0.9040183717679473, 0.0422796486734481)
-s        = (5.095714121087817, 0.18455074897377258)
-
-";
-
 # Plot the regerssion line and observations
 
+scatter(x, y, lab="Observations", xlab="weight", ylab="height")
 xi = -15.0:0.1:15.0
 yi = mean(chn[:alpha]) .+ mean(chn[:beta])*xi
-
-scatter(x, y, lab="Observations", xlab="weight", ylab="height")
 plot!(xi, yi, lab="Regression line")
 
 # End of `clip_43t.jl`

@@ -55,7 +55,7 @@ heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weigh
 # Sample using cmdstan
 
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME)
+  CmdStanDir=CMDSTAN_HOME);
 
 # Describe the draws
 
@@ -63,7 +63,7 @@ describe(chn)
 
 # Compare with a previous result
 
-clip_38s_example_output = "
+clip_38s_output = "
 
 Samples were drawn using hmc with nuts.
 For each parameter, N_Eff is a crude measure of effective sample size,
@@ -95,14 +95,13 @@ plot(chn)
 
 # Plot regression line using means and observations
 
+scatter(df2[:weight], df2[:height], lab="Observations",
+  ylab="height [cm]", xlab="weight[kg]")
 xi = -16.0:0.1:18.0
 rws, vars, chns = size(chn[:, 1, :])
 alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))
 beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)))
 yi = mean(alpha_vals) .+ mean(beta_vals)*xi
-
-scatter(df2[:weight], df2[:height], lab="Observations",
-  ylab="height [cm]", xlab="weight[kg]")
 plot!(xi, yi, lab="Regression line")
 
 # End of `clip_43s.jl`

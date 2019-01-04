@@ -2,7 +2,7 @@ using StatisticalRethinking
 using Optim, Turing, Flux.Tracker
 gr(size=(600,300));
 
-Turing.setadbackend(:reverse_diff)
+Turing.setadbackend(:reverse_diff);
 
 k = 6; n = 9;
 
@@ -18,8 +18,7 @@ model = globe_toss(n, k);
 
 result = maximum_a_posteriori(model, lb, ub)
 
-Turing.turnprogress(false)
-chn = sample(model, NUTS(2000, 1000, 0.65));
+chn = sample(model, NUTS(2000, 200, 0.65));
 
 describe(chn)
 

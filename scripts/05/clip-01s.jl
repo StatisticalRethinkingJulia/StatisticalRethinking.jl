@@ -60,10 +60,8 @@ stanmodel = Stanmodel(name="MedianAgeDivorce", monitors = ["a", "bA", "sigma"],
 
 # Input data for cmdstan
 
-maddata = [
-  Dict("N" => length(df[:Divorce]), "divorce" => df[:Divorce],
-    "median_age" => df[:MedianAgeMarriage])
-];
+maddata = Dict("N" => length(df[:Divorce]), "divorce" => df[:Divorce],
+    "median_age" => df[:MedianAgeMarriage]);
 
 # Sample using cmdstan
 
@@ -97,10 +95,8 @@ nvals = [10, 20, 35, 50]
 
 for i in 1:length(nvals)
   N = nvals[i]
-  maddataN = [
-    Dict("N" => N, "divorce" => df[1:N, :Divorce],
-      "median_age" => df[1:N, :MedianAgeMarriage])
-  ]
+  maddataN = Dict("N" => N, "divorce" => df[1:N, :Divorce],
+      "median_age" => df[1:N, :MedianAgeMarriage]);
   rc, chnN, cnames = stan(stanmodel, maddataN, ProjDir, diagnostics=false,
     summary=false, CmdStanDir=CMDSTAN_HOME)
 

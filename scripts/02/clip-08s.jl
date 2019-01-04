@@ -48,9 +48,7 @@ k2 = rand(d, N2)
 
 # Input data for cmdstan
 
-binomialdata = [
-  Dict("N" => length(n2), "n" => n2, "k" => k2)
-];
+binomialdata = Dict("N" => length(n2), "n" => n2, "k" => k2);
 
 # Sample using cmdstan
  

@@ -33,7 +33,11 @@ first(data, 6)
 
 # Split our dataset 70%/30% into training/test sets.
 
-train, test = MLDataUtils.splitobs(shuffleobs(data), at = 0.7);
+n = size(data, 1)
+test_ind = sample(1:n, Int(floor(0.3*n)), replace=false);
+train_ind = [(i) for i=1:n if !(i in test_ind)];
+test = data[test_ind, :];
+train = data[train_ind, :];
 
 # Save dataframe versions of our dataset.
 
@@ -112,9 +116,7 @@ stanmodel = Stanmodel(name="linear_regression",
 
 # Input data for cmdstan
 
-lrdata = [
-  Dict("N" => size(train, 1), "K" => size(dmat, 2), "y" => train_label, "X" => dmat)
-];
+lrdata = Dict("N" => size(train, 1), "K" => size(dmat, 2), "y" => train_label, "X" => dmat);
 
 # Sample using cmdstan
  

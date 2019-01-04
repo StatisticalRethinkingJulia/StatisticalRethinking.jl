@@ -4,7 +4,7 @@ using Reexport
 
 @reexport using Distributions, RDatasets, DataFrames, StatsBase
 @reexport using Plots, StatPlots, StatsFuns, MCMCChain
-@reexport using JLD, CSV, DelimitedFiles, MLDataUtils
+@reexport using CSV, DelimitedFiles
 using DataStructures
 
 const src_path = @__DIR__

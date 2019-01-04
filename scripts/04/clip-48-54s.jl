@@ -52,9 +52,7 @@ stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],mode
 
 # Input data for cmdstan.
 
-heightsdata = [
-  Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight_c])
-];
+heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight_c]);
 
 # Sample using cmdstan
 

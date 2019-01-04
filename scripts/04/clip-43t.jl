@@ -1,8 +1,8 @@
-using StatisticalRethinking
+using StatisticalRethinking, Turing
 gr(size=(500,500));
 
 Turing.setadbackend(:reverse_diff)
-Turing.turnprogress(false) #nb
+#nb Turing.turnprogress(false)
 
 ProjDir = rel_path("..", "chapters", "04")
 cd(ProjDir)

@@ -57,9 +57,7 @@ stanmodel = Stanmodel(name="heights", monitors = ["mu", "sigma"],model=heightsmo
 
 # Input data for cmdstan
 
-heightsdata = [
-  Dict("N" => length(df2[:height]), "h" => df2[:height])
-];
+heightsdata = Dict("N" => length(df2[:height]), "h" => df2[:height]);
 
 # Sample using cmdstan
 

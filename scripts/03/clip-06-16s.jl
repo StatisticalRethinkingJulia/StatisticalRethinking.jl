@@ -44,9 +44,7 @@ k2 = [6, 5, 7, 6]
 
 # Input data for cmdstan
 
-binomialdata = [
-  Dict("N" => length(n2), "n" => n2, "k" => k2)
-];
+binomialdata = Dict("N" => length(n2), "n" => n2, "k" => k2);
 
 # Sample using cmdstan
  

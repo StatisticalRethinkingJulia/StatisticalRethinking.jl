@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-08m · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../clip-06-07/">clip-06-07</a></li><li class="current"><a class="toctext" href>clip-08m</a><ul class="internal"></ul></li><li><a class="toctext" href="../clip-08s/">clip-08s</a></li><li><a class="toctext" href="../clip-08t/">clip-08t</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07.0s/">clip-07.0s</a></li><li><a class="toctext" href="../../04/clip-38.0m/">clip-38.0m</a></li><li><a class="toctext" href="../../04/clip-38.0s/">clip-38.0s</a></li><li><a class="toctext" href="../../04/clip-38.7s/">clip-38.7s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-43t/">clip-43t</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><span class="toctext">Chapter 05</span></li><li><span class="toctext">Chapter 08</span></li><li><span class="toctext">Chapter 10</span></li><li><span class="toctext">Chapter 11</span></li><li><span class="toctext">Chapter 12</span></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 02</li><li><a href>clip-08m</a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/chapters/02/clip-08m.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-08m</span><a class="fa fa-bars" href="#"></a></div></header><div><pre><code class="language-julia">using Distributed, Gadfly
-using Mamba</code></pre></div><p>Data</p><div><pre><code class="language-julia">globe_toss = Dict{Symbol, Any}(
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-08m · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../clip-06-07/">clip-06-07</a></li><li class="current"><a class="toctext" href>clip-08m</a><ul class="internal"></ul></li><li><a class="toctext" href="../clip-08s/">clip-08s</a></li><li><a class="toctext" href="../clip-08t/">clip-08t</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07s/">clip-07s</a></li><li><a class="toctext" href="../../04/clip-38m/">clip-38m</a></li><li><a class="toctext" href="../../04/clip-38s/">clip-38s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-43t/">clip-43t</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><span class="toctext">Chapter 05</span><ul><li><a class="toctext" href="../../05/clip-01s/">clip-01s</a></li></ul></li><li><span class="toctext">Chapter 08</span></li><li><span class="toctext">Chapter 10</span></li><li><span class="toctext">Chapter 11</span></li><li><span class="toctext">Chapter 12</span></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 02</li><li><a href>clip-08m</a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/02/clip-08m.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-08m</span><a class="fa fa-bars" href="#"></a></div></header><div><pre><code class="language-julia">using Mamba</code></pre><pre><code class="language-none">[ Info: Loading DataFrames support into Gadfly.jl</code></pre></div><p>Data</p><div><pre><code class="language-julia">globe_toss = Dict{Symbol, Any}(
   :w =&gt; [6, 7, 5, 6, 6],
   :n =&gt; [9, 9, 9, 9, 9]
 )
@@ -15,50 +14,39 @@ globe_toss[:N] = length(globe_toss[:w]);</code></pre></div><p>Model Specificatio
   Dict(:w =&gt; globe_toss[:w], :n =&gt; globe_toss[:n], :p =&gt; 0.5),
   Dict(:w =&gt; globe_toss[:w], :n =&gt; globe_toss[:n], :p =&gt; rand(Beta(1, 1)))
 ];</code></pre></div><p>Sampling Scheme</p><div><pre><code class="language-julia">scheme = [NUTS(:p)]
-setsamplers!(model, scheme);</code></pre></div><p>MCMC Simulations</p><div><pre><code class="language-julia">sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2)</code></pre><pre><code class="language-none">MCMC Simulation of 10000 Iterations x 2 Chains...
+setsamplers!(model, scheme);</code></pre></div><p>MCMC Simulations</p><div><pre><code class="language-julia">sim = mcmc(model, globe_toss, inits, 10000, burnin=2500, thin=1, chains=2);</code></pre><pre><code class="language-none">MCMC Simulation of 10000 Iterations x 2 Chains...
 
-Chain 1:   0% [0:01:33 of 0:01:33 remaining]
-Chain 1:  10% [0:00:02 of 0:00:02 remaining]
-Chain 1:  20% [0:00:01 of 0:00:01 remaining]
-Chain 1:  30% [0:00:01 of 0:00:01 remaining]
-Chain 1:  40% [0:00:01 of 0:00:01 remaining]
-Chain 1:  50% [0:00:01 of 0:00:01 remaining]
-Chain 1:  60% [0:00:00 of 0:00:01 remaining]
-Chain 1:  70% [0:00:00 of 0:00:01 remaining]
-Chain 1:  80% [0:00:00 of 0:00:01 remaining]
-Chain 1:  90% [0:00:00 of 0:00:01 remaining]
-Chain 1: 100% [0:00:00 of 0:00:01 remaining]
+Chain 1:   0% [0:32:34 of 0:32:36 remaining]
+Chain 1:  10% [0:00:19 of 0:00:21 remaining]
+Chain 1:  20% [0:00:09 of 0:00:11 remaining]
+Chain 1:  30% [0:00:06 of 0:00:09 remaining]
+Chain 1:  40% [0:00:04 of 0:00:07 remaining]
+Chain 1:  50% [0:00:03 of 0:00:06 remaining]
+Chain 1:  60% [0:00:02 of 0:00:05 remaining]
+Chain 1:  70% [0:00:01 of 0:00:04 remaining]
+Chain 1:  80% [0:00:01 of 0:00:04 remaining]
+Chain 1:  90% [0:00:00 of 0:00:04 remaining]
+Chain 1: 100% [0:00:00 of 0:00:03 remaining]
 
 Chain 2:   0% [0:00:01 of 0:00:01 remaining]
 Chain 2:  10% [0:00:01 of 0:00:01 remaining]
 Chain 2:  20% [0:00:01 of 0:00:01 remaining]
 Chain 2:  30% [0:00:01 of 0:00:01 remaining]
-Chain 2:  40% [0:00:01 of 0:00:01 remaining]
+Chain 2:  40% [0:00:00 of 0:00:01 remaining]
 Chain 2:  50% [0:00:00 of 0:00:01 remaining]
 Chain 2:  60% [0:00:00 of 0:00:01 remaining]
 Chain 2:  70% [0:00:00 of 0:00:01 remaining]
 Chain 2:  80% [0:00:00 of 0:00:01 remaining]
 Chain 2:  90% [0:00:00 of 0:00:01 remaining]
-Chain 2: 100% [0:00:00 of 0:00:01 remaining]
-
-Object of type &quot;Mamba.ModelChains&quot;
-
-Iterations = 2501:10000
-Thinning interval = 1
-Chains = 1,2
-Samples per chain = 7500
-
-[0.602111; 0.602111; … ; 0.730352; 0.673815]
-
-[0.643364; 0.734141; … ; 0.516923; 0.6348]</code></pre></div><p>Describe draws</p><div><pre><code class="language-julia">describe(sim)</code></pre><pre><code class="language-none">Iterations = 2501:10000
+Chain 2: 100% [0:00:00 of 0:00:01 remaining]</code></pre></div><p>Describe draws</p><div><pre><code class="language-julia">describe(sim)</code></pre><pre><code class="language-none">Iterations = 2501:10000
 Thinning interval = 1
 Chains = 1,2
 Samples per chain = 7500
 
 Empirical Posterior Estimates:
-     Mean        SD       Naive SE       MCSE      ESS
-p 0.6598082 0.067682156 0.0005526225 0.0006633614 7500
+     Mean        SD       Naive SE        MCSE      ESS
+p 0.6603824 0.067899355 0.0005543959 0.00063898264 7500
 
 Quantiles:
-     2.5%     25.0%      50.0%      75.0%     97.5%
-p 0.5209024 0.6147317 0.66183467 0.70680696 0.7864056</code></pre></div><p>End of <code>clip_08m.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-06-07/"><span class="direction">Previous</span><span class="title">clip-06-07</span></a><a class="next" href="../clip-08s/"><span class="direction">Next</span><span class="title">clip-08s</span></a></footer></article></body></html>
+     2.5%      25.0%     50.0%      75.0%     97.5%
+p 0.52074766 0.6161229 0.6632925 0.70735852 0.7854842</code></pre></div><p>End of <code>clip_08m.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-06-07/"><span class="direction">Previous</span><span class="title">clip-06-07</span></a><a class="next" href="../clip-08s/"><span class="direction">Next</span><span class="title">clip-08s</span></a></footer></article></body></html>

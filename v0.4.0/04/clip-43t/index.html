@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-43t · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08m/">clip-08m</a></li><li><a class="toctext" href="../../02/clip-08s/">clip-08s</a></li><li><a class="toctext" href="../../02/clip-08t/">clip-08t</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07s/">clip-07s</a></li><li><a class="toctext" href="../clip-38m/">clip-38m</a></li><li><a class="toctext" href="../clip-38s/">clip-38s</a></li><li><a class="toctext" href="../clip-43s/">clip-43s</a></li><li class="current"><a class="toctext" href>clip-43t</a><ul class="internal"></ul></li><li><a class="toctext" href="../clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../clip-48-54s/">clip-48-54s</a></li></ul></li><li><span class="toctext">Chapter 05</span><ul><li><a class="toctext" href="../../05/clip-01s/">clip-01s</a></li></ul></li><li><span class="toctext">Chapter 08</span></li><li><span class="toctext">Chapter 10</span></li><li><span class="toctext">Chapter 11</span></li><li><span class="toctext">Chapter 12</span></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>clip-43t</a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/docs/src/04/clip-43t.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-43t</span><a class="fa fa-bars" href="#"></a></div></header><pre><code class="language-julia">using StatisticalRethinking
+gr(size=(500,500));
+
+Turing.setadbackend(:reverse_diff)
+
+ProjDir = rel_path(&quot;..&quot;, &quot;chapters&quot;, &quot;04&quot;)
+cd(ProjDir)</code></pre><pre><code class="language-none">loaded
+
+
+┌ Warning: Package Turing does not have CmdStan in its dependencies:
+│ - If you have Turing checked out for development and have
+│   added CmdStan as a dependency but haven&#39;t updated your primary
+│   environment&#39;s manifest file, try `Pkg.resolve()`.
+│ - Otherwise you may need to report an issue with Turing
+│ Loading CmdStan into Turing from project dependency, future warnings for Turing are suppressed.
+└ @ nothing nothing:840
+WARNING: using CmdStan.Sample in module Turing conflicts with an existing identifier.</code></pre><h3><a class="nav-anchor" id="snippet-4.43-1" href="#snippet-4.43-1">snippet 4.43</a></h3><pre><code class="language-julia">howell1 = CSV.read(rel_path(&quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
+df = convert(DataFrame, howell1);</code></pre><p>Use only adults</p><pre><code class="language-julia">df2 = filter(row -&gt; row[:age] &gt;= 18, df);</code></pre><p>Center the weight observations and add a column to df2</p><pre><code class="language-julia">mean_weight = mean(df2[:weight])
+df2 = hcat(df2, df2[:weight] .- mean_weight)
+rename!(df2, :x1 =&gt; :weight_c); # Rename our col :x1 =&gt; :weight_c</code></pre><p>Extract variables for Turing model</p><pre><code class="language-julia">y = convert(Vector{Float64}, df2[:height]);
+x = convert(Vector{Float64}, df2[:weight_c]);</code></pre><p>Define the regression model</p><pre><code class="language-julia">@model line(y, x) = begin
+    #priors
+    alpha ~ Normal(178.0, 100.0)
+    beta ~ Normal(0.0, 10.0)
+    s ~ Uniform(0, 50)
+
+    #model
+    mu = alpha .+ beta*x
+    for i in 1:length(y)
+      y[i] ~ Normal(mu[i], s)
+    end
+end;</code></pre><p>Disable updating progress of sampling process</p><pre><code class="language-julia">Turing.turnprogress(false);</code></pre><pre><code class="language-none">┌ Info: [Turing]: global PROGRESS is set as false
+└ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/Turing.jl:81</code></pre><p>Draw the samples</p><pre><code class="language-julia">chn = sample(line(y, x), Turing.NUTS(2000, 200, 0.65));</code></pre><pre><code class="language-none">┌ Info: [Turing] looking for good initial eps...
+└ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/samplers/support/hmc_core.jl:246
+[NUTS{Turing.FluxTrackerAD,Union{}}] found initial ϵ: 9.765625e-5
+└ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/samplers/support/hmc_core.jl:291
+┌ Warning: Numerical error has been found in gradients.
+└ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:154
+┌ Warning: grad = [2.87442, 1.13369, NaN]
+└ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/core/ad.jl:155
+┌ Info:  Adapted ϵ = 0.048916981924135294, std = [1.0, 1.0, 1.0]; 200 iterations is used for adaption.
+└ @ Turing /Users/rob/.julia/packages/Turing/xp88X/src/samplers/adapt/adapt.jl:91
+
+
+[NUTS] Finished with
+  Running time        = 174.35367367200018;
+  #lf / sample        = 0.006;
+  #evals / sample     = 19.585;
+  pre-cond. metric    = [1.0, 1.0, 1.0].</code></pre><p>Describe the chain result</p><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">Iterations = 1:2000
+Thinning interval = 1
+Chains = 1
+Samples per chain = 2000
+
+Empirical Posterior Estimates:
+               Mean            SD        Naive SE        MCSE         ESS    
+   alpha   152.667760577  12.963295233 0.2898680935  1.9064933504   46.233869
+    beta     0.904140240   0.091618423 0.0020486502  0.0008881590 2000.000000
+  lf_num     0.006000000   0.268328157 0.0060000000  0.0060000000 2000.000000
+       s     6.266665195   6.434094411 0.1438707248  1.1551333108   31.024918
+ elapsed     0.087176837   0.142891027 0.0031951405  0.0045800175  973.364803
+ epsilon     0.060923488   0.116768977 0.0026110337  0.0112827671  107.108442
+      lp -1119.947049834 234.300329374 5.2391146363 36.2487389691   41.779188
+eval_num    19.585000000  16.885388156 0.3775687574  0.5493208726  944.865288
+  lf_eps     0.060923488   0.116768977 0.0026110337  0.0112827671  107.108442
+
+Quantiles:
+               2.5%           25.0%           50.0%           75.0%          97.5%    
+   alpha   134.948191043   154.375114420   154.565140723   154.73203349   155.05230667
+    beta     0.798963704     0.873424834     0.905341842     0.93619506     1.00452346
+  lf_num     0.000000000     0.000000000     0.000000000     0.00000000     0.00000000
+       s     4.733662988     4.989075540     5.123429873     5.26147108    19.48468805
+ elapsed     0.012130080     0.039890004     0.042529685     0.10526795     0.23606201
+ epsilon     0.032810233     0.048916982     0.048916982     0.04891698     0.11580557
+      lp -1570.703384637 -1084.496411750 -1083.395403485 -1082.80179112 -1082.28961655
+eval_num     4.000000000    10.000000000    10.000000000    22.00000000    46.00000000
+  lf_eps     0.032810233     0.048916982     0.048916982     0.04891698     0.11580557</code></pre><p>Show corrected results (Drop adaptation samples)</p><pre><code class="language-julia">for var in [:alpha, :beta, :s]
+  println(&quot;$var = &quot;,  mean_and_std(chn[Symbol(var)][1001:2000]))
+end</code></pre><pre><code class="language-none">alpha = (154.58624745072464, 0.24607428105054843)
+beta = (0.905527917573359, 0.045451543586106924)
+s = (5.115155765550671, 0.20754394076364754)</code></pre><p>Compare with a previous result</p><pre><code class="language-julia">clip_43s_example_output = &quot;
+
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+         Mean        SD       Naive SE       MCSE      ESS
+alpha 154.597086 0.27326431 0.0043206882 0.0036304132 1000
+ beta   0.906380 0.04143488 0.0006551430 0.0006994720 1000
+sigma   5.106643 0.19345409 0.0030587777 0.0032035103 1000
+
+Quantiles:
+          2.5%       25.0%       50.0%       75.0%       97.5%
+alpha 154.0610000 154.4150000 154.5980000 154.7812500 155.1260000
+ beta   0.8255494   0.8790695   0.9057435   0.9336445   0.9882981
+sigma   4.7524368   4.9683400   5.0994450   5.2353100   5.5090128
+&quot;;</code></pre><p>Example result for Turing with centered weights (appears biased)</p><pre><code class="language-julia">clip_43t_example_output = &quot;
+
+[NUTS] Finished with
+  Running time        = 163.20725027799972;
+  #lf / sample        = 0.006;
+  #evals / sample     = 19.824;
+  pre-cond. metric    = [1.0, 1.0, 1.0].
+
+                       Mean                              SD
+alpha = (154.6020248402468, 0.24090814737592972)
+beta   = (0.9040183717679473, 0.0422796486734481)
+s        = (5.095714121087817, 0.18455074897377258)
+
+&quot;;</code></pre><p>Plot the regerssion line and observations</p><pre><code class="language-julia">xi = -15.0:0.1:15.0
+yi = mean(chn[:alpha]) .+ mean(chn[:beta])*xi
+
+scatter(x, y, lab=&quot;Observations&quot;, xlab=&quot;weight&quot;, ylab=&quot;height&quot;)
+plot!(xi, yi, lab=&quot;Regression line&quot;)</code></pre><p><img src="../output_24_0.svg" alt="svg"/></p><p>End of <code>clip_43t.jl</code></p><p><em>This notebook was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-43s/"><span class="direction">Previous</span><span class="title">clip-43s</span></a><a class="next" href="../clip-45-47s/"><span class="direction">Next</span><span class="title">clip-45-47s</span></a></footer></article></body></html>

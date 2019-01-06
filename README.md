@@ -44,7 +44,7 @@ These 2 files are in scripts/00 and later on processed by Literate.jl to create 
 Occasionally lines in scripts are suppressed when Literate processes input source files, e.g. in Turing scripts the statement
 `#nb Turing.turnprogress(false);` is only inserted in the generated notebook but not in the corresponding chapter .jl script.
 
-A clip will contain just a single snippet will be referred to as `03/clip-02.jl`. 
+A single snippet clip will be referred to as `03/clip-02.jl`. 
 
 Clips with names such as `02/clip-08t.jl`, `clip_08s.jl` and `clip_08m.jl` contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
 

@@ -55,7 +55,7 @@ heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weigh
 # Sample using cmdstan
 
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
+  summary=false, CmdStanDir=CMDSTAN_HOME);
 
 # Describe the draws
 

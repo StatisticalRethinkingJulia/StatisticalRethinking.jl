@@ -15,9 +15,9 @@ df = convert(DataFrame, howell1);
 
 # Use only adults
 
-df2 = filter(row -> row[:age] >= 18, df)
-female_df = filter(row -> row[:male] == 0, df2)
-male_df = filter(row -> row[:male] == 1, df2)
+df2 = filter(row -> row[:age] >= 18, df);
+female_df = filter(row -> row[:male] == 0, df2);
+male_df = filter(row -> row[:male] == 1, df2);
 first(male_df, 5)
 
 # Plot the densities.
@@ -63,7 +63,7 @@ heightsdata = Dict("N" => length(df2[:height]), "h" => df2[:height]);
 # Sample using cmdstan
 
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
+  summary=false, CmdStanDir=CMDSTAN_HOME);
 
 # Describe the draws
 

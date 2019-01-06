@@ -7,8 +7,8 @@ os:
   
 julia:
   - 1.0
-  - 1.1
-  - nightly
+  #- 1.1
+  #- nightly
   
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
@@ -32,8 +32,6 @@ branches:
 after_success:
   - julia --project=test/coverage -e 'using Pkg; Pkg.instantiate()'
   - julia --project=test/coverage test/coverage/coverage.jl
-  
-  #- julia -e 'using Pkg; ps=Pkg.PackageSpec(name="Documenter", version="0.21"); Pkg.add(ps); Pkg.pin(ps); Pkg.add("StatisticalREthinking"); Pkg.instantiate();'
   - julia --color=yes docs/make.jl
 
 notifications:

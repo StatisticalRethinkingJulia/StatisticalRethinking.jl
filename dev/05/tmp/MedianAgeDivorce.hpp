@@ -18,7 +18,7 @@ static int current_statement_begin__;
 stan::io::program_reader prog_reader__() {
     stan::io::program_reader reader;
     reader.add_event(0, 0, "start", "/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/05/tmp/MedianAgeDivorce.stan");
-    reader.add_event(29, 27, "end", "/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/05/tmp/MedianAgeDivorce.stan");
+    reader.add_event(20, 18, "end", "/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/05/tmp/MedianAgeDivorce.stan");
     return reader;
 }
 
@@ -226,47 +226,24 @@ public:
 
 
             // transformed parameters
-            current_statement_begin__ = 14;
-            validate_non_negative_index("mu", "N", N);
-            Eigen::Matrix<local_scalar_t__,Eigen::Dynamic,1>  mu(static_cast<Eigen::VectorXd::Index>(N));
-            (void) mu;  // dummy to suppress unused var warning
-
-            stan::math::initialize(mu, DUMMY_VAR__);
-            stan::math::fill(mu,DUMMY_VAR__);
 
 
-            current_statement_begin__ = 15;
-            for (int i = 1; i <= N; ++i) {
-                current_statement_begin__ = 16;
-                stan::model::assign(mu, 
-                            stan::model::cons_list(stan::model::index_uni(i), stan::model::nil_index_list()), 
-                            (a + (bA * get_base1(median_age,i,"median_age",1))), 
-                            "assigning variable mu");
-            }
 
             // validate transformed parameters
-            for (int i0__ = 0; i0__ < N; ++i0__) {
-                if (stan::math::is_uninitialized(mu(i0__))) {
-                    std::stringstream msg__;
-                    msg__ << "Undefined transformed parameter: mu" << '[' << i0__ << ']';
-                    throw std::runtime_error(msg__.str());
-                }
-            }
 
             const char* function__ = "validate transformed params";
             (void) function__;  // dummy to suppress unused var warning
-            current_statement_begin__ = 14;
 
             // model body
 
-            current_statement_begin__ = 20;
+            current_statement_begin__ = 14;
             lp_accum__.add(normal_log<propto__>(a, 10, 10));
-            current_statement_begin__ = 21;
+            current_statement_begin__ = 15;
             lp_accum__.add(normal_log<propto__>(bA, 0, 1));
-            current_statement_begin__ = 22;
+            current_statement_begin__ = 16;
             lp_accum__.add(uniform_log<propto__>(sigma, 0, 10));
-            current_statement_begin__ = 23;
-            lp_accum__.add(normal_log<propto__>(divorce, mu, sigma));
+            current_statement_begin__ = 17;
+            lp_accum__.add(normal_log<propto__>(divorce, add(a,multiply(bA,median_age)), sigma));
 
         } catch (const std::exception& e) {
             stan::lang::rethrow_located(e, current_statement_begin__, prog_reader__());
@@ -296,7 +273,6 @@ public:
         names__.push_back("a");
         names__.push_back("bA");
         names__.push_back("sigma");
-        names__.push_back("mu");
     }
 
 
@@ -308,9 +284,6 @@ public:
         dims__.resize(0);
         dimss__.push_back(dims__);
         dims__.resize(0);
-        dimss__.push_back(dims__);
-        dims__.resize(0);
-        dims__.push_back(N);
         dimss__.push_back(dims__);
     }
 
@@ -345,32 +318,13 @@ public:
         (void) DUMMY_VAR__;  // suppress unused var warning
 
         try {
-            current_statement_begin__ = 14;
-            validate_non_negative_index("mu", "N", N);
-            Eigen::Matrix<local_scalar_t__,Eigen::Dynamic,1>  mu(static_cast<Eigen::VectorXd::Index>(N));
-            (void) mu;  // dummy to suppress unused var warning
-
-            stan::math::initialize(mu, DUMMY_VAR__);
-            stan::math::fill(mu,DUMMY_VAR__);
 
 
-            current_statement_begin__ = 15;
-            for (int i = 1; i <= N; ++i) {
-                current_statement_begin__ = 16;
-                stan::model::assign(mu, 
-                            stan::model::cons_list(stan::model::index_uni(i), stan::model::nil_index_list()), 
-                            (a + (bA * get_base1(median_age,i,"median_age",1))), 
-                            "assigning variable mu");
-            }
 
             // validate transformed parameters
-            current_statement_begin__ = 14;
 
             // write transformed parameters
             if (include_tparams__) {
-            for (int k_0__ = 0; k_0__ < N; ++k_0__) {
-            vars__.push_back(mu[k_0__]);
-            }
             }
             if (!include_gqs__) return;
             // declare and define generated quantities
@@ -427,11 +381,6 @@ public:
         if (!include_gqs__ && !include_tparams__) return;
 
         if (include_tparams__) {
-            for (int k_0__ = 1; k_0__ <= N; ++k_0__) {
-                param_name_stream__.str(std::string());
-                param_name_stream__ << "mu" << '.' << k_0__;
-                param_names__.push_back(param_name_stream__.str());
-            }
         }
 
 
@@ -456,11 +405,6 @@ public:
         if (!include_gqs__ && !include_tparams__) return;
 
         if (include_tparams__) {
-            for (int k_0__ = 1; k_0__ <= N; ++k_0__) {
-                param_name_stream__.str(std::string());
-                param_name_stream__ << "mu" << '.' << k_0__;
-                param_names__.push_back(param_name_stream__.str());
-            }
         }
 
 

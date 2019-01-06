@@ -6,17 +6,17 @@ gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path("..", "chapters", "05")
+ProjDir = rel_path("..", "scripts", "05")
 cd(ProjDir)
 
 # ### snippet 5.1
 
-wd = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..",
-  "data", "WaffleDivorce.csv"), delim=';')
+wd = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
 df = convert(DataFrame, wd);
 mean_ma = mean(df[:MedianAgeMarriage])
 df[:MedianAgeMarriage] = convert(Vector{Float64},
   df[:MedianAgeMarriage]) .- mean_ma;
+first(df, 5)
 
 # Define the Stan language model
 
@@ -33,12 +33,6 @@ parameters {
  real < lower = 0 > sigma; // Error SD
 }
 
-transformed parameters {
-  vector[N] mu; // Intermediate mu
-  for (i in 1:N) 
-    mu[i] = a + bA*median_age[i];
-}
-
 model {
   # priors
   a ~ normal(10, 10);
@@ -46,11 +40,8 @@ model {
   sigma ~ uniform(0, 10);
   
   # model
-  divorce ~ normal(mu , sigma);
+  divorce ~ normal(a + bA*median_age , sigma);
 }
-
-generated quantities {
-} 
 ";
 
 # Define the Stanmodel and set the output format to :mcmcchain.
@@ -66,7 +57,7 @@ maddata = Dict("N" => length(df[:Divorce]), "divorce" => df[:Divorce],
 # Sample using cmdstan
 
 rc, chn, cnames = stan(stanmodel, maddata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
+  summary=false, CmdStanDir=CMDSTAN_HOME);
 
 # Describe the draws
 
@@ -105,12 +96,13 @@ for i in 1:length(nvals)
   alpha_vals = convert(Vector{Float64}, reshape(chnN.value[:, 1, :], (rws*chns)))
   beta_vals = convert(Vector{Float64}, reshape(chnN.value[:, 2, :], (rws*chns)))
 
-  p[i] = scatter(df[1:N, :MedianAgeMarriage], df[1:N, :Divorce],
-    leg=false, xlab="Median age of marriage")
+  p[i] = plot()
   for j in 1:N
     yi = alpha_vals[j] .+ beta_vals[j]*xi
-    plot!(p[i], xi, yi, title="N = $N")
+    plot!(p[i], xi, yi, title="N = $N", color=:lightgrey)
   end
+  p[i] = scatter!(p[i], df[1:N, :MedianAgeMarriage], df[1:N, :Divorce],
+    leg=false, color=:darkblue, xlab="Median age of marriage")
 end
 plot(p..., layout=(2, 2))
 

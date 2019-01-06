@@ -4,17 +4,16 @@
 
 # Here we will use Turing's NUTS support, which is currently (2018) the originalNUTS by [Hoffman & Gelman]( http://www.stat.columbia.edu/~gelman/research/published/nuts.pdf) and not the one that's in Stan 2.18.2, i.e., Appendix A.5 in: https://arxiv.org/abs/1701.02434
 
-# The StatisticalRethinking pkg uses, e.g., Turing, CSV, DataFrames
+# The StatisticalRethinking pkg imports modules such as CSV and DataFrames
 
 using StatisticalRethinking, Turing
 
-Turing.setadbackend(:reverse_diff)
-Turing.turnprogress(false) #nb
+Turing.setadbackend(:reverse_diff);
+#nb Turing.turnprogress(false);
 
-# Read in rugged data as a DataFrame
+# Read in the `rugged` data as a DataFrame
 
-d = CSV.read(rel_path("..", "data",
-    "rugged.csv"), delim=';');
+d = CSV.read(rel_path("..", "data", "rugged.csv"), delim=';');
 
 # Show size of the DataFrame (should be 234x51)
     
@@ -60,7 +59,7 @@ end;
 
 posterior = sample(m8_1stan(dd[:log_gdp], dd[:rugged], dd[:cont_africa]),
     Turing.NUTS(2000, 200, 0.95));
-
+    
 # Describe the posterior samples
 
 describe(posterior)
@@ -76,7 +75,7 @@ m81turing = "
 βAR  0.3951414223  0.187780491 0.00419889943 0.0276680621   46.062071
 ";
 
-# Here's the map2stan output from rethinking, note above that SD is too large
+# Here's the map2stan output from rethinking (note that in above output the SD value is too large).
 
 m81map2stan = "
        Mean StdDev lower 0.89 upper 0.89 n_eff Rhat

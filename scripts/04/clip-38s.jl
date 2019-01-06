@@ -11,7 +11,7 @@
 using StatisticalRethinking, CmdStan, StanMCMCChain, GLM
 gr(size=(500,500))
 
-ProjDir = rel_path("..", "chapters", "00")
+ProjDir = rel_path("..", "scripts", "00")
 cd(ProjDir)
 
 # Import the dataset.

@@ -1,10 +1,8 @@
 using StatisticalRethinking, Turing
 
-Turing.setadbackend(:reverse_diff)
-Turing.turnprogress(false) #nb
+Turing.setadbackend(:reverse_diff);
 
-d = CSV.read(rel_path("..", "data",
-    "rugged.csv"), delim=';');
+d = CSV.read(rel_path("..", "data", "rugged.csv"), delim=';');
 
 size(d)
 

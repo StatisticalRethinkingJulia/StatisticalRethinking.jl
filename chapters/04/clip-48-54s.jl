@@ -2,7 +2,7 @@ using StatisticalRethinking
 using CmdStan, StanMCMCChain
 gr(size=(500,500));
 
-ProjDir = rel_path("..", "chapters", "04")
+ProjDir = rel_path("..", "scripts", "04")
 cd(ProjDir)
 
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
@@ -39,7 +39,7 @@ stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],mode
 heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight_c]);
 
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
+  summary=false, CmdStanDir=CMDSTAN_HOME);
 
 chn.value[1:5,:,1]
 

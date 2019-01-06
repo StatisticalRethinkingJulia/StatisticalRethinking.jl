@@ -1,7 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
-gr(size=(600,300))
 
 # ### snippet 3.1
 

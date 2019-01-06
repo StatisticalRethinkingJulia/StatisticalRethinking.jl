@@ -3,7 +3,7 @@ gr(size=(500,500));
 
 Turing.setadbackend(:reverse_diff);
 
-ProjDir = rel_path("..", "chapters", "04")
+ProjDir = rel_path("..", "scripts", "04")
 cd(ProjDir)
 
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')

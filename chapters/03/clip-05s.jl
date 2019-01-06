@@ -1,7 +1,7 @@
 using StatisticalRethinking, CmdStan, StanMCMCChain
 gr(size=(500,800));
 
-ProjDir = rel_path("..", "chapters", "03")
+ProjDir = rel_path("..", "scripts", "03")
 cd(ProjDir)
 
 binomialstanmodel = "

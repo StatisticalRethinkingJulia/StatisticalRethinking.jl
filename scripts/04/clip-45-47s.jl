@@ -6,7 +6,7 @@ gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path("..", "chapters", "04")
+ProjDir = rel_path("..", "scripts", "04")
 cd(ProjDir)
 
 # ### snippet 4.7
@@ -55,7 +55,7 @@ heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height],
 # Sample using cmdstan
 
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME)
+  summary=false, CmdStanDir=CMDSTAN_HOME)
 
 # Show first 5 individual draws of correlated parameter values in chain 1
 
@@ -81,11 +81,14 @@ for i in 1:length(nvals)
   alpha_vals = convert(Vector{Float64}, reshape(chnN.value[:, 1, :], (rws*chns)))
   beta_vals = convert(Vector{Float64}, reshape(chnN.value[:, 2, :], (rws*chns)))
 
-  p[i] = scatter(df2[1:N, :weight], df2[1:N, :height], leg=false, xlab="weight")
+  p[i] = scatter(df2[1:N, :weight], df2[1:N, :height], leg=false,
+    color=:darkblue, xlab="weight")
   for j in 1:N
     yi = alpha_vals[j] .+ beta_vals[j]*xi
-    plot!(p[i], xi, yi, title="N = $N")
+    plot!(p[i], xi, yi, title="N = $N", color=:lightgrey)
   end
+  scatter!(p[i], df2[1:N, :weight], df2[1:N, :height], leg=false,
+    color=:darkblue, xlab="weight")
 end
 plot(p..., layout=(2, 2))
 

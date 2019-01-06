@@ -1,5 +1,4 @@
 using StatisticalRethinking
-gr(size=(600,300))
 
 PrPV = 0.95
 PrPM = 0.01

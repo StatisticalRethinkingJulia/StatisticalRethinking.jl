@@ -4,7 +4,7 @@ gr(size=(500,500));
 Turing.setadbackend(:reverse_diff);
 #nb Turing.turnprogress(false);
 
-ProjDir = rel_path("..", "chapters", "04")
+ProjDir = rel_path("..", "scripts", "04")
 cd(ProjDir)
 
 # ### snippet 4.43

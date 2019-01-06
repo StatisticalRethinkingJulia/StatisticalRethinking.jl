@@ -6,7 +6,7 @@ gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path("..", "chapters", "04")
+ProjDir = rel_path("..", "scripts", "04")
 cd(ProjDir)
 
 # ### Preliminary snippets
@@ -57,7 +57,7 @@ heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weigh
 # Sample using cmdstan
 
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
+  summary=false, CmdStanDir=CMDSTAN_HOME);
 
 # ### Snippet 4.47
 

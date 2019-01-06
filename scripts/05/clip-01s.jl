@@ -14,8 +14,8 @@ cd(ProjDir)
 wd = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
 df = convert(DataFrame, wd);
 mean_ma = mean(df[:MedianAgeMarriage])
-df[:MedianAgeMarriage] = convert(Vector{Float64},
-  df[:MedianAgeMarriage]) .- mean_ma;
+df[:MedianAgeMarriage_s] = convert(Vector{Float64},
+  (df[:MedianAgeMarriage]) .- mean_ma)/std(df[:MedianAgeMarriage]);
 first(df, 5)
 
 # Define the Stan language model
@@ -52,7 +52,7 @@ stanmodel = Stanmodel(name="MedianAgeDivorce", monitors = ["a", "bA", "sigma"],
 # Input data for cmdstan
 
 maddata = Dict("N" => length(df[:Divorce]), "divorce" => df[:Divorce],
-    "median_age" => df[:MedianAgeMarriage]);
+    "median_age" => df[:MedianAgeMarriage_s]);
 
 # Sample using cmdstan
 
@@ -75,7 +75,7 @@ alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))
 beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)))
 yi = mean(alpha_vals) .+ mean(beta_vals)*xi
 
-scatter(df[:MedianAgeMarriage], df[:Divorce], lab="Observations",
+scatter(df[:MedianAgeMarriage_s], df[:Divorce], lab="Observations",
   xlab="Median age of marriage", ylab="divorce")
 plot!(xi, yi, lab="Regression line")
 
@@ -87,7 +87,7 @@ nvals = [10, 20, 35, 50]
 for i in 1:length(nvals)
   N = nvals[i]
   maddataN = Dict("N" => N, "divorce" => df[1:N, :Divorce],
-      "median_age" => df[1:N, :MedianAgeMarriage]);
+      "median_age" => df[1:N, :MedianAgeMarriage_s]);
   rc, chnN, cnames = stan(stanmodel, maddataN, ProjDir, diagnostics=false,
     summary=false, CmdStanDir=CMDSTAN_HOME)
 
@@ -101,7 +101,7 @@ for i in 1:length(nvals)
     yi = alpha_vals[j] .+ beta_vals[j]*xi
     plot!(p[i], xi, yi, title="N = $N", color=:lightgrey)
   end
-  p[i] = scatter!(p[i], df[1:N, :MedianAgeMarriage], df[1:N, :Divorce],
+  p[i] = scatter!(p[i], df[1:N, :MedianAgeMarriage_s], df[1:N, :Divorce],
     leg=false, color=:darkblue, xlab="Median age of marriage")
 end
 plot(p..., layout=(2, 2))

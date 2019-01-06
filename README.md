@@ -38,7 +38,7 @@ Instead of having all snippets in a single file, the snippets are organized by c
 These 2 files are in scripts/00 and later on processed by Literate.jl to create 3 derived versions, e.g. from `clip_01_03.jl` in scripts/00:
 
 1. `clip-01-03.md` - included in the documentation
-2. `clip-01-03.ipynb` - stored in the notebooks/_chapte_r directory
+2. `clip-01-03.ipynb` - stored in the notebooks/_chapter_ directory
 3. `clip-01-03.jl` - stored in the chapters/_chapter_ directory
 
 Occasionally lines in scripts are suppressed when Literate processes input source files, e.g. in Turing scripts the statement

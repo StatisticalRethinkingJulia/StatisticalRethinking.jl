@@ -17,7 +17,7 @@ script:
   - export JULIA_CMDSTAN_HOME=$HOME/cmdstan
   - cd $TRAVIS_BUILD_DIR
   - julia -e 'using Pkg; Pkg.test("StatisticalRethinking"; coverage=true)'
-  - julia -color=yes docs/make.jl
+  - julia --color=yes docs/make.jl
 
 matrix:
   allow_failures:
@@ -32,7 +32,6 @@ branches:
 after_success:
   - julia --project=test/coverage -e 'using Pkg; Pkg.instantiate()'
   - julia --project=test/coverage test/coverage/coverage.jl
-  - julia --color=yes docs/make.jl
 
 notifications:
   email: true

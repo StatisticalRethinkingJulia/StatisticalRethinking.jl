@@ -3,18 +3,9 @@ language: julia
 
 jobs:
   include:
-    - stage: Testing Julai 1.0
-      julia:
-        - 1.0
-        - 1.1
-        - nightly
-      os: 
-        - linux
-        - osx
-      matrix:
-        allow_failures:
-          - os: osx
-          - julia: nightly
+    - stage: Testing Julia v1.0
+      julia: 1.0
+      os: linux
       branches:
         only:
           - master
@@ -43,8 +34,34 @@ jobs:
         - julia --project=docs --color=yes docs/make.jl
       after_success: skip
 
+jobs:
+  include:
+    - stage: Testing Julia v1.1
+      julia: 1.1
+      os: linux
+      script:
+        - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+        - cd $HOME; if [[ ! -d cmdstan ]]; then git clone https://github.com/stan-dev/cmdstan.git; fi
+        - cd $HOME/cmdstan; git checkout v2.18.0; make stan-update; make build
+        - export JULIA_CMDSTAN_HOME=$HOME/cmdstan
+        - cd $TRAVIS_BUILD_DIR
+        - julia -e 'using Pkg; Pkg.test("StatisticalRethinking"; coverage=true)'
+      after_success: skip
+
+    - stage: Testing Julia nightly
+      julia: nightly
+      os: linux
+      script:
+        - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+        - cd $HOME; if [[ ! -d cmdstan ]]; then git clone https://github.com/stan-dev/cmdstan.git; fi
+        - cd $HOME/cmdstan; git checkout v2.18.0; make stan-update; make build
+        - export JULIA_CMDSTAN_HOME=$HOME/cmdstan
+        - cd $TRAVIS_BUILD_DIR
+        - julia -e 'using Pkg; Pkg.test("StatisticalRethinking"; coverage=true)'
+      after_success: skip
+
 notifications:
-  email: false
+  email: true
 
 git:
   depth: 99999999

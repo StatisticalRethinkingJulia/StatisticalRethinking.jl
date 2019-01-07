@@ -69,41 +69,33 @@ plot(chn)
 
 # Plot regression line using means and observations
 
-xi = -3.0:0.1:3.0
+xi = -3.0:0.01:3.0
 rws, vars, chns = size(chn[:, 1, :])
 alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))
 beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)))
 yi = mean(alpha_vals) .+ mean(beta_vals)*xi
 
-scatter(df[:MedianAgeMarriage_s], df[:Divorce], lab="Observations",
-  xlab="Median age of marriage", ylab="divorce")
+scatter(df[:MedianAgeMarriage_s], df[:Divorce], color=:darkblue,
+  xlab="Median age of marriage [ $(round(mean_ma, digits=1)) years]",
+  ylab="divorce rate [# of divorces/1000 adults]")
 plot!(xi, yi, lab="Regression line")
 
-# Plot estimates using the N = [10, 50, 150, 352] observations
+# shade(), abline() and link()
 
-p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
-nvals = [10, 20, 35, 50]
+mu = link(xi, chn, [1, 2], mean(xi));
+yl = [minimum(mu[i]) for i in 1:length(xi)];
+yh =  [maximum(mu[i]) for i in 1:length(xi)];
+pi = hcat(xi, yl, yh);
+pi[1:5,:]
 
-for i in 1:length(nvals)
-  N = nvals[i]
-  maddataN = Dict("N" => N, "divorce" => df[1:N, :Divorce],
-      "median_age" => df[1:N, :MedianAgeMarriage_s]);
-  rc, chnN, cnames = stan(stanmodel, maddataN, ProjDir, diagnostics=false,
-    summary=false, CmdStanDir=CMDSTAN_HOME)
-
-  xi = -3.0:0.1:3.0
-  rws, vars, chns = size(chnN[:, 1, :])
-  alpha_vals = convert(Vector{Float64}, reshape(chnN.value[:, 1, :], (rws*chns)))
-  beta_vals = convert(Vector{Float64}, reshape(chnN.value[:, 2, :], (rws*chns)))
-
-  p[i] = plot()
-  for j in 1:N
-    yi = alpha_vals[j] .+ beta_vals[j]*xi
-    plot!(p[i], xi, yi, title="N = $N", color=:lightgrey)
-  end
-  p[i] = scatter!(p[i], df[1:N, :MedianAgeMarriage_s], df[1:N, :Divorce],
-    leg=false, color=:darkblue, xlab="Median age of marriage")
+plot!((xi, yl), color=:lightgrey, leg=false)
+plot!((xi, yh), color=:lightgrey, leg=false)
+for i in 1:length(xi)
+  plot!([xi[i], xi[i]], [yl[i], yh[i]], color=:lightgrey, leg=false)
 end
-plot(p..., layout=(2, 2))
+#i=1
+#plot!([xi[i], xi[i]], [yl[i], yh[i]], color=:lightgrey, leg=false)
+scatter!(df[:MedianAgeMarriage_s], df[:Divorce], color=:darkblue)
+plot!(xi, yi, lab="Regression line")
 
 # End of `05/clip_01s.jl`

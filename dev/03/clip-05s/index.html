@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-05s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08m/">clip-08m</a></li><li><a class="toctext" href="../../02/clip-08s/">clip-08s</a></li><li><a class="toctext" href="../../02/clip-08t/">clip-08t</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../clip-01/">clip-01</a></li><li><a class="toctext" href="../clip-02-05/">clip-02-05</a></li><li class="current"><a class="toctext" href>clip-05s</a><ul class="internal"></ul></li><li><a class="toctext" href="../clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07s/">clip-07s</a></li><li><a class="toctext" href="../../04/clip-38m/">clip-38m</a></li><li><a class="toctext" href="../../04/clip-38s/">clip-38s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-43t/">clip-43t</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><span class="toctext">Chapter 05</span><ul><li><a class="toctext" href="../../05/clip-01s/">clip-01s</a></li></ul></li><li><span class="toctext">Chapter 08</span></li><li><span class="toctext">Chapter 10</span></li><li><span class="toctext">Chapter 11</span></li><li><span class="toctext">Chapter 12</span></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 03</li><li><a href>clip-05s</a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-05s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-05s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed</p><div><pre><code class="language-julia">using StatisticalRethinking, CmdStan, StanMCMCChain
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-05s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08m/">clip-08m</a></li><li><a class="toctext" href="../../02/clip-08s/">clip-08s</a></li><li><a class="toctext" href="../../02/clip-08t/">clip-08t</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../clip-01/">clip-01</a></li><li><a class="toctext" href="../clip-02-05/">clip-02-05</a></li><li class="current"><a class="toctext" href>clip-05s</a><ul class="internal"></ul></li><li><a class="toctext" href="../clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07s/">clip-07s</a></li><li><a class="toctext" href="../../04/clip-38m/">clip-38m</a></li><li><a class="toctext" href="../../04/clip-38s/">clip-38s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-43t/">clip-43t</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><span class="toctext">Chapter 05</span><ul><li><a class="toctext" href="../../05/clip-01s/">clip-01s</a></li></ul></li><li><span class="toctext">Chapter 08</span><ul><li><a class="toctext" href="../../08/m8.1t/">m8.1t</a></li></ul></li><li><span class="toctext">Chapter 10</span></li><li><span class="toctext">Chapter 11</span></li><li><span class="toctext">Chapter 12</span></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 03</li><li><a href>clip-05s</a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-05s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-05s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed</p><div><pre><code class="language-julia">using StatisticalRethinking, CmdStan, StanMCMCChain
 gr(size=(500,800));</code></pre></div><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;03&quot;)
 cd(ProjDir)</code></pre></div><p>Define the Stan language model</p><div><pre><code class="language-julia">binomialstanmodel = &quot;
 // Inferring a Rate
@@ -44,19 +44,19 @@ Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
 Inference for Stan model: binomial_model
 4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
 
-Warmup took (0.026, 0.025, 0.026, 0.025) seconds, 0.10 seconds total
-Sampling took (0.029, 0.035, 0.028, 0.035) seconds, 0.13 seconds total
+Warmup took (0.026, 0.027, 0.027, 0.027) seconds, 0.11 seconds total
+Sampling took (0.030, 0.030, 0.038, 0.032) seconds, 0.13 seconds total
 
                 Mean     MCSE  StdDev     5%   50%   95%    N_Eff  N_Eff/s    R_hat
-lp__             -98  3.1e-02     1.1   -100   -97   -97  1.4e+03  1.1e+04  1.0e+00
-accept_stat__   0.88  1.8e-02    0.15   0.56  0.95   1.0  7.3e+01  5.8e+02  1.0e+00
-stepsize__      0.91  6.6e-02   0.093   0.79  0.93   1.0  2.0e+00  1.6e+01  8.7e+13
-treedepth__      1.8  4.6e-02    0.56    1.0   2.0   3.0  1.5e+02  1.2e+03  1.0e+00
-n_leapfrog__     3.7  4.7e-01     3.4    1.0   3.0   7.0  5.4e+01  4.2e+02  1.0e+00
+lp__             -88  2.8e-02     1.1    -91   -88   -87  1.7e+03  1.3e+04  1.0e+00
+accept_stat__   0.90  3.4e-03    0.14   0.59  0.95   1.0  1.7e+03  1.3e+04  1.0e+00
+stepsize__      0.88  4.9e-02   0.070   0.78  0.91  0.97  2.0e+00  1.5e+01  3.2e+13
+treedepth__      1.9  8.3e-02    0.61    1.0   2.0   3.0  5.4e+01  4.2e+02  1.0e+00
+n_leapfrog__     4.0  5.4e-01     3.8    1.0   3.0   7.0  4.8e+01  3.7e+02  1.0e+00
 divergent__     0.00     -nan    0.00   0.00  0.00  0.00     -nan     -nan     -nan
-energy__          99  4.2e-02     1.6     97    98   102  1.4e+03  1.1e+04  1.0e+00
-theta           0.64  6.6e-04   0.039   0.58  0.65  0.71  3.5e+03  2.8e+04  1.0e+00
-thetaprior      0.50  4.9e-03    0.29  0.045  0.50  0.95  3.5e+03  2.8e+04  1.0e+00
+energy__          89  3.9e-02     1.5     87    89    92  1.5e+03  1.1e+04  1.0e+00
+theta           0.73  6.3e-04   0.037   0.66  0.73  0.79  3.5e+03  2.7e+04  1.0e+00
+thetaprior      0.51  5.1e-03    0.29  0.046  0.51  0.96  3.3e+03  2.5e+04  1.0e+00
 
 Samples were drawn using hmc with nuts.
 For each parameter, N_Eff is a crude measure of effective sample size,
@@ -69,761 +69,779 @@ Chains = 1,2,3,4
 Samples per chain = 1000
 
 Empirical Posterior Estimates:
-         Mean         SD       Naive SE       MCSE      ESS
-theta 0.64486594 0.039348904 0.0006221608 0.0006869528 1000
+         Mean        SD       Naive SE        MCSE      ESS
+theta 0.7260644 0.036997819 0.0005849869 0.00047211518 1000
 
 Quantiles:
-         2.5%      25.0%     50.0%      75.0%      97.5%
-theta 0.56584565 0.6185205 0.6461805 0.67160125 0.72218925</code></pre></div><p>Plot the 4 chains</p><div><pre><code class="language-julia">if rc == 0
+         2.5%      25.0%     50.0%     75.0%     97.5%
+theta 0.65074662 0.7007755 0.7272295 0.751017 0.79596863</code></pre></div><p>Plot the 4 chains</p><div><pre><code class="language-julia">if rc == 0
   plot(chn)
 end</code></pre><?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="250" viewBox="0 0 4000 1000">
 <defs>
-  <clipPath id="clip5200">
+  <clipPath id="clip1400">
     <rect x="0" y="0" width="2000" height="2000"/>
   </clipPath>
 </defs>
 <defs>
-  <clipPath id="clip5201">
+  <clipPath id="clip1401">
     <rect x="0" y="0" width="4000" height="1000"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip5201)" points="
+<polygon clip-path="url(#clip1401)" points="
 0,1000 4000,1000 4000,0 0,0 
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip5202">
+  <clipPath id="clip1402">
     <rect x="800" y="0" width="2801" height="1000"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip5201)" points="
+<polygon clip-path="url(#clip1401)" points="
 157.48,874.016 1921.26,874.016 1921.26,125.984 157.48,125.984 
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip5203">
+  <clipPath id="clip1403">
     <rect x="157" y="125" width="1765" height="749"/>
   </clipPath>
 </defs>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip1403)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
   205.733,874.016 205.733,125.984 
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip1403)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
   622.135,874.016 622.135,125.984 
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip1403)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
   1038.54,874.016 1038.54,125.984 
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip1403)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
   1454.94,874.016 1454.94,125.984 
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip1403)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
   1871.34,874.016 1871.34,125.984 
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  157.48,861.454 1921.26,861.454 
+<polyline clip-path="url(#clip1403)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,782.306 1921.26,782.306 
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  157.48,730.021 1921.26,730.021 
+<polyline clip-path="url(#clip1403)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,648.516 1921.26,648.516 
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  157.48,598.589 1921.26,598.589 
+<polyline clip-path="url(#clip1403)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,514.726 1921.26,514.726 
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  157.48,467.156 1921.26,467.156 
+<polyline clip-path="url(#clip1403)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,380.936 1921.26,380.936 
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  157.48,335.724 1921.26,335.724 
+<polyline clip-path="url(#clip1403)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,247.147 1921.26,247.147 
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  157.48,204.291 1921.26,204.291 
-  "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   157.48,874.016 1921.26,874.016 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   157.48,874.016 157.48,125.984 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   205.733,874.016 205.733,862.795 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   622.135,874.016 622.135,862.795 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   1038.54,874.016 1038.54,862.795 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   1454.94,874.016 1454.94,862.795 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   1871.34,874.016 1871.34,862.795 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  157.48,861.454 183.937,861.454 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,782.306 183.937,782.306 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  157.48,730.021 183.937,730.021 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,648.516 183.937,648.516 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  157.48,598.589 183.937,598.589 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,514.726 183.937,514.726 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  157.48,467.156 183.937,467.156 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,380.936 183.937,380.936 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  157.48,335.724 183.937,335.724 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,247.147 183.937,247.147 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  157.48,204.291 183.937,204.291 
-  "/>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 205.733, 936.016)" x="205.733" y="936.016">0</text>
 </g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 622.135, 936.016)" x="622.135" y="936.016">250</text>
 </g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1038.54, 936.016)" x="1038.54" y="936.016">500</text>
 </g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1454.94, 936.016)" x="1454.94" y="936.016">750</text>
 </g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1871.34, 936.016)" x="1871.34" y="936.016">1000</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 878.954)" x="117.48" y="878.954">0.50</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 799.806)" x="117.48" y="799.806">0.60</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 747.521)" x="117.48" y="747.521">0.55</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 666.016)" x="117.48" y="666.016">0.65</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 616.089)" x="117.48" y="616.089">0.60</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 532.226)" x="117.48" y="532.226">0.70</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 484.656)" x="117.48" y="484.656">0.65</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 398.436)" x="117.48" y="398.436">0.75</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 353.224)" x="117.48" y="353.224">0.70</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 264.647)" x="117.48" y="264.647">0.80</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 117.48, 221.791)" x="117.48" y="221.791">0.75</text>
-</g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:82px; text-anchor:middle;" transform="rotate(0, 1039.37, 72)" x="1039.37" y="72">theta</text>
 </g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(0, 1039.37, 990.4)" x="1039.37" y="990.4">Iteration</text>
 </g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(-90, 57.6, 500)" x="57.6" y="500">Sample value</text>
 </g>
-<polyline clip-path="url(#clip5203)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
-  207.399,572.142 209.064,468.097 210.73,488.522 212.395,402.105 214.061,353.914 215.727,632.041 217.392,319.476 219.058,328.687 220.723,546.074 222.389,566.362 
-  224.055,476.081 225.72,498.18 227.386,334.063 229.052,547.585 230.717,425.597 232.383,453.645 234.048,469.767 235.714,560.915 237.38,506.578 239.045,475.878 
-  240.711,489.445 242.376,540.383 244.042,598.45 245.708,512.159 247.373,416.542 249.039,350.053 250.704,600.965 252.37,382.356 254.036,587.564 255.701,558.817 
-  257.367,556.118 259.032,398.633 260.698,448.267 262.364,626.516 264.029,344.935 265.695,525.93 267.361,492.46 269.026,621.984 270.692,599.987 272.357,496.907 
-  274.023,609.308 275.689,636.544 277.354,403.869 279.02,396.443 280.685,536.461 282.351,348.744 284.017,605.008 285.682,549.212 287.348,477.668 289.013,466.907 
-  290.679,469.593 292.345,473.746 294.01,463.61 295.676,463.61 297.341,511.565 299.007,466.115 300.673,503.1 302.338,499.799 304.004,494.72 305.67,473.331 
-  307.335,421.904 309.001,685.587 310.666,706.908 312.332,402.605 313.998,583.482 315.663,583.482 317.329,692.524 318.994,426.431 320.66,303.762 322.326,438.622 
-  323.991,514.044 325.657,439.23 327.322,591.854 328.988,530.578 330.654,389.099 332.319,686.906 333.985,519.969 335.65,438.391 337.316,438.391 338.982,619.479 
-  340.647,406.151 342.313,384.759 343.979,442.597 345.644,442.597 347.31,537.452 348.975,549.068 350.641,530.667 352.307,489.014 353.972,374.454 355.638,536.763 
-  357.303,430.668 358.969,430.668 360.635,432.187 362.3,583.203 363.966,347.655 365.631,519.083 367.297,542.911 368.963,522.303 370.628,521.409 372.294,553.092 
-  373.959,303.581 375.625,290.353 377.291,484.887 378.956,523.848 380.622,407.539 382.288,520.681 383.953,444.921 385.619,457.262 387.284,520.108 388.95,459.326 
-  390.616,459.326 392.281,494.841 393.947,483.231 395.612,504.328 397.278,507.982 398.944,471.068 400.609,427.506 402.275,351.188 403.94,504.173 405.606,504.173 
-  407.272,452.197 408.937,392.584 410.603,461.4 412.268,421.171 413.934,564.524 415.6,564.524 417.265,559.998 418.931,335.556 420.596,401.109 422.262,423.221 
-  423.928,449.15 425.593,599.122 427.259,384.23 428.925,622.872 430.59,595.831 432.256,588.082 433.921,509.199 435.587,527.416 437.253,434.719 438.918,543.592 
-  440.584,430.324 442.249,395.831 443.915,518.778 445.581,454.197 447.246,376.623 448.912,376.623 450.577,540.585 452.243,405.848 453.909,624.334 455.574,347.605 
-  457.24,336.675 458.905,573.462 460.571,432.724 462.237,488.141 463.902,538.742 465.568,643.25 467.234,630.017 468.899,432.311 470.565,417.144 472.23,549.43 
-  473.896,422.17 475.562,458.074 477.227,355.822 478.893,606.301 480.558,338.36 482.224,408.393 483.89,407 485.555,394.708 487.221,450.78 488.886,564.487 
-  490.552,360.002 492.218,582.283 493.883,397.51 495.549,242.375 497.214,289.249 498.88,534.145 500.546,318.114 502.211,408.551 503.877,615.644 505.543,604.251 
-  507.208,500.29 508.874,475.586 510.539,542.097 512.205,463.208 513.871,463.208 515.536,463.208 517.202,516.133 518.867,462.795 520.533,496.821 522.199,415.411 
-  523.864,415.411 525.53,460.611 527.195,530.244 528.861,500.627 530.527,422.304 532.192,390.224 533.858,452.076 535.523,408.561 537.189,321.726 538.855,291.116 
-  540.52,646.391 542.186,331.402 543.852,336.56 545.517,329.41 547.183,262.087 548.848,448.301 550.514,631.941 552.18,455.367 553.845,609.243 555.511,397.145 
-  557.176,593.602 558.842,254.63 560.508,352.613 562.173,588.731 563.839,328.916 565.504,236.973 567.17,417.964 568.836,556.551 570.501,556.551 572.167,553.221 
-  573.832,531.824 575.498,531.824 577.164,431.641 578.829,682.487 580.495,462.501 582.161,492.625 583.826,445.525 585.492,476.738 587.157,436.914 588.823,582.607 
-  590.489,399.361 592.154,417.927 593.82,497.633 595.485,480.891 597.151,774.414 598.817,703.84 600.482,610.066 602.148,454.024 603.813,535.57 605.479,642.569 
-  607.145,540.354 608.81,418.072 610.476,406.511 612.141,430.873 613.807,494.552 615.473,712.409 617.138,419.462 618.804,544.617 620.47,401.585 622.135,587.596 
-  623.801,307.705 625.466,439.114 627.132,448.522 628.798,461.216 630.463,504.644 632.129,423.276 633.794,533.446 635.46,555.282 637.126,615.796 638.791,574.474 
-  640.457,531.232 642.122,533.659 643.788,450.015 645.454,608.925 647.119,494.507 648.785,534.742 650.45,426.92 652.116,432.521 653.782,363.945 655.447,392.529 
-  657.113,233.795 658.779,525.089 660.444,375.808 662.11,322.531 663.775,625.577 665.441,553.734 667.107,553.734 668.772,553.734 670.438,396.764 672.103,516.081 
-  673.769,561.959 675.435,561.959 677.1,572.933 678.766,391.325 680.431,564.387 682.097,229.019 683.763,240.459 685.428,753.918 687.094,368.185 688.759,582.425 
-  690.425,399.611 692.091,442.284 693.756,465.272 695.422,465.272 697.088,492.226 698.753,480.447 700.419,611.509 702.084,351.367 703.75,545.314 705.416,418.574 
-  707.081,458.808 708.747,553.481 710.412,577.823 712.078,174.632 713.744,323.519 715.409,416.51 717.075,287.312 718.74,489.539 720.406,490.444 722.072,495.69 
-  723.737,483.078 725.403,373.889 727.068,403.882 728.734,575.809 730.4,592.44 732.065,497.246 733.731,367.475 735.397,278.679 737.062,625.138 738.728,262.66 
-  740.393,405.596 742.059,278.028 743.725,699.887 745.39,444.587 747.056,496.3 748.721,483.659 750.387,463.715 752.053,505.75 753.718,468.097 755.384,558.97 
-  757.049,513.576 758.715,550.548 760.381,402.563 762.046,278.083 763.712,364.1 765.377,391.165 767.043,480.328 768.709,341.155 770.374,492.336 772.04,411.676 
-  773.706,495.243 775.371,460.246 777.037,467.651 778.702,507.088 780.368,507.088 782.034,462.259 783.699,471.339 785.365,481.022 787.03,481.022 788.696,490.123 
-  790.362,510.434 792.027,466.223 793.693,415.243 795.358,554.454 797.024,471.086 798.69,611.296 800.355,371.445 802.021,412.996 803.686,390.508 805.352,529.098 
-  807.018,450.304 808.683,513.605 810.349,565.116 812.015,325.669 813.68,614.171 815.346,323.926 817.011,476.785 818.677,458.513 820.343,413.064 822.008,348.247 
-  823.674,559.992 825.339,583.661 827.005,346.478 828.671,641.746 830.336,551.93 832.002,404.284 833.667,425.876 835.333,546.549 836.999,501.818 838.664,445.586 
-  840.33,445.586 841.995,548.305 843.661,429.722 845.327,339.814 846.992,389.133 848.658,554.843 850.324,456.726 851.989,560.818 853.655,511.686 855.32,511.686 
-  856.986,428.189 858.652,361.569 860.317,643.215 861.983,526.74 863.648,421.888 865.314,522.003 866.98,402.247 868.645,371.86 870.311,534.902 871.976,434.359 
-  873.642,374.22 875.308,328.663 876.973,620.651 878.639,363.716 880.304,656.18 881.97,500.966 883.636,250.316 885.301,346.575 886.967,469.817 888.633,383.823 
-  890.298,614.208 891.964,463.087 893.629,395.583 895.295,509.627 896.961,433.336 898.626,449.989 900.292,375.508 901.957,426.914 903.623,483.988 905.289,622.546 
-  906.954,621.203 908.62,339.023 910.285,362.394 911.951,617.502 913.617,438.139 915.282,460.243 916.948,460.243 918.613,501.92 920.279,478.144 921.945,500.903 
-  923.61,433.56 925.276,452.302 926.942,392.913 928.607,534.355 930.273,481.724 931.938,497.641 933.604,505.84 935.27,493.212 936.935,375.961 938.601,228.959 
-  940.266,220.815 941.932,295.926 943.598,654.511 945.263,612.521 946.929,448.306 948.594,728.31 950.26,267.968 951.926,717.18 953.591,462.136 955.257,460.522 
-  956.922,508.442 958.588,447.52 960.254,511.163 961.919,482.321 963.585,389.438 965.25,496.461 966.916,475.763 968.582,418.926 970.247,596.181 971.913,386.906 
-  973.579,386.906 975.244,518.428 976.91,500.724 978.575,473.654 980.241,760.6 981.907,588.216 983.572,440.031 985.238,440.031 986.903,558.612 988.569,374.357 
-  990.235,570.72 991.9,511.73 993.566,410.167 995.231,448.595 996.897,365.081 998.563,424.296 1000.23,428.365 1001.89,508.169 1003.56,713.211 1005.23,287.028 
-  1006.89,521.654 1008.56,422.879 1010.22,384.241 1011.89,578.522 1013.55,486.742 1015.22,486.742 1016.88,539.773 1018.55,539.773 1020.22,331.96 1021.88,515.058 
-  1023.55,463.555 1025.21,512.937 1026.88,625.333 1028.54,576.866 1030.21,576.866 1031.87,297.54 1033.54,535.291 1035.21,542.493 1036.87,273.02 1038.54,677.204 
-  1040.2,410.385 1041.87,383.607 1043.53,572.902 1045.2,471.504 1046.87,466.649 1048.53,388.181 1050.2,498.274 1051.86,325.901 1053.53,627.465 1055.19,522.439 
-  1056.86,526.89 1058.52,451.508 1060.19,524.697 1061.86,400.026 1063.52,342.369 1065.19,442.755 1066.85,566.209 1068.52,531.779 1070.18,438.969 1071.85,517.371 
-  1073.52,541.077 1075.18,524.642 1076.85,491.676 1078.51,543.973 1080.18,379.065 1081.84,512.947 1083.51,412.423 1085.17,416.047 1086.84,366.923 1088.51,437.7 
-  1090.17,664.978 1091.84,614.174 1093.5,647.576 1095.17,724.215 1096.83,412.827 1098.5,443.443 1100.16,443.443 1101.83,503.742 1103.5,410.375 1105.16,416.287 
-  1106.83,429.03 1108.49,533.535 1110.16,385.316 1111.82,481.95 1113.49,496.355 1115.16,346.28 1116.82,397.042 1118.49,382.934 1120.15,549.859 1121.82,495.814 
-  1123.48,475.826 1125.15,286.371 1126.81,403.209 1128.48,578.514 1130.15,395.817 1131.81,512.151 1133.48,554.635 1135.14,595.248 1136.81,565.055 1138.47,459.893 
-  1140.14,434.85 1141.81,517.784 1143.47,443.233 1145.14,390.781 1146.8,541.305 1148.47,539.839 1150.13,436.895 1151.8,436.895 1153.46,617.491 1155.13,446.227 
-  1156.8,255.274 1158.46,324.978 1160.13,547.259 1161.79,646.63 1163.46,600.492 1165.12,562.884 1166.79,587.835 1168.45,463.14 1170.12,604.969 1171.79,538.135 
-  1173.45,385.579 1175.12,443.827 1176.78,437.999 1178.45,551.423 1180.11,551.423 1181.78,401.529 1183.45,561.84 1185.11,645.155 1186.78,352.721 1188.44,405.846 
-  1190.11,566.759 1191.77,532.823 1193.44,699.603 1195.1,609.277 1196.77,354.406 1198.44,605.266 1200.1,565.239 1201.77,411.897 1203.43,488.472 1205.1,565.013 
-  1206.76,333.353 1208.43,533.267 1210.09,446.227 1211.76,525.523 1213.43,550.924 1215.09,618.635 1216.76,256.559 1218.42,735.981 1220.09,446.188 1221.75,450.727 
-  1223.42,574.56 1225.09,373.713 1226.75,595.96 1228.42,386.128 1230.08,393.822 1231.75,383.581 1233.41,598.36 1235.08,548.755 1236.74,481.036 1238.41,409.668 
-  1240.08,698.399 1241.74,410.583 1243.41,333.203 1245.07,349.685 1246.74,525.026 1248.4,738.265 1250.07,516.162 1251.74,573.924 1253.4,364.016 1255.07,552.254 
-  1256.73,264.069 1258.4,410.151 1260.06,570.933 1261.73,508.329 1263.39,442.91 1265.06,537.142 1266.73,553.087 1268.39,425.048 1270.06,611.246 1271.72,490.465 
-  1273.39,458.5 1275.05,590.035 1276.72,505.687 1278.38,583.8 1280.05,320.843 1281.72,320.843 1283.38,382.979 1285.05,475.168 1286.71,475.168 1288.38,475.168 
-  1290.04,439.329 1291.71,521.136 1293.38,550.019 1295.04,550.019 1296.71,423.36 1298.37,526.033 1300.04,416.179 1301.7,638.229 1303.37,619.694 1305.03,619.694 
-  1306.7,626.771 1308.37,326.292 1310.03,561.499 1311.7,510.792 1313.36,387.011 1315.03,575.917 1316.69,439.918 1318.36,559.064 1320.03,529.287 1321.69,450.911 
-  1323.36,623.196 1325.02,594.394 1326.69,388.786 1328.35,514.956 1330.02,370.74 1331.68,333.805 1333.35,581.545 1335.02,374.715 1336.68,375.971 1338.35,515.568 
-  1340.01,409.486 1341.68,409.486 1343.34,570.836 1345.01,410.824 1346.67,410.162 1348.34,436.824 1350.01,406.847 1351.67,459.065 1353.34,479.374 1355,365.683 
-  1356.67,573.409 1358.33,510.542 1360,498.553 1361.67,524.28 1363.33,420.416 1365,407.128 1366.66,563.625 1368.33,517.484 1369.99,442.965 1371.66,489.332 
-  1373.32,509.459 1374.99,436.606 1376.66,436.606 1378.32,526.892 1379.99,441.385 1381.65,632.17 1383.32,656.398 1384.98,324.484 1386.65,420.558 1388.32,568.993 
-  1389.98,652.984 1391.65,309.892 1393.31,417.52 1394.98,563.226 1396.64,558.108 1398.31,559.243 1399.97,524.117 1401.64,524.117 1403.31,511.578 1404.97,411.376 
-  1406.64,415.485 1408.3,610.347 1409.97,648.835 1411.63,432.187 1413.3,501.087 1414.96,477.524 1416.63,500.719 1418.3,457.415 1419.96,619.295 1421.63,417.622 
-  1423.29,468.092 1424.96,316.072 1426.62,327.601 1428.29,231.692 1429.96,573.141 1431.62,408.953 1433.29,408.953 1434.95,573.391 1436.62,576.09 1438.28,576.09 
-  1439.95,401.756 1441.61,656.556 1443.28,428.102 1444.95,480.841 1446.61,571.669 1448.28,299.046 1449.94,469.627 1451.61,622.444 1453.27,433.691 1454.94,659.014 
-  1456.61,448.277 1458.27,525.494 1459.94,525.494 1461.6,529.881 1463.27,480.589 1464.93,553.639 1466.6,634.706 1468.26,514.262 1469.93,565.176 1471.6,557.879 
-  1473.26,455.398 1474.93,317.307 1476.59,589.37 1478.26,589.37 1479.92,481.022 1481.59,388.439 1483.25,633.434 1484.92,622.331 1486.59,329.536 1488.25,650.397 
-  1489.92,301.173 1491.58,385.4 1493.25,703.995 1494.91,287.357 1496.58,446.524 1498.25,444.369 1499.91,398.867 1501.58,370.861 1503.24,307.384 1504.91,679.241 
-  1506.57,510.705 1508.24,436.866 1509.9,608.504 1511.57,368.156 1513.24,470.981 1514.9,497.336 1516.57,681.105 1518.23,617.93 1519.9,422.025 1521.56,383.066 
-  1523.23,718.942 1524.89,254.296 1526.56,293.615 1528.23,694.939 1529.89,464.522 1531.56,452.599 1533.22,627.346 1534.89,344.737 1536.55,377.993 1538.22,310.071 
-  1539.89,394.004 1541.55,411.892 1543.22,271.537 1544.88,359.29 1546.55,329.473 1548.21,585.661 1549.88,430.542 1551.54,642.067 1553.21,335.485 1554.88,710.932 
-  1556.54,276.471 1558.21,682.025 1559.87,493.635 1561.54,418.137 1563.2,472.842 1564.87,479.706 1566.54,469.835 1568.2,503.837 1569.87,469.517 1571.53,469.517 
-  1573.2,446.059 1574.86,356.622 1576.53,490.951 1578.19,454.231 1579.86,423.297 1581.53,511.741 1583.19,475.692 1584.86,496.873 1586.52,455.225 1588.19,503.734 
-  1589.85,472.343 1591.52,359.739 1593.18,493.175 1594.85,486.816 1596.52,466.589 1598.18,529.658 1599.85,424.133 1601.51,482.19 1603.18,497.791 1604.84,481.548 
-  1606.51,454.838 1608.18,440.815 1609.84,393.615 1611.51,613.977 1613.17,545.445 1614.84,283.606 1616.5,266.856 1618.17,403.864 1619.83,391.196 1621.5,614.968 
-  1623.17,532.039 1624.83,550.456 1626.5,615.17 1628.16,575.478 1629.83,545.243 1631.49,335.253 1633.16,272.626 1634.83,580.769 1636.49,456.229 1638.16,514.067 
-  1639.82,273.38 1641.49,365.075 1643.15,546.92 1644.82,419.168 1646.48,576.603 1648.15,398.196 1649.82,565.999 1651.48,502.428 1653.15,331.839 1654.81,412.359 
-  1656.48,755.853 1658.14,710.322 1659.81,280.07 1661.47,272.513 1663.14,561.262 1664.81,479.445 1666.47,345.313 1668.14,457.659 1669.8,371.576 1671.47,604.658 
-  1673.13,604.177 1674.8,298.684 1676.47,678.4 1678.13,495.041 1679.8,539.286 1681.46,279.915 1683.13,508.234 1684.79,575.399 1686.46,434.874 1688.12,694.527 
-  1689.79,257.695 1691.46,603.812 1693.12,550.056 1694.79,473.652 1696.45,586.889 1698.12,329.707 1699.78,418.442 1701.45,389.043 1703.12,663.879 1704.78,608.546 
-  1706.45,570.746 1708.11,564.39 1709.78,376.218 1711.44,274.34 1713.11,585.687 1714.77,542.762 1716.44,421.954 1718.11,472.406 1719.77,501.334 1721.44,461.455 
-  1723.1,433.249 1724.77,529.55 1726.43,600.413 1728.1,324.337 1729.76,613.446 1731.43,433.002 1733.1,596.344 1734.76,528.091 1736.43,528.091 1738.09,420.18 
-  1739.76,535.036 1741.42,559.779 1743.09,629.649 1744.76,611.971 1746.42,387.95 1748.09,421.707 1749.75,548.466 1751.42,613.575 1753.08,358.951 1754.75,467.33 
-  1756.41,467.33 1758.08,471.063 1759.75,477.513 1761.41,398.322 1763.08,584.342 1764.74,380.416 1766.41,577.662 1768.07,536.377 1769.74,292.214 1771.41,292.845 
-  1773.07,782.965 1774.74,481.164 1776.4,481.164 1778.07,476.102 1779.73,474.477 1781.4,466.728 1783.06,466.728 1784.73,535.698 1786.4,518.596 1788.06,436.009 
-  1789.73,504.814 1791.39,504.814 1793.06,504.814 1794.72,433.899 1796.39,605.297 1798.05,378.271 1799.72,382.248 1801.39,452.736 1803.05,558.528 1804.72,327.525 
-  1806.38,327.525 1808.05,371.426 1809.71,417.517 1811.38,562.058 1813.05,354.91 1814.71,606.698 1816.38,464.914 1818.04,481.025 1819.71,178.304 1821.37,631.839 
-  1823.04,394.9 1824.7,363.206 1826.37,485.276 1828.04,336.717 1829.7,633.326 1831.37,352.447 1833.03,631.1 1834.7,412.607 1836.36,532.925 1838.03,581.55 
-  1839.69,581.55 1841.36,613.825 1843.03,410.488 1844.69,510.826 1846.36,463.198 1848.02,513.852 1849.69,513.852 1851.35,454.074 1853.02,507.595 1854.69,659.915 
-  1856.35,509.919 1858.02,497.43 1859.68,497.43 1861.35,481.08 1863.01,613.914 1864.68,521.769 1866.34,486.261 1868.01,486.261 1869.68,599.023 1871.34,534.213 
+<polyline clip-path="url(#clip1403)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
+  207.399,513.514 209.064,446.402 210.73,402.803 212.395,474.142 214.061,309.217 215.727,351.329 217.392,563.602 219.058,487.406 220.723,426.262 222.389,526.133 
+  224.055,434.701 225.72,456.755 227.386,474.22 229.052,411.903 230.717,299.255 232.383,386.944 234.048,309.726 235.714,498.765 237.38,337.316 239.045,332.63 
+  240.711,350.628 242.376,476.205 244.042,383.465 245.708,326.736 247.373,605.535 249.039,546.598 250.704,490.756 252.37,356.798 254.036,524.046 255.701,480.04 
+  257.367,437.687 259.032,447.636 260.698,443.448 262.364,423.514 264.029,364.127 265.695,459.913 267.361,583.574 269.026,391.008 270.692,443.796 272.357,475.266 
+  274.023,364.245 275.689,599.035 277.354,689.635 279.02,381.894 280.685,356.076 282.351,455.564 284.017,574.364 285.682,445.549 287.348,392.828 289.013,397.882 
+  290.679,486.989 292.345,403.309 294.01,421.223 295.676,493.665 297.341,338.453 299.007,431.175 300.673,414.301 302.338,559.977 304.004,559.977 305.67,334.867 
+  307.335,314.657 309.001,611.577 310.666,255.359 312.332,255.359 313.998,381.844 315.663,288.474 317.329,316.608 318.994,265.717 320.66,566.813 322.326,363.838 
+  323.991,506.632 325.657,531.752 327.322,468.753 328.988,467.903 330.654,475.529 332.319,282.869 333.985,293.085 335.65,511.962 337.316,326.979 338.982,525.245 
+  340.647,412.053 342.313,355.674 343.979,362.449 345.644,448.647 347.31,448.425 348.975,543.569 350.641,337.316 352.307,756.939 353.972,611.312 355.638,683.863 
+  357.303,290.112 358.969,557.21 360.635,370.276 362.3,487.214 363.966,574.137 365.631,620.701 367.297,664.531 368.963,460.838 370.628,364.558 372.294,553.624 
+  373.959,409.958 375.625,519.508 377.291,304.914 378.956,473.436 380.622,440.797 382.288,383.061 383.953,314.237 385.619,312.45 387.284,538.418 388.95,352.249 
+  390.616,383.875 392.281,286.382 393.947,448.029 395.612,529.347 397.278,394.578 398.944,539.194 400.609,544.227 402.275,344.744 403.94,593.558 405.606,221.558 
+  407.272,600.464 408.937,346.986 410.603,516.27 412.268,421.989 413.934,522.673 415.6,400.012 417.265,408.73 418.931,405.222 420.596,400.323 422.262,492.801 
+  423.928,492.801 425.593,393.398 427.259,545.404 428.925,427.982 430.59,434.169 432.256,457.488 433.921,620.324 435.587,620.324 437.253,346.582 438.918,346.502 
+  440.584,438.744 442.249,414.649 443.915,458.211 445.581,458.211 447.246,481.948 448.912,505.626 450.577,371.63 452.243,329.422 453.909,570.086 455.574,574.271 
+  457.24,486.229 458.905,439.796 460.571,449.196 462.237,342.697 463.902,383.543 465.568,402.541 467.234,444.39 468.899,367.879 470.565,368.031 472.23,535.201 
+  473.896,430.385 475.562,442.068 477.227,409.768 478.893,500.959 480.558,474.375 482.224,594.617 483.89,443.852 485.555,375.285 487.221,541.053 488.886,354.465 
+  490.552,527.506 492.218,527.506 493.883,427.667 495.549,674.974 497.214,434.008 498.88,461.96 500.546,465.09 502.211,468.026 503.877,525.146 505.543,356.346 
+  507.208,455.813 508.874,395.346 510.539,426.339 512.205,498.679 513.871,376.722 515.536,599.546 517.202,646.557 518.867,471.892 520.533,478.095 522.199,475.221 
+  523.864,434.375 525.53,450.312 527.195,266.354 528.861,485.833 530.527,283.623 532.192,420.964 533.858,324.087 535.523,312.953 537.189,559.131 538.855,410.127 
+  540.52,477.905 542.186,372.243 543.852,517.892 545.517,634.238 547.183,220.587 548.848,281.854 550.514,286.272 552.18,598.626 553.845,593.357 555.511,357.943 
+  557.176,711.742 558.842,538.891 560.508,255.083 562.173,235.132 563.839,497.376 565.504,445.787 567.17,397.061 568.836,407.71 570.501,521.095 572.167,521.095 
+  573.832,383.805 575.498,457.665 577.164,456.991 578.829,456.964 580.495,403.699 582.161,506.594 583.826,357.86 585.492,510.547 587.157,329.395 588.823,607.285 
+  590.489,399.849 592.154,656.024 593.82,204.056 595.485,183.827 597.151,566.182 598.817,441.717 600.482,441.717 602.148,627.875 603.813,281.812 605.479,294.92 
+  607.145,589.274 608.81,633.066 610.476,285.78 612.141,428.659 613.807,243.904 615.473,613.466 617.138,410.434 618.804,389.611 620.47,477.787 622.135,315.179 
+  623.801,495.359 625.466,536.93 627.132,558.43 628.798,463.359 630.463,457.445 632.129,376.364 633.794,320.381 635.46,558.968 637.126,501.122 638.791,407.978 
+  640.457,287.257 642.122,413.838 643.788,581.145 645.454,405.203 647.119,405.203 648.785,360.089 650.45,511.272 652.116,471.226 653.782,455.107 655.447,635.819 
+  657.113,376.666 658.779,505.171 660.444,436.732 662.11,436.732 663.775,359.549 665.441,464.916 667.107,387.46 668.772,511.274 670.438,343.612 672.103,560.351 
+  673.769,624.402 675.435,399.758 677.1,470.565 678.766,325.483 680.431,353.122 682.097,385.121 683.763,499.744 685.428,544.923 687.094,551.711 688.759,590.695 
+  690.425,370.528 692.091,629.555 693.756,318.039 695.422,324.654 697.088,316.6 698.753,369.243 700.419,446.325 702.084,627.131 703.75,584.586 705.416,257.138 
+  707.081,262.508 708.747,329.299 710.412,611.312 712.078,537.053 713.744,529.836 715.409,403.164 717.075,515.612 718.74,489.662 720.406,375.63 722.072,491.942 
+  723.737,341.972 725.403,561.347 727.068,521.079 728.734,600.258 730.4,406.199 732.065,311.872 733.731,502.158 735.397,424.351 737.062,377.305 738.728,642.145 
+  740.393,416.878 742.059,460.817 743.725,371.443 745.39,578.317 747.056,359.126 748.721,440.435 750.387,446.365 752.053,477.399 753.718,439.791 755.384,432.684 
+  757.049,422.698 758.715,428.215 760.381,374.967 762.046,508.88 763.712,556.752 765.377,661.676 767.043,303.09 768.709,403.386 770.374,499.065 772.04,514.922 
+  773.706,412.821 775.371,463.006 777.037,463.006 778.702,501.62 780.368,500.842 782.034,574.771 783.699,402.182 785.365,440.912 787.03,358.626 788.696,568.622 
+  790.362,479.47 792.027,543.339 793.693,466.704 795.358,468.697 797.024,327.718 798.69,534.388 800.355,416.319 802.021,529.218 803.686,610.399 805.352,320.268 
+  807.018,478.841 808.683,503.121 810.349,497.874 812.015,576.382 813.68,272.527 815.346,602.995 817.011,580.687 818.677,344.34 820.343,360.202 822.008,429.553 
+  823.674,380.573 825.339,419.505 827.005,494.519 828.671,212.059 830.336,439.459 832.002,310.574 833.667,661.726 835.333,458.786 836.999,458.786 838.664,585.734 
+  840.33,322.789 841.995,438.755 843.661,399.501 845.327,528.086 846.992,342.172 848.658,591.029 850.324,662.866 851.989,315.117 853.655,356.672 855.32,342.616 
+  856.986,437.912 858.652,490.454 860.317,434.736 861.983,691.342 863.648,246.363 865.314,500.534 866.98,370.645 868.645,541.623 870.311,624.728 871.976,242.646 
+  873.642,245.327 875.308,211.623 876.973,245.803 878.639,314.911 880.304,411.13 881.97,454.62 883.636,450.708 885.301,335.916 886.967,523.187 888.633,498.238 
+  890.298,524.287 891.964,363.161 893.629,379.55 895.295,530.982 896.961,432.141 898.626,470.881 900.292,442.421 901.957,403.801 903.623,549.391 905.289,487.139 
+  906.954,483.288 908.62,385.512 910.285,395.996 911.951,479.997 913.617,430.372 915.282,385.665 916.948,498.128 918.613,522.05 920.279,556.501 921.945,556.501 
+  923.61,347.872 925.276,404.995 926.942,401.497 928.607,384.383 930.273,533.377 931.938,343.336 933.604,440.029 935.27,353.932 936.935,533.443 938.601,367.544 
+  940.266,623.227 941.932,623.227 943.598,481.102 945.263,441.217 946.929,290.717 948.594,599.03 950.26,325.625 951.926,578.638 953.591,362.332 955.257,358.195 
+  956.922,592.803 958.588,291.206 960.254,627.241 961.919,440.237 963.585,444.695 965.25,396.724 966.916,415.516 968.582,415.516 970.247,552.337 971.913,390.85 
+  973.579,464.635 975.244,458.639 976.91,390.262 978.575,455.835 980.241,474.635 981.907,381.11 983.572,599.391 985.238,344.029 986.903,274.493 988.569,659.53 
+  990.235,818.129 991.9,685.728 993.566,283.618 995.231,552.784 996.897,514.344 998.563,449.541 1000.23,402.581 1001.89,510.226 1003.56,303.863 1005.23,559.543 
+  1006.89,325.917 1008.56,439.643 1010.22,445.078 1011.89,469.361 1013.55,450.769 1015.22,369.971 1016.88,349.049 1018.55,549.196 1020.22,552.439 1021.88,255.016 
+  1023.55,269.573 1025.21,494.313 1026.88,323.113 1028.54,490.794 1030.21,498.35 1031.87,371.068 1033.54,359.268 1035.21,526.01 1036.87,444.8 1038.54,508.644 
+  1040.2,494.965 1041.87,556.495 1043.53,346.079 1045.2,381.362 1046.87,264.398 1048.53,575.812 1050.2,659.578 1051.86,491.38 1053.53,426.195 1055.19,290.591 
+  1056.86,294.779 1058.52,552.343 1060.19,479.984 1061.86,523.971 1063.52,286.636 1065.19,576.299 1066.85,351.867 1068.52,498.728 1070.18,430.663 1071.85,436.055 
+  1073.52,468.662 1075.18,602.436 1076.85,453.836 1078.51,539.461 1080.18,467.694 1081.84,455.722 1083.51,460.469 1085.17,421.611 1086.84,372.856 1088.51,483.409 
+  1090.17,511.154 1091.84,544.5 1093.5,405.693 1095.17,468.111 1096.83,472.235 1098.5,460.603 1100.16,248.324 1101.83,368.015 1103.5,313.956 1105.16,293.596 
+  1106.83,628.319 1108.49,628.319 1110.16,254.296 1111.82,660.019 1113.49,609.201 1115.16,433.446 1116.82,260.643 1118.49,242.119 1120.15,552.153 1121.82,611.05 
+  1123.48,611.05 1125.15,408.286 1126.81,375.181 1128.48,235.911 1130.15,279.369 1131.81,623.5 1133.48,555.077 1135.14,334.643 1136.81,437.631 1138.47,408.05 
+  1140.14,432.866 1141.81,429.906 1143.47,426.085 1145.14,396.793 1146.8,387.412 1148.47,383.802 1150.13,470.691 1151.8,413.715 1153.46,433.655 1155.13,463.089 
+  1156.8,469.449 1158.46,327.932 1160.13,515.112 1161.79,368.213 1163.46,421.729 1165.12,410.972 1166.79,319.334 1168.45,541.072 1170.12,247.727 1171.79,497.066 
+  1173.45,337.749 1175.12,552.929 1176.78,540.778 1178.45,558.248 1180.11,355.661 1181.78,437.995 1183.45,310.614 1185.11,352.817 1186.78,498.043 1188.44,498.003 
+  1190.11,354.47 1191.77,396.547 1193.44,460.838 1195.1,455.562 1196.77,266.886 1198.44,309.578 1200.1,309.578 1201.77,394.979 1203.43,334.14 1205.1,556.196 
+  1206.76,573.414 1208.43,461.208 1210.09,461.208 1211.76,440.304 1213.43,631.367 1215.09,306.052 1216.76,299.389 1218.42,357.938 1220.09,670.76 1221.75,348.372 
+  1223.42,380.155 1225.09,388.67 1226.75,303.751 1228.42,503.442 1230.08,367.02 1231.75,595.864 1233.41,226.385 1235.08,562.173 1236.74,509.677 1238.41,606.798 
+  1240.08,453.525 1241.74,362.043 1243.41,477.862 1245.07,374.996 1246.74,461.641 1248.4,309.498 1250.07,296.328 1251.74,542.306 1253.4,324.207 1255.07,363.469 
+  1256.73,500.678 1258.4,426.792 1260.06,585.113 1261.73,336.229 1263.39,389.29 1265.06,631.048 1266.73,549.367 1268.39,419.947 1270.06,401.596 1271.72,590.705 
+  1273.39,590.705 1275.05,612.406 1276.72,432.887 1278.38,335.504 1280.05,467.579 1281.72,380.142 1283.38,416.658 1285.05,466.567 1286.71,447.002 1288.38,335.394 
+  1290.04,421.584 1291.71,522.416 1293.38,441.198 1295.04,287.04 1296.71,627.985 1298.37,282.416 1300.04,269.733 1301.7,466 1303.37,411.462 1305.03,447.419 
+  1306.7,389.539 1308.37,561.973 1310.03,343.269 1311.7,398.059 1313.36,445.115 1315.03,380.803 1316.69,374.598 1318.36,456.092 1320.03,328.031 1321.69,426.891 
+  1323.36,335.25 1325.02,699.696 1326.69,699.696 1328.35,403.614 1330.02,477.246 1331.68,481.399 1333.35,488.359 1335.02,383.289 1336.68,354.901 1338.35,615.427 
+  1340.01,599.835 1341.68,527.217 1343.34,471.999 1345.01,490.946 1346.67,452.832 1348.34,486.446 1350.01,271.614 1351.67,302.597 1353.34,337.35 1355,345.605 
+  1356.67,382.189 1358.33,539.983 1360,539.983 1361.67,326.23 1363.33,479.893 1365,323.784 1366.66,593.767 1368.33,478.734 1369.99,547.81 1371.66,434.394 
+  1373.32,506.303 1374.99,447.96 1376.66,427.723 1378.32,524.672 1379.99,485.434 1381.65,185.571 1383.32,247.179 1384.98,414.724 1386.65,414.718 1388.32,558.649 
+  1389.98,563.878 1391.65,241.094 1393.31,616.267 1394.98,442.994 1396.64,447.842 1398.31,399.228 1399.97,474.415 1401.64,441.747 1403.31,449.011 1404.97,493.408 
+  1406.64,525.274 1408.3,423.661 1409.97,513.388 1411.63,543.882 1413.3,484.377 1414.96,410.402 1416.63,695.31 1418.3,232.317 1419.96,557.598 1421.63,332.783 
+  1423.29,309.728 1424.96,289.242 1426.62,289.242 1428.29,416.353 1429.96,447.277 1431.62,414.082 1433.29,385.946 1434.95,448.447 1436.62,486.601 1438.28,517.314 
+  1439.95,433.749 1441.61,474.621 1443.28,530.538 1444.95,551.082 1446.61,393.416 1448.28,389.756 1449.94,506.905 1451.61,390.329 1453.27,444.797 1454.94,296.593 
+  1456.61,344.845 1458.27,445.394 1459.94,424.41 1461.6,548.093 1463.27,389.807 1464.93,417.79 1466.6,369.275 1468.26,562.294 1469.93,466.035 1471.6,467.185 
+  1473.26,477.819 1474.93,366.771 1476.59,366.771 1478.26,352.051 1479.92,546.475 1481.59,241.565 1483.25,292.164 1484.92,524.843 1486.59,428.357 1488.25,370.71 
+  1489.92,513.287 1491.58,376.251 1493.25,421.429 1494.91,392.496 1496.58,397.783 1498.25,397.783 1499.91,506.728 1501.58,382.756 1503.24,443.695 1504.91,287.57 
+  1506.57,394.918 1508.24,424.199 1509.9,491.776 1511.57,514.6 1513.24,566.064 1514.9,643.895 1516.57,535.375 1518.23,340.058 1519.9,379.783 1521.56,492.255 
+  1523.23,435.394 1524.89,558.679 1526.56,582.204 1528.23,460.961 1529.89,513.616 1531.56,347.005 1533.22,499.482 1534.89,469.409 1536.55,449.774 1538.22,502.351 
+  1539.89,422.542 1541.55,545.819 1543.22,496.52 1544.88,312.741 1546.55,755.778 1548.21,197.353 1549.88,539.932 1551.54,353.576 1553.21,406.196 1554.88,458.623 
+  1556.54,553.9 1558.21,348.145 1559.87,433.853 1561.54,495.993 1563.2,368.794 1564.87,374.788 1566.54,381.231 1568.2,484.471 1569.87,484.471 1571.53,417.702 
+  1573.2,533.08 1574.86,364.293 1576.53,438.873 1578.19,393.002 1579.86,506.819 1581.53,366.179 1583.19,400.328 1584.86,440.462 1586.52,432.828 1588.19,381.212 
+  1589.85,390.048 1591.52,535.715 1593.18,570.46 1594.85,524.857 1596.52,460.927 1598.18,424.432 1599.85,460.373 1601.51,460.373 1603.18,400.475 1604.84,295.579 
+  1606.51,589.822 1608.18,460.793 1609.84,464.405 1611.51,478.442 1613.17,491.763 1614.84,468.218 1616.5,522.398 1618.17,470.131 1619.83,383.425 1621.5,304.845 
+  1623.17,331.159 1624.83,331.159 1626.5,419.637 1628.16,540.128 1629.83,403.871 1631.49,326.174 1633.16,538.458 1634.83,485.231 1636.49,457.52 1638.16,505.982 
+  1639.82,493.341 1641.49,411.235 1643.15,439.579 1644.82,476.007 1646.48,395.172 1648.15,546.921 1649.82,433.053 1651.48,417.212 1653.15,413.755 1654.81,503.817 
+  1656.48,454.015 1658.14,466.26 1659.81,442.333 1661.47,447.821 1663.14,439.507 1664.81,439.507 1666.47,535.108 1668.14,455.126 1669.8,453.467 1671.47,559.225 
+  1673.13,278.413 1674.8,411.491 1676.47,447.269 1678.13,424.124 1679.8,453.857 1681.46,557.79 1683.13,379.031 1684.79,442.892 1686.46,434.776 1688.12,424.244 
+  1689.79,379.762 1691.46,399.391 1693.12,516.789 1694.79,405.784 1696.45,570.64 1698.12,308.348 1699.78,491.736 1701.45,443.566 1703.12,442.426 1704.78,503.491 
+  1706.45,490.403 1708.11,473.417 1709.78,532.756 1711.44,444.62 1713.11,444.62 1714.77,285.769 1716.44,472.879 1718.11,419.963 1719.77,440.965 1721.44,517.686 
+  1723.1,464.847 1724.77,542.75 1726.43,514.625 1728.1,383.425 1729.76,437.471 1731.43,451.272 1733.1,592.37 1734.76,566.043 1736.43,505.246 1738.09,320.405 
+  1739.76,565.831 1741.42,519.157 1743.09,461.446 1744.76,592.025 1746.42,622.962 1748.09,319.385 1749.75,559.722 1751.42,471.646 1753.08,456.902 1754.75,524.375 
+  1756.41,406.167 1758.08,391.236 1759.75,419.888 1761.41,501.773 1763.08,262.747 1764.74,269.73 1766.41,263.244 1768.07,555.971 1769.74,361.168 1771.41,563.79 
+  1773.07,337.361 1774.74,382.737 1776.4,491.637 1778.07,429.021 1779.73,370.659 1781.4,384.123 1783.06,465.559 1784.73,581.477 1786.4,295.212 1788.06,269.682 
+  1789.73,315.84 1791.39,485.373 1793.06,353.14 1794.72,387.31 1796.39,407.62 1798.05,502.929 1799.72,477.535 1801.39,574.937 1803.05,647.143 1804.72,469.575 
+  1806.38,427.279 1808.05,438.207 1809.71,520.07 1811.38,408.818 1813.05,415.187 1814.71,520.648 1816.38,490.679 1818.04,239.117 1819.71,389.296 1821.37,473.803 
+  1823.04,415.184 1824.7,369.867 1826.37,438.303 1828.04,438.303 1829.7,330.351 1831.37,439.745 1833.03,444.176 1834.7,542.231 1836.36,397.754 1838.03,484.404 
+  1839.69,398.476 1841.36,465.663 1843.03,420.03 1844.69,368.569 1846.36,510.3 1848.02,505.658 1849.69,513.437 1851.35,362.88 1853.02,468.167 1854.69,451.556 
+  1856.35,492.225 1858.02,462.99 1859.68,417.068 1861.35,308.752 1863.01,294.867 1864.68,405.027 1866.34,563.974 1868.01,477.6 1869.68,498.061 1871.34,404.676 
   
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#e26f46; stroke-width:4; stroke-opacity:1; fill:none" points="
-  207.399,443.506 209.064,443.506 210.73,480.581 212.395,418.337 214.061,490.441 215.727,577.336 217.392,410.138 219.058,415.987 220.723,604.059 222.389,563.699 
-  224.055,197.412 225.72,518.546 227.386,471.499 229.052,400.302 230.717,495.83 232.383,524.398 234.048,670.929 235.714,514.175 237.38,553.247 239.045,291.965 
-  240.711,561.583 242.376,494.04 244.042,517.358 245.708,362.823 247.373,389.29 249.039,402.739 250.704,522.978 252.37,509.217 254.036,552.932 255.701,491.03 
-  257.367,400.431 259.032,581.787 260.698,468.946 262.364,626.618 264.029,413.59 265.695,490.812 267.361,420.44 269.026,493.482 270.692,372.719 272.357,661.737 
-  274.023,733.328 275.689,544.878 277.354,459.341 279.02,399.534 280.685,248.321 282.351,376.52 284.017,429.856 285.682,344.054 287.348,614.49 289.013,408.627 
-  290.679,472.658 292.345,514.635 294.01,403.646 295.676,622.415 297.341,506.252 299.007,478.998 300.673,489.997 302.338,454.297 304.004,523.967 305.67,544.226 
-  307.335,487.231 309.001,417.596 310.666,349.201 312.332,499.06 313.998,490.893 315.663,526.966 317.329,633.608 318.994,457.425 320.66,507.577 322.326,528.154 
-  323.991,479.135 325.657,433.234 327.322,689.577 328.988,396.656 330.654,557.056 332.319,668.968 333.985,501.791 335.65,407.665 337.316,646.617 338.982,393.864 
-  340.647,403.638 342.313,426.549 343.979,658.238 345.644,514.874 347.31,675.227 348.975,487.98 350.641,593.203 352.307,472.637 353.972,519.501 355.638,529.526 
-  357.303,557.981 358.969,359.526 360.635,381.213 362.3,627.202 363.966,660.233 365.631,672.06 367.297,470.955 368.963,544.312 370.628,484.019 372.294,347.056 
-  373.959,424.995 375.625,437.389 377.291,489.76 378.956,402.81 380.622,482.466 382.288,367.528 383.953,612.515 385.619,477.545 387.284,455.022 388.95,579.092 
-  390.616,517.211 392.281,499.654 393.947,479.159 395.612,501.579 397.278,401.303 398.944,516.444 400.609,404.032 402.275,386.404 403.94,546.131 405.606,487.21 
-  407.272,535.312 408.937,398.506 410.603,500.556 412.268,663.75 413.934,316.443 415.6,328.642 417.265,359.174 418.931,332.488 420.596,565.373 422.262,523.273 
-  423.928,465.498 425.593,462.527 427.259,453.487 428.925,571.955 430.59,322.433 432.256,657.371 433.921,440.928 435.587,421.591 437.253,542.281 438.918,365.201 
-  440.584,449.678 442.249,606.646 443.915,434.474 445.581,426.252 447.246,537.197 448.912,586.161 450.577,475.996 452.243,434.898 453.909,495.937 455.574,516.785 
-  457.24,522.25 458.905,384.075 460.571,394.556 462.237,421.068 463.902,451.921 465.568,481.748 467.234,549.667 468.899,560.97 470.565,349.869 472.23,613.364 
-  473.896,403.346 475.562,461.06 477.227,395.557 478.893,480.442 480.558,480.442 482.224,441.911 483.89,499.52 485.555,618.162 487.221,325.17 488.886,582.68 
-  490.552,348.759 492.218,599.049 493.883,623.353 495.549,646.959 497.214,618.162 498.88,454.962 500.546,445.21 502.211,497.052 503.877,489.894 505.543,457.712 
-  507.208,488.072 508.874,505.992 510.539,370.298 512.205,603.833 513.871,643.068 515.536,616.89 517.202,258.205 518.867,531.645 520.533,573.251 522.199,491.624 
-  523.864,429.611 525.53,437.25 527.195,399.563 528.861,446.776 530.527,325.53 532.192,260.253 533.858,281.889 535.523,504.659 537.189,437.274 538.855,361.424 
-  540.52,575.817 542.186,413.277 543.852,308.988 545.517,523.562 547.183,382.953 548.848,313.533 550.514,646.068 552.18,551.61 553.845,424.443 555.511,518.746 
-  557.176,373.779 558.842,547.046 560.508,556.688 562.173,563.226 563.839,524.159 565.504,437.949 567.17,442.347 568.836,521.835 570.501,486.301 572.167,548.729 
-  573.832,416.379 575.498,416.379 577.164,538.28 578.829,443.165 580.495,615.933 582.161,372.74 583.826,402.668 585.492,372.948 587.157,391.588 588.823,620.123 
-  590.489,425.424 592.154,532.975 593.82,482.516 595.485,525.591 597.151,345.623 598.817,580.02 600.482,364.061 602.148,609.595 603.813,499.349 605.479,481.872 
-  607.145,400.793 608.81,403.338 610.476,385.531 612.141,399.842 613.807,456.941 615.473,385.963 617.138,383.936 618.804,398.554 620.47,589.693 622.135,395.51 
-  623.801,395.51 625.466,467.488 627.132,443.906 628.798,407.297 630.463,348.765 632.129,353.672 633.794,665.638 635.46,385.921 637.126,335.337 638.791,358.32 
-  640.457,717.451 642.122,481.653 643.788,574.064 645.454,478.344 647.119,418.815 648.785,500.104 650.45,473.802 652.116,490.635 653.782,475.345 655.447,466.089 
-  657.113,625.924 658.779,569.321 660.444,551.82 662.11,314.71 663.775,417.851 665.441,369.205 667.107,559.777 668.772,316.19 670.438,596.602 672.103,430.947 
-  673.769,356.114 675.435,359.808 677.1,688.712 678.766,421.066 680.431,519.217 682.097,423.119 683.763,444.001 685.428,472.151 687.094,466.822 688.759,555.106 
-  690.425,496.71 692.091,669.723 693.756,359.534 695.422,323.919 697.088,307.353 698.753,311.577 700.419,496.213 702.084,442.1 703.75,526.961 705.416,390.494 
-  707.081,536.913 708.747,575.139 710.412,506.909 712.078,503.805 713.744,314.429 715.409,372.383 717.075,529.684 718.74,619.886 720.406,426.365 722.072,515.976 
-  723.737,469.614 725.403,548.776 727.068,544.578 728.734,507.446 730.4,357.931 732.065,333.921 733.731,575.586 735.397,340.605 737.062,321.201 738.728,313.165 
-  740.393,389.288 742.059,452.386 743.725,620.701 745.39,431.549 747.056,598.234 748.721,385.305 750.387,638.836 752.053,339.23 753.718,435.287 755.384,552.971 
-  757.049,459.47 758.715,719.302 760.381,484.495 762.046,414.055 763.712,545.004 765.377,432.282 767.043,618.766 768.709,440.804 770.374,440.794 772.04,565.518 
-  773.706,392.111 775.371,534.116 777.037,580.191 778.702,549.867 780.368,408.006 782.034,229.058 783.699,533.506 785.365,351.811 787.03,525.113 788.696,486.367 
-  790.362,544.168 792.027,529.671 793.693,601.236 795.358,566.451 797.024,455.982 798.69,463.684 800.355,535.091 802.021,586.287 803.686,433.381 805.352,383.547 
-  807.018,364.82 808.683,337.149 810.349,490.386 812.015,370.517 813.68,327.683 815.346,463.524 817.011,500.062 818.677,473.526 820.343,561.07 822.008,397.828 
-  823.674,394.663 825.339,309.153 827.005,635.235 828.671,603.226 830.336,346.583 832.002,617.933 833.667,613.677 835.333,585.075 836.999,578.38 838.664,354.968 
-  840.33,297.627 841.995,347.584 843.661,513.15 845.327,438.504 846.992,455.527 848.658,493.777 850.324,351.385 851.989,410.225 853.655,441.703 855.32,596.026 
-  856.986,634.081 858.652,385.963 860.317,359.429 861.983,433.281 863.648,556.296 865.314,396.175 866.98,513.56 868.645,318.482 870.311,496.658 871.976,526.138 
-  873.642,358.112 875.308,246.952 876.973,595.54 878.639,345.405 880.304,470.387 881.97,496.689 883.636,584.46 885.301,570.549 886.967,401.666 888.633,503.829 
-  890.298,644.482 891.964,455.228 893.629,573.866 895.295,556.683 896.961,624.152 898.626,615.268 900.292,390.255 901.957,541.794 903.623,452.799 905.289,452.799 
-  906.954,418.313 908.62,565.16 910.285,479.819 911.951,431.012 913.617,474.474 915.282,486.012 916.948,518.817 918.613,530.402 920.279,504.998 921.945,486.821 
-  923.61,527.229 925.276,566.672 926.942,571.887 928.607,354.971 930.273,682.509 931.938,741.74 933.604,302.527 935.27,301.572 936.935,497.246 938.601,455.08 
-  940.266,401.219 941.932,568.044 943.598,549.144 945.263,554.301 946.929,607.4 948.594,321.626 950.26,573.538 951.926,564.9 953.591,370.209 955.257,624.731 
-  956.922,518.218 958.588,505.529 960.254,412.128 961.919,386.175 963.585,437.358 965.25,562.087 966.916,377.795 968.582,546.957 970.247,363.748 971.913,228.083 
-  973.579,270.136 975.244,270.67 976.91,287.683 978.575,277.397 980.241,522.608 981.907,476.183 983.572,476.183 985.238,463.082 986.903,464.097 988.569,239.223 
-  990.235,438.814 991.9,512.992 993.566,517.524 995.231,517.49 996.897,465.737 998.563,599.504 1000.23,390.736 1001.89,593.542 1003.56,431.073 1005.23,565.715 
-  1006.89,526.706 1008.56,428.376 1010.22,452.202 1011.89,416.279 1013.55,349.871 1015.22,500.919 1016.88,430.763 1018.55,539.952 1020.22,462.869 1021.88,458.011 
-  1023.55,337.969 1025.21,453.098 1026.88,446.39 1028.54,522.071 1030.21,498.469 1031.87,462.349 1033.54,524.634 1035.21,644.69 1036.87,395.844 1038.54,403.475 
-  1040.2,406.876 1041.87,478.609 1043.53,580.788 1045.2,538.716 1046.87,538.08 1048.53,472.216 1050.2,472.216 1051.86,571.94 1053.53,536.792 1055.19,386.885 
-  1056.86,498.666 1058.52,458.847 1060.19,458.847 1061.86,458.847 1063.52,527.345 1065.19,489.479 1066.85,548.153 1068.52,585.304 1070.18,546.436 1071.85,466.62 
-  1073.52,528.727 1075.18,361.747 1076.85,506.328 1078.51,503.248 1080.18,606.546 1081.84,712.007 1083.51,629.349 1085.17,369.158 1086.84,370.277 1088.51,459.468 
-  1090.17,396.498 1091.84,387.632 1093.5,464.714 1095.17,600.045 1096.83,579.86 1098.5,456.978 1100.16,456.978 1101.83,419.097 1103.5,481.043 1105.16,325.12 
-  1106.83,634.291 1108.49,629.307 1110.16,623.8 1111.82,363.561 1113.49,413.303 1115.16,408.905 1116.82,538.361 1118.49,415.758 1120.15,497.018 1121.82,403.493 
-  1123.48,395.26 1125.15,419.757 1126.81,413.847 1128.48,452.565 1130.15,525.076 1131.81,287.814 1133.48,472.34 1135.14,472.085 1136.81,554.685 1138.47,556.262 
-  1140.14,534.594 1141.81,548.634 1143.47,357.707 1145.14,699.214 1146.8,591.294 1148.47,684.372 1150.13,378.579 1151.8,582.47 1153.46,637.427 1155.13,532.331 
-  1156.8,492.076 1158.46,571.687 1160.13,450.935 1161.79,469.194 1163.46,609.001 1165.12,317.946 1166.79,351.672 1168.45,481.356 1170.12,586.158 1171.79,593.868 
-  1173.45,434.414 1175.12,340.668 1176.78,586.897 1178.45,602.348 1180.11,670.953 1181.78,520.862 1183.45,429.63 1185.11,680.311 1186.78,728.589 1188.44,643.639 
-  1190.11,510.256 1191.77,438.041 1193.44,438.546 1195.1,519.866 1196.77,468.531 1198.44,519.235 1200.1,418.802 1201.77,433.1 1203.43,419.615 1205.1,386.822 
-  1206.76,400.554 1208.43,394.666 1210.09,401.771 1211.76,692.014 1213.43,527.189 1215.09,416.295 1216.76,624.534 1218.42,656.325 1220.09,694.813 1221.75,254.259 
-  1223.42,522.363 1225.09,365.336 1226.75,336.631 1228.42,526.125 1230.08,406.973 1231.75,307.842 1233.41,471.593 1235.08,468.544 1236.74,476.654 1238.41,469.556 
-  1240.08,465.001 1241.74,438.112 1243.41,396.709 1245.07,458.913 1246.74,469.28 1248.4,542.854 1250.07,431.94 1251.74,545.574 1253.4,582.717 1255.07,450.88 
-  1256.73,567.3 1258.4,464.089 1260.06,484.148 1261.73,408.017 1263.39,437.484 1265.06,511.247 1266.73,515.058 1268.39,364.5 1270.06,354.797 1271.72,430.865 
-  1273.39,497.578 1275.05,461.739 1276.72,461.739 1278.38,486.232 1280.05,496.797 1281.72,396.217 1283.38,533.009 1285.05,542.286 1286.71,304.606 1288.38,235.162 
-  1290.04,247.251 1291.71,720.519 1293.38,626.269 1295.04,656.198 1296.71,663.388 1298.37,447.023 1300.04,549.394 1301.7,404.56 1303.37,450.806 1305.03,445.302 
-  1306.7,443.911 1308.37,425.095 1310.03,308.998 1311.7,629.865 1313.36,592.159 1315.03,612.211 1316.69,467.33 1318.36,365.015 1320.03,532.302 1321.69,490.37 
-  1323.36,457.622 1325.02,525.604 1326.69,541.934 1328.35,444.14 1330.02,565.294 1331.68,474.317 1333.35,444.508 1335.02,508.203 1336.68,483.814 1338.35,434.177 
-  1340.01,474.488 1341.68,357.515 1343.34,631.857 1345.01,516.173 1346.67,465.474 1348.34,465.19 1350.01,384.609 1351.67,465.169 1353.34,417.793 1355,594.959 
-  1356.67,528.107 1358.33,334.83 1360,697.702 1361.67,252.028 1363.33,360.496 1365,674.809 1366.66,455.527 1368.33,542.028 1369.99,435.218 1371.66,513.237 
-  1373.32,524.682 1374.99,534.111 1376.66,423.458 1378.32,594.764 1379.99,548.106 1381.65,513.655 1383.32,374.102 1384.98,319.584 1386.65,300.263 1388.32,477.95 
-  1389.98,425.726 1391.65,573.165 1393.31,730.962 1394.98,730.381 1396.64,290.708 1398.31,395.817 1399.97,415.934 1401.64,381.16 1403.31,622.047 1404.97,291.339 
-  1406.64,558.357 1408.3,354.661 1409.97,299.438 1411.63,333.418 1413.3,565.008 1414.96,577.307 1416.63,564.143 1418.3,574.768 1419.96,617.933 1421.63,412.02 
-  1423.29,368.04 1424.96,440.344 1426.62,571.08 1428.29,432.25 1429.96,582.806 1431.62,376.828 1433.29,376.828 1434.95,468.875 1436.62,432.563 1438.28,592.964 
-  1439.95,625.454 1441.61,691.146 1443.28,499.957 1444.95,479.14 1446.61,414.991 1448.28,472.127 1449.94,602.316 1451.61,614.455 1453.27,490.714 1454.94,490.714 
-  1456.61,450.801 1458.27,585.929 1459.94,457.627 1461.6,457.627 1463.27,654.219 1464.93,654.264 1466.6,654.264 1468.26,374.617 1469.93,482.673 1471.6,483.796 
-  1473.26,692.258 1474.93,336.673 1476.59,325.233 1478.26,379.336 1479.92,600.106 1481.59,390.852 1483.25,570.701 1484.92,394.408 1486.59,545.753 1488.25,460.211 
-  1489.92,468.723 1491.58,499.694 1493.25,378.421 1494.91,595.753 1496.58,387.022 1498.25,389.359 1499.91,418.915 1501.58,598.35 1503.24,589.73 1504.91,761.899 
-  1506.57,686.018 1508.24,497.751 1509.9,427.816 1511.57,535.517 1513.24,503.687 1514.9,637.359 1516.57,543.085 1518.23,364.544 1519.9,476.32 1521.56,629.412 
-  1523.23,493.506 1524.89,622.678 1526.56,658.535 1528.23,529.737 1529.89,477.253 1531.56,627.549 1533.22,360.728 1534.89,660.483 1536.55,425.663 1538.22,439.156 
-  1539.89,647.371 1541.55,642.829 1543.22,486.359 1544.88,439.829 1546.55,498.842 1548.21,392.392 1549.88,592.709 1551.54,458.098 1553.21,536.098 1554.88,367.06 
-  1556.54,529.529 1558.21,350.768 1559.87,295.208 1561.54,268.238 1563.2,661.298 1564.87,540.992 1566.54,464.522 1568.2,551.097 1569.87,412.73 1571.53,550.448 
-  1573.2,458.713 1574.86,468.539 1576.53,470.513 1578.19,530.136 1579.86,375.577 1581.53,428.507 1583.19,444.085 1584.86,457.712 1586.52,457.712 1588.19,362.41 
-  1589.85,541.96 1591.52,409.552 1593.18,661.09 1594.85,443.007 1596.52,488.222 1598.18,501.6 1599.85,456.931 1601.51,513.515 1603.18,507.661 1604.84,516.338 
-  1606.51,558.612 1608.18,533.411 1609.84,469.209 1611.51,524.421 1613.17,651.291 1614.84,446.874 1616.5,424.057 1618.17,610.531 1619.83,529.66 1621.5,474.096 
-  1623.17,521.412 1624.83,571.098 1626.5,574.839 1628.16,678.169 1629.83,633.166 1631.49,376.418 1633.16,602.34 1634.83,566.761 1636.49,601.076 1638.16,338.032 
-  1639.82,546.037 1641.49,599.745 1643.15,550.487 1644.82,553.463 1646.48,419.425 1648.15,442.005 1649.82,442.221 1651.48,550.411 1653.15,424.759 1654.81,402.084 
-  1656.48,403.937 1658.14,339.249 1659.81,636.828 1661.47,343.134 1663.14,319.676 1664.81,360.851 1666.47,512.017 1668.14,463.468 1669.8,513.473 1671.47,602.595 
-  1673.13,442.542 1674.8,548.221 1676.47,449.847 1678.13,465.222 1679.8,420.624 1681.46,483.888 1683.13,465.429 1684.79,744.468 1686.46,703.451 1688.12,393.407 
-  1689.79,485.68 1691.46,584.733 1693.12,575.204 1694.79,555.739 1696.45,582.909 1698.12,426.68 1699.78,386.402 1701.45,581.797 1703.12,576.337 1704.78,566.067 
-  1706.45,588.797 1708.11,483.746 1709.78,516.854 1711.44,528.591 1713.11,527.757 1714.77,547.191 1716.44,458.661 1718.11,493.703 1719.77,519.13 1721.44,482.697 
-  1723.1,529.879 1724.77,529.879 1726.43,497.954 1728.1,504.977 1729.76,504.977 1731.43,535.291 1733.1,353.985 1734.76,494.573 1736.43,417.798 1738.09,514.901 
-  1739.76,558.544 1741.42,529.221 1743.09,514.264 1744.76,524.398 1746.42,667.273 1748.09,528.233 1749.75,356.622 1751.42,568.12 1753.08,316.343 1754.75,629.27 
-  1756.41,388.825 1758.08,552.824 1759.75,549.26 1761.41,485.094 1763.08,248.455 1764.74,451.718 1766.41,676.478 1768.07,385.087 1769.74,509.02 1771.41,333.744 
-  1773.07,352.976 1774.74,352.915 1776.4,705.417 1778.07,340.632 1779.73,331.952 1781.4,405.333 1783.06,383.691 1784.73,405.294 1786.4,521.635 1788.06,485.228 
-  1789.73,437.119 1791.39,460.811 1793.06,610.523 1794.72,681.441 1796.39,490.488 1798.05,491.379 1799.72,409.665 1801.39,498.984 1803.05,416.213 1804.72,547.02 
-  1806.38,398.924 1808.05,599.446 1809.71,370.693 1811.38,478.494 1813.05,405.32 1814.71,573.186 1816.38,373.942 1818.04,519.219 1819.71,408.43 1821.37,524.406 
-  1823.04,406.474 1824.7,406.474 1826.37,344.551 1828.04,318.945 1829.7,342.39 1831.37,403.183 1833.03,445.197 1834.7,399.25 1836.36,424.223 1838.03,461.557 
-  1839.69,582.572 1841.36,416.581 1843.03,483.854 1844.69,234.211 1846.36,521.199 1848.02,310.431 1849.69,406.366 1851.35,406.955 1853.02,400.063 1854.69,611.853 
-  1856.35,459.946 1858.02,364.147 1859.68,400.851 1861.35,384.798 1863.01,439.729 1864.68,436.859 1866.34,419.925 1868.01,509.554 1869.68,410.611 1871.34,402.649 
+<polyline clip-path="url(#clip1403)" style="stroke:#e26f46; stroke-width:4; stroke-opacity:1; fill:none" points="
+  207.399,439.617 209.064,547.633 210.73,370.006 212.395,522.727 214.061,506.287 215.727,622.505 217.392,292.135 219.058,465.417 220.723,555.216 222.389,506.918 
+  224.055,506.918 225.72,476.31 227.386,414.443 229.052,206.014 230.717,206.014 232.383,213.236 234.048,426.382 235.714,472.673 237.38,380.254 239.045,459.054 
+  240.711,261.534 242.376,496.033 244.042,498.843 245.708,583.154 247.373,408.698 249.039,434.816 250.704,425.004 252.37,425.004 254.036,665.941 255.701,241.161 
+  257.367,542.011 259.032,363.552 260.698,359.263 262.364,393.644 264.029,505.527 265.695,469.473 267.361,495.249 269.026,408.61 270.692,546.458 272.357,285.368 
+  274.023,598.805 275.689,516.615 277.354,383.315 279.02,301.559 280.685,609.795 282.351,412.19 284.017,355.177 285.682,468.703 287.348,410.793 289.013,536.943 
+  290.679,452.169 292.345,444.31 294.01,648.751 295.676,562.018 297.341,433.738 299.007,457.965 300.673,184.967 302.338,626.85 304.004,420.07 305.67,413.303 
+  307.335,548.353 309.001,281.464 310.666,576.791 312.332,388.282 313.998,291.964 315.663,519.355 317.329,510.892 318.994,403.127 320.66,488.399 322.326,591.805 
+  323.991,580.642 325.657,371.908 327.322,371.908 328.988,428.084 330.654,524.522 332.319,524.522 333.985,543.654 335.65,354.757 337.316,337.647 338.982,345.905 
+  340.647,405.206 342.313,372.299 343.979,321.007 345.644,395.308 347.31,439.451 348.975,353.226 350.641,578.201 352.307,321.339 353.972,494.634 355.638,286.813 
+  357.303,384.415 358.969,655.2 360.635,394.158 362.3,441.76 363.966,421.004 365.631,479.628 367.297,479.628 368.963,472.16 370.628,424.889 372.294,531.217 
+  373.959,446.609 375.625,491.08 377.291,515.754 378.956,226.728 380.622,657.547 382.288,356.242 383.953,433.767 385.619,389.448 387.284,231.782 388.95,442.977 
+  390.616,414.702 392.281,541.471 393.947,405.032 395.612,416.789 397.278,437.695 398.944,458.957 400.609,353.52 402.275,474.488 403.94,500.684 405.606,309.15 
+  407.272,319.134 408.937,711.397 410.603,627.326 412.268,612.952 413.934,407.697 415.6,352.891 417.265,593.528 418.931,336.617 420.596,445.926 422.262,364.943 
+  423.928,533.047 425.593,428.649 427.259,494.703 428.925,414.44 430.59,244.112 432.256,441.185 433.921,541.49 435.587,508.203 437.253,320.881 438.918,577.939 
+  440.584,465.272 442.249,478.006 443.915,623.888 445.581,405.589 447.246,445.455 448.912,459.415 450.577,317.306 452.243,500.044 453.909,528.461 455.574,300.523 
+  457.24,445.439 458.905,378.986 460.571,384.487 462.237,405.302 463.902,405.302 465.568,418.443 467.234,396.796 468.899,431.068 470.565,587.631 472.23,358.026 
+  473.896,491.741 475.562,432.66 477.227,568.817 478.893,414.788 480.558,430.468 482.224,519.069 483.89,312.056 485.555,661.47 487.221,257.954 488.886,404.275 
+  490.552,404.275 492.218,279.106 493.883,460.721 495.549,524.942 497.214,364.702 498.88,539.531 500.546,281.943 502.211,406.664 503.877,508.031 505.543,391.423 
+  507.208,391.423 508.874,501.216 510.539,361.802 512.205,237.934 513.871,630.342 515.536,494.045 517.202,505.752 518.867,387.837 520.533,333.195 522.199,409.945 
+  523.864,449.972 525.53,304.644 527.195,522.705 528.861,539.298 530.527,539.065 532.192,591.594 533.858,432.274 535.523,456.488 537.189,415.387 538.855,431.753 
+  540.52,512.65 542.186,562.832 543.852,331.555 545.517,387.15 547.183,554.572 548.848,463.56 550.514,411.259 552.18,411.259 553.845,411.259 555.511,575.732 
+  557.176,608.261 558.842,524.589 560.508,366.436 562.173,544.668 563.839,310.32 565.504,600.769 567.17,297.511 568.836,340.722 570.501,335.622 572.167,558.128 
+  573.832,306.21 575.498,306.21 577.164,471.349 578.829,466.565 580.495,397.973 582.161,508.831 583.826,384.728 585.492,468.81 587.157,453.517 588.823,416.581 
+  590.489,613.008 592.154,357.984 593.82,376.508 595.485,510.686 597.151,389.986 598.817,484.811 600.482,571.943 602.148,347.227 603.813,462.645 605.479,496.579 
+  607.145,352.932 608.81,552.961 610.476,561.154 612.141,642.14 613.807,275.502 615.473,297.2 617.138,315.182 618.804,315.182 620.47,361.467 622.135,380.484 
+  623.801,286.018 625.466,458.904 627.132,551.294 628.798,623.733 630.463,535.464 632.129,539.608 633.794,278.258 635.46,591.064 637.126,303.189 638.791,504.946 
+  640.457,527.249 642.122,520.784 643.788,347.337 645.454,479.756 647.119,451.553 648.785,620.768 650.45,298.739 652.116,374.841 653.782,395.809 655.447,612.585 
+  657.113,384.059 658.779,579.229 660.444,531.057 662.11,339.162 663.775,571.972 665.441,417.994 667.107,604.909 668.772,358.355 670.438,361.261 672.103,535.565 
+  673.769,587.248 675.435,325.216 677.1,572.341 678.766,646.688 680.431,559.891 682.097,386.32 683.763,464.89 685.428,423.072 687.094,342.967 688.759,585.605 
+  690.425,511.986 692.091,545.787 693.756,509.669 695.422,540.045 697.088,362.16 698.753,535.729 700.419,430.324 702.084,581.158 703.75,586.24 705.416,296.809 
+  707.081,398.68 708.747,512.842 710.412,380.803 712.078,525.429 713.744,359.659 715.409,470.675 717.075,434.463 718.74,449.068 720.406,449.474 722.072,580.334 
+  723.737,396.726 725.403,346.67 727.068,321.253 728.734,546.239 730.4,375.299 732.065,355.613 733.731,349.737 735.397,554.919 737.062,345.097 738.728,449.263 
+  740.393,385.437 742.059,485.03 743.725,268.409 745.39,260.673 747.056,622.687 748.721,637.604 750.387,639.804 752.053,420.72 753.718,426.286 755.384,388.755 
+  757.049,379.363 758.715,515.831 760.381,432.847 762.046,485.587 763.712,414.625 765.377,518.4 767.043,432.836 768.709,429.526 770.374,586.09 772.04,415.668 
+  773.706,350.729 775.371,331.303 777.037,322.931 778.702,411.78 780.368,342.938 782.034,498.444 783.699,352.215 785.365,477.993 787.03,508.344 788.696,390.521 
+  790.362,544.808 792.027,249.394 793.693,315.719 795.358,345.455 797.024,590.917 798.69,352.576 800.355,234.124 802.021,349.062 803.686,327.525 805.352,252.076 
+  807.018,473.091 808.683,517.608 810.349,344.942 812.015,557.962 813.68,294.439 815.346,517.124 817.011,453.135 818.677,514.764 820.343,566.439 822.008,565.802 
+  823.674,549.172 825.339,388.514 827.005,372.92 828.671,733.871 830.336,593.181 832.002,461.507 833.667,363.447 835.333,399.397 836.999,296.301 838.664,519.783 
+  840.33,382.649 841.995,452.139 843.661,537.016 845.327,361.711 846.992,494.66 848.658,524.166 850.324,430.578 851.989,615.823 853.655,300.122 855.32,445.129 
+  856.986,445.129 858.652,411.371 860.317,455.19 861.983,585.646 863.648,296.799 865.314,308.224 866.98,256.501 868.645,500.737 870.311,361.173 871.976,342.228 
+  873.642,572.13 875.308,432.041 876.973,475.735 878.639,265.653 880.304,368.946 881.97,524.054 883.636,517.445 885.301,547.018 886.967,448.433 888.633,368.861 
+  890.298,458.658 891.964,403.721 893.629,420.651 895.295,433.222 896.961,356.747 898.626,504.432 900.292,395.621 901.957,357.903 903.623,540.449 905.289,515.417 
+  906.954,243.74 908.62,394.053 910.285,361.312 911.951,532.686 913.617,532.686 915.282,424.619 916.948,470.346 918.613,470.346 920.279,413.316 921.945,518.973 
+  923.61,518.973 925.276,518.973 926.942,409.244 928.607,558.347 930.273,423.46 931.938,456.795 933.604,442.608 935.27,327.619 936.935,310.052 938.601,359.964 
+  940.266,329.264 941.932,420.463 943.598,468.48 945.263,418.663 946.929,438.683 948.594,438.683 950.26,438.683 951.926,430.61 953.591,430.61 955.257,430.198 
+  956.922,344.511 958.588,466.851 960.254,449.137 961.919,449.137 963.585,420.097 965.25,563.482 966.916,385.814 968.582,413.512 970.247,448.447 971.913,527.803 
+  973.579,479.815 975.244,559.773 976.91,450.183 978.575,363.006 980.241,506.089 981.907,452.998 983.572,332.74 985.238,344.171 986.903,341.752 988.569,341.752 
+  990.235,395.083 991.9,506.161 993.566,258.829 995.231,665.906 996.897,507.978 998.563,468.282 1000.23,543.636 1001.89,515.304 1003.56,361.379 1005.23,427.196 
+  1006.89,413.3 1008.56,398.653 1010.22,502.23 1011.89,593.884 1013.55,380.292 1015.22,270.279 1016.88,503.552 1018.55,387.364 1020.22,363.67 1021.88,540.007 
+  1023.55,336.636 1025.21,309.584 1026.88,402.265 1028.54,479.344 1030.21,468.909 1031.87,421.544 1033.54,436.301 1035.21,367.846 1036.87,417.338 1038.54,706.404 
+  1040.2,230.356 1041.87,624.859 1043.53,371.807 1045.2,514.617 1046.87,391.894 1048.53,363.316 1050.2,578.097 1051.86,345.126 1053.53,370.632 1055.19,514.063 
+  1056.86,362.144 1058.52,436.002 1060.19,461.205 1061.86,428.798 1063.52,454.783 1065.19,468.67 1066.85,381.188 1068.52,521.346 1070.18,351.588 1071.85,517.672 
+  1073.52,423.519 1075.18,488.6 1076.85,410.758 1078.51,515.97 1080.18,515.97 1081.84,435.263 1083.51,363.597 1085.17,421.14 1086.84,428.651 1088.51,469.334 
+  1090.17,372.369 1091.84,395.958 1093.5,429.582 1095.17,392.507 1096.83,378.001 1098.5,314.213 1100.16,370.006 1101.83,586.499 1103.5,316.123 1105.16,587.703 
+  1106.83,529.028 1108.49,505.741 1110.16,391.163 1111.82,520.319 1113.49,382.151 1115.16,442.584 1116.82,366.6 1118.49,534.508 1120.15,487.604 1121.82,375.269 
+  1123.48,394.837 1125.15,506.388 1126.81,391.519 1128.48,496.148 1130.15,501.288 1131.81,535.201 1133.48,504.55 1135.14,447.607 1136.81,517.399 1138.47,394.551 
+  1140.14,457.692 1141.81,455.645 1143.47,515.061 1145.14,420.043 1146.8,458.866 1148.47,458.866 1150.13,318.221 1151.8,321.603 1153.46,358.278 1155.13,628.975 
+  1156.8,188.22 1158.46,168.829 1160.13,777.813 1161.79,688.265 1163.46,339.799 1165.12,527.327 1166.79,472.462 1168.45,438.974 1170.12,459.634 1171.79,437.374 
+  1173.45,282.371 1175.12,299.871 1176.78,489.898 1178.45,533.029 1180.11,313.798 1181.78,193.27 1183.45,377.319 1185.11,420.297 1186.78,393.879 1188.44,272.31 
+  1190.11,646.517 1191.77,562.099 1193.44,278.566 1195.1,396.799 1196.77,480.856 1198.44,289.082 1200.1,529.202 1201.77,550.472 1203.43,392.991 1205.1,424.346 
+  1206.76,338.022 1208.43,678.166 1210.09,390.023 1211.76,510.456 1213.43,476.781 1215.09,371.858 1216.76,303.767 1218.42,533.906 1220.09,542.381 1221.75,578.662 
+  1223.42,628.102 1225.09,560.242 1226.75,321.44 1228.42,344.332 1230.08,474.06 1231.75,584.091 1233.41,696.718 1235.08,365.955 1236.74,386.516 1238.41,325.168 
+  1240.08,402.792 1241.74,308.695 1243.41,283.035 1245.07,248.311 1246.74,413.322 1248.4,494.286 1250.07,369.516 1251.74,364.874 1253.4,538.824 1255.07,335.202 
+  1256.73,405.147 1258.4,405.147 1260.06,474.365 1261.73,363.086 1263.39,569.636 1265.06,461.55 1266.73,436.515 1268.39,328.362 1270.06,611.823 1271.72,339.052 
+  1273.39,446.98 1275.05,465.192 1276.72,331.218 1278.38,452.383 1280.05,527.599 1281.72,364.951 1283.38,392.349 1285.05,508.478 1286.71,489.919 1288.38,467.333 
+  1290.04,562.024 1291.71,578.627 1293.38,332.472 1295.04,276.115 1296.71,468.058 1298.37,611.496 1300.04,604.852 1301.7,396.384 1303.37,597.237 1305.03,323.163 
+  1306.7,402.696 1308.37,481.969 1310.03,467.362 1311.7,394.885 1313.36,502.292 1315.03,391.578 1316.69,492.646 1318.36,497.178 1320.03,384.436 1321.69,517.819 
+  1323.36,535.533 1325.02,348.816 1326.69,557.202 1328.35,442.739 1330.02,447.901 1331.68,424.397 1333.35,427.592 1335.02,461.938 1336.68,410.643 1338.35,435.924 
+  1340.01,325.984 1341.68,250.636 1343.34,731.126 1345.01,179.361 1346.67,563.557 1348.34,457.531 1350.01,457.531 1351.67,392.686 1353.34,551.037 1355,438.207 
+  1356.67,398.896 1358.33,427.543 1360,470.324 1361.67,302.878 1363.33,315.259 1365,300.609 1366.66,594.92 1368.33,315.802 1369.99,337.233 1371.66,563.693 
+  1373.32,369.848 1374.99,577.648 1376.66,577.648 1378.32,510.576 1379.99,390.243 1381.65,510.763 1383.32,390.023 1384.98,374.279 1386.65,534.094 1388.32,490.583 
+  1389.98,278.678 1391.65,324.788 1393.31,385.675 1394.98,457.748 1396.64,390.551 1398.31,385.732 1399.97,551.936 1401.64,459.487 1403.31,418.609 1404.97,391.704 
+  1406.64,349.916 1408.3,538.79 1409.97,361.882 1411.63,369.939 1413.3,347.064 1414.96,270.967 1416.63,559.056 1418.3,382.368 1419.96,520.048 1421.63,422.128 
+  1423.29,396.817 1424.96,486.78 1426.62,413.116 1428.29,487.077 1429.96,408.757 1431.62,516.934 1433.29,540.39 1434.95,619.628 1436.62,619.628 1438.28,659.69 
+  1439.95,563.054 1441.61,337.76 1443.28,568.716 1444.95,339.448 1446.61,568.619 1448.28,459.682 1449.94,436.521 1451.61,484.404 1453.27,484.404 1454.94,450.17 
+  1456.61,287.434 1458.27,403.956 1459.94,360.453 1461.6,319.308 1463.27,641.645 1464.93,255.356 1466.6,352.102 1468.26,361.194 1469.93,524.862 1471.6,386.441 
+  1473.26,514.483 1474.93,529.687 1476.59,349.121 1478.26,553.161 1479.92,420.364 1481.59,444.562 1483.25,504.446 1484.92,384.792 1486.59,469.056 1488.25,421.496 
+  1489.92,460.841 1491.58,520.11 1493.25,347.727 1494.91,531.998 1496.58,531.998 1498.25,367.635 1499.91,371.539 1501.58,519.54 1503.24,380.918 1504.91,382.1 
+  1506.57,441.977 1508.24,312.289 1509.9,327.632 1511.57,358.824 1513.24,421.234 1514.9,420.463 1516.57,549.343 1518.23,336.593 1519.9,334.129 1521.56,465.526 
+  1523.23,433.511 1524.89,406.568 1526.56,512.655 1528.23,427.155 1529.89,614.547 1531.56,656.236 1533.22,658.119 1534.89,739.814 1536.55,205.64 1538.22,216.006 
+  1539.89,457.247 1541.55,436.994 1543.22,404.483 1544.88,399.865 1546.55,552.471 1548.21,377.533 1549.88,554.497 1551.54,419.695 1553.21,591.575 1554.88,645.07 
+  1556.54,746.948 1558.21,376.117 1559.87,582.55 1561.54,547.408 1563.2,525.809 1564.87,581.972 1566.54,511.042 1568.2,347.296 1569.87,458.537 1571.53,440.625 
+  1573.2,457.47 1574.86,250.376 1576.53,325.986 1578.19,413.295 1579.86,551.609 1581.53,465.063 1583.19,409.664 1584.86,300.103 1586.52,541.356 1588.19,357.802 
+  1589.85,545.509 1591.52,359.252 1593.18,443.502 1594.85,465.869 1596.52,569.438 1598.18,489.365 1599.85,415.971 1601.51,405.682 1603.18,494.297 1604.84,396.111 
+  1606.51,380.102 1608.18,505.92 1609.84,329.815 1611.51,476.936 1613.17,493.965 1614.84,403.162 1616.5,464.831 1618.17,434.693 1619.83,387.265 1621.5,324.825 
+  1623.17,330.236 1624.83,294.963 1626.5,470.442 1628.16,490.615 1629.83,500.748 1631.49,376.859 1633.16,259.423 1634.83,442.911 1636.49,523.744 1638.16,389.277 
+  1639.82,504.077 1641.49,492.349 1643.15,479.109 1644.82,448.746 1646.48,359.921 1648.15,310.748 1649.82,484.187 1651.48,169.969 1653.15,340.377 1654.81,238.675 
+  1656.48,470.279 1658.14,464.049 1659.81,434.669 1661.47,386.676 1663.14,498.393 1664.81,393.055 1666.47,461.459 1668.14,368.911 1669.8,470.188 1671.47,365.296 
+  1673.13,531.64 1674.8,369.615 1676.47,511.598 1678.13,552.468 1679.8,557.469 1681.46,595.019 1683.13,604.694 1684.79,290.08 1686.46,272.2 1688.12,538.212 
+  1689.79,403.769 1691.46,381.415 1693.12,364.296 1694.79,379.181 1696.45,426.607 1698.12,462.669 1699.78,450.06 1701.45,359.573 1703.12,417.844 1704.78,339.226 
+  1706.45,347.84 1708.11,301.134 1709.78,275.339 1711.44,669.435 1713.11,344.439 1714.77,362.04 1716.44,418.727 1718.11,633.612 1719.77,373.321 1721.44,339.472 
+  1723.1,540.558 1724.77,530.211 1726.43,372.676 1728.1,527.059 1729.76,369.251 1731.43,421.06 1733.1,421.06 1734.76,279.559 1736.43,269.763 1738.09,605.594 
+  1739.76,391.897 1741.42,212.947 1743.09,311.813 1744.76,460.986 1746.42,407.767 1748.09,455.407 1749.75,391.781 1751.42,451.066 1753.08,446.477 1754.75,446.477 
+  1756.41,446.477 1758.08,506.059 1759.75,506.059 1761.41,378.269 1763.08,444.562 1764.74,441.102 1766.41,392.493 1768.07,347.682 1769.74,524.324 1771.41,340.128 
+  1773.07,561.922 1774.74,433.264 1776.4,314.392 1778.07,574.854 1779.73,634.757 1781.4,381.054 1783.06,432.67 1784.73,430.361 1786.4,469.262 1788.06,428.764 
+  1789.73,418.374 1791.39,420.415 1793.06,434.22 1794.72,580.056 1796.39,328.51 1798.05,524.255 1799.72,393.285 1801.39,427.538 1803.05,452.281 1804.72,504.569 
+  1806.38,206.756 1808.05,509.72 1809.71,423.664 1811.38,454.165 1813.05,328.127 1814.71,311.259 1816.38,589.525 1818.04,313.82 1819.71,389.793 1821.37,512.01 
+  1823.04,416.578 1824.7,417.41 1826.37,528.306 1828.04,517.712 1829.7,473.88 1831.37,324.686 1833.03,446.665 1834.7,451.478 1836.36,520.265 1838.03,477.244 
+  1839.69,415.81 1841.36,484.046 1843.03,484.046 1844.69,402.477 1846.36,464.7 1848.02,458.2 1849.69,441.11 1851.35,433.01 1853.02,441.393 1854.69,437.805 
+  1856.35,455.915 1858.02,410.509 1859.68,489.823 1861.35,392.654 1863.01,345.83 1864.68,392.563 1866.34,260.108 1868.01,664.456 1869.68,632.48 1871.34,412.008 
   
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#3da44d; stroke-width:4; stroke-opacity:1; fill:none" points="
-  207.399,463.555 209.064,600.991 210.73,362.436 212.395,463.65 214.061,438.512 215.727,529.645 217.392,468.179 219.058,468.179 220.723,499.079 222.389,604.043 
-  224.055,500.866 225.72,631.497 227.386,345.76 229.052,595.39 230.717,633.442 232.383,366.072 234.048,593.565 235.714,295.374 237.38,366.842 239.045,325.887 
-  240.711,543.045 242.376,456.376 244.042,468.539 245.708,538.577 247.373,429.956 249.039,538.606 250.704,559.879 252.37,527.055 254.036,342.863 255.701,545.18 
-  257.367,495.54 259.032,465.19 260.698,465.19 262.364,455.333 264.029,455.333 265.695,642.343 267.361,303.186 269.026,429.532 270.692,519.84 272.357,459.833 
-  274.023,421.873 275.689,485.494 277.354,480.752 279.02,425.061 280.685,537.439 282.351,424.909 284.017,364.697 285.682,355.775 287.348,300.287 289.013,451.069 
-  290.679,524.387 292.345,409.376 294.01,325.533 295.676,508.355 297.341,361.619 299.007,605.762 300.673,605.762 302.338,523.283 304.004,529.913 305.67,224.132 
-  307.335,224.132 309.001,184.085 310.666,387.598 312.332,474.327 313.998,417.948 315.663,512.543 317.329,382.611 318.994,382.611 320.66,487.302 322.326,458.624 
-  323.991,583.535 325.657,688.941 327.322,605.473 328.988,545.343 330.654,415.033 332.319,554.186 333.985,554.186 335.65,405.675 337.316,521.93 338.982,638.09 
-  340.647,419.743 342.313,546.988 343.979,521.806 345.644,444.074 347.31,517.718 348.975,444.66 350.641,362.857 352.307,446.527 353.972,446.527 355.638,511.678 
-  357.303,344.078 358.969,508.095 360.635,449.502 362.3,428.925 363.966,530.37 365.631,423.04 367.297,541.455 368.963,537.147 370.628,395.003 372.294,577.625 
-  373.959,473.476 375.625,483.38 377.291,499.536 378.956,460.982 380.622,503.929 382.288,458.387 383.953,391.567 385.619,414.129 387.284,407.454 388.95,450.785 
-  390.616,550.485 392.281,465.095 393.947,417.898 395.612,410.372 397.278,493.845 398.944,468.486 400.609,470.647 402.275,496.797 403.94,628.887 405.606,344.072 
-  407.272,661.755 408.937,244.557 410.603,198.448 412.268,565.473 413.934,324.113 415.6,334.462 417.265,403.588 418.931,552.049 420.596,550.655 422.262,556.833 
-  423.928,387.566 425.593,419.273 427.259,569.682 428.925,382.585 430.59,579.752 432.256,588.897 433.921,396.246 435.587,435.231 437.253,432.369 438.918,629.352 
-  440.584,509.867 442.249,354.138 443.915,232.436 445.581,523.649 447.246,523.649 448.912,532.836 450.577,532.836 452.243,488.404 453.909,663.254 455.574,402.336 
-  457.24,537.481 458.905,430.555 460.571,464.964 462.237,427.9 463.902,392.934 465.568,567.384 467.234,401.574 468.899,358.548 470.565,321.371 472.23,480.005 
-  473.896,641.898 475.562,274.868 477.227,291.831 478.893,628.921 480.558,345.353 482.224,480.215 483.89,452.028 485.555,478.594 487.221,466.173 488.886,477.908 
-  490.552,477.908 492.218,401.819 493.883,520.589 495.549,467.898 497.214,568.877 498.88,278.814 500.546,804.814 502.211,446.077 503.877,389.556 505.543,347.298 
-  507.208,405.854 508.874,282.948 510.539,699.256 512.205,434.958 513.871,434.958 515.536,410.619 517.202,558.817 518.867,558.817 520.533,625.025 522.199,396.325 
-  523.864,397.455 525.53,418.287 527.195,539.489 528.861,448.383 530.527,464.367 532.192,512.863 533.858,525.313 535.523,478.993 537.189,499.008 538.855,370.367 
-  540.52,517.918 542.186,475.213 543.852,481.701 545.517,520.421 547.183,437.818 548.848,605.854 550.514,605.854 552.18,350.11 553.845,350.11 555.511,553.31 
-  557.176,414.378 558.842,296.328 560.508,475.04 562.173,470.868 563.839,379.625 565.504,578.916 567.17,512.658 568.836,592.164 570.501,574.182 572.167,546.163 
-  573.832,404.594 575.498,681.441 577.164,291.736 578.829,291.736 580.495,764.701 582.161,550.784 583.826,147.155 585.492,185.604 587.157,187.31 588.823,289.804 
-  590.489,689.803 592.154,396.317 593.82,508.063 595.485,449.339 597.151,438.625 598.817,447.507 600.482,417.498 602.148,494.105 603.813,448.643 605.479,638.773 
-  607.145,332.454 608.81,422.117 610.476,383.975 612.141,585.714 613.807,631.431 615.473,342.666 617.138,624.305 618.804,313.283 620.47,658.567 622.135,585.425 
-  623.801,368.211 625.466,454.365 627.132,377.753 628.798,623.009 630.463,421.457 632.129,512.172 633.794,404.881 635.46,461.455 637.126,506.06 638.791,376.983 
-  640.457,594.357 642.122,730.182 643.788,461.35 645.454,461.35 647.119,464.06 648.785,643.068 650.45,322.938 652.116,428.134 653.782,537.709 655.447,386.223 
-  657.113,273.404 658.779,248.106 660.444,370.301 662.11,523.26 663.775,537.578 665.441,659.96 667.107,531.642 668.772,320.559 670.438,383.263 672.103,380.435 
-  673.769,468.292 675.435,470.66 677.1,471.433 678.766,464.26 680.431,370.942 682.097,327.083 683.763,417.909 685.428,436.362 687.094,436.362 688.759,323.369 
-  690.425,722.004 692.091,698.414 693.756,529.566 695.422,529.566 697.088,448.112 698.753,433.507 700.419,488.309 702.084,451.794 703.75,522.639 705.416,509.546 
-  707.081,594.612 708.747,323.072 710.412,495.272 712.078,526.446 713.744,433.002 715.409,513.541 717.075,376.502 718.74,594.998 720.406,594.998 722.072,327.856 
-  723.737,416.991 725.403,542.79 727.068,566.196 728.734,410.393 730.4,328.753 732.065,334.78 733.731,638.568 735.397,424.919 737.062,530.812 738.728,640.739 
-  740.393,709.381 742.059,726.176 743.725,730.623 745.39,652.15 747.056,511.838 748.721,455.921 750.387,449.339 752.053,364.876 753.718,606.209 755.384,606.209 
-  757.049,428.386 758.715,428.386 760.381,334.641 762.046,263.828 763.712,314.844 765.377,439.9 767.043,278.075 768.709,323.95 770.374,643.323 772.04,584.72 
-  773.706,425.203 775.371,529.164 777.037,426.333 778.702,435.549 780.368,463.626 782.034,646.175 783.699,322.67 785.365,622.609 787.03,731.386 788.696,242.635 
-  790.362,242.635 792.027,321.679 793.693,226.714 795.358,377.688 797.024,502.704 798.69,464.733 800.355,297.459 802.021,441.595 803.686,471.578 805.352,491.647 
-  807.018,437.526 808.683,513.444 810.349,443.222 812.015,511.226 813.68,505.054 815.346,573.732 817.011,249.722 818.677,575.614 820.343,588.043 822.008,370.443 
-  823.674,376.712 825.339,735.344 827.005,566.114 828.671,359.949 830.336,418.744 832.002,450.157 833.667,386.52 835.333,582.357 836.999,381.667 838.664,432.513 
-  840.33,480.457 841.995,543.024 843.661,528.354 845.327,519.982 846.992,568.722 848.658,328.674 850.324,539.765 851.989,427.632 853.655,430.476 855.32,367.115 
-  856.986,604.698 858.652,666.787 860.317,666.787 861.983,457.672 863.648,509.622 865.314,509.622 866.98,643.565 868.645,290.259 870.311,516.146 871.976,416.04 
-  873.642,543.884 875.308,543.884 876.973,508.852 878.639,503.434 880.304,478.052 881.97,337.821 883.636,396.919 885.301,628.626 886.967,470.629 888.633,373.747 
-  890.298,593.476 891.964,578.143 893.629,628.782 895.295,494.96 896.961,494.96 898.626,472.188 900.292,475.681 901.957,465.469 903.623,463.476 905.289,579.274 
-  906.954,419.536 908.62,429.992 910.285,441.798 911.951,458.879 913.617,310.665 915.282,667.722 916.948,503.929 918.613,518.825 920.279,534.442 921.945,433.696 
-  923.61,356.566 925.276,595.892 926.942,375.721 928.607,375.721 930.273,427.826 931.938,427.826 933.604,423.111 935.27,544.486 936.935,517.782 938.601,481.117 
-  940.266,482.066 941.932,422.635 943.598,390.431 945.263,799.094 946.929,624.371 948.594,609.33 950.26,591.912 951.926,590.185 953.591,430.66 955.257,637.38 
-  956.922,584.802 958.588,385.892 960.254,541.119 961.919,541.119 963.585,413.327 965.25,421.294 966.916,511.326 968.582,627.417 970.247,451.25 971.913,472.808 
-  973.579,325.388 975.244,429.782 976.91,537.504 978.575,430.81 980.241,481.882 981.907,472.542 983.572,548.797 985.238,361.813 986.903,290.677 988.569,593.318 
-  990.235,699.429 991.9,391.525 993.566,391.525 995.231,251.331 996.897,316.219 998.563,526.932 1000.23,434.298 1001.89,517.298 1003.56,540.419 1005.23,591.336 
-  1006.89,568.462 1008.56,637.566 1010.22,637.566 1011.89,335.54 1013.55,539.931 1015.22,363.28 1016.88,439.261 1018.55,497.864 1020.22,569.364 1021.88,396.843 
-  1023.55,591.087 1025.21,463.447 1026.88,302.747 1028.54,523.052 1030.21,430.316 1031.87,528.223 1033.54,426.373 1035.21,426.373 1036.87,538.976 1038.54,474.666 
-  1040.2,474.666 1041.87,462.835 1043.53,595.852 1045.2,374.496 1046.87,462.325 1048.53,446.167 1050.2,432.298 1051.86,491.663 1053.53,472.514 1055.19,601.199 
-  1056.86,331.605 1058.52,277.37 1060.19,541.337 1061.86,539.047 1063.52,414.447 1065.19,547.149 1066.85,405.683 1068.52,399.313 1070.18,567.721 1071.85,572.602 
-  1073.52,572.602 1075.18,396.727 1076.85,421.98 1078.51,371.778 1080.18,574.673 1081.84,478.01 1083.51,387.697 1085.17,536.555 1086.84,589.231 1088.51,549.091 
-  1090.17,586.182 1091.84,577.168 1093.5,512.366 1095.17,521.675 1096.83,299.945 1098.5,584.754 1100.16,638.358 1101.83,549.047 1103.5,444.981 1105.16,393.688 
-  1106.83,594.727 1108.49,376.917 1110.16,594.351 1111.82,531.185 1113.49,421.586 1115.16,390.166 1116.82,517.866 1118.49,443.428 1120.15,427.719 1121.82,609.093 
-  1123.48,534.205 1125.15,430 1126.81,531.861 1128.48,425.979 1130.15,542.562 1131.81,542.562 1133.48,416.221 1135.14,416.221 1136.81,365.572 1138.47,647.695 
-  1140.14,321.166 1141.81,410.383 1143.47,460.54 1145.14,442.321 1146.8,396.227 1148.47,605.139 1150.13,580.995 1151.8,402.775 1153.46,468.599 1155.13,489.976 
-  1156.8,402.839 1158.46,465.101 1160.13,644.606 1161.79,494.026 1163.46,467.771 1165.12,429.419 1166.79,645.095 1168.45,325.827 1170.12,221.525 1171.79,271.062 
-  1173.45,283.08 1175.12,261.851 1176.78,305.571 1178.45,651.18 1180.11,449.957 1181.78,694.545 1183.45,590.319 1185.11,344.254 1186.78,590.495 1188.44,382.138 
-  1190.11,653.751 1191.77,627.336 1193.44,601.107 1195.1,333.978 1196.77,714.423 1198.44,281.082 1200.1,578.921 1201.77,405.53 1203.43,570.938 1205.1,548.311 
-  1206.76,505.138 1208.43,526.595 1210.09,477.7 1211.76,475.605 1213.43,428.904 1215.09,534.836 1216.76,225.72 1218.42,554.627 1220.09,521.246 1221.75,521.246 
-  1223.42,431.759 1225.09,626.694 1226.75,335.876 1228.42,488.743 1230.08,384.217 1231.75,585.695 1233.41,351.188 1235.08,522.39 1236.74,707.841 1238.41,272.045 
-  1240.08,712.328 1241.74,444.918 1243.41,413.721 1245.07,538.133 1246.74,426.623 1248.4,441.382 1250.07,517.569 1251.74,522.024 1253.4,424.735 1255.07,455.482 
-  1256.73,369.665 1258.4,448.953 1260.06,523.452 1261.73,403.414 1263.39,520.231 1265.06,520.231 1266.73,505.989 1268.39,454.452 1270.06,539.389 1271.72,391.207 
-  1273.39,413.043 1275.05,545.201 1276.72,640.487 1278.38,640.487 1280.05,442.82 1281.72,338.042 1283.38,305.833 1285.05,636.013 1286.71,539.407 1288.38,438.725 
-  1290.04,438.725 1291.71,510.132 1293.38,565.255 1295.04,469.611 1296.71,491.952 1298.37,477.024 1300.04,463.721 1301.7,690.171 1303.37,596.525 1305.03,586.45 
-  1306.7,384.367 1308.37,572.668 1310.03,332.714 1311.7,663.167 1313.36,174.761 1315.03,291.489 1316.69,689.787 1318.36,551.93 1320.03,418.826 1321.69,442.189 
-  1323.36,441.164 1325.02,436.094 1326.69,541.76 1328.35,452.636 1330.02,504.849 1331.68,706.905 1333.35,269.435 1335.02,246.881 1336.68,738.168 1338.35,381.152 
-  1340.01,476.065 1341.68,628.553 1343.34,476.922 1345.01,466.846 1346.67,464.572 1348.34,754.47 1350.01,645.947 1351.67,326.618 1353.34,520.26 1355,447.155 
-  1356.67,447.155 1358.33,449.676 1360,503.361 1361.67,436.785 1363.33,519.643 1365,446.519 1366.66,421.123 1368.33,505.842 1369.99,390.839 1371.66,455.551 
-  1373.32,455.551 1374.99,438.049 1376.66,385.765 1378.32,273.635 1379.99,496.255 1381.65,653.562 1383.32,528.725 1384.98,549.304 1386.65,549.304 1388.32,419.123 
-  1389.98,486.593 1391.65,486.593 1393.31,473.147 1394.98,467.658 1396.64,467.658 1398.31,467.658 1399.97,539.781 1401.64,428.833 1403.31,539.273 1404.97,609.203 
-  1406.64,695.399 1408.3,383.287 1409.97,383.287 1411.63,392.992 1413.3,312.289 1414.96,312.289 1416.63,337.314 1418.3,337.314 1419.96,165.682 1421.63,677.086 
-  1423.29,620.052 1424.96,460.882 1426.62,524.995 1428.29,524.995 1429.96,413.056 1431.62,623.34 1433.29,349.824 1434.95,582.289 1436.62,459.836 1438.28,368.359 
-  1439.95,441.777 1441.61,365.294 1443.28,403.795 1444.95,563.62 1446.61,431.796 1448.28,497.357 1449.94,497.357 1451.61,497.357 1453.27,598.478 1454.94,540.451 
-  1456.61,602.316 1458.27,483.972 1459.94,337.306 1461.6,264.524 1463.27,516.123 1464.93,473.46 1466.6,491.308 1468.26,349.821 1469.93,511.667 1471.6,250.435 
-  1473.26,560.037 1474.93,405.654 1476.59,522.069 1478.26,644.669 1479.92,452.336 1481.59,512.727 1483.25,431.901 1484.92,449.826 1486.59,518.107 1488.25,521.099 
-  1489.92,353.231 1491.58,616.769 1493.25,562.587 1494.91,393.643 1496.58,525.1 1498.25,525.1 1499.91,516.123 1501.58,516.123 1503.24,414.541 1504.91,544.904 
-  1506.57,423.915 1508.24,451.645 1509.9,540.551 1511.57,551.292 1513.24,407.176 1514.9,407.176 1516.57,547.753 1518.23,607.466 1519.9,606.972 1521.56,446.243 
-  1523.23,487.047 1524.89,471.969 1526.56,476.717 1528.23,476.717 1529.89,409.46 1531.56,510.408 1533.22,579.805 1534.89,516.152 1536.55,605.439 1538.22,618.866 
-  1539.89,618.866 1541.55,568.714 1543.22,432.931 1544.88,397.607 1546.55,431.149 1548.21,565.513 1549.88,454.586 1551.54,406.931 1553.21,424.73 1554.88,484.658 
-  1556.54,503.981 1558.21,463.366 1559.87,453.642 1561.54,514.228 1563.2,343.444 1564.87,566.114 1566.54,588.91 1568.2,593.234 1569.87,593.234 1571.53,501.931 
-  1573.2,465.695 1574.86,501.147 1576.53,458.902 1578.19,508.694 1579.86,455.877 1581.53,583.858 1583.19,463.75 1584.86,499.207 1586.52,605.523 1588.19,592.856 
-  1589.85,560.765 1591.52,479.587 1593.18,464.888 1594.85,454.589 1596.52,454.589 1598.18,714.688 1599.85,415.033 1601.51,547.935 1603.18,609.826 1604.84,487.497 
-  1606.51,666.95 1608.18,471.523 1609.84,573.128 1611.51,530.488 1613.17,366.771 1614.84,598.171 1616.5,534.158 1618.17,519.359 1619.83,394.805 1621.5,432.653 
-  1623.17,530.641 1624.83,552.354 1626.5,580.017 1628.16,620.638 1629.83,635.661 1631.49,334.883 1633.16,485.904 1634.83,532.1 1636.49,511.483 1638.16,511.483 
-  1639.82,424.007 1641.49,620.793 1643.15,620.793 1644.82,493.811 1646.48,378.592 1648.15,579.376 1649.82,390.552 1651.48,529.463 1653.15,382.138 1654.81,587.748 
-  1656.48,360.283 1658.14,417.488 1659.81,437.944 1661.47,378.397 1663.14,525.61 1664.81,501.71 1666.47,501.71 1668.14,461.205 1669.8,506.452 1671.47,448.217 
-  1673.13,502.391 1674.8,209.748 1676.47,627.244 1678.13,443.541 1679.8,448.532 1681.46,385.553 1683.13,385.553 1684.79,466.851 1686.46,523.964 1688.12,410.685 
-  1689.79,367.438 1691.46,218.499 1693.12,491.398 1694.79,474.046 1696.45,510.432 1698.12,449.594 1699.78,494.802 1701.45,468.237 1703.12,388.455 1704.78,519.48 
-  1706.45,521.125 1708.11,520.386 1709.78,265.783 1711.44,403.228 1713.11,556.885 1714.77,550.648 1716.44,550.648 1718.11,418.408 1719.77,548.192 1721.44,416.523 
-  1723.1,691.133 1724.77,788.033 1726.43,717.909 1728.1,385.957 1729.76,419.494 1731.43,465.458 1733.1,465.458 1734.76,610.079 1736.43,587.257 1738.09,363.524 
-  1739.76,606.314 1741.42,523.541 1743.09,523.541 1744.76,463.886 1746.42,612.563 1748.09,416.991 1749.75,325.617 1751.42,642.356 1753.08,642.356 1754.75,531.18 
-  1756.41,473.909 1758.08,518.78 1759.75,413.842 1761.41,350.87 1763.08,658.48 1764.74,494.021 1766.41,402.378 1768.07,562.813 1769.74,519.606 1771.41,446.947 
-  1773.07,564.203 1774.74,418.174 1776.4,465.29 1778.07,509.98 1779.73,424.025 1781.4,412.22 1783.06,332.498 1784.73,494.589 1786.4,473.299 1788.06,560.494 
-  1789.73,566.049 1791.39,511.441 1793.06,681.399 1794.72,298.938 1796.39,667.707 1798.05,483.501 1799.72,481.887 1801.39,455.041 1803.05,503.839 1804.72,415.309 
-  1806.38,553.408 1808.05,559.351 1809.71,548.742 1811.38,344.753 1813.05,493.711 1814.71,473.767 1816.38,489.96 1818.04,520.239 1819.71,361.745 1821.37,625.877 
-  1823.04,241.7 1824.7,387.358 1826.37,380.582 1828.04,359.624 1829.7,361.571 1831.37,388.439 1833.03,654.088 1834.7,535.246 1836.36,432.695 1838.03,531.096 
-  1839.69,505.545 1841.36,354.45 1843.03,564.419 1844.69,404.739 1846.36,414.412 1848.02,382.903 1849.69,440.862 1851.35,457.998 1853.02,552.304 1854.69,404.679 
-  1856.35,381.796 1858.02,405.217 1859.68,335.193 1861.35,439.369 1863.01,528.591 1864.68,439.274 1866.34,581.482 1868.01,435.552 1869.68,412.578 1871.34,376.994 
+<polyline clip-path="url(#clip1403)" style="stroke:#3da44d; stroke-width:4; stroke-opacity:1; fill:none" points="
+  207.399,572.398 209.064,336.735 210.73,352.241 212.395,498.878 214.061,548.163 215.727,470.364 217.392,422.623 219.058,422.433 220.723,597.759 222.389,606.407 
+  224.055,323.573 225.72,561.478 227.386,405.016 229.052,531.185 230.717,492.474 232.383,461.36 234.048,324.825 235.714,488.958 237.38,406.509 239.045,508.647 
+  240.711,660.348 242.376,615.826 244.042,369.712 245.708,346.507 247.373,418.59 249.039,385.178 250.704,556.185 252.37,444.053 254.036,463.817 255.701,472.928 
+  257.367,433.872 259.032,446.865 260.698,337.947 262.364,389.825 264.029,337.819 265.695,312.977 267.361,382.282 269.026,370.474 270.692,370.557 272.357,435.64 
+  274.023,450.108 275.689,395.394 277.354,507.603 279.02,353.357 280.685,546.681 282.351,456.942 284.017,507.649 285.682,359.584 287.348,271.895 289.013,348.016 
+  290.679,286.128 292.345,572.954 294.01,501.799 295.676,423.773 297.341,408.441 299.007,497.893 300.673,505.966 302.338,515.831 304.004,469.259 305.67,604.743 
+  307.335,355.634 309.001,377.324 310.666,274.86 312.332,441.492 313.998,343.882 315.663,392.865 317.329,499.421 318.994,379.513 320.66,605.877 322.326,296.13 
+  323.991,535.763 325.657,470.255 327.322,488.07 328.988,416.372 330.654,574.603 332.319,315.904 333.985,316.265 335.65,355.72 337.316,304.01 338.982,461.574 
+  340.647,537.042 342.313,379.649 343.979,401.971 345.644,640.189 347.31,566.907 348.975,310.365 350.641,544.709 352.307,486.933 353.972,528.707 355.638,502.923 
+  357.303,612.794 358.969,539.397 360.635,540.015 362.3,388.3 363.966,382.004 365.631,529.917 367.297,635.263 368.963,563.174 370.628,621.199 372.294,480.805 
+  373.959,428.258 375.625,517.892 377.291,456.897 378.956,293.037 380.622,316.554 382.288,457.831 383.953,355.982 385.619,325.071 387.284,410.887 388.95,431.41 
+  390.616,282.459 392.281,384.969 393.947,410.033 395.612,479.933 397.278,618.745 398.944,479.949 400.609,498.91 402.275,488.485 403.94,403.087 405.606,296.553 
+  407.272,322.106 408.937,272.778 410.603,251.449 412.268,323.129 413.934,407.293 415.6,347.695 417.265,526.781 418.931,250.853 420.596,404.847 422.262,289.042 
+  423.928,397.585 425.593,495.102 427.259,479.879 428.925,398.714 430.59,487.492 432.256,502.059 433.921,387.115 435.587,356.183 437.253,418.269 438.918,437.259 
+  440.584,563.527 442.249,550.229 443.915,525.148 445.581,553.327 447.246,557.301 448.912,462.77 450.577,440.387 452.243,399.651 453.909,340.703 455.574,425.855 
+  457.24,339.751 458.905,389.215 460.571,524.509 462.237,362.021 463.902,391.027 465.568,506.426 467.234,513.161 468.899,649.094 470.565,630.283 472.23,326.744 
+  473.896,660.603 475.562,303.825 477.227,356.482 478.893,474.485 480.558,423.369 482.224,388.718 483.89,294.019 485.555,436.895 487.221,571.745 488.886,333.254 
+  490.552,427.065 492.218,757.908 493.883,852.845 495.549,391.634 497.214,318.703 498.88,483.034 500.546,511.858 502.211,515.984 503.877,380.945 505.543,276.936 
+  507.208,653.64 508.874,597.687 510.539,580.19 512.205,479.36 513.871,577.813 515.536,537.658 517.202,542.469 518.867,450.368 520.533,539.825 522.199,584.795 
+  523.864,313.335 525.53,478.218 527.195,353.593 528.861,392.844 530.527,444.733 532.192,532.686 533.858,522.053 535.523,339.226 537.189,484.142 538.855,295.386 
+  540.52,599.605 542.186,433.588 543.852,412.572 545.517,318.045 547.183,328.309 548.848,330.244 550.514,555.251 552.18,440.168 553.845,473.321 555.511,415.617 
+  557.176,460.274 558.842,355.597 560.508,382.084 562.173,447.529 563.839,394.366 565.504,475.349 567.17,390.939 568.836,499.584 570.501,562.262 572.167,375.85 
+  573.832,410.472 575.498,406.431 577.164,278.108 578.829,274.389 580.495,470.87 582.161,473.776 583.826,490.489 585.492,438.388 587.157,385.097 588.823,429.73 
+  590.489,402.72 592.154,469.958 593.82,489.138 595.485,367.871 597.151,513.982 598.817,529.363 600.482,565.612 602.148,543.767 603.813,543.767 605.479,483.409 
+  607.145,517.694 608.81,537.575 610.476,285.341 612.141,343.938 613.807,154.982 615.473,430.139 617.138,446.515 618.804,458.291 620.47,505.449 622.135,428.905 
+  623.801,574.335 625.466,608.521 627.132,450.044 628.798,440.047 630.463,399.346 632.129,503.975 633.794,338.156 635.46,646.624 637.126,484.91 638.791,428.523 
+  640.457,394.273 642.122,421.638 643.788,458.264 645.454,515.165 647.119,511.323 648.785,509.642 650.45,556.196 652.116,381.188 653.782,552.219 655.447,547.837 
+  657.113,469.743 658.779,388.707 660.444,515.695 662.11,453.132 663.775,393.071 665.441,510.94 667.107,518.868 668.772,520.011 670.438,531.209 672.103,531.148 
+  673.769,408.016 675.435,458.267 677.1,594.24 678.766,288.737 680.431,518.055 682.097,403.237 683.763,418.729 685.428,457.844 687.094,356.782 688.759,397.369 
+  690.425,524.841 692.091,586.175 693.756,302.736 695.422,475.793 697.088,502.094 698.753,432.429 700.419,566.219 702.084,456.932 703.75,370.528 705.416,417.996 
+  707.081,452.546 708.747,461.577 710.412,519.741 712.078,373.937 713.744,379.727 715.409,508.682 717.075,383.738 718.74,363.019 720.406,427.081 722.072,418.555 
+  723.737,525.732 725.403,475.32 727.068,489.654 728.734,506.118 730.4,439.341 732.065,692.311 733.731,657.258 735.397,451.347 737.062,504.657 738.728,514.191 
+  740.393,412.35 742.059,387.575 743.725,500.304 745.39,405.439 747.056,329.952 748.721,459.947 750.387,371.627 752.053,358.283 753.718,358.283 755.384,368.117 
+  757.049,379.845 758.715,506.407 760.381,534.87 762.046,523.061 763.712,428.36 765.377,406.07 767.043,338.509 768.709,654.97 770.374,701.499 772.04,549.627 
+  773.706,550.371 775.371,516.722 777.037,450.93 778.702,476.163 780.368,449.945 782.034,603.113 783.699,337.078 785.365,419.192 787.03,535.506 788.696,358.909 
+  790.362,368.962 792.027,454.7 793.693,431.809 795.358,532.114 797.024,518.579 798.69,435.424 800.355,426.995 802.021,411.267 803.686,632.242 805.352,452.236 
+  807.018,436.695 808.683,413.14 810.349,419.655 812.015,444.931 813.68,399.515 815.346,518.397 817.011,375.914 818.677,412.008 820.343,477.875 822.008,451.693 
+  823.674,451.693 825.339,359.608 827.005,459.605 828.671,394.192 830.336,576.829 832.002,594.821 833.667,572.331 835.333,364.218 836.999,500.962 838.664,522.786 
+  840.33,487.396 841.995,446.175 843.661,341.881 845.327,411.617 846.992,476.981 848.658,458.387 850.324,464.523 851.989,440.307 853.655,365.077 855.32,492.375 
+  856.986,385.491 858.652,533.449 860.317,463.79 861.983,428.504 863.648,491.334 865.314,370.867 866.98,434.803 868.645,434.803 870.311,343.165 871.976,486.336 
+  873.642,422.92 875.308,369.586 876.973,349.659 878.639,602.792 880.304,681.495 881.97,498.602 883.636,593.75 885.301,438.776 886.967,388.092 888.633,438.57 
+  890.298,412.902 891.964,503.509 893.629,710.303 895.295,260.338 896.961,738.035 898.626,647.191 900.292,472.146 901.957,556.902 903.623,457.413 905.289,629.997 
+  906.954,431.241 908.62,409.717 910.285,442.664 911.951,405.864 913.617,471.954 915.282,421.068 916.948,391.268 918.613,392.014 920.279,455.163 921.945,390.034 
+  923.61,394.562 925.276,458.015 926.942,318.786 928.607,365.096 930.273,344.776 931.938,312.367 933.604,322.422 935.27,313.078 936.935,362.027 938.601,382.938 
+  940.266,358.444 941.932,358.444 943.598,412.952 945.263,463.482 946.929,478.592 948.594,414.068 950.26,450.031 951.926,320.504 953.591,200.101 955.257,203.625 
+  956.922,290.307 958.588,300.722 960.254,459.383 961.919,455.139 963.585,401.864 965.25,455.275 966.916,361.098 968.582,440.379 970.247,235.566 971.913,373.597 
+  973.579,373.597 975.244,562.181 976.91,325.098 978.575,269.251 980.241,592.937 981.907,298.519 983.572,612.484 985.238,551.882 986.903,518.151 988.569,323.177 
+  990.235,507.199 991.9,586.727 993.566,370.83 995.231,242.266 996.897,639.911 998.563,354.221 1000.23,370.87 1001.89,336.952 1003.56,549.985 1005.23,453.253 
+  1006.89,513.875 1008.56,365.866 1010.22,246.106 1011.89,291.982 1013.55,589.683 1015.22,621.335 1016.88,446.247 1018.55,487.508 1020.22,499.605 1021.88,499.605 
+  1023.55,481.29 1025.21,466.953 1026.88,431.857 1028.54,434.198 1030.21,332.63 1031.87,640.352 1033.54,602.099 1035.21,511.649 1036.87,347.639 1038.54,537.203 
+  1040.2,490.446 1041.87,434.147 1043.53,341.918 1045.2,339.422 1046.87,433.816 1048.53,325.866 1050.2,575.349 1051.86,306.097 1053.53,288.6 1055.19,300.374 
+  1056.86,336.601 1058.52,402.91 1060.19,280.921 1061.86,670.819 1063.52,609.433 1065.19,394.781 1066.85,415.727 1068.52,423.078 1070.18,383.96 1071.85,484.605 
+  1073.52,457.266 1075.18,457.266 1076.85,410.841 1078.51,395.814 1080.18,382.941 1081.84,319.752 1083.51,633.042 1085.17,273.431 1086.84,543.419 1088.51,452.378 
+  1090.17,475.199 1091.84,436.561 1093.5,535.667 1095.17,362.827 1096.83,516.69 1098.5,516.449 1100.16,458.064 1101.83,460.664 1103.5,485.648 1105.16,545.886 
+  1106.83,509.214 1108.49,520.779 1110.16,365.701 1111.82,447.457 1113.49,512.636 1115.16,615.812 1116.82,454.572 1118.49,438.083 1120.15,409.744 1121.82,307.162 
+  1123.48,348.086 1125.15,236.393 1126.81,470.067 1128.48,463.985 1130.15,511.234 1131.81,370.921 1133.48,454.291 1135.14,480.685 1136.81,390.361 1138.47,392.686 
+  1140.14,382.887 1141.81,425.649 1143.47,312.086 1145.14,641.612 1146.8,619.666 1148.47,294.123 1150.13,346.595 1151.8,533.657 1153.46,533.657 1155.13,442.143 
+  1156.8,381.758 1158.46,461.489 1160.13,259.075 1161.79,401.628 1163.46,367.1 1165.12,460.474 1166.79,418.109 1168.45,411.494 1170.12,411.494 1171.79,443.526 
+  1173.45,486.24 1175.12,360.416 1176.78,409.905 1178.45,394.382 1180.11,439.317 1181.78,376.602 1183.45,508.278 1185.11,490.607 1186.78,597.893 1188.44,635.766 
+  1190.11,487.58 1191.77,392.113 1193.44,345.282 1195.1,366.016 1196.77,528.614 1198.44,550.338 1200.1,511.004 1201.77,310.978 1203.43,458.077 1205.1,532.111 
+  1206.76,440.741 1208.43,565.928 1210.09,578.841 1211.76,434.444 1213.43,475.392 1215.09,390.722 1216.76,396.001 1218.42,382.047 1220.09,416.543 1221.75,287.3 
+  1223.42,507.601 1225.09,460.916 1226.75,327.378 1228.42,418.968 1230.08,450.906 1231.75,346.33 1233.41,494.84 1235.08,420.522 1236.74,549.212 1238.41,560.79 
+  1240.08,387.661 1241.74,274.745 1243.41,272.591 1245.07,269.781 1246.74,199.785 1248.4,514.378 1250.07,527.458 1251.74,420.509 1253.4,462.452 1255.07,416.463 
+  1256.73,412.712 1258.4,412.5 1260.06,472.815 1261.73,559.888 1263.39,333.291 1265.06,330.637 1266.73,286.612 1268.39,523.182 1270.06,299.322 1271.72,576.719 
+  1273.39,565.882 1275.05,432.804 1276.72,429.489 1278.38,290.021 1280.05,616.233 1281.72,521.729 1283.38,445.755 1285.05,521.822 1286.71,434.503 1288.38,601.813 
+  1290.04,306.614 1291.71,640.162 1293.38,645.773 1295.04,303.946 1296.71,367.175 1298.37,519.519 1300.04,319.706 1301.7,552.008 1303.37,281.177 1305.03,542.338 
+  1306.7,465.208 1308.37,468.323 1310.03,455.305 1311.7,533.906 1313.36,446.317 1315.03,490.326 1316.69,512.69 1318.36,380.506 1320.03,426.088 1321.69,417.683 
+  1323.36,420.841 1325.02,290.414 1326.69,615.837 1328.35,648.759 1330.02,693.518 1331.68,506.734 1333.35,488.418 1335.02,476.995 1336.68,351.909 1338.35,400.695 
+  1340.01,265.096 1341.68,555.305 1343.34,381.571 1345.01,434.792 1346.67,450.753 1348.34,438.431 1350.01,459.72 1351.67,350.066 1353.34,327.284 1355,764.375 
+  1356.67,719.727 1358.33,690.09 1360,663.803 1361.67,560.223 1363.33,503.402 1365,501.216 1366.66,493.245 1368.33,531.26 1369.99,437.639 1371.66,403.132 
+  1373.32,470.292 1374.99,448.821 1376.66,383.334 1378.32,366.287 1379.99,381.405 1381.65,238.384 1383.32,570.19 1384.98,445.982 1386.65,342.996 1388.32,342.285 
+  1389.98,411.871 1391.65,429.585 1393.31,383.858 1394.98,336.272 1396.64,330.779 1398.31,450.395 1399.97,425.446 1401.64,509.565 1403.31,498.891 1404.97,496.892 
+  1406.64,420.718 1408.3,556.517 1409.97,557.988 1411.63,606.827 1413.3,659.021 1414.96,336.815 1416.63,317.812 1418.3,665.36 1419.96,604.694 1421.63,432.839 
+  1423.29,274.873 1424.96,282.703 1426.62,522.275 1428.29,249.333 1429.96,251.099 1431.62,360.346 1433.29,477.463 1434.95,359.699 1436.62,404.17 1438.28,413.83 
+  1439.95,352.487 1441.61,438.487 1443.28,449.539 1444.95,473.811 1446.61,461.055 1448.28,433.112 1449.94,480.936 1451.61,403.863 1453.27,479.609 1454.94,475.74 
+  1456.61,448.969 1458.27,397.136 1459.94,489.491 1461.6,471.745 1463.27,405.003 1464.93,484.404 1466.6,452.067 1468.26,533.157 1469.93,481.124 1471.6,582.068 
+  1473.26,554.705 1474.93,352.019 1476.59,388.046 1478.26,387.543 1479.92,464.74 1481.59,438.129 1483.25,460.41 1484.92,443.288 1486.59,520.378 1488.25,535.921 
+  1489.92,538.94 1491.58,250.692 1493.25,505.374 1494.91,481.549 1496.58,398.736 1498.25,535.017 1499.91,491.372 1501.58,418.97 1503.24,379.013 1504.91,472.497 
+  1506.57,413.418 1508.24,486.866 1509.9,467.06 1511.57,402.945 1513.24,485.466 1514.9,371.373 1516.57,379.277 1518.23,519.69 1519.9,409.153 1521.56,415.251 
+  1523.23,471.29 1524.89,418.796 1526.56,376.064 1528.23,372.374 1529.89,396.903 1531.56,362.241 1533.22,325.178 1534.89,573.837 1536.55,382.068 1538.22,311.821 
+  1539.89,527.773 1541.55,571.98 1543.22,364.456 1544.88,379.328 1546.55,380.276 1548.21,433.096 1549.88,447.363 1551.54,442.994 1553.21,359.747 1554.88,373.589 
+  1556.54,477.576 1558.21,407.368 1559.87,369.409 1561.54,559.251 1563.2,579.162 1564.87,654.087 1566.54,369.072 1568.2,329.716 1569.87,324.94 1571.53,277.843 
+  1573.2,302.795 1574.86,464.576 1576.53,671.999 1578.19,469.701 1579.86,499.429 1581.53,362.843 1583.19,379.055 1584.86,314.882 1586.52,676.277 1588.19,479.834 
+  1589.85,608.895 1591.52,496.079 1593.18,436.681 1594.85,475.759 1596.52,546.186 1598.18,580.679 1599.85,547.221 1601.51,458.034 1603.18,381.758 1604.84,353.876 
+  1606.51,437.187 1608.18,493.502 1609.84,390.955 1611.51,342.52 1613.17,342.911 1614.84,465.933 1616.5,407.759 1618.17,542.084 1619.83,557.266 1621.5,420.982 
+  1623.17,434.324 1624.83,523.971 1626.5,508.08 1628.16,414.625 1629.83,374.025 1631.49,443.743 1633.16,400.612 1634.83,615.341 1636.49,569.425 1638.16,612.609 
+  1639.82,373.867 1641.49,468.542 1643.15,445.19 1644.82,432.248 1646.48,435.421 1648.15,536.574 1649.82,356.383 1651.48,384.99 1653.15,578.696 1654.81,532.964 
+  1656.48,318.548 1658.14,357.812 1659.81,327.554 1661.47,692.386 1663.14,617.814 1664.81,285.057 1666.47,402.752 1668.14,322.342 1669.8,316.131 1671.47,414.847 
+  1673.13,581.011 1674.8,571.504 1676.47,560.322 1678.13,508.922 1679.8,379.77 1681.46,513.42 1683.13,342.641 1684.79,258.958 1686.46,372.957 1688.12,495.113 
+  1689.79,497.58 1691.46,420.576 1693.12,496.839 1694.79,405.457 1696.45,437 1698.12,542.934 1699.78,386.791 1701.45,392.531 1703.12,414.51 1704.78,417.951 
+  1706.45,442.573 1708.11,421.263 1709.78,463.891 1711.44,438.252 1713.11,364.727 1714.77,522.778 1716.44,620.195 1718.11,405.642 1719.77,449.763 1721.44,409.881 
+  1723.1,520.292 1724.77,243.443 1726.43,590.826 1728.1,469.072 1729.76,335.413 1731.43,388.825 1733.1,490.561 1734.76,418.898 1736.43,466.607 1738.09,404.775 
+  1739.76,541.473 1741.42,554.59 1743.09,466.396 1744.76,542.014 1746.42,480.867 1748.09,521.451 1749.75,502.324 1751.42,387.631 1753.08,385.154 1754.75,457.464 
+  1756.41,459.819 1758.08,477.196 1759.75,605.81 1761.41,541.637 1763.08,499.934 1764.74,677.035 1766.41,677.035 1768.07,210.306 1769.74,560.699 1771.41,328.221 
+  1773.07,392.499 1774.74,392.611 1776.4,447.219 1778.07,426.896 1779.73,422.534 1781.4,552.797 1783.06,684.313 1784.73,719.352 1786.4,427.597 1788.06,438.667 
+  1789.73,356.127 1791.39,407.729 1793.06,398.642 1794.72,266.664 1796.39,331.204 1798.05,330.773 1799.72,374.804 1801.39,445.129 1803.05,523.53 1804.72,317.667 
+  1806.38,387.65 1808.05,500.523 1809.71,649.982 1811.38,365.452 1813.05,517.688 1814.71,444.273 1816.38,371.338 1818.04,589.611 1819.71,549.608 1821.37,325.309 
+  1823.04,345.097 1824.7,328.903 1826.37,325.406 1828.04,385.121 1829.7,399.113 1831.37,431.854 1833.03,390.072 1834.7,551.307 1836.36,553.338 1838.03,400.895 
+  1839.69,465.46 1841.36,316.086 1843.03,339.55 1844.69,414.7 1846.36,406.035 1848.02,420.766 1849.69,416.939 1851.35,334.498 1853.02,319.907 1854.69,612.612 
+  1856.35,467.729 1858.02,453.231 1859.68,410.4 1861.35,388.514 1863.01,564.063 1864.68,500.314 1866.34,494.238 1868.01,536.665 1869.68,373.937 1871.34,364.304 
   
   "/>
-<polyline clip-path="url(#clip5203)" style="stroke:#c271d2; stroke-width:4; stroke-opacity:1; fill:none" points="
-  207.399,582.07 209.064,580.643 210.73,575.825 212.395,425.681 214.061,478.623 215.727,435.933 217.392,494.826 219.058,363.745 220.723,336.786 222.389,505.677 
-  224.055,431.89 225.72,506.21 227.386,415.509 229.052,381.62 230.717,525.331 232.383,556.462 234.048,406.663 235.714,416.799 237.38,683.917 239.045,648.951 
-  240.711,353.975 242.376,449.555 244.042,494.584 245.708,484.742 247.373,541.973 249.039,491.939 250.704,554.772 252.37,554.772 254.036,463.484 255.701,491.9 
-  257.367,587.869 259.032,422.241 260.698,312.918 262.364,363.377 264.029,360.967 265.695,486.803 267.361,651.462 269.026,641.814 270.692,451.358 272.357,451.358 
-  274.023,501.36 275.689,460.695 277.354,466.825 279.02,513.697 280.685,425.897 282.351,457.375 284.017,501.705 285.682,588.66 287.348,611.687 289.013,375.782 
-  290.679,588.805 292.345,523.98 294.01,456.771 295.676,580.493 297.341,416.649 299.007,448.656 300.673,487.873 302.338,380.308 304.004,411.739 305.67,406.243 
-  307.335,688.1 309.001,769.378 310.666,705.068 312.332,731.007 313.998,566.059 315.663,727.629 317.329,695.723 318.994,369.649 320.66,388.657 322.326,302.808 
-  323.991,582.78 325.657,430.119 327.322,516.733 328.988,529.006 330.654,447.189 332.319,608.302 333.985,470.655 335.65,470.655 337.316,444.011 338.982,719.473 
-  340.647,482.31 342.313,436.22 343.979,583.96 345.644,448.716 347.31,539.16 348.975,615.499 350.641,638.302 352.307,385.608 353.972,461.749 355.638,499.865 
-  357.303,456.684 358.969,488.448 360.635,567.358 362.3,447.689 363.966,449 365.631,430.392 367.297,472.195 368.963,498.49 370.628,543.398 372.294,461.867 
-  373.959,415.148 375.625,321.222 377.291,525.363 378.956,667.972 380.622,600.842 382.288,662.037 383.953,546.931 385.619,605.723 387.284,592.33 388.95,358.314 
-  390.616,355.499 392.281,581.453 393.947,584.502 395.612,430.668 397.278,513.463 398.944,390.468 400.609,545.18 402.275,547.496 403.94,553.812 405.606,470.676 
-  407.272,451.66 408.937,671.926 410.603,692.45 412.268,632.33 413.934,688.875 415.6,495.59 417.265,572.381 418.931,429.396 420.596,523.785 422.262,477.101 
-  423.928,652.337 425.593,576.432 427.259,546.037 428.925,587.435 430.59,456.805 432.256,463.395 433.921,199.389 435.587,242.299 437.253,228.188 438.918,653.462 
-  440.584,749.894 442.249,482.126 443.915,695.823 445.581,469.033 447.246,339.785 448.912,644.79 450.577,336.51 452.243,483.554 453.909,532.336 455.574,612.983 
-  457.24,397.095 458.905,331.852 460.571,354.863 462.237,612.161 463.902,250.96 465.568,243.75 467.234,744.884 468.899,286.318 470.565,282.149 472.23,554.117 
-  473.896,518.294 475.562,537.244 477.227,302.143 478.893,311.782 480.558,519.637 482.224,405.438 483.89,569.295 485.555,494.347 487.221,400.846 488.886,479.393 
-  490.552,536.684 492.218,443.901 493.883,427.908 495.549,419.239 497.214,535.601 498.88,395.181 500.546,345.891 502.211,296.754 503.877,357 505.543,344.319 
-  507.208,618.022 508.874,391.031 510.539,406.14 512.205,341.63 513.871,292.483 515.536,279.266 517.202,321.997 518.867,348.956 520.533,501.25 522.199,510.508 
-  523.864,577.696 525.53,567.663 527.195,586.076 528.861,359.061 530.527,394.448 532.192,539.176 533.858,437.644 535.523,540.895 537.189,488.932 538.855,425.277 
-  540.52,491.387 542.186,503.442 543.852,567.531 545.517,414.83 547.183,542.294 548.848,301.323 550.514,458.003 552.18,552.39 553.845,471.044 555.511,539.323 
-  557.176,565.016 558.842,364.302 560.508,593.426 562.173,477.424 563.839,430.621 565.504,485.607 567.17,610.223 568.836,609.054 570.501,550.45 572.167,467.177 
-  573.832,472.056 575.498,530.352 577.164,478.552 578.829,601.562 580.495,645.458 582.161,366.474 583.826,530.586 585.492,500.201 587.157,442.037 588.823,539.139 
-  590.489,537.163 592.154,397.518 593.82,436.932 595.485,537.013 597.151,593.749 598.817,348.588 600.482,348.588 602.148,354.04 603.813,525.712 605.479,377.995 
-  607.145,498.934 608.81,533.088 610.476,566.869 612.141,609.322 613.807,463.955 615.473,609.393 617.138,561.186 618.804,379.801 620.47,341.144 622.135,583.837 
-  623.801,431.593 625.466,419.967 627.132,613.935 628.798,602.674 630.463,654.49 632.129,584.394 633.794,594.073 635.46,356.582 637.126,215.158 638.791,299.567 
-  640.457,478.914 642.122,491.287 643.788,354.461 645.454,618.596 647.119,400.226 648.785,613.935 650.45,464.58 652.116,441.522 653.782,558.121 655.447,437.581 
-  657.113,439.153 658.779,454.184 660.444,548.132 662.11,506.247 663.775,503.574 665.441,421.381 667.107,491.106 668.772,427.808 670.438,462.843 672.103,542.896 
-  673.769,380.695 675.435,529.108 677.1,550.188 678.766,547.251 680.431,445.554 682.097,668.211 683.763,628.9 685.428,672.583 687.094,643.226 688.759,388.673 
-  690.425,401.498 692.091,441.543 693.756,318.974 695.422,635.08 697.088,635.934 698.753,605.904 700.419,623.95 702.084,630.23 703.75,584.607 705.416,470.453 
-  707.081,445.073 708.747,480.825 710.412,471.42 712.078,513.563 713.744,409.368 715.409,473.115 717.075,440.292 718.74,490.449 720.406,364.757 722.072,501.41 
-  723.737,558.507 725.403,456.91 727.068,487.812 728.734,489.219 730.4,422.609 732.065,496.445 733.731,495.033 735.397,476.935 737.062,495.27 738.728,590.125 
-  740.393,575.822 742.059,408.464 743.725,414.355 745.39,507.346 747.056,469.643 748.721,468.941 750.387,675.556 752.053,329.247 753.718,550.19 755.384,455.088 
-  757.049,508.055 758.715,540.832 760.381,515.713 762.046,328.035 763.712,351.349 765.377,374.533 767.043,530.494 768.709,398.359 770.374,578.821 772.04,624.754 
-  773.706,419.396 775.371,547.943 777.037,494.571 778.702,487.62 780.368,333.082 782.034,331.113 783.699,498.566 785.365,391.104 787.03,641.638 788.696,507.049 
-  790.362,569.466 792.027,492.399 793.693,447.165 795.358,320.53 797.024,314.3 798.69,514.716 800.355,585.992 802.021,557.419 803.686,409.195 805.352,386.189 
-  807.018,371.148 808.683,443.688 810.349,635.974 812.015,430.647 813.68,543.411 815.346,379.394 817.011,477.752 818.677,311.79 820.343,651.49 822.008,433.023 
-  823.674,546.252 825.339,487.959 827.005,398.853 828.671,558.804 830.336,548.713 832.002,460.18 833.667,470.103 835.333,403.083 836.999,663.088 838.664,278.543 
-  840.33,673.287 841.995,439.795 843.661,557.077 845.327,396.309 846.992,410.317 848.658,662.899 850.324,400.118 851.989,464.759 853.655,461.013 855.32,432.269 
-  856.986,585.511 858.652,401.784 860.317,401.437 861.983,598.815 863.648,575.604 865.314,577.512 866.98,444.679 868.645,562.947 870.311,364.076 871.976,630.38 
-  873.642,562.421 875.308,421.039 876.973,504.32 878.639,582.996 880.304,413.453 881.97,450.814 883.636,568.811 885.301,296.541 886.967,457.709 888.633,434.148 
-  890.298,423.213 891.964,400.383 893.629,574.671 895.295,446.556 896.961,492.357 898.626,426.659 900.292,422.101 901.957,449.082 903.623,535.685 905.289,395.213 
-  906.954,369.031 908.62,390.126 910.285,477.829 911.951,367.278 913.617,636.239 915.282,647.629 916.948,584.321 918.613,416.032 920.279,481.104 921.945,473.999 
-  923.61,514.406 925.276,517.605 926.942,314.942 928.607,495.48 930.273,374.833 931.938,397.642 933.604,495.622 935.27,654.419 936.935,496.51 938.601,553.066 
-  940.266,553.066 941.932,472.884 943.598,449.008 945.263,435.925 946.929,440.909 948.594,391.709 950.26,442.613 951.926,586.418 953.591,465.766 955.257,519.085 
-  956.922,605.515 958.588,434.403 960.254,434.771 961.919,315.612 963.585,690.897 965.25,539.118 966.916,393.149 968.582,494.379 970.247,405.517 971.913,561.278 
-  973.579,483.775 975.244,519.64 976.91,504.87 978.575,457.73 980.241,395.163 981.907,531.164 983.572,540.475 985.238,484.316 986.903,389.104 988.569,637.385 
-  990.235,341.354 991.9,453.167 993.566,397.586 995.231,607.602 996.897,467.264 998.563,475.2 1000.23,282.494 1001.89,546.507 1003.56,495.046 1005.23,602.5 
-  1006.89,304.551 1008.56,306.451 1010.22,549.055 1011.89,316.703 1013.55,388.144 1015.22,625.533 1016.88,580.512 1018.55,479.695 1020.22,489.524 1021.88,383.618 
-  1023.55,466.412 1025.21,475.376 1026.88,534.799 1028.54,403.635 1030.21,405.189 1031.87,530.333 1033.54,512.945 1035.21,647.311 1036.87,439.403 1038.54,540.369 
-  1040.2,363.117 1041.87,383.786 1043.53,594.88 1045.2,529.153 1046.87,521.285 1048.53,530.162 1050.2,560.623 1051.86,410.383 1053.53,434.75 1055.19,491.831 
-  1056.86,461.008 1058.52,474.02 1060.19,480.331 1061.86,505.561 1063.52,658.643 1065.19,729.388 1066.85,633.792 1068.52,439.295 1070.18,691.627 1071.85,532.168 
-  1073.52,524.487 1075.18,583.453 1076.85,453.737 1078.51,512.272 1080.18,423.584 1081.84,575.296 1083.51,682.558 1085.17,351.511 1086.84,246.544 1088.51,293.999 
-  1090.17,679.759 1091.84,636 1093.5,233.727 1095.17,341.063 1096.83,364.253 1098.5,459.047 1100.16,428.802 1101.83,411.195 1103.5,462.835 1105.16,513.216 
-  1106.83,442.421 1108.49,607.7 1110.16,607.931 1111.82,575.194 1113.49,339.43 1115.16,601.659 1116.82,532.828 1118.49,465.077 1120.15,542.914 1121.82,193.906 
-  1123.48,264.861 1125.15,673.274 1126.81,618.601 1128.48,459.199 1130.15,569.321 1131.81,375.59 1133.48,475.904 1135.14,598.413 1136.81,634.641 1138.47,688.36 
-  1140.14,703.007 1141.81,465.937 1143.47,475.765 1145.14,314.248 1146.8,337.503 1148.47,489.35 1150.13,439.093 1151.8,543.298 1153.46,388.073 1155.13,548.284 
-  1156.8,534.305 1158.46,615.599 1160.13,388.042 1161.79,437.09 1163.46,368.729 1165.12,519.19 1166.79,407.828 1168.45,552.695 1170.12,474.327 1171.79,668.479 
-  1173.45,538.958 1175.12,598.071 1176.78,631.594 1178.45,358.157 1180.11,641.586 1181.78,374.362 1183.45,616.256 1185.11,470.037 1186.78,512.616 1188.44,440.646 
-  1190.11,544.1 1191.77,571.819 1193.44,417.701 1195.1,732.274 1196.77,494.003 1198.44,585.832 1200.1,567.247 1201.77,452.333 1203.43,469.32 1205.1,476.935 
-  1206.76,522.889 1208.43,502.249 1210.09,356.072 1211.76,475.613 1213.43,552.225 1215.09,403.167 1216.76,553.134 1218.42,381.257 1220.09,601.635 1221.75,489.521 
-  1223.42,501.487 1225.09,464.391 1226.75,437.058 1228.42,401.114 1230.08,465.647 1231.75,439.251 1233.41,526.393 1235.08,486.275 1236.74,503.545 1238.41,542.128 
-  1240.08,440.344 1241.74,574.106 1243.41,572.029 1245.07,428.502 1246.74,416.36 1248.4,552.848 1250.07,454.171 1251.74,420.587 1253.4,462.046 1255.07,442.873 
-  1256.73,471.693 1258.4,348.696 1260.06,380.109 1261.73,412.783 1263.39,498.645 1265.06,407.021 1266.73,409.284 1268.39,599.304 1270.06,404.865 1271.72,387.293 
-  1273.39,619.132 1275.05,252.482 1276.72,238.761 1278.38,483.946 1280.05,601.712 1281.72,601.712 1283.38,635.992 1285.05,666.684 1286.71,633.397 1288.38,560.458 
-  1290.04,480.378 1291.71,587.015 1293.38,419.512 1295.04,492.331 1296.71,602.095 1298.37,447.838 1300.04,411.424 1301.7,405.819 1303.37,318.887 1305.03,523.975 
-  1306.7,469.275 1308.37,580.167 1310.03,314.295 1311.7,336.686 1313.36,558.013 1315.03,558.013 1316.69,439.298 1318.36,403.774 1320.03,606.609 1321.69,635.117 
-  1323.36,553.605 1325.02,437.708 1326.69,497.625 1328.35,356.261 1330.02,513.673 1331.68,591.11 1333.35,476.719 1335.02,533.496 1336.68,447.649 1338.35,588.679 
-  1340.01,419.772 1341.68,446.8 1343.34,390.77 1345.01,409.544 1346.67,303.2 1348.34,263.228 1350.01,372.535 1351.67,407.094 1353.34,546.423 1355,430.326 
-  1356.67,429.527 1358.33,596.977 1360,395.034 1361.67,541.831 1363.33,450.485 1365,487.192 1366.66,330.106 1368.33,646.846 1369.99,719.833 1371.66,286.678 
-  1373.32,672.74 1374.99,294.325 1376.66,474.07 1378.32,465.81 1379.99,637.564 1381.65,470.45 1383.32,543.866 1384.98,584.909 1386.65,410.101 1388.32,552.309 
-  1389.98,403.992 1391.65,395.67 1393.31,568.73 1394.98,434.282 1396.64,434.282 1398.31,580.096 1399.97,407.67 1401.64,440.397 1403.31,524.138 1404.97,272.889 
-  1406.64,518.623 1408.3,417.893 1409.97,539.131 1411.63,539.131 1413.3,392.758 1414.96,554.357 1416.63,500.864 1418.3,633.282 1419.96,674.415 1421.63,434.409 
-  1423.29,567.318 1424.96,330.932 1426.62,397.899 1428.29,405.817 1429.96,668.721 1431.62,557.8 1433.29,396.004 1434.95,505.506 1436.62,569.287 1438.28,463.694 
-  1439.95,367.446 1441.61,521.307 1443.28,711.989 1444.95,664.702 1446.61,350.292 1448.28,476.635 1449.94,512.621 1451.61,494.812 1453.27,577.334 1454.94,693.081 
-  1456.61,510.639 1458.27,351.874 1459.94,511.633 1461.6,364.689 1463.27,514.162 1464.93,401.529 1466.6,432.913 1468.26,501.013 1469.93,547.199 1471.6,359.976 
-  1473.26,498.971 1474.93,321.137 1476.59,354.208 1478.26,352.445 1479.92,580.888 1481.59,580.254 1483.25,299.701 1484.92,363.64 1486.59,365.341 1488.25,385.794 
-  1489.92,416.179 1491.58,316.235 1493.25,433.263 1494.91,570.652 1496.58,852.845 1498.25,446.027 1499.91,470.805 1501.58,737.41 1503.24,264.072 1504.91,520.481 
-  1506.57,585.948 1508.24,471.717 1509.9,473.097 1511.57,533.624 1513.24,574.245 1514.9,542.167 1516.57,417.246 1518.23,372.278 1519.9,698.748 1521.56,280.809 
-  1523.23,303.46 1524.89,667.53 1526.56,439.211 1528.23,489.279 1529.89,414.194 1531.56,433.431 1533.22,406.187 1534.89,513.371 1536.55,459.491 1538.22,626.75 
-  1539.89,456.192 1541.55,574.952 1543.22,620.903 1544.88,363.866 1546.55,554.546 1548.21,359.786 1549.88,449.692 1551.54,427.248 1553.21,601.194 1554.88,469.204 
-  1556.54,488.974 1558.21,477.14 1559.87,672.641 1561.54,433.872 1563.2,362.828 1564.87,641.467 1566.54,609.017 1568.2,687.858 1569.87,580.548 1571.53,388.683 
-  1573.2,440.013 1574.86,441.54 1576.53,441.54 1578.19,441.54 1579.86,441.54 1581.53,484.148 1583.19,464.896 1584.86,530.99 1586.52,506.473 1588.19,462.929 
-  1589.85,488.588 1591.52,474.419 1593.18,420.924 1594.85,518.702 1596.52,383.831 1598.18,344.653 1599.85,763.723 1601.51,214.851 1603.18,242.33 1604.84,648.502 
-  1606.51,541.084 1608.18,289.089 1609.84,451.971 1611.51,484.81 1613.17,430.253 1614.84,483.07 1616.5,499.389 1618.17,442.936 1619.83,493.08 1621.5,562.957 
-  1623.17,465.889 1624.83,501.571 1626.5,527.161 1628.16,488.08 1629.83,456.926 1631.49,408.267 1633.16,504.444 1634.83,585.451 1636.49,491.553 1638.16,607.245 
-  1639.82,627.806 1641.49,472.369 1643.15,454.991 1644.82,547.414 1646.48,372.11 1648.15,619.965 1649.82,463.731 1651.48,556.247 1653.15,520.405 1654.81,736.414 
-  1656.48,317.491 1658.14,669.068 1659.81,451.476 1661.47,575.827 1663.14,525.318 1664.81,597.692 1666.47,533.74 1668.14,462.22 1669.8,407.299 1671.47,537.925 
-  1673.13,417.48 1674.8,242.459 1676.47,628.4 1678.13,380.319 1679.8,376.347 1681.46,349.175 1683.13,322.428 1684.79,491.316 1686.46,478.323 1688.12,438.104 
-  1689.79,448.527 1691.46,450.775 1693.12,370.188 1694.79,352.786 1696.45,456.15 1698.12,519.942 1699.78,445.26 1701.45,528.643 1703.12,508.907 1704.78,450.27 
-  1706.45,410.648 1708.11,504.241 1709.78,425.637 1711.44,461.589 1713.11,440.32 1714.77,468.707 1716.44,654.534 1718.11,329.373 1719.77,542.183 1721.44,428.794 
-  1723.1,364.739 1724.77,579.539 1726.43,634.31 1728.1,590.724 1729.76,530.481 1731.43,481.227 1733.1,384.827 1734.76,350.539 1736.43,379.543 1738.09,495.672 
-  1739.76,342.469 1741.42,379.015 1743.09,539.381 1744.76,471.133 1746.42,626.46 1748.09,428.928 1749.75,382.041 1751.42,378.24 1753.08,512.866 1754.75,596.16 
-  1756.41,389.241 1758.08,495.477 1759.75,409.405 1761.41,505.732 1763.08,447.223 1764.74,473.231 1766.41,473.231 1768.07,552.559 1769.74,525.497 1771.41,512.432 
-  1773.07,571.69 1774.74,592.827 1776.4,496.652 1778.07,493.338 1779.73,612.158 1781.4,459.88 1783.06,572.26 1784.73,370.065 1786.4,356.987 1788.06,477.337 
-  1789.73,468.557 1791.39,488.004 1793.06,555.04 1794.72,434.585 1796.39,510.253 1798.05,592.603 1799.72,591.644 1801.39,389.206 1803.05,430.184 1804.72,633.994 
-  1806.38,309.903 1808.05,632.422 1809.71,669.328 1811.38,251.825 1813.05,292.461 1814.71,513.886 1816.38,714.06 1818.04,624.812 1819.71,401.942 1821.37,507.866 
-  1823.04,500.75 1824.7,681.023 1826.37,562.739 1828.04,407.914 1829.7,431.822 1831.37,372.139 1833.03,474.732 1834.7,516.065 1836.36,518.817 1838.03,316.826 
-  1839.69,528.659 1841.36,525.938 1843.03,541.736 1844.69,316.939 1846.36,460.79 1848.02,531.151 1849.69,723.594 1851.35,332.346 1853.02,559.611 1854.69,546.67 
-  1856.35,478.094 1858.02,462.375 1859.68,313.107 1861.35,451.802 1863.01,601.643 1864.68,560.81 1866.34,198.416 1868.01,478.402 1869.68,455.748 1871.34,531.753 
+<polyline clip-path="url(#clip1403)" style="stroke:#c271d2; stroke-width:4; stroke-opacity:1; fill:none" points="
+  207.399,343.834 209.064,572.85 210.73,374.084 212.395,436.62 214.061,473.578 215.727,490.382 217.392,541.241 219.058,409.185 220.723,537.982 222.389,457.253 
+  224.055,385.55 225.72,560.608 227.386,368.416 229.052,509.578 230.717,509.578 232.383,478.335 234.048,507.542 235.714,469.891 237.38,576.28 239.045,550.799 
+  240.711,544.433 242.376,360.124 244.042,523.118 245.708,459.032 247.373,480.744 249.039,485.391 250.704,353.237 252.37,394.789 254.036,473.634 255.701,476.569 
+  257.367,407.676 259.032,358.875 260.698,305.543 262.364,249.946 264.029,696.953 265.695,616.489 267.361,340.535 269.026,315.979 270.692,554.638 272.357,427.212 
+  274.023,475.288 275.689,473.944 277.354,443.283 279.02,496.729 280.685,413.236 282.351,469.053 284.017,452.051 285.682,395.458 287.348,486.612 289.013,615.823 
+  290.679,298.808 292.345,451.23 294.01,463.977 295.676,470.733 297.341,404.342 299.007,541.383 300.673,380.586 302.338,345.635 304.004,468.034 305.67,482.678 
+  307.335,575.7 309.001,593.371 310.666,495.311 312.332,358.125 313.998,386.997 315.663,386.371 317.329,386.371 318.994,632.919 320.66,621.552 322.326,548.447 
+  323.991,583.791 325.657,328.983 327.322,506.257 328.988,290.516 330.654,457.095 332.319,416.434 333.985,486.36 335.65,405.712 337.316,563.163 338.982,501.098 
+  340.647,589.635 342.313,404.508 343.979,442.948 345.644,402.712 347.31,411.871 348.975,589.517 350.641,530.265 352.307,575.012 353.972,358.208 355.638,560.844 
+  357.303,521.954 358.969,547.283 360.635,681.383 362.3,442.132 363.966,720.896 365.631,217.857 367.297,147.155 368.963,563.551 370.628,358.61 372.294,339.226 
+  373.959,555.516 375.625,531.739 377.291,328.571 378.956,513.016 380.622,349.159 382.288,423.075 383.953,445.027 385.619,600.563 387.284,153.572 388.95,414.437 
+  390.616,373.961 392.281,507.59 393.947,517.49 395.612,526.133 397.278,511.914 398.944,584.811 400.609,397.882 402.275,568.844 403.94,568.844 405.606,463.835 
+  407.272,391.931 408.937,282.416 410.603,395.52 412.268,460.26 413.934,364.649 415.6,466.714 417.265,446.804 418.931,486.689 420.596,426.246 422.262,457.239 
+  423.928,651.227 425.593,326.2 427.259,670.059 428.925,281.718 430.59,538.493 432.256,305.289 433.921,613.966 435.587,626.112 437.253,358.634 438.918,380.31 
+  440.584,307.935 442.249,366.859 443.915,444.971 445.581,251.888 447.246,307.641 448.912,331.977 450.577,580.363 452.243,472.478 453.909,472.478 455.574,505.021 
+  457.24,309.346 458.905,532.991 460.571,385.373 462.237,468.636 463.902,531.99 465.568,413.001 467.234,313.148 468.899,454.481 470.565,400.855 472.23,400.855 
+  473.896,368.374 475.562,378.812 477.227,459.848 478.893,448.094 480.558,476.323 482.224,392.956 483.89,505.671 485.555,525.076 487.221,439.59 488.886,577.257 
+  490.552,392.956 492.218,408.449 493.883,325.264 495.549,435.584 497.214,385.667 498.88,359.147 500.546,520.61 502.211,498.08 503.877,485.844 505.543,294.249 
+  507.208,554.031 508.874,365.834 510.539,403.873 512.205,637.979 513.871,201.169 515.536,555.382 517.202,318.564 518.867,609.415 520.533,330.335 522.199,415.481 
+  523.864,445.346 525.53,255.816 527.195,176.565 528.861,504.515 530.527,496.822 532.192,336.574 533.858,500.911 535.523,533.762 537.189,419.647 538.855,287.037 
+  540.52,575.419 542.186,338.308 543.852,491.955 545.517,316.741 547.183,422.128 548.848,493.181 550.514,383.711 552.18,418.577 553.845,468.376 555.511,557.159 
+  557.176,550.301 558.842,379.759 560.508,453.028 562.173,453.804 563.839,453.804 565.504,446.683 567.17,472.101 568.836,509.142 570.501,409.806 572.167,409.806 
+  573.832,395.487 575.498,411.518 577.164,487.73 578.829,408.173 580.495,450.202 582.161,202.844 583.826,161.564 585.492,726.272 587.157,713.377 588.823,378.055 
+  590.489,298.955 592.154,596.084 593.82,395.458 595.485,574.437 597.151,330.642 598.817,441.971 600.482,553.391 602.148,327.498 603.813,553.012 605.479,546.116 
+  607.145,376.947 608.81,438.694 610.476,319.201 612.141,654.341 613.807,221.97 615.473,700.785 617.138,381.397 618.804,436.855 620.47,482.44 622.135,453.247 
+  623.801,453.247 625.466,390.157 627.132,432.97 628.798,500.545 630.463,453.563 632.129,327.736 633.794,218.936 635.46,599.988 637.126,482.858 638.791,435.964 
+  640.457,429.692 642.122,226.998 643.788,243.585 645.454,276.099 647.119,552.931 648.785,324.362 650.45,421.74 652.116,376.979 653.782,476.995 655.447,472.296 
+  657.113,415.457 658.779,324.167 660.444,266.779 662.11,389.229 663.775,385.357 665.441,497.858 667.107,475.178 668.772,464.769 670.438,532.523 672.103,504.85 
+  673.769,536.957 675.435,472.604 677.1,357.531 678.766,354.35 680.431,437.425 682.097,415.62 683.763,415.62 685.428,415.62 687.094,329.987 688.759,517.868 
+  690.425,384.891 692.091,401.452 693.756,466.431 695.422,499.769 697.088,341.024 698.753,484.166 700.419,544.652 702.084,419.433 703.75,328.282 705.416,414.978 
+  707.081,352.573 708.747,551.51 710.412,458.628 712.078,328.181 713.744,467.646 715.409,404.58 717.075,452.883 718.74,454.082 720.406,446.531 722.072,446.531 
+  723.737,332.076 725.403,393.606 727.068,539.392 728.734,286.259 730.4,600.427 732.065,534.741 733.731,358.492 735.397,466.11 737.062,452.658 738.728,290.428 
+  740.393,332.59 742.059,531.059 743.725,394.035 745.39,402.57 747.056,358.682 748.721,305.99 750.387,493.831 752.053,411.259 753.718,504.21 755.384,423.779 
+  757.049,389.151 758.715,436.36 760.381,427.758 762.046,480.093 763.712,479.371 765.377,529.149 767.043,480.931 768.709,495.56 770.374,517.207 772.04,517.207 
+  773.706,517.207 775.371,517.207 777.037,332.681 778.702,529.052 780.368,552.399 782.034,528.608 783.699,394.952 785.365,326.091 787.03,407.668 788.696,503.02 
+  790.362,377.388 792.027,377.388 793.693,361.441 795.358,539.472 797.024,485.512 798.69,413.645 800.355,398.455 802.021,490.096 803.686,409.634 805.352,421.052 
+  807.018,418.111 808.683,439.954 810.349,229.701 812.015,698.246 813.68,246.464 815.346,277.996 817.011,693.887 818.677,394.982 820.343,503.07 822.008,512.385 
+  823.674,373.626 825.339,440.227 827.005,391.04 828.671,430.251 830.336,544.923 832.002,544.165 833.667,353.381 835.333,375.753 836.999,482.657 838.664,433.714 
+  840.33,360.868 841.995,458.834 843.661,453.196 845.327,558.294 846.992,453.986 848.658,465.157 850.324,565.43 851.989,286.2 853.655,390.791 855.32,440.542 
+  856.986,428.662 858.652,440.66 860.317,446.566 861.983,462.578 863.648,457.194 865.314,561.034 866.98,361.034 868.645,352.006 870.311,499.838 871.976,365.751 
+  873.642,543.009 875.308,516.867 876.973,264.976 878.639,261.406 880.304,559.401 881.97,414.317 883.636,515.323 885.301,404.604 886.967,374.731 888.633,429.901 
+  890.298,496.916 891.964,391.875 893.629,587.272 895.295,569.543 896.961,487.979 898.626,411.023 900.292,418.526 901.957,373.747 903.623,506.474 905.289,506.474 
+  906.954,410.868 908.62,360.94 910.285,463.897 911.951,420.153 913.617,456.859 915.282,545.241 916.948,328.981 918.613,328.981 920.279,579.224 921.945,613.739 
+  923.61,635.306 925.276,549.009 926.942,407.1 928.607,422.791 930.273,443.63 931.938,420.514 933.604,513.798 935.27,398.23 936.935,432.237 938.601,432.237 
+  940.266,402.653 941.932,540.037 943.598,540.004 945.263,333.077 946.929,280.656 948.594,304.13 950.26,345.338 951.926,348.768 953.591,406.252 955.257,409.487 
+  956.922,570.064 958.588,324.501 960.254,566.449 961.919,419.075 963.585,510.477 965.25,557.542 966.916,343.352 968.582,401.631 970.247,440.101 971.913,514.542 
+  973.579,383.786 975.244,437.634 976.91,541.11 978.575,331.956 980.241,495.351 981.907,614.285 983.572,470.53 985.238,428.804 986.903,504.101 988.569,503.978 
+  990.235,291.514 991.9,279.583 993.566,517.897 995.231,391.503 996.897,550.379 998.563,558.109 1000.23,479.026 1001.89,389.47 1003.56,491.642 1005.23,570.495 
+  1006.89,528.21 1008.56,371.86 1010.22,498 1011.89,329.933 1013.55,391.974 1015.22,454.152 1016.88,569.141 1018.55,632.338 1020.22,613.573 1021.88,497.952 
+  1023.55,316.142 1025.21,433.816 1026.88,536.644 1028.54,354.66 1030.21,298.602 1031.87,233.444 1033.54,330.795 1035.21,445.533 1036.87,295.41 1038.54,523.599 
+  1040.2,522.419 1041.87,447.021 1043.53,447.021 1045.2,444.8 1046.87,207.4 1048.53,417.627 1050.2,327.884 1051.86,619.848 1053.53,619.848 1055.19,526.893 
+  1056.86,372.81 1058.52,486.636 1060.19,458.898 1061.86,431.777 1063.52,559.661 1065.19,559.661 1066.85,518.644 1068.52,349.408 1070.18,497.029 1071.85,493.673 
+  1073.52,373.26 1075.18,406.753 1076.85,406.753 1078.51,483.815 1080.18,483.815 1081.84,490.007 1083.51,449.758 1085.17,296.119 1086.84,526.08 1088.51,483.837 
+  1090.17,421.654 1091.84,550.162 1093.5,624.776 1095.17,624.776 1096.83,396.742 1098.5,559.337 1100.16,499.662 1101.83,395.889 1103.5,463.046 1105.16,535.284 
+  1106.83,390.521 1108.49,491.265 1110.16,300.772 1111.82,270.057 1113.49,396.542 1115.16,393.061 1116.82,317.584 1118.49,383.842 1120.15,404.406 1121.82,559.589 
+  1123.48,393.32 1125.15,450.47 1126.81,481.244 1128.48,481.244 1130.15,411.837 1131.81,467.951 1133.48,320.485 1135.14,436.85 1136.81,552.3 1138.47,337.907 
+  1140.14,641.998 1141.81,369.096 1143.47,532.089 1145.14,455.551 1146.8,673.979 1148.47,416.605 1150.13,384.016 1151.8,507.001 1153.46,481.546 1155.13,578.381 
+  1156.8,461.181 1158.46,454.823 1160.13,491.278 1161.79,423.602 1163.46,408.952 1165.12,498.623 1166.79,359.573 1168.45,551.492 1170.12,422.81 1171.79,491.251 
+  1173.45,481.327 1175.12,394.661 1176.78,454.36 1178.45,409.61 1180.11,456.084 1181.78,500.071 1183.45,338.943 1185.11,410.737 1186.78,493.547 1188.44,443.344 
+  1190.11,442.678 1191.77,442.999 1193.44,523.736 1195.1,500.911 1196.77,567.785 1198.44,521.392 1200.1,624.672 1201.77,244.894 1203.43,479.481 1205.1,432.724 
+  1206.76,402.618 1208.43,423.112 1210.09,429.636 1211.76,390.294 1213.43,370.204 1215.09,389.694 1216.76,567.525 1218.42,322.227 1220.09,567.439 1221.75,444.067 
+  1223.42,297.77 1225.09,690.264 1226.75,444.35 1228.42,460.448 1230.08,593.352 1231.75,577.246 1233.41,316.485 1235.08,589.081 1236.74,475.571 1238.41,561.379 
+  1240.08,470.897 1241.74,368.97 1243.41,299.483 1245.07,629.154 1246.74,415.387 1248.4,528.611 1250.07,362.762 1251.74,465.494 1253.4,427.926 1255.07,376.072 
+  1256.73,353.448 1258.4,458.832 1260.06,428.67 1261.73,478.413 1263.39,417.335 1265.06,417.335 1266.73,490.441 1268.39,385.004 1270.06,462.69 1271.72,484.599 
+  1273.39,388.279 1275.05,450.237 1276.72,452.07 1278.38,452.07 1280.05,452.07 1281.72,546.279 1283.38,572.839 1285.05,416.137 1286.71,422.256 1288.38,522.149 
+  1290.04,324.742 1291.71,264.085 1293.38,316.321 1295.04,596.552 1296.71,517.367 1298.37,541.46 1300.04,535.597 1301.7,434.674 1303.37,394.39 1305.03,543.074 
+  1306.7,685.974 1308.37,224.148 1310.03,697.67 1311.7,491.316 1313.36,491.316 1315.03,455.444 1316.69,449.1 1318.36,727.299 1320.03,644.615 1321.69,378.956 
+  1323.36,497.293 1325.02,404.684 1326.69,443.657 1328.35,435.796 1330.02,599.643 1331.68,324.86 1333.35,424.793 1335.02,481.83 1336.68,389.606 1338.35,267.052 
+  1340.01,280.113 1341.68,328.453 1343.34,345.078 1345.01,302.712 1346.67,247.061 1348.34,331.121 1350.01,330.361 1351.67,457.729 1353.34,234.913 1355,400.01 
+  1356.67,343.01 1358.33,282.36 1360,422.652 1361.67,574.889 1363.33,528.413 1365,549.022 1366.66,387.321 1368.33,512.623 1369.99,357.911 1371.66,509.955 
+  1373.32,417.33 1374.99,417.33 1376.66,505.958 1378.32,384.279 1379.99,381.828 1381.65,288.127 1383.32,618.397 1384.98,355.051 1386.65,570.897 1388.32,351.645 
+  1389.98,500.336 1391.65,401.422 1393.31,372.979 1394.98,550.777 1396.64,369.115 1398.31,518.882 1399.97,392.828 1401.64,385.715 1403.31,387.171 1404.97,488.843 
+  1406.64,344.305 1408.3,524.771 1409.97,424.49 1411.63,483.652 1413.3,515.264 1414.96,429.574 1416.63,418.149 1418.3,418.149 1419.96,419.265 1421.63,419.265 
+  1423.29,428.932 1424.96,444.08 1426.62,493.743 1428.29,336.157 1429.96,370.359 1431.62,517.303 1433.29,412.984 1434.95,269.597 1436.62,497.724 1438.28,542.961 
+  1439.95,464.435 1441.61,514.17 1443.28,456.726 1444.95,295.241 1446.61,601.963 1448.28,601.963 1449.94,565.631 1451.61,525.9 1453.27,351.473 1454.94,505.377 
+  1456.61,391.501 1458.27,493.785 1459.94,354.687 1461.6,382.004 1463.27,509.399 1464.93,530.872 1466.6,355.144 1468.26,428.073 1469.93,456.059 1471.6,463.966 
+  1473.26,417.25 1474.93,445.76 1476.59,453.871 1478.26,545.043 1479.92,236.939 1481.59,593.799 1483.25,450.997 1484.92,522.473 1486.59,301.746 1488.25,638.212 
+  1489.92,636.807 1491.58,355.128 1493.25,314.183 1494.91,584.187 1496.58,491.985 1498.25,506.335 1499.91,471.277 1501.58,260.745 1503.24,590.494 1504.91,424.536 
+  1506.57,427.257 1508.24,455.374 1509.9,465.695 1511.57,440.642 1513.24,425.951 1514.9,507.039 1516.57,480.136 1518.23,558.85 1519.9,588.238 1521.56,325.917 
+  1523.23,535.881 1524.89,380.886 1526.56,329.818 1528.23,604.141 1529.89,417.309 1531.56,410.322 1533.22,541.31 1534.89,371.852 1536.55,625.314 1538.22,321.015 
+  1539.89,622.74 1541.55,341.656 1543.22,359.097 1544.88,311.952 1546.55,339.034 1548.21,332.09 1549.88,594.473 1551.54,533.823 1553.21,426.173 1554.88,310.67 
+  1556.54,594.692 1558.21,650.009 1559.87,274.445 1561.54,356.161 1563.2,442.354 1564.87,389.167 1566.54,526.655 1568.2,437.963 1569.87,467.48 1571.53,519.834 
+  1573.2,397.936 1574.86,476.717 1576.53,336.296 1578.19,509.626 1579.86,372.534 1581.53,465.157 1583.19,481.249 1584.86,683.799 1586.52,711.729 1588.19,602.977 
+  1589.85,336.566 1591.52,546.311 1593.18,365.115 1594.85,481.18 1596.52,394.912 1598.18,459.803 1599.85,388.49 1601.51,418.309 1603.18,468.922 1604.84,298.565 
+  1606.51,237.728 1608.18,583.898 1609.84,745.032 1611.51,692.032 1613.17,468.472 1614.84,395.14 1616.5,381.279 1618.17,535.828 1619.83,498.811 1621.5,387.53 
+  1623.17,508.896 1624.83,474.324 1626.5,507.641 1628.16,417.905 1629.83,460.488 1631.49,435.739 1633.16,465.114 1634.83,396.087 1636.49,522.933 1638.16,363.921 
+  1639.82,374.932 1641.49,427.271 1643.15,456.953 1644.82,454.152 1646.48,411.224 1648.15,481.399 1649.82,410.956 1651.48,547.534 1653.15,438.276 1654.81,475.911 
+  1656.48,392.239 1658.14,525.836 1659.81,458.866 1661.47,337.222 1663.14,316.648 1664.81,520.854 1666.47,450.066 1668.14,474.268 1669.8,300.216 1671.47,362.832 
+  1673.13,365.133 1674.8,329.037 1676.47,452.303 1678.13,413.702 1679.8,401.631 1681.46,523.704 1683.13,437.176 1684.79,417.975 1686.46,417.975 1688.12,449.295 
+  1689.79,418.499 1691.46,476.315 1693.12,442.865 1694.79,561.213 1696.45,409.798 1698.12,403.98 1699.78,554.598 1701.45,526.331 1703.12,547.612 1704.78,473.821 
+  1706.45,489.381 1708.11,505.051 1709.78,560.365 1711.44,597.922 1713.11,393.756 1714.77,517.142 1716.44,517.142 1718.11,555.38 1719.77,374.274 1721.44,449.367 
+  1723.1,468.274 1724.77,309.287 1726.43,508.797 1728.1,354.197 1729.76,558.136 1731.43,339.986 1733.1,588.105 1734.76,417.908 1736.43,497.853 1738.09,571.461 
+  1739.76,326.685 1741.42,570.257 1743.09,413.485 1744.76,418.374 1746.42,418.374 1748.09,432.451 1749.75,430.738 1751.42,468.141 1753.08,540.842 1754.75,418.317 
+  1756.41,556.592 1758.08,490.419 1759.75,520.891 1761.41,647.44 1763.08,551.703 1764.74,581.725 1766.41,497.449 1768.07,428.996 1769.74,348.669 1771.41,176.632 
+  1773.07,559.562 1774.74,345.498 1776.4,361.577 1778.07,328.63 1779.73,344.84 1781.4,382.769 1783.06,511.502 1784.73,608.566 1786.4,426.155 1788.06,410.434 
+  1789.73,410.434 1791.39,445.664 1793.06,468.039 1794.72,564.956 1796.39,573.045 1798.05,312.639 1799.72,421.619 1801.39,393.812 1803.05,321.1 1804.72,505.752 
+  1806.38,363.934 1808.05,532.346 1809.71,386.885 1811.38,348.458 1813.05,543.376 1814.71,421.74 1816.38,539.116 1818.04,433.098 1819.71,443.794 1821.37,508.229 
+  1823.04,525.67 1824.7,492.025 1826.37,467.276 1828.04,525.124 1829.7,523.578 1831.37,527.739 1833.03,297.973 1834.7,439.844 1836.36,410.665 1838.03,497.411 
+  1839.69,519.203 1841.36,403.6 1843.03,359.321 1844.69,306.956 1846.36,512.674 1848.02,387.88 1849.69,448.53 1851.35,448.53 1853.02,439.202 1854.69,394.219 
+  1856.35,533.269 1858.02,437.859 1859.68,388.967 1861.35,367.801 1863.01,412.407 1864.68,499.851 1866.34,499.851 1868.01,366.535 1869.68,519.155 1871.34,514.215 
   
   "/>
-<polygon clip-path="url(#clip5201)" points="
+<polygon clip-path="url(#clip1401)" points="
 2157.48,874.016 3921.26,874.016 3921.26,125.984 2157.48,125.984 
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip5204">
+  <clipPath id="clip1404">
     <rect x="2157" y="125" width="1765" height="749"/>
   </clipPath>
 </defs>
-<polyline clip-path="url(#clip5204)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  2368.02,874.016 2368.02,125.984 
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2256.08,874.016 2256.08,125.984 
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  2859.6,874.016 2859.6,125.984 
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2508.61,874.016 2508.61,125.984 
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  3351.17,874.016 3351.17,125.984 
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2761.14,874.016 2761.14,125.984 
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  3842.75,874.016 3842.75,125.984 
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  3013.67,874.016 3013.67,125.984 
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  3266.2,874.016 3266.2,125.984 
+  "/>
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  3518.73,874.016 3518.73,125.984 
+  "/>
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  3771.26,874.016 3771.26,125.984 
+  "/>
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
   2157.48,852.847 3921.26,852.847 
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  2157.48,679.541 3921.26,679.541 
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2157.48,693.258 3921.26,693.258 
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  2157.48,506.234 3921.26,506.234 
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2157.48,533.668 3921.26,533.668 
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  2157.48,332.928 3921.26,332.928 
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2157.48,374.079 3921.26,374.079 
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  2157.48,159.622 3921.26,159.622 
+<polyline clip-path="url(#clip1404)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2157.48,214.49 3921.26,214.49 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   2157.48,874.016 3921.26,874.016 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   2157.48,874.016 2157.48,125.984 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2368.02,874.016 2368.02,862.795 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2256.08,874.016 2256.08,862.795 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2859.6,874.016 2859.6,862.795 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2508.61,874.016 2508.61,862.795 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  3351.17,874.016 3351.17,862.795 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2761.14,874.016 2761.14,862.795 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  3842.75,874.016 3842.75,862.795 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  3013.67,874.016 3013.67,862.795 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  3266.2,874.016 3266.2,862.795 
+  "/>
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  3518.73,874.016 3518.73,862.795 
+  "/>
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  3771.26,874.016 3771.26,862.795 
+  "/>
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   2157.48,852.847 2183.94,852.847 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2157.48,679.541 2183.94,679.541 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2157.48,693.258 2183.94,693.258 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2157.48,506.234 2183.94,506.234 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2157.48,533.668 2183.94,533.668 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2157.48,332.928 2183.94,332.928 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2157.48,374.079 2183.94,374.079 
   "/>
-<polyline clip-path="url(#clip5201)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2157.48,159.622 2183.94,159.622 
+<polyline clip-path="url(#clip1401)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2157.48,214.49 2183.94,214.49 
   "/>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2368.02, 936.016)" x="2368.02" y="936.016">0.5</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2256.08, 936.016)" x="2256.08" y="936.016">0.55</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2859.6, 936.016)" x="2859.6" y="936.016">0.6</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2508.61, 936.016)" x="2508.61" y="936.016">0.60</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 3351.17, 936.016)" x="3351.17" y="936.016">0.7</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2761.14, 936.016)" x="2761.14" y="936.016">0.65</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 3842.75, 936.016)" x="3842.75" y="936.016">0.8</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 3013.67, 936.016)" x="3013.67" y="936.016">0.70</text>
 </g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 3266.2, 936.016)" x="3266.2" y="936.016">0.75</text>
+</g>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 3518.73, 936.016)" x="3518.73" y="936.016">0.80</text>
+</g>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 3771.26, 936.016)" x="3771.26" y="936.016">0.85</text>
+</g>
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 2117.48, 870.347)" x="2117.48" y="870.347">0.0</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 2117.48, 697.041)" x="2117.48" y="697.041">2.5</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 2117.48, 710.758)" x="2117.48" y="710.758">2.5</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 2117.48, 523.734)" x="2117.48" y="523.734">5.0</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 2117.48, 551.168)" x="2117.48" y="551.168">5.0</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 2117.48, 350.428)" x="2117.48" y="350.428">7.5</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 2117.48, 391.579)" x="2117.48" y="391.579">7.5</text>
 </g>
-<g clip-path="url(#clip5201)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 2117.48, 177.122)" x="2117.48" y="177.122">10.0</text>
+<g clip-path="url(#clip1401)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 2117.48, 231.99)" x="2117.48" y="231.99">10.0</text>
 </g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:82px; text-anchor:middle;" transform="rotate(0, 3039.37, 72)" x="3039.37" y="72">theta</text>
 </g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(0, 3039.37, 990.4)" x="3039.37" y="990.4">Sample value</text>
 </g>
-<g clip-path="url(#clip5201)">
+<g clip-path="url(#clip1401)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(-90, 2057.6, 500)" x="2057.6" y="500">Density</text>
 </g>
-<polyline clip-path="url(#clip5204)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2340.99,852.845 2348.45,852.844 2355.92,852.841 2363.38,852.837 2370.84,852.829 2378.31,852.815 2385.77,852.793 2393.23,852.757 2400.7,852.7 2408.16,852.613 
-  2415.62,852.485 2423.09,852.302 2430.55,852.047 2438.02,851.702 2445.48,851.247 2452.94,850.666 2460.41,849.942 2467.87,849.065 2475.33,848.03 2482.8,846.84 
-  2490.26,845.503 2497.72,844.035 2505.19,842.456 2512.65,840.787 2520.11,839.047 2527.58,837.248 2535.04,835.394 2542.5,833.474 2549.97,831.465 2557.43,829.331 
-  2564.9,827.027 2572.36,824.502 2579.82,821.71 2587.29,818.616 2594.75,815.204 2602.21,811.486 2609.68,807.503 2617.14,803.327 2624.6,799.055 2632.07,794.801 
-  2639.53,790.681 2646.99,786.797 2654.46,783.222 2661.92,779.982 2669.39,777.044 2676.85,774.314 2684.31,771.629 2691.78,768.768 2699.24,765.465 2706.7,761.424 
-  2714.17,756.34 2721.63,749.927 2729.09,741.936 2736.56,732.179 2744.02,720.549 2751.48,707.033 2758.95,691.719 2766.41,674.804 2773.88,656.587 2781.34,637.451 
-  2788.8,617.841 2796.27,598.224 2803.73,579.052 2811.19,560.711 2818.66,543.479 2826.12,527.495 2833.58,512.744 2841.05,499.064 2848.51,486.174 2855.97,473.719 
-  2863.44,461.329 2870.9,448.675 2878.37,435.517 2885.83,421.737 2893.29,407.349 2900.76,392.486 2908.22,377.373 2915.68,362.279 2923.15,347.48 2930.61,333.211 
-  2938.07,319.643 2945.54,306.865 2953,294.889 2960.46,283.666 2967.93,273.107 2975.39,263.115 2982.85,253.606 2990.32,244.534 2997.78,235.89 3005.25,227.704 
-  3012.71,220.033 3020.17,212.94 3027.64,206.484 3035.1,200.704 3042.56,195.613 3050.03,191.204 3057.49,187.459 3064.95,184.363 3072.42,181.911 3079.88,180.12 
-  3087.34,179.022 3094.81,178.66 3102.27,179.072 3109.74,180.277 3117.2,182.27 3124.66,185.016 3132.13,188.46 3139.59,192.538 3147.05,197.202 3154.52,202.436 
-  3161.98,208.275 3169.44,214.812 3176.91,222.195 3184.37,230.614 3191.83,240.282 3199.3,251.403 3206.76,264.144 3214.23,278.609 3221.69,294.813 3229.15,312.677 
-  3236.62,332.017 3244.08,352.555 3251.54,373.933 3259.01,395.738 3266.47,417.528 3273.93,438.865 3281.4,459.349 3288.86,478.651 3296.32,496.54 3303.79,512.905 
-  3311.25,527.761 3318.72,541.247 3326.18,553.605 3333.64,565.145 3341.11,576.199 3348.57,587.075 3356.03,598.012 3363.5,609.144 3370.96,620.489 3378.42,631.948 
-  3385.89,643.334 3393.35,654.412 3400.81,664.945 3408.28,674.738 3415.74,683.677 3423.21,691.741 3430.67,699.009 3438.13,705.638 3445.6,711.835 3453.06,717.823 
-  3460.52,723.81 3467.99,729.957 3475.45,736.366 3482.91,743.078 3490.38,750.073 3497.84,757.29 3505.3,764.641 3512.77,772.024 3520.23,779.343 3527.69,786.51 
-  3535.16,793.451 3542.62,800.103 3550.09,806.409 3557.55,812.317 3565.01,817.777 3572.48,822.741 3579.94,827.168 3587.4,831.026 3594.87,834.307 3602.33,837.02 
-  3609.79,839.204 3617.26,840.919 3624.72,842.245 3632.18,843.274 3639.65,844.098 3647.11,844.8 3654.58,845.451 3662.04,846.097 3669.5,846.765 3676.97,847.462 
-  3684.43,848.178 3691.89,848.892 3699.36,849.58 3706.82,850.218 3714.28,850.789 3721.75,851.28 3729.21,851.687 3736.67,852.013 3744.14,852.264 3751.6,852.451 
-  3759.07,852.586 3766.53,852.679 3773.99,852.743 3781.46,852.784 3788.92,852.81 3796.38,852.826 3803.85,852.835 3811.31,852.84 3818.77,852.843 3826.24,852.844 
+<polyline clip-path="url(#clip1404)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2270.33,852.845 2278.06,852.844 2285.8,852.842 2293.53,852.839 2301.26,852.832 2308.99,852.821 2316.72,852.803 2324.45,852.774 2332.19,852.729 2339.92,852.664 
+  2347.65,852.57 2355.38,852.443 2363.11,852.275 2370.84,852.064 2378.57,851.81 2386.31,851.518 2394.04,851.197 2401.77,850.863 2409.5,850.537 2417.23,850.239 
+  2424.96,849.991 2432.69,849.807 2440.43,849.695 2448.16,849.65 2455.89,849.657 2463.62,849.692 2471.35,849.719 2479.08,849.706 2486.81,849.618 2494.55,849.434 
+  2502.28,849.143 2510.01,848.751 2517.74,848.279 2525.47,847.76 2533.2,847.232 2540.94,846.732 2548.67,846.286 2556.4,845.901 2564.13,845.559 2571.86,845.218 
+  2579.59,844.813 2587.32,844.263 2595.06,843.483 2602.79,842.393 2610.52,840.933 2618.25,839.067 2625.98,836.792 2633.71,834.133 2641.44,831.144 2649.18,827.893 
+  2656.91,824.455 2664.64,820.895 2672.37,817.262 2680.1,813.579 2687.83,809.838 2695.56,806.002 2703.3,802.004 2711.03,797.753 2718.76,793.14 2726.49,788.047 
+  2734.22,782.359 2741.95,775.971 2749.68,768.812 2757.42,760.848 2765.15,752.102 2772.88,742.655 2780.61,732.642 2788.34,722.243 2796.07,711.655 2803.81,701.074 
+  2811.54,690.658 2819.27,680.504 2827,670.632 2834.73,660.978 2842.46,651.394 2850.19,641.669 2857.93,631.554 2865.66,620.798 2873.39,609.191 2881.12,596.595 
+  2888.85,582.98 2896.58,568.44 2904.31,553.189 2912.05,537.536 2919.78,521.848 2927.51,506.494 2935.24,491.788 2942.97,477.944 2950.7,465.042 2958.43,453.022 
+  2966.17,441.702 2973.9,430.806 2981.63,420.02 2989.36,409.03 2997.09,397.569 3004.82,385.44 3012.55,372.529 3020.29,358.796 3028.02,344.261 3035.75,328.985 
+  3043.48,313.05 3051.21,296.555 3058.94,279.615 3066.68,262.376 3074.41,245.033 3082.14,227.852 3089.87,211.176 3097.6,195.431 3105.33,181.107 3113.06,168.722 
+  3120.8,158.776 3128.53,151.697 3136.26,147.782 3143.99,147.155 3151.72,149.743 3159.45,155.276 3167.18,163.314 3174.92,173.304 3182.65,184.648 3190.38,196.772 
+  3198.11,209.194 3205.84,221.566 3213.57,233.694 3221.3,245.533 3229.04,257.161 3236.77,268.737 3244.5,280.46 3252.23,292.527 3259.96,305.101 3267.69,318.289 
+  3275.43,332.128 3283.16,346.587 3290.89,361.573 3298.62,376.94 3306.35,392.509 3314.08,408.088 3321.81,423.492 3329.55,438.562 3337.28,453.179 3345.01,467.277 
+  3352.74,480.838 3360.47,493.897 3368.2,506.523 3375.93,518.811 3383.67,530.866 3391.4,542.79 3399.13,554.674 3406.86,566.591 3414.59,578.587 3422.32,590.682 
+  3430.05,602.868 3437.79,615.11 3445.52,627.345 3453.25,639.497 3460.98,651.482 3468.71,663.224 3476.44,674.669 3484.17,685.793 3491.91,696.604 3499.64,707.138 
+  3507.37,717.448 3515.1,727.581 3522.83,737.568 3530.56,747.406 3538.3,757.051 3546.03,766.428 3553.76,775.434 3561.49,783.96 3569.22,791.907 3576.95,799.201 
+  3584.68,805.801 3592.42,811.707 3600.15,816.952 3607.88,821.595 3615.61,825.71 3623.34,829.373 3631.07,832.656 3638.8,835.616 3646.54,838.292 3654.27,840.71 
+  3662,842.88 3669.73,844.804 3677.46,846.484 3685.19,847.921 3692.92,849.12 3700.66,850.096 3708.39,850.868 3716.12,851.461 3723.85,851.903 3731.58,852.222 
+  3739.31,852.445 3747.04,852.596 3754.78,852.694 3762.51,852.757 3770.24,852.796 3777.97,852.818 3785.7,852.831 3793.43,852.839 3801.17,852.842 3808.9,852.844 
   
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#e26f46; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2385.06,852.845 2392.06,852.844 2399.07,852.842 2406.07,852.839 2413.08,852.833 2420.08,852.823 2427.08,852.806 2434.09,852.779 2441.09,852.737 2448.1,852.674 
-  2455.1,852.58 2462.11,852.445 2469.11,852.254 2476.12,851.99 2483.12,851.634 2490.13,851.164 2497.13,850.556 2504.13,849.783 2511.14,848.821 2518.14,847.645 
-  2525.15,846.232 2532.15,844.564 2539.16,842.629 2546.16,840.422 2553.17,837.948 2560.17,835.219 2567.18,832.258 2574.18,829.091 2581.18,825.751 2588.19,822.266 
-  2595.19,818.657 2602.2,814.933 2609.2,811.087 2616.21,807.092 2623.21,802.904 2630.22,798.465 2637.22,793.711 2644.23,788.578 2651.23,783.015 2658.23,776.987 
-  2665.24,770.483 2672.24,763.52 2679.25,756.137 2686.25,748.395 2693.26,740.366 2700.26,732.122 2707.27,723.729 2714.27,715.235 2721.28,706.66 2728.28,697.998 
-  2735.29,689.215 2742.29,680.256 2749.29,671.052 2756.3,661.536 2763.3,651.657 2770.31,641.391 2777.31,630.744 2784.32,619.763 2791.32,608.52 2798.33,597.109 
-  2805.33,585.625 2812.34,574.15 2819.34,562.74 2826.34,551.414 2833.35,540.155 2840.35,528.913 2847.36,517.616 2854.36,506.182 2861.37,494.53 2868.37,482.593 
-  2875.38,470.316 2882.38,457.663 2889.39,444.613 2896.39,431.155 2903.39,417.283 2910.4,403.005 2917.4,388.338 2924.41,373.322 2931.41,358.027 2938.42,342.565 
-  2945.42,327.093 2952.43,311.813 2959.43,296.961 2966.44,282.79 2973.44,269.543 2980.44,257.421 2987.45,246.56 2994.45,237.006 3001.46,228.707 3008.46,221.521 
-  3015.47,215.231 3022.47,209.581 3029.48,204.318 3036.48,199.228 3043.49,194.173 3050.49,189.114 3057.49,184.117 3064.5,179.347 3071.5,175.04 3078.51,171.476 
-  3085.51,168.935 3092.52,167.66 3099.52,167.823 3106.53,169.498 3113.53,172.653 3120.54,177.144 3127.54,182.734 3134.54,189.118 3141.55,195.956 3148.55,202.915 
-  3155.56,209.706 3162.56,216.124 3169.57,222.072 3176.57,227.58 3183.58,232.799 3190.58,237.991 3197.59,243.493 3204.59,249.682 3211.59,256.92 3218.6,265.512 
-  3225.6,275.664 3232.61,287.453 3239.61,300.828 3246.62,315.614 3253.62,331.55 3260.63,348.324 3267.63,365.621 3274.64,383.166 3281.64,400.75 3288.64,418.244 
-  3295.65,435.595 3302.65,452.807 3309.66,469.916 3316.66,486.964 3323.67,503.975 3330.67,520.944 3337.68,537.834 3344.68,554.587 3351.69,571.134 3358.69,587.414 
-  3365.7,603.379 3372.7,619.002 3379.7,634.273 3386.71,649.19 3393.71,663.749 3400.72,677.924 3407.72,691.666 3414.73,704.893 3421.73,717.498 3428.74,729.356 
-  3435.74,740.338 3442.75,750.329 3449.75,759.244 3456.75,767.041 3463.76,773.729 3470.76,779.372 3477.77,784.087 3484.77,788.029 3491.78,791.384 3498.78,794.347 
-  3505.79,797.108 3512.79,799.836 3519.8,802.663 3526.8,805.676 3533.8,808.916 3540.81,812.375 3547.81,816.009 3554.82,819.741 3561.82,823.479 3568.83,827.127 
-  3575.83,830.596 3582.84,833.815 3589.84,836.733 3596.85,839.324 3603.85,841.583 3610.85,843.525 3617.86,845.176 3624.86,846.57 3631.87,847.741 3638.87,848.723 
-  3645.88,849.545 3652.88,850.231 3659.89,850.801 3666.89,851.271 3673.9,851.653 3680.9,851.96 3687.9,852.201 3694.91,852.387 3701.91,852.526 3708.92,852.629 
-  3715.92,852.702 3722.93,852.753 3729.93,852.788 3736.94,852.811 3743.94,852.825 3750.95,852.834 3757.95,852.84 3764.95,852.843 3771.96,852.844 3778.96,852.845 
+<polyline clip-path="url(#clip1404)" style="stroke:#e26f46; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2345.68,852.845 2353.18,852.844 2360.68,852.842 2368.18,852.839 2375.68,852.833 2383.18,852.823 2390.68,852.807 2398.18,852.781 2405.68,852.741 2413.17,852.683 
+  2420.67,852.599 2428.17,852.483 2435.67,852.327 2443.17,852.124 2450.67,851.867 2458.17,851.554 2465.67,851.18 2473.16,850.747 2480.66,850.253 2488.16,849.701 
+  2495.66,849.092 2503.16,848.423 2510.66,847.691 2518.16,846.892 2525.66,846.021 2533.16,845.076 2540.65,844.06 2548.15,842.985 2555.65,841.872 2563.15,840.75 
+  2570.65,839.651 2578.15,838.611 2585.65,837.658 2593.15,836.81 2600.64,836.069 2608.14,835.419 2615.64,834.825 2623.14,834.235 2630.64,833.581 2638.14,832.788 
+  2645.64,831.771 2653.14,830.444 2660.64,828.724 2668.13,826.535 2675.63,823.815 2683.13,820.519 2690.63,816.627 2698.13,812.145 2705.63,807.103 2713.13,801.557 
+  2720.63,795.579 2728.12,789.252 2735.62,782.658 2743.12,775.874 2750.62,768.962 2758.12,761.969 2765.62,754.918 2773.12,747.814 2780.62,740.638 2788.12,733.348 
+  2795.61,725.879 2803.11,718.148 2810.61,710.055 2818.11,701.492 2825.61,692.359 2833.11,682.572 2840.61,672.08 2848.11,660.867 2855.6,648.958 2863.1,636.405 
+  2870.6,623.276 2878.1,609.637 2885.6,595.53 2893.1,580.965 2900.6,565.919 2908.1,550.339 2915.6,534.167 2923.09,517.361 2930.59,499.931 2938.09,481.962 
+  2945.59,463.636 2953.09,445.242 2960.59,427.172 2968.09,409.9 2975.59,393.945 2983.09,379.819 2990.58,367.97 2998.08,358.715 3005.58,352.188 3013.08,348.29 
+  3020.58,346.681 3028.08,346.79 3035.58,347.866 3043.08,349.051 3050.57,349.474 3058.07,348.358 3065.57,345.105 3073.07,339.358 3080.57,331.04 3088.07,320.339 
+  3095.57,307.667 3103.07,293.596 3110.57,278.773 3118.06,263.85 3125.56,249.417 3133.06,235.962 3140.56,223.851 3148.06,213.33 3155.56,204.537 3163.06,197.525 
+  3170.56,192.28 3178.05,188.743 3185.55,186.822 3193.05,186.403 3200.55,187.368 3208.05,189.597 3215.55,192.985 3223.05,197.445 3230.55,202.919 3238.05,209.373 
+  3245.54,216.798 3253.04,225.205 3260.54,234.612 3268.04,245.045 3275.54,256.523 3283.04,269.061 3290.54,282.658 3298.04,297.297 3305.53,312.936 3313.03,329.507 
+  3320.53,346.911 3328.03,365.021 3335.53,383.687 3343.03,402.749 3350.53,422.045 3358.03,441.428 3365.53,460.768 3373.02,479.964 3380.52,498.938 3388.02,517.629 
+  3395.52,535.985 3403.02,553.956 3410.52,571.486 3418.02,588.509 3425.52,604.954 3433.01,620.752 3440.51,635.838 3448.01,650.168 3455.51,663.716 3463.01,676.486 
+  3470.51,688.502 3478.01,699.81 3485.51,710.465 3493.01,720.525 3500.5,730.041 3508,739.049 3515.5,747.568 3523,755.597 3530.5,763.122 3538,770.118 
+  3545.5,776.564 3553,782.444 3560.49,787.76 3567.99,792.537 3575.49,796.818 3582.99,800.667 3590.49,804.158 3597.99,807.373 3605.49,810.391 3612.99,813.283 
+  3620.49,816.105 3627.98,818.9 3635.48,821.694 3642.98,824.497 3650.48,827.305 3657.98,830.101 3665.48,832.856 3672.98,835.534 3680.48,838.096 3687.97,840.498 
+  3695.47,842.704 3702.97,844.684 3710.47,846.417 3717.97,847.894 3725.47,849.121 3732.97,850.111 3740.47,850.888 3747.97,851.48 3755.46,851.917 3762.96,852.232 
+  3770.46,852.45 3777.96,852.598 3785.46,852.695 3792.96,852.757 3800.46,852.795 3807.96,852.818 3815.46,852.831 3822.95,852.838 3830.45,852.842 3837.95,852.844 
   
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#3da44d; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2306.41,852.845 2314.27,852.843 2322.14,852.84 2330,852.833 2337.87,852.821 2345.73,852.8 2353.59,852.763 2361.46,852.703 2369.32,852.608 2377.18,852.463 
-  2385.05,852.25 2392.91,851.948 2400.78,851.539 2408.64,851.003 2416.5,850.33 2424.37,849.519 2432.23,848.581 2440.1,847.542 2447.96,846.442 2455.82,845.33 
-  2463.69,844.257 2471.55,843.269 2479.42,842.399 2487.28,841.657 2495.14,841.025 2503.01,840.459 2510.87,839.889 2518.74,839.226 2526.6,838.368 2534.46,837.214 
-  2542.33,835.671 2550.19,833.664 2558.06,831.141 2565.92,828.084 2573.78,824.507 2581.65,820.459 2589.51,816.022 2597.38,811.304 2605.24,806.429 2613.1,801.527 
-  2620.97,796.72 2628.83,792.11 2636.7,787.767 2644.56,783.718 2652.42,779.936 2660.29,776.335 2668.15,772.768 2676.02,769.026 2683.88,764.853 2691.74,759.962 
-  2699.61,754.063 2707.47,746.899 2715.34,738.283 2723.2,728.129 2731.06,716.478 2738.93,703.498 2746.79,689.48 2754.66,674.794 2762.52,659.845 2770.38,645.013 
-  2778.25,630.597 2786.11,616.776 2793.98,603.592 2801.84,590.964 2809.7,578.727 2817.57,566.689 2825.43,554.69 2833.3,542.652 2841.16,530.592 2849.02,518.613 
-  2856.89,506.851 2864.75,495.415 2872.62,484.311 2880.48,473.394 2888.34,462.352 2896.21,450.722 2904.07,437.963 2911.94,423.545 2919.8,407.058 2927.66,388.315 
-  2935.53,367.418 2943.39,344.797 2951.26,321.188 2959.12,297.575 2966.98,275.082 2974.85,254.842 2982.71,237.86 2990.58,224.874 2998.44,216.246 3006.3,211.901 
-  3014.17,211.31 3022.03,213.55 3029.9,217.41 3037.76,221.555 3045.62,224.705 3053.49,225.812 3061.35,224.202 3069.22,219.651 3077.08,212.386 3084.94,203.02 
-  3092.81,192.424 3100.67,181.578 3108.54,171.427 3116.4,162.773 3124.26,156.215 3132.13,152.152 3139.99,150.809 3147.86,152.298 3155.72,156.668 3163.58,163.929 
-  3171.45,174.054 3179.31,186.957 3187.18,202.465 3195.04,220.297 3202.9,240.065 3210.77,261.305 3218.63,283.526 3226.5,306.27 3234.36,329.159 3242.22,351.922 
-  3250.09,374.393 3257.95,396.48 3265.81,418.123 3273.68,439.247 3281.54,459.734 3289.41,479.422 3297.27,498.121 3305.13,515.659 3313,531.927 3320.86,546.92 
-  3328.73,560.753 3336.59,573.649 3344.45,585.904 3352.32,597.829 3360.18,609.691 3368.05,621.66 3375.91,633.784 3383.77,645.986 3391.64,658.097 3399.5,669.896 
-  3407.37,681.164 3415.23,691.73 3423.09,701.494 3430.96,710.438 3438.82,718.613 3446.69,726.116 3454.55,733.062 3462.41,739.556 3470.28,745.682 3478.14,751.496 
-  3486.01,757.029 3493.87,762.299 3501.73,767.323 3509.6,772.127 3517.46,776.743 3525.33,781.213 3533.19,785.579 3541.05,789.873 3548.92,794.107 3556.78,798.271 
-  3564.65,802.329 3572.51,806.227 3580.37,809.905 3588.24,813.307 3596.1,816.392 3603.97,819.151 3611.83,821.599 3619.69,823.784 3627.56,825.769 3635.42,827.626 
-  3643.29,829.421 3651.15,831.204 3659.01,833.005 3666.88,834.834 3674.74,836.677 3682.61,838.512 3690.47,840.307 3698.33,842.032 3706.2,843.657 3714.06,845.159 
-  3721.93,846.523 3729.79,847.738 3737.65,848.798 3745.52,849.705 3753.38,850.463 3761.25,851.08 3769.11,851.571 3776.97,851.95 3784.84,852.233 3792.7,852.439 
-  3800.57,852.584 3808.43,852.683 3816.29,852.747 3824.16,852.788 3832.02,852.814 3839.89,852.829 3847.75,852.837 3855.61,852.842 3863.48,852.844 3871.34,852.845 
+<polyline clip-path="url(#clip1404)" style="stroke:#3da44d; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2207.4,852.845 2215.71,852.844 2224.02,852.842 2232.32,852.837 2240.63,852.828 2248.94,852.813 2257.25,852.787 2265.56,852.745 2273.87,852.679 2282.17,852.583 
+  2290.48,852.447 2298.79,852.263 2307.1,852.027 2315.41,851.74 2323.71,851.41 2332.02,851.052 2340.33,850.69 2348.64,850.354 2356.95,850.076 2365.26,849.883 
+  2373.56,849.798 2381.87,849.828 2390.18,849.97 2398.49,850.207 2406.8,850.509 2415.11,850.841 2423.41,851.167 2431.72,851.451 2440.03,851.662 2448.34,851.772 
+  2456.65,851.759 2464.96,851.608 2473.26,851.305 2481.57,850.846 2489.88,850.232 2498.19,849.477 2506.5,848.6 2514.81,847.635 2523.11,846.618 2531.42,845.583 
+  2539.73,844.559 2548.04,843.558 2556.35,842.574 2564.66,841.58 2572.96,840.53 2581.27,839.365 2589.58,838.019 2597.89,836.429 2606.2,834.539 2614.51,832.302 
+  2622.81,829.686 2631.12,826.672 2639.43,823.255 2647.74,819.44 2656.05,815.245 2664.36,810.695 2672.66,805.822 2680.97,800.663 2689.28,795.258 2697.59,789.65 
+  2705.9,783.888 2714.2,778.02 2722.51,772.097 2730.82,766.162 2739.13,760.244 2747.44,754.347 2755.75,748.448 2764.05,742.495 2772.36,736.417 2780.67,730.144 
+  2788.98,723.624 2797.29,716.838 2805.6,709.8 2813.9,702.546 2822.21,695.1 2830.52,687.445 2838.83,679.49 2847.14,671.055 2855.45,661.885 2863.75,651.68 
+  2872.06,640.151 2880.37,627.074 2888.68,612.337 2896.99,595.967 2905.3,578.128 2913.6,559.099 2921.91,539.233 2930.22,518.905 2938.53,498.479 2946.84,478.27 
+  2955.15,458.544 2963.45,439.513 2971.76,421.352 2980.07,404.208 2988.38,388.204 2996.69,373.425 3005,359.902 3013.3,347.582 3021.61,336.315 3029.92,325.845 
+  3038.23,315.837 3046.54,305.91 3054.85,295.703 3063.15,284.936 3071.46,273.46 3079.77,261.298 3088.08,248.643 3096.39,235.836 3104.7,223.311 3113,211.531 
+  3121.31,200.919 3129.62,191.802 3137.93,184.375 3146.24,178.69 3154.54,174.677 3162.85,172.18 3171.16,171.007 3179.47,170.975 3187.78,171.957 3196.09,173.905 
+  3204.39,176.861 3212.7,180.952 3221.01,186.372 3229.32,193.351 3237.63,202.123 3245.94,212.88 3254.24,225.735 3262.55,240.687 3270.86,257.598 3279.17,276.187 
+  3287.48,296.06 3295.79,316.743 3304.09,337.753 3312.4,358.661 3320.71,379.153 3329.02,399.07 3337.33,418.414 3345.64,437.323 3353.94,456.018 3362.25,474.731 
+  3370.56,493.635 3378.87,512.795 3387.18,532.149 3395.49,551.522 3403.79,570.674 3412.1,589.355 3420.41,607.362 3428.72,624.579 3437.03,640.983 3445.34,656.633 
+  3453.64,671.632 3461.95,686.091 3470.26,700.095 3478.57,713.683 3486.88,726.848 3495.19,739.54 3503.49,751.688 3511.8,763.205 3520.11,774.006 3528.42,784.005 
+  3536.73,793.127 3545.04,801.309 3553.34,808.513 3561.65,814.738 3569.96,820.024 3578.27,824.453 3586.58,828.148 3594.88,831.25 3603.19,833.9 3611.5,836.22 
+  3619.81,838.296 3628.12,840.178 3636.43,841.879 3644.73,843.393 3653.04,844.708 3661.35,845.821 3669.66,846.74 3677.97,847.494 3686.28,848.121 3694.58,848.662 
+  3702.89,849.155 3711.2,849.626 3719.51,850.087 3727.82,850.537 3736.13,850.967 3744.43,851.365 3752.74,851.717 3761.05,852.016 3769.36,852.257 3777.67,852.444 
+  3785.98,852.582 3794.28,852.679 3802.59,852.744 3810.9,852.787 3819.21,852.813 3827.52,852.828 3835.83,852.837 3844.13,852.842 3852.44,852.844 3860.75,852.845 
   
   "/>
-<polyline clip-path="url(#clip5204)" style="stroke:#c271d2; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2207.4,852.845 2215.37,852.844 2223.34,852.842 2231.3,852.839 2239.27,852.832 2247.24,852.821 2255.21,852.802 2263.18,852.773 2271.15,852.728 2279.11,852.662 
-  2287.08,852.569 2295.05,852.441 2303.02,852.273 2310.99,852.062 2318.96,851.807 2326.92,851.513 2334.89,851.191 2342.86,850.857 2350.83,850.532 2358.8,850.239 
-  2366.77,850.002 2374.73,849.841 2382.7,849.77 2390.67,849.795 2398.64,849.909 2406.61,850.097 2414.58,850.335 2422.54,850.59 2430.51,850.827 2438.48,851.01 
-  2446.45,851.1 2454.42,851.062 2462.39,850.863 2470.35,850.471 2478.32,849.858 2486.29,848.999 2494.26,847.87 2502.23,846.453 2510.2,844.733 2518.17,842.699 
-  2526.13,840.347 2534.1,837.677 2542.07,834.696 2550.04,831.422 2558.01,827.878 2565.98,824.097 2573.94,820.112 2581.91,815.96 2589.88,811.664 2597.85,807.234 
-  2605.82,802.651 2613.79,797.871 2621.75,792.82 2629.72,787.404 2637.69,781.522 2645.66,775.084 2653.63,768.022 2661.6,760.311 2669.56,751.969 2677.53,743.056 
-  2685.5,733.666 2693.47,723.909 2701.44,713.889 2709.41,703.694 2717.37,693.38 2725.34,682.969 2733.31,672.454 2741.28,661.812 2749.25,651.012 2757.22,640.025 
-  2765.18,628.826 2773.15,617.394 2781.12,605.701 2789.09,593.704 2797.06,581.342 2805.03,568.54 2813,555.22 2820.96,541.323 2828.93,526.828 2836.9,511.772 
-  2844.87,496.259 2852.84,480.448 2860.81,464.542 2868.77,448.756 2876.74,433.287 2884.71,418.294 2892.68,403.884 2900.65,390.112 2908.62,377.004 2916.58,364.57 
-  2924.55,352.83 2932.52,341.823 2940.49,331.597 2948.46,322.192 2956.43,313.605 2964.39,305.758 2972.36,298.476 2980.33,291.486 2988.3,284.436 2996.27,276.945 
-  3004.24,268.658 3012.2,259.31 3020.17,248.777 3028.14,237.107 3036.11,224.526 3044.08,211.415 3052.05,198.27 3060.01,185.648 3067.98,174.108 3075.95,164.161 
-  3083.92,156.233 3091.89,150.641 3099.86,147.585 3107.82,147.155 3115.79,149.346 3123.76,154.072 3131.73,161.186 3139.7,170.488 3147.67,181.74 3155.64,194.673 
-  3163.6,208.996 3171.57,224.415 3179.54,240.645 3187.51,257.432 3195.48,274.569 3203.45,291.902 3211.41,309.331 3219.38,326.795 3227.35,344.26 3235.32,361.699 
-  3243.29,379.082 3251.26,396.375 3259.22,413.54 3267.19,430.549 3275.16,447.39 3283.13,464.07 3291.1,480.609 3299.07,497.023 3307.03,513.311 3315,529.435 
-  3322.97,545.321 3330.94,560.858 3338.91,575.923 3346.88,590.405 3354.84,604.232 3362.81,617.389 3370.78,629.93 3378.75,641.966 3386.72,653.644 3394.69,665.117 
-  3402.65,676.513 3410.62,687.906 3418.59,699.3 3426.56,710.625 3434.53,721.748 3442.5,732.493 3450.47,742.672 3458.43,752.109 3466.4,760.673 3474.37,768.291 
-  3482.34,774.961 3490.31,780.749 3498.28,785.776 3506.24,790.197 3514.21,794.18 3522.18,797.877 3530.15,801.414 3538.12,804.873 3546.09,808.296 3554.05,811.687 
-  3562.02,815.028 3569.99,818.292 3577.96,821.452 3585.93,824.49 3593.9,827.4 3601.86,830.185 3609.83,832.85 3617.8,835.399 3625.77,837.827 3633.74,840.119 
-  3641.71,842.255 3649.67,844.208 3657.64,845.955 3665.61,847.478 3673.58,848.768 3681.55,849.828 3689.52,850.673 3697.48,851.325 3705.45,851.811 3713.42,852.162 
-  3721.39,852.408 3729.36,852.574 3737.33,852.682 3745.29,852.75 3753.26,852.792 3761.23,852.817 3769.2,852.831 3777.17,852.838 3785.14,852.842 3793.11,852.844 
+<polyline clip-path="url(#clip1404)" style="stroke:#c271d2; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2415.08,852.845 2422.4,852.844 2429.72,852.842 2437.03,852.838 2444.35,852.83 2451.67,852.817 2458.99,852.796 2466.3,852.76 2473.62,852.704 2480.94,852.619 
+  2488.26,852.491 2495.58,852.306 2502.89,852.045 2510.21,851.688 2517.53,851.211 2524.85,850.589 2532.17,849.797 2539.48,848.814 2546.8,847.618 2554.12,846.194 
+  2561.44,844.533 2568.76,842.631 2576.07,840.493 2583.39,838.129 2590.71,835.56 2598.03,832.814 2605.34,829.93 2612.66,826.955 2619.98,823.949 2627.3,820.983 
+  2634.62,818.139 2641.93,815.505 2649.25,813.169 2656.57,811.207 2663.89,809.674 2671.21,808.587 2678.52,807.914 2685.84,807.572 2693.16,807.419 2700.48,807.267 
+  2707.8,806.898 2715.11,806.082 2722.43,804.601 2729.75,802.278 2737.07,798.987 2744.38,794.674 2751.7,789.353 2759.02,783.103 2766.34,776.053 2773.66,768.36 
+  2780.97,760.189 2788.29,751.684 2795.61,742.953 2802.93,734.047 2810.25,724.959 2817.56,715.615 2824.88,705.887 2832.2,695.605 2839.52,684.573 2846.84,672.593 
+  2854.15,659.487 2861.47,645.12 2868.79,629.419 2876.11,612.391 2883.42,594.128 2890.74,574.81 2898.06,554.694 2905.38,534.095 2912.7,513.356 2920.01,492.814 
+  2927.33,472.768 2934.65,453.453 2941.97,435.022 2949.29,417.541 2956.6,401.006 2963.92,385.365 2971.24,370.544 2978.56,356.477 2985.88,343.131 2993.19,330.512 
+  3000.51,318.664 3007.83,307.655 3015.15,297.552 3022.47,288.395 3029.78,280.173 3037.1,272.805 3044.42,266.144 3051.74,259.978 3059.05,254.062 3066.37,248.146 
+  3073.69,242.012 3081.01,235.512 3088.33,228.583 3095.64,221.261 3102.96,213.665 3110.28,205.974 3117.6,198.393 3124.92,191.113 3132.23,184.285 3139.55,178.015 
+  3146.87,172.369 3154.19,167.397 3161.51,163.173 3168.82,159.824 3176.14,157.553 3183.46,156.635 3190.78,157.402 3198.09,160.202 3205.41,165.349 3212.73,173.078 
+  3220.05,183.506 3227.37,196.609 3234.68,212.209 3242,229.994 3249.32,249.532 3256.64,270.309 3263.96,291.763 3271.27,313.33 3278.59,334.478 3285.91,354.748 
+  3293.23,373.784 3300.55,391.354 3307.86,407.368 3315.18,421.876 3322.5,435.068 3329.82,447.245 3337.13,458.796 3344.45,470.149 3351.77,481.73 3359.09,493.913 
+  3366.41,506.977 3373.72,521.079 3381.04,536.24 3388.36,552.357 3395.68,569.225 3403,586.57 3410.31,604.089 3417.63,621.485 3424.95,638.489 3432.27,654.877 
+  3439.59,670.473 3446.9,685.145 3454.22,698.802 3461.54,711.382 3468.86,722.851 3476.17,733.205 3483.49,742.462 3490.81,750.672 3498.13,757.914 3505.45,764.294 
+  3512.76,769.941 3520.08,775 3527.4,779.62 3534.72,783.943 3542.04,788.095 3549.35,792.171 3556.67,796.234 3563.99,800.312 3571.31,804.393 3578.63,808.439 
+  3585.94,812.388 3593.26,816.164 3600.58,819.691 3607.9,822.901 3615.22,825.741 3622.53,828.182 3629.85,830.222 3637.17,831.884 3644.49,833.217 3651.8,834.289 
+  3659.12,835.177 3666.44,835.964 3673.76,836.729 3681.08,837.535 3688.39,838.431 3695.71,839.443 3703.03,840.575 3710.35,841.81 3717.67,843.117 3724.98,844.452 
+  3732.3,845.768 3739.62,847.02 3746.94,848.169 3754.26,849.188 3761.57,850.06 3768.89,850.78 3776.21,851.357 3783.53,851.802 3790.84,852.135 3798.16,852.375 
+  3805.48,852.544 3812.8,852.657 3820.12,852.732 3827.43,852.779 3834.75,852.808 3842.07,852.825 3849.39,852.835 3856.71,852.84 3864.02,852.843 3871.34,852.845 
   
   "/>
 </svg>

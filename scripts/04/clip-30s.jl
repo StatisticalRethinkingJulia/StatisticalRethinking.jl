@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, CmdStan, StanMCMCChain
+using StatisticalRethinking, CmdStan, StanMCMCChain, LinearAlgebra
 gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
@@ -17,19 +17,7 @@ df = convert(DataFrame, howell1);
 
 df2 = filter(row -> row[:age] >= 18, df);
 
-# Standardize age, store as age_s
-
-mean_age = mean(df2[:age])
-df2[:age_s] = convert(Vector{Float64},
-  (df2[:age]) .- mean_age)/std(df2[:age]);
-  
-  # Standardize height, store as height_s
-
-mean_height = mean(df2[:height])
-df2[:height_s] = convert(Vector{Float64},
-  (df2[:height]) .- mean_height)/std(df2[:height]);
-first(df2, 5)
-
+# Separate male and fermale observations
 
 female_df = filter(row -> row[:male] == 0, df2);
 male_df = filter(row -> row[:male] == 1, df2);
@@ -87,5 +75,14 @@ describe(chn)
 # Plot the density of posterior draws
 
 density(chn, lab="All heights", xlab="height [cm]", ylab="density")
+
+# Compute cor
+
+mu_sigma = hcat(chn.value[:, 2, 1], chn.value[:,1, 1])
+LinearAlgebra.diag(cov(mu_sigma)) |> display
+ 
+# Compute cov
+
+cov(mu_sigma)
 
 # End of `clip_07.0s.jl`

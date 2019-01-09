@@ -48,7 +48,7 @@ A single snippet clip will be referred to as `03/clip-02.jl`.
 
 Clips with names such as `02/clip-08t.jl`, `clip_08s.jl` and `clip_08m.jl` contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
 
-The **Turing** versions of the mcmc models are available as e.g. `chapters/08/m8.1t.jl`. Equivalent **CmdStan** versions and, in a few cases **Mamba** models, are provided as well.
+The **Turing** versions of the mcmc models are available as e.g. `chapters/08/m8.1s.jl`. Equivalent **CmdStan** versions and, in a few cases **Mamba** models, are provided as well.
 
 Almost identical clips are named e.g. `04/clip-07.0s.jl` and `04/clip-07.1s.jl`. In that specific example just the priors differ.
 

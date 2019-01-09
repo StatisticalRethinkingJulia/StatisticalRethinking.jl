@@ -85,7 +85,8 @@ plot!(xi, yi, lab="Regression line")
 mu = link(xi, chn, [1, 2], mean(xi));
 yl = [minimum(mu[i]) for i in 1:length(xi)];
 yh =  [maximum(mu[i]) for i in 1:length(xi)];
-pi = hcat(xi, yl, yh);
+ym =  [mean(mu[i]) for i in 1:length(xi)];
+pi = hcat(xi, yl, ym, yh);
 pi[1:5,:]
 
 plot!((xi, yl), color=:lightgrey, leg=false)
@@ -93,8 +94,6 @@ plot!((xi, yh), color=:lightgrey, leg=false)
 for i in 1:length(xi)
   plot!([xi[i], xi[i]], [yl[i], yh[i]], color=:lightgrey, leg=false)
 end
-#i=1
-#plot!([xi[i], xi[i]], [yl[i], yh[i]], color=:lightgrey, leg=false)
 scatter!(df[:MedianAgeMarriage_s], df[:Divorce], color=:darkblue)
 plot!(xi, yi, lab="Regression line")
 

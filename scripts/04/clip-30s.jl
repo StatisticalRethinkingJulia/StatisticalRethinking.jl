@@ -79,10 +79,10 @@ density(chn, lab="All heights", xlab="height [cm]", ylab="density")
 # Compute cor
 
 mu_sigma = hcat(chn.value[:, 2, 1], chn.value[:,1, 1])
-LinearAlgebra.diag(cov(mu_sigma)) |> display
- 
+LinearAlgebra.diag(cov(mu_sigma))
+
 # Compute cov
 
-cov(mu_sigma)
+cor(mu_sigma)
 
 # End of `clip_07.0s.jl`

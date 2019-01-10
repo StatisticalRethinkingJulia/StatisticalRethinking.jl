@@ -32,12 +32,17 @@ x = convert(Vector{Float64}, df2[:weight_c]);
     end
 end;
 
-chn = sample(line(y, x), Turing.NUTS(2000, 200, 0.65));
+samples = 5000
+adapt_cycles = 1000
+
+@time chn = sample(line(y, x), Turing.NUTS(samples, adapt_cycles, 0.65));
+draws = adapt_cycles:samples
 
 describe(chn)
 
 for var in [:alpha, :beta, :s]
-  println("$var = ",  mean_and_std(chn[Symbol(var)][1001:2000]))
+  describe(chn[Symbol(var)][draws])
+  println("$var = ",  mean_and_std(chn[Symbol(var)][draws]))
 end
 
 clip_43s_example_output = "

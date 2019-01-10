@@ -49,6 +49,7 @@ p2 = plot(Normal(fits.μ , fits.σ ), lab="Small normal distribution", fill=(0, 
 density!(p1, big, lab="'big' distribution")
 density!(p2, small, lab="'small' distribution")
 plot(p1, p2, layout=(1, 2))
+savefig("s4_4.pdf")
 
 log_big = [log(prod(1 .+ rand(Uniform(0, 0.5), 12))) for i in 1:10000];
 fit = fit_mle(Normal, log_big)

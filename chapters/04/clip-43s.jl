@@ -39,7 +39,7 @@ stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],mode
 heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight]);
 
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
+  summary=false, CmdStanDir=CMDSTAN_HOME);
 
 describe(chn)
 

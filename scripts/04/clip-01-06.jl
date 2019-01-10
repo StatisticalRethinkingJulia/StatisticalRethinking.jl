@@ -69,7 +69,7 @@ p2 = plot(Normal(fits.μ , fits.σ ), lab="Small normal distribution", fill=(0, 
 density!(p1, big, lab="'big' distribution")
 density!(p2, small, lab="'small' distribution")
 plot(p1, p2, layout=(1, 2))
-savefig("s4_4.pdf") #src
+#jl savefig("s4_4.pdf")
 
 
 # ### snippet 4.5

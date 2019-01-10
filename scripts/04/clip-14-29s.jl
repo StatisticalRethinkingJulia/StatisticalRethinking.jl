@@ -8,13 +8,13 @@ gr(size=(500,500));
 ProjDir = rel_path("..", "scripts", "04")
 cd(ProjDir)
 
-# ### snippet 4.14
-
 # Use data from m4.1s
 
-d = JLD.load(joinpath(ProjDir, "m4.1s.jld"))
+# Check if the m4.1s.jls file is present. If not, run the model.
 
-chn = MCMCChain.Chains(d["a3d"], names=d["names"])
+!isfile("m4.1s.jls") && include("m4.1s.jl")
+
+chn = deserialize("m4.1s.jls")
 
 # Describe the draws
 

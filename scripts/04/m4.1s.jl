@@ -1,4 +1,4 @@
-using StatisticalRethinking, CmdStan, StanMCMCChain, JLD
+using StatisticalRethinking, CmdStan, StanMCMCChain
 gr(size=(500,500));
 
 ProjDir = rel_path("..", "scripts", "04")
@@ -40,15 +40,9 @@ rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
 
 describe(chn)
 
-JLD.save("m4.1s.jld", 
-  "range", chn.range, 
-  "a3d", chn.value,
-  "names", chn.names, 
-  "chains", chn.chains)
-    
-d = JLD.load(joinpath(ProjDir, "m4.1s.jld"))
+serialize("m4.1s.jls", chn)
+chn2 = deserialize("m4.1s.jls")
 
-chn2 = MCMCChain.Chains(d["a3d"], names=d["names"])
 describe(chn2)
 
 # end of m4.1s

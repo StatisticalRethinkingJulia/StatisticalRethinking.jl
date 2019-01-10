@@ -123,4 +123,4 @@ p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation", fill=(0, .5,:orange))
 plot(p..., layout=(1, 2))
 
-# End of `clip_01_06.jl`
+# End of `clip-01-06.jl`

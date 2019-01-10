@@ -40,9 +40,11 @@ density!(male_df[:height], lab="Male heights")
 
 # Use data from m4.1s
 
-d = JLD.load(joinpath(ProjDir, "m4.1s.jld"))
+# Check if the m4.1s.jls file is present. If not, run the model.
 
-chn = MCMCChain.Chains(d["a3d"], names=d["names"])
+!isfile("m4.1s.jls") && include("m4.1s.jl")
+
+chn = deserialize("m4.1s.jls")
 
 # Describe the draws
 
@@ -54,4 +56,4 @@ describe(chn)
 
 density(chn, lab="All heights", xlab="height [cm]", ylab="density")
 
-# End of `clip_07.0s.jl`
+# End of `clip-07-13s.jl`

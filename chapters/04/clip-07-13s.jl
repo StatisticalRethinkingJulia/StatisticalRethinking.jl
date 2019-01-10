@@ -20,9 +20,9 @@ first(male_df, 5)
 density!(female_df[:height], lab="Female heights")
 density!(male_df[:height], lab="Male heights")
 
-d = JLD.load(joinpath(ProjDir, "m4.1s.jld"))
+!isfile("m4.1s.jls") && include("m4.1s.jl")
 
-chn = MCMCChain.Chains(d["a3d"], names=d["names"])
+chn = deserialize("m4.1s.jls")
 
 describe(chn)
 

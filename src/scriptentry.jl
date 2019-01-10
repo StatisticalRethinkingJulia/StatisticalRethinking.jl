@@ -75,7 +75,7 @@ script_dict = DataStructures.OrderedDict{AbstractString, Vector{ScriptEntry}}(
     scriptentry("clip-06-07.jl"),
     scriptentry("clip-08m.jl"), 
     scriptentry("clip-08s.jl"),
-    scriptentry("clip-08t.jl", exe = false, doc = true)
+    scriptentry("clip-08t.jl", exe = false, doc = false)
   ],
   "03" => [
     scriptentry("clip-01.jl"),
@@ -84,6 +84,11 @@ script_dict = DataStructures.OrderedDict{AbstractString, Vector{ScriptEntry}}(
     scriptentry("clip-06-16s.jl")
   ],
   "04" => [
+    scriptentry("m4.1m.jl", exe = false, doc = false), 
+    scriptentry("m4.1s.jl"),
+    scriptentry("m4.2s.jl"),
+    scriptentry("m4.2t.jl", exe = false, doc = false),
+    scriptentry("m4.3s.jl"),
     scriptentry("clip-01-06.jl"),
     scriptentry("clip-07-13s.jl"),
     scriptentry("clip-14-29s.jl"),
@@ -91,18 +96,13 @@ script_dict = DataStructures.OrderedDict{AbstractString, Vector{ScriptEntry}}(
     scriptentry("clip-38s.jl"),
     scriptentry("clip-43s.jl"),
     scriptentry("clip-45-47s.jl"),
-    scriptentry("clip-48-54s.jl"),
-    scriptentry("m4.1m.jl", exe = false, doc = false), 
-    scriptentry("m4.1s.jl"),
-    scriptentry("m4.2s.jl"),
-    scriptentry("m4.2t.jl", exe = false, doc = true),
-    scriptentry("m4.3s.jl")
+    scriptentry("clip-48-54s.jl")
   ],
   "05" => [
     scriptentry("clip-01s.jl")
   ],
   "08" => [
-    scriptentry("m8.1t.jl", exe = false, doc = true),
+    scriptentry("m8.1t.jl", exe = false, doc = false),
     scriptentry("m8.1.jl", exe = false, doc = false),
     scriptentry("m8.2.jl", exe = false, doc = false),
     scriptentry("m8.3.jl", exe = false, doc = false),

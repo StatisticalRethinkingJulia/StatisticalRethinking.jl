@@ -10,9 +10,9 @@ df = convert(DataFrame, howell1);
 df2 = filter(row -> row[:age] >= 18, df);
 first(df2, 5)
 
-!isfile("m4.1s.jls") && include("m4.1s.jl")
+!isfile(joinpath(ProjDir, "m4.1s.jls")) && include(joinpath(ProjDir, "m4.1s.jl"))
 
-chn = deserialize("m4.1s.jls")
+chn = deserialize(joinpath(ProjDir, "m4.1s.jls"))
 
 describe(chn)
 

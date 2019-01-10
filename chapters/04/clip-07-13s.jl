@@ -20,9 +20,9 @@ first(male_df, 5)
 density!(female_df[:height], lab="Female heights")
 density!(male_df[:height], lab="Male heights")
 
-!isfile("m4.1s.jls") && include("m4.1s.jl")
+!isfile(joinpath(ProjDir, "m4.1s.jls")) && include(joinpath(ProjDir, "m4.1s.jl"))
 
-chn = deserialize("m4.1s.jls")
+chn = deserialize(joinpath(ProjDir, "m4.1s.jls"))
 
 describe(chn)
 

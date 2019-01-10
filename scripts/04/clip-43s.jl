@@ -16,9 +16,10 @@ df = convert(DataFrame, howell1);
 
 # Use only adults
 
-df2 = filter(row -> row[:age] >= 18, df)
-mean_weight = mean(df2[:weight])
-df2[:weight_c] = convert(Vector{Float64}, df2[:weight_c]) .- mean_weight ;
+df2 = filter(row -> row[:age] >= 18, df);
+mean_weight = mean(df2[:weight]);
+df2[:weight_c] = convert(Vector{Float64}, df2[:weight]) .- mean_weight;
+first(df2, 5)
 
 # Define the Stan language model
 

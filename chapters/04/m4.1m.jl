@@ -48,8 +48,8 @@ chn = mcmc(model, line, inits, 10000, burnin=1000, chains=3)
 
 describe(chn)
 
-write("m4.1m.jls", chn)
-chn1 = read("m4.1m.jls", ModelChains)
+serialize("m4.1m.jls", chn)
+chn1 = deserialize("m4.1m.jls")
 describe(chn1)
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

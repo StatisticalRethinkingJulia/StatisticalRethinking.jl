@@ -12,9 +12,9 @@ cd(ProjDir)
 
 # Check if the m4.1s.jls file is present. If not, run the model.
 
-!isfile("m4.1s.jls") && include("m4.1s.jl")
+!isfile(joinpath(ProjDir, "m4.1s.jls")) && include(joinpath(ProjDir, "m4.1s.jl"))
 
-chn = deserialize("m4.1s.jls")
+chn = deserialize(joinpath(ProjDir, "m4.1s.jls"))
 
 # Describe the draws
 

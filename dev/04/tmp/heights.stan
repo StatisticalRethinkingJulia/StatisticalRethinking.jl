@@ -1,11 +1,11 @@
 // Inferring a Rate
 data {
   int N;
-  real<lower=0> h[N];
+  real h[N];
 }
 parameters {
   real<lower=0> sigma;
-  real<lower=0,upper=250> mu;
+  real<lower=-18.072092613636357,upper=24.47290738636363> mu;
 }
 model {
   // Priors for mu and sigma

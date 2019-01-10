@@ -361,27 +361,59 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "04/clip-07s/#",
-    "page": "clip-07s",
-    "title": "clip-07s",
+    "location": "04/clip-07-13s/#",
+    "page": "clip-07-13s",
+    "title": "clip-07-13s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-07s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-07-13s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)"
 },
 
 {
-    "location": "04/clip-07s/#snippet-4.7-1",
-    "page": "clip-07s",
+    "location": "04/clip-07-13s/#snippet-4.7-1",
+    "page": "clip-07-13s",
     "title": "snippet 4.7",
     "category": "section",
-    "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df);Standardize age, store as age_smean_age = mean(df2[:age])\ndf2[:age_s] = convert(Vector{Float64},\n  (df2[:age]) .- mean_age)/std(df2[:age]);Standardize height, store as height_smean_height = mean(df2[:height])\ndf2[:height_s] = convert(Vector{Float64},\n  (df2[:height]) .- mean_height)/std(df2[:height]);\nfirst(df2, 5)\n\n\nfemale_df = filter(row -> row[:male] == 0, df2);\nmale_df = filter(row -> row[:male] == 1, df2);\nfirst(male_df, 5)Plot the densities.density(df2[:height], lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")Is it bi-modal?density!(female_df[:height], lab=\"Female heights\")\ndensity!(male_df[:height], lab=\"Male heights\")Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ normal(178, 20);\n  sigma ~ uniform( 0 , 50 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain);Input data for cmdstanheightsdata = Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Plot the density of posterior drawsdensity(chn, lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")End of clip_07.0s.jlThis page was generated using Literate.jl."
+    "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);"
 },
 
 {
-    "location": "04/clip-38m/#",
-    "page": "clip-38m",
-    "title": "clip-38m",
+    "location": "04/clip-07-13s/#snippet-4.8-1",
+    "page": "clip-07-13s",
+    "title": "snippet 4.8",
+    "category": "section",
+    "text": "Show first 5 rows of DataFrame dffirst(df, 5)Use only adultsdf2 = filter(row -> row[:age] >= 18, df);Plot the densities.density(df2[:height], lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")Filter on sex to see if it is bi-modalfemale_df = filter(row -> row[:male] == 0, df2);\nmale_df = filter(row -> row[:male] == 1, df2);\nfirst(male_df, 5)Is it bi-modal?density!(female_df[:height], lab=\"Female heights\")\ndensity!(male_df[:height], lab=\"Male heights\")Use data from m4.1sd = JLD.load(joinpath(ProjDir, \"m4.1s.jld\"))\n\nchn = MCMCChain.Chains(d[\"a3d\"], names=d[\"names\"])Describe the drawsdescribe(chn)"
+},
+
+{
+    "location": "04/clip-07-13s/#snippet-4.13-1",
+    "page": "clip-07-13s",
+    "title": "snippet 4.13",
+    "category": "section",
+    "text": "Plot the density of posterior drawsdensity(chn, lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")End of clip_07.0s.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "04/clip-14-29s/#",
+    "page": "clip-14-29s",
+    "title": "clip-14-29s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-38m.jl\"using StatisticalRethinking, Mamba\n\n# Data\nline = Dict{Symbol, Any}()\n\nhowell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df);\nline[:x] = convert(Array{Float64,1}, df2[:weight]);\nline[:y] = convert(Array{Float64,1}, df2[:height]);\nline[:xmat] = convert(Array{Float64,2}, [ones(length(line[:x])) line[:x]])Model Specificationmodel = Model(\n  y = Stochastic(1,\n    (xmat, beta, s2) -> MvNormal(xmat * beta, sqrt(s2)),\n    false\n  ),\n  beta = Stochastic(1, () -> MvNormal([178, 0], [sqrt(10000), sqrt(100)])),\n  s2 = Stochastic(() -> Uniform(0, 50))\n)Initial Valuesinits = [\n  Dict{Symbol, Any}(\n    :y => line[:y],\n    :beta => [rand(Normal(178, 100)), rand(Normal(0, 10))],\n    :s2 => rand(Uniform(0, 50))\n  )\n  for i in 1:3\n]Tuning Parametersscale1 = [0.5, 0.25]\nsummary1 = identity\neps1 = 0.5\n\nscale2 = 0.5\nsummary2 = x -> [mean(x); sqrt(var(x))]\neps2 = 0.1Define sampling schemescheme = [\n  Mamba.NUTS([:beta]),\n  Mamba.Slice([:s2], 10)\n]\n\nsetsamplers!(model, scheme)MCMC Simulationsim = mcmc(model, line, inits, 10000, burnin=1000, chains=3)Show draws summarydescribe(sim)End of clip_38.0m.jlThis page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-14-29s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)"
+},
+
+{
+    "location": "04/clip-14-29s/#snippet-4.14-1",
+    "page": "clip-14-29s",
+    "title": "snippet 4.14",
+    "category": "section",
+    "text": "Use data from m4.1sd = JLD.load(joinpath(ProjDir, \"m4.1s.jld\"))\n\nchn = MCMCChain.Chains(d[\"a3d\"], names=d[\"names\"])Describe the drawsdescribe(chn)"
+},
+
+{
+    "location": "04/clip-14-29s/#snippet-4.15-1",
+    "page": "clip-14-29s",
+    "title": "snippet 4.15",
+    "category": "section",
+    "text": "scatter(chn.value[:, 2, 1], chn.value[:, 1, 1])End of clip-14-29s.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -397,7 +429,15 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-30s",
     "title": "snippet 4.7",
     "category": "section",
-    "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df);Separate male and fermale observationsfemale_df = filter(row -> row[:male] == 0, df2);\nmale_df = filter(row -> row[:male] == 1, df2);\nfirst(male_df, 5)Plot the densities.density(df2[:height], lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")Is it bi-modal?density!(female_df[:height], lab=\"Female heights\")\ndensity!(male_df[:height], lab=\"Male heights\")Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ normal(178, 20);\n  sigma ~ uniform( 0 , 50 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain);Input data for cmdstanheightsdata = Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Plot the density of posterior drawsdensity(chn, lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")Compute cormu_sigma = hcat(chn.value[:, 2, 1], chn.value[:,1, 1])\nLinearAlgebra.diag(cov(mu_sigma)) |> displayCompute covcov(mu_sigma)End of clip_07.0s.jlThis page was generated using Literate.jl."
+    "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df);Separate male and fermale observationsfemale_df = filter(row -> row[:male] == 0, df2);\nmale_df = filter(row -> row[:male] == 1, df2);\nfirst(male_df, 5)Plot the densities.density(df2[:height], lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")Is it bi-modal?density!(female_df[:height], lab=\"Female heights\")\ndensity!(male_df[:height], lab=\"Male heights\")Define the Stan language modelheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ normal(178, 20);\n  sigma ~ uniform( 0 , 50 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain);Input data for cmdstanheightsdata = Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Plot the density of posterior drawsdensity(chn, lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")Compute cormu_sigma = hcat(chn.value[:, 2, 1], chn.value[:,1, 1])\nLinearAlgebra.diag(cov(mu_sigma))Compute covcor(mu_sigma)End of clip_07.0s.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "04/clip-38m/#",
+    "page": "clip-38m",
+    "title": "clip-38m",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-38m.jl\"using StatisticalRethinking, Mamba\n\n# Data\nline = Dict{Symbol, Any}()\n\nhowell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df);\nline[:x] = convert(Array{Float64,1}, df2[:weight]);\nline[:y] = convert(Array{Float64,1}, df2[:height]);\nline[:xmat] = convert(Array{Float64,2}, [ones(length(line[:x])) line[:x]])Model Specificationmodel = Model(\n  y = Stochastic(1,\n    (xmat, beta, s2) -> MvNormal(xmat * beta, sqrt(s2)),\n    false\n  ),\n  beta = Stochastic(1, () -> MvNormal([178, 0], [sqrt(10000), sqrt(100)])),\n  s2 = Stochastic(() -> Uniform(0, 50))\n)Initial Valuesinits = [\n  Dict{Symbol, Any}(\n    :y => line[:y],\n    :beta => [rand(Normal(178, 100)), rand(Normal(0, 10))],\n    :s2 => rand(Uniform(0, 50))\n  )\n  for i in 1:3\n]Tuning Parametersscale1 = [0.5, 0.25]\nsummary1 = identity\neps1 = 0.5\n\nscale2 = 0.5\nsummary2 = x -> [mean(x); sqrt(var(x))]\neps2 = 0.1Define sampling schemescheme = [\n  Mamba.NUTS([:beta]),\n  Mamba.Slice([:s2], 10)\n]\n\nsetsamplers!(model, scheme)MCMC Simulationsim = mcmc(model, line, inits, 10000, burnin=1000, chains=3)Show draws summarydescribe(sim)End of clip_38.0m.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -518,6 +558,22 @@ var documenterSearchIndex = {"docs": [
     "title": "Snippet 4.54",
     "category": "section",
     "text": "Show posterior density for 6 mu_bar valuesmu = link(25:10:75, chn, [1, 2], mean_weight);\n\nq = Vector{Plots.Plot{Plots.GRBackend}}(undef, size(mu, 1))\nfor i in 1:size(mu, 1)\n  q[i] = density(mu[i], ylim=(0.0, 1.5),\n    leg=false, title=\"mu_bar = $(round(mean(mu[i]), digits=1))\")\nend\nplot(q..., layout=(2, 3), ticks=(3))End of clip_48_54s.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "04/m4.1s/#",
+    "page": "m4.1s",
+    "title": "m4.1s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.1s.jl\"using StatisticalRethinking, CmdStan, StanMCMCChain, JLD\ngr(size=(500,500));\n\nProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)\n\nhowell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);\n\ndf2 = filter(row -> row[:age] >= 18, df)\nfirst(df2, 5)\n\nheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real<lower=0> h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=0,upper=250> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ normal(178, 20);\n  sigma ~ uniform( 0 , 50 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\";\n\nstanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain);\n\nheightsdata = Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height]);\n\nrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);\n\ndescribe(chn)\n\nJLD.save(\"m4.1s.jld\",\n  \"range\", chn.range,\n  \"a3d\", chn.value,\n  \"names\", chn.names,\n  \"chains\", chn.chains)\n\nd = JLD.load(joinpath(ProjDir, \"m4.1s.jld\"))\n\nchn2 = MCMCChain.Chains(d[\"a3d\"], names=d[\"names\"])\ndescribe(chn2)end of m4.1s#- This page was generated using Literate.jl."
+},
+
+{
+    "location": "04/m4.2s/#",
+    "page": "m4.2s",
+    "title": "m4.2s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.2s.jl\"using StatisticalRethinking, CmdStan, StanMCMCChain, JLD\ngr(size=(500,500));\n\nProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)\n\nhowell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);\n\ndf2 = filter(row -> row[:age] >= 18, df)\nmean_height = mean(df2[:height])\ndf2[:height_c] = convert(Vector{Float64}, df2[:height]) .- mean_height\nfirst(df2, 5)\n\nmax_height_c = maximum(df2[:height_c])\nmin_height_c = minimum(df2[:height_c])\n\nheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=$(min_height_c),upper=$(max_height_c)> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ normal(178, 20);\n  sigma ~ uniform( 0 , 50 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\";\n\nstanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain);\n\nheightsdata = Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height_c]);\n\nrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);\n\ndescribe(chn)\n\nJLD.save(\"m4.2s.jld\",\n  \"range\", chn.range,\n  \"a3d\", chn.value,\n  \"names\", chn.names,\n  \"chains\", chn.chains)\n\nd = JLD.load(joinpath(ProjDir, \"m4.2s.jld\"))\n\nchn2 = MCMCChain.Chains(d[\"a3d\"], names=d[\"names\"])\n\ndescribe(chn2)end of m4.2s#- This page was generated using Literate.jl."
 },
 
 {

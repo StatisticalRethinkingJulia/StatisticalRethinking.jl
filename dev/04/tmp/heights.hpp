@@ -83,9 +83,6 @@ public:
             // validate, data variables
             current_statement_begin__ = 3;
             current_statement_begin__ = 4;
-            for (int k0__ = 0; k0__ < N; ++k0__) {
-                check_greater_or_equal(function__,"h[k0__]",h[k0__],0);
-            }
             // initialize data variables
 
 
@@ -139,7 +136,7 @@ public:
         double mu(0);
         mu = vals_r__[pos__++];
         try {
-            writer__.scalar_lub_unconstrain(0,250,mu);
+            writer__.scalar_lub_unconstrain(-(18.072092613636357),24.47290738636363,mu);
         } catch (const std::exception& e) { 
             throw std::runtime_error(std::string("Error transforming variable mu: ") + e.what());
         }
@@ -187,9 +184,9 @@ public:
             local_scalar_t__ mu;
             (void) mu;  // dummy to suppress unused var warning
             if (jacobian__)
-                mu = in__.scalar_lub_constrain(0,250,lp__);
+                mu = in__.scalar_lub_constrain(-(18.072092613636357),24.47290738636363,lp__);
             else
-                mu = in__.scalar_lub_constrain(0,250);
+                mu = in__.scalar_lub_constrain(-(18.072092613636357),24.47290738636363);
 
 
             // transformed parameters
@@ -265,7 +262,7 @@ public:
         (void) function__;  // dummy to suppress unused var warning
         // read-transform, write parameters
         double sigma = in__.scalar_lb_constrain(0);
-        double mu = in__.scalar_lub_constrain(0,250);
+        double mu = in__.scalar_lub_constrain(-(18.072092613636357),24.47290738636363);
         vars__.push_back(sigma);
         vars__.push_back(mu);
 

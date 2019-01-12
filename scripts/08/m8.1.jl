@@ -57,8 +57,7 @@ end;
 
 # Use Turing mcmc
 
-posterior = sample(m8_1stan(dd[:log_gdp], dd[:rugged], dd[:cont_africa]),
-    Turing.NUTS(2000, 200, 0.95));
+posterior = sample(m8_1stan(dd[:log_gdp], dd[:rugged], dd[:cont_africa]), Turing.NUTS(2000, 200, 0.95));
     
 # Describe the posterior samples
 

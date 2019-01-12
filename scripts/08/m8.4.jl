@@ -1,10 +1,12 @@
 using StatisticalRethinking, Turing
 
 Turing.setadbackend(:reverse_diff)
-Turing.turnprogress(false) #nb
+#nb Turing.turnprogress(false)
 
 # Can't really set a U[-Inf,Inf] on \sigma AFAICT so this will not be 1:1
 # w/ Rethinking
+
+# Turing model
 @model m8_4(y) = begin
     α₁ ~ Uniform(-Inf, Inf)
     α₂ ~ Uniform(-Inf, Inf)
@@ -15,10 +17,17 @@ Turing.turnprogress(false) #nb
     end
 end
 
-y = rand(Normal(0,1), 100)
+y = rand(Normal(0,1), 100);
 
-posterior = sample(m8_4(y), Turing.NUTS(4000, 1000, 0.95))
+# Sample
+
+posterior = sample(m8_4(y), Turing.NUTS(4000, 1000, 0.95));
+
+# Draw summary
+
 describe(posterior)
+
+# Results rethinking
 
 m84rethinking = "
          mean      sd     5.5%   94.5% n_eff Rhat

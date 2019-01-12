@@ -2,10 +2,13 @@ using StatisticalRethinking
 using Turing
 
 Turing.setadbackend(:reverse_diff)
+#nbTuring.turnprogress(false);
 
 d = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data",
-    "UCBadmit.csv"), delim=';')
+    "UCBadmit.csv"), delim=';');
 size(d) # Should be 12x5
+
+# Turing model
 
 @model m11_5(admit, applications) = begin
     N=length(applications)
@@ -26,13 +29,18 @@ size(d) # Should be 12x5
     end
 end
 
-posterior = sample(m11_5(d[:admit],d[:applications]), Turing.NUTS(4000, 1000, 0.9))
-describe(posterior)
-#             Mean          SD         Naive SE         MCSE        ESS
-#        α  -0.372382104 0.3119992723 0.004933141643 0.00613870681 2583.1723
-#        θ   2.767996106 0.9897869845 0.015649906347 0.02305742759 1842.7303
+# Sample
 
-# Rethinking
-#        mean   sd  5.5% 94.5% n_eff Rhat
-# theta  2.74 0.96  1.43  4.37  3583    1
-# a     -0.37 0.31 -0.87  0.12  3210    1
+posterior = sample(m11_5(d[:admit],d[:applications]), Turing.NUTS(4000, 1000, 0.9));
+
+# Draw summary
+
+describe(posterior)
+
+# Result rethinking
+
+m115rethinking = "
+         mean   sd  5.5% 94.5% n_eff Rhat
+theta  2.74 0.96  1.43  4.37  3583    1
+a       -0.37 0.31 -0.87  0.12  3210    1
+";

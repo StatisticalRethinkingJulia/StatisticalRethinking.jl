@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>m4.4s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08m/">clip-08m</a></li><li><a class="toctext" href="../../02/clip-08s/">clip-08s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../m4.2s/">m4.2s</a></li><li><a class="toctext" href="../m4.3s/">m4.3s</a></li><li class="current"><a class="toctext" href>m4.4s</a><ul class="internal"></ul></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-29s/">clip-21-29s</a></li><li><a class="toctext" href="../clip-30s/">clip-30s</a></li><li><a class="toctext" href="../clip-38s/">clip-38s</a></li><li><a class="toctext" href="../clip-43s/">clip-43s</a></li><li><a class="toctext" href="../clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../clip-48-54s/">clip-48-54s</a></li></ul></li><li><span class="toctext">Chapter 05</span><ul><li><a class="toctext" href="../../05/clip-01s/">clip-01s</a></li></ul></li><li><span class="toctext">Chapter 08</span></li><li><span class="toctext">Chapter 10</span></li><li><span class="toctext">Chapter 11</span></li><li><span class="toctext">Chapter 12</span></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>m4.4s</a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.4s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>m4.4s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed  for the snippets in chapter 0</p><div><pre><code class="language-julia">using StatisticalRethinking
+using CmdStan, StanMCMCChain
+gr(size=(500,500));</code></pre></div><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;04&quot;)
+cd(ProjDir)</code></pre></div><h3><a class="nav-anchor" id="snippet-4.7-1" href="#snippet-4.7-1">snippet 4.7</a></h3><div><pre><code class="language-julia">howell1 = CSV.read(rel_path(&quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
+df = convert(DataFrame, howell1);</code></pre></div><p>Use only adults</p><div><pre><code class="language-julia">df2 = filter(row -&gt; row[:age] &gt;= 18, df)
+mean_weight = mean(df2[:weight])
+df2[:weight_c] = convert(Vector{Float64}, df2[:weight]) .- mean_weight ;</code></pre></div><p>Define the Stan language model</p><div><pre><code class="language-julia">weightsmodel = &quot;
+data {
+ int &lt; lower = 1 &gt; N; // Sample size
+ vector[N] height; // Predictor
+ vector[N] weight; // Outcome
+}
+
+parameters {
+ real alpha; // Intercept
+ real beta; // Slope (regression coefficients)
+ real &lt; lower = 0 &gt; sigma; // Error SD
+}
+
+model {
+ height ~ normal(alpha + weight * beta , sigma);
+}
+
+generated quantities {
+}
+&quot;;</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchain.</p><div><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;weights&quot;, monitors = [&quot;alpha&quot;, &quot;beta&quot;, &quot;sigma&quot;],model=weightsmodel,
+  output_format=:mcmcchain);</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">heightsdata = Dict(&quot;N&quot; =&gt; length(df2[:height]), &quot;height&quot; =&gt; df2[:height], &quot;weight&quot; =&gt; df2[:weight_c]);</code></pre><pre><code class="language-none">=====&gt; /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04
+
+
+File /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan will be updated.</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
+  summary=false, CmdStanDir=CMDSTAN_HOME);</code></pre></div><p>Describe the draws</p><div><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">
+
+--- Translating Stan model to C++ code ---
+bin/stanc  /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan --o=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.hpp
+Model name=weights_model
+Input file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan
+Output file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.hpp
+
+--- Linking C++ model ---
+g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights -include /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+          Mean         SD       Naive SE        MCSE      ESS
+alpha 154.6004892 0.274789566 0.0043448045 0.00414695372 1000
+ beta   0.9055111 0.040777917 0.0006447555 0.00061962753 1000
+sigma   5.1041004 0.191441130 0.0030269500 0.00373949491 1000
+
+Quantiles:
+          2.5%         25.0%       50.0%      75.0%        97.5%
+alpha 154.05697500 154.41900000 154.600000 154.7820000 155.14600000
+ beta   0.82409553   0.87843825   0.905288   0.9321713   0.98761237
+sigma   4.75261725   4.96984000   5.098670   5.2354000   5.48711225</code></pre></div><p>Save the chains in a JLS file</p><div><pre><code class="language-julia">serialize(&quot;m4.4s.jls&quot;, chn)
+
+chn2 = deserialize(&quot;m4.4s.jls&quot;)</code></pre><pre><code class="language-none">Object of type &quot;Chains{Float64}&quot;
+
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Union{Missing, Float64}[154.788 0.962142 5.55286; 154.242 0.87198 4.9002; … ; 154.619 0.892129 4.81422; 154.523 0.902174 5.06917]
+
+Union{Missing, Float64}[154.533 0.89973 5.21888; 154.633 0.92081 4.85942; … ; 154.968 0.890709 5.09941; 155.134 0.924651 5.09072]
+
+Union{Missing, Float64}[154.497 0.905654 5.04975; 154.564 0.84544 5.21251; … ; 154.503 0.930824 4.96027; 155.074 0.970205 5.55143]
+
+Union{Missing, Float64}[154.543 0.882143 5.10998; 154.913 0.936782 5.09298; … ; 154.717 1.02732 5.17212; 154.586 1.00441 5.40253]</code></pre></div><p>Should be identical to earlier result</p><div><pre><code class="language-julia">describe(chn2)</code></pre><pre><code class="language-none">Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+          Mean         SD       Naive SE        MCSE      ESS
+alpha 154.6004892 0.274789566 0.0043448045 0.00414695372 1000
+ beta   0.9055111 0.040777917 0.0006447555 0.00061962753 1000
+sigma   5.1041004 0.191441130 0.0030269500 0.00373949491 1000
+
+Quantiles:
+          2.5%         25.0%       50.0%      75.0%        97.5%
+alpha 154.05697500 154.41900000 154.600000 154.7820000 155.14600000
+ beta   0.82409553   0.87843825   0.905288   0.9321713   0.98761237
+sigma   4.75261725   4.96984000   5.098670   5.2354000   5.48711225</code></pre></div><p>End of <code>m4.4s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.3s/"><span class="direction">Previous</span><span class="title">m4.3s</span></a><a class="next" href="../clip-01-06/"><span class="direction">Next</span><span class="title">clip-01-06</span></a></footer></article></body></html>

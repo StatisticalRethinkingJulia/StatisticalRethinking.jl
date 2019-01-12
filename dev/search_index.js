@@ -321,6 +321,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "04/m4.4s/#",
+    "page": "m4.4s",
+    "title": "m4.4s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.4s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)"
+},
+
+{
+    "location": "04/m4.4s/#snippet-4.7-1",
+    "page": "m4.4s",
+    "title": "snippet 4.7",
+    "category": "section",
+    "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df)\nmean_weight = mean(df2[:weight])\ndf2[:weight_c] = convert(Vector{Float64}, df2[:weight]) .- mean_weight ;Define the Stan language modelweightsmodel = \"\ndata {\n int < lower = 1 > N; // Sample size\n vector[N] height; // Predictor\n vector[N] weight; // Outcome\n}\n\nparameters {\n real alpha; // Intercept\n real beta; // Slope (regression coefficients)\n real < lower = 0 > sigma; // Error SD\n}\n\nmodel {\n height ~ normal(alpha + weight * beta , sigma);\n}\n\ngenerated quantities {\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"weights\", monitors = [\"alpha\", \"beta\", \"sigma\"],model=weightsmodel,\n  output_format=:mcmcchain);Input data for cmdstanheightsdata = Dict(\"N\" => length(df2[:height]), \"height\" => df2[:height], \"weight\" => df2[:weight_c]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Save the chains in a JLS fileserialize(\"m4.4s.jls\", chn)\n\nchn2 = deserialize(\"m4.4s.jls\")Should be identical to earlier resultdescribe(chn2)End of m4.4s.jlThis page was generated using Literate.jl."
+},
+
+{
     "location": "04/clip-01-06/#",
     "page": "clip-01-06",
     "title": "clip-01-06",
@@ -409,16 +425,72 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "04/clip-14-29s/#",
-    "page": "clip-14-29s",
-    "title": "clip-14-29s",
+    "location": "04/clip-14-20/#",
+    "page": "clip-14-20",
+    "title": "clip-14-20",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-14-29s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)Use data from m4.1sCheck if the m4.1s.jls file is present. If not, run the model.!isfile(joinpath(ProjDir, \"m4.1s.jls\")) && include(joinpath(ProjDir, \"m4.1s.jl\"))\n\nchn = deserialize(joinpath(ProjDir, \"m4.1s.jls\"))Describe the drawsdescribe(chn)"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-14-20.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)"
 },
 
 {
-    "location": "04/clip-14-29s/#snippet-4.15-1",
-    "page": "clip-14-29s",
+    "location": "04/clip-14-20/#snippet-4.7-1",
+    "page": "clip-14-20",
+    "title": "snippet 4.7",
+    "category": "section",
+    "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);"
+},
+
+{
+    "location": "04/clip-14-20/#snippet-4.8-1",
+    "page": "clip-14-20",
+    "title": "snippet 4.8",
+    "category": "section",
+    "text": "Use only adultsdf2 = filter(row -> row[:age] >= 18, df);Show first 5 rows of DataFrame dffirst(df2, 5)"
+},
+
+{
+    "location": "04/clip-14-20/#Snippet-4.14-1",
+    "page": "clip-14-20",
+    "title": "Snippet 4.14",
+    "category": "section",
+    "text": "Generate approximate probabilitiesstruct Post\n  mu::Float64\n  sigma::Float64\n  ll:: Float64\n  prod::Float64\n  prob::Float64\nend\n\nmu_list = repeat(range(140, 160, length=200), 200);\nsigma_list = repeat(range(4, 9, length=200), inner=200);\n\nll = zeros(40000);\nfor i in 1:40000\n    d1 = Normal(mu_list[i], sigma_list[i])\n    ll[i] = sum(log.(pdf.(d1, df2[:height])))\nend\n\nd2 = Normal(178.0, 20.0)\nd3 = Uniform(0, 50)\nprod = ll + log.(pdf.(d2, mu_list)) + log.(pdf.(d3, sigma_list))\nprob = exp.(prod .- maximum(prod))\npost = DataFrame(mu=mu_list, sigma=sigma_list, ll=ll, prod=prod, prob=prob)\nfirst(post, 10)"
+},
+
+{
+    "location": "04/clip-14-20/#Snippet-4.15-1",
+    "page": "clip-14-20",
+    "title": "Snippet 4.15",
+    "category": "section",
+    "text": "Sample postsamples = post[sample(1:size(post, 1), Weights(post[:prob]), 10000, replace=true), :]"
+},
+
+{
+    "location": "04/clip-14-20/#Snippet-4.19-1",
+    "page": "clip-14-20",
+    "title": "Snippet 4.19",
+    "category": "section",
+    "text": "Density of mudensity(samples[:mu])Density of sigmadensity(samples[:sigma])"
+},
+
+{
+    "location": "04/clip-14-20/#Snippet-4.20-1",
+    "page": "clip-14-20",
+    "title": "Snippet 4.20",
+    "category": "section",
+    "text": "Hdp muMCMCChain.hpd(samples[:mu])Hdp sigmaMCMCChain.hpd(samples[:sigma])End of clip-14-20.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "04/clip-21-29s/#",
+    "page": "clip-21-29s",
+    "title": "clip-21-29s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-21-29s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)Use data from m4.1sCheck if the m4.1s.jls file is present. If not, run the model.!isfile(joinpath(ProjDir, \"m4.1s.jls\")) && include(joinpath(ProjDir, \"m4.1s.jl\"))\n\nchn = deserialize(joinpath(ProjDir, \"m4.1s.jls\"))Describe the drawsdescribe(chn)"
+},
+
+{
+    "location": "04/clip-21-29s/#snippet-4.15-1",
+    "page": "clip-21-29s",
     "title": "snippet 4.15",
     "category": "section",
     "text": "scatter(chn.value[:, 2, 1], chn.value[:, 1, 1])End of clip-14-29s.jlThis page was generated using Literate.jl."
@@ -477,7 +549,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-43s",
     "title": "snippet 4.7",
     "category": "section",
-    "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df);\nmean_weight = mean(df2[:weight]);\ndf2[:weight_c] = convert(Vector{Float64}, df2[:weight]) .- mean_weight;\nfirst(df2, 5)Define the Stan language modelweightsmodel = \"\ndata {\n int < lower = 1 > N; // Sample size\n vector[N] height; // Predictor\n vector[N] weight; // Outcome\n}\n\nparameters {\n real alpha; // Intercept\n real beta; // Slope (regression coefficients)\n real < lower = 0 > sigma; // Error SD\n}\n\nmodel {\n height ~ normal(alpha + weight * beta , sigma);\n}\n\ngenerated quantities {\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"weights\", monitors = [\"alpha\", \"beta\", \"sigma\"],model=weightsmodel,\n  output_format=:mcmcchain);Input data for cmdstanheightsdata = Dict(\"N\" => length(df2[:height]), \"height\" => df2[:height], \"weight\" => df2[:weight_c]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Plot the density of posterior drawsplot(chn)Plot regression line using means and observationsscatter(df2[:weight], df2[:height], lab=\"Observations\",\n  ylab=\"height [cm]\", xlab=\"weight[kg]\")\nxi = -16.0:0.1:18.0\nrws, vars, chns = size(chn[:, 1, :])\nalpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))\nbeta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)))\nyi = mean(alpha_vals) .+ mean(beta_vals)*xi\nplot!(xi, yi, lab=\"Regression line\")End of clip-43s.jlThis page was generated using Literate.jl."
+    "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df);\nmean_weight = mean(df2[:weight]);\ndf2[:weight_c] = df2[:weight] .- mean_weight;\nfirst(df2, 5)Define the Stan language modelweightsmodel = \"\ndata {\n int < lower = 1 > N; // Sample size\n vector[N] height; // Predictor\n vector[N] weight; // Outcome\n}\n\nparameters {\n real alpha; // Intercept\n real beta; // Slope (regression coefficients)\n real < lower = 0 > sigma; // Error SD\n}\n\nmodel {\n height ~ normal(alpha + weight * beta , sigma);\n}\n\ngenerated quantities {\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"weights\", monitors = [\"alpha\", \"beta\", \"sigma\"],model=weightsmodel,\n  output_format=:mcmcchain);Input data for cmdstanheightsdata = Dict(\"N\" => length(df2[:height]), \"height\" => df2[:height], \"weight\" => df2[:weight_c]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Plot the density of posterior drawsplot(chn)Plot regression line using means and observationsscatter(df2[:weight_c], df2[:height], lab=\"Observations\",\n  ylab=\"height [cm]\", xlab=\"weight[kg]\")\nxi = -16.0:0.1:18.0\nrws, vars, chns = size(chn[:, 1, :])\nalpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)));\nbeta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)));\nyi = mean(alpha_vals) .+ mean(beta_vals)*xi;\nplot!(xi, yi, lab=\"Regression line\")End of clip-43s.jlThis page was generated using Literate.jl."
 },
 
 {

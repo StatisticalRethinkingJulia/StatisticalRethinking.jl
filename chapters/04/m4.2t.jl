@@ -10,10 +10,8 @@ howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
 
 df2 = filter(row -> row[:age] >= 18, df);
-
-mean_weight = mean(df2[:weight])
-df2 = hcat(df2, df2[:weight] .- mean_weight)
-rename!(df2, :x1 => :weight_c); # Rename our col :x1 => :weight_c
+mean_weight = mean(df2[:weight]);
+df2[:weight_c] = df2[:weight] .- mean_weight;
 first(df2, 5)
 
 y = convert(Vector{Float64}, df2[:height]);

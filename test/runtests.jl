@@ -9,6 +9,7 @@ for chapter in keys(script_dict)
   ChapterDir = rel_path("..", "chapters")
   !isdir(ChapterDir) && mkdir(ChapterDir)  
   ChapterDir = rel_path("..", "chapters", "$(chapter)")
+  ScriptsDir = rel_path("..", "scripts", "$(chapter)")
 
   NotebookDir = rel_path("..", "notebooks")
   !isdir(NotebookDir) && mkdir(NotebookDir)  
@@ -36,8 +37,8 @@ for chapter in keys(script_dict)
     end
     
     # Remove tmp directory used by cmdstan 
-    isdir(joinpath(ChapterDir, "tmp")) &&
-      rm(joinpath(ChapterDir, "tmp"), recursive=true);
+    isdir(joinpath(ScriptsDir, "tmp")) &&
+      rm(joinpath(ScriptsDir, "tmp"), recursive=true);
     
     println("\nCompleted script and notebook generation for chapter $chapter\n")
     

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>m12.6.1s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08m/">clip-08m</a></li><li><a class="toctext" href="../../02/clip-08s/">clip-08s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/m4.1s/">m4.1s</a></li><li><a class="toctext" href="../../04/m4.2s/">m4.2s</a></li><li><a class="toctext" href="../../04/m4.3s/">m4.3s</a></li><li><a class="toctext" href="../../04/m4.4s/">m4.4s</a></li><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../../04/clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../../04/clip-21-29s/">clip-21-29s</a></li><li><a class="toctext" href="../../04/clip-30s/">clip-30s</a></li><li><a class="toctext" href="../../04/clip-38s/">clip-38s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><span class="toctext">Chapter 05</span><ul><li><a class="toctext" href="../../05/clip-01s/">clip-01s</a></li></ul></li><li><span class="toctext">Chapter 08</span><ul><li><a class="toctext" href="../../08/m8.1/">m8.1</a></li><li><a class="toctext" href="../../08/m8.3/">m8.3</a></li></ul></li><li><span class="toctext">Chapter 10</span></li><li><span class="toctext">Chapter 11</span></li><li><span class="toctext">Chapter 12</span><ul><li class="current"><a class="toctext" href>m12.6.1s</a><ul class="internal"></ul></li><li><a class="toctext" href="../m12.6.2s/">m12.6.2s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 12</li><li><a href>m12.6.1s</a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/12/m12.6.1s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>m12.6.1s</span><a class="fa fa-bars" href="#"></a></div></header><div><pre><code class="language-julia">using StatisticalRethinking
+using CmdStan, StanMCMCChain
+
+ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;12&quot;)
+
+d = CSV.read(rel_path( &quot;..&quot;, &quot;data&quot;,  &quot;Kline.csv&quot;), delim=&#39;;&#39;);
+size(d) # Should be 10x5</code></pre><pre><code class="language-none">(10, 5)</code></pre></div><p>New col logpop, set log() for population data</p><div><pre><code class="language-julia">d[:logpop] = map((x) -&gt; log(x), d[:population]);
+d[:society] = 1:10;
+
+first(d, 5)
+
+m12_6_1 = &quot;
+data{
+    int total_tools[10];
+    real logpop[10];
+    int society[10];
+}
+parameters{
+    real a;
+    real bp;
+    vector[10] a_society;
+    real&lt;lower=0&gt; sigma_society;
+}
+model{
+    vector[10] mu;
+    sigma_society ~ cauchy( 0 , 1 );
+    a_society ~ normal( 0 , sigma_society );
+    bp ~ normal( 0 , 1 );
+    a ~ normal( 0 , 10 );
+    for ( i in 1:10 ) {
+        mu[i] = a + a_society[society[i]] + bp * logpop[i];
+        mu[i] = exp(mu[i]);
+    }
+    total_tools ~ poisson( mu );
+}
+&quot;;</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchain.</p><div><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;m12.6.1&quot;,  model=m12_6_1, output_format=:mcmcchain);</code></pre><pre><code class="language-none">=====&gt; /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12
+
+
+File /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1.stan will be updated.</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">m12_6_1_data = Dict(&quot;total_tools&quot; =&gt; d[:total_tools], &quot;logpop&quot; =&gt; d[:logpop], &quot;society&quot; =&gt; d[:society]);</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, m12_6_1_data, ProjDir, diagnostics=false, summary=false, CmdStanDir=CMDSTAN_HOME);</code></pre><pre><code class="language-none">
+
+--- Translating Stan model to C++ code ---
+bin/stanc  /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1.stan --o=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1.hpp
+Model name=m12_6_1_model
+Input file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1.stan
+Output file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1.hpp
+Compiling pre-compiled header
+g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe  -c -O3 stan/src/stan/model/model_header.hpp -o stan/src/stan/model/model_header.hpp.gch
+
+--- Linking C++ model ---
+g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1 -include /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a</code></pre></div><p>Describe the draws</p><div><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+                   Mean           SD         Naive SE       MCSE         ESS
+         lp__  927.945259750  3.211238846 0.05077414432 0.1295936562  614.013234
+accept_stat__    0.940289311  0.082137151 0.00129870238 0.0016904029 1000.000000
+   stepsize__    0.052500525  0.006519678 0.00010308516 0.0010438535   39.009752
+  treedepth__    5.847250000  0.521042521 0.00823840562 0.0292819790  316.625204
+ n_leapfrog__   71.560000000 33.277909412 0.52616994755 1.6943756130  385.738233
+  divergent__    0.000000000  0.000000000 0.00000000000 0.0000000000         NaN
+     energy__ -921.411384250  4.108287591 0.06495773035 0.1514808161  735.540182
+            a    1.078907725  0.746322777 0.01180039923 0.0214434204 1000.000000
+           bp    0.263453905  0.081109565 0.00128245482 0.0023638625 1000.000000
+  a_society.1   -0.206525179  0.249843182 0.00395036757 0.0060827318 1000.000000
+  a_society.2    0.045012759  0.211621640 0.00334603192 0.0054089794 1000.000000
+  a_society.3   -0.042093515  0.188217109 0.00297597379 0.0040478926 1000.000000
+  a_society.4    0.326685174  0.189124864 0.00299032666 0.0055256762 1000.000000
+  a_society.5    0.037650916  0.179658334 0.00284064768 0.0038635497 1000.000000
+  a_society.6   -0.314129622  0.202652249 0.00320421339 0.0054007304 1000.000000
+  a_society.7    0.143519767  0.170055567 0.00268881460 0.0041887740 1000.000000
+  a_society.8   -0.173274089  0.185796310 0.00293769759 0.0047997078 1000.000000
+  a_society.9    0.270949421  0.173829498 0.00274848569 0.0049498778 1000.000000
+ a_society.10   -0.104948007  0.288924183 0.00456829244 0.0081008773 1000.000000
+sigma_society    0.308886097  0.130414178 0.00206202920 0.0046365672  791.145745
+
+Quantiles:
+                    2.5%           25.0%         50.0%          75.0%          97.5%
+         lp__  920.8989750000  926.051000000  928.23200000  930.124250000  933.339025000
+accept_stat__    0.6989345250    0.918449000    0.97405150    0.995739500    0.999964025
+   stepsize__    0.0418792000    0.050324650    0.05438425    0.056560125    0.059354400
+  treedepth__    5.0000000000    6.000000000    6.00000000    6.000000000    7.000000000
+ n_leapfrog__   31.0000000000   63.000000000   63.00000000   63.000000000  127.000000000
+  divergent__    0.0000000000    0.000000000    0.00000000    0.000000000    0.000000000
+     energy__ -928.5446000000 -924.234250000 -921.67100000 -918.896000000 -912.352550000
+            a   -0.4612365500    0.644053500    1.10616000    1.539040000    2.524364750
+           bp    0.1116556750    0.213583500    0.26132150    0.310964250    0.430376275
+  a_society.1   -0.7394205500   -0.352223250   -0.18483150   -0.039283150    0.231539825
+  a_society.2   -0.3622378250   -0.086638550    0.03771625    0.169683250    0.479610475
+  a_society.3   -0.4311041000   -0.157572750   -0.03657830    0.075959075    0.333092425
+  a_society.4   -0.0056242652    0.197387500    0.31639800    0.448720500    0.715386575
+  a_society.5   -0.3293186750   -0.073649175    0.03631145    0.153631250    0.390238450
+  a_society.6   -0.7506674750   -0.441170250   -0.30095600   -0.168093000    0.030622813
+  a_society.7   -0.1852344250    0.033666200    0.13766450    0.249806750    0.498089750
+  a_society.8   -0.5745439500   -0.291527500   -0.16351850   -0.046996900    0.172711550
+  a_society.9   -0.0425228300    0.151907750    0.26484250    0.381371500    0.620658375
+ a_society.10   -0.6953364750   -0.269185750   -0.09160585    0.063169925    0.441712900
+sigma_society    0.0993314325    0.222371750    0.28958450    0.375197250    0.629743525</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../../08/m8.3/"><span class="direction">Previous</span><span class="title">m8.3</span></a><a class="next" href="../m12.6.2s/"><span class="direction">Next</span><span class="title">m12.6.2s</span></a></footer></article></body></html>

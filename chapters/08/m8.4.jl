@@ -1,10 +1,10 @@
 using StatisticalRethinking, Turing
 
-Turing.setadbackend(:reverse_diff)
+Turing.setadbackend(:reverse_diff);
 
 @model m8_4(y) = begin
-    α₁ ~ Uniform(-Inf, Inf)
-    α₂ ~ Uniform(-Inf, Inf)
+    α₁ ~ Uniform(-3000, 1000)
+    α₂ ~ Uniform(-1000, 3000)
     σ ~ Truncated(Cauchy(0,1), 0, Inf)
 
     for i ∈ 1:length(y)
@@ -14,7 +14,7 @@ end
 
 y = rand(Normal(0,1), 100);
 
-posterior = sample(m8_4(y), Turing.NUTS(4000, 1000, 0.95));
+posterior = sample(m8_4(y), Turing.NUTS(4000, 200, 0.95));
 
 describe(posterior)
 

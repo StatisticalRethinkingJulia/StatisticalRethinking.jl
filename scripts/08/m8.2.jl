@@ -3,9 +3,7 @@ using StatisticalRethinking, Turing
 Turing.setadbackend(:reverse_diff);
 #nb Turing.turnprogress(false);
 
-# In Rethinking the model actually has priors that are U[-Inf, Inf], or as the Stan manual
-
-# (2.17.0, pp. 127) tells us:
+# In Rethinking the model actually has priors that are Uniform[-Inf, Inf], or as the Stan manual (2.17.0, pp. 127) tells us:
 
 # "A parameter declared without constraints is thus given a uniform prior
 # on (−∞, ∞) ..."
@@ -14,8 +12,8 @@ Turing.setadbackend(:reverse_diff);
 # course better since we've restrained it to [-1,1]
 
 @model m8_2(y) = begin
-    σ ~ Uniform(-1, 1)
-    α ~ Uniform(-1, 1)
+    σ ~ Uniform(0, Inf)
+    α ~ Uniform(-Inf, Inf)
 
     for i ∈ 1:length(y)
         y[i] ~ Normal(α, σ)
@@ -26,7 +24,7 @@ y = [-1,1];
 
 # Sample
 
-posterior = sample(m8_2(y), Turing.NUTS(4000, 1000, 0.95));
+posterior = sample(m8_2(y), Turing.NUTS(4000, 200, 0.95));
 
 # Draw summary
 

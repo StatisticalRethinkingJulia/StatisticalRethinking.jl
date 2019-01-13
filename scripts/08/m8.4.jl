@@ -1,15 +1,14 @@
 using StatisticalRethinking, Turing
 
-Turing.setadbackend(:reverse_diff)
-#nb Turing.turnprogress(false)
+Turing.setadbackend(:reverse_diff);
+#nb Turing.turnprogress(false);
 
-# Can't really set a U[-Inf,Inf] on \sigma AFAICT so this will not be 1:1
-# w/ Rethinking
+# Can't really set a Uniform[-Inf,Inf] on σ 
 
 # Turing model
 @model m8_4(y) = begin
-    α₁ ~ Uniform(-Inf, Inf)
-    α₂ ~ Uniform(-Inf, Inf)
+    α₁ ~ Uniform(-3000, 1000)
+    α₂ ~ Uniform(-1000, 3000)
     σ ~ Truncated(Cauchy(0,1), 0, Inf)
 
     for i ∈ 1:length(y)
@@ -17,11 +16,13 @@ Turing.setadbackend(:reverse_diff)
     end
 end
 
+# Observations
+
 y = rand(Normal(0,1), 100);
 
 # Sample
 
-posterior = sample(m8_4(y), Turing.NUTS(4000, 1000, 0.95));
+posterior = sample(m8_4(y), Turing.NUTS(4000, 200, 0.95));
 
 # Draw summary
 

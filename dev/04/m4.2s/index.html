@@ -65,25 +65,31 @@ Output file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/
 
 --- Linking C++ model ---
 g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/heights -include /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/heights.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is 0, but must be &gt; 0!  (in &#39;/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/heights.stan&#39; at line 16)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
 
 Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
 
 Inference for Stan model: heights_model
 4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
 
-Warmup took (0.024, 0.024, 0.027, 0.024) seconds, 0.099 seconds total
-Sampling took (0.032, 0.055, 0.034, 0.042) seconds, 0.16 seconds total
+Warmup took (0.027, 0.023, 0.024, 0.024) seconds, 0.098 seconds total
+Sampling took (0.032, 0.051, 0.033, 0.034) seconds, 0.15 seconds total
 
                  Mean     MCSE  StdDev     5%    50%   95%    N_Eff  N_Eff/s    R_hat
-lp__             -932  2.3e-02     1.0   -934   -932  -931  1.9e+03  1.2e+04  1.0e+00
-accept_stat__    0.92  1.6e-03    0.11   0.69   0.96   1.0  4.4e+03  2.7e+04  1.0e+00
-stepsize__       0.88  2.9e-02   0.041   0.83   0.90  0.94  2.0e+00  1.2e+01  2.4e+13
-treedepth__       2.0  1.2e-01    0.75    1.0    2.0   4.0  3.8e+01  2.3e+02  1.0e+00
-n_leapfrog__      5.3  1.2e+00     7.3    1.0    3.0    19  3.4e+01  2.1e+02  1.1e+00
+lp__             -932  2.5e-02     1.0   -934   -932  -931  1.7e+03  1.1e+04  1.0e+00
+accept_stat__    0.91  1.7e-03    0.11   0.67   0.95   1.0  4.5e+03  3.0e+04  1.0e+00
+stepsize__       0.90  4.0e-02   0.056   0.82   0.94  0.97  2.0e+00  1.3e+01  2.9e+13
+treedepth__       1.9  1.1e-01    0.64    1.0    2.0   3.0  3.5e+01  2.4e+02  1.1e+00
+n_leapfrog__      4.3  1.0e+00     5.2    1.0    3.0    11  2.4e+01  1.6e+02  1.1e+00
 divergent__      0.00     -nan    0.00   0.00   0.00  0.00     -nan     -nan     -nan
-energy__          933  3.6e-02     1.5    931    933   936  1.6e+03  1.0e+04  1.0e+00
-sigma             7.8  4.8e-03    0.29    7.3    7.8   8.3  3.6e+03  2.2e+04  1.0e+00
-mu              0.080  7.4e-03    0.42  -0.63  0.079  0.75  3.2e+03  2.0e+04  1.0e+00
+energy__          933  3.6e-02     1.4    932    933   936  1.5e+03  1.0e+04  1.0e+00
+sigma             7.8  4.7e-03    0.29    7.3    7.8   8.3  3.8e+03  2.6e+04  1.0e+00
+mu              0.086  6.7e-03    0.42  -0.60  0.085  0.77  3.9e+03  2.6e+04  1.0e+00
 
 Samples were drawn using hmc with nuts.
 For each parameter, N_Eff is a crude measure of effective sample size,
@@ -97,13 +103,13 @@ Samples per chain = 1000
 
 Empirical Posterior Estimates:
          Mean        SD       Naive SE       MCSE      ESS
-sigma 7.76347421 0.28974431 0.0045812598 0.0057138475 1000
-   mu 0.08024774 0.41765506 0.0066037064 0.0078749449 1000
+sigma 7.77395400 0.28807858 0.0045549223 0.0049500408 1000
+   mu 0.08582137 0.42046032 0.0066480614 0.0073006325 1000
 
 Quantiles:
-         2.5%       25.0%      50.0%     75.0%     97.5%
-sigma  7.2275990  7.56404750 7.7570800 7.9551325 8.3465422
-   mu -0.7397348 -0.20630325 0.0790051 0.3673505 0.8848893
+          2.5%       25.0%       50.0%      75.0%      97.5%
+sigma  7.24111950  7.57606000 7.75991500 7.95470750 8.36844075
+   mu -0.74394815 -0.19951275 0.08470645 0.36570825 0.92137225
 
 Iterations = 1:1000
 Thinning interval = 1
@@ -112,10 +118,10 @@ Samples per chain = 1000
 
 Empirical Posterior Estimates:
          Mean        SD       Naive SE       MCSE      ESS
-sigma 7.76347421 0.28974431 0.0045812598 0.0057138475 1000
-   mu 0.08024774 0.41765506 0.0066037064 0.0078749449 1000
+sigma 7.77395400 0.28807858 0.0045549223 0.0049500408 1000
+   mu 0.08582137 0.42046032 0.0066480614 0.0073006325 1000
 
 Quantiles:
-         2.5%       25.0%      50.0%     75.0%     97.5%
-sigma  7.2275990  7.56404750 7.7570800 7.9551325 8.3465422
-   mu -0.7397348 -0.20630325 0.0790051 0.3673505 0.8848893</code></pre></div><p>end of m4.2s#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.1s/"><span class="direction">Previous</span><span class="title">m4.1s</span></a><a class="next" href="../m4.3s/"><span class="direction">Next</span><span class="title">m4.3s</span></a></footer></article></body></html>
+          2.5%       25.0%       50.0%      75.0%      97.5%
+sigma  7.24111950  7.57606000 7.75991500 7.95470750 8.36844075
+   mu -0.74394815 -0.19951275 0.08470645 0.36570825 0.92137225</code></pre></div><p>end of m4.2s#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.1s/"><span class="direction">Previous</span><span class="title">m4.1s</span></a><a class="next" href="../m4.3s/"><span class="direction">Next</span><span class="title">m4.3s</span></a></footer></article></body></html>

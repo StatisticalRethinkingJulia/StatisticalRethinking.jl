@@ -57,15 +57,24 @@ end;
 
 # Use Turing mcmc
 
-posterior = sample(m8_1stan(dd[:log_gdp], dd[:rugged], dd[:cont_africa]), Turing.NUTS(2000, 200, 0.95));
+posterior = sample(m8_1stan(dd[:log_gdp], dd[:rugged], dd[:cont_africa]),
+Turing.NUTS(2000, 200, 0.95));
     
 # Describe the posterior samples
 
 describe(posterior)
 
+# Fix the inclusion of adaptation samples
+
+posterior2 = MCMCChain.Chains(posterior.value[201:2000,:,:], names=chn.names)
+
+# Describe the posterior samples
+
+describe(posterior2)
+
 # Example of a Turing run simulation output
 
-# Here's the ulam() output from rethinking (note that in above output the SD value is too large).
+# Here's the ulam() output from rethinking 
 
 m8_1_map = "
        mean   sd  5.5% 94.5% n_eff Rhat

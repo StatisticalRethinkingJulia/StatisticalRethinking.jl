@@ -48,11 +48,19 @@ describe(chn)
 
 # Look at the mean and sd
 
-println("\ntheta = $(mean_and_std(chn[:theta][1001:2000]))\n")
+println("\ntheta = $(mean_and_std(chn[:theta][201:2000]))\n")
+
+# Fix the inclusion of adaptation samples
+
+chn2 = MCMCChain.Chains(chn.value[201:2000,:,:], names=chn.names)
+
+# Look at the proper draws (in corrected chn2)
+
+describe(chn2)
 
 # Compute at hpd region
 
-bnds = MCMCChain.hpd(chn[:theta], alpha=0.06);
+bnds = MCMCChain.hpd(chn2[:, 4, :], alpha=0.06);
 
 # analytical calculation
 
@@ -65,7 +73,7 @@ plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 
 # Turing Chain &  89%hpd region boundaries
 
-density!(chn[:theta], lab="Turing chain")
+density!(chn2[:theta], lab="Turing chain")
 vline!([bnds[1]], line=:dash, lab="hpd lower bound")
 vline!([bnds[2]], line=:dash, lab="hpd upper bound")
 

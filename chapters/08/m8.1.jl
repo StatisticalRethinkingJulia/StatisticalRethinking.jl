@@ -27,9 +27,14 @@ size(dd)
     end
 end;
 
-posterior = sample(m8_1stan(dd[:log_gdp], dd[:rugged], dd[:cont_africa]), Turing.NUTS(2000, 200, 0.95));
+posterior = sample(m8_1stan(dd[:log_gdp], dd[:rugged], dd[:cont_africa]),
+Turing.NUTS(2000, 200, 0.95));
 
 describe(posterior)
+
+posterior2 = MCMCChain.Chains(posterior.value[201:2000,:,:], names=chn.names)
+
+describe(posterior2)
 
 m8_1_map = "
        mean   sd  5.5% 94.5% n_eff Rhat

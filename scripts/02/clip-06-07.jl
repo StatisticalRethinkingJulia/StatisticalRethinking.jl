@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking
+using StatisticalRethinking, Optim
 gr(size=(600,300));
 
 # ### snippet 2.6 (see snippet 3_2 for explanations)

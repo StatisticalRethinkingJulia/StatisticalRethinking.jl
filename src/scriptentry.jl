@@ -73,7 +73,7 @@ script_dict = DataStructures.OrderedDict{AbstractString, Vector{ScriptEntry}}(
     scriptentry("clip-01-02.jl"),
     scriptentry("clip-03-05.jl"),
     scriptentry("clip-06-07.jl"),
-    scriptentry("clip-08m.jl", exe = false, doc = true), 
+    scriptentry("clip-08m.jl", exe = false, doc = false), 
     scriptentry("clip-08s.jl"),
     scriptentry("clip-08t.jl", exe = false, doc = true)
   ],
@@ -88,7 +88,7 @@ script_dict = DataStructures.OrderedDict{AbstractString, Vector{ScriptEntry}}(
     scriptentry("m4.2s.jl"),
     scriptentry("m4.2t.jl", exe = false, doc = true),
     scriptentry("m4.3s.jl"),
-    scriptentry("m4.4m.jl", exe = false, doc = true), 
+    scriptentry("m4.4m.jl", exe = false, doc = false), 
     scriptentry("m4.4s.jl"),
     scriptentry("clip-01-06.jl"),
     scriptentry("clip-07-13s.jl"),

@@ -66,7 +66,7 @@ describe(posterior)
 
 # Fix the inclusion of adaptation samples
 
-posterior2 = MCMCChain.Chains(posterior.value[201:2000,:,:], names=chn.names)
+posterior2 = MCMCChain.Chains(posterior.value[201:2000,:,:], names=posterior.names)
 
 # Describe the posterior samples
 

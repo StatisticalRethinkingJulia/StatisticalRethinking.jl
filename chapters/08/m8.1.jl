@@ -32,7 +32,7 @@ Turing.NUTS(2000, 200, 0.95));
 
 describe(posterior)
 
-posterior2 = MCMCChain.Chains(posterior.value[201:2000,:,:], names=chn.names)
+posterior2 = MCMCChain.Chains(posterior.value[201:2000,:,:], names=posterior.names)
 
 describe(posterior2)
 

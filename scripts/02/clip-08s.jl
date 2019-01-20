@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking, CmdStan, StanMCMCChain
-gr(size=(500,800));
+gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -38,14 +38,14 @@ stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanm
 
 # Use 16 observations
 
-N2 = 4^2
+N2 = 15
 d = Binomial(9, 0.66)
 n2 = Int.(9 * ones(Int, N2));
 
 # Show first 5 (generated) observations
 
 k2 = rand(d, N2);
-k2[1:5]
+k2[1:min(5, N2)]
 
 # Input data for cmdstan
 
@@ -70,6 +70,9 @@ end
 
 # Plot the 4 chains
 
+mu_avg = sum([fits[i].μ for i in 1:4]) / 4.0;
+sigma_avg = sum([fits[i].σ for i in 1:4]) / 4.0;
+
 if rc == 0
   p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
   x = 0:0.001:1
@@ -83,5 +86,58 @@ if rc == 0
   end
   plot(p..., layout=(4, 1))
 end
+
+# Compute at hpd region
+
+bnds = MCMCChain.hpd(chn[:, 1, :], alpha=0.06);
+
+# Show hpd region
+
+println("hpd bounds = $bnds\n")
+
+# quadratic approximation
+
+# Compute MAP, compare with CmndStan & MLE
+
+tmp = convert(Array{Float64,3}, chn.value)
+draws = reshape(tmp, (size(tmp, 1)*size(tmp, 3)),)
+
+using Optim
+
+x0 = [0.5]
+lower = [0.2]
+upper = [1.0]
+
+inner_optimizer = GradientDescent()
+
+function loglik(x)
+  ll = 0.0
+  ll += log.(pdf.(Beta(1, 1), x[1]))
+  ll += sum(log.(pdf.(Binomial(9, x[1]), k2)))
+  -ll
+end
+
+println()
+res2 = optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))
+res2 |> display
+
+println("\nCmdStan: $(mean(chn.value)))")
+println("MAP: $(Optim.minimizer(res2))")
+println("MLE: $(mu_avg)\n")
+
+println("CmdStan sd: $(std(chn.value))")
+println("MAP sd: $(std(draws, mean=mean(chn.value)))")
+println("MLE sd: $(sigma_avg)\n")
+
+plot( x, pdf.(Normal( mu_avg , sigma_avg  ) , x ),
+xlim=(0.3, 1.0), lab="Normal approximation using MLE")
+plot!( x, pdf.(Normal( Optim.minimizer(res2)[1] , std(draws, mean=mean(chn.value))) , x),
+lab="Normal approximation using MAP")
+
+# Turing Chain &  89%hpd region boundaries
+
+density!(draws, lab="CmdStan chain")
+vline!([bnds.value[1]], line=:dash, lab="hpd lower bound")
+vline!([bnds.value[2]], line=:dash, lab="hpd upper bound")
 
 # End of `clip_08s.jl`

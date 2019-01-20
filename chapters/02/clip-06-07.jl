@@ -1,4 +1,4 @@
-using StatisticalRethinking
+using StatisticalRethinking, Optim
 gr(size=(600,300));
 
 p_grid = range(0, step=0.001, stop=1)

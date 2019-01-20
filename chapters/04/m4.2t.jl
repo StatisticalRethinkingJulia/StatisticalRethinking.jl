@@ -34,14 +34,13 @@ samples = 5000
 adapt_cycles = 1000
 
 @time chn = sample(line(y, x), Turing.NUTS(samples, adapt_cycles, 0.65));
-draws = adapt_cycles:samples
+draws = adapt_cycles+1:samples
 
 describe(chn)
 
-for var in [:alpha, :beta, :s]
-  describe(chn[Symbol(var)][draws])
-  println("$var = ",  mean_and_std(chn[Symbol(var)][draws]))
-end
+chn2 = MCMCChain.Chains(chn.value[draws,:,:], names=chn.names)
+
+describe(chn2)
 
 clip_43s_example_output = "
 
@@ -65,7 +64,7 @@ sigma   4.7524368   4.9683400   5.0994450   5.2353100   5.5090128
 
 scatter(x, y, lab="Observations", xlab="weight", ylab="height")
 xi = -15.0:0.1:15.0
-yi = mean(chn[:alpha]) .+ mean(chn[:beta])*xi
+yi = mean(chn2.value[:,1,:]) .+ mean(chn2.value[:, 2, :])*xi
 plot!(xi, yi, lab="Regression line")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

@@ -35,9 +35,11 @@ plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), fill=(0, .5,:orange), lab="Conjugate so
 
 plot!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
 
-density!(chn2[:theta], lab="Turing chain")
-vline!([bnds[1]], line=:dash, lab="hpd lower bound")
-vline!([bnds[2]], line=:dash, lab="hpd upper bound")
+#tmp = convert(Array{Float64,3}, chn.value[:, 4, :])
+#draws = reshape(tmp, (size(tmp, 1)*size(tmp, 3)),)
+density!(chn.value[:, 4, 1], lab="Turing chain")
+vline!([bnds.value[1]], line=:dash, lab="hpd lower bound")
+vline!([bnds.value[2]], line=:dash, lab="hpd upper bound")
 
 println("hpd bounds = $bnds\n")
 

@@ -48,58 +48,53 @@ Compiling pre-compiled header
 g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe  -c -O3 stan/src/stan/model/model_header.hpp -o stan/src/stan/model/model_header.hpp.gch
 
 --- Linking C++ model ---
-g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1 -include /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a
-Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-Exception: normal_lpdf: Scale parameter is 0, but must be &gt; 0!  (in &#39;/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1.stan&#39; at line 15)
-
-If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
-but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre></div><p>Describe the draws</p><div><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">Iterations = 1:1000
+g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1 -include /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/12/tmp/m12.6.1.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a</code></pre></div><p>Describe the draws</p><div><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">Iterations = 1:1000
 Thinning interval = 1
 Chains = 1,2,3,4
 Samples per chain = 1000
 
 Empirical Posterior Estimates:
-                   Mean           SD         Naive SE       MCSE         ESS
-         lp__  928.004473750  3.123427084 0.04938571846 0.0981428563 1000.000000
-accept_stat__    0.940573533  0.080156507 0.00126738566 0.0016969104 1000.000000
-   stepsize__    0.051439375  0.003903637 0.00006172192 0.0006250040   39.009752
-  treedepth__    5.844500000  0.450966288 0.00713040309 0.0148882590  917.487853
- n_leapfrog__   69.509000000 30.876321928 0.48819751531 0.9298315122 1000.000000
-  divergent__    0.000000000  0.000000000 0.00000000000 0.0000000000         NaN
-     energy__ -921.570967250  4.004032919 0.06330931925 0.1255806542 1000.000000
-            a    1.141891942  0.730287717 0.01154686267 0.0228326339 1000.000000
-           bp    0.256263309  0.079237430 0.00125285377 0.0024420938 1000.000000
-  a_society.1   -0.205753399  0.236825143 0.00374453430 0.0054364140 1000.000000
-  a_society.2    0.037852459  0.213964332 0.00338307314 0.0056418149 1000.000000
-  a_society.3   -0.046402382  0.191223690 0.00302351201 0.0041192380 1000.000000
-  a_society.4    0.322874068  0.184110109 0.00291103643 0.0051951452 1000.000000
-  a_society.5    0.040910441  0.175748149 0.00277882222 0.0039330819 1000.000000
-  a_society.6   -0.316568636  0.208275783 0.00329312928 0.0046600199 1000.000000
-  a_society.7    0.145702038  0.175981813 0.00278251677 0.0043151293 1000.000000
-  a_society.8   -0.167614022  0.183556468 0.00290228258 0.0035734746 1000.000000
-  a_society.9    0.275647072  0.176556058 0.00279159640 0.0042818362 1000.000000
- a_society.10   -0.079392658  0.284437427 0.00449735060 0.0081862102 1000.000000
-sigma_society    0.309177025  0.129357529 0.00204532212 0.0039662231 1000.000000
+                   Mean           SD        Naive SE       MCSE         ESS
+         lp__  929.304489250  6.34355545 0.10030041841 0.8570685824   54.781552
+accept_stat__    0.899266341  0.19700126 0.00311486342 0.0253893236   60.205442
+   stepsize__    0.049901050  0.00444280 0.00007024684 0.0007113284   39.009752
+  treedepth__    5.716250000  0.90798791 0.01435654945 0.1143390636   63.062455
+ n_leapfrog__   69.410250000 34.81840067 0.55052725300 2.7461162199  160.760671
+  divergent__    0.010500000  0.10194287 0.00161185825 0.0075697610  181.363273
+     energy__ -922.759313000  6.88820443 0.10891207496 0.8684160977   62.915308
+            a    1.146395055  0.74921003 0.01184605078 0.0221616285 1000.000000
+           bp    0.256260411  0.08133351 0.00128599572 0.0024061667 1000.000000
+  a_society.1   -0.197146562  0.24954402 0.00394563740 0.0102333770  594.643104
+  a_society.2    0.035560585  0.21648671 0.00342295543 0.0051905458 1000.000000
+  a_society.3   -0.045498352  0.19366394 0.00306209577 0.0047707747 1000.000000
+  a_society.4    0.302886475  0.19832956 0.00313586575 0.0138758288  204.294675
+  a_society.5    0.041276516  0.17512474 0.00276896532 0.0043402883 1000.000000
+  a_society.6   -0.293483226  0.21579807 0.00341206716 0.0134775591  256.373212
+  a_society.7    0.137641137  0.17376464 0.00274746022 0.0071734408  586.769833
+  a_society.8   -0.162273451  0.17951042 0.00283830897 0.0081118541  489.710111
+  a_society.9    0.259794691  0.18483062 0.00292242878 0.0120127532  236.735156
+ a_society.10   -0.077608121  0.29136938 0.00460695447 0.0090689684 1000.000000
+sigma_society    0.292555440  0.14632764 0.00231364308 0.0127852476  130.988879
 
 Quantiles:
-                   2.5%          25.0%         50.0%          75.0%         97.5%
-         lp__  920.977525000  926.08950000  928.29950000  930.194500000  933.41410000
-accept_stat__    0.714340775    0.91584850    0.97372200    0.995547250    0.99995002
-   stepsize__    0.047087700    0.04826610    0.05078120    0.053954475    0.05710740
-  treedepth__    5.000000000    6.00000000    6.00000000    6.000000000    7.00000000
- n_leapfrog__   31.000000000   63.00000000   63.00000000   63.000000000  127.00000000
-  divergent__    0.000000000    0.00000000    0.00000000    0.000000000    0.00000000
-     energy__ -928.649125000 -924.35975000 -921.80500000 -919.072000000 -912.92365000
-            a   -0.401057525    0.71180375    1.14959000    1.595192500    2.58785700
-           bp    0.098976478    0.20742125    0.25512150    0.302783250    0.42435685
-  a_society.1   -0.721901500   -0.34557200   -0.18955150   -0.048812225    0.23094330
-  a_society.2   -0.374480275   -0.09742362    0.02734255    0.169627250    0.48024465
-  a_society.3   -0.438504875   -0.16488975   -0.04018810    0.076139600    0.32283003
-  a_society.4   -0.007064309    0.19442725    0.31275300    0.440040000    0.71143120
-  a_society.5   -0.305323775   -0.06903925    0.04108040    0.145985250    0.40726463
-  a_society.6   -0.774600600   -0.44578500   -0.30278650   -0.169566500    0.04746782
-  a_society.7   -0.176396175    0.02616120    0.14009450    0.254161500    0.51166768
-  a_society.8   -0.551381750   -0.28764675   -0.15710250   -0.039728425    0.17194178
-  a_society.9   -0.045435575    0.15356400    0.26519650    0.385525750    0.65110218
- a_society.10   -0.688637675   -0.24244800   -0.07035615    0.080164650    0.49726778
-sigma_society    0.115256575    0.21948075    0.28754500    0.377841750    0.62135905</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../../08/m8.3/"><span class="direction">Previous</span><span class="title">m8.3</span></a><a class="next" href="../m12.6.2s/"><span class="direction">Next</span><span class="title">m12.6.2s</span></a></footer></article></body></html>
+                    2.5%           25.0%         50.0%          75.0%          97.5%
+         lp__  920.9639000000  926.216750000  928.46700000  930.462000000  952.821000000
+accept_stat__    0.0065239498    0.897261750    0.96897950    0.994774250    0.999970000
+   stepsize__    0.0425300000    0.048362225    0.05169665    0.053235475    0.053680900
+  treedepth__    2.0000000000    6.000000000    6.00000000    6.000000000    7.000000000
+ n_leapfrog__    7.0000000000   63.000000000   63.00000000   63.000000000  127.000000000
+  divergent__    0.0000000000    0.000000000    0.00000000    0.000000000    0.000000000
+     energy__ -946.7768000000 -924.828250000 -922.03850000 -919.044000000 -912.631425000
+            a   -0.3361981000    0.690228750    1.17594000    1.572577500    2.673907500
+           bp    0.0896797475    0.210744250    0.25433650    0.304369750    0.416099700
+  a_society.1   -0.7615232500   -0.342250750   -0.17359250   -0.010068123    0.226118150
+  a_society.2   -0.3854870000   -0.092008425    0.01977070    0.163874500    0.485326375
+  a_society.3   -0.4463143500   -0.167105500   -0.03457070    0.068817525    0.343222675
+  a_society.4   -0.0259664550    0.163107000    0.29976200    0.435043750    0.701775075
+  a_society.5   -0.3138084250   -0.060125425    0.02980550    0.151308250    0.402119500
+  a_society.6   -0.7555335000   -0.426926250   -0.28059300   -0.136125000    0.041328483
+  a_society.7   -0.1738971750    0.011881475    0.12364300    0.245758250    0.515285050
+  a_society.8   -0.5513614750   -0.275259500   -0.15158000   -0.025826200    0.156184950
+  a_society.9   -0.0433843925    0.131619250    0.25725900    0.374396250    0.651865400
+ a_society.10   -0.6594547250   -0.238502250   -0.06481280    0.072069625    0.546181200
+sigma_society    0.0069726700    0.209324750    0.28296800    0.366235250    0.606214475</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../../08/m8.3/"><span class="direction">Previous</span><span class="title">m8.3</span></a><a class="next" href="../m12.6.2s/"><span class="direction">Next</span><span class="title">m12.6.2s</span></a></footer></article></body></html>

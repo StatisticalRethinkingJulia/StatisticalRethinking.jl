@@ -65,7 +65,7 @@ if rc == 0
   plot(p..., layout=(4, 1))
 end
 
-bnds = MCMCChain.hpd(chn[:, 1, :], alpha=0.06);
+bnds = MCMCChain.hpd(chn[:, 1, :], alpha=0.055);
 
 println("hpd bounds = $bnds\n")
 
@@ -87,23 +87,18 @@ function loglik(x)
   -ll
 end
 
-println()
-res2 = optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))
-res2 |> display
+res = optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))
 
-println("\nCmdStan: $(mean(chn.value)))")
-println("MAP: $(Optim.minimizer(res2))")
-println("MLE: $(mu_avg)\n")
+[mean(chn.value), std(chn.value)]
 
-println("CmdStan sd: $(std(chn.value))")
-println("MAP sd: $(std(draws, mean=mean(chn.value)))")
-println("MLE sd: $(sigma_avg)\n")
+[Optim.minimizer(res)[1], std(draws, mean=mean(chn.value))]
+
+[mu_avg, sigma_avg]
 
 plot( x, pdf.(Normal( mu_avg , sigma_avg  ) , x ),
-xlim=(0.3, 1.0), lab="Normal approximation using MLE")
-plot!( x, pdf.(Normal( Optim.minimizer(res2)[1] , std(draws, mean=mean(chn.value))) , x),
+xlim=(0.0, 1.2), lab="Normal approximation using MLE")
+plot!( x, pdf.(Normal( Optim.minimizer(res)[1] , std(draws, mean=mean(chn.value))) , x),
 lab="Normal approximation using MAP")
-
 density!(draws, lab="CmdStan chain")
 vline!([bnds.value[1]], line=:dash, lab="hpd lower bound")
 vline!([bnds.value[2]], line=:dash, lab="hpd upper bound")

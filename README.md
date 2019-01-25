@@ -12,16 +12,27 @@ This package contains Julia versions of selected code snippets contained in the 
 In the book and associated R package `rethinking`, statistical models are defined as illustrated below:
 
 ```
-m4.3 <- map(
-    alist(
-        height ~ dnorm( mu , sigma ) ,
-        mu <- a + b*weight ,
-        a ~ dnorm( 156 , 100 ) ,
-        b ~ dnorm( 0 , 10 ) ,
-        sigma ~ dunif( 0 , 50 )
-    ) ,
-    data=d2
+flist <- alist(
+  height ~ dnorm( mu , sigma ) ,
+  mu <- a + b*weight ,
+  a ~ dnorm( 156 , 100 ) ,
+  b ~ dnorm( 0 , 10 ) ,
+  sigma ~ dunif( 0 , 50 )
 )
+```
+
+Posterior values can be approximated by
+ 
+```
+# Simulate quadratic approximation (for simpler models)
+m4.31 <- quad(flist, data=d2)
+```
+
+or generated using Stan by:
+
+```
+# Generate a Stan model and run a simulation
+m4.32 <- ulam(flist, data=d2)
 ```
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
@@ -76,6 +87,10 @@ At least 2 other mcmc options are available for mcmc in Julia:
 Time constraints prevents inclusion of those. The linear regression example in [DynamicHMCExamples](https://tpapp.github.io/DynamicHMCExamples.jl/latest/example_linear_regression/) is a good starting point.
 
 The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
+
+## To do
+
+The R package `rethinking`, in the experimental branch, contains 2 functions `quap` and `ulam` which are not in v1 of `Statisticalrethinking`. It is my *hope* to include those in v2 of `Statisticalrethinking`.
 
 ## Documentation
 

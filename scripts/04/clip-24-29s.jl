@@ -49,8 +49,7 @@ upper = [250.0, 50.0]
 
 inner_optimizer = GradientDescent()
 
-optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer)) |> display
-println()
+optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))
 
 # Our second model:
 
@@ -74,7 +73,6 @@ function loglik2(x)
   -ll
 end
 
-optimize(loglik2, lower, upper, x0, Fminbox(inner_optimizer)) |> display
-println()
+optimize(loglik2, lower, upper, x0, Fminbox(inner_optimizer))
 
 # End of `clip-24-29s.jl`

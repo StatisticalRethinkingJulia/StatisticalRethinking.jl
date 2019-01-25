@@ -23,7 +23,9 @@ coef(m)
 
 # Plot residuals against speed
 
-scatter( cars[:Speed], residuals(m),
-  xlab="Speed", ylab="Model residual values", lab="Model residuals")
+scatter( cars[:Speed], residuals(m), xlab="Speed",
+ylab="Model residual values", lab="Model residuals")
+
+#-
   
 # End of `clip_04_05.jl`

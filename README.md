@@ -37,7 +37,7 @@ m4.32 <- ulam(flist, data=d2)
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
-This package is intended to allow experimenting with this learning process using 3 available mcmc options in Julia.
+This package is intended to allow experimenting with this learning process introducing 3 available mcmc options in Julia.
 
 ## Layout of the package
 
@@ -65,7 +65,7 @@ Almost identical clips are named e.g. `04/clip-07.0s.jl` and `04/clip-07.1s.jl`.
 
 Scripts using Turing, Mamba or CmdStan need to import those, see the examples in `scripts/02`.
 
-In the `src` directory is a file scriptentry.jl which defines an object `script_dict` which is used to control the generation of documentation, notebooks and .jl scripts in chapters and testing of the notebooks. Output of CmdStan and Mamba scripts is automatically inserted in the documentation. For Turing scripts this needs to be done manually by executing the notebook, exporting the results as .md files (and .svg files if graphics are generated) and copy these to `docs/src/nn`, where nn is the chapter. See `?ScriptEntry` or enter e.g. `script_dict["02"]` in the REPL.
+In the `src` directory is a file scriptentry.jl which defines an object `script_dict` which is used to control the generation of documentation, notebooks and .jl scripts in chapters and testing of the notebooks. Output from CmdStan scripts are automatically inserted in the documentation. For Turing scripts this needs to be done manually by executing the notebook, exporting the results as .md files (and .svg files if graphics are generated) and copy these to `docs/src/nn`, where nn is the chapter. See `?ScriptEntry` or enter e.g. `script_dict["02"]` in the REPL. The same is true for Mamba scripts.
 
 ## Acknowledgements
 
@@ -90,7 +90,11 @@ The Mamba examples should really use `@everywhere using Mamba` in stead of `usin
 
 ## To do
 
-The R package `rethinking`, in the experimental branch, contains 2 functions `quap` and `ulam` which are not in v1 of `Statisticalrethinking`. It is my *hope* to include those in v2 of `Statisticalrethinking`.
+1. The initial version (v1) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-processing of the results in Julia.
+
+2. The R package `rethinking`, in the experimental branch on Github, contains 2 functions `quap` and `ulam` (previously called `map` and `map2stan`) which are not in v1 of `Statisticalrethinking`. It is my *intention* to study those and _possibly_ include `quap` or `ulam` (or both) in a future of `Statisticalrethinking`. Several other interesting approaches that could become a good basis for such an endeavour are being explored in Julia, e.g. Soss.jl and Omega.jl.
+
+3. The same is true for many other R functions such as precis(), link(), shade(), etc. In v1 some early versions are being tested. Expect refactoring of those in future versions.
 
 ## Documentation
 

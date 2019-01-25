@@ -14,9 +14,11 @@ end
 
 y = rand(Normal(0,1), 100);
 
-posterior = sample(m8_4(y), Turing.NUTS(4000, 200, 0.95));
+posterior = sample(m8_4(y), Turing.NUTS(4000, 1000, 0.95));
 
-describe(posterior)
+posterior2 = MCMCChain.Chains(posterior.value[1001:4000,:,:], names=posterior.names)
+
+describe(posterior2)
 
 m84rethinking = "
          mean      sd     5.5%   94.5% n_eff Rhat

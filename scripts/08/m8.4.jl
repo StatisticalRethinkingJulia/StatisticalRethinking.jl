@@ -22,11 +22,15 @@ y = rand(Normal(0,1), 100);
 
 # Sample
 
-posterior = sample(m8_4(y), Turing.NUTS(4000, 200, 0.95));
+posterior = sample(m8_4(y), Turing.NUTS(4000, 1000, 0.95));
 
-# Draw summary
+# Fix the inclusion of adaptation samples
 
-describe(posterior)
+posterior2 = MCMCChain.Chains(posterior.value[1001:4000,:,:], names=posterior.names)
+
+# Describe the posterior samples
+
+describe(posterior2)
 
 # Results rethinking
 

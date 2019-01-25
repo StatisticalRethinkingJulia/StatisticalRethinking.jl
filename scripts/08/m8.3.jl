@@ -18,11 +18,15 @@ y = [-1,1]
 
 # Sample
 
-posterior = sample(m8_3(y), Turing.NUTS(4000, 1000, 0.95));
+posterior = sample(m8_3(y), Turing.NUTS(4000,1000, 0.95));
 
-# Draw summary
+# Fix the inclusion of adaptation samples
 
-describe(posterior)
+posterior2 = MCMCChain.Chains(posterior.value[1001:4000,:,:], names=posterior.names)
+
+# Describe the posterior samples
+
+describe(posterior2)
 
 # Results rethinking
 

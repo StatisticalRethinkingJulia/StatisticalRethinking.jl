@@ -32,9 +32,11 @@ d[:society] = 1:10;
 end
 
 posterior = sample(m12_6(d[:total_tools], d[:log_pop],
-    d[:society]), Turing.NUTS(4000, 1000, 0.95));
+    d[:society]), Turing.NUTS(5000, 2000, 0.95));
 
-describe(posterior)
+posterior2 = MCMCChain.Chains(posterior.value[2001:5000,:,:], names=posterior.names)
+
+describe(posterior2)
 
 m126rethinking = "
               Mean StdDev lower 0.89 upper 0.89 n_eff Rhat

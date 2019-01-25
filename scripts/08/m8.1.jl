@@ -58,7 +58,7 @@ end;
 # Use Turing mcmc
 
 posterior = sample(m8_1stan(dd[:log_gdp], dd[:rugged], dd[:cont_africa]),
-Turing.NUTS(2000, 200, 0.95));
+Turing.NUTS(1000, 500, 0.95));
     
 # Describe the posterior samples
 
@@ -66,7 +66,7 @@ describe(posterior)
 
 # Fix the inclusion of adaptation samples
 
-posterior2 = MCMCChain.Chains(posterior.value[201:2000,:,:], names=posterior.names)
+posterior2 = MCMCChain.Chains(posterior.value[501:1000,:,:], names=posterior.names)
 
 # Describe the posterior samples
 
@@ -75,15 +75,6 @@ describe(posterior2)
 # Example of a Turing run simulation output
 
 # Here's the ulam() output from rethinking 
-
-m8_1_map = "
-       mean   sd  5.5% 94.5% n_eff Rhat
-a      9.22 0.14  8.98  9.43   242 1.00
-bR    -0.20 0.08 -0.33 -0.07   235 1.00
-bA    -1.95 0.23 -2.30 -1.58   202 1.00
-bAR    0.39 0.14  0.17  0.61   268 1.00
-sigma  0.95 0.05  0.87  1.04   307 1.01
-";
 
 m8_1_rethinking = "
        mean   sd  5.5% 94.5% n_eff Rhat

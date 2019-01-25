@@ -69,7 +69,7 @@ p2 = plot(Normal(fits.μ , fits.σ ), lab="Small normal distribution", fill=(0, 
 density!(p1, big, lab="'big' distribution")
 density!(p2, small, lab="'small' distribution")
 plot(p1, p2, layout=(1, 2))
-#jl savefig("s4_4.pdf")
+#src savefig("s4_4.pdf")
 
 
 # ### snippet 4.5
@@ -78,7 +78,7 @@ log_big = [log(prod(1 .+ rand(Uniform(0, 0.5), 12))) for i in 1:10000];
 fit = fit_mle(Normal, log_big)
 plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(log_big, lab="'sample' distribution")
-savefig("s4_5.pdf") #src
+#src savefig("s4_5.pdf")
 
 # ### snippet 4.6
 

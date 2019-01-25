@@ -40,7 +40,8 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
-stanmodel = Stanmodel(name="m12.6.1",  model=m12_6_1, output_format=:mcmcchain);
+stanmodel = Stanmodel(name="m12.6.1",  model=m12_6_1, num_warmup=2000,
+num_samples=2000, output_format=:mcmcchain);
 
 # Input data for cmdstan
 
@@ -48,7 +49,7 @@ m12_6_1_data = Dict("total_tools" => d[:total_tools], "logpop" => d[:logpop], "s
         
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, m12_6_1_data, ProjDir, diagnostics=false, summary=false, CmdStanDir=CMDSTAN_HOME);
+rc, chn, cnames = stan(stanmodel, m12_6_1_data, ProjDir, diagnostics=false, CmdStanDir=CMDSTAN_HOME);
 
 # Describe the draws
 

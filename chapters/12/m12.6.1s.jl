@@ -37,11 +37,12 @@ model{
 }
 ";
 
-stanmodel = Stanmodel(name="m12.6.1",  model=m12_6_1, output_format=:mcmcchain);
+stanmodel = Stanmodel(name="m12.6.1",  model=m12_6_1, num_warmup=2000,
+num_samples=2000, output_format=:mcmcchain);
 
 m12_6_1_data = Dict("total_tools" => d[:total_tools], "logpop" => d[:logpop], "society" => d[:society]);
 
-rc, chn, cnames = stan(stanmodel, m12_6_1_data, ProjDir, diagnostics=false, summary=false, CmdStanDir=CMDSTAN_HOME);
+rc, chn, cnames = stan(stanmodel, m12_6_1_data, ProjDir, diagnostics=false, CmdStanDir=CMDSTAN_HOME);
 
 describe(chn)
 

@@ -3,7 +3,7 @@
 
 | **Project Status**                                                               |  **Documentation**                                                               | **Build Status**                                                                                |
 |:-------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
-|![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][travis-img]][travis-url] [![][appveyor-img]][appveyor-url] [![][codecov-img]][codecov-url] |
+|![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][travis-img]][travis-url] [![][codecov-img]][codecov-url] |
 
 ## Introduction
 
@@ -96,9 +96,6 @@ Question and contributions are very welcome, as are feature requests and suggest
 
 [travis-img]: https://travis-ci.org/StanJulia/StatisticalRethinking.jl.svg?branch=master
 [travis-url]: https://travis-ci.org/StanJulia/StatisticalRethinking.jl
-
-[appveyor-img]: https://ci.appveyor.com/api/projects/status/whhifxtx8jb2208f?svg=true
-[appveyor-url]: https://ci.appveyor.com/project/StanJulia/StatisticalRethinking-jl
 
 [codecov-img]: https://codecov.io/gh/StanJulia/StatisticalRethinking.jl/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/StanJulia/StatisticalRethinking.jl

@@ -44,11 +44,16 @@ end
 # Sample
 
 posterior = sample(m12_6(d[:total_tools], d[:log_pop],
-    d[:society]), Turing.NUTS(4000, 1000, 0.95));
+    d[:society]), Turing.NUTS(5000, 2000, 0.95));
 
-# Draw summary
-    
-describe(posterior)
+# Fix the inclusion of adaptation samples
+
+posterior2 = MCMCChain.Chains(posterior.value[2001:5000,:,:], names=posterior.names)
+
+# Describe the posterior samples
+
+describe(posterior2)
+
 
 # Results rethinking
 

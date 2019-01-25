@@ -437,7 +437,39 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-07-13s",
     "title": "snippet 4.8",
     "category": "section",
-    "text": "Show first 5 rows of DataFrame dffirst(df, 5)Use only adultsdf2 = filter(row -> row[:age] >= 18, df);Plot the densities.density(df2[:height], lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")Filter on sex to see if it is bi-modalfemale_df = filter(row -> row[:male] == 0, df2);\nmale_df = filter(row -> row[:male] == 1, df2);\nfirst(male_df, 5)Is it bi-modal?density!(female_df[:height], lab=\"Female heights\")\ndensity!(male_df[:height], lab=\"Male heights\")Use data from m4.1sCheck if the m4.1s.jls file is present. If not, run the model.!isfile(joinpath(ProjDir, \"m4.1s.jls\")) && include(joinpath(ProjDir, \"m4.1s.jl\"))\n\nchn = deserialize(joinpath(ProjDir, \"m4.1s.jls\"))Describe the drawsdescribe(chn)"
+    "text": "Show first 5 rows of DataFrame dffirst(df, 5)"
+},
+
+{
+    "location": "04/clip-07-13s/#snippet-4.9-1",
+    "page": "clip-07-13s",
+    "title": "snippet 4.9",
+    "category": "section",
+    "text": "Show first 5 heigth values in dfdf[:height][1:5]"
+},
+
+{
+    "location": "04/clip-07-13s/#snippet-4.10-1",
+    "page": "clip-07-13s",
+    "title": "snippet 4.10",
+    "category": "section",
+    "text": "Use only adultsdf2 = filter(row -> row[:age] >= 18, df);Our model:m4_1 = \"\n  height ~ Normal(μ, σ) # likelihood\n  μ ~ Normal(178,20) # prior\n  σ ~ Uniform(0, 50) # prior\n\";Plot the densities.p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 3)\np[1] = density(df2[:height], xlim=(100,250), lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")"
+},
+
+{
+    "location": "04/clip-07-13s/#snippet-4.10-2",
+    "page": "clip-07-13s",
+    "title": "snippet 4.10",
+    "category": "section",
+    "text": "Show  μ priord1 = Normal(178, 20)\np[2] = plot(100:250, [pdf(d1, μ) for μ in 100:250], lab=\"Prior on mu\")"
+},
+
+{
+    "location": "04/clip-07-13s/#snippet-4.11-1",
+    "page": "clip-07-13s",
+    "title": "snippet 4.11",
+    "category": "section",
+    "text": "Show σ  priord2 = Uniform(0, 50)\np[3] = plot(0:0.1:50, [pdf(d2, σ) for σ in 0:0.1:50], lab=\"Prior on sigma\")\n\nplot(p..., layout=(3,1))"
 },
 
 {
@@ -445,7 +477,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-07-13s",
     "title": "snippet 4.13",
     "category": "section",
-    "text": "Plot the density of posterior drawsdensity(chn, lab=\"All heights\", xlab=\"height [cm]\", ylab=\"density\")End of clip-07-13s.jlThis page was generated using Literate.jl."
+    "text": "sample_mu = rand(d1, 10000)\nsample_sigma = rand(d2, 10000)\nprior_height = [rand(Normal(sample_mu[i], sample_sigma[i]), 1)[1] for i in 1:10000]\ndf2 = DataFrame(mu = sample_mu, sigma=sample_sigma, prior_height=prior_height);\nfirst(df2, 5)Show density of prior_heightdensity(prior_height, lab=\"prior_height\")Use data from m4.1s to show CmdStan resultsCheck if the m4.1s.jls file is present. If not, run the model.!isfile(joinpath(ProjDir, \"m4.1s.jls\")) && include(joinpath(ProjDir, \"m4.1s.jl\"))\n\nchn = deserialize(joinpath(ProjDir, \"m4.1s.jls\"))Describe the drawsdescribe(chn)Plot the density of posterior drawsdensity(chn)End of clip-07-13s.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -505,19 +537,91 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "04/clip-21-29s/#",
-    "page": "clip-21-29s",
-    "title": "clip-21-29s",
+    "location": "04/clip-21-23/#",
+    "page": "clip-21-23",
+    "title": "clip-21-23",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-21-29s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)Use data from m4.1sCheck if the m4.1s.jls file is present. If not, run the model.!isfile(joinpath(ProjDir, \"m4.1s.jls\")) && include(joinpath(ProjDir, \"m4.1s.jl\"))\n\nchn = deserialize(joinpath(ProjDir, \"m4.1s.jls\"))Describe the drawsdescribe(chn)"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-21-23.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);\ndf2 = filter(row -> row[:age] >= 18, df);\nfirst(df2, 5)"
 },
 
 {
-    "location": "04/clip-21-29s/#snippet-4.15-1",
-    "page": "clip-21-29s",
-    "title": "snippet 4.15",
+    "location": "04/clip-21-23/#Snippet-4.21-1",
+    "page": "clip-21-23",
+    "title": "Snippet 4.21",
     "category": "section",
-    "text": "scatter(chn.value[:, 2, 1], chn.value[:, 1, 1])End of clip-14-29s.jlThis page was generated using Literate.jl."
+    "text": "Sample 20 random heightsn = size(df2, 1)\nselected_ind = sample(1:n, 20, replace=false);\ndf3 = df2[selected_ind, :];"
+},
+
+{
+    "location": "04/clip-21-23/#Snippet-4.22-1",
+    "page": "clip-21-23",
+    "title": "Snippet 4.22",
+    "category": "section",
+    "text": "Generate approximate probabilitiesstruct Post\n  mu::Float64\n  sigma::Float64\n  ll:: Float64\n  prod::Float64\n  prob::Float64\nend\n\nmu_list = repeat(range(140, 170, length=200), 200);\nsigma_list = repeat(range(4, 20, length=200), inner=200);\n\nll = zeros(40000);\nfor i in 1:40000\n    d1 = Normal(mu_list[i], sigma_list[i])\n    ll[i] = sum(log.(pdf.(d1, df3[:height])))\nend\n\nd2 = Normal(178.0, 20.0)\nd3 = Uniform(0, 50)\nprod = ll + log.(pdf.(d2, mu_list)) + log.(pdf.(d3, sigma_list))\nprob = exp.(prod .- maximum(prod))\npost = DataFrame(mu=mu_list, sigma=sigma_list, ll=ll, prod=prod, prob=prob)\nfirst(post, 10)Sample postsamples = post[sample(1:size(post, 1), Weights(post[:prob]), 10000, replace=true), :]"
+},
+
+{
+    "location": "04/clip-21-23/#Snippet-4.23-1",
+    "page": "clip-21-23",
+    "title": "Snippet 4.23",
+    "category": "section",
+    "text": "Density of sigmadensity(samples[:sigma])End of clip-21-23.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "04/clip-24-29s/#",
+    "page": "clip-24-29s",
+    "title": "clip-24-29s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-24-29s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, Optim\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)"
+},
+
+{
+    "location": "04/clip-24-29s/#snippet-4.24-1",
+    "page": "clip-24-29s",
+    "title": "snippet 4.24",
+    "category": "section",
+    "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);\ndf2 = filter(row -> row[:age] >= 18, df);\nfirst(df2, 5)"
+},
+
+{
+    "location": "04/clip-24-29s/#snippet-4.25-1",
+    "page": "clip-24-29s",
+    "title": "snippet 4.25",
+    "category": "section",
+    "text": "Our first model:m4_1 = \"\n  height ~ Normal(μ, σ) # likelihood\n  μ ~ Normal(178,20) # prior\n  σ ~ Uniform(0, 50) # prior\n\""
+},
+
+{
+    "location": "04/clip-24-29s/#snippet-4.26-1",
+    "page": "clip-24-29s",
+    "title": "snippet 4.26",
+    "category": "section",
+    "text": "Compute MAPobs = df2[:height]\n\nfunction loglik(x)\n  ll = 0.0\n  ll += log(pdf(Normal(178, 20), x[1]))\n  ll += log(pdf(Uniform(0, 50), x[2]))\n  ll += sum(log.(pdf.(Normal(x[1], x[2]), obs)))\n  -ll\nend"
+},
+
+{
+    "location": "04/clip-24-29s/#snippet-4.28-1",
+    "page": "clip-24-29s",
+    "title": "snippet 4.28",
+    "category": "section",
+    "text": "x0 = [ 178, 10.0]\nlower = [0.0, 0.0]\nupper = [250.0, 50.0]"
+},
+
+{
+    "location": "04/clip-24-29s/#snippet-4.27-1",
+    "page": "clip-24-29s",
+    "title": "snippet 4.27",
+    "category": "section",
+    "text": "inner_optimizer = GradientDescent()\n\noptimize(loglik, lower, upper, x0, Fminbox(inner_optimizer)) |> display\nprintln()Our second model:m4_2 = \"\n  height ~ Normal(μ, σ) # likelihood\n  μ ~ Normal(178, 0.1) # prior\n  σ ~ Uniform(0, 50) # prior\n\""
+},
+
+{
+    "location": "04/clip-24-29s/#snippet-4.29-1",
+    "page": "clip-24-29s",
+    "title": "snippet 4.29",
+    "category": "section",
+    "text": "Compute MAPobs = df2[:height]\n\nfunction loglik2(x)\n  ll = 0.0\n  ll += log(pdf(Normal(178, 0.1), x[1]))\n  ll += log(pdf(Uniform(0, 50), x[2]))\n  ll += sum(log.(pdf.(Normal(x[1], x[2]), obs)))\n  -ll\nend\n\noptimize(loglik2, lower, upper, x0, Fminbox(inner_optimizer)) |> display\nprintln()End of clip-24-29s.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -685,7 +789,7 @@ var documenterSearchIndex = {"docs": [
     "page": "m12.6.1s",
     "title": "m12.6.1s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/12/m12.6.1s.jl\"using StatisticalRethinking\nusing CmdStan, StanMCMCChain\n\nProjDir = rel_path(\"..\", \"scripts\", \"12\")\n\nd = CSV.read(rel_path( \"..\", \"data\",  \"Kline.csv\"), delim=\';\');\nsize(d) # Should be 10x5New col logpop, set log() for population datad[:logpop] = map((x) -> log(x), d[:population]);\nd[:society] = 1:10;\n\nfirst(d, 5)\n\nm12_6_1 = \"\ndata{\n    int total_tools[10];\n    real logpop[10];\n    int society[10];\n}\nparameters{\n    real a;\n    real bp;\n    vector[10] a_society;\n    real<lower=0> sigma_society;\n}\nmodel{\n    vector[10] mu;\n    sigma_society ~ cauchy( 0 , 1 );\n    a_society ~ normal( 0 , sigma_society );\n    bp ~ normal( 0 , 1 );\n    a ~ normal( 0 , 10 );\n    for ( i in 1:10 ) {\n        mu[i] = a + a_society[society[i]] + bp * logpop[i];\n        mu[i] = exp(mu[i]);\n    }\n    total_tools ~ poisson( mu );\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"m12.6.1\",  model=m12_6_1, output_format=:mcmcchain);Input data for cmdstanm12_6_1_data = Dict(\"total_tools\" => d[:total_tools], \"logpop\" => d[:logpop], \"society\" => d[:society]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, m12_6_1_data, ProjDir, diagnostics=false, summary=false, CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)This page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/12/m12.6.1s.jl\"using StatisticalRethinking\nusing CmdStan, StanMCMCChain\n\nProjDir = rel_path(\"..\", \"scripts\", \"12\")\n\nd = CSV.read(rel_path( \"..\", \"data\",  \"Kline.csv\"), delim=\';\');\nsize(d) # Should be 10x5New col logpop, set log() for population datad[:logpop] = map((x) -> log(x), d[:population]);\nd[:society] = 1:10;\n\nfirst(d, 5)\n\nm12_6_1 = \"\ndata{\n    int total_tools[10];\n    real logpop[10];\n    int society[10];\n}\nparameters{\n    real a;\n    real bp;\n    vector[10] a_society;\n    real<lower=0> sigma_society;\n}\nmodel{\n    vector[10] mu;\n    sigma_society ~ cauchy( 0 , 1 );\n    a_society ~ normal( 0 , sigma_society );\n    bp ~ normal( 0 , 1 );\n    a ~ normal( 0 , 10 );\n    for ( i in 1:10 ) {\n        mu[i] = a + a_society[society[i]] + bp * logpop[i];\n        mu[i] = exp(mu[i]);\n    }\n    total_tools ~ poisson( mu );\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"m12.6.1\",  model=m12_6_1, num_warmup=2000,\nnum_samples=2000, output_format=:mcmcchain);Input data for cmdstanm12_6_1_data = Dict(\"total_tools\" => d[:total_tools], \"logpop\" => d[:logpop], \"society\" => d[:society]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, m12_6_1_data, ProjDir, diagnostics=false, CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)This page was generated using Literate.jl."
 },
 
 {

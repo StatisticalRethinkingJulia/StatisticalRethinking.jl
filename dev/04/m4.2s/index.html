@@ -65,25 +65,31 @@ Output file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/
 
 --- Linking C++ model ---
 g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/heights -include /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/heights.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is 0, but must be &gt; 0!  (in &#39;/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/heights.stan&#39; at line 16)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
 
 Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
 
 Inference for Stan model: heights_model
 4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
 
-Warmup took (0.024, 0.025, 0.026, 0.026) seconds, 0.10 seconds total
-Sampling took (0.042, 0.052, 0.038, 0.034) seconds, 0.17 seconds total
+Warmup took (0.025, 0.024, 0.024, 0.025) seconds, 0.097 seconds total
+Sampling took (0.041, 0.036, 0.036, 0.029) seconds, 0.14 seconds total
 
                  Mean     MCSE  StdDev     5%    50%   95%    N_Eff  N_Eff/s    R_hat
-lp__             -932  2.4e-02     1.0   -934   -932  -931  1.9e+03  1.1e+04  1.0e+00
-accept_stat__    0.92  1.4e-03   0.097   0.72   0.96   1.0  5.0e+03  3.0e+04  1.0e+00
-stepsize__       0.88  3.0e-02   0.043   0.83   0.90  0.94  2.0e+00  1.2e+01  2.4e+13
-treedepth__       2.0  2.3e-02    0.72    1.0    2.0   3.0  9.9e+02  6.0e+03  1.0e+00
-n_leapfrog__      5.2  2.3e-01     6.1    1.0    3.0    15  6.8e+02  4.1e+03  1.0e+00
+lp__             -932  2.5e-02     1.0   -934   -932  -931  1.7e+03  1.2e+04  1.0e+00
+accept_stat__    0.92  2.9e-03    0.10   0.70   0.96   1.0  1.2e+03  8.7e+03  1.0e+00
+stepsize__       0.86  6.8e-02   0.096   0.70   0.93  0.94  2.0e+00  1.4e+01  6.4e+13
+treedepth__       1.9  7.8e-02    0.60    1.0    2.0   3.0  5.9e+01  4.1e+02  1.0e+00
+n_leapfrog__      4.2  2.0e-01     3.1    1.0    3.0    11  2.4e+02  1.7e+03  1.0e+00
 divergent__      0.00     -nan    0.00   0.00   0.00  0.00     -nan     -nan     -nan
-energy__          933  3.7e-02     1.5    932    933   936  1.6e+03  9.7e+03  1.0e+00
-sigma             7.8  5.2e-03    0.30    7.3    7.8   8.3  3.4e+03  2.0e+04  1.0e+00
-mu              0.080  7.1e-03    0.41  -0.61  0.073  0.75  3.3e+03  2.0e+04  1.0e+00
+energy__          933  3.6e-02     1.4    931    933   936  1.6e+03  1.1e+04  1.0e+00
+sigma             7.8  5.0e-03    0.30    7.3    7.8   8.3  3.6e+03  2.5e+04  1.0e+00
+mu              0.085  7.7e-03    0.41  -0.58  0.078  0.77  2.9e+03  2.0e+04  1.0e+00
 
 Samples were drawn using hmc with nuts.
 For each parameter, N_Eff is a crude measure of effective sample size,
@@ -96,14 +102,14 @@ Chains = 1,2,3,4
 Samples per chain = 1000
 
 Empirical Posterior Estimates:
-         Mean        SD       Naive SE       MCSE      ESS
-sigma 7.77237473 0.29960014 0.0047370942 0.0038417802 1000
-   mu 0.07981315 0.41113466 0.0065006097 0.0073358239 1000
+         Mean        SD       Naive SE       MCSE     ESS
+sigma 7.76940612 0.29662965 0.0046901266 0.005532763 1000
+   mu 0.08492955 0.41200279 0.0065143362 0.008215108 1000
 
 Quantiles:
-          2.5%       25.0%      50.0%     75.0%     97.5%
-sigma  7.21212075  7.5604175 7.76395500 7.9744000 8.3698898
-   mu -0.73202767 -0.1923460 0.07308455 0.3555305 0.8697595
+         2.5%       25.0%      50.0%      75.0%     97.5%
+sigma  7.2172095  7.5707575 7.75569500 7.95981750 8.3863508
+   mu -0.7117218 -0.1986030 0.07769745 0.36163225 0.9078497
 
 Iterations = 1:1000
 Thinning interval = 1
@@ -111,11 +117,11 @@ Chains = 1,2,3,4
 Samples per chain = 1000
 
 Empirical Posterior Estimates:
-         Mean        SD       Naive SE       MCSE      ESS
-sigma 7.77237473 0.29960014 0.0047370942 0.0038417802 1000
-   mu 0.07981315 0.41113466 0.0065006097 0.0073358239 1000
+         Mean        SD       Naive SE       MCSE     ESS
+sigma 7.76940612 0.29662965 0.0046901266 0.005532763 1000
+   mu 0.08492955 0.41200279 0.0065143362 0.008215108 1000
 
 Quantiles:
-          2.5%       25.0%      50.0%     75.0%     97.5%
-sigma  7.21212075  7.5604175 7.76395500 7.9744000 8.3698898
-   mu -0.73202767 -0.1923460 0.07308455 0.3555305 0.8697595</code></pre></div><p>end of m4.2s#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.1s/"><span class="direction">Previous</span><span class="title">m4.1s</span></a><a class="next" href="../m4.2t/"><span class="direction">Next</span><span class="title">m4.2t</span></a></footer></article></body></html>
+         2.5%       25.0%      50.0%      75.0%     97.5%
+sigma  7.2172095  7.5707575 7.75569500 7.95981750 8.3863508
+   mu -0.7117218 -0.1986030 0.07769745 0.36163225 0.9078497</code></pre></div><p>end of m4.2s#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.1s/"><span class="direction">Previous</span><span class="title">m4.1s</span></a><a class="next" href="../m4.2t/"><span class="direction">Next</span><span class="title">m4.2t</span></a></footer></article></body></html>

@@ -117,7 +117,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-04-05",
     "title": "snippet 0.4",
     "category": "section",
-    "text": "Below dataset(...) provides access to often used R datasets. If this is not a common R dataset, see the chapter 4 snippets.cars = dataset(\"datasets\", \"cars\");\nfirst(cars, 5)Fit a linear regression of distance on speedm = lm(@formula(Dist ~ Speed), cars)estimated coefficients from the modelcoef(m)Plot residuals against speedscatter( cars[:Speed], residuals(m),\n  xlab=\"Speed\", ylab=\"Model residual values\", lab=\"Model residuals\")End of clip_04_05.jlThis page was generated using Literate.jl."
+    "text": "Below dataset(...) provides access to often used R datasets. If this is not a common R dataset, see the chapter 4 snippets.cars = dataset(\"datasets\", \"cars\");\nfirst(cars, 5)Fit a linear regression of distance on speedm = lm(@formula(Dist ~ Speed), cars)estimated coefficients from the modelcoef(m)Plot residuals against speedscatter( cars[:Speed], residuals(m), xlab=\"Speed\",\nylab=\"Model residual values\", lab=\"Model residuals\")End of clip_04_05.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -358,6 +358,38 @@ var documenterSearchIndex = {"docs": [
     "title": "snippet 4.7",
     "category": "section",
     "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df)\nmean_weight = mean(df2[:weight])\ndf2[:weight_c] = convert(Vector{Float64}, df2[:weight]) .- mean_weight ;Define the Stan language modelweightsmodel = \"\ndata {\n int < lower = 1 > N; // Sample size\n vector[N] height; // Predictor\n vector[N] weight; // Outcome\n}\n\nparameters {\n real alpha; // Intercept\n real beta; // Slope (regression coefficients)\n real < lower = 0 > sigma; // Error SD\n}\n\nmodel {\n height ~ normal(alpha + weight * beta , sigma);\n}\n\ngenerated quantities {\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"weights\", monitors = [\"alpha\", \"beta\", \"sigma\"],model=weightsmodel,\n  output_format=:mcmcchain);Input data for cmdstanheightsdata = Dict(\"N\" => length(df2[:height]), \"height\" => df2[:height], \"weight\" => df2[:weight_c]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Save the chains in a JLS fileserialize(\"m4.4s.jls\", chn)\n\nchn2 = deserialize(\"m4.4s.jls\")Should be identical to earlier resultdescribe(chn2)End of m4.4s.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "04/m4.5s/#",
+    "page": "m4.5s",
+    "title": "m4.5s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.5s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)"
+},
+
+{
+    "location": "04/m4.5s/#snippet-4.7-1",
+    "page": "m4.5s",
+    "title": "snippet 4.7",
+    "category": "section",
+    "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df)\ndf2[:height] = convert(Vector{Float64}, df2[:height]);\ndf2[:weight] = convert(Vector{Float64}, df2[:weight]);\ndf2[:weight_s] = (df2[:weight] .- mean(df2[:weight])) / std(df2[:weight]);\ndf2[:weight_s2] = df2[:weight_s] .^ 2;Define the Stan language modelweightsmodel = \"\ndata{\n    int N;\n    real height[N];\n    real weight_s2[N];\n    real weight_s[N];\n}\nparameters{\n    real a;\n    real b1;\n    real b2;\n    real sigma;\n}\nmodel{\n    vector[N] mu;\n    sigma ~ uniform( 0 , 50 );\n    b2 ~ normal( 0 , 10 );\n    b1 ~ normal( 0 , 10 );\n    a ~ normal( 178 , 100 );\n    for ( i in 1:N ) {\n        mu[i] = a + b1 * weight_s[i] + b2 * weight_s2[i];\n    }\n    height ~ normal( mu , sigma );\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"weights\", monitors = [\"a\", \"b1\", \"b2\", \"sigma\"],\nmodel=weightsmodel,  output_format=:mcmcchain);Input data for cmdstanheightsdata = Dict(\"N\" => size(df2, 1), \"height\" => df2[:height],\n\"weight_s\" => df2[:weight_s], \"weight_s2\" => df2[:weight_s2]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\nCmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)End of m4.5s.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "04/m4.5d/#",
+    "page": "m4.5d",
+    "title": "m4.5d",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.5d.jl\""
+},
+
+{
+    "location": "04/m4.5d/#Linear-regression-1",
+    "page": "m4.5d",
+    "title": "Linear regression",
+    "category": "section",
+    "text": "We estimate simple linear regression model with a half-T prior. First, we load the packages we use.using TransformVariables, LogDensityProblems, DynamicHMC, MCMCDiagnostics,\n    Parameters, Statistics, Distributions, ForwardDiff, CSV, DataFrames\n\nProjDir = @__DIR__\ncd(ProjDir)Import the dataset.howell1 = CSV.read(joinpath(\"..\", \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adults and standardizedf2 = filter(row -> row[:age] >= 18, df)\ndf2[:weight] = convert(Vector{Float64}, df2[:weight]);\ndf2[:weight_s] = (df2[:weight] .- mean(df2[:weight])) / std(df2[:weight]);\ndf2[:weight_s2] = df2[:weight_s] .^ 2;Show the first six rows of the dataset.first(df2, 6)Then define a structure to hold the data: observables, covariates, and the degrees of freedom for the prior.\"\"\"\nLinear regression model ``y ∼ Xβ + ϵ``, where ``ϵ ∼ N(0, σ²)`` IID.\nFlat prior for `β`, half-T for `σ`.\n\"\"\"\nstruct LinearRegressionProblem{TY <: AbstractVector, TX <: AbstractMatrix,\n                               Tν <: Real}\n    \"Observations.\"\n    y::TY\n    \"Covariates\"\n    X::TX\n    \"Degrees of freedom for prior.\"\n    ν::Tν\nendThen make the type callable with the parameters as a single argument.function (problem::LinearRegressionProblem)(θ)\n    @unpack y, X, ν = problem   # extract the data\n    @unpack β, σ = θ            # works on the named tuple too\n    loglikelihood(Normal(0, σ), y .- X*β) + logpdf(TDist(ν), σ)\nendWe should test this, also, this would be a good place to benchmark and optimize more complicated problems.N = size(df2, 1)\nX = hcat(ones(N), hcat(df2[:weight_s], df2[:weight_s2]));\ny = convert(Vector{Float64}, df2[:height])\np = LinearRegressionProblem(y, X, 1.0);\np((β = [1.0, 2.0, 3.0], σ = 1.0))For this problem, we write a function to return the transformation (as it varies with the number of covariates).problem_transformation(p::LinearRegressionProblem) =\n    as((β = as(Array, size(p.X, 2)), σ = asℝ₊))Wrap the problem with a transformation, then use Flux for the gradient.P = TransformedLogDensity(problem_transformation(p), p)\n∇P = ADgradient(:ForwardDiff, P);Finally, we sample from the posterior. chain holds the chain (positions and diagnostic information), while the second returned value is the tuned sampler which would allow continuation of sampling.chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);We use the transformation to obtain the posterior from the chain.posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));\nposterior[1:5]Extract the parameter posterior means: β,posterior_β = mean(first, posterior)then σ:posterior_σ = mean(last, posterior)Effective sample sizes (of untransformed draws)ess = mapslices(effective_sample_size,\n                get_position_matrix(chain); dims = 1)NUTS-specific statisticsNUTS_statistics(chain)\n\ncmdstan_result = \"\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n           Mean         SD       Naive SE       MCSE      ESS\n    a 154.609019750 0.36158389 0.0057171433 0.0071845548 1000\n   b1   5.838431778 0.27920926 0.0044146860 0.0048693502 1000\n   b2  -0.009985954 0.22897191 0.0036203637 0.0047224478 1000\nsigma   5.110136300 0.19096315 0.0030193925 0.0030728192 1000\n\nQuantiles:\n          2.5%        25.0%        50.0%       75.0%        97.5%\n    a 153.92392500 154.3567500 154.60700000 154.8502500 155.32100000\n   b1   5.27846200   5.6493250   5.83991000   6.0276275   6.39728200\n   b2  -0.45954687  -0.1668285  -0.01382935   0.1423620   0.43600905\nsigma   4.76114350   4.9816850   5.10326000   5.2300450   5.51500975\n\";#-This page was generated using Literate.jl."
 },
 
 {
@@ -613,7 +645,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-24-29s",
     "title": "snippet 4.27",
     "category": "section",
-    "text": "inner_optimizer = GradientDescent()\n\noptimize(loglik, lower, upper, x0, Fminbox(inner_optimizer)) |> display\nprintln()Our second model:m4_2 = \"\n  height ~ Normal(μ, σ) # likelihood\n  μ ~ Normal(178, 0.1) # prior\n  σ ~ Uniform(0, 50) # prior\n\""
+    "text": "inner_optimizer = GradientDescent()\n\noptimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))Our second model:m4_2 = \"\n  height ~ Normal(μ, σ) # likelihood\n  μ ~ Normal(178, 0.1) # prior\n  σ ~ Uniform(0, 50) # prior\n\""
 },
 
 {
@@ -621,7 +653,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-24-29s",
     "title": "snippet 4.29",
     "category": "section",
-    "text": "Compute MAPobs = df2[:height]\n\nfunction loglik2(x)\n  ll = 0.0\n  ll += log(pdf(Normal(178, 0.1), x[1]))\n  ll += log(pdf(Uniform(0, 50), x[2]))\n  ll += sum(log.(pdf.(Normal(x[1], x[2]), obs)))\n  -ll\nend\n\noptimize(loglik2, lower, upper, x0, Fminbox(inner_optimizer)) |> display\nprintln()End of clip-24-29s.jlThis page was generated using Literate.jl."
+    "text": "Compute MAPobs = df2[:height]\n\nfunction loglik2(x)\n  ll = 0.0\n  ll += log(pdf(Normal(178, 0.1), x[1]))\n  ll += log(pdf(Uniform(0, 50), x[2]))\n  ll += sum(log.(pdf.(Normal(x[1], x[2]), obs)))\n  -ll\nend\n\noptimize(loglik2, lower, upper, x0, Fminbox(inner_optimizer))End of clip-24-29s.jlThis page was generated using Literate.jl."
 },
 
 {

@@ -31,8 +31,7 @@ upper = [250.0, 50.0]
 
 inner_optimizer = GradientDescent()
 
-optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer)) |> display
-println()
+optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))
 
 m4_2 = "
   height ~ Normal(μ, σ) # likelihood
@@ -50,8 +49,7 @@ function loglik2(x)
   -ll
 end
 
-optimize(loglik2, lower, upper, x0, Fminbox(inner_optimizer)) |> display
-println()
+optimize(loglik2, lower, upper, x0, Fminbox(inner_optimizer))
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

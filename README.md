@@ -59,7 +59,7 @@ A single snippet clip will be referred to as `03/clip-02.jl`.
 
 Clips with names such as `02/clip-08t.jl`, `clip_08s.jl` and `clip_08m.jl` contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
 
-The **Turing** versions of the mcmc models are available as e.g. `chapters/08/m8.1s.jl`. Equivalent **CmdStan** versions and, in a few cases **Mamba** models, are provided as well.
+The **Turing** versions of the mcmc models are available as e.g. `chapters/08/m8.1s.jl`. Equivalent **CmdStan** versions and, in a few cases **DynamicHMC** and **Mamba** models, are provided as well.
 
 Almost identical clips are named e.g. `04/clip-07.0s.jl` and `04/clip-07.1s.jl`. In that specific example just the priors differ.
 
@@ -78,13 +78,13 @@ The mcmc components are based on:
 1. [TuringLang](https://github.com/TuringLang)
 2. [StanJulia](https://github.com/StanJulia)
 3. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
-
-At least 2 other mcmc options are available for mcmc in Julia:
-
 4. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
+
+At least one other mcmc option is available for mcmc in Julia:
+
 5. [Klara](https://github.com/JuliaStats/Klara.jl)
 
-Time constraints prevents inclusion of those. The linear regression example in [DynamicHMCExamples](https://tpapp.github.io/DynamicHMCExamples.jl/latest/example_linear_regression/) is a good starting point.
+The linear regression example in [DynamicHMCExamples](https://tpapp.github.io/DynamicHMCExamples.jl/latest/example_linear_regression/) is a good starting point and has been used in chapters/04/m4.5d.jl.
 
 The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
 

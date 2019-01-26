@@ -1,3 +1,9 @@
+
+# Model written by Scott Spencer
+
+# For now used to see if this is possible with DynamicHMC
+
+m13.2_model = "
 data('UCBadmit', package = 'rethinking')
 d <- UCBadmit; rm(UCBadmit)
 d <- d %>% mutate(male = applicant.gender == 'male',
@@ -35,10 +41,11 @@ model {
 generated quantities {
   vector[N] log_lik;
   {
-  vector[N] p;
-  for (i in 1:N) {
-    p[i] = a_dept[dept[i]] + beta * m[i];
-    log_lik[i] = binomial_logit_lpmf(A[i] | n[i], p[i]);
-  }
+    vector[N] p;
+    for (i in 1:N) {
+      p[i] = a_dept[dept[i]] + beta * m[i];
+      log_lik[i] = binomial_logit_lpmf(A[i] | n[i], p[i]);
+    }
   }
 }
+";

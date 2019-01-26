@@ -53,19 +53,15 @@ These 2 files are in scripts/00 and later on processed by Literate.jl to create 
 3. `clip-01-03.jl` - stored in the chapters/_chapter_ directory
 
 Occasionally lines in scripts are suppressed when Literate processes input source files, e.g. in Turing scripts the statement
-`#nb Turing.turnprogress(false);` is only inserted in the generated notebook but not in the corresponding chapter .jl script.
+`#nb Turing.turnprogress(false);` is only inserted in the generated notebook but not in the corresponding chapter .jl script. Similarly `#src ...` will only be included in the .jl scripts in the chapters subdirectories.
 
 A single snippet clip will be referred to as `03/clip-02.jl`. 
 
-Clips with names such as `02/clip-08t.jl`, `clip_08s.jl` and `clip_08m.jl` contain mcmc implementations using Turing.jl, CmdStan.jl and Mamba.jl respectively. Examples have been added to chapter 2.
+Models with names such as `08/m8.1t.jl`, `04/m4.1s.jl`, `04/m4.4m.jl` and `04/m4.5d.jl` generate mcmc samples using **Turing.jl**, **CmdStan.jl**, **Mamba.jl** or **DynamicHMC.jl** respectively. In some cases the results of the mcmc chains have been stored and retrieved (or regenerated if missing) in other clips, e.g. `04/clip-30s.jl`.
 
-The **Turing** versions of the mcmc models are available as e.g. `chapters/08/m8.1s.jl`. Equivalent **CmdStan** versions and, in a few cases **DynamicHMC** and **Mamba** models, are provided as well.
+Scripts using Turing, Mamba, CmdStan or DynamicHMC need to import those, see the examples in `02/` (and for DynamicHMC currently in `04/m4.5d.jl`).
 
-Almost identical clips are named e.g. `04/clip-07.0s.jl` and `04/clip-07.1s.jl`. In that specific example just the priors differ.
-
-Scripts using Turing, Mamba or CmdStan need to import those, see the examples in `scripts/02`.
-
-In the `src` directory is a file scriptentry.jl which defines an object `script_dict` which is used to control the generation of documentation, notebooks and .jl scripts in chapters and testing of the notebooks. Output from CmdStan scripts are automatically inserted in the documentation. For Turing scripts this needs to be done manually by executing the notebook, exporting the results as .md files (and .svg files if graphics are generated) and copy these to `docs/src/nn`, where nn is the chapter. See `?ScriptEntry` or enter e.g. `script_dict["02"]` in the REPL. The same is true for Mamba scripts.
+In the `src` directory is a file scriptentry.jl which defines an object `script_dict` which is used to control the generation of documentation, notebooks and .jl scripts in chapters and testing of the notebooks. Output from CmdStan scripts are automatically inserted in the documentation. For Turing scripts this needs to be done manually by executing the notebook, exporting the results as .md files (and .svg files if graphics are generated) and copy these to `docs/src/nn`, where nn is the chapter. See `?ScriptEntry` or enter e.g. `script_dict["02"]` in the REPL.
 
 ## Acknowledgements
 
@@ -90,7 +86,7 @@ The Mamba examples should really use `@everywhere using Mamba` in stead of `usin
 
 ## To do
 
-1. The initial version (v1) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-processing of the results in Julia.
+1. The initial version (v1) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-process the results using Julia.
 
 2. The R package `rethinking`, in the experimental branch on Github, contains 2 functions `quap` and `ulam` (previously called `map` and `map2stan`) which are not in v1 of `Statisticalrethinking`. It is my *intention* to study those and _possibly_ include `quap` or `ulam` (or both) in a future of `Statisticalrethinking`. Several other interesting approaches that could become a good basis for such an endeavour are being explored in Julia, e.g. Soss.jl and Omega.jl.
 

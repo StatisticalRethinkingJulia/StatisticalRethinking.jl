@@ -3,15 +3,16 @@
 # We estimate simple linear regression model with a half-T prior.
 # First, we load the packages we use.
 
-using TransformVariables, LogDensityProblems, DynamicHMC, MCMCDiagnostics,
-    Parameters, Statistics, Distributions, ForwardDiff, CSV, DataFrames
+using StatisticalRethinking
+using DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics
+using Parameters, ForwardDiff
 
-ProjDir = @__DIR__
+ProjDir = rel_path("..", "scripts", "04")
 cd(ProjDir)
 
 # Import the dataset.
 
-howell1 = CSV.read(joinpath("..", "..", "data", "Howell1.csv"), delim=';')
+howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
 
 # Use only adults and standardize
@@ -31,22 +32,25 @@ first(df2, 6)
 Linear regression model ``y ∼ Xβ + ϵ``, where ``ϵ ∼ N(0, σ²)`` IID.
 Flat prior for `β`, half-T for `σ`.
 """
-struct LinearRegressionProblem{TY <: AbstractVector, TX <: AbstractMatrix,
-                               Tν <: Real}
+struct LinearRegressionProblem{TY <: AbstractVector, TX <: AbstractMatrix}
     "Observations."
     y::TY
     "Covariates"
     X::TX
-    "Degrees of freedom for prior."
-    ν::Tν
 end
 
 # Then make the type callable with the parameters *as a single argument*.
 
 function (problem::LinearRegressionProblem)(θ)
-    @unpack y, X, ν = problem   # extract the data
+    @unpack y, X, = problem   # extract the data
     @unpack β, σ = θ            # works on the named tuple too
-    loglikelihood(Normal(0, σ), y .- X*β) + logpdf(TDist(ν), σ)
+    ll = 0.0
+    ll += logpdf(Normal(178, 100), X[1]) # a = X[1]
+    ll += logpdf(Normal(0, 10), X[2]) # b1 = X[2]
+    ll += logpdf(Normal(0, 10), X[3]) # b2 = X[3]
+    ll += logpdf(TDist(1.0), σ)
+    ll += loglikelihood(Normal(0, σ), y .- X*β)
+    ll
 end
 
 # We should test this, also, this would be a good place to benchmark and
@@ -55,7 +59,7 @@ end
 N = size(df2, 1)
 X = hcat(ones(N), hcat(df2[:weight_s], df2[:weight_s2]));
 y = convert(Vector{Float64}, df2[:height])
-p = LinearRegressionProblem(y, X, 1.0);
+p = LinearRegressionProblem(y, X);
 p((β = [1.0, 2.0, 3.0], σ = 1.0))
 
 # For this problem, we write a function to return the transformation (as it varies with the number of covariates).
@@ -116,3 +120,9 @@ Quantiles:
    b2  -0.45954687  -0.1668285  -0.01382935   0.1423620   0.43600905
 sigma   4.76114350   4.9816850   5.10326000   5.2300450   5.51500975
 ";
+
+# Extract the parameter posterior means: `β`,
+
+[posterior_β, posterior_σ]
+
+# end of m4.5d.jl

@@ -8,15 +8,14 @@ howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
 
 df2 = filter(row -> row[:age] >= 18, df)
-mean_height = mean(df2[:height])
-df2[:height_c] = convert(Vector{Float64}, df2[:height]) .- mean_height
+#mean_height = mean(df2[:height])
+df2[:height_c] = convert(Vector{Float64}, df2[:height]) # .- mean_height
 first(df2, 5)
 
 max_height_c = maximum(df2[:height_c])
 min_height_c = minimum(df2[:height_c])
 
 heightsmodel = "
-// Inferring a Rate
 data {
   int N;
   real h[N];
@@ -27,7 +26,7 @@ parameters {
 }
 model {
   // Priors for mu and sigma
-  mu ~ normal(178, 20);
+  mu ~ normal(178, 0.1);
   sigma ~ uniform( 0 , 50 );
 
   // Observed heights

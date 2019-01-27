@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This package contains Julia versions of selected code snippets contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
+This package contains Julia versions of selected code snippets and mcmc models contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
 In the book and associated R package `rethinking`, statistical models are defined as illustrated below:
 
@@ -37,7 +37,20 @@ m4.32 <- ulam(flist, data=d2)
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
-This package is intended to allow experimenting with this learning process introducing 3 available mcmc options in Julia.
+The `StatisticalRethinking.jl` package is intended to allow experimenting with this learning process introducing 4 available mcmc options in Julia.
+
+The mcmc components are based on:
+
+1. [TuringLang](https://github.com/TuringLang)
+2. [StanJulia](https://github.com/StanJulia)
+3. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
+4. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
+
+At least one other mcmc option is available for mcmc in Julia:
+
+5. [Klara](https://github.com/JuliaStats/Klara.jl)
+
+but because of time constraints  this option has not (yet?) been used in `StatisticalRethinking.jl`.
 
 ## Layout of the package
 
@@ -59,49 +72,44 @@ A single snippet clip will be referred to as `03/clip-02.jl`.
 
 Models with names such as `08/m8.1t.jl`, `04/m4.1s.jl`, `04/m4.4m.jl` and `04/m4.5d.jl` generate mcmc samples using **Turing.jl**, **CmdStan.jl**, **Mamba.jl** or **DynamicHMC.jl** respectively. In some cases the results of the mcmc chains have been stored and retrieved (or regenerated if missing) in other clips, e.g. `04/clip-30s.jl`.
 
-Scripts using Turing, Mamba, CmdStan or DynamicHMC need to import those, see the examples in `02/` (and for DynamicHMC currently in `04/m4.5d.jl`).
-
-In the `src` directory is a file scriptentry.jl which defines an object `script_dict` which is used to control the generation of documentation, notebooks and .jl scripts in chapters and testing of the notebooks. Output from CmdStan scripts are automatically inserted in the documentation. For Turing scripts this needs to be done manually by executing the notebook, exporting the results as .md files (and .svg files if graphics are generated) and copy these to `docs/src/nn`, where nn is the chapter. See `?ScriptEntry` or enter e.g. `script_dict["02"]` in the REPL.
-
-## Acknowledgements
-
-Richard Torkar has taken the lead in developing the Turing versions of the models in chapter 8. 
-
-The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer have been a great help and followed closely in several example scripts. 
-
-The mcmc components are based on:
-
-1. [TuringLang](https://github.com/TuringLang)
-2. [StanJulia](https://github.com/StanJulia)
-3. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
-4. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
-
-At least one other mcmc option is available for mcmc in Julia:
-
-5. [Klara](https://github.com/JuliaStats/Klara.jl)
-
-The linear regression example in [DynamicHMCExamples](https://tpapp.github.io/DynamicHMCExamples.jl/latest/example_linear_regression/) is a good starting point and has been used in chapters/04/m4.5d.jl.
-
-The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode.
-
-## To do
-
-1. The initial version (v1) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-process the results using Julia.
-
-2. The R package `rethinking`, in the experimental branch on Github, contains 2 functions `quap` and `ulam` (previously called `map` and `map2stan`) which are not in v1 of `Statisticalrethinking`. It is my *intention* to study those and _possibly_ include `quap` or `ulam` (or both) in a future of `Statisticalrethinking`. Several other interesting approaches that could become a good basis for such an endeavour are being explored in Julia, e.g. Soss.jl and Omega.jl.
-
-3. The same is true for many other R functions such as precis(), link(), shade(), etc. In v1 some early versions are being tested. Expect refactoring of those in future versions.
+Scripts using Turing, Mamba, CmdStan or DynamicHMC need to import those, see the examples in `02/clip-08[m,s,t,d].jl`.
 
 ## Documentation
 
 - [**STABLE**][docs-stable-url] &mdash; **documentation of the most recently tagged version.**
 - [**DEVEL**][docs-dev-url] &mdash; *documentation of the in-development version.*
 
+## Acknowledgements
+
+Richard Torkar has taken the lead in developing the Turing versions of the models in chapter 8. 
+
+The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer have been a great help and followed closely in several example scripts.
+
 The  documentation has been generated using Literate.jl and Documenter.jl based on several ideas demonstrated by Tamas Papp in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
 
 ## Questions and issues
 
 Question and contributions are very welcome, as are feature requests and suggestions. Please open an [issue][issues-url] if you encounter any problems or have a question.
+
+## Notes
+
+1. In the `src` directory is a file scriptentry.jl which defines an object `script_dict` which is used to control the generation of documentation, notebooks and .jl scripts in chapters and testing of the notebooks. Output from CmdStan scripts are automatically inserted in the documentation. For Turing scripts this needs to be done manually by executing the notebook, exporting the results as .md files (and .svg files if graphics are generated) and copy these to `docs/src/nn`, where nn is the chapter. See `?ScriptEntry` or enter e.g. `script_dict["02"]` in the REPL.
+
+2. The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode. 
+
+## Versions
+
+Developing `rethinking` must have been an on-going process over several years, `StatisticalRethinkinh.jl` will likely follow a similar path.
+
+1. The initial version (v1) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-process the results using Julia.
+
+2. A second objective of v1 is to experiment and compare the four used mcmc options in Julia in terms of results, performance, ease of expressing models, etc.
+
+3. The R package `rethinking`, in the experimental branch on Github, contains 2 functions `quap` and `ulam` (previously called `map` and `map2stan`) which are not in v1 of `Statisticalrethinking.jl`. It is my *intention* to study those and _possibly_ include `quap` or `ulam` (or both) in a future of `Statisticalrethinking`.
+
+4. Several other interesting approaches that could become a good basis for such an endeavour are being explored in Julia, e.g. Soss.jl and Omega.jl.
+
+5. Many other R functions such as precis(), link(), shade(), etc. are not in v1, although some very early versions are being tested. Expect refactoring of those in future versions.
 
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
 [docs-dev-url]: https://stanjulia.github.io/StatisticalRethinking.jl/latest

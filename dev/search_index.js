@@ -201,6 +201,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "02/clip-08d/#",
+    "page": "clip-08d",
+    "title": "clip-08d",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/02/clip-08d.jl\""
+},
+
+{
+    "location": "02/clip-08d/#Estimate-Bernoulli-draws-probabilility-1",
+    "page": "clip-08d",
+    "title": "Estimate Bernoulli draws probabilility",
+    "category": "section",
+    "text": "using StatisticalRethinking\nusing DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics\nusing Parameters, ForwardDiffThen define a structure to hold the data. For this model, the number of draws equal to 1 is a sufficient statistic.\"\"\"\n`n` independent draws from a ``Bernoulli(α)`` distribution.\n\"\"\"\nstruct BernoulliProblem\n    \"Total number of draws in the data.\"\n    n::Int\n    \"Number of draws `==1` in the data\"\n    s::Vector{Int}\nendThen make the type callable with the parameters as a single argument.  We use decomposition in the arguments, but it could be done inside the function, too.function (problem::BernoulliProblem)((α, )::NamedTuple{(:α, )})\n    @unpack n, s = problem        # extract the datalog likelihood: the constant log(combinations(n, s)) term has been dropped since it is irrelevant to sampling.    #sum([s1 * log(α) + (n-s1) * log(1-α) for s1 in s])\n    loglikelihood(Binomial(n, α), s)\nendWe should test this, also, this would be a good place to benchmark and optimize more complicated problems.obs = rand(Binomial(9, 2/3), 1)\np = BernoulliProblem(9, obs)\np((α = 0.5, ))Recall that we need totransform from ℝ to the valid parameter domain (0,1) for more efficient sampling, and\ncalculate the derivatives for this transformed mapping.The helper packages TransformVariables and LogDensityProblems take care of this. We use a flat prior (the default, omitted)P = TransformedLogDensity(as((α = as𝕀,)), p)\n∇P = ADgradient(:ForwardDiff, P);Finally, we sample from the posterior. chain holds the chain (positions and diagnostic information), while the second returned value is the tuned sampler which would allow continuation of sampling.chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000)To get the posterior for α, we need to use get_position and then transformposterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));Extract the parameter.posterior_α = first.(posterior);check the effective sample sizeess_α = effective_sample_size(posterior_α)NUTS-specific statisticsNUTS_statistics(chain)check the meanmean(posterior_α)This page was generated using Literate.jl."
+},
+
+{
     "location": "02/clip-08s/#",
     "page": "clip-08s",
     "title": "clip-08s",
@@ -297,6 +313,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "04/m4.1d/#",
+    "page": "m4.1d",
+    "title": "m4.1d",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.1d.jl\""
+},
+
+{
+    "location": "04/m4.1d/#Linear-regression-1",
+    "page": "m4.1d",
+    "title": "Linear regression",
+    "category": "section",
+    "text": "We estimate simple linear regression model with a half-T prior. First, we load the packages we use.using StatisticalRethinking\nusing DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics\nusing Parameters, ForwardDiff\n\nProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)Import the dataset.howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adults and standardizedf2 = filter(row -> row[:age] >= 18, df)Show the first six rows of the dataset.first(df2, 6)Then define a structure to hold the data: observables and the degrees of freedom for the prior.\"\"\"\nHalf-T for `σ`.\n\"\"\"\nstruct HeightsProblem{TY <: AbstractVector, Tν <: Real}\n    \"Observations.\"\n    y::TY\n    \"Degrees of freedom for prior on sigma.\"\n    ν::Tν\nendThen make the type callable with the parameters as a single argument.function (problem::HeightsProblem)(θ)\n    @unpack y, ν = problem   # extract the data\n    @unpack μ, σ = θ\n    loglikelihood(Normal(μ, σ), y) + logpdf(TDist(ν), σ)\nendWe should test this, also, this would be a good place to benchmark and optimize more complicated problems.obs = convert(Vector{Float64}, df2[:height])\np = HeightsProblem(obs, 1.0);\np((μ = 178, σ = 5.0,))Wrap the problem with a transformation, then use Flux for the gradient.P = TransformedLogDensity(as((σ = as(Real, 0, 10), μ  = as(Real, 0, 200))), p)\n∇P = ADgradient(:ForwardDiff, P);Finally, we sample from the posterior. chain holds the chain (positions and diagnostic information), while the second returned value is the tuned sampler which would allow continuation of sampling.chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);We use the transformation to obtain the posterior from the chain.posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));Extract the parameter posterior means: β,posterior_β = mean(first, posterior)then σ:posterior_σ = mean(last, posterior)Effective sample sizes (of untransformed draws)ess = mapslices(effective_sample_size,\n                get_position_matrix(chain); dims = 1)NUTS-specific statisticsNUTS_statistics(chain)\n\ncmdstan_result = \"\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n          Mean        SD       Naive SE      MCSE      ESS\nsigma   7.7641872 0.29928194 0.004732063 0.0055677898 1000\n   mu 154.6055177 0.41989355 0.006639100 0.0085038356 1000\n\nQuantiles:\n         2.5%      25.0%       50.0%      75.0%       97.5%\nsigma   7.21853   7.5560625   7.751355   7.9566775   8.410391\n   mu 153.77992 154.3157500 154.602000 154.8820000 155.431000\n\";Extract the parameter posterior means: β,[posterior_β, posterior_σ]end of m4.5d.jl#- This page was generated using Literate.jl."
+},
+
+{
     "location": "04/m4.1s/#",
     "page": "m4.1s",
     "title": "m4.1s",
@@ -305,11 +337,27 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "04/m4.2d/#",
+    "page": "m4.2d",
+    "title": "m4.2d",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.2d.jl\""
+},
+
+{
+    "location": "04/m4.2d/#Linear-regression-1",
+    "page": "m4.2d",
+    "title": "Linear regression",
+    "category": "section",
+    "text": "We estimate simple linear regression model with a half-T prior. First, we load the packages we use.using StatisticalRethinking\nusing DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics\nusing Parameters, ForwardDiff\n\nProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)Import the dataset.howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adults and standardizedf2 = filter(row -> row[:age] >= 18, df)Show the first six rows of the dataset.first(df2, 6)Then define a structure to hold the data: observables and the degrees of freedom for the prior.\"\"\"\nHalf-T for `σ`.\n\"\"\"\nstruct ConstraintHeightsProblem{TY <: AbstractVector}\n    \"Observations.\"\n    y::TY\nendThen make the type callable with the parameters as a single argument.function (problem::ConstraintHeightsProblem)(θ)\n    @unpack y = problem   # extract the data\n    @unpack μ = θ\n    loglikelihood(Normal(μ, 0.15), y)\nendWe should test this, also, this would be a good place to benchmark and optimize more complicated problems.obs = convert(Vector{Float64}, df2[:height])\np = ConstraintHeightsProblem(obs);\np((μ = 178,))Wrap the problem with a transformation, then use Flux for the gradient.P = TransformedLogDensity(as((μ  = as(Real, 0, 250),)), p)\n∇P = ADgradient(:ForwardDiff, P);FSample from the posterior.chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);Undo the transformation to obtain the posterior from the chain.posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));Extract the parameter posterior means: μ,posterior_μ = mean(first, posterior)Effective sample sizes (of untransformed draws)ess = mapslices(effective_sample_size,\n                get_position_matrix(chain); dims = 1)NUTS-specific statisticsNUTS_statistics(chain)cmdstan resultcmdstan_result = \"\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n         Mean         SD       Naive SE       MCSE      ESS\nsigma  24.604616 0.946911707 0.0149719887 0.0162406632 1000\n   mu 177.864069 0.102284043 0.0016172527 0.0013514459 1000\n\nQuantiles:\n         2.5%       25.0%     50.0%     75.0%     97.5%\nsigma  22.826377  23.942275  24.56935  25.2294  26.528368\n   mu 177.665000 177.797000 177.86400 177.9310 178.066000\n\";Extract the parameter posterior means: β,posterior_μend of m4.5d.jl#- This page was generated using Literate.jl."
+},
+
+{
     "location": "04/m4.2s/#",
     "page": "m4.2s",
     "title": "m4.2s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.2s.jl\"using StatisticalRethinking, CmdStan, StanMCMCChain\ngr(size=(500,500));\n\nProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)\n\nhowell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);\n\ndf2 = filter(row -> row[:age] >= 18, df)\nmean_height = mean(df2[:height])\ndf2[:height_c] = convert(Vector{Float64}, df2[:height]) .- mean_height\nfirst(df2, 5)\n\nmax_height_c = maximum(df2[:height_c])\nmin_height_c = minimum(df2[:height_c])\n\nheightsmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  real h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=$(min_height_c),upper=$(max_height_c)> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ normal(178, 20);\n  sigma ~ uniform( 0 , 50 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\";\n\nstanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain);\n\nheightsdata = Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height_c]);\n\nrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);\n\ndescribe(chn)\n\nserialize(\"m4.2s.jls\", chn)\n\nchn2 = deserialize(\"m4.2s.jls\")\n\ndescribe(chn2)end of m4.2s#- This page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.2s.jl\"using StatisticalRethinking, CmdStan, StanMCMCChain\ngr(size=(500,500));\n\nProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)\n\nhowell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);\n\ndf2 = filter(row -> row[:age] >= 18, df)\n#mean_height = mean(df2[:height])\ndf2[:height_c] = convert(Vector{Float64}, df2[:height]) # .- mean_height\nfirst(df2, 5)\n\nmax_height_c = maximum(df2[:height_c])\nmin_height_c = minimum(df2[:height_c])\n\nheightsmodel = \"\ndata {\n  int N;\n  real h[N];\n}\nparameters {\n  real<lower=0> sigma;\n  real<lower=$(min_height_c),upper=$(max_height_c)> mu;\n}\nmodel {\n  // Priors for mu and sigma\n  mu ~ normal(178, 0.1);\n  sigma ~ uniform( 0 , 50 );\n\n  // Observed heights\n  h ~ normal(mu, sigma);\n}\n\";\n\nstanmodel = Stanmodel(name=\"heights\", monitors = [\"mu\", \"sigma\"],model=heightsmodel,\n  output_format=:mcmcchain);\n\nheightsdata = Dict(\"N\" => length(df2[:height]), \"h\" => df2[:height_c]);\n\nrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);\n\ndescribe(chn)\n\nserialize(\"m4.2s.jls\", chn)\n\nchn2 = deserialize(\"m4.2s.jls\")\n\ndescribe(chn2)end of m4.2s#- This page was generated using Literate.jl."
 },
 
 {
@@ -361,6 +409,38 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "04/m4.5d/#",
+    "page": "m4.5d",
+    "title": "m4.5d",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.5d.jl\""
+},
+
+{
+    "location": "04/m4.5d/#Linear-regression-1",
+    "page": "m4.5d",
+    "title": "Linear regression",
+    "category": "section",
+    "text": "We estimate simple linear regression model with a half-T prior. First, we load the packages we use.using StatisticalRethinking\nusing DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics\nusing Parameters, ForwardDiff\n\nProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)Import the dataset.howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adults and standardizedf2 = filter(row -> row[:age] >= 18, df)\ndf2[:weight] = convert(Vector{Float64}, df2[:weight]);\ndf2[:weight_s] = (df2[:weight] .- mean(df2[:weight])) / std(df2[:weight]);\ndf2[:weight_s2] = df2[:weight_s] .^ 2;Show the first six rows of the dataset.first(df2, 6)Then define a structure to hold the data: observables, covariates, and the degrees of freedom for the prior.\"\"\"\nLinear regression model ``y ∼ Xβ + ϵ``, where ``ϵ ∼ N(0, σ²)`` IID.\nFlat prior for `β`, half-T for `σ`.\n\"\"\"\nstruct LinearRegressionProblem{TY <: AbstractVector, TX <: AbstractMatrix}\n    \"Observations.\"\n    y::TY\n    \"Covariates\"\n    X::TX\nendThen make the type callable with the parameters as a single argument.function (problem::LinearRegressionProblem)(θ)\n    @unpack y, X, = problem   # extract the data\n    @unpack β, σ = θ            # works on the named tuple too\n    ll = 0.0\n    ll += logpdf(Normal(178, 100), X[1]) # a = X[1]\n    ll += logpdf(Normal(0, 10), X[2]) # b1 = X[2]\n    ll += logpdf(Normal(0, 10), X[3]) # b2 = X[3]\n    ll += logpdf(TDist(1.0), σ)\n    ll += loglikelihood(Normal(0, σ), y .- X*β)\n    ll\nendWe should test this, also, this would be a good place to benchmark and optimize more complicated problems.N = size(df2, 1)\nX = hcat(ones(N), hcat(df2[:weight_s], df2[:weight_s2]));\ny = convert(Vector{Float64}, df2[:height])\np = LinearRegressionProblem(y, X);\np((β = [1.0, 2.0, 3.0], σ = 1.0))For this problem, we write a function to return the transformation (as it varies with the number of covariates).problem_transformation(p::LinearRegressionProblem) =\n    as((β = as(Array, size(p.X, 2)), σ = asℝ₊))Wrap the problem with a transformation, then use Flux for the gradient.P = TransformedLogDensity(problem_transformation(p), p)\n∇P = ADgradient(:ForwardDiff, P);Finally, we sample from the posterior. chain holds the chain (positions and diagnostic information), while the second returned value is the tuned sampler which would allow continuation of sampling.chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);We use the transformation to obtain the posterior from the chain.posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));\nposterior[1:5]Extract the parameter posterior means: β,posterior_β = mean(first, posterior)then σ:posterior_σ = mean(last, posterior)Effective sample sizes (of untransformed draws)ess = mapslices(effective_sample_size,\n                get_position_matrix(chain); dims = 1)NUTS-specific statisticsNUTS_statistics(chain)\n\ncmdstan_result = \"\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n           Mean         SD       Naive SE       MCSE      ESS\n    a 154.609019750 0.36158389 0.0057171433 0.0071845548 1000\n   b1   5.838431778 0.27920926 0.0044146860 0.0048693502 1000\n   b2  -0.009985954 0.22897191 0.0036203637 0.0047224478 1000\nsigma   5.110136300 0.19096315 0.0030193925 0.0030728192 1000\n\nQuantiles:\n          2.5%        25.0%        50.0%       75.0%        97.5%\n    a 153.92392500 154.3567500 154.60700000 154.8502500 155.32100000\n   b1   5.27846200   5.6493250   5.83991000   6.0276275   6.39728200\n   b2  -0.45954687  -0.1668285  -0.01382935   0.1423620   0.43600905\nsigma   4.76114350   4.9816850   5.10326000   5.2300450   5.51500975\n\";Extract the parameter posterior means: β,[posterior_β, posterior_σ]end of m4.5d.jl#- This page was generated using Literate.jl."
+},
+
+{
+    "location": "04/m4.5d1/#",
+    "page": "m4.5d1",
+    "title": "m4.5d1",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.5d1.jl\""
+},
+
+{
+    "location": "04/m4.5d1/#Linear-regression-1",
+    "page": "m4.5d1",
+    "title": "Linear regression",
+    "category": "section",
+    "text": "We estimate simple linear regression model with a half-T prior. First, we load the packages we use.using StatisticalRethinking\nusing DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics\nusing Parameters, ForwardDiff\n\nProjDir = rel_path(\"..\", \"scripts\", \"04\")\ncd(ProjDir)Import the dataset.howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adults and standardizedf2 = filter(row -> row[:age] >= 18, df)\ndf2[:weight] = convert(Vector{Float64}, df2[:weight]);\ndf2[:weight_s] = (df2[:weight] .- mean(df2[:weight])) / std(df2[:weight]);\ndf2[:weight_s2] = df2[:weight_s] .^ 2;Show the first six rows of the dataset.first(df2, 6)Then define a structure to hold the data: observables, covariates, and the degrees of freedom for the prior.\"\"\"\nLinear regression model ``y ∼ Xβ + ϵ``, where ``ϵ ∼ N(0, σ²)`` IID.\nFlat prior for `β`, half-T for `σ`.\n\"\"\"\nstruct LinearRegressionProblem{TY <: AbstractVector, TX <: AbstractMatrix,\n                               Tν <: Real}\n    \"Observations.\"\n    y::TY\n    \"Covariates\"\n    X::TX\n    \"Degrees of freedom for prior.\"\n    ν::Tν\nendThen make the type callable with the parameters as a single argument.function (problem::LinearRegressionProblem)(θ)\n    @unpack y, X, ν = problem   # extract the data\n    @unpack β, σ = θ            # works on the named tuple too\n    loglikelihood(Normal(0, σ), y .- X*β) + logpdf(TDist(ν), σ)\nendWe should test this, also, this would be a good place to benchmark and optimize more complicated problems.N = size(df2, 1)\nX = hcat(ones(N), hcat(df2[:weight_s], df2[:weight_s2]));\ny = convert(Vector{Float64}, df2[:height])\np = LinearRegressionProblem(y, X, 1.0);\np((β = [1.0, 2.0, 3.0], σ = 1.0))For this problem, we write a function to return the transformation (as it varies with the number of covariates).problem_transformation(p::LinearRegressionProblem) =\n    as((β = as(Array, size(p.X, 2)), σ = asℝ₊))Wrap the problem with a transformation, then use Flux for the gradient.P = TransformedLogDensity(problem_transformation(p), p)\n∇P = ADgradient(:ForwardDiff, P);Finally, we sample from the posterior. chain holds the chain (positions and diagnostic information), while the second returned value is the tuned sampler which would allow continuation of sampling.chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);We use the transformation to obtain the posterior from the chain.posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));\nposterior[1:5]Extract the parameter posterior means: β,posterior_β = mean(first, posterior)then σ:posterior_σ = mean(last, posterior)Effective sample sizes (of untransformed draws)ess = mapslices(effective_sample_size,\n                get_position_matrix(chain); dims = 1)NUTS-specific statisticsNUTS_statistics(chain)\n\ncmdstan_result = \"\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n           Mean         SD       Naive SE       MCSE      ESS\n    a 154.609019750 0.36158389 0.0057171433 0.0071845548 1000\n   b1   5.838431778 0.27920926 0.0044146860 0.0048693502 1000\n   b2  -0.009985954 0.22897191 0.0036203637 0.0047224478 1000\nsigma   5.110136300 0.19096315 0.0030193925 0.0030728192 1000\n\nQuantiles:\n          2.5%        25.0%        50.0%       75.0%        97.5%\n    a 153.92392500 154.3567500 154.60700000 154.8502500 155.32100000\n   b1   5.27846200   5.6493250   5.83991000   6.0276275   6.39728200\n   b2  -0.45954687  -0.1668285  -0.01382935   0.1423620   0.43600905\nsigma   4.76114350   4.9816850   5.10326000   5.2300450   5.51500975\n\";Extract the parameter posterior means: β,[posterior_β, posterior_σ]end of m4.5d.jl#- This page was generated using Literate.jl."
+},
+
+{
     "location": "04/m4.5s/#",
     "page": "m4.5s",
     "title": "m4.5s",
@@ -374,22 +454,6 @@ var documenterSearchIndex = {"docs": [
     "title": "snippet 4.7",
     "category": "section",
     "text": "howell1 = CSV.read(rel_path(\"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adultsdf2 = filter(row -> row[:age] >= 18, df)\ndf2[:height] = convert(Vector{Float64}, df2[:height]);\ndf2[:weight] = convert(Vector{Float64}, df2[:weight]);\ndf2[:weight_s] = (df2[:weight] .- mean(df2[:weight])) / std(df2[:weight]);\ndf2[:weight_s2] = df2[:weight_s] .^ 2;Define the Stan language modelweightsmodel = \"\ndata{\n    int N;\n    real height[N];\n    real weight_s2[N];\n    real weight_s[N];\n}\nparameters{\n    real a;\n    real b1;\n    real b2;\n    real sigma;\n}\nmodel{\n    vector[N] mu;\n    sigma ~ uniform( 0 , 50 );\n    b2 ~ normal( 0 , 10 );\n    b1 ~ normal( 0 , 10 );\n    a ~ normal( 178 , 100 );\n    for ( i in 1:N ) {\n        mu[i] = a + b1 * weight_s[i] + b2 * weight_s2[i];\n    }\n    height ~ normal( mu , sigma );\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"weights\", monitors = [\"a\", \"b1\", \"b2\", \"sigma\"],\nmodel=weightsmodel,  output_format=:mcmcchain);Input data for cmdstanheightsdata = Dict(\"N\" => size(df2, 1), \"height\" => df2[:height],\n\"weight_s\" => df2[:weight_s], \"weight_s2\" => df2[:weight_s2]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,\nCmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)End of m4.5s.jlThis page was generated using Literate.jl."
-},
-
-{
-    "location": "04/m4.5d/#",
-    "page": "m4.5d",
-    "title": "m4.5d",
-    "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.5d.jl\""
-},
-
-{
-    "location": "04/m4.5d/#Linear-regression-1",
-    "page": "m4.5d",
-    "title": "Linear regression",
-    "category": "section",
-    "text": "We estimate simple linear regression model with a half-T prior. First, we load the packages we use.using TransformVariables, LogDensityProblems, DynamicHMC, MCMCDiagnostics,\n    Parameters, Statistics, Distributions, ForwardDiff, CSV, DataFrames\n\nProjDir = @__DIR__\ncd(ProjDir)Import the dataset.howell1 = CSV.read(joinpath(\"..\", \"..\", \"data\", \"Howell1.csv\"), delim=\';\')\ndf = convert(DataFrame, howell1);Use only adults and standardizedf2 = filter(row -> row[:age] >= 18, df)\ndf2[:weight] = convert(Vector{Float64}, df2[:weight]);\ndf2[:weight_s] = (df2[:weight] .- mean(df2[:weight])) / std(df2[:weight]);\ndf2[:weight_s2] = df2[:weight_s] .^ 2;Show the first six rows of the dataset.first(df2, 6)Then define a structure to hold the data: observables, covariates, and the degrees of freedom for the prior.\"\"\"\nLinear regression model ``y ∼ Xβ + ϵ``, where ``ϵ ∼ N(0, σ²)`` IID.\nFlat prior for `β`, half-T for `σ`.\n\"\"\"\nstruct LinearRegressionProblem{TY <: AbstractVector, TX <: AbstractMatrix,\n                               Tν <: Real}\n    \"Observations.\"\n    y::TY\n    \"Covariates\"\n    X::TX\n    \"Degrees of freedom for prior.\"\n    ν::Tν\nendThen make the type callable with the parameters as a single argument.function (problem::LinearRegressionProblem)(θ)\n    @unpack y, X, ν = problem   # extract the data\n    @unpack β, σ = θ            # works on the named tuple too\n    loglikelihood(Normal(0, σ), y .- X*β) + logpdf(TDist(ν), σ)\nendWe should test this, also, this would be a good place to benchmark and optimize more complicated problems.N = size(df2, 1)\nX = hcat(ones(N), hcat(df2[:weight_s], df2[:weight_s2]));\ny = convert(Vector{Float64}, df2[:height])\np = LinearRegressionProblem(y, X, 1.0);\np((β = [1.0, 2.0, 3.0], σ = 1.0))For this problem, we write a function to return the transformation (as it varies with the number of covariates).problem_transformation(p::LinearRegressionProblem) =\n    as((β = as(Array, size(p.X, 2)), σ = asℝ₊))Wrap the problem with a transformation, then use Flux for the gradient.P = TransformedLogDensity(problem_transformation(p), p)\n∇P = ADgradient(:ForwardDiff, P);Finally, we sample from the posterior. chain holds the chain (positions and diagnostic information), while the second returned value is the tuned sampler which would allow continuation of sampling.chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);We use the transformation to obtain the posterior from the chain.posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));\nposterior[1:5]Extract the parameter posterior means: β,posterior_β = mean(first, posterior)then σ:posterior_σ = mean(last, posterior)Effective sample sizes (of untransformed draws)ess = mapslices(effective_sample_size,\n                get_position_matrix(chain); dims = 1)NUTS-specific statisticsNUTS_statistics(chain)\n\ncmdstan_result = \"\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n           Mean         SD       Naive SE       MCSE      ESS\n    a 154.609019750 0.36158389 0.0057171433 0.0071845548 1000\n   b1   5.838431778 0.27920926 0.0044146860 0.0048693502 1000\n   b2  -0.009985954 0.22897191 0.0036203637 0.0047224478 1000\nsigma   5.110136300 0.19096315 0.0030193925 0.0030728192 1000\n\nQuantiles:\n          2.5%        25.0%        50.0%       75.0%        97.5%\n    a 153.92392500 154.3567500 154.60700000 154.8502500 155.32100000\n   b1   5.27846200   5.6493250   5.83991000   6.0276275   6.39728200\n   b2  -0.45954687  -0.1668285  -0.01382935   0.1423620   0.43600905\nsigma   4.76114350   4.9816850   5.10326000   5.2300450   5.51500975\n\";#-This page was generated using Literate.jl."
 },
 
 {

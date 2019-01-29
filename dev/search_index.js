@@ -873,40 +873,40 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "05/clip-01d/#",
-    "page": "clip-01d",
-    "title": "clip-01d",
+    "location": "05/m5.1d/#",
+    "page": "m5.1d",
+    "title": "m5.1d",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/05/clip-01d.jl\""
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/05/m5.1d.jl\""
 },
 
 {
-    "location": "05/clip-01d/#Linear-regression-1",
-    "page": "clip-01d",
+    "location": "05/m5.1d/#Linear-regression-1",
+    "page": "m5.1d",
     "title": "Linear regression",
     "category": "section",
-    "text": "We estimate simple linear regression model with a half-T prior. First, we load the packages we use.using StatisticalRethinking\nusing DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics\nusing Parameters, ForwardDiff\n\nProjDir = rel_path(\"..\", \"scripts\", \"05\")\ncd(ProjDir)Import the dataset."
+    "text": "using StatisticalRethinking\nusing DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics\nusing Parameters, ForwardDiff\n\nProjDir = rel_path(\"..\", \"scripts\", \"05\")\ncd(ProjDir)Import the dataset."
 },
 
 {
-    "location": "05/clip-01d/#snippet-5.1-1",
-    "page": "clip-01d",
+    "location": "05/m5.1d/#snippet-5.1-1",
+    "page": "m5.1d",
     "title": "snippet 5.1",
     "category": "section",
-    "text": "wd = CSV.read(rel_path(\"..\", \"data\", \"WaffleDivorce.csv\"), delim=\';\')\ndf = convert(DataFrame, wd);\nmean_ma = mean(df[:MedianAgeMarriage])\ndf[:MedianAgeMarriage_s] = convert(Vector{Float64},\n  (df[:MedianAgeMarriage]) .- mean_ma)/std(df[:MedianAgeMarriage]);Show the first six rows of the dataset.first(df, 6)Then define a structure to hold the data: observables, covariates, and the degrees of freedom for the prior.\"\"\"\nLinear regression model ``y ∼ Xβ + ϵ``, where ``ϵ ∼ N(0, σ²)`` IID.\nFlat prior for `β`, half-T for `σ`.\n\"\"\"\nstruct WaffleDivorceProblem{TY <: AbstractVector, TX <: AbstractMatrix}\n    \"Observations.\"\n    y::TY\n    \"Covariates\"\n    X::TX\nendThen make the type callable with the parameters as a single argument.function (problem::WaffleDivorceProblem)(θ)\n    @unpack y, X, = problem   # extract the data\n    @unpack β, σ = θ            # works on the named tuple too\n    ll = 0.0\n    ll += logpdf(Normal(10, 10), X[1]) # a = X[1]\n    ll += logpdf(Normal(0, 1), X[2]) # b1 = X[2]\n    ll += logpdf(TDist(1.0), σ)\n    ll += loglikelihood(Normal(0, σ), y .- X*β)\n    ll\nendWe should test this, also, this would be a good place to benchmark and optimize more complicated problems.N = size(df, 1)\nX = hcat(ones(N), df[:MedianAgeMarriage_s]);\ny = convert(Vector{Float64}, df[:Divorce])\np = WaffleDivorceProblem(y, X);\np((β = [1.0, 2.0], σ = 1.0))For this problem, we write a function to return the transformation (as it varies with the number of covariates).problem_transformation(p::WaffleDivorceProblem) =\n    as((β = as(Array, size(p.X, 2)), σ = asℝ₊))Wrap the problem with a transformation, then use Flux for the gradient.P = TransformedLogDensity(problem_transformation(p), p)\n∇P = ADgradient(:ForwardDiff, P);Finally, we sample from the posterior. chain holds the chain (positions and diagnostic information), while the second returned value is the tuned sampler which would allow continuation of sampling.chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);We use the transformation to obtain the posterior from the chain.posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));\nposterior[1:5]Extract the parameter posterior means: β,posterior_β = mean(first, posterior)then σ:posterior_σ = mean(last, posterior)Effective sample sizes (of untransformed draws)ess = mapslices(effective_sample_size,\n                get_position_matrix(chain); dims = 1)NUTS-specific statisticsNUTS_statistics(chain)cmdstan resultcmdstan_result = \"\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n         Mean        SD       Naive SE       MCSE      ESS\n    a  9.6882466 0.22179190 0.0035068378 0.0031243061 1000\n   bA -1.0361742 0.21650514 0.0034232469 0.0034433245 1000\nsigma  1.5180337 0.15992781 0.0025286807 0.0026279593 1000\n\nQuantiles:\n         2.5%      25.0%     50.0%      75.0%       97.5%\n    a  9.253141  9.5393175  9.689585  9.84221500 10.11121000\n   bA -1.454571 -1.1821025 -1.033065 -0.89366925 -0.61711705\nsigma  1.241496  1.4079225  1.504790  1.61630750  1.86642750\n\";Extract the parameter posterior means: β,[posterior_β, posterior_σ]end of m4.5d.jl#- This page was generated using Literate.jl."
+    "text": "wd = CSV.read(rel_path(\"..\", \"data\", \"WaffleDivorce.csv\"), delim=\';\')\ndf = convert(DataFrame, wd);\nmean_ma = mean(df[:MedianAgeMarriage])\ndf[:MedianAgeMarriage_s] = convert(Vector{Float64},\n  (df[:MedianAgeMarriage]) .- mean_ma)/std(df[:MedianAgeMarriage]);Show the first six rows of the dataset.first(df, 6)Define the problem\"\"\"\nLinear regression model ``y ∼ Xβ + ϵ``, where ``ϵ ∼ N(0, σ²)`` IID.\nFlat prior for `β`, half-T for `σ`.\n\"\"\"\nstruct WaffleDivorceProblem{TY <: AbstractVector, TX <: AbstractMatrix}\n    \"Observations.\"\n    y::TY\n    \"Covariates\"\n    X::TX\nendMake the type callable with the parameters as a single argument.function (problem::WaffleDivorceProblem)(θ)\n    @unpack y, X, = problem   # extract the data\n    @unpack β, σ = θ            # works on the named tuple too\n    ll = 0.0\n    ll += logpdf(Normal(10, 10), X[1]) # a = X[1]\n    ll += logpdf(Normal(0, 1), X[2]) # b1 = X[2]\n    ll += logpdf(TDist(1.0), σ)\n    ll += loglikelihood(Normal(0, σ), y .- X*β)\n    ll\nendInstantiate the model with data and inits.N = size(df, 1)\nX = hcat(ones(N), df[:MedianAgeMarriage_s]);\ny = convert(Vector{Float64}, df[:Divorce])\np = WaffleDivorceProblem(y, X);\np((β = [1.0, 2.0], σ = 1.0))Write a function to return properly dimensioned transformation.problem_transformation(p::WaffleDivorceProblem) =\n    as((β = as(Array, size(p.X, 2)), σ = asℝ₊))Wrap the problem with a transformation, then use Flux for the gradient.P = TransformedLogDensity(problem_transformation(p), p)\n∇P = ADgradient(:ForwardDiff, P);Tune and sample.chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);We use the transformation to obtain the posterior from the chain.posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));\nposterior[1:5]Extract the parameter posterior means: β,posterior_β = mean(first, posterior)then σ:posterior_σ = mean(last, posterior)Effective sample sizes (of untransformed draws)ess = mapslices(effective_sample_size,\n                get_position_matrix(chain); dims = 1)NUTS-specific statisticsNUTS_statistics(chain)cmdstan resultcmdstan_result = \"\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n         Mean        SD       Naive SE       MCSE      ESS\n    a  9.6882466 0.22179190 0.0035068378 0.0031243061 1000\n   bA -1.0361742 0.21650514 0.0034232469 0.0034433245 1000\nsigma  1.5180337 0.15992781 0.0025286807 0.0026279593 1000\n\nQuantiles:\n         2.5%      25.0%     50.0%      75.0%       97.5%\n    a  9.253141  9.5393175  9.689585  9.84221500 10.11121000\n   bA -1.454571 -1.1821025 -1.033065 -0.89366925 -0.61711705\nsigma  1.241496  1.4079225  1.504790  1.61630750  1.86642750\n\";Extract the parameter posterior means: β,[posterior_β, posterior_σ]end of m4.5d.jl#- This page was generated using Literate.jl."
 },
 
 {
-    "location": "05/clip-01s/#",
-    "page": "clip-01s",
-    "title": "clip-01s",
+    "location": "05/m5.1s/#",
+    "page": "m5.1s",
+    "title": "m5.1s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/05/clip-01s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"05\")\ncd(ProjDir)"
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/05/m5.1s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"05\")\ncd(ProjDir)"
 },
 
 {
-    "location": "05/clip-01s/#snippet-5.1-1",
-    "page": "clip-01s",
+    "location": "05/m5.1s/#snippet-5.1-1",
+    "page": "m5.1s",
     "title": "snippet 5.1",
     "category": "section",
     "text": "wd = CSV.read(rel_path(\"..\", \"data\", \"WaffleDivorce.csv\"), delim=\';\')\ndf = convert(DataFrame, wd);\nmean_ma = mean(df[:MedianAgeMarriage])\ndf[:MedianAgeMarriage_s] = convert(Vector{Float64},\n  (df[:MedianAgeMarriage]) .- mean_ma)/std(df[:MedianAgeMarriage]);\nfirst(df, 5)Define the Stan language modelad_model = \"\ndata {\n int < lower = 1 > N; // Sample size\n vector[N] divorce; // Predictor\n vector[N] median_age; // Outcome\n}\n\nparameters {\n real a; // Intercept\n real bA; // Slope (regression coefficients)\n real < lower = 0 > sigma; // Error SD\n}\n\nmodel {priors  a ~ normal(10, 10);\n  bA ~ normal(0, 1);\n  sigma ~ uniform(0, 10);model  divorce ~ normal(a + bA*median_age , sigma);\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"MedianAgeDivorce\", monitors = [\"a\", \"bA\", \"sigma\"],\n  model=ad_model, output_format=:mcmcchain);Input data for cmdstanmaddata = Dict(\"N\" => length(df[:Divorce]), \"divorce\" => df[:Divorce],\n    \"median_age\" => df[:MedianAgeMarriage_s]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, maddata, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Plot the density of posterior drawsplot(chn)Plot regression line using means and observationsxi = -3.0:0.01:3.0\nrws, vars, chns = size(chn[:, 1, :])\nalpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))\nbeta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)))\nyi = mean(alpha_vals) .+ mean(beta_vals)*xi\n\nscatter(df[:MedianAgeMarriage_s], df[:Divorce], color=:darkblue,\n  xlab=\"Median age of marriage [ $(round(mean_ma, digits=1)) years]\",\n  ylab=\"divorce rate [# of divorces/1000 adults]\")\nplot!(xi, yi, lab=\"Regression line\")shade(), abline() and link()mu = link(xi, chn, [1, 2], mean(xi));\nyl = [minimum(mu[i]) for i in 1:length(xi)];\nyh =  [maximum(mu[i]) for i in 1:length(xi)];\nym =  [mean(mu[i]) for i in 1:length(xi)];\npi = hcat(xi, yl, ym, yh);\npi[1:5,:]\n\nplot!((xi, yl), color=:lightgrey, leg=false)\nplot!((xi, yh), color=:lightgrey, leg=false)\nfor i in 1:length(xi)\n  plot!([xi[i], xi[i]], [yl[i], yh[i]], color=:lightgrey, leg=false)\nend\nscatter!(df[:MedianAgeMarriage_s], df[:Divorce], color=:darkblue)\nplot!(xi, yi, lab=\"Regression line\")End of 05/clip_01s.jlThis page was generated using Literate.jl."
@@ -974,6 +974,38 @@ var documenterSearchIndex = {"docs": [
     "title": "Functions",
     "category": "page",
     "text": "CurrentModule = StatisticalRethinking"
+},
+
+{
+    "location": "#StatisticalRethinking.generate-Tuple{}",
+    "page": "Functions",
+    "title": "StatisticalRethinking.generate",
+    "category": "method",
+    "text": "generate\n\nGenerate notebooks and scripts\n\nMethod\n\ngenerate(sd = script_dict)\n\nRequired arguments\n\nNone, all notebooks and scripts are regenerated.\n\n\n\n\n\n"
+},
+
+{
+    "location": "#StatisticalRethinking.generate-Tuple{AbstractString}",
+    "page": "Functions",
+    "title": "StatisticalRethinking.generate",
+    "category": "method",
+    "text": "generate\n\nGenerate notebooks and scripts\n\nMethod\n\ngenerate(chapter::AbstractString)\n\nRequired arguments\n\nGenerate notebooks and scripts in chapter.\n\n\n\n\n\n"
+},
+
+{
+    "location": "#StatisticalRethinking.generate-Tuple{AbstractString,AbstractString}",
+    "page": "Functions",
+    "title": "StatisticalRethinking.generate",
+    "category": "method",
+    "text": "generate\n\nGenerate a single notebook and script\n\nMethod\n\ngenerate(chapter::AbstractString, file::AbstractString)\n\nRequired arguments\n\nGenerate notebook and script file in chapter.\n\n\n\n\n\n"
+},
+
+{
+    "location": "#generate-1",
+    "page": "Functions",
+    "title": "generate",
+    "category": "section",
+    "text": "generate(; sd=script_dict)\ngenerate(chapter::AbstractString; sd=script_dict)\ngenerate(chapter::AbstractString, scriptfile::AbstractString; sd=script_dict)"
 },
 
 {

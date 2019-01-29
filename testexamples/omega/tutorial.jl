@@ -1,4 +1,4 @@
-using Omega, StatPlots
+using Omega, StatsPlots
 gr(size=(400,400))
 
 @show rand(uniform(0, 1))

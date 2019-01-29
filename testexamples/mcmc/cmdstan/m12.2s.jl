@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking
-using CmdStan, StanMCMCChain, MCMCChain, Distributions, Statistics, StatPlots, Plots
+using CmdStan, StanMCMCChain, MCMCChain, Distributions, Statistics, StatsPlots, Plots
 gr(size=(500,800))
 
 # CmdStan uses a tmp directory to store the output of cmdstan

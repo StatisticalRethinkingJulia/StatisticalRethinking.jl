@@ -3,7 +3,7 @@ module StatisticalRethinking
 using Reexport 
 
 @reexport using Distributions, RDatasets, DataFrames, StatsBase
-@reexport using Plots, StatPlots, StatsFuns, MCMCChain
+@reexport using Plots, StatsPlots, StatsFuns, MCMCChain
 @reexport using CSV, DelimitedFiles, Serialization
 using DataStructures
 

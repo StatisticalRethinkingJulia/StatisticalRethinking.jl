@@ -50,7 +50,9 @@ At least one other mcmc option is available for mcmc in Julia:
 
 5. [Klara](https://github.com/JuliaStats/Klara.jl)
 
-but because of time constraints  this option has not (yet?) been used in `StatisticalRethinking.jl`.
+Time constraints prevented this option to be in `StatisticalRethinking.jl`.
+
+A secondary objective of `StatisticalRethinking.jl` is to compare definition and executions of a variety of models in the above lited 4 mcmc options.
 
 ## Layout of the package
 

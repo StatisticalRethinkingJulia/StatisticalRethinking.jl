@@ -1,8 +1,5 @@
 # # Linear regression
 
-# We estimate simple linear regression model with a half-T prior.
-# First, we load the packages we use.
-
 using StatisticalRethinking
 using DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics
 using Parameters, ForwardDiff
@@ -24,7 +21,7 @@ df[:MedianAgeMarriage_s] = convert(Vector{Float64},
 
 first(df, 6)
 
-# Then define a structure to hold the data: observables, covariates, and the degrees of freedom for the prior.
+# Define the problem
 
 """
 Linear regression model ``y ∼ Xβ + ϵ``, where ``ϵ ∼ N(0, σ²)`` IID.
@@ -37,7 +34,7 @@ struct WaffleDivorceProblem{TY <: AbstractVector, TX <: AbstractMatrix}
     X::TX
 end
 
-# Then make the type callable with the parameters *as a single argument*.
+# Make the type callable with the parameters *as a single argument*.
 
 function (problem::WaffleDivorceProblem)(θ)
     @unpack y, X, = problem   # extract the data
@@ -50,8 +47,7 @@ function (problem::WaffleDivorceProblem)(θ)
     ll
 end
 
-# We should test this, also, this would be a good place to benchmark and
-# optimize more complicated problems.
+# Instantiate the model with data and inits.
 
 N = size(df, 1)
 X = hcat(ones(N), df[:MedianAgeMarriage_s]);
@@ -59,7 +55,7 @@ y = convert(Vector{Float64}, df[:Divorce])
 p = WaffleDivorceProblem(y, X);
 p((β = [1.0, 2.0], σ = 1.0))
 
-# For this problem, we write a function to return the transformation (as it varies with the number of covariates).
+# Write a function to return properly dimensioned transformation.
 
 problem_transformation(p::WaffleDivorceProblem) =
     as((β = as(Array, size(p.X, 2)), σ = asℝ₊))
@@ -69,9 +65,7 @@ problem_transformation(p::WaffleDivorceProblem) =
 P = TransformedLogDensity(problem_transformation(p), p)
 ∇P = ADgradient(:ForwardDiff, P);
 
-# Finally, we sample from the posterior. `chain` holds the chain (positions and
-# diagnostic information), while the second returned value is the tuned sampler
-# which would allow continuation of sampling.
+# Tune and sample.
 
 chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 

@@ -18,16 +18,15 @@ static int current_statement_begin__;
 stan::io::program_reader prog_reader__() {
     stan::io::program_reader reader;
     reader.add_event(0, 0, "start", "/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan");
-    reader.add_event(25, 23, "end", "/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan");
+    reader.add_event(20, 18, "end", "/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan");
     return reader;
 }
 
 class weights_model : public prob_grad {
 private:
     int N;
-    vector<double> height;
-    vector<double> weight_s2;
-    vector<double> weight_s;
+    vector_d height;
+    vector_d weight;
 public:
     weights_model(stan::io::var_context& context__,
         std::ostream* pstream__ = 0)
@@ -72,43 +71,32 @@ public:
             N = vals_i__[pos__++];
             current_statement_begin__ = 3;
             validate_non_negative_index("height", "N", N);
-            context__.validate_dims("data initialization", "height", "double", context__.to_vec(N));
+            context__.validate_dims("data initialization", "height", "vector_d", context__.to_vec(N));
             validate_non_negative_index("height", "N", N);
-            height = std::vector<double>(N,double(0));
+            height = vector_d(static_cast<Eigen::VectorXd::Index>(N));
             vals_r__ = context__.vals_r("height");
             pos__ = 0;
-            size_t height_limit_0__ = N;
-            for (size_t i_0__ = 0; i_0__ < height_limit_0__; ++i_0__) {
-                height[i_0__] = vals_r__[pos__++];
+            size_t height_i_vec_lim__ = N;
+            for (size_t i_vec__ = 0; i_vec__ < height_i_vec_lim__; ++i_vec__) {
+                height[i_vec__] = vals_r__[pos__++];
             }
             current_statement_begin__ = 4;
-            validate_non_negative_index("weight_s2", "N", N);
-            context__.validate_dims("data initialization", "weight_s2", "double", context__.to_vec(N));
-            validate_non_negative_index("weight_s2", "N", N);
-            weight_s2 = std::vector<double>(N,double(0));
-            vals_r__ = context__.vals_r("weight_s2");
+            validate_non_negative_index("weight", "N", N);
+            context__.validate_dims("data initialization", "weight", "vector_d", context__.to_vec(N));
+            validate_non_negative_index("weight", "N", N);
+            weight = vector_d(static_cast<Eigen::VectorXd::Index>(N));
+            vals_r__ = context__.vals_r("weight");
             pos__ = 0;
-            size_t weight_s2_limit_0__ = N;
-            for (size_t i_0__ = 0; i_0__ < weight_s2_limit_0__; ++i_0__) {
-                weight_s2[i_0__] = vals_r__[pos__++];
-            }
-            current_statement_begin__ = 5;
-            validate_non_negative_index("weight_s", "N", N);
-            context__.validate_dims("data initialization", "weight_s", "double", context__.to_vec(N));
-            validate_non_negative_index("weight_s", "N", N);
-            weight_s = std::vector<double>(N,double(0));
-            vals_r__ = context__.vals_r("weight_s");
-            pos__ = 0;
-            size_t weight_s_limit_0__ = N;
-            for (size_t i_0__ = 0; i_0__ < weight_s_limit_0__; ++i_0__) {
-                weight_s[i_0__] = vals_r__[pos__++];
+            size_t weight_i_vec_lim__ = N;
+            for (size_t i_vec__ = 0; i_vec__ < weight_i_vec_lim__; ++i_vec__) {
+                weight[i_vec__] = vals_r__[pos__++];
             }
 
             // validate, data variables
             current_statement_begin__ = 2;
+            check_greater_or_equal(function__,"N",N,1);
             current_statement_begin__ = 3;
             current_statement_begin__ = 4;
-            current_statement_begin__ = 5;
             // initialize data variables
 
 
@@ -122,8 +110,6 @@ public:
             current_statement_begin__ = 9;
             ++num_params_r__;
             current_statement_begin__ = 10;
-            ++num_params_r__;
-            current_statement_begin__ = 11;
             ++num_params_r__;
         } catch (const std::exception& e) {
             stan::lang::rethrow_located(e, current_statement_begin__, prog_reader__());
@@ -145,43 +131,30 @@ public:
         std::vector<double> vals_r__;
         std::vector<int> vals_i__;
 
-        if (!(context__.contains_r("a")))
-            throw std::runtime_error("variable a missing");
-        vals_r__ = context__.vals_r("a");
+        if (!(context__.contains_r("alpha")))
+            throw std::runtime_error("variable alpha missing");
+        vals_r__ = context__.vals_r("alpha");
         pos__ = 0U;
-        context__.validate_dims("initialization", "a", "double", context__.to_vec());
-        double a(0);
-        a = vals_r__[pos__++];
+        context__.validate_dims("initialization", "alpha", "double", context__.to_vec());
+        double alpha(0);
+        alpha = vals_r__[pos__++];
         try {
-            writer__.scalar_unconstrain(a);
+            writer__.scalar_unconstrain(alpha);
         } catch (const std::exception& e) { 
-            throw std::runtime_error(std::string("Error transforming variable a: ") + e.what());
+            throw std::runtime_error(std::string("Error transforming variable alpha: ") + e.what());
         }
 
-        if (!(context__.contains_r("b1")))
-            throw std::runtime_error("variable b1 missing");
-        vals_r__ = context__.vals_r("b1");
+        if (!(context__.contains_r("beta")))
+            throw std::runtime_error("variable beta missing");
+        vals_r__ = context__.vals_r("beta");
         pos__ = 0U;
-        context__.validate_dims("initialization", "b1", "double", context__.to_vec());
-        double b1(0);
-        b1 = vals_r__[pos__++];
+        context__.validate_dims("initialization", "beta", "double", context__.to_vec());
+        double beta(0);
+        beta = vals_r__[pos__++];
         try {
-            writer__.scalar_unconstrain(b1);
+            writer__.scalar_unconstrain(beta);
         } catch (const std::exception& e) { 
-            throw std::runtime_error(std::string("Error transforming variable b1: ") + e.what());
-        }
-
-        if (!(context__.contains_r("b2")))
-            throw std::runtime_error("variable b2 missing");
-        vals_r__ = context__.vals_r("b2");
-        pos__ = 0U;
-        context__.validate_dims("initialization", "b2", "double", context__.to_vec());
-        double b2(0);
-        b2 = vals_r__[pos__++];
-        try {
-            writer__.scalar_unconstrain(b2);
-        } catch (const std::exception& e) { 
-            throw std::runtime_error(std::string("Error transforming variable b2: ") + e.what());
+            throw std::runtime_error(std::string("Error transforming variable beta: ") + e.what());
         }
 
         if (!(context__.contains_r("sigma")))
@@ -192,7 +165,7 @@ public:
         double sigma(0);
         sigma = vals_r__[pos__++];
         try {
-            writer__.scalar_unconstrain(sigma);
+            writer__.scalar_lb_unconstrain(0,sigma);
         } catch (const std::exception& e) { 
             throw std::runtime_error(std::string("Error transforming variable sigma: ") + e.what());
         }
@@ -230,33 +203,26 @@ public:
             // model parameters
             stan::io::reader<local_scalar_t__> in__(params_r__,params_i__);
 
-            local_scalar_t__ a;
-            (void) a;  // dummy to suppress unused var warning
+            local_scalar_t__ alpha;
+            (void) alpha;  // dummy to suppress unused var warning
             if (jacobian__)
-                a = in__.scalar_constrain(lp__);
+                alpha = in__.scalar_constrain(lp__);
             else
-                a = in__.scalar_constrain();
+                alpha = in__.scalar_constrain();
 
-            local_scalar_t__ b1;
-            (void) b1;  // dummy to suppress unused var warning
+            local_scalar_t__ beta;
+            (void) beta;  // dummy to suppress unused var warning
             if (jacobian__)
-                b1 = in__.scalar_constrain(lp__);
+                beta = in__.scalar_constrain(lp__);
             else
-                b1 = in__.scalar_constrain();
-
-            local_scalar_t__ b2;
-            (void) b2;  // dummy to suppress unused var warning
-            if (jacobian__)
-                b2 = in__.scalar_constrain(lp__);
-            else
-                b2 = in__.scalar_constrain();
+                beta = in__.scalar_constrain();
 
             local_scalar_t__ sigma;
             (void) sigma;  // dummy to suppress unused var warning
             if (jacobian__)
-                sigma = in__.scalar_constrain(lp__);
+                sigma = in__.scalar_lb_constrain(0,lp__);
             else
-                sigma = in__.scalar_constrain();
+                sigma = in__.scalar_lb_constrain(0);
 
 
             // transformed parameters
@@ -269,36 +235,9 @@ public:
             (void) function__;  // dummy to suppress unused var warning
 
             // model body
-            {
+
             current_statement_begin__ = 14;
-            validate_non_negative_index("mu", "N", N);
-            Eigen::Matrix<local_scalar_t__,Eigen::Dynamic,1>  mu(static_cast<Eigen::VectorXd::Index>(N));
-            (void) mu;  // dummy to suppress unused var warning
-
-            stan::math::initialize(mu, DUMMY_VAR__);
-            stan::math::fill(mu,DUMMY_VAR__);
-
-
-            current_statement_begin__ = 15;
-            lp_accum__.add(uniform_log<propto__>(sigma, 0, 50));
-            current_statement_begin__ = 16;
-            lp_accum__.add(normal_log<propto__>(b2, 0, 10));
-            current_statement_begin__ = 17;
-            lp_accum__.add(normal_log<propto__>(b1, 0, 10));
-            current_statement_begin__ = 18;
-            lp_accum__.add(normal_log<propto__>(a, 178, 100));
-            current_statement_begin__ = 19;
-            for (int i = 1; i <= N; ++i) {
-
-                current_statement_begin__ = 20;
-                stan::model::assign(mu, 
-                            stan::model::cons_list(stan::model::index_uni(i), stan::model::nil_index_list()), 
-                            ((a + (b1 * get_base1(weight_s,i,"weight_s",1))) + (b2 * get_base1(weight_s2,i,"weight_s2",1))), 
-                            "assigning variable mu");
-            }
-            current_statement_begin__ = 22;
-            lp_accum__.add(normal_log<propto__>(height, mu, sigma));
-            }
+            lp_accum__.add(normal_log<propto__>(height, add(alpha,multiply(weight,beta)), sigma));
 
         } catch (const std::exception& e) {
             stan::lang::rethrow_located(e, current_statement_begin__, prog_reader__());
@@ -325,9 +264,8 @@ public:
 
     void get_param_names(std::vector<std::string>& names__) const {
         names__.resize(0);
-        names__.push_back("a");
-        names__.push_back("b1");
-        names__.push_back("b2");
+        names__.push_back("alpha");
+        names__.push_back("beta");
         names__.push_back("sigma");
     }
 
@@ -335,8 +273,6 @@ public:
     void get_dims(std::vector<std::vector<size_t> >& dimss__) const {
         dimss__.resize(0);
         std::vector<size_t> dims__;
-        dims__.resize(0);
-        dimss__.push_back(dims__);
         dims__.resize(0);
         dimss__.push_back(dims__);
         dims__.resize(0);
@@ -360,13 +296,11 @@ public:
         static const char* function__ = "weights_model_namespace::write_array";
         (void) function__;  // dummy to suppress unused var warning
         // read-transform, write parameters
-        double a = in__.scalar_constrain();
-        double b1 = in__.scalar_constrain();
-        double b2 = in__.scalar_constrain();
-        double sigma = in__.scalar_constrain();
-        vars__.push_back(a);
-        vars__.push_back(b1);
-        vars__.push_back(b2);
+        double alpha = in__.scalar_constrain();
+        double beta = in__.scalar_constrain();
+        double sigma = in__.scalar_lb_constrain(0);
+        vars__.push_back(alpha);
+        vars__.push_back(beta);
         vars__.push_back(sigma);
 
         // declare and define transformed parameters
@@ -429,13 +363,10 @@ public:
                                  bool include_gqs__ = true) const {
         std::stringstream param_name_stream__;
         param_name_stream__.str(std::string());
-        param_name_stream__ << "a";
+        param_name_stream__ << "alpha";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
-        param_name_stream__ << "b1";
-        param_names__.push_back(param_name_stream__.str());
-        param_name_stream__.str(std::string());
-        param_name_stream__ << "b2";
+        param_name_stream__ << "beta";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
         param_name_stream__ << "sigma";
@@ -456,13 +387,10 @@ public:
                                    bool include_gqs__ = true) const {
         std::stringstream param_name_stream__;
         param_name_stream__.str(std::string());
-        param_name_stream__ << "a";
+        param_name_stream__ << "alpha";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
-        param_name_stream__ << "b1";
-        param_names__.push_back(param_name_stream__.str());
-        param_name_stream__.str(std::string());
-        param_name_stream__ << "b2";
+        param_name_stream__ << "beta";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
         param_name_stream__ << "sigma";

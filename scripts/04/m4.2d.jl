@@ -1,7 +1,6 @@
-# # Linear regression
+# # Heights problem with restricted p[rior on mu]
 
-# We estimate simple linear regression model with a half-T prior.
-# First, we load the packages we use.
+# Result is not conform cmdstan result
 
 using StatisticalRethinking
 using DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics
@@ -17,7 +16,7 @@ df = convert(DataFrame, howell1);
 
 # Use only adults and standardize
 
-df2 = filter(row -> row[:age] >= 18, df)
+df2 = filter(row -> row[:age] >= 18, df);
 
 # Show the first six rows of the dataset.
 
@@ -31,7 +30,7 @@ Half-T for `σ`.
 struct ConstraintHeightsProblem{TY <: AbstractVector}
     "Observations."
     y::TY
-end
+end;
 
 # Then make the type callable with the parameters *as a single argument*.
 
@@ -39,7 +38,7 @@ function (problem::ConstraintHeightsProblem)(θ)
     @unpack y = problem   # extract the data
     @unpack μ = θ
     loglikelihood(Normal(μ, 0.15), y)
-end
+end;
 
 # We should test this, also, this would be a good place to benchmark and
 # optimize more complicated problems.

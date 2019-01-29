@@ -5,30 +5,27 @@ using Parameters, ForwardDiff
 ProjDir = rel_path("..", "scripts", "04")
 cd(ProjDir)
 
-howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
+howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';');
 df = convert(DataFrame, howell1);
 
-df2 = filter(row -> row[:age] >= 18, df)
+df2 = filter(row -> row[:age] >= 18, df);
 
 first(df2, 6)
 
-"""
-Half-T for `σ`.
-"""
 struct HeightsProblem{TY <: AbstractVector, Tν <: Real}
     "Observations."
     y::TY
     "Degrees of freedom for prior on sigma."
     ν::Tν
-end
+end;
 
 function (problem::HeightsProblem)(θ)
     @unpack y, ν = problem   # extract the data
     @unpack μ, σ = θ
     loglikelihood(Normal(μ, σ), y) + logpdf(TDist(ν), σ)
-end
+end;
 
-obs = convert(Vector{Float64}, df2[:height])
+obs = convert(Vector{Float64}, df2[:height]);
 p = HeightsProblem(obs, 1.0);
 p((μ = 178, σ = 5.0,))
 
@@ -39,9 +36,9 @@ chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 
 posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
 
-posterior_β = mean(first, posterior)
+posterior_μ = mean(last, posterior)
 
-posterior_σ = mean(last, posterior)
+posterior_σ = mean(first, posterior)
 
 ess = mapslices(effective_sample_size,
                 get_position_matrix(chain); dims = 1)
@@ -65,7 +62,7 @@ sigma   7.21853   7.5560625   7.751355   7.9566775   8.410391
    mu 153.77992 154.3157500 154.602000 154.8820000 155.431000
 ";
 
-[posterior_β, posterior_σ]
+[posterior_μ, posterior_σ]
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

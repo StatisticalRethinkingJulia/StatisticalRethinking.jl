@@ -33,7 +33,7 @@ Linear regression model ``y ∼ Xβ + ϵ``, where ``ϵ ∼ N(0, σ²)`` IID.
 Flat prior for `β`, half-T for `σ`.
 """
 struct LinearRegressionProblem{TY <: AbstractVector, TX <: AbstractMatrix,
-                               Tν <: Real}
+Tν <: Real}
     "Observations."
     y::TY
     "Covariates"

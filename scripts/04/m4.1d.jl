@@ -1,7 +1,6 @@
-# # Linear regression
+# # Heights problem
 
 # We estimate simple linear regression model with a half-T prior.
-# First, we load the packages we use.
 
 using StatisticalRethinking
 using DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics
@@ -12,28 +11,25 @@ cd(ProjDir)
 
 # Import the dataset.
 
-howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
+howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';');
 df = convert(DataFrame, howell1);
 
 # Use only adults and standardize
 
-df2 = filter(row -> row[:age] >= 18, df)
+df2 = filter(row -> row[:age] >= 18, df);
 
 # Show the first six rows of the dataset.
 
 first(df2, 6)
 
-# Then define a structure to hold the data: observables and the degrees of freedom for the prior.
+# Half-T for `σ`, see below.
 
-"""
-Half-T for `σ`.
-"""
 struct HeightsProblem{TY <: AbstractVector, Tν <: Real}
     "Observations."
     y::TY
     "Degrees of freedom for prior on sigma."
     ν::Tν
-end
+end;
 
 # Then make the type callable with the parameters *as a single argument*.
 
@@ -41,12 +37,11 @@ function (problem::HeightsProblem)(θ)
     @unpack y, ν = problem   # extract the data
     @unpack μ, σ = θ
     loglikelihood(Normal(μ, σ), y) + logpdf(TDist(ν), σ)
-end
+end;
 
-# We should test this, also, this would be a good place to benchmark and
-# optimize more complicated problems.
+# Setup problem with data and inits.
 
-obs = convert(Vector{Float64}, df2[:height])
+obs = convert(Vector{Float64}, df2[:height]);
 p = HeightsProblem(obs, 1.0);
 p((μ = 178, σ = 5.0,))
 
@@ -55,9 +50,7 @@ p((μ = 178, σ = 5.0,))
 P = TransformedLogDensity(as((σ = as(Real, 0, 10), μ  = as(Real, 0, 200))), p)
 ∇P = ADgradient(:ForwardDiff, P);
 
-# Finally, we sample from the posterior. `chain` holds the chain (positions and
-# diagnostic information), while the second returned value is the tuned sampler
-# which would allow continuation of sampling.
+# Tune and sample.
 
 chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 
@@ -67,11 +60,11 @@ posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position
 
 # Extract the parameter posterior means: `β`,
 
-posterior_β = mean(first, posterior)
+posterior_μ = mean(last, posterior)
 
 # then `σ`:
 
-posterior_σ = mean(last, posterior)
+posterior_σ = mean(first, posterior)
 
 # Effective sample sizes (of untransformed draws)
 
@@ -101,6 +94,6 @@ sigma   7.21853   7.5560625   7.751355   7.9566775   8.410391
 
 # Extract the parameter posterior means: `β`,
 
-[posterior_β, posterior_σ]
+[posterior_μ, posterior_σ]
 
 # end of m4.5d.jl

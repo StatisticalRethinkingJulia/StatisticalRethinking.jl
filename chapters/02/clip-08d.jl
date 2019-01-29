@@ -1,26 +1,16 @@
 using StatisticalRethinking
-using TransformVariables
-using LogDensityProblems
-using DynamicHMC
-using MCMCDiagnostics
-using Parameters
-using Statistics
+using DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics
+using Parameters, ForwardDiff
 
-"""
-Toy problem using a Bernoulli distribution.
-We model `n` independent draws from a ``Bernoulli(α)`` distribution.
-"""
 struct BernoulliProblem
     "Total number of draws in the data."
     n::Int
     "Number of draws `==1` in the data"
     s::Vector{Int}
-end
+end;
 
 function (problem::BernoulliProblem)((α, )::NamedTuple{(:α, )})
     @unpack n, s = problem        # extract the data
-
-    #sum([s1 * log(α) + (n-s1) * log(1-α) for s1 in s])
     loglikelihood(Binomial(n, α), s)
 end
 

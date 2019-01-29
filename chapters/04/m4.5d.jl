@@ -8,25 +8,21 @@ cd(ProjDir)
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
 
-df2 = filter(row -> row[:age] >= 18, df)
+df2 = filter(row -> row[:age] >= 18, df);
 df2[:weight] = convert(Vector{Float64}, df2[:weight]);
 df2[:weight_s] = (df2[:weight] .- mean(df2[:weight])) / std(df2[:weight]);
 df2[:weight_s2] = df2[:weight_s] .^ 2;
 
 first(df2, 6)
 
-"""
-Linear regression model ``y ∼ Xβ + ϵ``, where ``ϵ ∼ N(0, σ²)`` IID.
-Flat prior for `β`, half-T for `σ`.
-"""
-struct LinearRegressionProblem{TY <: AbstractVector, TX <: AbstractMatrix}
+struct ConstraintHeightProblem{TY <: AbstractVector, TX <: AbstractMatrix}
     "Observations."
     y::TY
     "Covariates"
     X::TX
-end
+end;
 
-function (problem::LinearRegressionProblem)(θ)
+function (problem::ConstraintHeightProblem)(θ)
     @unpack y, X, = problem   # extract the data
     @unpack β, σ = θ            # works on the named tuple too
     ll = 0.0
@@ -41,10 +37,10 @@ end
 N = size(df2, 1)
 X = hcat(ones(N), hcat(df2[:weight_s], df2[:weight_s2]));
 y = convert(Vector{Float64}, df2[:height])
-p = LinearRegressionProblem(y, X);
+p = ConstraintHeightProblem(y, X);
 p((β = [1.0, 2.0, 3.0], σ = 1.0))
 
-problem_transformation(p::LinearRegressionProblem) =
+problem_transformation(p::ConstraintHeightProblem) =
     as((β = as(Array, size(p.X, 2)), σ = asℝ₊))
 
 P = TransformedLogDensity(problem_transformation(p), p)

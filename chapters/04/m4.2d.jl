@@ -8,7 +8,7 @@ cd(ProjDir)
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
 
-df2 = filter(row -> row[:age] >= 18, df)
+df2 = filter(row -> row[:age] >= 18, df);
 
 first(df2, 6)
 
@@ -18,13 +18,13 @@ Half-T for `σ`.
 struct ConstraintHeightsProblem{TY <: AbstractVector}
     "Observations."
     y::TY
-end
+end;
 
 function (problem::ConstraintHeightsProblem)(θ)
     @unpack y = problem   # extract the data
     @unpack μ = θ
     loglikelihood(Normal(μ, 0.15), y)
-end
+end;
 
 obs = convert(Vector{Float64}, df2[:height])
 p = ConstraintHeightsProblem(obs);

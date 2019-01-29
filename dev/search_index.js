@@ -1029,7 +1029,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Functions",
     "title": "StatisticalRethinking.generate",
     "category": "method",
-    "text": "generate\n\nUtility function to generate notebooks and chapters from scripts in the scripts directory.\n\nMethod\n\ngenerate(sd = script_dict)\n\nRequired arguments\n\nNone, all notebooks/.. and chapters/.. files are regenerated.\n\n\n\n\n\n"
+    "text": "generate\n\nUtility function to generate all notebooks and chapters from scripts in the scripts directory.\n\nMethod\n\ngenerate(sd = script_dict)\n\nRequired arguments\n\nNone, all notebooks/.. and chapters/.. files are regenerated.\n\n\n\n\n\n"
 },
 
 {

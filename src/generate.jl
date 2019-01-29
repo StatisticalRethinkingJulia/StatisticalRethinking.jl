@@ -4,7 +4,7 @@ using StatisticalRethinking, Literate
 
 # generate
 
-Utility function to generate notebooks and chapters from scripts in the scripts directory.
+Utility function to generate all notebooks and chapters from scripts in the scripts directory.
 
 ### Method
 ```julia

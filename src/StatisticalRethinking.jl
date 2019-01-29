@@ -2,9 +2,11 @@ module StatisticalRethinking
 
 using Reexport 
 
-@reexport using Distributions, RDatasets, DataFrames, StatsBase
-@reexport using Plots, StatsPlots, StatsFuns, MCMCChain
+@reexport using Distributions, RDatasets, DataFrames
+@reexport using StatsBase, StatsPlots, StatsFuns 
 @reexport using CSV, DelimitedFiles, Serialization
+@reexport using MCMCChain
+
 using DataStructures
 
 const src_path = @__DIR__

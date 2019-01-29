@@ -47,7 +47,7 @@ p((μ = 178, σ = 5.0,))
 
 # Wrap the problem with a transformation, then use Flux for the gradient.
 
-P = TransformedLogDensity(as((σ = as(Real, 0, 10), μ  = as(Real, 0, 200))), p)
+P = TransformedLogDensity(as((σ = asℝ₊, μ  = as(Real, 100, 250))), p)
 ∇P = ADgradient(:ForwardDiff, P);
 
 # Tune and sample.

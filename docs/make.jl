@@ -11,6 +11,8 @@ DocDir =  rel_path("..", "docs", "src")
 page_list = Array{Pair{String, Any}, 1}();
 append!(page_list, [Pair("Home", "intro.md")]);
 append!(page_list, [Pair("Layout", "layout.md")])
+append!(page_list, [Pair("Versions", "versions.md")]);
+append!(page_list, [Pair("Notes", "notes.md")]);
 append!(page_list, [Pair("Acknowledgements", "acknowledgements.md")]);
 append!(page_list, [Pair("References", "references.md")])
 

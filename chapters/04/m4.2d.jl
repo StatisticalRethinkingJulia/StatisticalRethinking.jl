@@ -12,9 +12,6 @@ df2 = filter(row -> row[:age] >= 18, df);
 
 first(df2, 6)
 
-"""
-Half-T for `σ`.
-"""
 struct ConstraintHeightsProblem{TY <: AbstractVector}
     "Observations."
     y::TY
@@ -22,15 +19,16 @@ end;
 
 function (problem::ConstraintHeightsProblem)(θ)
     @unpack y = problem   # extract the data
-    @unpack μ = θ
-    loglikelihood(Normal(μ, 0.15), y)
+    @unpack μ, σ = θ
+    loglikelihood(Normal(μ, σ), y) + logpdf(Normal(178, 0.1), μ) +
+    logpdf(Uniform(0, 50), σ)
 end;
 
 obs = convert(Vector{Float64}, df2[:height])
 p = ConstraintHeightsProblem(obs);
-p((μ = 178,))
+p((μ = 178, σ = 5.0))
 
-P = TransformedLogDensity(as((μ  = as(Real, 0, 250),)), p)
+P = TransformedLogDensity(as((μ  = as(Real, 100, 250), σ = asℝ₊)), p)
 ∇P = ADgradient(:ForwardDiff, P);
 
 chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
@@ -38,6 +36,8 @@ chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
 
 posterior_μ = mean(first, posterior)
+
+posterior_σ = mean(last, posterior)
 
 ess = mapslices(effective_sample_size,
                 get_position_matrix(chain); dims = 1)
@@ -61,7 +61,7 @@ sigma  22.826377  23.942275  24.56935  25.2294  26.528368
    mu 177.665000 177.797000 177.86400 177.9310 178.066000
 ";
 
-posterior_μ
+[posterior_μ, posterior_σ]
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

@@ -29,7 +29,7 @@ obs = convert(Vector{Float64}, df2[:height]);
 p = HeightsProblem(obs, 1.0);
 p((μ = 178, σ = 5.0,))
 
-P = TransformedLogDensity(as((σ = as(Real, 0, 10), μ  = as(Real, 0, 200))), p)
+P = TransformedLogDensity(as((σ = asℝ₊, μ  = as(Real, 100, 250))), p)
 ∇P = ADgradient(:ForwardDiff, P);
 
 chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);

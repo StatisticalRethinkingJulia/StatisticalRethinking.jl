@@ -1,4 +1,4 @@
-# # Heights problem with restricted p[rior on mu]
+# # Heights problem with restricted prior on mu.
 
 # Result is not conform cmdstan result
 
@@ -22,34 +22,31 @@ df2 = filter(row -> row[:age] >= 18, df);
 
 first(df2, 6)
 
-# Then define a structure to hold the data: observables and the degrees of freedom for the prior.
+# No covariates, just height observations.
 
-"""
-Half-T for `σ`.
-"""
 struct ConstraintHeightsProblem{TY <: AbstractVector}
     "Observations."
     y::TY
 end;
 
-# Then make the type callable with the parameters *as a single argument*.
+# Very constraint prior on μ. Flat σ.
 
 function (problem::ConstraintHeightsProblem)(θ)
     @unpack y = problem   # extract the data
-    @unpack μ = θ
-    loglikelihood(Normal(μ, 0.15), y)
+    @unpack μ, σ = θ
+    loglikelihood(Normal(μ, σ), y) + logpdf(Normal(178, 0.1), μ) + 
+    logpdf(Uniform(0, 50), σ)
 end;
 
-# We should test this, also, this would be a good place to benchmark and
-# optimize more complicated problems.
+# Define problem with data and inits.
 
 obs = convert(Vector{Float64}, df2[:height])
 p = ConstraintHeightsProblem(obs);
-p((μ = 178,))
+p((μ = 178, σ = 5.0))
 
 # Wrap the problem with a transformation, then use Flux for the gradient.
 
-P = TransformedLogDensity(as((μ  = as(Real, 0, 250),)), p)
+P = TransformedLogDensity(as((μ  = as(Real, 100, 250), σ = asℝ₊)), p)
 ∇P = ADgradient(:ForwardDiff, P);
 
 # FSample from the posterior.
@@ -63,6 +60,10 @@ posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position
 # Extract the parameter posterior means: `μ`,
 
 posterior_μ = mean(first, posterior)
+
+# Extract the parameter posterior means: `μ`,
+
+posterior_σ = mean(last, posterior)
 
 # Effective sample sizes (of untransformed draws)
 
@@ -94,6 +95,6 @@ sigma  22.826377  23.942275  24.56935  25.2294  26.528368
 
 # Extract the parameter posterior means: `β`,
 
-posterior_μ
+[posterior_μ, posterior_σ]
 
 # end of m4.5d.jl

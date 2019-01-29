@@ -977,38 +977,6 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "#StatisticalRethinking.generate-Tuple{}",
-    "page": "Functions",
-    "title": "StatisticalRethinking.generate",
-    "category": "method",
-    "text": "generate\n\nGenerate notebooks and scripts\n\nMethod\n\ngenerate(sd = script_dict)\n\nRequired arguments\n\nNone, all notebooks and scripts are regenerated.\n\n\n\n\n\n"
-},
-
-{
-    "location": "#StatisticalRethinking.generate-Tuple{AbstractString}",
-    "page": "Functions",
-    "title": "StatisticalRethinking.generate",
-    "category": "method",
-    "text": "generate\n\nGenerate notebooks and scripts\n\nMethod\n\ngenerate(chapter::AbstractString)\n\nRequired arguments\n\nGenerate notebooks and scripts in chapter.\n\n\n\n\n\n"
-},
-
-{
-    "location": "#StatisticalRethinking.generate-Tuple{AbstractString,AbstractString}",
-    "page": "Functions",
-    "title": "StatisticalRethinking.generate",
-    "category": "method",
-    "text": "generate\n\nGenerate a single notebook and script\n\nMethod\n\ngenerate(chapter::AbstractString, file::AbstractString)\n\nRequired arguments\n\nGenerate notebook and script file in chapter.\n\n\n\n\n\n"
-},
-
-{
-    "location": "#generate-1",
-    "page": "Functions",
-    "title": "generate",
-    "category": "section",
-    "text": "generate(; sd=script_dict)\ngenerate(chapter::AbstractString; sd=script_dict)\ngenerate(chapter::AbstractString, scriptfile::AbstractString; sd=script_dict)"
-},
-
-{
     "location": "#StatisticalRethinking.maximum_a_posteriori-Tuple{Any,Any,Any}",
     "page": "Functions",
     "title": "StatisticalRethinking.maximum_a_posteriori",
@@ -1025,6 +993,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "#StatisticalRethinking.link-NTuple{4,Any}",
+    "page": "Functions",
+    "title": "StatisticalRethinking.link",
+    "category": "method",
+    "text": "link\n\nCompute the link function\n\nMethod\n\nlink(xrange, chain, vars, xbar) \n\nRequired arguments\n\n* `xrange::Turing model`  : Range over which link values are computed\n* `chain::Float64`             : Chain samples used\n* `vars::Float64`               : Variables in chain used\n* `xbar::Float64`               : Mean value of observed predictor\n\nReturn values\n\n* `result`                       : Vector of link values\n\n\n\n\n\n"
+},
+
+{
+    "location": "#link-1",
+    "page": "Functions",
+    "title": "link",
+    "category": "section",
+    "text": "link(xrange, chain, vars, xbar) "
+},
+
+{
     "location": "#StatisticalRethinking.rel_path-Tuple",
     "page": "Functions",
     "title": "StatisticalRethinking.rel_path",
@@ -1038,6 +1022,38 @@ var documenterSearchIndex = {"docs": [
     "title": "rel_path",
     "category": "section",
     "text": "rel_path(parts...)"
+},
+
+{
+    "location": "#StatisticalRethinking.generate-Tuple{}",
+    "page": "Functions",
+    "title": "StatisticalRethinking.generate",
+    "category": "method",
+    "text": "generate\n\nUtility function to generate notebooks and chapters from scripts in the scripts directory.\n\nMethod\n\ngenerate(sd = script_dict)\n\nRequired arguments\n\nNone, all notebooks/.. and chapters/.. files are regenerated.\n\n\n\n\n\n"
+},
+
+{
+    "location": "#StatisticalRethinking.generate-Tuple{AbstractString}",
+    "page": "Functions",
+    "title": "StatisticalRethinking.generate",
+    "category": "method",
+    "text": "generate\n\nGenerate notebooks and scripts in a single chapter.\n\nMethod\n\ngenerate(chapter::AbstractString)\n\nRequired arguments\n\nGenerate notebooks and scripts in a single chapter, e.g. generate(\"04\")\n\n\n\n\n\n"
+},
+
+{
+    "location": "#StatisticalRethinking.generate-Tuple{AbstractString,AbstractString}",
+    "page": "Functions",
+    "title": "StatisticalRethinking.generate",
+    "category": "method",
+    "text": "generate\n\nGenerate a single notebook and script\n\nMethod\n\ngenerate(chapter::AbstractString, file::AbstractString)\n\nRequired arguments\n\nGenerate notebook and script file in chapter, e.g. generate(\"04\", \"m4.1d.jl\") or  generate(\"04/m4.1d.jl\")\n\n\n\n\n\n"
+},
+
+{
+    "location": "#generate-1",
+    "page": "Functions",
+    "title": "generate",
+    "category": "section",
+    "text": "generate(; sd=script_dict)\ngenerate(chapter::AbstractString; sd=script_dict)\ngenerate(chapter::AbstractString, scriptfile::AbstractString; sd=script_dict)"
 },
 
 {
@@ -1070,22 +1086,6 @@ var documenterSearchIndex = {"docs": [
     "title": "scriptentry",
     "category": "section",
     "text": "scriptentry(scriptfile; nb = true, exe = true, doc = true)"
-},
-
-{
-    "location": "#StatisticalRethinking.link-NTuple{4,Any}",
-    "page": "Functions",
-    "title": "StatisticalRethinking.link",
-    "category": "method",
-    "text": "link\n\nCompute the link function\n\nMethod\n\nlink(xrange, chain, vars, xbar) \n\nRequired arguments\n\n* `xrange::Turing model`  : Range over which link values are computed\n* `chain::Float64`             : Chain samples used\n* `vars::Float64`               : Variables in chain used\n* `xbar::Float64`               : Mean value of observed predictor\n\nReturn values\n\n* `result`                       : Vector of link values\n\n\n\n\n\n"
-},
-
-{
-    "location": "#link-1",
-    "page": "Functions",
-    "title": "link",
-    "category": "section",
-    "text": "link(xrange, chain, vars, xbar) "
 },
 
 ]}

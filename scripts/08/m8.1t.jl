@@ -58,7 +58,7 @@ end;
 # Use Turing mcmc
 
 posterior = sample(m8_1stan(dd[:log_gdp], dd[:rugged], dd[:cont_africa]),
-Turing.NUTS(1000, 500, 0.95));
+Turing.NUTS(2000, 1000, 0.95));
     
 # Describe the posterior samples
 
@@ -66,21 +66,37 @@ describe(posterior)
 
 # Fix the inclusion of adaptation samples
 
-posterior2 = MCMCChain.Chains(posterior.value[501:1000,:,:], names=posterior.names)
-
-# Describe the posterior samples
-
-describe(posterior2)
+posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names)
 
 # Example of a Turing run simulation output
 
 # Here's the ulam() output from rethinking 
 
-m8_1_rethinking = "
-       mean   sd  5.5% 94.5% n_eff Rhat
-a      9.22 0.14  8.98  9.43   242 1.00
-bR    -0.20 0.08 -0.33 -0.07   235 1.00
-bA    -1.95 0.23 -2.30 -1.58   202 1.00
-bAR    0.39 0.14  0.17  0.61   268 1.00
-sigma  0.95 0.05  0.87  1.04   307 1.01
+m8_1s_cmdstan = "
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+          Mean         SD       Naive SE       MCSE      ESS
+    a  9.22360053 0.139119116 0.0021996664 0.0034632816 1000
+   bR -0.20196346 0.076106388 0.0012033477 0.0018370185 1000
+   bA -1.94430980 0.227080488 0.0035904578 0.0057840746 1000
+  bAR  0.39071684 0.131889143 0.0020853505 0.0032749642 1000
+sigma  0.95036370 0.052161768 0.0008247500 0.0009204073 1000
+
+Quantiles:
+          2.5%       25.0%       50.0%      75.0%        97.5%   
+    a  8.95307475  9.12719750  9.2237750  9.31974000  9.490234250
+   bR -0.35217930 -0.25334425 -0.2012855 -0.15124725 -0.054216855
+   bA -2.39010825 -2.09894500 -1.9432550 -1.78643000 -1.513974250
+  bAR  0.13496995  0.30095575  0.3916590  0.47887625  0.650244475
+sigma  0.85376115  0.91363250  0.9484920  0.98405750  1.058573750
 ";
+
+# Describe the posterior samples
+
+describe(posterior2)
+
+# end of 08/m8.1t.jl

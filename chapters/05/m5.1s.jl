@@ -48,6 +48,13 @@ describe(chn)
 
 plot(chn)
 
+rethinking = "
+       mean   sd  5.5% 94.5% n_eff Rhat
+a      9.69 0.22  9.34 10.03  2023    1
+bA    -1.04 0.21 -1.37 -0.71  1882    1
+sigma  1.51 0.16  1.29  1.79  1695    1
+"
+
 xi = -3.0:0.01:3.0
 rws, vars, chns = size(chn[:, 1, :])
 alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))

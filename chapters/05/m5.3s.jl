@@ -1,15 +1,9 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
-
 using StatisticalRethinking
 using CmdStan, StanMCMCChain
 gr(size=(500,500));
 
-# CmdStan uses a tmp directory to store the output of cmdstan
-
 ProjDir = rel_path("..", "scripts", "05")
 cd(ProjDir)
-
-# ### snippet 5.1
 
 wd = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
 df = convert(DataFrame, wd);
@@ -21,7 +15,7 @@ df[:Marriage_s] = convert(Vector{Float64},
 mean_mam = mean(df[:MedianAgeMarriage])
 df[:MedianAgeMarriage_s] = convert(Vector{Float64},
   (df[:MedianAgeMarriage]) .- mean_mam)/std(df[:MedianAgeMarriage]);
-  
+
 df[1:6, [1, 7, 14, 15]]
 
 rethinking_data = "
@@ -32,8 +26,6 @@ rethinking_data = "
 4   Arkansas    13.5  1.65512283          -1.4103870
 5 California     8.0 -0.26698927           0.5998567
 "
-
-# Define the Stan language model
 
 m5_3_model = "
 data {
@@ -58,27 +50,17 @@ model {
 }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchain.
-
 stanmodel = Stanmodel(name="m5_3_model",
 monitors = ["a", "bA", "bM", "sigma", "Divorce"],
  model=m5_3_model, output_format=:mcmcchain);
 
-# Input data for cmdstan
-
 m5_3_data = Dict("N" => size(df, 1), "divorce" => df[:Divorce],
     "marriage_z" => df[:Marriage_s], "median_age_z" => df[:MedianAgeMarriage_s]);
-
-# Sample using cmdstan
 
 rc, chn, cnames = stan(stanmodel, m5_3_data, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME);
 
-# Describe the draws
-
 describe(chn)
-
-# Rethinking results
 
 rethinking_results = "
        mean   sd  5.5% 94.5% n_eff Rhat
@@ -88,4 +70,5 @@ bA    -1.13 0.29 -1.56 -0.67   994    1
 sigma  1.53 0.16  1.28  1.80  1121    1
 "
 
-# End of `05/5.3s.jl`
+# This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
+

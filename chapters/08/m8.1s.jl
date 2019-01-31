@@ -11,6 +11,7 @@ df = convert(DataFrame, d);
 dcc = filter(row -> !(ismissing(row[:rgdppc_2000])), df)
 dcc[:log_gdp] = log.(dcc[:rgdppc_2000])
 dcc[:cont_africa] = Array{Float64}(convert(Array{Int}, dcc[:cont_africa]))
+dcc[:rugged] = convert(Array{Float64}, dcc[:rugged])
 first(dcc[[:rugged, :cont_africa, :log_gdp]], 5)
 
 m_8_1_model = "
@@ -19,6 +20,7 @@ data{
     vector[N] log_gdp;
     vector[N] cont_africa;
     vector[N] rugged;
+    vector[N] rugged_cont_africa;
 }
 parameters{
     real a;
@@ -28,15 +30,12 @@ parameters{
     real sigma;
 }
 model{
-    vector[N] mu;
+    vector[N] mu = a + bR * rugged + bA * cont_africa + bAR * rugged_cont_africa;
     sigma ~ uniform( 0 , 10 );
     bAR ~ normal( 0 , 10 );
     bA ~ normal( 0 , 10 );
     bR ~ normal( 0 , 10 );
     a ~ normal( 0 , 100 );
-    for ( i in 1:N ) {
-        mu[i] = a + bR * rugged[i] + bA * cont_africa[i] + bAR * rugged[i] * cont_africa[i];
-    }
     log_gdp ~ normal( mu , sigma );
 }
 ";
@@ -45,8 +44,10 @@ stanmodel = Stanmodel(name="m_8_1_model",
 monitors = ["a", "bR", "bA", "bAR", "sigma"],
 model=m_8_1_model, output_format=:mcmcchain);
 
-m_8_1_data = Dict("N" => size(dcc, 1), "log_gdp" => dcc[:log_gdp],
-    "rugged" => dcc[:rugged], "cont_africa" => dcc[:cont_africa]);
+m_8_1_data = Dict("N" => size(dcc, 1),
+"log_gdp" => dcc[:log_gdp],  "rugged" => dcc[:rugged],
+"cont_africa" => dcc[:cont_africa],
+"rugged_cont_africa" => dcc[:rugged] .* dcc[:cont_africa] );
 
 rc, chn, cnames = stan(stanmodel, m_8_1_data, ProjDir, diagnostics=false,
   summary=true, CmdStanDir=CMDSTAN_HOME);

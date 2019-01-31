@@ -4,7 +4,7 @@ language: julia
 jobs:
   include:
     - stage: Testing Julia v1.1
-      julia: 1.0
+      julia: 1.1
       os: linux
       branches:
         only:
@@ -12,7 +12,7 @@ jobs:
           - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 
     - stage: Documentation
-      julia: 1.0
+      julia: 1.1
       os: linux
       script:
         - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
@@ -23,6 +23,22 @@ jobs:
         - julia --project=docs -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
         - julia --project=docs --color=yes docs/make.jl
       after_success: skip
+
+    - stage: Testing Julia v1.1
+      julia: 1.0
+      os: linux
+      branches:
+        only:
+          - master
+          - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+
+    - stage: Testing Julia v1.2
+      julia: 1.1
+      os: linux
+      branches:
+        only:
+          - master
+          - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 
 notifications:
   email: true

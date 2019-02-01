@@ -30,30 +30,30 @@ p = ConstraintHeightProblem(y, X);
 p((β = [1.0, 2.0, 3.0], σ = 1.0))</code></pre><pre><code class="language-none">-4.0013242576346947e6</code></pre></div><p>Use a function to return the transformation (as it varies with the number of covariates).</p><div><pre><code class="language-julia">problem_transformation(p::ConstraintHeightProblem) =
     as((β = as(Array, size(p.X, 2)), σ = asℝ₊))</code></pre></div><p>Wrap the problem with a transformation, then use Flux for the gradient.</p><div><pre><code class="language-julia">P = TransformedLogDensity(problem_transformation(p), p)
 ∇P = ADgradient(:ForwardDiff, P);</code></pre></div><p>Draw samples.</p><div><pre><code class="language-julia">chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);</code></pre><pre><code class="language-none">MCMC, adapting ϵ (75 steps)
-0.0037 s/step ...done
+0.0039 s/step ...done
 MCMC, adapting ϵ (25 steps)
-0.0013 s/step ...done
+0.00073 s/step ...done
 MCMC, adapting ϵ (50 steps)
-0.0043 s/step ...done
+0.0042 s/step ...done
 MCMC, adapting ϵ (100 steps)
-0.00039 s/step ...done
+0.00037 s/step ...done
 MCMC, adapting ϵ (200 steps)
-0.00034 s/step ...done
+0.00037 s/step ...done
 MCMC, adapting ϵ (400 steps)
-0.00025 s/step ...done
+0.00023 s/step ...done
 MCMC, adapting ϵ (50 steps)
-0.00041 s/step ...done
+0.00042 s/step ...done
 MCMC (1000 steps)
-0.00033 s/step ...done</code></pre></div><p>We use the transformation to obtain the posterior from the chain.</p><div><pre><code class="language-julia">posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
+0.0003 s/step ...done</code></pre></div><p>We use the transformation to obtain the posterior from the chain.</p><div><pre><code class="language-julia">posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
 posterior[1:5]</code></pre><pre><code class="language-none">5-element Array{NamedTuple{(:β, :σ),Tuple{Array{Float64,1},Float64}},1}:
- (β = [154.61, 5.50657, -0.2106], σ = 5.044826492713483)
- (β = [154.757, 6.0644, 0.270228], σ = 5.402828355160566)
- (β = [154.239, 5.79833, 0.342994], σ = 4.775364588976708)
- (β = [154.542, 6.0341, -0.075385], σ = 5.099302814438867)
- (β = [154.663, 5.57355, -0.0442691], σ = 4.920830665813592)</code></pre></div><p>Extract the parameter posterior means: <code>β</code>,</p><div><pre><code class="language-julia">posterior_β = mean(first, posterior)</code></pre><pre><code class="language-none">3-element Array{Float64,1}:
- 154.59478035026888
-   5.841937778527932
-  -0.018753582642353255</code></pre></div><p>then <code>σ</code>:</p><div><pre><code class="language-julia">posterior_σ = mean(last, posterior)</code></pre><pre><code class="language-none">5.099009871730427</code></pre></div><p>Effective sample sizes (of untransformed draws)</p><div><pre><code class="language-julia">ess = mapslices(effective_sample_size,
+ (β = [155.695, 6.1267, -0.374709], σ = 5.320444523404991)
+ (β = [155.711, 5.83943, -0.724048], σ = 5.348746913214615)
+ (β = [154.836, 6.01622, -0.196132], σ = 5.016900599664854)
+ (β = [155.072, 6.16261, -0.537551], σ = 5.402470458610672)
+ (β = [154.05, 5.63857, 0.443309], σ = 4.814288042965504)</code></pre></div><p>Extract the parameter posterior means: <code>β</code>,</p><div><pre><code class="language-julia">posterior_β = mean(first, posterior)</code></pre><pre><code class="language-none">3-element Array{Float64,1}:
+ 154.60387394846185
+   5.855602612183245
+  -0.022668669460421936</code></pre></div><p>then <code>σ</code>:</p><div><pre><code class="language-julia">posterior_σ = mean(last, posterior)</code></pre><pre><code class="language-none">5.099554046465329</code></pre></div><p>Effective sample sizes (of untransformed draws)</p><div><pre><code class="language-julia">ess = mapslices(effective_sample_size,
                 get_position_matrix(chain); dims = 1)</code></pre></div><p>NUTS-specific statistics</p><div><pre><code class="language-julia">NUTS_statistics(chain)
 
 cmdstan_result = &quot;
@@ -76,5 +76,5 @@ Quantiles:
    b2  -0.45954687  -0.1668285  -0.01382935   0.1423620   0.43600905
 sigma   4.76114350   4.9816850   5.10326000   5.2300450   5.51500975
 &quot;;</code></pre></div><p>Extract the parameter posterior means: <code>β</code>,</p><div><pre><code class="language-julia">[posterior_β, posterior_σ]</code></pre><pre><code class="language-none">2-element Array{Any,1}:
-  [154.595, 5.84194, -0.0187536]
- 5.099009871730427</code></pre></div><p>end of m4.5d.jl#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.2t/"><span class="direction">Previous</span><span class="title">m4.2t</span></a><a class="next" href="../m4.5s/"><span class="direction">Next</span><span class="title">m4.5s</span></a></footer></article></body></html>
+  [154.604, 5.8556, -0.0226687]
+ 5.099554046465329</code></pre></div><p>end of m4.5d.jl#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.2t/"><span class="direction">Previous</span><span class="title">m4.2t</span></a><a class="next" href="../m4.5s/"><span class="direction">Next</span><span class="title">m4.5s</span></a></footer></article></body></html>

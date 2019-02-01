@@ -937,6 +937,54 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "10/m10.01s/#",
+    "page": "m10.01s",
+    "title": "m10.01s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/10/m10.01s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"08\")\ncd(ProjDir)"
+},
+
+{
+    "location": "10/m10.01s/#snippet-10.1-1",
+    "page": "m10.01s",
+    "title": "snippet 10.1",
+    "category": "section",
+    "text": "d = CSV.read(rel_path(\"..\", \"data\", \"chimpanzees.csv\"), delim=\';\');\ndf = convert(DataFrame, d);\n\nfirst(df, 5)Define the Stan language modelm_10_01_model = \"\ndata{\n    int N;\n    int pulled_left[N];\n}\nparameters{\n    real a;\n}\nmodel{\n    real p;\n    a ~ normal( 0 , 10 );\n    pulled_left ~ binomial( 1 , inv_logit(a) );\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"m_10_01_model\",\nmonitors = [\"a\"],\nmodel=m_10_01_model, output_format=:mcmcchain);Input data for cmdstanm_10_01_data = Dict(\"N\" => size(df, 1),\n\"pulled_left\" => df[:pulled_left]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, m_10_01_data, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Result rethinkingrethinking = \"\n  mean   sd  5.5% 94.5% n_eff Rhat\na 0.32 0.09 0.18  0.46   166    1\n\";Describe the drawsdescribe(chn)End of 10/m10.01s.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "10/m10.02d/#",
+    "page": "m10.02d",
+    "title": "m10.02d",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/10/m10.02d.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing DynamicHMC, TransformVariables, LogDensityProblems, MCMCDiagnostics\nusing Parameters, ForwardDiff, LinearAlgebra"
+},
+
+{
+    "location": "10/m10.02d/#snippet-10.4-1",
+    "page": "m10.02d",
+    "title": "snippet 10.4",
+    "category": "section",
+    "text": "d = CSV.read(rel_path(\"..\", \"data\", \"chimpanzees.csv\"), delim=\';\');\ndf = convert(DataFrame, d);\ndf[:pulled_left] = convert(Array{Int64}, df[:pulled_left])\ndf[:prosoc_left] = convert(Array{Int64}, df[:prosoc_left])\nfirst(df, 5)\n\nstruct m_10_02d_model{TY <: AbstractVector, TX <: AbstractMatrix}\n    \"Observations.\"\n    y::TY\n    \"Covariates\"\n    X::TX\nendMake the type callable with the parameters as a single argument.function (problem::m_10_02d_model)(θ)\n    @unpack y, X, = problem   # extract the data\n    @unpack pr, β = θ            # works on the named tuple too\n    ll = 0.0\n    ll += logpdf(Normal(0, 10), β[1]) # a = X[1]\n    ll += logpdf(Normal(0, 10), β[2]) # bp = X[2]\n    ll += sum([loglikelihood(Binomial(1, logistic(dot(X[i, :], β))), [y[i]]) for i in 1:N])\n    ll\nendInstantiate the model with data and inits.N = size(df, 1)\nX = hcat(ones(Int64, N), df[:prosoc_left]);\ny = df[:pulled_left]\np = m_10_02d_model(y, X);\nθ = (β = [1.0, 2.0], pr = ones(N),)\np(θ)Write a function to return properly dimensioned transformation.problem_transformation(p::m_10_02d_model) =\n    as((β = as(Array, size(p.X, 2)), pr = as(Array, size(p.X, 2))))Wrap the problem with a transformation, then use Flux for the gradient.P = TransformedLogDensity(problem_transformation(p), p)\n∇P = ADgradient(:ForwardDiff, P);Tune and sample.chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);We use the transformation to obtain the posterior from the chain.posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));\nposterior[1:5]Extract the parameter posterior means: β,posterior_β = mean(first, posterior)Effective sample sizes (of untransformed draws)ess = mapslices(effective_sample_size,\n                get_position_matrix(chain); dims = 1)NUTS-specific statisticsNUTS_statistics(chain)CmdStan resultm_10_2s_result = \"\nIterations = 1:1000\nThinning interval = 1\nChains = 1,2,3,4\nSamples per chain = 1000\n\nEmpirical Posterior Estimates:\n      Mean        SD       Naive SE       MCSE      ESS\n a 0.05103234 0.12579086 0.0019889282 0.0035186307 1000\nbp 0.55711212 0.18074275 0.0028577937 0.0040160451 1000\n\nQuantiles:\n       2.5%        25.0%       50.0%      75.0%      97.5%\n a -0.19755400 -0.029431425 0.05024655 0.12978825 0.30087758\nbp  0.20803447  0.433720250 0.55340400 0.67960975 0.91466915\n\";Extract the parameter posterior means: β,posterior_β = mean(first, posterior)End of 10/m10.02d.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "10/m10.02s/#",
+    "page": "m10.02s",
+    "title": "m10.02s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/10/m10.02s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"10\")\ncd(ProjDir)"
+},
+
+{
+    "location": "10/m10.02s/#snippet-10.4-1",
+    "page": "m10.02s",
+    "title": "snippet 10.4",
+    "category": "section",
+    "text": "d = CSV.read(rel_path(\"..\", \"data\", \"chimpanzees.csv\"), delim=\';\');\ndf = convert(DataFrame, d);\n\nfirst(df, 5)Define the Stan language modelm_10_02_model = \"\ndata{\n    int N;\n    int pulled_left[N];\n    int prosoc_left[N];\n}\nparameters{\n    real a;\n    real bp;\n}\nmodel{\n    vector[N] p;\n    bp ~ normal( 0 , 10 );\n    a ~ normal( 0 , 10 );\n    for ( i in 1:N ) {\n        p[i] = a + bp * prosoc_left[i];\n        p[i] = inv_logit(p[i]);\n    }\n    pulled_left ~ binomial( 1 , p );\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"m_10_02_model\",\nmonitors = [\"a\", \"bp\"],\nmodel=m_10_02_model, output_format=:mcmcchain);Input data for cmdstanm_10_02_data = Dict(\"N\" => size(df, 1),\n\"pulled_left\" => df[:pulled_left], \"prosoc_left\" => df[:prosoc_left]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, m_10_02_data, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Result rethinkingResult rethinkingrethinking = \"\n   mean   sd  5.5% 94.5% n_eff Rhat\na  0.04 0.12 -0.16  0.21   180 1.00\nbp 0.57 0.19  0.30  0.87   183 1.01\n\";Describe the drawsdescribe(chn)End of 10/m10.02s.jlThis page was generated using Literate.jl."
+},
+
+{
     "location": "12/m12.6.1s/#",
     "page": "m12.6.1s",
     "title": "m12.6.1s",

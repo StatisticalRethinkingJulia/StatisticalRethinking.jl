@@ -6,10 +6,10 @@ gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path("..", "scripts", "08")
+ProjDir = rel_path("..", "scripts", "10")
 cd(ProjDir)
 
-# ### snippet 5.1
+# ### snippet 10.4
 
 d = CSV.read(rel_path("..", "data", "chimpanzees.csv"), delim=';');
 df = convert(DataFrame, d);
@@ -58,25 +58,16 @@ rc, chn, cnames = stan(stanmodel, m_10_02_data, ProjDir, diagnostics=false,
 
 # Result rethinking
 
-m_10_2s_result = "
-Iterations = 1:1000
-Thinning interval = 1
-Chains = 1,2,3,4
-Samples per chain = 1000
+# Result rethinking
 
-Empirical Posterior Estimates:
-      Mean        SD       Naive SE       MCSE      ESS
- a 0.05103234 0.12579086 0.0019889282 0.0035186307 1000
-bp 0.55711212 0.18074275 0.0028577937 0.0040160451 1000
-
-Quantiles:
-       2.5%        25.0%       50.0%      75.0%      97.5%  
- a -0.19755400 -0.029431425 0.05024655 0.12978825 0.30087758
-bp  0.20803447  0.433720250 0.55340400 0.67960975 0.91466915
+rethinking = "
+   mean   sd  5.5% 94.5% n_eff Rhat
+a  0.04 0.12 -0.16  0.21   180 1.00
+bp 0.57 0.19  0.30  0.87   183 1.01
 ";
 
 # Describe the draws
 
 describe(chn)
 
-# End of `08/m8.1s.jl`
+# End of `10/m10.02s.jl`

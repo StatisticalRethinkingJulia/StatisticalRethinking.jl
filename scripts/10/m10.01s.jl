@@ -9,7 +9,7 @@ gr(size=(500,500));
 ProjDir = rel_path("..", "scripts", "08")
 cd(ProjDir)
 
-# ### snippet 5.1
+# ### snippet 10.1
 
 d = CSV.read(rel_path("..", "data", "chimpanzees.csv"), delim=';');
 df = convert(DataFrame, d);
@@ -60,4 +60,4 @@ a 0.32 0.09 0.18  0.46   166    1
 
 describe(chn)
 
-# End of `08/m8.1s.jl`
+# End of `10/m10.01s.jl`

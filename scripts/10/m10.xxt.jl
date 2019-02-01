@@ -19,8 +19,6 @@ end
 
 posterior = sample(m_good_stan(x,y), Turing.NUTS(2000, 1000, 0.95))
 
-describe(posterior)
-
 # Fix the inclusion of adaptation samples
 
 posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names)

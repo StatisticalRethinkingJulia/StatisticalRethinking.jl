@@ -4,6 +4,7 @@ using Turing
 Turing.setadbackend(:reverse_diff)
 
 # outcome and predictor almost perfectly associated
+
 x = repeat([-1], 9); append!(x, repeat([1],11))
 y = repeat([0], 10); append!(y, repeat([1],10))
 

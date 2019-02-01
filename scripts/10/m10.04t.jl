@@ -1,10 +1,11 @@
 using StatisticalRethinking
 using Turing
 
-Turing.setadbackend(:reverse_diff)
+Turing.setadbackend(:reverse_diff);
+#nb Turing.turnprogress(false);
 
 d = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data",
-    "chimpanzees.csv"), delim=';')
+    "chimpanzees.csv"), delim=';');
 size(d) # Should be 504x8
 
 # pulled_left, actors, condition, prosoc_left
@@ -27,14 +28,14 @@ size(d) # Should be 504x8
         p = logistic(α[actors[i]] + (βp + βpC * x₁[i]) * x₂[i])
         y[i] ~ Binomial(1, p)
     end
-end
+end;
 
 posterior = sample(m10_4(d[:,:pulled_left], d[:,:actor],d[:,:condition],
-d[:,:prosoc_left]), Turing.NUTS(2000, 1000, 0.95))
+d[:,:prosoc_left]), Turing.NUTS(2000, 1000, 0.95));
 
 # Fix the inclusion of adaptation samples
 
-posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names)
+posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names);
 
 # Rethinking/CmdStan results
 

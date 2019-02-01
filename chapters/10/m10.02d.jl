@@ -48,7 +48,8 @@ posterior_β = mean(first, posterior)
 ess = mapslices(effective_sample_size, get_position_matrix(chain); dims = 1)
 ess
 
-NUTS_statistics(chain)
+res = NUTS_statistics(chain)
+res
 
 m_10_2s_result = "
 Iterations = 1:1000

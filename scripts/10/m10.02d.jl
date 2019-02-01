@@ -70,7 +70,8 @@ ess
 
 # NUTS-specific statistics
 
-NUTS_statistics(chain)
+res = NUTS_statistics(chain)
+res
 
 # CmdStan result
 

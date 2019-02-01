@@ -7,7 +7,7 @@ gr(size=(600,300));
 #-
 
 Turing.setadbackend(:reverse_diff);
-#nb Turing.turnprogress(false)
+#nb Turing.turnprogress(false);
 
 # ### snippet 2.8t
 

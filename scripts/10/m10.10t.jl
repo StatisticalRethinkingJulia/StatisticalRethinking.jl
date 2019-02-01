@@ -1,17 +1,18 @@
 using StatisticalRethinking
 using Turing
 
-Turing.setadbackend(:reverse_diff)
+Turing.setadbackend(:reverse_diff);
+#nb Turing.turnprogress(false);
 
 d = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data",
-    "Kline.csv"), delim=';')
+    "Kline.csv"), delim=';');
 size(d) # Should be 10x5
 
 # New col log_pop, set log() for population data
-d[:log_pop] = map(x -> log(x), d[:population])
+d[:log_pop] = map(x -> log(x), d[:population]);
 
 # New col contact_high, set binary values 1/0 if high/low contact
-d[:contact_high] = map(x -> ifelse(x=="high", 1, 0), d[:contact])
+d[:contact_high] = map(x -> ifelse(x=="high", 1, 0), d[:contact]);
 
 # This is supposed to be a "bad" model since we take non-centered data for the
 # predictor log_pop
@@ -26,14 +27,14 @@ d[:contact_high] = map(x -> ifelse(x=="high", 1, 0), d[:contact])
             βpc*contact_high[i]*log_pop[i])
         total_tools[i] ~ Poisson(λ)
     end
-end
+end;
 
 posterior = sample(m10_10stan(d[:total_tools], d[:log_pop],
-    d[:contact_high]), Turing.NUTS(2000, 1000, 0.95))
+    d[:contact_high]), Turing.NUTS(2000, 1000, 0.95));
 
 # Fix the inclusion of adaptation samples
 
-posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names)
+posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names);
 
 # Rethinking result
 

@@ -1,8 +1,10 @@
 using StatisticalRethinking
 using Turing
 
+Turing.setadbackend(:reverse_diff);
+
 d = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data",
-    "chimpanzees.csv"), delim=';')
+    "chimpanzees.csv"), delim=';');
 size(d) # Should be 504x8
 
 @model m10_3(y, x₁, x₂) = begin
@@ -14,12 +16,12 @@ size(d) # Should be 504x8
         p = logistic(α + (βp + βpC * x₁[i]) * x₂[i])
         y[i] ~ Binomial(1, p)
     end
-end
+end;
 
 posterior = sample(m10_3(d[:,:pulled_left], d[:,:condition], d[:,:prosoc_left]),
-Turing.NUTS(2000, 1000, 0.95))
+Turing.NUTS(2000, 1000, 0.95));
 
-posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names)
+posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names);
 
 m_10_03t_result = "
       Mean StdDev lower 0.89 upper 0.89 n_eff Rhat

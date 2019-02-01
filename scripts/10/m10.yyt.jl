@@ -1,10 +1,11 @@
 using StatisticalRethinking
 using Turing
 
-Turing.setadbackend(:reverse_diff)
+Turing.setadbackend(:reverse_diff);
+#nb Turing.turnprogress(false)
 
 d = CSV.read(joinpath(dirname(Base.pathof(StatisticalRethinking)), "..", "data",
-    "UCBadmit.csv"), delim=';')
+    "UCBadmit.csv"), delim=';');
 size(d) # Should be 12x5
 
 @model m_pois(admit, reject) = begin
@@ -17,13 +18,13 @@ size(d) # Should be 12x5
        admit[i] ~ Poisson(λₐ)
        reject[i] ~ Poisson(λᵣ)
    end
-end
+end;
 
-posterior = sample(m_pois(d[:admit], d[:reject]), Turing.NUTS(2000, 1000, 0.95))
+posterior = sample(m_pois(d[:admit], d[:reject]), Turing.NUTS(2000, 1000, 0.95));
 
 # Fix the inclusion of adaptation samples
 
-posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names)
+posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names);
 
 # Rethinking/CmdStan result
 

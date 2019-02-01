@@ -17,16 +17,17 @@ struct m_10_02d_model{TY <: AbstractVector, TX <: AbstractMatrix}
     y::TY
     "Covariates"
     X::TX
+    "Number of observations"
+    N::Int
 end
 
 # Make the type callable with the parameters *as a single argument*.
 
 function (problem::m_10_02d_model)(θ)
-    @unpack y, X, = problem   # extract the data
+    @unpack y, X, N = problem   # extract the data
     @unpack β = θ  # works on the named tuple too
     ll = 0.0
-    ll += logpdf(Normal(0, 10), β[1]) # a = X[1]
-    ll += logpdf(Normal(0, 10), β[2]) # bp = X[2]
+    ll += sum(logpdf.(Normal(0, 10), β)) # a & bp
     ll += sum([loglikelihood(Binomial(1, logistic(dot(X[i, :], β))), [y[i]]) for i in 1:N])
     ll
 end
@@ -36,7 +37,7 @@ end
 N = size(df, 1)
 X = hcat(ones(Int64, N), df[:prosoc_left]);
 y = df[:pulled_left]
-p = m_10_02d_model(y, X);
+p = m_10_02d_model(y, X, N);
 θ = (β = [1.0, 2.0],)
 p(θ)
 

@@ -18,12 +18,23 @@ y = repeat([0], 10); append!(y, repeat([1],10))
 end
 
 posterior = sample(m_good_stan(x,y), Turing.NUTS(2000, 1000, 0.95))
-describe(posterior)
-#        Mean          SD        Naive SE       MCSE         ESS
-# α  -8.716748466  4.226359431 0.0945042699 0.8913931285   22.479896
-# β  11.240259899  3.945816136 0.0882311311 0.8199224835   23.159442
 
-# Rethinking
-#    mean   sd   5.5% 94.5% n_eff Rhat
-# a -5.09 4.08 -12.62 -0.25   100 1.00
-# b  7.86 4.09   2.96 15.75   104 1.01
+describe(posterior)
+
+# Fix the inclusion of adaptation samples
+
+posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names)
+
+# Stan results
+
+m_10_x,_results = "
+    mean   sd   5.5% 94.5% n_eff Rhat
+ a -5.09 4.08 -12.62 -0.25   100 1.00
+ b  7.86 4.09   2.96 15.75   104 1.01
+";
+
+# Look at the proper draws (in corrected chn2)
+
+describe(posterior2)
+
+# End of 10/m_10_xxt.jl

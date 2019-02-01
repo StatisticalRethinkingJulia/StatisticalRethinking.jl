@@ -20,12 +20,21 @@ size(d) # Should be 12x5
 end
 
 posterior = sample(m_pois(d[:admit], d[:reject]), Turing.NUTS(2000, 1000, 0.95))
-describe(posterior)
-# ERROR: MethodError: no method matching logpdf(::Poisson{Float64}, ::String)
-# https://github.com/TuringLang/Turing.jl/issues/615
 
+# Fix the inclusion of adaptation samples
 
-# Rethinking
-#    mean   sd 5.5% 94.5% n_eff Rhat
-# a1 4.99 0.02 4.95  5.02  2201    1
-# a2 5.44 0.02 5.41  5.47  2468    1
+posterior2 = MCMCChain.Chains(posterior.value[1001:2000,:,:], names=posterior.names)
+
+# Rethinking/CmdStan result
+
+m_10_yyt_result = "
+    mean   sd 5.5% 94.5% n_eff Rhat
+ a1 4.99 0.02 4.95  5.02  2201    1
+ a2 5.44 0.02 5.41  5.47  2468    1
+";
+
+# Describe the draws
+
+describe(posterior2)
+
+# End of 10/m_10_yyt.jl

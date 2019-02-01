@@ -17,7 +17,7 @@ end
 
 function (problem::m_10_02d_model)(θ)
     @unpack y, X, = problem   # extract the data
-    @unpack pr, β = θ            # works on the named tuple too
+    @unpack β = θ  # works on the named tuple too
     ll = 0.0
     ll += logpdf(Normal(0, 10), β[1]) # a = X[1]
     ll += logpdf(Normal(0, 10), β[2]) # bp = X[2]
@@ -29,11 +29,11 @@ N = size(df, 1)
 X = hcat(ones(Int64, N), df[:prosoc_left]);
 y = df[:pulled_left]
 p = m_10_02d_model(y, X);
-θ = (β = [1.0, 2.0], pr = ones(N),)
+θ = (β = [1.0, 2.0],)
 p(θ)
 
 problem_transformation(p::m_10_02d_model) =
-    as((β = as(Array, size(p.X, 2)), pr = as(Array, size(p.X, 2))))
+    as( (β = as(Array, size(p.X, 2)), ) )
 
 P = TransformedLogDensity(problem_transformation(p), p)
 ∇P = ADgradient(:ForwardDiff, P);
@@ -45,8 +45,8 @@ posterior[1:5]
 
 posterior_β = mean(first, posterior)
 
-ess = mapslices(effective_sample_size,
-                get_position_matrix(chain); dims = 1)
+ess = mapslices(effective_sample_size, get_position_matrix(chain); dims = 1)
+ess
 
 NUTS_statistics(chain)
 

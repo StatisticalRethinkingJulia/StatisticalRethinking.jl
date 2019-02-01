@@ -985,6 +985,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "10/m10.04s/#",
+    "page": "m10.04s",
+    "title": "m10.04s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/10/m10.04s.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking\nusing CmdStan, StanMCMCChain\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"10\")\ncd(ProjDir)"
+},
+
+{
+    "location": "10/m10.04s/#snippet-10.4-1",
+    "page": "m10.04s",
+    "title": "snippet 10.4",
+    "category": "section",
+    "text": "d = CSV.read(rel_path(\"..\", \"data\", \"chimpanzees.csv\"), delim=\';\');\ndf = convert(DataFrame, d);\n\nfirst(df, 5)Define the Stan language modelm_10_04_model = \"\ndata{\n    int N;\n    int N_actors;\n    int pulled_left[N];\n    int prosoc_left[N];\n    int condition[N];\n    int actor[N];\n}\nparameters{\n    vector[N_actors] a;\n    real bp;\n    real bpC;\n}\nmodel{\n    vector[N] p;\n    bpC ~ normal( 0 , 10 );\n    bp ~ normal( 0 , 10 );\n    a ~ normal( 0 , 10 );\n    for ( i in 1:504 ) {\n        p[i] = a[actor[i]] + (bp + bpC * condition[i]) * prosoc_left[i];\n        p[i] = inv_logit(p[i]);\n    }\n    pulled_left ~ binomial( 1 , p );\n}\n\";Define the Stanmodel and set the output format to :mcmcchain.stanmodel = Stanmodel(name=\"m_10_04_model\",\nmonitors = [\"a.1\", \"a.2\", \"a.3\", \"a.4\", \"a.5\", \"a.6\", \"a.7\", \"bp\", \"bpC\"],\nmodel=m_10_04_model, output_format=:mcmcchain);Input data for cmdstanm_10_04_data = Dict(\"N\" => size(df, 1), \"N_actors\" => length(unique(df[:actor])),\n\"actor\" => df[:actor], \"pulled_left\" => df[:pulled_left],\n\"prosoc_left\" => df[:prosoc_left], \"condition\" => df[:condition]);Sample using cmdstanrc, chn, cnames = stan(stanmodel, m_10_04_data, ProjDir, diagnostics=false,\n  summary=false, CmdStanDir=CMDSTAN_HOME);Result rethinkingResult rethinkingrethinking = \"\n   mean   sd  5.5% 94.5% n_eff Rhat\n      mean   sd  5.5% 94.5% n_eff Rhat\na[1] -0.74 0.27 -1.17 -0.31  3838    1\na[2] 11.02 5.53  4.46 21.27  1759    1\na[3] -1.05 0.28 -1.50 -0.61  3784    1\na[4] -1.05 0.27 -1.48 -0.62  3761    1\na[5] -0.74 0.27 -1.18 -0.32  4347    1\na[6]  0.21 0.27 -0.23  0.66  3932    1\na[7]  1.81 0.39  1.19  2.46  4791    1\nbp    0.84 0.26  0.42  1.26  2586    1\n\";Describe the drawsdescribe(chn)End of 10/m10.02s.jlThis page was generated using Literate.jl."
+},
+
+{
     "location": "12/m12.6.1s/#",
     "page": "m12.6.1s",
     "title": "m12.6.1s",

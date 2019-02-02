@@ -4,14 +4,14 @@ using Parameters, ForwardDiff, LinearAlgebra
 
 ProjDir = rel_path("..", "scripts", "12")
 
-d = CSV.read(rel_path( "..", "data",  "Kline.csv"), delim=';');
-size(d) # Should be 10x5
+df = CSV.read(rel_path( "..", "data",  "Kline.csv"), delim=';');
+size(df) # Should be 10x5
 
 # New col logpop, set log() for population data
-d[:logpop] = map((x) -> log(x), d[:population]);
-d[:society] = 1:10;
+df[:logpop] = map((x) -> log(x), df[:population]);
+df[:society] = 1:10;
 
-first(d[[:total_tools, :logpop, :society]], 5)
+first(df[[:total_tools, :logpop, :society]], 5)
 
 struct m_10_04d_model{TY <: AbstractVector, TX <: AbstractMatrix,
   TA <: AbstractVector}
@@ -64,7 +64,7 @@ problem_transformation(p::m_10_04d_model) =
 # Wrap the problem with a transformation, then use Flux for the gradient.
 
 P = TransformedLogDensity(problem_transformation(p), p)
-∇P = ADgradient(:ForwardDiff, P);
+∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
 
 # Tune and sample.
 
@@ -72,7 +72,7 @@ chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 
 # We use the transformation to obtain the posterior from the chain.
 
-posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
+posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
 posterior[1:5]
 
 # Extract the parameter posterior means: `β`,

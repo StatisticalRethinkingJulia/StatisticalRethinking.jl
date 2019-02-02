@@ -29,12 +29,15 @@ obs = convert(Vector{Float64}, df2[:height]);
 p = HeightsProblem(obs, 1.0);
 p((μ = 178, σ = 5.0,))
 
-P = TransformedLogDensity(as((σ = asℝ₊, μ  = as(Real, 100, 250))), p)
-∇P = ADgradient(:ForwardDiff, P);
+problem_transformation(p::HeightsProblem) =
+    as((σ = asℝ₊, μ  = as(Real, 100, 250)), )
+
+P = TransformedLogDensity(problem_transformation(p), p)
+∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
 
 chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 
-posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
+posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
 
 posterior_μ = mean(last, posterior)
 

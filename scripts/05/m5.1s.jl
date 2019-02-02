@@ -106,4 +106,4 @@ end
 scatter!(df[:MedianAgeMarriage_s], df[:Divorce], color=:darkblue)
 plot!(xi, yi, lab="Regression line")
 
-# End of `05/clip_01s.jl`
+# End of `05/m5.1s.jl`

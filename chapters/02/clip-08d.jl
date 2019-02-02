@@ -18,12 +18,15 @@ obs = rand(Binomial(9, 2/3), 1)
 p = BernoulliProblem(9, obs)
 p((α = 0.5, ))
 
-P = TransformedLogDensity(as((α = as𝕀,)), p)
-∇P = ADgradient(:ForwardDiff, P);
+problem_transformation(p::BernoulliProblem) =
+    as((α = as𝕀, ),  )
+
+P = TransformedLogDensity(problem_transformation(p), p)
+∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
 
 chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000)
 
-posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
+posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
 
 posterior_α = first.(posterior);
 

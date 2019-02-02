@@ -44,11 +44,11 @@ problem_transformation(p::ConstraintHeightProblem) =
     as((β = as(Array, size(p.X, 2)), σ = asℝ₊))
 
 P = TransformedLogDensity(problem_transformation(p), p)
-∇P = ADgradient(:ForwardDiff, P);
+∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
 
 chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 
-posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
+posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
 posterior[1:5]
 
 posterior_β = mean(first, posterior)

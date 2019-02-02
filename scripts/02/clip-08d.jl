@@ -26,10 +26,15 @@ obs = rand(Binomial(9, 2/3), 1)
 p = BernoulliProblem(9, obs)
 p((α = 0.5, ))
 
+# Write a function to return properly dimensioned transformation.
+
+problem_transformation(p::BernoulliProblem) =
+    as((α = as𝕀, ),  )
+
 # Use a flat priors (the default, omitted) for α
 
-P = TransformedLogDensity(as((α = as𝕀,)), p)
-∇P = ADgradient(:ForwardDiff, P);
+P = TransformedLogDensity(problem_transformation(p), p)
+∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
 
 # Sample
 
@@ -37,7 +42,7 @@ chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000)
 
 # To get the posterior for ``α`` use `get_position` and then transform back.
 
-posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
+posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
 
 # Extract the parameter.
 

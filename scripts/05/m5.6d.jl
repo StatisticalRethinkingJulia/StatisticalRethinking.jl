@@ -59,7 +59,7 @@ problem_transformation(p::m_5_6) =
 # Wrap the problem with a transformation, then use Flux for the gradient.
 
 P = TransformedLogDensity(problem_transformation(p), p)
-∇P = ADgradient(:ForwardDiff, P);
+∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
 
 # Tune and sample.
 
@@ -67,7 +67,7 @@ chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 
 # We use the transformation to obtain the posterior from the chain.
 
-posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
+posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
 posterior[1:5]
 
 # Extract the parameter posterior means: `β`,

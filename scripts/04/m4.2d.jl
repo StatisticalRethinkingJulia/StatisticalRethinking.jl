@@ -44,10 +44,15 @@ obs = convert(Vector{Float64}, df2[:height])
 p = ConstraintHeightsProblem(obs);
 p((μ = 178, σ = 5.0))
 
-# Wrap the problem with a transformation, then use Flux for the gradient.
+# Write a function to return properly dimensioned transformation.
 
-P = TransformedLogDensity(as((μ  = as(Real, 100, 250), σ = asℝ₊)), p)
-∇P = ADgradient(:ForwardDiff, P);
+problem_transformation(p::ConstraintHeightsProblem) =
+    as((μ  = as(Real, 100, 250), σ = asℝ₊), )
+
+# Use Flux for the gradient.
+
+P = TransformedLogDensity(problem_transformation(p), p)
+∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
 
 # FSample from the posterior.
 
@@ -55,7 +60,7 @@ chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 
 # Undo the transformation to obtain the posterior from the chain.
 
-posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
+posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
 
 # Extract the parameter posterior means: `μ`,
 

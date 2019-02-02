@@ -85,6 +85,10 @@ posterior[1:5]
 
 posterior_β = mean(first, posterior)
 
+# Extract the parameter posterior means: `β`,
+
+posterior_α = mean(last, posterior)
+
 # Effective sample sizes (of untransformed draws)
 
 ess = mapslices(effective_sample_size, get_position_matrix(chain); dims = 1)
@@ -115,8 +119,8 @@ a.7  1.81090866 0.39318577 0.0062168129 0.0071483527 1000
 bpC -0.12913322 0.29935741 0.0047332562 0.0049519863 1000
 ";
 
-# Describe the draws
+# Means of draws
 
-describe(chn)
+[posterior_β, posterior_α]
 
 # End of `10/m10.04d.jl`

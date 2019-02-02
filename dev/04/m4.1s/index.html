@@ -59,25 +59,37 @@ Output file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/
 
 --- Linking C++ model ---
 g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/heights -include /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/heights.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is 0, but must be &gt; 0!  (in &#39;/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/heights.stan&#39; at line 16)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is 0, but must be &gt; 0!  (in &#39;/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/04/tmp/heights.stan&#39; at line 16)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
 
 Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
 
 Inference for Stan model: heights_model
 4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
 
-Warmup took (0.026, 0.027, 0.027, 0.027) seconds, 0.11 seconds total
-Sampling took (0.033, 0.040, 0.036, 0.036) seconds, 0.14 seconds total
+Warmup took (0.027, 0.029, 0.026, 0.027) seconds, 0.11 seconds total
+Sampling took (0.053, 0.042, 0.032, 0.038) seconds, 0.16 seconds total
 
                 Mean     MCSE  StdDev    5%   50%   95%    N_Eff  N_Eff/s    R_hat
-lp__            -891  2.3e-02    0.99  -893  -891  -891  1.9e+03  1.3e+04  1.0e+00
-accept_stat__   0.92  5.6e-03    0.11  0.70  0.96   1.0  3.5e+02  2.4e+03  1.0e+00
-stepsize__      0.84  5.9e-02   0.083  0.72  0.84  0.95  2.0e+00  1.4e+01  5.7e+13
-treedepth__      1.9  1.1e-01    0.56   1.0   2.0   3.0  2.5e+01  1.7e+02  1.1e+00
-n_leapfrog__     4.0  2.7e-01     2.5   1.0   3.0   7.0  8.7e+01  6.0e+02  1.0e+00
+lp__            -891  2.4e-02     1.0  -893  -891  -891  1.8e+03  1.1e+04  1.0e+00
+accept_stat__   0.92  4.3e-03    0.11  0.70  0.95   1.0  6.1e+02  3.7e+03  1.0e+00
+stepsize__      0.81  4.0e-02   0.057  0.73  0.83  0.88  2.0e+00  1.2e+01  9.1e+13
+treedepth__      2.0  1.2e-01    0.75   1.0   2.0   4.0  4.1e+01  2.5e+02  1.0e+00
+n_leapfrog__     5.2  8.5e-01     6.3   1.0   3.0    15  5.5e+01  3.4e+02  1.0e+00
 divergent__     0.00     -nan    0.00  0.00  0.00  0.00     -nan     -nan     -nan
-energy__         892  3.4e-02     1.4   891   892   895  1.7e+03  1.2e+04  1.0e+00
-sigma            7.8  5.3e-03    0.30   7.3   7.8   8.3  3.1e+03  2.1e+04  1.0e+00
-mu               155  6.6e-03    0.41   154   155   155  3.9e+03  2.7e+04  1.0e+00
+energy__         892  3.5e-02     1.4   891   892   895  1.7e+03  1.0e+04  1.0e+00
+sigma            7.8  5.3e-03    0.30   7.3   7.8   8.3  3.1e+03  1.9e+04  1.0e+00
+mu               155  7.2e-03    0.41   154   155   155  3.2e+03  2.0e+04  1.0e+00
 
 Samples were drawn using hmc with nuts.
 For each parameter, N_Eff is a crude measure of effective sample size,
@@ -90,14 +102,14 @@ Chains = 1,2,3,4
 Samples per chain = 1000
 
 Empirical Posterior Estimates:
-         Mean       SD       Naive SE      MCSE     ESS
-sigma   7.75855 0.29543939 0.004671307 0.005984930 1000
-   mu 154.59962 0.40976157 0.006478899 0.006415246 1000
+         Mean        SD       Naive SE       MCSE      ESS
+sigma   7.776752 0.29512550 0.0046663439 0.0052224382 1000
+   mu 154.605408 0.41006636 0.0064837184 0.0078396735 1000
 
 Quantiles:
           2.5%       25.0%       50.0%      75.0%      97.5%
-sigma   7.2013305   7.5555325   7.752375   7.9532075   8.35185
-   mu 153.7759750 154.3140000 154.604000 154.8780000 155.38402
+sigma   7.2101948   7.5696075   7.771325   7.972185   8.354921
+   mu 153.7748750 154.3237500 154.613000 154.878250 155.392000
 
 Iterations = 1:1000
 Thinning interval = 1
@@ -105,11 +117,11 @@ Chains = 1,2,3,4
 Samples per chain = 1000
 
 Empirical Posterior Estimates:
-         Mean       SD       Naive SE      MCSE     ESS
-sigma   7.75855 0.29543939 0.004671307 0.005984930 1000
-   mu 154.59962 0.40976157 0.006478899 0.006415246 1000
+         Mean        SD       Naive SE       MCSE      ESS
+sigma   7.776752 0.29512550 0.0046663439 0.0052224382 1000
+   mu 154.605408 0.41006636 0.0064837184 0.0078396735 1000
 
 Quantiles:
           2.5%       25.0%       50.0%      75.0%      97.5%
-sigma   7.2013305   7.5555325   7.752375   7.9532075   8.35185
-   mu 153.7759750 154.3140000 154.604000 154.8780000 155.38402</code></pre></div><p>end of m4.1s#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.1d/"><span class="direction">Previous</span><span class="title">m4.1d</span></a><a class="next" href="../m4.2t/"><span class="direction">Next</span><span class="title">m4.2t</span></a></footer></article></body></html>
+sigma   7.2101948   7.5696075   7.771325   7.972185   8.354921
+   mu 153.7748750 154.3237500 154.613000 154.878250 155.392000</code></pre></div><p>end of m4.1s#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.1d/"><span class="direction">Previous</span><span class="title">m4.1d</span></a><a class="next" href="../m4.2t/"><span class="direction">Next</span><span class="title">m4.2t</span></a></footer></article></body></html>

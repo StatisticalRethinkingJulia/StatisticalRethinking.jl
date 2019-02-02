@@ -59,28 +59,34 @@ Output file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/08/
 
 --- Linking C++ model ---
 g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/08/tmp/m_8_1_model -include /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/08/tmp/m_8_1_model.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -0.0254425, but must be &gt; 0!  (in &#39;/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/08/tmp/m_8_1_model.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
 
 Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
 
 Inference for Stan model: m_8_1_model_model
 4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
 
-Warmup took (0.37, 0.37, 0.36, 0.35) seconds, 1.5 seconds total
-Sampling took (0.35, 0.42, 0.45, 0.40) seconds, 1.6 seconds total
+Warmup took (0.37, 0.34, 0.37, 0.35) seconds, 1.4 seconds total
+Sampling took (0.39, 0.35, 0.36, 0.37) seconds, 1.5 seconds total
 
                  Mean     MCSE  StdDev     5%    50%       95%    N_Eff  N_Eff/s    R_hat
-lp__              -76  4.0e-02     1.6    -79    -75  -7.4e+01  1.7e+03  1.0e+03  1.0e+00
-accept_stat__    0.93  2.5e-03   0.094   0.73   0.96   1.0e+00  1.5e+03  9.1e+02  1.0e+00
-stepsize__       0.33  2.2e-02   0.031   0.30   0.34   3.8e-01  2.0e+00  1.2e+00  6.5e+13
-treedepth__       3.2  6.6e-02    0.64    2.0    3.0   4.0e+00  9.5e+01  5.9e+01  1.0e+00
-n_leapfrog__       12  5.9e-01     6.5    3.0     15   2.3e+01  1.2e+02  7.5e+01  1.0e+00
+lp__              -76  3.8e-02     1.6    -79    -75  -7.4e+01  1.7e+03  1.2e+03  1.0e+00
+accept_stat__    0.92  1.5e-03    0.10   0.70   0.96   1.0e+00  4.7e+03  3.2e+03  1.0e+00
+stepsize__       0.37  1.2e-02   0.017   0.34   0.37   3.9e-01  2.0e+00  1.4e+00  3.5e+13
+treedepth__       3.1  1.1e-02    0.60    2.0    3.0   4.0e+00  3.1e+03  2.1e+03  1.0e+00
+n_leapfrog__       11  9.3e-02     5.4    3.0    7.0   1.5e+01  3.4e+03  2.3e+03  1.0e+00
 divergent__      0.00     -nan    0.00   0.00   0.00   0.0e+00     -nan     -nan     -nan
-energy__           78  5.8e-02     2.3     75     78   8.3e+01  1.5e+03  9.4e+02  1.0e+00
-a                 9.2  3.2e-03    0.14    9.0    9.2   9.4e+00  1.9e+03  1.2e+03  1.0e+00
-bR              -0.20  1.8e-03   0.078  -0.33  -0.20  -7.6e-02  1.9e+03  1.2e+03  1.0e+00
-bA               -1.9  5.0e-03    0.22   -2.3   -1.9  -1.6e+00  1.9e+03  1.2e+03  1.0e+00
-bAR              0.39  3.0e-03    0.13   0.17   0.39   6.1e-01  1.9e+03  1.2e+03  1.0e+00
-sigma            0.95  1.1e-03   0.054   0.87   0.95   1.0e+00  2.4e+03  1.5e+03  1.0e+00
+energy__           78  5.8e-02     2.2     75     78   8.2e+01  1.5e+03  1.0e+03  1.0e+00
+a                 9.2  3.6e-03    0.14    9.0    9.2   9.4e+00  1.5e+03  1.0e+03  1.0e+00
+bR              -0.20  2.1e-03   0.078  -0.33  -0.20  -7.3e-02  1.4e+03  9.7e+02  1.0e+00
+bA               -1.9  5.4e-03    0.23   -2.3   -1.9  -1.6e+00  1.7e+03  1.2e+03  1.0e+00
+bAR              0.39  3.2e-03    0.13   0.17   0.39   6.1e-01  1.8e+03  1.2e+03  1.0e+00
+sigma            0.95  1.0e-03   0.053   0.87   0.95   1.0e+00  2.8e+03  1.9e+03  1.0e+00
 
 Samples were drawn using hmc with nuts.
 For each parameter, N_Eff is a crude measure of effective sample size,
@@ -93,17 +99,17 @@ Chains = 1,2,3,4
 Samples per chain = 1000
 
 Empirical Posterior Estimates:
-          Mean        SD        Naive SE       MCSE      ESS
-    a  9.22213510 0.13846493 0.00218932284 0.0034956453 1000
-   bR -0.20157802 0.07755184 0.00122620224 0.0018165595 1000
-   bA -1.94429869 0.22042859 0.00348528199 0.0059020633 1000
-  bAR  0.39137957 0.13127005 0.00207556172 0.0036144101 1000
-sigma  0.95136606 0.05377258 0.00085021914 0.0008217444 1000
+          Mean         SD        Naive SE       MCSE      ESS
+    a  9.21837813 0.139497053 0.00220564207 0.0039066018 1000
+   bR -0.19947086 0.077689794 0.00122838350 0.0021102667 1000
+   bA -1.94406447 0.225771223 0.00356975647 0.0053254805 1000
+  bAR  0.38860950 0.132866724 0.00210080736 0.0032349719 1000
+sigma  0.95158142 0.052882551 0.00083614655 0.0009326779 1000
 
 Quantiles:
-         2.5%       25.0%       50.0%      75.0%        97.5%
-    a  8.9564680  9.12756000  9.2207050  9.31631750  9.495615500
-   bR -0.3578311 -0.25385625 -0.2023165 -0.14742075 -0.054909867
-   bA -2.3707903 -2.09599750 -1.9446850 -1.79564500 -1.523879250
-  bAR  0.1302897  0.30400825  0.3915855  0.47841400  0.649234525
-sigma  0.8530234  0.91457250  0.9494045  0.98504325  1.066846500</code></pre></div><p>End of <code>08/m8.1s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m8.1d/"><span class="direction">Previous</span><span class="title">m8.1d</span></a><a class="next" href="../m8.1t/"><span class="direction">Next</span><span class="title">m8.1t</span></a></footer></article></body></html>
+          2.5%       25.0%       50.0%      75.0%       97.5%
+    a  8.94849175  9.12247000  9.2194050  9.31539750  9.48754450
+   bR -0.34797102 -0.25358225 -0.1994065 -0.14824075 -0.04730408
+   bA -2.39096725 -2.09783250 -1.9441650 -1.79101250 -1.50780975
+  bAR  0.12834335  0.29965400  0.3884920  0.47690050  0.65109198
+sigma  0.85601728  0.91470250  0.9480765  0.98615075  1.06383875</code></pre></div><p>End of <code>08/m8.1s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m8.1d/"><span class="direction">Previous</span><span class="title">m8.1d</span></a><a class="next" href="../m8.1t/"><span class="direction">Next</span><span class="title">m8.1t</span></a></footer></article></body></html>

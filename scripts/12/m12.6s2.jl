@@ -13,7 +13,7 @@ d[:society] = 1:10;
 
 first(d, 5)
 
-m12_6 = "
+m12_6_2 = "
   data {
     int N;
     int T[N];
@@ -50,15 +50,18 @@ m12_6 = "
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
-stanmodel = Stanmodel(name="m12.6",  model=m12_6, output_format=:mcmcchain);
+stanmodel = Stanmodel(name="m12.6.2",  model=m12_6_2, 
+output_format=:mcmcchain);
 
 # Input data for cmdstan
 
-m12_6_data = Dict("N" => size(d, 1), "T" => d[:total_tools], "N_societies" => 10, "society" => d[:society], "P" => d[:population]);
+m12_6_2_data = Dict("N" => size(d, 1), "T" => d[:total_tools], 
+"N_societies" => 10, "society" => d[:society], "P" => d[:population]);
         
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, m12_6_data, ProjDir, diagnostics=false, summary=false, CmdStanDir=CMDSTAN_HOME);
+rc, chn, cnames = stan(stanmodel, m12_6_2_data, ProjDir, 
+diagnostics=false, summary=false, CmdStanDir=CMDSTAN_HOME);
 
 # Describe the draws
 

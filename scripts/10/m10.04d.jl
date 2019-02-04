@@ -78,7 +78,8 @@ chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 
 # We use the transformation to obtain the posterior from the chain.
 
-posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
+posterior = TransformVariables.transform.(Ref(problem_transformation(p)), 
+get_position.(chain));
 posterior[1:5]
 
 # Extract the parameter posterior means: `β`,
@@ -122,5 +123,11 @@ bpC -0.12913322 0.29935741 0.0047332562 0.0049519863 1000
 # Means of draws
 
 [posterior_β, posterior_α]
+
+function posterior2mcmcchain(posterior, names)
+  for i in 1:size(posterior, 1)
+    
+  end
+end
 
 # End of `10/m10.04d.jl`

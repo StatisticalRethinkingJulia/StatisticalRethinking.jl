@@ -13,6 +13,7 @@ d[:society] = 1:10;
 first(d[[:culture, :population, :log_pop, :society]], 5)
 
 m12_6 = "
+data {
     int N;
     int N_societies;
     int total_tools[N];
@@ -45,8 +46,9 @@ stanmodel = Stanmodel(name="m12.6",  model=m12_6, output_format=:mcmcchain);
 
 # Input data for cmdstan
 
-m12_6_data = Dict("N" => size(d, 1), "T" => d[:total_tools], 
-"N_societies" => 10, "society" => d[:society], "P" => d[:population]);
+m12_6_data = Dict("N" => size(d, 1),"N_societies" => 10,  
+"total_tools" => d[:total_tools], "logpop" => d[:log_pop],
+"society" => d[:society]);
         
 # Sample using cmdstan
 

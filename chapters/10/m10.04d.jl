@@ -56,14 +56,17 @@ problem_transformation(p::m_10_04d_model) =
     as( (β = as(Array, size(p.X, 2)), α = as(Array, p.N_actors), ) )
 
 P = TransformedLogDensity(problem_transformation(p), p)
-∇P = ADgradient(:ForwardDiff, P);
+∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
 
 chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
 
-posterior = TransformVariables.transform.(Ref(∇P.transformation), get_position.(chain));
+posterior = TransformVariables.transform.(Ref(problem_transformation(p)),
+get_position.(chain));
 posterior[1:5]
 
 posterior_β = mean(first, posterior)
+
+posterior_α = mean(last, posterior)
 
 ess = mapslices(effective_sample_size, get_position_matrix(chain); dims = 1)
 ess
@@ -89,7 +92,13 @@ a.7  1.81090866 0.39318577 0.0062168129 0.0071483527 1000
 bpC -0.12913322 0.29935741 0.0047332562 0.0049519863 1000
 ";
 
-describe(chn)
+[posterior_β, posterior_α]
+
+function posterior2mcmcchain(posterior, names)
+  for i in 1:size(posterior, 1)
+
+  end
+end
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

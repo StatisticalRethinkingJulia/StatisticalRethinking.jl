@@ -42,7 +42,7 @@ The [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) 
 The mcmc components are based on:
 
 1. [TuringLang](https://github.com/TuringLang)
-2. [StanJulia](https://github.com/StanJulia)
+2. [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia)
 3. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
 4. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
 
@@ -125,13 +125,13 @@ Developing `rethinking` must have been an on-going process over several years, `
 [docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
 [docs-stable-url]: https://stanjulia.github.io/StatisticalRethinking.jl/stable
 
-[travis-img]: https://travis-ci.org/StanJulia/StatisticalRethinking.jl.svg?branch=master
-[travis-url]: https://travis-ci.org/StanJulia/StatisticalRethinking.jl
+[travis-img]: https://travis-ci.org/StatisticalRethinkingJulia/StatisticalRethinking.jl.svg?branch=master
+[travis-url]: https://travis-ci.org/StatisticalRethinkingJulia/StatisticalRethinking.jl
 
-[codecov-img]: https://codecov.io/gh/StanJulia/StatisticalRethinking.jl/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/StanJulia/StatisticalRethinking.jl
+[codecov-img]: https://codecov.io/gh/StatisticalRethinkingJulia/StatisticalRethinking.jl/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/StatisticalRethinkingJulia/StatisticalRethinking.jl
 
-[issues-url]: https://github.com/StanJulia/StatisticalRethinking.jl/issues
+[issues-url]: https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/issues
 
 [project-status-img]: https://img.shields.io/badge/lifecycle-wip-orange.svg
 

@@ -55,5 +55,5 @@ makedocs(root = DOC_ROOT,
 )
 
 deploydocs(root = DOC_ROOT,
-    repo = "github.com/StanJulia/StatisticalRethinking.jl.git",
+    repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
  )

@@ -35,7 +35,7 @@ The `StatisticalRethinking.jl` package is intended to allow experimenting with t
 The mcmc components are based on:
 
 1. [TuringLang](https://github.com/TuringLang)
-2. [StanJulia](https://github.com/StanJulia)
+2. [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia)
 3. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
 4. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
 

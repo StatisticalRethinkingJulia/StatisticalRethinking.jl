@@ -1,4 +1,4 @@
-# Layout of the package
+## Layout of the package
 
 Instead of having all snippets in a single file, the snippets are organized by chapter and grouped in clips by related snippets. E.g. chapter 0 of the R package has snippets 0.1 to 0.5. Those have been combined into 2 clips:
 
@@ -18,4 +18,3 @@ A single snippet clip will be referred to as `03/clip-02.jl`.
 
 Models with names such as `08/m8.1t.jl`, `04/m4.1s.jl`, `04/m4.4m.jl` and `04/m4.5d.jl` generate mcmc samples using **Turing.jl**, **CmdStan.jl**, **Mamba.jl** or **DynamicHMC.jl** respectively. In some cases the results of the mcmc chains have been stored and retrieved (or regenerated if missing) in other clips, e.g. `04/clip-30s.jl`.
 
-Scripts using Turing, Mamba, CmdStan or DynamicHMC need to import those, see the examples in `02/clip-08[m,s,t,d].jl`.

@@ -37,14 +37,12 @@ m4.32 <- ulam(flist, data=d2)
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
-The [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization is intended to allow experimenting with this learning process introducing 4 available mcmc options in Julia.
+The [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization is intended to allow experimenting with this learning process using four available mcmc options in Julia:
 
-The mcmc components are based on:
-
-1. [TuringLang](https://github.com/TuringLang)
-2. [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia)
-3. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
-4. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
+1. [CmdStan](https://github.com/StanJulia)
+2. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
+3. [TuringLang](https://github.com/TuringLang)
+4. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
 
 At least one other package is available for mcmc in Julia:
 
@@ -54,8 +52,7 @@ Time constraints prevented this option to be in `StatisticalRethinkingJulia`.
 
 A secondary objective of `StatisticalRethinkingJulia` is to compare definition and execution of a variety of models in the above four mcmc packages.
 
-Scripts using Turing, Mamba, CmdStan or DynamicHMC can be found in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl), [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [MambaModels](https://github.com/StatisticalRethinkingJulia/MambaModels.jl), part of the [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization set of packages.
-
+Model scripts using Turing, Mamba, CmdStan or DynamicHMC can be found in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl), [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [MambaModels](https://github.com/StatisticalRethinkingJulia/MambaModels.jl), part of the [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization set of packages.
 
 ## Layout of the package
 
@@ -86,17 +83,17 @@ Models with names such as `08/m8.1t.jl`, `04/m4.1s.jl`, `04/m4.4m.jl` and `04/m4
 
 Richard Torkar has taken the lead in developing the Turing versions of the models in chapter 8 and subsequent chapters. 
 
-The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer have been a great help and followed closely in several example scripts.
+Tamas Papp has also been very helpful during the development og the DynamicHMC versions of the models.
 
-The  documentation has been generated using Literate.jl and Documenter.jl based on several ideas demonstrated by Tamas Papp in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
+The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer are followed closely in several example scripts.
 
-Tamas Papp has also been very helpful during the development og the DynamicZHMC versions of the models.
+The  documentation has been generated using Literate.jl and Documenter.jl based on several ideas demonstrated by Tamas Papp in  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
 
 ## Questions and issues
 
 Question and contributions are very welcome, as are feature requests and suggestions. Please open an [issue][issues-url] if you encounter any problems or have a question.
 
-## Versions
+## Versions & notes
 
 Developing `rethinking` must have been an on-going process over several years, `StatisticalRethinkinh.jl` will likely follow a similar path.
 
@@ -110,13 +107,13 @@ Developing `rethinking` must have been an on-going process over several years, `
 
 5. Many other R functions such as precis(), link(), shade(), etc. are not in v1, although some very early versions are being tested. Expect significant refactoring of those in future versions.
 
-## Miscellaneous notes
+6. The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode. 
 
-1. The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode. 
+7. In the `src` directory of all packages is a file scriptentry.jl which defines an object `script_dict` which is used to control the generation of documentation, notebooks and .jl scripts in chapters and testing of the notebooks. See `?ScriptEntry` or enter e.g. `script_dict["02"]` in the REPL. In the model packages this file is suffixed by an indication of the used mcmc option. e.g. `script_dict_d` in DynamicHMCModels.
 
-2. In the `src` directory is a file scriptentry.jl which defines an object `script_dict` which is used to control the generation of documentation, notebooks and .jl scripts in chapters and testing of the notebooks. Output from CmdStan and DynamicHMC scripts are automatically inserted in the documentation. For Turing scripts this needs to be done manually by executing the notebook, exporting the results as .md files (and .svg files if graphics are generated) and copy these to `docs/src/nn`, where nn is the chapter. See `?ScriptEntry` or enter e.g. `script_dict["02"]` in the REPL.
+8. A utility function, generate() is part of each package to regenerate notebooks and chapter scripts, please see ?generate. Again, e.g. `generate_t` in TuringModels generates all model notebooks and chapter scripts for Turing models.
 
-3. A utility function, generate() is part of the package to regenerate notebooks and chapter scripts, please see ?generate.
+9. In a similar fashion, borrowed from DynamicHMCExamples I define several variations on `rel_path()`. By itself, `rel_path()` points at the scr directory of StatisticalRethinking.jl and e.g. `rel_path_s()` points to the src directory of StanModels. The `rel_path()` version is typically used to read in data files. All others are used to locate directorres to read from or store generated files into.
 
 
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg

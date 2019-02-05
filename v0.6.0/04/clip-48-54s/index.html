@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-48-54s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../clip-30s/">clip-30s</a></li><li><a class="toctext" href="../clip-38s/">clip-38s</a></li><li><a class="toctext" href="../clip-43s/">clip-43s</a></li><li><a class="toctext" href="../clip-45-47s/">clip-45-47s</a></li><li class="current"><a class="toctext" href>clip-48-54s</a><ul class="internal"></ul></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>clip-48-54s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-48-54s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-48-54s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed  for the snippets in chapter 0</p><pre><code class="language-">using StatisticalRethinking
+using CmdStan, StanMCMCChain
+gr(size=(500,500));</code></pre><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;04&quot;)
+cd(ProjDir)</code></pre></div><h3><a class="nav-anchor" id="Preliminary-snippets-1" href="#Preliminary-snippets-1">Preliminary snippets</a></h3><div><pre><code class="language-julia">howell1 = CSV.read(rel_path(&quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
+df = convert(DataFrame, howell1);</code></pre></div><p>Use only adults</p><div><pre><code class="language-julia">df2 = filter(row -&gt; row[:age] &gt;= 18, df);</code></pre></div><p>Center weight and store as weight_c</p><div><pre><code class="language-julia">mean_weight = mean(df2[:weight])
+df2 = hcat(df2, df2[:weight] .- mean_weight)
+rename!(df2, :x1 =&gt; :weight_c); # Rename our col :x1 =&gt; :weight_c
+first(df2, 5)</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th><th>weight_c</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th><th>Float64</th></tr></thead><tbody><p>5 rows × 5 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td><td>2.83512</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td><td>-8.50468</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td><td>-13.1256</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td><td>8.05143</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td><td>-3.71361</td></tr></tbody></table></div><p>Define the Stan language model</p><div><pre><code class="language-julia">weightsmodel = &quot;
+data {
+ int &lt; lower = 1 &gt; N; // Sample size
+ vector[N] height; // Predictor
+ vector[N] weight; // Outcome
+}
+
+parameters {
+ real alpha; // Intercept
+ real beta; // Slope (regression coefficients)
+ real &lt; lower = 0 &gt; sigma; // Error SD
+}
+
+model {
+ height ~ normal(alpha + weight * beta , sigma);
+}
+&quot;;</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchain.</p><div><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;weights&quot;, monitors = [&quot;alpha&quot;, &quot;beta&quot;, &quot;sigma&quot;],model=weightsmodel,
+  output_format=:mcmcchain);</code></pre></div><p>Input data for cmdstan.</p><div><pre><code class="language-julia">heightsdata = Dict(&quot;N&quot; =&gt; length(df2[:height]), &quot;height&quot; =&gt; df2[:height], &quot;weight&quot; =&gt; df2[:weight_c]);</code></pre><pre><code class="language-none">=====&gt; /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04
+
+
+File /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan will be updated.</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
+  summary=false, CmdStanDir=CMDSTAN_HOME);</code></pre></div><h3><a class="nav-anchor" id="Snippet-4.47-1" href="#Snippet-4.47-1">Snippet 4.47</a></h3><p>Show first 5 draws of correlated parameter values in chain 1</p><div><pre><code class="language-julia">chn.value[1:5,:,1]</code></pre><pre><code class="language-none">
+
+--- Translating Stan model to C++ code ---
+bin/stanc  /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan --o=/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.hpp
+Model name=weights_model
+Input file=/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan
+Output file=/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.hpp
+
+--- Linking C++ model ---
+g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights -include /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a
+5×3 Array{Union{Missing, Float64},2}:
+ 154.588  0.861179  5.2177
+ 155.049  0.82368   4.88668
+ 154.958  0.833675  4.96615
+ 154.235  0.943516  5.27129
+ 154.353  0.915496  4.95686</code></pre></div><h3><a class="nav-anchor" id="Snippets-4.48-and-4.49-1" href="#Snippets-4.48-and-4.49-1">Snippets 4.48 &amp; 4.49</a></h3><p>Plot estimates using the N = [10, 50, 150, 352] observations</p><div><pre><code class="language-julia">nvals = [10, 50, 150, 352];</code></pre></div><p>Create the 4 nvals plots</p><pre><code class="language-">p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
+for i in 1:length(nvals)
+  N = nvals[i]
+  heightsdataN = [
+    Dict(&quot;N&quot; =&gt; N, &quot;height&quot; =&gt; df2[1:N, :height], &quot;weight&quot; =&gt; df2[1:N, :weight_c])
+  ]
+  rc, chnN, cnames = stan(stanmodel, heightsdataN, ProjDir, diagnostics=false,
+    summary=false, CmdStanDir=CMDSTAN_HOME)
+
+  rws, vars, chns = size(chnN[:, 1, :])
+  xi = -15.0:0.1:15.0
+  alpha_vals = convert(Vector{Float64}, reshape(chnN.value[:, 1, :], (rws*chns)))
+  beta_vals = convert(Vector{Float64}, reshape(chnN.value[:, 2, :], (rws*chns)))
+
+  p[i] = scatter(df2[1:N, :weight_c], df2[1:N, :height], leg=false, xlab=&quot;weight_c&quot;)
+  for j in 1:N
+    yi = alpha_vals[j] .+ beta_vals[j]*xi
+    plot!(p[i], xi, yi, title=&quot;N = $N&quot;)
+  end
+end
+plot(p..., layout=(2, 2))</code></pre><h3><a class="nav-anchor" id="Snippet-4.50-1" href="#Snippet-4.50-1">Snippet 4.50</a></h3><p>Get dimensions of chains</p><pre><code class="language-">rws, vars, chns = size(chn[:, 1, :])
+mu_at_50 = link(50:10:50, chn, [1, 2], mean_weight);
+density(mu_at_50)</code></pre><h3><a class="nav-anchor" id="Snippet-4.54-1" href="#Snippet-4.54-1">Snippet 4.54</a></h3><p>Show posterior density for 6 mu_bar values</p><pre><code class="language-">mu = link(25:10:75, chn, [1, 2], mean_weight);
+
+q = Vector{Plots.Plot{Plots.GRBackend}}(undef, size(mu, 1))
+for i in 1:size(mu, 1)
+  q[i] = density(mu[i], ylim=(0.0, 1.5),
+    leg=false, title=&quot;mu_bar = $(round(mean(mu[i]), digits=1))&quot;)
+end
+plot(q..., layout=(2, 3), ticks=(3))</code></pre><p>End of <code>clip_48_54s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-45-47s/"><span class="direction">Previous</span><span class="title">clip-45-47s</span></a><a class="next" href="../../"><span class="direction">Next</span><span class="title">Functions</span></a></footer></article></body></html>

@@ -37,7 +37,7 @@ m4.32 <- ulam(flist, data=d2)
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
-The `StatisticalRethinking.jl` package is intended to allow experimenting with this learning process introducing 4 available mcmc options in Julia.
+The [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization is intended to allow experimenting with this learning process introducing 4 available mcmc options in Julia.
 
 The mcmc components are based on:
 
@@ -50,9 +50,12 @@ At least one other package is available for mcmc in Julia:
 
 5. [Klara](https://github.com/JuliaStats/Klara.jl)
 
-Time constraints prevented this option to be in `StatisticalRethinking.jl`.
+Time constraints prevented this option to be in `StatisticalRethinkingJulia`.
 
-A secondary objective of `StatisticalRethinking.jl` is to compare definition and execution of a variety of models in the above listed 4 mcmc packages.
+A secondary objective of `StatisticalRethinkingJulia` is to compare definition and execution of a variety of models in the above four mcmc packages.
+
+Scripts using Turing, Mamba, CmdStan or DynamicHMC can be found in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl), [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [MambaModels](https://github.com/StatisticalRethinkingJulia/MambaModels.jl), part of the [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization set of packages.
+
 
 ## Layout of the package
 
@@ -74,8 +77,6 @@ A single snippet clip will be referred to as `03/clip-02.jl`.
 
 Models with names such as `08/m8.1t.jl`, `04/m4.1s.jl`, `04/m4.4m.jl` and `04/m4.5d.jl` generate mcmc samples using **Turing.jl**, **CmdStan.jl**, **Mamba.jl** or **DynamicHMC.jl** respectively. In some cases the results of the mcmc chains have been stored and retrieved (or regenerated if missing) in other clips, e.g. `04/clip-30s.jl`.
 
-Scripts using Turing, Mamba, CmdStan or DynamicHMC need to import those, see the examples in `02/clip-08[m,s,t,d].jl`.
-
 ## Documentation
 
 - [**STABLE**][docs-stable-url] &mdash; **documentation of the most recently tagged version.**
@@ -88,6 +89,8 @@ Richard Torkar has taken the lead in developing the Turing versions of the model
 The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer have been a great help and followed closely in several example scripts.
 
 The  documentation has been generated using Literate.jl and Documenter.jl based on several ideas demonstrated by Tamas Papp in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
+
+Tamas Papp has also been very helpful during the development og the DynamicZHMC versions of the models.
 
 ## Questions and issues
 

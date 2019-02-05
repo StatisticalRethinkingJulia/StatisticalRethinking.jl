@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>m2.1s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../notes/">Notes</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../clip-06-07/">clip-06-07</a></li><li class="current"><a class="toctext" href>m2.1s</a><ul class="internal"></ul></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/m4.1s/">m4.1s</a></li><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../../04/clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../../04/clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../../04/clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../../04/clip-30s/">clip-30s</a></li><li><a class="toctext" href="../../04/clip-38s/">clip-38s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 02</li><li><a href>m2.1s</a></li></ul><a class="edit-page" href="https://github.com/StanJulia/StatisticalRethinking.jl/blob/master/scripts/02/m2.1s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>m2.1s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed</p><pre><code class="language- 1s">using StatisticalRethinking, CmdStan, StanMCMCChain
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>m2.1s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../clip-06-07/">clip-06-07</a></li><li class="current"><a class="toctext" href>m2.1s</a><ul class="internal"></ul></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/m4.1s/">m4.1s</a></li><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../../04/clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../../04/clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../../04/clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../../04/clip-30s/">clip-30s</a></li><li><a class="toctext" href="../../04/clip-38s/">clip-38s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 02</li><li><a href>m2.1s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/02/m2.1s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>m2.1s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed</p><pre><code class="language- 1s">using StatisticalRethinking, CmdStan, StanMCMCChain
 gr(size=(500,500));</code></pre><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;02&quot;)
 cd(ProjDir)</code></pre></div><p>Define the Stan language model</p><div><pre><code class="language-julia">binomialstanmodel = &quot;
 // Inferring a Rate
@@ -23,47 +23,47 @@ model {
 &quot;;</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchain.</p><div><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;binomial&quot;, monitors = [&quot;theta&quot;], model=binomialstanmodel,
   output_format=:mcmcchain);</code></pre></div><p>Use 16 observations</p><div><pre><code class="language-julia">N2 = 15
 d = Binomial(9, 0.66)
-n2 = Int.(9 * ones(Int, N2));</code></pre><pre><code class="language-none">=====&gt; /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02
+n2 = Int.(9 * ones(Int, N2));</code></pre><pre><code class="language-none">=====&gt; /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/02
 
 
-File /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.stan will be updated.</code></pre></div><p>Show first 5 (generated) observations</p><div><pre><code class="language-julia">k2 = rand(d, N2);
+File /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.stan will be updated.</code></pre></div><p>Show first 5 (generated) observations</p><div><pre><code class="language-julia">k2 = rand(d, N2);
 k2[1:min(5, N2)]</code></pre><pre><code class="language-none">5-element Array{Int64,1}:
- 4
- 6
- 6
- 7
+ 5
+ 8
+ 3
+ 5
  6</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">binomialdata = Dict(&quot;N&quot; =&gt; length(n2), &quot;n&quot; =&gt; n2, &quot;k&quot; =&gt; k2);</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME);</code></pre></div><p>Describe the draws</p><div><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">
 
 --- Translating Stan model to C++ code ---
-bin/stanc  /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.stan --o=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.hpp
+bin/stanc  /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.stan --o=/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.hpp
 Model name=binomial_model
-Input file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.stan
-Output file=/home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.hpp
+Input file=/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.stan
+Output file=/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.hpp
 Compiling pre-compiled header
 g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe  -c -O3 stan/src/stan/model/model_header.hpp -o stan/src/stan/model/model_header.hpp.gch
 
 --- Linking C++ model ---
-g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial -include /home/travis/build/StanJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a
+g++ -Wall -I . -isystem stan/lib/stan_math/lib/eigen_3.3.3 -isystem stan/lib/stan_math/lib/boost_1.66.0 -isystem stan/lib/stan_math/lib/sundials_3.1.0/include -std=c++1y -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION -Wno-unused-function -Wno-uninitialized -I src -isystem stan/src -isystem stan/lib/stan_math/ -DFUSION_MAX_VECTOR_SIZE=12 -Wno-unused-local-typedefs -DEIGEN_NO_DEBUG -DNO_FPRINTF_OUTPUT -pipe   src/cmdstan/main.cpp  -O3 -o /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial -include /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/02/tmp/binomial.hpp stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_nvecserial.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_cvodes.a stan/lib/stan_math/lib/sundials_3.1.0/lib/libsundials_idas.a
 
 Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
 
 Inference for Stan model: binomial_model
 4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
 
-Warmup took (0.025, 0.025, 0.026, 0.025) seconds, 0.10 seconds total
-Sampling took (0.031, 0.033, 0.029, 0.033) seconds, 0.13 seconds total
+Warmup took (0.027, 0.025, 0.025, 0.026) seconds, 0.10 seconds total
+Sampling took (0.029, 0.032, 0.028, 0.031) seconds, 0.12 seconds total
 
                 Mean     MCSE  StdDev     5%   50%   95%    N_Eff  N_Eff/s    R_hat
-lp__             -91  3.0e-02     1.1    -93   -90   -90  1.5e+03  1.2e+04  1.0e+00
-accept_stat__   0.90  1.9e-03    0.13   0.62  0.96   1.0  4.7e+03  3.7e+04  1.0e+00
-stepsize__      0.86  5.9e-02   0.083   0.72  0.90  0.93  2.0e+00  1.6e+01  5.0e+13
-treedepth__      1.9  7.1e-02    0.59    1.0   2.0   3.0  6.8e+01  5.4e+02  1.0e+00
-n_leapfrog__     4.0  3.5e-01     3.4    1.0   3.0    11  9.5e+01  7.6e+02  1.0e+00
+lp__             -93  2.7e-02     1.1    -95   -93   -92  1.7e+03  1.4e+04  1.0e+00
+accept_stat__   0.87  6.5e-03    0.17   0.51  0.94   1.0  6.6e+02  5.5e+03  1.0e+00
+stepsize__      0.91     -nan   0.063   0.83  0.97  0.98     -nan     -nan  3.2e+13
+treedepth__      1.8  1.1e-02    0.50    1.0   2.0   2.0  2.2e+03  1.8e+04  1.0e+00
+n_leapfrog__     3.3  1.6e-01     2.0    1.0   3.0   7.0  1.5e+02  1.3e+03  1.0e+00
 divergent__     0.00     -nan    0.00   0.00  0.00  0.00     -nan     -nan     -nan
-energy__          92  4.0e-02     1.5     90    91    95  1.4e+03  1.1e+04  1.0e+00
-theta           0.66  7.3e-04   0.041   0.59  0.66  0.72  3.2e+03  2.6e+04  1.0e+00
-thetaprior      0.50  5.0e-03    0.29  0.051  0.50  0.95  3.4e+03  2.7e+04  1.0e+00
+energy__          94  3.7e-02     1.5     92    94    97  1.7e+03  1.4e+04  1.0e+00
+theta           0.63  7.2e-04   0.042   0.56  0.63  0.69  3.4e+03  2.8e+04  1.0e+00
+thetaprior      0.50  4.7e-03    0.29  0.043  0.50  0.95  3.9e+03  3.2e+04  1.0e+00
 
 Samples were drawn using hmc with nuts.
 For each parameter, N_Eff is a crude measure of effective sample size,
@@ -76,19 +76,19 @@ Chains = 1,2,3,4
 Samples per chain = 1000
 
 Empirical Posterior Estimates:
-         Mean       SD       Naive SE       MCSE      ESS
-theta 0.6571096 0.04117704 0.0006510662 0.0007094061 1000
+         Mean         SD       Naive SE       MCSE      ESS
+theta 0.62715568 0.041641887 0.000658416 0.00073265087 1000
 
 Quantiles:
          2.5%     25.0%    50.0%     75.0%    97.5%
-theta 0.5767627 0.629792 0.6571575 0.685968 0.7356043</code></pre></div><p>Allocate array of Normal fits</p><div><pre><code class="language-julia">fits = Vector{Normal{Float64}}(undef, 4)
+theta 0.5449822 0.598023 0.6285095 0.655436 0.7072842</code></pre></div><p>Allocate array of Normal fits</p><div><pre><code class="language-julia">fits = Vector{Normal{Float64}}(undef, 4)
 for i in 1:4
   fits[i] = fit_mle(Normal, convert.(Float64, chn.value[:, 1, i]))
   println(fits[i])
-end</code></pre><pre><code class="language-none">Normal{Float64}(μ=0.6570196720000006, σ=0.04183102489868517)
-Normal{Float64}(μ=0.6553654460000009, σ=0.04146973341278049)
-Normal{Float64}(μ=0.6568886050000002, σ=0.04050131314462502)
-Normal{Float64}(μ=0.659164846, σ=0.04078291791591527)</code></pre></div><p>Plot the 4 chains</p><pre><code class="language- 1s">mu_avg = sum([fits[i].μ for i in 1:4]) / 4.0;
+end</code></pre><pre><code class="language-none">Normal{Float64}(μ=0.6265206830000006, σ=0.04216226454409812)
+Normal{Float64}(μ=0.6260447259999995, σ=0.04134747980850738)
+Normal{Float64}(μ=0.6289383929999991, σ=0.041836840111754994)
+Normal{Float64}(μ=0.6271189169999992, σ=0.04113446479306754)</code></pre></div><p>Plot the 4 chains</p><pre><code class="language- 1s">mu_avg = sum([fits[i].μ for i in 1:4]) / 4.0;
 sigma_avg = sum([fits[i].σ for i in 1:4]) / 4.0;
 
 if rc == 0
@@ -104,28 +104,28 @@ if rc == 0
   end
   plot(p..., layout=(4, 1))
 end</code></pre><p>Compute at hpd region</p><div><pre><code class="language-julia">bnds = MCMCChain.hpd(chn[:, 1, :], alpha=0.055);</code></pre></div><p>Show hpd region</p><div><pre><code class="language-julia">println(&quot;hpd bounds = $bnds\n&quot;)</code></pre><pre><code class="language-none">hpd bounds =       94.5% Lower 94.5% Upper
-theta    0.583221    0.737697</code></pre></div><p>quadratic approximation</p><p>Compute MAP, compare with CmndStan &amp; MLE</p><div><pre><code class="language-julia">tmp = convert(Array{Float64,3}, chn.value)
+theta     0.54937    0.707293</code></pre></div><p>quadratic approximation</p><p>Compute MAP, compare with CmndStan &amp; MLE</p><div><pre><code class="language-julia">tmp = convert(Array{Float64,3}, chn.value)
 draws = reshape(tmp, (size(tmp, 1)*size(tmp, 3)),)</code></pre><pre><code class="language-none">4000-element Array{Float64,1}:
- 0.611744
- 0.620428
- 0.700914
- 0.64613
- 0.731485
- 0.677595
- 0.665286
- 0.652383
- 0.654107
- 0.643419
+ 0.6523
+ 0.606216
+ 0.663154
+ 0.609881
+ 0.609881
+ 0.609881
+ 0.650399
+ 0.605069
+ 0.643154
+ 0.595245
  ⋮
- 0.725141
- 0.581921
- 0.707795
- 0.619941
- 0.675166
- 0.610391
- 0.611467
- 0.607953
- 0.6374</code></pre></div><p>Compute MAP</p><div><pre><code class="language-julia">using Optim
+ 0.609414
+ 0.634494
+ 0.612496
+ 0.627536
+ 0.644367
+ 0.627036
+ 0.595726
+ 0.607614
+ 0.663584</code></pre></div><p>Compute MAP</p><div><pre><code class="language-julia">using Optim
 
 x0 = [0.5]
 lower = [0.2]
@@ -143,26 +143,26 @@ end
 res = optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))</code></pre><pre><code class="language-none">Results of Optimization Algorithm
  * Algorithm: Fminbox with Gradient Descent
  * Starting Point: [0.5]
- * Minimizer: [0.6592592592414684]
- * Minimum: 2.191103e+01
- * Iterations: 4
+ * Minimizer: [0.6296296296081489]
+ * Minimum: 2.791055e+01
+ * Iterations: 3
  * Convergence: true
    * |x - x&#39;| ≤ 0.0e+00: false
-     |x - x&#39;| = 2.05e-11
-   * |f(x) - f(x&#39;)| ≤ 0.0e+00 |f(x)|: true
-     |f(x) - f(x&#39;)| = 0.00e+00 |f(x)|
+     |x - x&#39;| = 8.44e-09
+   * |f(x) - f(x&#39;)| ≤ 0.0e+00 |f(x)|: false
+     |f(x) - f(x&#39;)| = 1.02e-15 |f(x)|
    * |g(x)| ≤ 1.0e-08: true
-     |g(x)| = 8.80e-10
-   * Stopped by an increasing objective: false
+     |g(x)| = 3.81e-09
+   * Stopped by an increasing objective: true
    * Reached Maximum Number of Iterations: false
- * Objective Calls: 83
- * Gradient Calls: 83</code></pre></div><p>Summarize mean and sd estimates</p><p>CmdStan mean and sd:</p><div><pre><code class="language-julia">[mean(chn.value), std(chn.value)]</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
- 0.6571096422500005
- 0.041177040864404664</code></pre></div><p>MAP estimate and associated sd:</p><div><pre><code class="language-julia">[Optim.minimizer(res)[1], std(draws, mean=mean(chn.value))]</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
- 0.6592592592414684
- 0.04117704086440467</code></pre></div><p>MLE of mean and sd:</p><div><pre><code class="language-julia">[mu_avg, sigma_avg]</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
- 0.6571096422500005
- 0.041146247343001485</code></pre></div><p>Turing Chain &amp;  89% hpd region boundaries</p><pre><code class="language- 1s">plot( x, pdf.(Normal( mu_avg , sigma_avg  ) , x ),
+ * Objective Calls: 57
+ * Gradient Calls: 57</code></pre></div><p>Summarize mean and sd estimates</p><p>CmdStan mean and sd:</p><div><pre><code class="language-julia">[mean(chn.value), std(chn.value)]</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
+ 0.6271556797499996
+ 0.04164188674345914</code></pre></div><p>MAP estimate and associated sd:</p><div><pre><code class="language-julia">[Optim.minimizer(res)[1], std(draws, mean=mean(chn.value))]</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
+ 0.6296296296081489
+ 0.04164188674345915</code></pre></div><p>MLE of mean and sd:</p><div><pre><code class="language-julia">[mu_avg, sigma_avg]</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
+ 0.6271556797499996
+ 0.041620262314357004</code></pre></div><p>Turing Chain &amp;  89% hpd region boundaries</p><pre><code class="language- 1s">plot( x, pdf.(Normal( mu_avg , sigma_avg  ) , x ),
 xlim=(0.0, 1.2), lab=&quot;Normal approximation using MLE&quot;)
 plot!( x, pdf.(Normal( Optim.minimizer(res)[1] , std(draws, mean=mean(chn.value))) , x),
 lab=&quot;Normal approximation using MAP&quot;)

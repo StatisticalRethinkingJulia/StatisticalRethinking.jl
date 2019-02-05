@@ -38,19 +38,19 @@ Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
 Inference for Stan model: binomial_model
 4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
 
-Warmup took (0.021, 0.020, 0.021, 0.021) seconds, 0.083 seconds total
-Sampling took (0.035, 0.026, 0.028, 0.034) seconds, 0.12 seconds total
+Warmup took (0.020, 0.021, 0.019, 0.020) seconds, 0.080 seconds total
+Sampling took (0.035, 0.041, 0.028, 0.031) seconds, 0.14 seconds total
 
                 Mean     MCSE  StdDev     5%   50%   95%    N_Eff  N_Eff/s    R_hat
-lp__             -27  2.7e-02     1.1    -29   -27   -26  1.8e+03  1.5e+04  1.0e+00
-accept_stat__   0.90  6.3e-03    0.13   0.62  0.95   1.0  4.4e+02  3.6e+03  1.0e+00
-stepsize__      0.82  4.1e-02   0.058   0.76  0.83  0.91  2.0e+00  1.6e+01  4.9e+13
-treedepth__      2.0  5.9e-02    0.64    1.0   2.0   3.0  1.2e+02  9.6e+02  1.0e+00
-n_leapfrog__     4.4  2.4e-01     5.6    1.0   3.0    11  5.3e+02  4.3e+03  1.0e+00
+lp__             -27  2.7e-02     1.1    -29   -27   -26  1.7e+03  1.2e+04  1.0e+00
+accept_stat__   0.92  1.1e-02    0.12   0.67  0.96   1.0  1.2e+02  8.9e+02  1.0e+00
+stepsize__      0.82  7.2e-02    0.10   0.73  0.81  0.99  2.0e+00  1.5e+01  9.2e+13
+treedepth__      2.1  1.1e-01    0.74    1.0   2.0   3.0  4.8e+01  3.6e+02  1.0e+00
+n_leapfrog__     5.2  5.0e-01     6.5    1.0   3.0    15  1.7e+02  1.2e+03  1.0e+00
 divergent__     0.00     -nan    0.00   0.00  0.00  0.00     -nan     -nan     -nan
-energy__          28  3.7e-02     1.5     26    28    31  1.6e+03  1.3e+04  1.0e+00
-theta           0.66  1.4e-03   0.079   0.52  0.66  0.78  3.1e+03  2.5e+04  1.0e+00
-thetaprior      0.50  4.9e-03    0.29  0.045  0.50  0.95  3.6e+03  2.9e+04  1.0e+00
+energy__          28  3.7e-02     1.5     26    28    31  1.6e+03  1.2e+04  1.0e+00
+theta           0.66  1.5e-03   0.075   0.52  0.66  0.77  2.6e+03  1.9e+04  1.0e+00
+thetaprior      0.50  5.1e-03    0.29  0.056  0.50  0.95  3.3e+03  2.5e+04  1.0e+00
 
 Samples were drawn using hmc with nuts.
 For each parameter, N_Eff is a crude measure of effective sample size,
@@ -63,13 +63,13 @@ Chains = 1,2,3,4
 Samples per chain = 1000
 
 Empirical Posterior Estimates:
-         Mean         SD       Naive SE       MCSE      ESS
-theta 0.65715133 0.078772049 0.0012454955 0.0016448514 1000
+        Mean      SD       Naive SE       MCSE      ESS
+theta 0.65598 0.07504272 0.0011865295 0.0015382229 1000
 
 Quantiles:
-         2.5%      25.0%    50.0%   75.0%    97.5%
-theta 0.49834098 0.604861 0.661369 0.71509 0.7966404</code></pre></div><p>Look at area of hpd</p><div><pre><code class="language-julia">MCMCChain.hpd(chn)</code></pre><pre><code class="language-none">      95% Lower 95% Upper
-theta  0.499434  0.797328</code></pre></div><p>Plot the 4 chains</p><pre><code class="language-">if rc == 0
+         2.5%     25.0%     50.0%    75.0%    97.5%
+theta 0.4996214 0.6069182 0.658951 0.708807 0.794903</code></pre></div><p>Look at area of hpd</p><div><pre><code class="language-julia">MCMCChain.hpd(chn)</code></pre><pre><code class="language-none">      95% Lower 95% Upper
+theta  0.515145  0.805885</code></pre></div><p>Plot the 4 chains</p><pre><code class="language-">if rc == 0
   mixeddensity(chn, xlab=&quot;height [cm]&quot;, ylab=&quot;density&quot;)
   bnds = MCMCChain.hpd(convert(Vector{Float64}, chn.value[:,1,1]))
   vline!([bnds[1]], line=:dash)

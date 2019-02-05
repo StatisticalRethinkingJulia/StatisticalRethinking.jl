@@ -713,14 +713,6 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "#maximum_a_posteriori-1",
-    "page": "Functions",
-    "title": "maximum_a_posteriori",
-    "category": "section",
-    "text": "maximum_a_posteriori(model, lower_bound, upper_bound)"
-},
-
-{
     "location": "#StatisticalRethinking.link-NTuple{4,Any}",
     "page": "Functions",
     "title": "StatisticalRethinking.link",

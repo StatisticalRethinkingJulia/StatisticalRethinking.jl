@@ -5,7 +5,7 @@ noofwalks = 15;
 pos = Array{Float64, 2}(rand(Uniform(-1, 1), noofsteps, noofwalks));
 pos[1, :] = zeros(noofwalks);
 csum = cumsum(pos, dims=1);</code></pre></div><div><pre><code class="language-julia">f = Plots.font(&quot;DejaVu Sans&quot;, 6)
-mx = minimum(csum) * 0.9</code></pre><pre><code class="language-none">-5.230668394759212</code></pre></div><p>Plot and annotate the random walks</p><pre><code class="language-">p1 = plot(csum, leg=false, title=&quot;Random walks ($(noofwalks))&quot;)
+mx = minimum(csum) * 0.9</code></pre><pre><code class="language-none">-4.121876885825956</code></pre></div><p>Plot and annotate the random walks</p><pre><code class="language-">p1 = plot(csum, leg=false, title=&quot;Random walks ($(noofwalks))&quot;)
 plot!(p1, csum[:, Int(floor(noofwalks/2))], leg=false, title=&quot;Random walks ($(noofwalks))&quot;, color=:black)
 plot!(p1, [5], seriestype=&quot;vline&quot;)
 annotate!(5, mx, text(&quot;step 4&quot;, f, :left))
@@ -24,7 +24,7 @@ for step in [4, 8, 16]
   plt += 1
 end
 p3 = plot(p2..., layout=(1, 3))
-plot(p1, p3, layout=(2,1))</code></pre><h3><a class="nav-anchor" id="snippet-4.2-1" href="#snippet-4.2-1">snippet 4.2</a></h3><div><pre><code class="language-julia">prod(1 .+ rand(Uniform(0, 0.1), 10))</code></pre><pre><code class="language-none">1.7483203721865683</code></pre></div><h3><a class="nav-anchor" id="snippet-4.3-1" href="#snippet-4.3-1">snippet 4.3</a></h3><pre><code class="language-">growth = [prod(1 .+ rand(Uniform(0, 0.1), 10)) for i in 1:10000];
+plot(p1, p3, layout=(2,1))</code></pre><h3><a class="nav-anchor" id="snippet-4.2-1" href="#snippet-4.2-1">snippet 4.2</a></h3><div><pre><code class="language-julia">prod(1 .+ rand(Uniform(0, 0.1), 10))</code></pre><pre><code class="language-none">1.6060702623300154</code></pre></div><h3><a class="nav-anchor" id="snippet-4.3-1" href="#snippet-4.3-1">snippet 4.3</a></h3><pre><code class="language-">growth = [prod(1 .+ rand(Uniform(0, 0.1), 10)) for i in 1:10000];
 fit = fit_mle(Normal, growth)
 plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab=&quot;Normal distribution&quot;)
 density!(growth, lab=&quot;&#39;sample&#39; distribution&quot;)</code></pre><h3><a class="nav-anchor" id="snippet-4.4-1" href="#snippet-4.4-1">snippet 4.4</a></h3><pre><code class="language-">big = [prod(1 .+ rand(Uniform(0, 0.5), 12)) for i in 1:10000];

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-06-16s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../clip-01/">clip-01</a></li><li><a class="toctext" href="../clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../clip-05s/">clip-05s</a></li><li class="current"><a class="toctext" href>clip-06-16s</a><ul class="internal"></ul></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/m4.1s/">m4.1s</a></li><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../../04/clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../../04/clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../../04/clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../../04/clip-30s/">clip-30s</a></li><li><a class="toctext" href="../../04/clip-38s/">clip-38s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 03</li><li><a href>clip-06-16s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-06-16s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-06-16s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed</p><div><pre><code class="language-julia">using StatisticalRethinking, CmdStan, StanMCMCChain
+gr(size=(500,500));</code></pre></div><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;03&quot;)
+cd(ProjDir)</code></pre></div><p>Define the Stan language model</p><div><pre><code class="language-julia">binomialstanmodel = &quot;
+// Inferring a Rate
+data {
+  int N;
+  int&lt;lower=0&gt; k[N];
+  int&lt;lower=1&gt; n[N];
+}
+parameters {
+  real&lt;lower=0,upper=1&gt; theta;
+  real&lt;lower=0,upper=1&gt; thetaprior;
+}
+model {
+  // Prior Distribution for Rate Theta
+  theta ~ beta(1, 1);
+  thetaprior ~ beta(1, 1);
+
+  // Observed Counts
+  k ~ binomial(n, theta);
+}
+&quot;;</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchain.</p><div><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;binomial&quot;, monitors = [&quot;theta&quot;], model=binomialstanmodel,
+  output_format=:mcmcchain);</code></pre></div><p>Use 16 observations</p><div><pre><code class="language-julia">N2 = 4
+n2 = Int.(9 * ones(Int, N2))
+k2 = [6, 5, 7, 6]</code></pre><pre><code class="language-none">=====&gt; /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/03
+
+4-element Array{Int64,1}:
+ 6
+ 5
+ 7
+ 6</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">binomialdata = Dict(&quot;N&quot; =&gt; length(n2), &quot;n&quot; =&gt; n2, &quot;k&quot; =&gt; k2);</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
+  CmdStanDir=CMDSTAN_HOME);</code></pre></div><p>Describe the draws</p><div><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">
+make: `/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/03/tmp/binomial&#39; is up to date.
+
+Calling /home/travis/cmdstan/bin/stansummary to infer across chains.
+
+Inference for Stan model: binomial_model
+4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
+
+Warmup took (0.020, 0.020, 0.020, 0.021) seconds, 0.081 seconds total
+Sampling took (0.037, 0.034, 0.034, 0.033) seconds, 0.14 seconds total
+
+                Mean     MCSE  StdDev     5%   50%   95%    N_Eff  N_Eff/s    R_hat
+lp__             -27  2.7e-02     1.1    -29   -27   -26  1.7e+03  1.3e+04  1.0e+00
+accept_stat__   0.91  1.6e-03    0.11   0.67  0.96   1.0  5.1e+03  3.7e+04  1.0e+00
+stepsize__      0.82  1.7e-02   0.024   0.78  0.83  0.84  2.0e+00  1.5e+01  1.8e+13
+treedepth__      2.0  1.1e-02    0.68    1.0   2.0   3.0  3.7e+03  2.7e+04  1.0e+00
+n_leapfrog__     5.0  8.2e-02     5.1    1.0   3.0    15  3.9e+03  2.8e+04  1.0e+00
+divergent__     0.00     -nan    0.00   0.00  0.00  0.00     -nan     -nan     -nan
+energy__          28  4.1e-02     1.5     26    28    31  1.3e+03  9.7e+03  1.0e+00
+theta           0.66  1.4e-03   0.077   0.53  0.66  0.78  3.1e+03  2.3e+04  1.0e+00
+thetaprior      0.50  5.0e-03    0.29  0.049  0.50  0.95  3.3e+03  2.4e+04  1.0e+00
+
+Samples were drawn using hmc with nuts.
+For each parameter, N_Eff is a crude measure of effective sample size,
+and R_hat is the potential scale reduction factor on split chains (at
+convergence, R_hat=1).
+
+Iterations = 1:1000
+Thinning interval = 1
+Chains = 1,2,3,4
+Samples per chain = 1000
+
+Empirical Posterior Estimates:
+         Mean         SD       Naive SE       MCSE      ESS
+theta 0.65743434 0.076636314 0.0012117265 0.0011183961 1000
+
+Quantiles:
+         2.5%      25.0%     50.0%   75.0%     97.5%
+theta 0.5025912 0.60496275 0.660435 0.71103 0.80109255</code></pre></div><p>Look at area of hpd</p><div><pre><code class="language-julia">MCMCChain.hpd(chn)</code></pre><pre><code class="language-none">      95% Lower 95% Upper
+theta  0.511259  0.806926</code></pre></div><p>Plot the 4 chains</p><div><pre><code class="language-julia">if rc == 0
+  mixeddensity(chn, xlab=&quot;height [cm]&quot;, ylab=&quot;density&quot;)
+  bnds = MCMCChain.hpd(convert(Vector{Float64}, chn.value[:,1,1]))
+  vline!([bnds[1]], line=:dash)
+  vline!([bnds[2]], line=:dash)
+end</code></pre><?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="250" viewBox="0 0 2000 1000">
+<defs>
+  <clipPath id="clip1800">
+    <rect x="0" y="0" width="2000" height="2000"/>
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id="clip1801">
+    <rect x="0" y="0" width="2000" height="1000"/>
+  </clipPath>
+</defs>
+<polygon clip-path="url(#clip1801)" points="
+0,1000 2000,1000 2000,0 0,0 
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<defs>
+  <clipPath id="clip1802">
+    <rect x="400" y="0" width="1401" height="1000"/>
+  </clipPath>
+</defs>
+<polygon clip-path="url(#clip1801)" points="
+157.48,874.016 1921.26,874.016 1921.26,125.984 157.48,125.984 
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<defs>
+  <clipPath id="clip1803">
+    <rect x="157" y="125" width="1765" height="749"/>
+  </clipPath>
+</defs>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  255.696,874.016 255.696,125.984 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  499.56,874.016 499.56,125.984 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  743.424,874.016 743.424,125.984 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  987.287,874.016 987.287,125.984 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1231.15,874.016 1231.15,125.984 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1475.01,874.016 1475.01,125.984 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1718.88,874.016 1718.88,125.984 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,852.847 1921.26,852.847 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,718.159 1921.26,718.159 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,583.471 1921.26,583.471 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,448.784 1921.26,448.784 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,314.096 1921.26,314.096 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  157.48,179.408 1921.26,179.408 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,874.016 1921.26,874.016 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,874.016 157.48,125.984 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  255.696,874.016 255.696,862.795 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  499.56,874.016 499.56,862.795 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  743.424,874.016 743.424,862.795 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  987.287,874.016 987.287,862.795 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1231.15,874.016 1231.15,862.795 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1475.01,874.016 1475.01,862.795 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1718.88,874.016 1718.88,862.795 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,852.847 183.937,852.847 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,718.159 183.937,718.159 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,583.471 183.937,583.471 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,448.784 183.937,448.784 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,314.096 183.937,314.096 
+  "/>
+<polyline clip-path="url(#clip1801)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  157.48,179.408 183.937,179.408 
+  "/>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 255.696, 926.016)" x="255.696" y="926.016">0.3</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 499.56, 926.016)" x="499.56" y="926.016">0.4</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 743.424, 926.016)" x="743.424" y="926.016">0.5</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 987.287, 926.016)" x="987.287" y="926.016">0.6</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1231.15, 926.016)" x="1231.15" y="926.016">0.7</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1475.01, 926.016)" x="1475.01" y="926.016">0.8</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1718.88, 926.016)" x="1718.88" y="926.016">0.9</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 137.48, 870.347)" x="137.48" y="870.347">0</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 137.48, 735.659)" x="137.48" y="735.659">1</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 137.48, 600.971)" x="137.48" y="600.971">2</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 137.48, 466.284)" x="137.48" y="466.284">3</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 137.48, 331.596)" x="137.48" y="331.596">4</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 137.48, 196.908)" x="137.48" y="196.908">5</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:84px; text-anchor:middle;" transform="rotate(0, 1039.37, 73.2)" x="1039.37" y="73.2">theta</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(0, 1039.37, 990.4)" x="1039.37" y="990.4">Sample value</text>
+</g>
+<g clip-path="url(#clip1801)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(-90, 57.6, 500)" x="57.6" y="500">Density</text>
+</g>
+<polyline clip-path="url(#clip1803)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
+  328.848,852.845 336.472,852.844 344.097,852.843 351.722,852.839 359.346,852.833 366.971,852.823 374.595,852.807 382.22,852.781 389.844,852.742 397.469,852.685 
+  405.093,852.604 412.718,852.492 420.343,852.345 427.967,852.158 435.592,851.929 443.216,851.659 450.841,851.353 458.465,851.02 466.09,850.671 473.714,850.318 
+  481.339,849.97 488.964,849.629 496.588,849.287 504.213,848.923 511.837,848.501 519.462,847.972 527.086,847.277 534.711,846.351 542.335,845.137 549.96,843.589 
+  557.584,841.688 565.209,839.441 572.834,836.894 580.458,834.121 588.083,831.226 595.707,828.327 603.332,825.543 610.956,822.978 618.581,820.707 626.205,818.761 
+  633.83,817.121 641.455,815.716 649.079,814.426 656.704,813.09 664.328,811.519 671.953,809.515 679.577,806.88 687.202,803.438 694.826,799.046 702.451,793.603 
+  710.075,787.061 717.7,779.422 725.325,770.745 732.949,761.137 740.574,750.748 748.198,739.761 755.823,728.378 763.447,716.81 771.072,705.254 778.696,693.885 
+  786.321,682.841 793.946,672.21 801.57,662.028 809.195,652.279 816.819,642.897 824.444,633.776 832.068,624.773 839.693,615.723 847.317,606.442 854.942,596.744 
+  862.566,586.445 870.191,575.383 877.816,563.43 885.44,550.509 893.065,536.611 900.689,521.809 908.314,506.263 915.938,490.218 923.563,473.996 931.187,457.974 
+  938.812,442.555 946.437,428.127 954.061,415.027 961.686,403.499 969.31,393.659 976.935,385.47 984.559,378.737 992.184,373.119 999.808,368.16 1007.43,363.336 
+  1015.06,358.115 1022.68,352.016 1030.31,344.661 1037.93,335.808 1045.56,325.372 1053.18,313.417 1060.8,300.143 1068.43,285.848 1076.05,270.904 1083.68,255.722 
+  1091.3,240.73 1098.93,226.353 1106.55,212.996 1114.18,201.033 1121.8,190.781 1129.43,182.494 1137.05,176.34 1144.67,172.395 1152.3,170.644 1159.92,170.99 
+  1167.55,173.277 1175.17,177.313 1182.8,182.898 1190.42,189.846 1198.05,197.997 1205.67,207.217 1213.3,217.392 1220.92,228.412 1228.54,240.158 1236.17,252.489 
+  1243.79,265.238 1251.42,278.218 1259.04,291.24 1266.67,304.135 1274.29,316.783 1281.92,329.14 1289.54,341.256 1297.17,353.276 1304.79,365.435 1312.41,378.024 
+  1320.04,391.35 1327.66,405.694 1335.29,421.262 1342.91,438.152 1350.54,456.339 1358.16,475.672 1365.79,495.897 1373.41,516.681 1381.04,537.655 1388.66,558.444 
+  1396.29,578.7 1403.91,598.122 1411.53,616.467 1419.16,633.559 1426.78,649.286 1434.41,663.602 1442.03,676.524 1449.66,688.127 1457.28,698.538 1464.91,707.926 
+  1472.53,716.485 1480.16,724.416 1487.78,731.91 1495.4,739.124 1503.03,746.171 1510.65,753.111 1518.28,759.954 1525.9,766.665 1533.53,773.182 1541.15,779.432 
+  1548.78,785.345 1556.4,790.874 1564.03,795.994 1571.65,800.713 1579.27,805.063 1586.9,809.093 1594.52,812.861 1602.15,816.422 1609.77,819.821 1617.4,823.086 
+  1625.02,826.228 1632.65,829.242 1640.27,832.114 1647.9,834.821 1655.52,837.341 1663.14,839.656 1670.77,841.753 1678.39,843.626 1686.02,845.278 1693.64,846.714 
+  1701.27,847.947 1708.89,848.991 1716.52,849.862 1724.14,850.576 1731.77,851.152 1739.39,851.607 1747.01,851.96 1754.64,852.226 1762.26,852.423 1769.89,852.564 
+  1777.51,852.663 1785.14,852.731 1792.76,852.775 1800.39,852.804 1808.01,852.822 1815.64,852.833 1823.26,852.839 1830.88,852.842 1838.51,852.844 1846.13,852.845 
+  
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#e26f46; stroke-width:4; stroke-opacity:1; fill:none" points="
+  223.566,852.845 231.341,852.844 239.116,852.842 246.891,852.838 254.667,852.831 262.442,852.818 270.217,852.797 277.992,852.764 285.767,852.714 293.542,852.64 
+  301.318,852.534 309.093,852.391 316.868,852.204 324.643,851.97 332.418,851.692 340.194,851.375 347.969,851.034 355.744,850.688 363.519,850.359 371.294,850.073 
+  379.07,849.853 386.845,849.715 394.62,849.664 402.395,849.697 410.17,849.795 417.946,849.929 425.721,850.061 433.496,850.151 441.271,850.158 449.046,850.045 
+  456.822,849.786 464.597,849.364 472.372,848.777 480.147,848.032 487.922,847.152 495.698,846.166 503.473,845.111 511.248,844.028 519.023,842.957 526.798,841.931 
+  534.574,840.979 542.349,840.115 550.124,839.344 557.899,838.654 565.674,838.023 573.45,837.418 581.225,836.794 589,836.1 596.775,835.278 604.55,834.262 
+  612.326,832.986 620.101,831.383 627.876,829.389 635.651,826.958 643.426,824.059 651.202,820.694 658.977,816.894 666.752,812.726 674.527,808.279 682.302,803.663 
+  690.078,798.984 697.853,794.333 705.628,789.766 713.403,785.294 721.178,780.868 728.954,776.382 736.729,771.676 744.504,766.543 752.279,760.751 760.054,754.058 
+  767.829,746.237 775.605,737.104 783.38,726.542 791.155,714.519 798.93,701.106 806.705,686.473 814.481,670.883 822.256,654.663 830.031,638.168 837.806,621.738 
+  845.581,605.654 853.357,590.109 861.132,575.187 868.907,560.868 876.682,547.05 884.457,533.579 892.233,520.291 900.008,507.047 907.783,493.754 915.558,480.382 
+  923.333,466.954 931.109,453.545 938.884,440.257 946.659,427.208 954.434,414.517 962.209,402.287 969.985,390.599 977.76,379.501 985.535,369 993.31,359.062 
+  1001.09,349.611 1008.86,340.54 1016.64,331.726 1024.41,323.041 1032.19,314.372 1039.96,305.628 1047.74,296.753 1055.51,287.718 1063.29,278.526 1071.06,269.207 
+  1078.84,259.821 1086.61,250.451 1094.39,241.211 1102.16,232.233 1109.94,223.658 1117.71,215.614 1125.49,208.193 1133.26,201.435 1141.04,195.327 1148.81,189.813 
+  1156.59,184.835 1164.36,180.381 1172.14,176.532 1179.91,173.494 1187.69,171.605 1195.47,171.304 1203.24,173.061 1211.02,177.295 1218.79,184.283 1226.57,194.093 
+  1234.34,206.55 1242.12,221.246 1249.89,237.602 1257.67,254.95 1265.44,272.64 1273.22,290.129 1280.99,307.049 1288.77,323.238 1296.54,338.729 1304.32,353.712 
+  1312.09,368.473 1319.87,383.328 1327.64,398.571 1335.42,414.43 1343.19,431.051 1350.97,448.496 1358.74,466.753 1366.52,485.754 1374.29,505.387 1382.07,525.507 
+  1389.85,545.943 1397.62,566.495 1405.4,586.939 1413.17,607.03 1420.95,626.513 1428.72,645.139 1436.5,662.681 1444.27,678.958 1452.05,693.848 1459.82,707.306 
+  1467.6,719.365 1475.37,730.134 1483.15,739.788 1490.92,748.546 1498.7,756.647 1506.47,764.326 1514.25,771.779 1522.02,779.149 1529.8,786.505 1537.57,793.843 
+  1545.35,801.092 1553.12,808.134 1560.9,814.827 1568.67,821.033 1576.45,826.637 1584.23,831.567 1592,835.794 1599.78,839.337 1607.55,842.247 1615.33,844.599 
+  1623.1,846.478 1630.88,847.966 1638.65,849.14 1646.43,850.061 1654.2,850.781 1661.98,851.339 1669.75,851.767 1677.53,852.09 1685.3,852.329 1693.08,852.501 
+  1700.85,852.623 1708.63,852.706 1716.4,852.76 1724.18,852.796 1731.95,852.817 1739.73,852.83 1747.5,852.838 1755.28,852.842 1763.05,852.844 1770.83,852.845 
+  
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#3da44d; stroke-width:4; stroke-opacity:1; fill:none" points="
+  329.458,852.845 337.206,852.844 344.954,852.842 352.702,852.838 360.45,852.83 368.199,852.818 375.947,852.796 383.695,852.762 391.443,852.709 399.191,852.63 
+  406.939,852.517 414.688,852.36 422.436,852.15 430.184,851.88 437.932,851.544 445.68,851.141 453.428,850.672 461.176,850.144 468.925,849.565 476.673,848.945 
+  484.421,848.291 492.169,847.605 499.917,846.881 507.665,846.105 515.414,845.255 523.162,844.3 530.91,843.208 538.658,841.947 546.406,840.495 554.154,838.846 
+  561.903,837.012 569.651,835.032 577.399,832.969 585.147,830.906 592.895,828.938 600.643,827.161 608.392,825.655 616.14,824.471 623.888,823.616 631.636,823.051 
+  639.384,822.687 647.132,822.399 654.88,822.033 662.629,821.433 670.377,820.46 678.125,819.005 685.873,817.006 693.621,814.439 701.369,811.316 709.118,807.66 
+  716.866,803.48 724.614,798.748 732.362,793.385 740.11,787.257 747.858,780.188 755.607,771.993 763.355,762.514 771.103,751.659 778.851,739.432 786.599,725.944 
+  794.347,711.406 802.096,696.097 809.844,680.324 817.592,664.372 825.34,648.474 833.088,632.78 840.836,617.364 848.584,602.232 856.333,587.355 864.081,572.697 
+  871.829,558.232 879.577,543.959 887.325,529.888 895.073,516.025 902.822,502.348 910.57,488.783 918.318,475.201 926.066,461.42 933.814,447.234 941.562,432.443 
+  949.311,416.901 957.059,400.545 964.807,383.428 972.555,365.72 980.303,347.694 988.051,329.702 995.8,312.123 1003.55,295.321 1011.3,279.603 1019.04,265.19 
+  1026.79,252.202 1034.54,240.662 1042.29,230.516 1050.04,221.657 1057.78,213.951 1065.53,207.267 1073.28,201.489 1081.03,196.535 1088.78,192.363 1096.53,188.98 
+  1104.27,186.444 1112.02,184.87 1119.77,184.42 1127.52,185.282 1135.27,187.645 1143.01,191.646 1150.76,197.329 1158.51,204.607 1166.26,213.248 1174.01,222.889 
+  1181.76,233.085 1189.5,243.369 1197.25,253.326 1205,262.649 1212.75,271.17 1220.5,278.856 1228.24,285.78 1235.99,292.076 1243.74,297.894 1251.49,303.373 
+  1259.24,308.639 1266.99,313.824 1274.73,319.096 1282.48,324.689 1290.23,330.916 1297.98,338.156 1305.73,346.814 1313.47,357.267 1321.22,369.799 1328.97,384.55 
+  1336.72,401.486 1344.47,420.401 1352.21,440.946 1359.96,462.683 1367.71,485.147 1375.46,507.905 1383.21,530.598 1390.96,552.958 1398.7,574.807 1406.45,596.034 
+  1414.2,616.564 1421.95,636.328 1429.7,655.243 1437.44,673.204 1445.19,690.092 1452.94,705.783 1460.69,720.172 1468.44,733.188 1476.19,744.8 1483.93,755.024 
+  1491.68,763.921 1499.43,771.585 1507.18,778.141 1514.93,783.731 1522.67,788.509 1530.42,792.639 1538.17,796.282 1545.92,799.597 1553.67,802.727 1561.42,805.798 
+  1569.16,808.903 1576.91,812.105 1584.66,815.43 1592.41,818.866 1600.16,822.373 1607.9,825.885 1615.65,829.323 1623.4,832.603 1631.15,835.644 1638.9,838.38 
+  1646.64,840.765 1654.39,842.777 1662.14,844.42 1669.89,845.719 1677.64,846.723 1685.39,847.49 1693.13,848.084 1700.88,848.566 1708.63,848.987 1716.38,849.384 
+  1724.13,849.779 1731.87,850.179 1739.62,850.58 1747.37,850.971 1755.12,851.339 1762.87,851.671 1770.62,851.959 1778.36,852.197 1786.11,852.387 1793.86,852.532 
+  1801.61,852.638 1809.36,852.713 1817.1,852.764 1824.85,852.797 1832.6,852.818 1840.35,852.831 1848.1,852.838 1855.85,852.842 1863.59,852.844 1871.34,852.845 
+  
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#c271d2; stroke-width:4; stroke-opacity:1; fill:none" points="
+  207.399,852.845 215.299,852.844 223.199,852.842 231.099,852.838 238.999,852.83 246.899,852.816 254.799,852.793 262.699,852.757 270.598,852.7 278.498,852.616 
+  286.398,852.496 294.298,852.334 302.198,852.123 310.098,851.862 317.998,851.554 325.898,851.209 333.798,850.847 341.698,850.492 349.598,850.172 357.498,849.917 
+  365.398,849.751 373.298,849.691 381.198,849.745 389.098,849.905 396.998,850.154 404.898,850.466 412.798,850.81 420.698,851.152 428.598,851.463 436.498,851.714 
+  444.398,851.881 452.298,851.942 460.198,851.875 468.098,851.659 475.998,851.268 483.898,850.682 491.798,849.882 499.698,848.857 507.598,847.613 515.498,846.171 
+  523.398,844.576 531.298,842.887 539.198,841.179 547.098,839.528 554.998,838 562.898,836.639 570.798,835.461 578.698,834.442 586.598,833.526 594.498,832.624 
+  602.398,831.632 610.298,830.44 618.198,828.941 626.098,827.048 633.998,824.694 641.898,821.833 649.798,818.441 657.698,814.512 665.598,810.052 673.498,805.078 
+  681.398,799.615 689.298,793.699 697.198,787.376 705.098,780.704 712.998,773.752 720.898,766.598 728.798,759.326 736.698,752.017 744.598,744.737 752.498,737.527 
+  760.398,730.389 768.298,723.279 776.198,716.102 784.098,708.719 791.998,700.957 799.898,692.638 807.798,683.598 815.697,673.717 823.597,662.935 831.497,651.262 
+  839.397,638.772 847.297,625.585 855.197,611.844 863.097,597.685 870.997,583.217 878.897,568.506 886.797,553.579 894.697,538.43 902.597,523.038 910.497,507.383 
+  918.397,491.461 926.297,475.295 934.197,458.934 942.097,442.46 949.997,425.98 957.897,409.63 965.797,393.572 973.697,377.981 981.597,363.04 989.497,348.91 
+  997.397,335.702 1005.3,323.44 1013.2,312.032 1021.1,301.26 1029,290.792 1036.9,280.218 1044.8,269.127 1052.7,257.182 1060.6,244.211 1068.5,230.266 
+  1076.4,215.654 1084.3,200.91 1092.2,186.738 1100.1,173.899 1108,163.103 1115.9,154.893 1123.8,149.569 1131.7,147.155 1139.6,147.414 1147.5,149.899 
+  1155.4,154.039 1163.3,159.225 1171.2,164.899 1179.1,170.62 1187,176.114 1194.9,181.299 1202.8,186.286 1210.7,191.363 1218.6,196.961 1226.5,203.594 
+  1234.4,211.791 1242.3,222.015 1250.2,234.591 1258.1,249.648 1266,267.095 1273.9,286.635 1281.8,307.81 1289.7,330.08 1297.6,352.904 1305.5,375.815 
+  1313.4,398.476 1321.3,420.691 1329.2,442.403 1337.1,463.653 1345,484.529 1352.9,505.121 1360.8,525.471 1368.7,545.554 1376.6,565.264 1384.5,584.432 
+  1392.4,602.847 1400.3,620.291 1408.2,636.581 1416.1,651.595 1424,665.297 1431.9,677.745 1439.8,689.077 1447.7,699.497 1455.6,709.236 1463.5,718.528 
+  1471.4,727.57 1479.3,736.509 1487.2,745.43 1495.1,754.352 1503,763.244 1510.9,772.034 1518.8,780.627 1526.7,788.92 1534.6,796.812 1542.5,804.215 
+  1550.4,811.053 1558.3,817.274 1566.2,822.843 1574.1,827.752 1582,832.012 1589.9,835.659 1597.8,838.743 1605.7,841.328 1613.6,843.484 1621.5,845.277 
+  1629.4,846.769 1637.3,848.012 1645.2,849.048 1653.1,849.907 1661,850.614 1668.9,851.187 1676.8,851.643 1684.7,851.996 1692.6,852.262 1700.5,852.457 
+  1708.4,852.595 1716.3,852.689 1724.2,852.751 1732.1,852.791 1740,852.815 1747.9,852.829 1755.8,852.837 1763.7,852.842 1771.6,852.844 1779.5,852.845 
+  
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#ac8d18; stroke-width:4; stroke-opacity:1; fill:none" stroke-dasharray="16, 10" points="
+  772.238,75677.2 772.238,-74677.2 
+  "/>
+<polyline clip-path="url(#clip1803)" style="stroke:#00a9ad; stroke-width:4; stroke-opacity:1; fill:none" stroke-dasharray="16, 10" points="
+  1512.61,75677.2 1512.61,-74677.2 
+  "/>
+</svg>
+</div><p>End of <code>clip_06_16s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-05s/"><span class="direction">Previous</span><span class="title">clip-05s</span></a><a class="next" href="../../04/m4.1s/"><span class="direction">Next</span><span class="title">m4.1s</span></a></footer></article></body></html>

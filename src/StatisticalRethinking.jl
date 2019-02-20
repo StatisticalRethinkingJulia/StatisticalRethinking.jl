@@ -28,6 +28,7 @@ rel_path(parts...) = normpath(joinpath(src_path, parts...))
 include("link.jl")
 include("scriptentry.jl")
 include("generate.jl")
+include("quap.jl")
 
 export
   link,
@@ -35,6 +36,7 @@ export
   ScriptEntry,
   scriptentry,
   script_dict,
-  generate
+  generate,
+  quap
 
 end # module

@@ -46,15 +46,14 @@ The author of the book states: "*If that (the statistical model) doesn't make mu
 3. [TuringLang](https://github.com/TuringLang)
 4. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
 
-At least one other package is available for mcmc in Julia:
-
-5. [Klara](https://github.com/JuliaStats/Klara.jl)
-
-Time constraints prevented this option to be in `StatisticalRethinkingJulia`. And currently the number of models implemented in MambaModels is very limited.
+Implementations of the models using Turing, CmdStan, DynamicHMC and Mamba can be found in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl), [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [MambaModels](https://github.com/StatisticalRethinkingJulia/MambaModels.jl).
 
 A secondary objective of `StatisticalRethinkingJulia` is to compare definition and execution of a variety of models in the above four mcmc packages.
 
-Implementations of ther models using Turing, Mamba, CmdStan or DynamicHMC can be found in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl), [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [MambaModels](https://github.com/StatisticalRethinkingJulia/MambaModels.jl).
+As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia.
+
+At least one other package  [(Klara)](https://github.com/JuliaStats/Klara.jl) is available for mcmc in Julia. Time constraints prevented this option to be included in `StatisticalRethinkingJulia`. For similar reasons, the number of models implemented in MambaModels is very limited.
+
 
 ## Layout of the package
 
@@ -103,11 +102,11 @@ Developing `rethinking` must have been an on-going process over several years, `
 
 2. As mentioned above, a second objective of v1 is to experiment and compare the four selected mcmc options in Julia in terms of results, performance, ease of expressing models, etc.
 
-3. The R package `rethinking`, in the experimental branch on Github, contains 2 functions `quap` and `ulam` (previously called `map` and `map2stan`) which are not in v1 of `Statisticalrethinking.jl`. It is my *intention* to study those and _possibly_ include `quap` or `ulam` (or both) in a future of `Statisticalrethinking`.
+3. The R package `rethinking`, in the experimental branch on Github, contains 2 functions `quap` and `ulam` (previously called `map` and `map2stan`) which are not in v1 of `Statisticalrethinking.jl`. It is my *intention* to study those and _possibly_ include something similar to `quap` or `ulam` (or both) in a future of `Statisticalrethinking`. In `clip-02-05.jl` an inital example of using the `maximum_a_posteriori` estimate and associated quadratic (Normal) approximation is illustrated.
 
 4. Several other interesting approaches that could become a good basis for such an endeavour are being explored in Julia, e.g. Soss.jl and Omega.jl.
 
-5. Many other R functions such as precis(), link(), shade(), etc. are not in v1, although some very early versions are being tested. Expect significant refactoring of those in future versions.
+5. Many other R functions such as precis(), link(), shade(), etc. are not in v1, although some very early versions are being tested. Expect significant refactoring of those in future versions and at the same time better integration with MCMCChain.Chains objects.
 
 6. The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode. 
 

@@ -36,7 +36,7 @@ model {
 stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
   output_format=:mcmcchain);
 
-# Use 16 observations
+# Use 4 observations
 
 N2 = 4
 n2 = Int.(9 * ones(Int, N2))

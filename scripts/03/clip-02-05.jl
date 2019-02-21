@@ -3,13 +3,13 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, Optim
-gr(size=(600,300))
+gr(size=(600,300));
 
 # ### snippet 3.2
 
 # Grid of 1001 steps
 
-p_grid = range(0, step=0.001, stop=1)
+p_grid = range(0, step=0.001, stop=1);
 
 # all priors = 1.0
 
@@ -25,7 +25,7 @@ posterior = likelihood .* prior;
 
 # Scale posterior such that they become probabilities
 
-posterior = posterior / sum(posterior)
+posterior = posterior / sum(posterior);
 
 # ### snippet 3.3
 

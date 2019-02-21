@@ -23,7 +23,7 @@ first(df, 5)
 
 # Show first 5 heigth values in df
 
-df[:height][1:5]
+first(df, 5)
 
 # ### snippet 4.10
 

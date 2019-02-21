@@ -269,7 +269,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-02-05",
     "title": "clip-02-05.jl",
     "category": "section",
-    "text": "Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, Optim\ngr(size=(600,300))"
+    "text": "Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, Optim\ngr(size=(600,300));"
 },
 
 {
@@ -277,7 +277,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-02-05",
     "title": "snippet 3.2",
     "category": "section",
-    "text": "Grid of 1001 stepsp_grid = range(0, step=0.001, stop=1)all priors = 1.0prior = ones(length(p_grid));Binomial pdflikelihood = [pdf(Binomial(9, p), 6) for p in p_grid];As Uniform prior has been used, unstandardized posterior is equal to likelihoodposterior = likelihood .* prior;Scale posterior such that they become probabilitiesposterior = posterior / sum(posterior)"
+    "text": "Grid of 1001 stepsp_grid = range(0, step=0.001, stop=1);all priors = 1.0prior = ones(length(p_grid));Binomial pdflikelihood = [pdf(Binomial(9, p), 6) for p in p_grid];As Uniform prior has been used, unstandardized posterior is equal to likelihoodposterior = likelihood .* prior;Scale posterior such that they become probabilitiesposterior = posterior / sum(posterior);"
 },
 
 {
@@ -413,7 +413,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-07-13s",
     "title": "snippet 4.9",
     "category": "section",
-    "text": "Show first 5 heigth values in dfdf[:height][1:5]"
+    "text": "Show first 5 heigth values in dffirst(df, 5)"
 },
 
 {

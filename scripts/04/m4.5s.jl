@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
-using CmdStan, StanMCMCChain
+using CmdStan, StanMCMCChains
 gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
@@ -50,10 +50,10 @@ model{
 }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchain.
+# Define the Stanmodel and set the output format to :mcmcchains.
 
 stanmodel = Stanmodel(name="weights", monitors = ["a", "b1", "b2", "sigma"],
-model=weightsmodel,  output_format=:mcmcchain);
+model=weightsmodel,  output_format=:mcmcchains);
 
 # Input data for cmdstan
 

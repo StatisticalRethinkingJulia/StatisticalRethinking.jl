@@ -1,7 +1,7 @@
 using StatisticalRethinking, Optim
-gr(size=(600,300))
+gr(size=(600,300));
 
-p_grid = range(0, step=0.001, stop=1)
+p_grid = range(0, step=0.001, stop=1);
 
 prior = ones(length(p_grid));
 
@@ -9,14 +9,14 @@ likelihood = [pdf(Binomial(9, p), 6) for p in p_grid];
 
 posterior = likelihood .* prior;
 
-posterior = posterior / sum(posterior)
+posterior = posterior / sum(posterior);
 
 N = 10000
 samples = sample(p_grid, Weights(posterior), N);
 
-#chn = Chains(reshape(samples, N, 1, 1), [:toss], Dict(:parameters => [:toss]));
-chn = MCMCChain.Chains(reshape(samples, N, 1, 1), names=[:toss]);
-#describe(chn)
+chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [:toss]);
+
+describe(chn)
 
 plot(chn)
 

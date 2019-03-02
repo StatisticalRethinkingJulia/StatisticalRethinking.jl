@@ -1,4 +1,4 @@
-using StatisticalRethinking, CmdStan, StanMCMCChain, GLM
+using StatisticalRethinking, CmdStan, StanMCMCChains, GLM
 gr(size=(500,500))
 
 ProjDir = rel_path("..", "scripts", "00")
@@ -78,7 +78,7 @@ rc, sim, cnames = stan(stanmodel, lrdata, ProjDir, diagnostics=false,
   summary=false, CmdStanDir=CMDSTAN_HOME);
 
 cnames = ["intercept", "beta[1]", "sigma"]
-chain = convert_a3d(sim, cnames, Val(:mcmcchain))
+chain = convert_a3d(sim, cnames, Val(:mcmcchains))
 
 describe(chain)
 

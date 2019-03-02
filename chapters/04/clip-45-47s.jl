@@ -1,5 +1,5 @@
 using StatisticalRethinking
-using CmdStan, StanMCMCChain
+using CmdStan, StanMCMCChains
 gr(size=(500,500));
 
 ProjDir = rel_path("..", "scripts", "04")
@@ -33,7 +33,7 @@ generated quantities {
 ";
 
 stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],model=weightsmodel,
-  output_format=:mcmcchain);
+  output_format=:mcmcchains);
 
 heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height],
   "weight" => df2[:weight]);

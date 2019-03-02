@@ -1,4 +1,4 @@
-using StatisticalRethinking, CmdStan, StanMCMCChain
+using StatisticalRethinking, CmdStan, StanMCMCChains
 gr(size=(500,800));
 
 ProjDir = rel_path("..", "scripts", "03")
@@ -26,7 +26,7 @@ model {
 ";
 
 stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
-  output_format=:mcmcchain);
+  output_format=:mcmcchains);
 
 N2 = 4^2
 d = Binomial(9, 0.66)

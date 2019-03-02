@@ -1,4 +1,4 @@
-using StatisticalRethinking, CmdStan, StanMCMCChain
+using StatisticalRethinking, CmdStan, StanMCMCChains
 gr(size=(500,500));
 
 ProjDir = rel_path("..", "scripts", "03")
@@ -26,7 +26,7 @@ model {
 ";
 
 stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
-  output_format=:mcmcchain);
+  output_format=:mcmcchains);
 
 N2 = 4
 n2 = Int.(9 * ones(Int, N2))
@@ -39,11 +39,11 @@ rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
 
 describe(chn)
 
-MCMCChain.hpd(chn)
+MCMCChains.hpd(chn)
 
 if rc == 0
   mixeddensity(chn, xlab="height [cm]", ylab="density")
-  bnds = MCMCChain.hpd(convert(Vector{Float64}, chn.value[:,1,1]))
+  bnds =MCMCChains.hpd(convert(Vector{Float64}, chn.value[:,1,1]))
   vline!([bnds[1]], line=:dash)
   vline!([bnds[2]], line=:dash)
 end

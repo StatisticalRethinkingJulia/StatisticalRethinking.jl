@@ -8,7 +8,7 @@
 
 # We begin by importing all the necessary libraries.
 
-using StatisticalRethinking, CmdStan, StanMCMCChain, GLM
+using StatisticalRethinking, CmdStan, StanMCMCChains, GLM
 gr(size=(500,500))
 
 ProjDir = rel_path("..", "scripts", "00")
@@ -108,7 +108,7 @@ model {
 }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchain.
+# Define the Stanmodel and set the output format to :mcmcchains.
 
 stanmodel = Stanmodel(name="linear_regression",
   monitors = ["beta.1", "beta.2", "sigma"],
@@ -123,10 +123,10 @@ lrdata = Dict("N" => size(train, 1), "K" => size(dmat, 2), "y" => train_label, "
 rc, sim, cnames = stan(stanmodel, lrdata, ProjDir, diagnostics=false,
   summary=false, CmdStanDir=CMDSTAN_HOME);
   
-# Convert to a MCMCChain Chain object
+# Convert to a  Chain object
 
 cnames = ["intercept", "beta[1]", "sigma"]
-chain = convert_a3d(sim, cnames, Val(:mcmcchain))
+chain = convert_a3d(sim, cnames, Val(:mcmcchains))
 
 # Describe the chains.
 

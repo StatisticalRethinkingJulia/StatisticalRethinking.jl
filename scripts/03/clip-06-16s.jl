@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, CmdStan, StanMCMCChain
+using StatisticalRethinking, CmdStan, StanMCMCChains
 gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
@@ -31,10 +31,10 @@ model {
 }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchain.
+# Define the Stanmodel and set the output format to :mcmcchains.
 
 stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
-  output_format=:mcmcchain);
+  output_format=:mcmcchains);
 
 # Use 4 observations
 
@@ -57,13 +57,13 @@ describe(chn)
 
 # Look at area of hpd
 
-MCMCChain.hpd(chn)
+MCMCChains.hpd(chn)
 
 # Plot the 4 chains
 
 if rc == 0
   mixeddensity(chn, xlab="height [cm]", ylab="density")
-  bnds = MCMCChain.hpd(convert(Vector{Float64}, chn.value[:,1,1]))
+  bnds =MCMCChains.hpd(convert(Vector{Float64}, chn.value[:,1,1]))
   vline!([bnds[1]], line=:dash)
   vline!([bnds[2]], line=:dash)
 end

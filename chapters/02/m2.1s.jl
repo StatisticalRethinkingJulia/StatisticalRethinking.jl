@@ -1,4 +1,4 @@
-using StatisticalRethinking, CmdStan, StanMCMCChain
+using StatisticalRethinking, CmdStan, StanMCMCChains
 gr(size=(500,500));
 
 ProjDir = rel_path("..", "scripts", "02")
@@ -26,7 +26,7 @@ model {
 ";
 
 stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
-  output_format=:mcmcchain);
+  output_format=:mcmcchains);
 
 N2 = 15
 d = Binomial(9, 0.66)
@@ -65,7 +65,11 @@ if rc == 0
   plot(p..., layout=(4, 1))
 end
 
-bnds = MCMCChain.hpd(chn[:, 1, :], alpha=0.055);
+MCMCChains.hpd(chn, alpha=0.055, suppress_header=true);
+
+d, p, c = size(chn);
+theta = convert(Vector{Float64}, reshape(chn.value, (d*p*c)));
+bnds = quantile(theta, [0.045, 0.945])
 
 println("hpd bounds = $bnds\n")
 
@@ -100,8 +104,8 @@ xlim=(0.0, 1.2), lab="Normal approximation using MLE")
 plot!( x, pdf.(Normal( Optim.minimizer(res)[1] , std(draws, mean=mean(chn.value))) , x),
 lab="Normal approximation using MAP")
 density!(draws, lab="CmdStan chain")
-vline!([bnds.value[1]], line=:dash, lab="hpd lower bound")
-vline!([bnds.value[2]], line=:dash, lab="hpd upper bound")
+vline!([bnds[1]], line=:dash, lab="hpd lower bound")
+vline!([bnds[2]], line=:dash, lab="hpd upper bound")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

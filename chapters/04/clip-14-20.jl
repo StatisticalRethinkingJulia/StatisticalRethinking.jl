@@ -1,4 +1,4 @@
-using StatisticalRethinking, CmdStan, StanMCMCChain
+using StatisticalRethinking, CmdStan, StanMCMCChains
 gr(size=(500,500));
 
 ProjDir = rel_path("..", "scripts", "04")
@@ -41,9 +41,9 @@ density(samples[:mu])
 
 density(samples[:sigma])
 
-MCMCChain.hpd(samples[:mu])
+MCMCChains.hpd(samples[:mu])
 
-MCMCChain.hpd(samples[:sigma])
+MCMCChains.hpd(samples[:sigma])
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

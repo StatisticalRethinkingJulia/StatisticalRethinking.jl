@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, CmdStan, StanMCMCChain
+using StatisticalRethinking, CmdStan, StanMCMCChains
 gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
@@ -71,10 +71,10 @@ density(samples[:sigma])
 
 # Hdp mu
 
-MCMCChain.hpd(samples[:mu])
+MCMCChains.hpd(samples[:mu])
 
 # Hdp sigma
 
-MCMCChain.hpd(samples[:sigma])
+MCMCChains.hpd(samples[:sigma])
 
 # End of `clip-14-20.jl`

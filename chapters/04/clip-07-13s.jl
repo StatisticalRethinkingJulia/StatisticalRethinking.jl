@@ -1,4 +1,4 @@
-using StatisticalRethinking, CmdStan, StanMCMCChain
+using StatisticalRethinking, CmdStan, StanMCMCChains
 gr(size=(500,500));
 
 ProjDir = rel_path("..", "scripts", "04")
@@ -9,7 +9,7 @@ df = convert(DataFrame, howell1);
 
 first(df, 5)
 
-df[:height][1:5]
+first(df, 5)
 
 df2 = filter(row -> row[:age] >= 18, df);
 

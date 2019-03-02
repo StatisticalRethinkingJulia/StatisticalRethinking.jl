@@ -1,4 +1,4 @@
-using StatisticalRethinking, CmdStan, StanMCMCChain
+using StatisticalRethinking, CmdStan, StanMCMCChains
 gr(size=(500,500));
 
 ProjDir = rel_path("..", "scripts", "04")
@@ -31,7 +31,7 @@ model {
 ";
 
 stanmodel = Stanmodel(name="heights", monitors = ["mu", "sigma"],model=heightsmodel,
-  output_format=:mcmcchain);
+  output_format=:mcmcchains);
 
 heightsdata = Dict("N" => length(df2[:height]), "h" => df2[:height]);
 

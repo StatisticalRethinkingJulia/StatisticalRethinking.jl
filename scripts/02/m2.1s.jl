@@ -89,7 +89,7 @@ end
 
 # Show the hpd region
 
-MCMCChainsMCMCChains.hpd(chn, alpha=0.055, suppress_header=true);
+MCMCChains.hpd(chn, alpha=0.055, suppress_header=true);
 
 # Compute the hpd bounds for plotting
 

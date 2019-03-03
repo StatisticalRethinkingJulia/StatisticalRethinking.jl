@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>m4.4s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../clip-30s/">clip-30s</a></li><li><a class="toctext" href="../m4.2s/">m4.2s</a></li><li><a class="toctext" href="../m4.3s/">m4.3s</a></li><li class="current"><a class="toctext" href>m4.4s</a><ul class="internal"></ul></li><li><a class="toctext" href="../m4.5s/">m4.5s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>m4.4s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.4s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>m4.4s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed  for the snippets in chapter 0</p><div><pre><code class="language-julia">using StatisticalRethinking
+using CmdStan, StanMCMCChains
+gr(size=(500,500));</code></pre><pre><code class="language-none">Plots.GRBackend()</code></pre></div><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;04&quot;)
+cd(ProjDir)</code></pre></div><h3><a class="nav-anchor" id="snippet-4.7-1" href="#snippet-4.7-1">snippet 4.7</a></h3><div><pre><code class="language-julia">howell1 = CSV.read(rel_path(&quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
+df = convert(DataFrame, howell1);</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>544 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>6</th><td>163.83</td><td>62.9926</td><td>35.0</td><td>1</td></tr><tr><th>7</th><td>149.225</td><td>38.2435</td><td>32.0</td><td>0</td></tr><tr><th>8</th><td>168.91</td><td>55.48</td><td>27.0</td><td>1</td></tr><tr><th>9</th><td>147.955</td><td>34.8699</td><td>19.0</td><td>0</td></tr><tr><th>10</th><td>165.1</td><td>54.4877</td><td>54.0</td><td>1</td></tr><tr><th>11</th><td>154.305</td><td>49.8951</td><td>47.0</td><td>0</td></tr><tr><th>12</th><td>151.13</td><td>41.2202</td><td>66.0</td><td>1</td></tr><tr><th>13</th><td>144.78</td><td>36.0322</td><td>73.0</td><td>0</td></tr><tr><th>14</th><td>149.9</td><td>47.7</td><td>20.0</td><td>0</td></tr><tr><th>15</th><td>150.495</td><td>33.8493</td><td>65.3</td><td>0</td></tr><tr><th>16</th><td>163.195</td><td>48.5627</td><td>36.0</td><td>1</td></tr><tr><th>17</th><td>157.48</td><td>42.3258</td><td>44.0</td><td>1</td></tr><tr><th>18</th><td>143.942</td><td>38.3569</td><td>31.0</td><td>0</td></tr><tr><th>19</th><td>121.92</td><td>19.6179</td><td>12.0</td><td>1</td></tr><tr><th>20</th><td>105.41</td><td>13.948</td><td>8.0</td><td>0</td></tr><tr><th>21</th><td>86.36</td><td>10.4893</td><td>6.5</td><td>0</td></tr><tr><th>22</th><td>161.29</td><td>48.9879</td><td>39.0</td><td>1</td></tr><tr><th>23</th><td>156.21</td><td>42.7227</td><td>29.0</td><td>0</td></tr><tr><th>24</th><td>129.54</td><td>23.5868</td><td>13.0</td><td>1</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table></div><p>Use only adults</p><div><pre><code class="language-julia">df2 = filter(row -&gt; row[:age] &gt;= 18, df)
+mean_weight = mean(df2[:weight])
+df2[:weight_c] = convert(Vector{Float64}, df2[:weight]) .- mean_weight ;</code></pre><pre><code class="language-none">352-element Array{Float64,1}:
+   2.8351209801136577
+  -8.50467901988634
+ -13.125647519886343
+   8.051428980113656
+  -3.7136135198863442
+  18.00210348011366
+  -6.747010019886339
+  10.489485980113656
+ -10.120600519886345
+   9.497253480113656
+   ⋮
+   2.8918199801136595
+  -5.584680519886341
+  -3.9404095198863445
+  -4.167205519886345
+   2.0413349801136604
+ -10.744289519886344
+   7.172594480113659
+   9.07201098011366
+   7.54113798011366</code></pre></div><p>Define the Stan language model</p><div><pre><code class="language-julia">weightsmodel = &quot;
+data {
+ int &lt; lower = 1 &gt; N; // Sample size
+ vector[N] height; // Predictor
+ vector[N] weight; // Outcome
+}
+
+parameters {
+ real alpha; // Intercept
+ real beta; // Slope (regression coefficients)
+ real &lt; lower = 0 &gt; sigma; // Error SD
+}
+
+model {
+ height ~ normal(alpha + weight * beta , sigma);
+}
+
+generated quantities {
+}
+&quot;;</code></pre><pre><code class="language-none">&quot;\ndata {\n int &lt; lower = 1 &gt; N; // Sample size\n vector[N] height; // Predictor\n vector[N] weight; // Outcome\n}\n\nparameters {\n real alpha; // Intercept\n real beta; // Slope (regression coefficients)\n real &lt; lower = 0 &gt; sigma; // Error SD\n}\n\nmodel {\n height ~ normal(alpha + weight * beta , sigma);\n}\n\ngenerated quantities {\n}\n&quot;</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchains.</p><div><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;weights&quot;, monitors = [&quot;alpha&quot;, &quot;beta&quot;, &quot;sigma&quot;],model=weightsmodel,
+  output_format=:mcmcchains);</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">heightsdata = Dict(&quot;N&quot; =&gt; length(df2[:height]), &quot;height&quot; =&gt; df2[:height], &quot;weight&quot; =&gt; df2[:weight_c]);</code></pre><pre><code class="language-none">
+File /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan will be updated.
+
+Dict{String,Any} with 3 entries:
+  &quot;height&quot; =&gt; Union{Missing, Float64}[151.765, 139.7, 136.525, 156.845, 145.415…
+  &quot;weight&quot; =&gt; [2.83512, -8.50468, -13.1256, 8.05143, -3.71361, 18.0021, -6.7470…
+  &quot;N&quot;      =&gt; 352</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
+  summary=false, CmdStanDir=CMDSTAN_HOME);</code></pre></div><p>Describe the draws</p><pre><code class="language- 4s">describe(chn)</code></pre><p>Save the chains in a JLS file</p><pre><code class="language- 4s">serialize(&quot;m4.4s.jls&quot;, chn)
+
+chn2 = deserialize(&quot;m4.4s.jls&quot;)</code></pre><p>Should be identical to earlier result</p><pre><code class="language- 4s">describe(chn2)</code></pre><p>End of <code>m4.4s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.3s/"><span class="direction">Previous</span><span class="title">m4.3s</span></a><a class="next" href="../m4.5s/"><span class="direction">Next</span><span class="title">m4.5s</span></a></footer></article></body></html>

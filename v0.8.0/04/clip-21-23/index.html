@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-21-23 · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li class="current"><a class="toctext" href>clip-21-23</a><ul class="internal"></ul></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../clip-30s/">clip-30s</a></li><li><a class="toctext" href="../m4.2s/">m4.2s</a></li><li><a class="toctext" href="../m4.3s/">m4.3s</a></li><li><a class="toctext" href="../m4.4s/">m4.4s</a></li><li><a class="toctext" href="../m4.5s/">m4.5s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>clip-21-23</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-21-23.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-21-23</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed  for the snippets in chapter 0</p><div><pre><code class="language-julia">using StatisticalRethinking, CmdStan, StanMCMCChains
+gr(size=(500,500));</code></pre><pre><code class="language-none">Plots.GRBackend()</code></pre></div><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;04&quot;)
+cd(ProjDir)</code></pre></div><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;04&quot;)
+cd(ProjDir)</code></pre></div><div><pre><code class="language-julia">howell1 = CSV.read(rel_path(&quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
+df = convert(DataFrame, howell1);
+df2 = filter(row -&gt; row[:age] &gt;= 18, df);
+first(df2, 5)</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>5 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr></tbody></table></div><h3><a class="nav-anchor" id="Snippet-4.21-1" href="#Snippet-4.21-1">Snippet 4.21</a></h3><p>Sample 20 random heights</p><div><pre><code class="language-julia">n = size(df2, 1)
+selected_ind = sample(1:n, 20, replace=false);
+df3 = df2[selected_ind, :];</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>20 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>42.524</td><td>83.4</td><td>1</td></tr><tr><th>2</th><td>147.32</td><td>35.5503</td><td>66.0</td><td>0</td></tr><tr><th>3</th><td>153.67</td><td>48.3075</td><td>38.0</td><td>1</td></tr><tr><th>4</th><td>142.113</td><td>32.772</td><td>22.0</td><td>0</td></tr><tr><th>5</th><td>158.115</td><td>46.2664</td><td>45.0</td><td>1</td></tr><tr><th>6</th><td>156.21</td><td>44.3386</td><td>29.0</td><td>0</td></tr><tr><th>7</th><td>150.495</td><td>41.9006</td><td>55.0</td><td>0</td></tr><tr><th>8</th><td>157.988</td><td>48.591</td><td>28.0</td><td>1</td></tr><tr><th>9</th><td>157.48</td><td>45.5576</td><td>53.0</td><td>0</td></tr><tr><th>10</th><td>152.4</td><td>45.1608</td><td>38.0</td><td>0</td></tr><tr><th>11</th><td>155.575</td><td>42.099</td><td>26.0</td><td>0</td></tr><tr><th>12</th><td>151.13</td><td>46.1246</td><td>35.0</td><td>0</td></tr><tr><th>13</th><td>163.83</td><td>55.3949</td><td>43.0</td><td>1</td></tr><tr><th>14</th><td>154.94</td><td>48.2225</td><td>26.0</td><td>0</td></tr><tr><th>15</th><td>150.495</td><td>49.8101</td><td>50.0</td><td>0</td></tr><tr><th>16</th><td>160.02</td><td>48.1942</td><td>25.0</td><td>1</td></tr><tr><th>17</th><td>154.94</td><td>42.2408</td><td>26.0</td><td>1</td></tr><tr><th>18</th><td>170.815</td><td>59.7607</td><td>33.0</td><td>1</td></tr><tr><th>19</th><td>160.02</td><td>49.2714</td><td>23.0</td><td>1</td></tr><tr><th>20</th><td>152.4</td><td>44.6788</td><td>38.0</td><td>0</td></tr></tbody></table></div><h3><a class="nav-anchor" id="Snippet-4.22-1" href="#Snippet-4.22-1">Snippet 4.22</a></h3><p>Generate approximate probabilities</p><div><pre><code class="language-julia">struct Post
+  mu::Float64
+  sigma::Float64
+  ll:: Float64
+  prod::Float64
+  prob::Float64
+end
+
+mu_list = repeat(range(140, 170, length=200), 200);
+sigma_list = repeat(range(4, 20, length=200), inner=200);
+
+ll = zeros(40000);
+for i in 1:40000
+    d1 = Normal(mu_list[i], sigma_list[i])
+    ll[i] = sum(log.(pdf.(d1, df3[:height])))
+end
+
+d2 = Normal(178.0, 20.0)
+d3 = Uniform(0, 50)
+prod = ll + log.(pdf.(d2, mu_list)) + log.(pdf.(d3, sigma_list))
+prob = exp.(prod .- maximum(prod))
+post = DataFrame(mu=mu_list, sigma=sigma_list, ll=ll, prod=prod, prob=prob)
+first(post, 10)</code></pre><table class="data-frame"><thead><tr><th></th><th>mu</th><th>sigma</th><th>ll</th><th>prod</th><th>prob</th></tr><tr><th></th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th></tr></thead><tbody><p>10 rows × 5 columns</p><tr><th>1</th><td>140.0</td><td>4.0</td><td>-210.576</td><td>-220.207</td><td>7.64582e-65</td></tr><tr><th>2</th><td>140.151</td><td>4.0</td><td>-207.747</td><td>-217.365</td><td>1.31249e-63</td></tr><tr><th>3</th><td>140.302</td><td>4.0</td><td>-204.947</td><td>-214.55</td><td>2.18981e-62</td></tr><tr><th>4</th><td>140.452</td><td>4.0</td><td>-202.175</td><td>-211.764</td><td>3.55103e-61</td></tr><tr><th>5</th><td>140.603</td><td>4.0</td><td>-199.432</td><td>-209.007</td><td>5.59679e-60</td></tr><tr><th>6</th><td>140.754</td><td>4.0</td><td>-196.717</td><td>-206.277</td><td>8.57358e-59</td></tr><tr><th>7</th><td>140.905</td><td>4.0</td><td>-194.03</td><td>-203.577</td><td>1.27651e-57</td></tr><tr><th>8</th><td>141.055</td><td>4.0</td><td>-191.372</td><td>-200.905</td><td>1.84723e-56</td></tr><tr><th>9</th><td>141.206</td><td>4.0</td><td>-188.742</td><td>-198.261</td><td>2.59811e-55</td></tr><tr><th>10</th><td>141.357</td><td>4.0</td><td>-186.141</td><td>-195.646</td><td>3.55166e-54</td></tr></tbody></table></div><p>Sample post</p><div><pre><code class="language-julia">samples = post[sample(1:size(post, 1), Weights(post[:prob]), 10000, replace=true), :]</code></pre><table class="data-frame"><thead><tr><th></th><th>mu</th><th>sigma</th><th>ll</th><th>prod</th><th>prob</th></tr><tr><th></th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th></tr></thead><tbody><p>10,000 rows × 5 columns</p><tr><th>1</th><td>152.814</td><td>6.81407</td><td>-65.5299</td><td>-74.1495</td><td>0.206815</td></tr><tr><th>2</th><td>159.447</td><td>8.0201</td><td>-68.504</td><td>-76.7609</td><td>0.0151869</td></tr><tr><th>3</th><td>157.186</td><td>6.25126</td><td>-65.2637</td><td>-73.632</td><td>0.34702</td></tr><tr><th>4</th><td>153.869</td><td>4.96482</td><td>-65.4551</td><td>-74.0097</td><td>0.237853</td></tr><tr><th>5</th><td>154.171</td><td>6.01005</td><td>-64.3254</td><td>-72.8619</td><td>0.749523</td></tr><tr><th>6</th><td>157.94</td><td>7.29648</td><td>-66.3365</td><td>-74.6662</td><td>0.123367</td></tr><tr><th>7</th><td>153.266</td><td>5.84925</td><td>-65.0678</td><td>-73.6592</td><td>0.337701</td></tr><tr><th>8</th><td>154.472</td><td>5.76884</td><td>-64.2281</td><td>-72.7467</td><td>0.841047</td></tr><tr><th>9</th><td>154.171</td><td>6.73367</td><td>-64.5495</td><td>-73.086</td><td>0.599044</td></tr><tr><th>10</th><td>154.925</td><td>7.9397</td><td>-65.4622</td><td>-73.9544</td><td>0.251368</td></tr><tr><th>11</th><td>154.02</td><td>5.84925</td><td>-64.4321</td><td>-72.9776</td><td>0.667678</td></tr><tr><th>12</th><td>156.583</td><td>5.44724</td><td>-65.0219</td><td>-73.422</td><td>0.428114</td></tr><tr><th>13</th><td>156.281</td><td>6.73367</td><td>-64.6799</td><td>-73.0963</td><td>0.592939</td></tr><tr><th>14</th><td>157.638</td><td>6.01005</td><td>-65.8968</td><td>-74.2417</td><td>0.188597</td></tr><tr><th>15</th><td>153.719</td><td>7.77889</td><td>-65.5935</td><td>-74.1572</td><td>0.205243</td></tr><tr><th>16</th><td>155.377</td><td>8.98492</td><td>-66.7057</td><td>-75.1721</td><td>0.0743826</td></tr><tr><th>17</th><td>155.075</td><td>7.21608</td><td>-64.735</td><td>-73.2186</td><td>0.524654</td></tr><tr><th>18</th><td>158.693</td><td>7.61809</td><td>-67.3598</td><td>-75.6524</td><td>0.046015</td></tr><tr><th>19</th><td>155.829</td><td>6.41206</td><td>-64.3269</td><td>-72.768</td><td>0.823314</td></tr><tr><th>20</th><td>153.417</td><td>6.49246</td><td>-64.8897</td><td>-73.4718</td><td>0.407306</td></tr><tr><th>21</th><td>154.171</td><td>7.29648</td><td>-64.9642</td><td>-73.5007</td><td>0.3957</td></tr><tr><th>22</th><td>154.322</td><td>7.8593</td><td>-65.4651</td><td>-73.9926</td><td>0.241953</td></tr><tr><th>23</th><td>155.98</td><td>6.49246</td><td>-64.4184</td><td>-72.8512</td><td>0.757575</td></tr><tr><th>24</th><td>155.678</td><td>6.25126</td><td>-64.2252</td><td>-72.6747</td><td>0.903871</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table></div><h3><a class="nav-anchor" id="Snippet-4.23-1" href="#Snippet-4.23-1">Snippet 4.23</a></h3><p>Density of sigma</p><div><pre><code class="language-julia">density(samples[:sigma])</code></pre><?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" viewBox="0 0 2000 2000">
+<defs>
+  <clipPath id="clip5600">
+    <rect x="0" y="0" width="2000" height="2000"/>
+  </clipPath>
+</defs>
+<polygon clip-path="url(#clip5600)" points="
+0,2000 2000,2000 2000,0 0,0 
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<defs>
+  <clipPath id="clip5601">
+    <rect x="400" y="200" width="1401" height="1401"/>
+  </clipPath>
+</defs>
+<polygon clip-path="url(#clip5600)" points="
+94.4882,1937.01 1921.26,1937.01 1921.26,47.2441 94.4882,47.2441 
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<defs>
+  <clipPath id="clip5602">
+    <rect x="94" y="47" width="1828" height="1891"/>
+  </clipPath>
+</defs>
+<polyline clip-path="url(#clip5602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  366.383,1937.01 366.383,47.2441 
+  "/>
+<polyline clip-path="url(#clip5602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  706.983,1937.01 706.983,47.2441 
+  "/>
+<polyline clip-path="url(#clip5602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1047.58,1937.01 1047.58,47.2441 
+  "/>
+<polyline clip-path="url(#clip5602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1388.18,1937.01 1388.18,47.2441 
+  "/>
+<polyline clip-path="url(#clip5602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1728.78,1937.01 1728.78,47.2441 
+  "/>
+<polyline clip-path="url(#clip5602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  94.4882,1883.52 1921.26,1883.52 
+  "/>
+<polyline clip-path="url(#clip5602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  94.4882,1409.26 1921.26,1409.26 
+  "/>
+<polyline clip-path="url(#clip5602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  94.4882,935.001 1921.26,935.001 
+  "/>
+<polyline clip-path="url(#clip5602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  94.4882,460.739 1921.26,460.739 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  94.4882,1937.01 1921.26,1937.01 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  94.4882,1937.01 94.4882,47.2441 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  366.383,1937.01 366.383,1908.66 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  706.983,1937.01 706.983,1908.66 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1047.58,1937.01 1047.58,1908.66 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1388.18,1937.01 1388.18,1908.66 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1728.78,1937.01 1728.78,1908.66 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  94.4882,1883.52 121.89,1883.52 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  94.4882,1409.26 121.89,1409.26 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  94.4882,935.001 121.89,935.001 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  94.4882,460.739 121.89,460.739 
+  "/>
+<g clip-path="url(#clip5600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 366.383, 1989.01)" x="366.383" y="1989.01">5.0</text>
+</g>
+<g clip-path="url(#clip5600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 706.983, 1989.01)" x="706.983" y="1989.01">7.5</text>
+</g>
+<g clip-path="url(#clip5600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1047.58, 1989.01)" x="1047.58" y="1989.01">10.0</text>
+</g>
+<g clip-path="url(#clip5600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1388.18, 1989.01)" x="1388.18" y="1989.01">12.5</text>
+</g>
+<g clip-path="url(#clip5600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1728.78, 1989.01)" x="1728.78" y="1989.01">15.0</text>
+</g>
+<g clip-path="url(#clip5600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 1901.02)" x="74.4882" y="1901.02">0.0</text>
+</g>
+<g clip-path="url(#clip5600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 1426.76)" x="74.4882" y="1426.76">0.1</text>
+</g>
+<g clip-path="url(#clip5600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 952.501)" x="74.4882" y="952.501">0.2</text>
+</g>
+<g clip-path="url(#clip5600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 478.239)" x="74.4882" y="478.239">0.3</text>
+</g>
+<polyline clip-path="url(#clip5602)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
+  146.189,1883.52 154.849,1883.52 163.51,1883.5 172.17,1883.43 180.83,1883.24 189.49,1882.77 198.15,1881.73 206.81,1879.74 215.47,1876.38 224.131,1871.25 
+  232.791,1863.99 241.451,1854.18 250.111,1841.21 258.771,1824.26 267.431,1802.4 276.091,1774.66 284.752,1739.71 293.412,1695.76 302.072,1641.5 310.732,1577.85 
+  319.392,1508.74 328.052,1439.31 336.713,1372.48 345.373,1307.27 354.033,1240.41 362.693,1169.07 371.353,1091.96 380.013,1008.79 388.673,920.649 397.334,831.045 
+  405.994,745.199 414.654,666.795 423.314,595.641 431.974,529.207 440.634,465.947 449.294,406.142 457.955,349.934 466.615,296.457 475.275,245.861 483.935,200.885 
+  492.595,164.701 501.255,137.52 509.915,117.177 518.576,103.588 527.236,100.728 535.896,112.321 544.556,135.989 553.216,163.389 561.876,186.643 570.537,203.798 
+  579.197,218.117 587.857,234.089 596.517,255.773 605.177,287.736 613.837,334.276 622.497,395.759 631.158,466.485 639.818,537.727 648.478,603.302 657.138,662.156 
+  665.798,716.642 674.458,769.915 683.118,824.872 691.779,883.398 700.439,944.735 709.099,1004.75 717.759,1058.02 726.419,1101.46 735.079,1136.1 743.739,1165.94 
+  752.4,1195.3 761.06,1227.03 769.72,1262.15 778.38,1300.13 787.04,1338.88 795.7,1375.05 804.361,1405.45 813.021,1429.34 821.681,1449.38 830.341,1470.13 
+  839.001,1495.03 847.661,1524.66 856.321,1556.94 864.982,1588.66 873.642,1616.91 882.302,1640.03 890.962,1657.93 899.622,1671.7 908.282,1682.89 916.942,1692.88 
+  925.603,1702.75 934.263,1713.3 942.923,1724.88 951.583,1737.22 960.243,1749.61 968.903,1761.42 977.563,1772.34 986.224,1782.14 994.884,1790.51 1003.54,1797.23 
+  1012.2,1802.71 1020.86,1808.01 1029.52,1814.17 1038.18,1821.5 1046.84,1829.33 1055.5,1836.45 1064.16,1841.76 1072.83,1844.67 1081.49,1845.44 1090.15,1845.02 
+  1098.81,1844.65 1107.47,1845.21 1116.13,1846.71 1124.79,1848.35 1133.45,1849.16 1142.11,1848.76 1150.77,1847.71 1159.43,1847.21 1168.09,1848.37 1176.75,1851.5 
+  1185.41,1855.95 1194.07,1860.49 1202.73,1864.01 1211.39,1866.09 1220.05,1867.05 1228.71,1867.61 1237.37,1868.39 1246.03,1869.63 1254.69,1871.29 1263.35,1873.1 
+  1272.01,1874.75 1280.67,1875.99 1289.33,1876.75 1297.99,1877.13 1306.65,1877.38 1315.31,1877.68 1323.97,1878.12 1332.63,1878.65 1341.29,1879.21 1349.95,1879.77 
+  1358.61,1880.34 1367.27,1880.9 1375.93,1881.39 1384.59,1881.68 1393.25,1881.63 1401.91,1881.14 1410.57,1880.3 1419.23,1879.33 1427.89,1878.52 1436.55,1878.07 
+  1445.21,1878.01 1453.87,1878.24 1462.53,1878.65 1471.19,1879.18 1479.85,1879.86 1488.51,1880.68 1497.17,1881.55 1505.83,1882.32 1514.49,1882.89 1523.15,1883.24 
+  1531.81,1883.41 1540.47,1883.48 1549.13,1883.5 1557.79,1883.47 1566.45,1883.38 1575.11,1883.22 1583.77,1882.97 1592.43,1882.67 1601.09,1882.41 1609.75,1882.3 
+  1618.41,1882.39 1627.07,1882.63 1635.73,1882.93 1644.39,1883.19 1653.06,1883.37 1661.72,1883.46 1670.38,1883.5 1679.04,1883.52 1687.7,1883.52 1696.36,1883.52 
+  1705.02,1883.52 1713.68,1883.52 1722.34,1883.51 1731,1883.48 1739.66,1883.41 1748.32,1883.26 1756.98,1883.03 1765.64,1882.74 1774.3,1882.47 1782.96,1882.33 
+  1791.62,1882.37 1800.28,1882.57 1808.94,1882.86 1817.6,1883.13 1826.26,1883.33 1834.92,1883.44 1843.58,1883.49 1852.24,1883.52 1860.9,1883.52 1869.56,1883.52 
+  
+  "/>
+<polygon clip-path="url(#clip5600)" points="
+1610.43,227.724 1861.26,227.724 1861.26,106.764 1610.43,106.764 
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<polyline clip-path="url(#clip5600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1610.43,227.724 1861.26,227.724 1861.26,106.764 1610.43,106.764 1610.43,227.724 
+  "/>
+<polyline clip-path="url(#clip5600)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1630.43,167.244 1750.43,167.244 
+  "/>
+<g clip-path="url(#clip5600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:start;" transform="rotate(0, 1770.43, 184.744)" x="1770.43" y="184.744">y1</text>
+</g>
+</svg>
+</div><p>End of <code>clip-21-23.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-14-20/"><span class="direction">Previous</span><span class="title">clip-14-20</span></a><a class="next" href="../clip-24-29s/"><span class="direction">Next</span><span class="title">clip-24-29s</span></a></footer></article></body></html>

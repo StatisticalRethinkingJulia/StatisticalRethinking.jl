@@ -125,7 +125,7 @@ rc, sim, cnames = stan(stanmodel, lrdata, ProjDir, diagnostics=false,
   
 # Convert to a  Chain object
 
-cnames = ["intercept", "beta[1]", "sigma"]
+cnames = ["alpha", "beta[1]", "sigma"]
 chain = convert_a3d(sim, cnames, Val(:mcmcchains))
 
 # Describe the chains.
@@ -143,8 +143,8 @@ test_cut.OLSPrediction = predict(ols, test_cut);
 # Make a prediction given an input vector.
 
 function prediction(chain, x)
-    α = chain.value[:, 1, :]
-    β = [chain.value[:, i, :] for i in 2:2]
+    α = chain.value[:, 1, :];
+    β = [chain.value[:, i, :] for i in 2:2];
     return  mean(α) .+ x * mean.(β)
 end
 
@@ -175,5 +175,5 @@ println("  OLS loss: $ols_loss2")
 
 # Plot the chains.
 
-plot(chain)
+#plot(chain)
 

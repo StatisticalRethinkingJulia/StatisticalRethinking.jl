@@ -29,23 +29,23 @@ File /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs
 
 16-element Array{Int64,1}:
  5
+ 6
+ 9
+ 6
  7
- 6
- 4
- 5
- 6
+ 9
  8
- 5
- 7
- 5
- 8
- 7
- 7
- 4
  6
- 5</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">binomialdata = Dict(&quot;N&quot; =&gt; length(n2), &quot;n&quot; =&gt; n2, &quot;k&quot; =&gt; k2);</code></pre><pre><code class="language-none">Dict{String,Any} with 3 entries:
+ 6
+ 5
+ 5
+ 5
+ 6
+ 5
+ 5
+ 9</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">binomialdata = Dict(&quot;N&quot; =&gt; length(n2), &quot;n&quot; =&gt; n2, &quot;k&quot; =&gt; k2);</code></pre><pre><code class="language-none">Dict{String,Any} with 3 entries:
   &quot;N&quot; =&gt; 16
-  &quot;k&quot; =&gt; [5, 7, 6, 4, 5, 6, 8, 5, 7, 5, 8, 7, 7, 4, 6, 5]
+  &quot;k&quot; =&gt; [5, 6, 9, 6, 7, 9, 8, 6, 6, 5, 5, 5, 6, 5, 5, 9]
   &quot;n&quot; =&gt; [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME);</code></pre></div><p>Describe the draws</p><pre><code class="language-">describe(chn)</code></pre><p>Plot the 4 chains</p><pre><code class="language-">if rc == 0
   plot(chn)

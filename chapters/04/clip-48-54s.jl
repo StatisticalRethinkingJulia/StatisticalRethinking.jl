@@ -54,7 +54,7 @@ for i in 1:length(nvals)
   rc, chnN, cnames = stan(stanmodel, heightsdataN, ProjDir, diagnostics=false,
     summary=false, CmdStanDir=CMDSTAN_HOME)
 
-  rws, vars, chns = size(chnN[:, 1, :])
+  rws, vars, chns = size(chnN)
   xi = -15.0:0.1:15.0
   alpha_vals = convert(Vector{Float64}, reshape(chnN.value[:, 1, :], (rws*chns)))
   beta_vals = convert(Vector{Float64}, reshape(chnN.value[:, 2, :], (rws*chns)))
@@ -67,7 +67,7 @@ for i in 1:length(nvals)
 end
 plot(p..., layout=(2, 2))
 
-rws, vars, chns = size(chn[:, 1, :])
+rws, vars, chns = size(chn)
 mu_at_50 = link(50:10:50, chn, [1, 2], mean_weight);
 density(mu_at_50)
 

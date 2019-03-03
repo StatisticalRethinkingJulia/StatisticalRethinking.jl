@@ -88,8 +88,8 @@ train_cut.OLSPrediction = predict(ols);
 test_cut.OLSPrediction = predict(ols, test_cut);
 
 function prediction(chain, x)
-    α = chain[:, 1, :].value
-    β = [chain[:, i, :].value for i in 2:2]
+    α = chain.value[:, 1, :]
+    β = [chain.value[:, i, :] for i in 2:2]
     return  mean(α) .+ x * mean.(β)
 end
 

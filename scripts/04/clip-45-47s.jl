@@ -77,7 +77,7 @@ for i in 1:length(nvals)
     summary=false, CmdStanDir=CMDSTAN_HOME)
 
   xi = 30.0:0.1:65.0
-  rws, vars, chns = size(chnN[:, 1, :])
+  rws, vars, chns = size(chnN)
   alpha_vals = convert(Vector{Float64}, reshape(chnN.value[:, 1, :], (rws*chns)))
   beta_vals = convert(Vector{Float64}, reshape(chnN.value[:, 2, :], (rws*chns)))
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>m4.2s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../clip-30s/">clip-30s</a></li><li class="current"><a class="toctext" href>m4.2s</a><ul class="internal"></ul></li><li><a class="toctext" href="../m4.3s/">m4.3s</a></li><li><a class="toctext" href="../m4.4s/">m4.4s</a></li><li><a class="toctext" href="../m4.5s/">m4.5s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>m4.2s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.2s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>m4.2s</span><a class="fa fa-bars" href="#"></a></div></header><div><pre><code class="language-julia">using StatisticalRethinking, CmdStan, StanMCMCChains
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>m4.2s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../clip-30s/">clip-30s</a></li><li><a class="toctext" href="../clip-38s/">clip-38s</a></li><li><a class="toctext" href="../clip-43s/">clip-43s</a></li><li><a class="toctext" href="../clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../clip-48-54s/">clip-48-54s</a></li><li class="current"><a class="toctext" href>m4.2s</a><ul class="internal"></ul></li><li><a class="toctext" href="../m4.3s/">m4.3s</a></li><li><a class="toctext" href="../m4.4s/">m4.4s</a></li><li><a class="toctext" href="../m4.5s/">m4.5s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>m4.2s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.2s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>m4.2s</span><a class="fa fa-bars" href="#"></a></div></header><div><pre><code class="language-julia">using StatisticalRethinking, CmdStan, StanMCMCChains
 gr(size=(500,500));
 
 ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;04&quot;)
@@ -56,19 +56,19 @@ File /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs
 Inference for Stan model: heights_model
 4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
 
-Warmup took (0.024, 0.025, 0.024, 0.025) seconds, 0.098 seconds total
-Sampling took (0.032, 0.038, 0.038, 0.040) seconds, 0.15 seconds total
+Warmup took (0.025, 0.026, 0.024, 0.024) seconds, 0.099 seconds total
+Sampling took (0.043, 0.037, 0.032, 0.042) seconds, 0.15 seconds total
 
                  Mean     MCSE  StdDev     5%    50%    95%    N_Eff  N_Eff/s    R_hat
-lp__            -1301  2.3e-02    1.00  -1303  -1300  -1300  1.8e+03  1.2e+04  1.0e+00
-accept_stat__    0.91  3.1e-03    0.11   0.67   0.95    1.0  1.4e+03  9.3e+03  1.0e+00
-stepsize__       0.86  5.3e-02   0.075   0.76   0.86   0.98  2.0e+00  1.4e+01  4.3e+13
-treedepth__       2.0  7.8e-02    0.63    1.0    2.0    3.0  6.6e+01  4.5e+02  1.0e+00
-n_leapfrog__      4.5  5.3e-01     4.1    1.0    3.0     15  5.9e+01  4.0e+02  1.0e+00
+lp__            -1301  2.4e-02     1.0  -1303  -1300  -1300  2.0e+03  1.3e+04  1.0e+00
+accept_stat__    0.92  6.2e-03    0.11   0.69   0.96    1.0  3.1e+02  2.0e+03  1.0e+00
+stepsize__       0.88  5.9e-02   0.083   0.77   0.91   0.99  2.0e+00  1.3e+01  4.3e+13
+treedepth__       2.0  1.1e-01    0.63    1.0    2.0    3.0  3.4e+01  2.2e+02  1.0e+00
+n_leapfrog__      4.4  5.6e-01     3.6    1.0    3.0     11  4.2e+01  2.8e+02  1.0e+00
 divergent__      0.00     -nan    0.00   0.00   0.00   0.00     -nan     -nan     -nan
-energy__         1302  3.5e-02     1.4   1300   1301   1305  1.7e+03  1.2e+04  1.0e+00
-sigma              25  1.6e-02    0.95     23     25     26  3.4e+03  2.3e+04  1.0e+00
-mu                178  1.7e-03   0.098    178    178    178  3.3e+03  2.2e+04  1.0e+00
+energy__         1302  3.5e-02     1.4   1300   1301   1305  1.7e+03  1.1e+04  1.0e+00
+sigma              25  1.7e-02    0.96     23     25     26  3.0e+03  2.0e+04  1.0e+00
+mu                178  1.8e-03    0.10    178    178    178  3.2e+03  2.1e+04  1.0e+00
 
 Samples were drawn using hmc with nuts.
 For each parameter, N_Eff is a crude measure of effective sample size,
@@ -86,15 +86,15 @@ Empirical Posterior Estimates:
 ==================================================
 parameters
         Mean     SD   Naive SE  MCSE   ESS
-   mu 177.8655 0.0982   0.0016 0.0018 1000
-sigma  24.5780 0.9456   0.0150 0.0172 1000
+   mu 177.8640 0.1001   0.0016 0.0019 1000
+sigma  24.6318 0.9606   0.0152 0.0187 1000
 
 Quantiles:
 ==================================================
 parameters
         2.5%     25.0%    50.0%    75.0%    97.5%
-   mu 177.5100 177.7980 177.8650 177.9310 178.2600
-sigma  21.5543  23.9412  24.5411  25.1783  28.4134
+   mu 177.5340 177.7980 177.8640 177.9310 178.1950
+sigma  21.6955  23.9615  24.5887  25.2564  28.3578
 
 Log evidence      = 0.0
 Iterations        = 1:1000
@@ -107,12 +107,12 @@ Empirical Posterior Estimates:
 ==================================================
 parameters
         Mean     SD   Naive SE  MCSE   ESS
-   mu 177.8655 0.0982   0.0016 0.0018 1000
-sigma  24.5780 0.9456   0.0150 0.0172 1000
+   mu 177.8640 0.1001   0.0016 0.0019 1000
+sigma  24.6318 0.9606   0.0152 0.0187 1000
 
 Quantiles:
 ==================================================
 parameters
         2.5%     25.0%    50.0%    75.0%    97.5%
-   mu 177.5100 177.7980 177.8650 177.9310 178.2600
-sigma  21.5543  23.9412  24.5411  25.1783  28.4134</code></pre></div><p>end of m4.2s#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-30s/"><span class="direction">Previous</span><span class="title">clip-30s</span></a><a class="next" href="../m4.3s/"><span class="direction">Next</span><span class="title">m4.3s</span></a></footer></article></body></html>
+   mu 177.5340 177.7980 177.8640 177.9310 178.1950
+sigma  21.6955  23.9615  24.5887  25.2564  28.3578</code></pre></div><p>end of m4.2s#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-48-54s/"><span class="direction">Previous</span><span class="title">clip-48-54s</span></a><a class="next" href="../m4.3s/"><span class="direction">Next</span><span class="title">m4.3s</span></a></footer></article></body></html>

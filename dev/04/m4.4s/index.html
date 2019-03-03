@@ -52,6 +52,62 @@ Dict{String,Any} with 3 entries:
   &quot;height&quot; =&gt; Union{Missing, Float64}[151.765, 139.7, 136.525, 156.845, 145.415…
   &quot;weight&quot; =&gt; [2.83512, -8.50468, -13.1256, 8.05143, -3.71361, 18.0021, -6.7470…
   &quot;N&quot;      =&gt; 352</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  summary=false, CmdStanDir=CMDSTAN_HOME);</code></pre></div><p>Describe the draws</p><pre><code class="language- 4s">describe(chn)</code></pre><p>Save the chains in a JLS file</p><pre><code class="language- 4s">serialize(&quot;m4.4s.jls&quot;, chn)
+  summary=false, CmdStanDir=CMDSTAN_HOME);</code></pre></div><p>Describe the draws</p><div><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">Log evidence      = 0.0
+Iterations        = 1:1000
+Thinning interval = 1
+Chains            = Chain1, Chain2, Chain3, Chain4
+Samples per chain = 1000
+parameters        = alpha, beta, sigma
 
-chn2 = deserialize(&quot;m4.4s.jls&quot;)</code></pre><p>Should be identical to earlier result</p><pre><code class="language- 4s">describe(chn2)</code></pre><p>End of <code>m4.4s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.3s/"><span class="direction">Previous</span><span class="title">m4.3s</span></a><a class="next" href="../m4.5s/"><span class="direction">Next</span><span class="title">m4.5s</span></a></footer></article></body></html>
+Empirical Posterior Estimates:
+==================================================
+parameters
+        Mean     SD   Naive SE  MCSE   ESS
+alpha 154.6009 0.2784   0.0044 0.0040 1000
+ beta   0.9052 0.0422   0.0007 0.0008 1000
+sigma   5.1081 0.1978   0.0031 0.0027 1000
+
+Quantiles:
+==================================================
+parameters
+        2.5%     25.0%    50.0%    75.0%    97.5%
+alpha 153.6350 154.4160 154.5980 154.7852 155.7370
+ beta   0.7589   0.8761   0.9042   0.9341   1.0667
+sigma   4.4204   4.9705   5.1029   5.2371   5.8404</code></pre></div><p>Save the chains in a JLS file</p><div><pre><code class="language-julia">serialize(&quot;m4.4s.jls&quot;, chn)
+
+chn2 = deserialize(&quot;m4.4s.jls&quot;)</code></pre><pre><code class="language-none">Object of type Chains, with data of type 1000×3×4 Array{Union{Missing, Float64},3}
+
+Log evidence      = 0.0
+Iterations        = 1:1000
+Thinning interval = 1
+Chains            = Chain1, Chain2, Chain3, Chain4
+Samples per chain = 1000
+internals         =
+parameters        = alpha, beta, sigma
+
+parameters
+        Mean     SD   Naive SE  MCSE   ESS
+alpha 154.6009 0.2784   0.0044 0.0040 1000
+ beta   0.9052 0.0422   0.0007 0.0008 1000
+sigma   5.1081 0.1978   0.0031 0.0027 1000</code></pre></div><p>Should be identical to earlier result</p><div><pre><code class="language-julia">describe(chn2)</code></pre><pre><code class="language-none">Log evidence      = 0.0
+Iterations        = 1:1000
+Thinning interval = 1
+Chains            = Chain1, Chain2, Chain3, Chain4
+Samples per chain = 1000
+parameters        = alpha, beta, sigma
+
+Empirical Posterior Estimates:
+==================================================
+parameters
+        Mean     SD   Naive SE  MCSE   ESS
+alpha 154.6009 0.2784   0.0044 0.0040 1000
+ beta   0.9052 0.0422   0.0007 0.0008 1000
+sigma   5.1081 0.1978   0.0031 0.0027 1000
+
+Quantiles:
+==================================================
+parameters
+        2.5%     25.0%    50.0%    75.0%    97.5%
+alpha 153.6350 154.4160 154.5980 154.7852 155.7370
+ beta   0.7589   0.8761   0.9042   0.9341   1.0667
+sigma   4.4204   4.9705   5.1029   5.2371   5.8404</code></pre></div><p>End of <code>m4.4s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.3s/"><span class="direction">Previous</span><span class="title">m4.3s</span></a><a class="next" href="../m4.5s/"><span class="direction">Next</span><span class="title">m4.5s</span></a></footer></article></body></html>

@@ -26,8 +26,71 @@ generated quantities {
 &quot;;</code></pre><pre><code class="language-none">&quot;\ndata {\n int &lt; lower = 1 &gt; N; // Sample size\n vector[N] height; // Predictor\n vector[N] weight; // Outcome\n}\n\nparameters {\n real alpha; // Intercept\n real beta; // Slope (regression coefficients)\n real &lt; lower = 0 &gt; sigma; // Error SD\n}\n\nmodel {\n height ~ normal(alpha + weight * beta , sigma);\n}\n\ngenerated quantities {\n}\n&quot;</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchains.</p><div><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;weights&quot;, monitors = [&quot;alpha&quot;, &quot;beta&quot;, &quot;sigma&quot;],model=weightsmodel,
   output_format=:mcmcchains);</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">heightsdata = Dict(&quot;N&quot; =&gt; length(df2[:height]), &quot;height&quot; =&gt; df2[:height],
   &quot;weight&quot; =&gt; df2[:weight]);</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  summary=false, CmdStanDir=CMDSTAN_HOME)</code></pre></div><p>Describe the draws</p><pre><code class="language- 3s">describe(chn)</code></pre><p>Save the chains in a JLD file</p><pre><code class="language- 3s">serialize(&quot;m4.3s.jls&quot;, chn)
+  summary=false, CmdStanDir=CMDSTAN_HOME)</code></pre></div><p>Describe the draws</p><div><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">Log evidence      = 0.0
+Iterations        = 1:1000
+Thinning interval = 1
+Chains            = Chain1, Chain2, Chain3, Chain4
+Samples per chain = 1000
+parameters        = alpha, beta, sigma
+
+Empirical Posterior Estimates:
+==================================================
+parameters
+        Mean     SD   Naive SE  MCSE     ESS
+alpha 113.9246 1.9575   0.0310 0.0667  861.2950
+ beta   0.9042 0.0431   0.0007 0.0015  849.8444
+sigma   5.1101 0.1939   0.0031 0.0049 1000.0000
+
+Quantiles:
+==================================================
+parameters
+        2.5%     25.0%    50.0%    75.0%    97.5%
+alpha 106.3560 112.6008 113.9380 115.2700 122.1360
+ beta   0.7287   0.8742   0.9040   0.9335   1.0772
+sigma   4.5544   4.9742   5.1049   5.2412   5.8897</code></pre></div><p>Save the chains in a JLD file</p><div><pre><code class="language-julia">serialize(&quot;m4.3s.jls&quot;, chn)
 
 chn2 = deserialize(&quot;m4.3s.jls&quot;)
 
-describe(chn2)</code></pre><p>Should be identical to earlier result</p><pre><code class="language- 3s">describe(chn2)</code></pre><p>End of <code>m4.3s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.2s/"><span class="direction">Previous</span><span class="title">m4.2s</span></a><a class="next" href="../m4.4s/"><span class="direction">Next</span><span class="title">m4.4s</span></a></footer></article></body></html>
+describe(chn2)</code></pre><pre><code class="language-none">Log evidence      = 0.0
+Iterations        = 1:1000
+Thinning interval = 1
+Chains            = Chain1, Chain2, Chain3, Chain4
+Samples per chain = 1000
+parameters        = alpha, beta, sigma
+
+Empirical Posterior Estimates:
+==================================================
+parameters
+        Mean     SD   Naive SE  MCSE     ESS
+alpha 113.9246 1.9575   0.0310 0.0667  861.2950
+ beta   0.9042 0.0431   0.0007 0.0015  849.8444
+sigma   5.1101 0.1939   0.0031 0.0049 1000.0000
+
+Quantiles:
+==================================================
+parameters
+        2.5%     25.0%    50.0%    75.0%    97.5%
+alpha 106.3560 112.6008 113.9380 115.2700 122.1360
+ beta   0.7287   0.8742   0.9040   0.9335   1.0772
+sigma   4.5544   4.9742   5.1049   5.2412   5.8897</code></pre></div><p>Should be identical to earlier result</p><div><pre><code class="language-julia">describe(chn2)</code></pre><pre><code class="language-none">Log evidence      = 0.0
+Iterations        = 1:1000
+Thinning interval = 1
+Chains            = Chain1, Chain2, Chain3, Chain4
+Samples per chain = 1000
+parameters        = alpha, beta, sigma
+
+Empirical Posterior Estimates:
+==================================================
+parameters
+        Mean     SD   Naive SE  MCSE     ESS
+alpha 113.9246 1.9575   0.0310 0.0667  861.2950
+ beta   0.9042 0.0431   0.0007 0.0015  849.8444
+sigma   5.1101 0.1939   0.0031 0.0049 1000.0000
+
+Quantiles:
+==================================================
+parameters
+        2.5%     25.0%    50.0%    75.0%    97.5%
+alpha 106.3560 112.6008 113.9380 115.2700 122.1360
+ beta   0.7287   0.8742   0.9040   0.9335   1.0772
+sigma   4.5544   4.9742   5.1049   5.2412   5.8897</code></pre></div><p>End of <code>m4.3s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.2s/"><span class="direction">Previous</span><span class="title">m4.2s</span></a><a class="next" href="../m4.4s/"><span class="direction">Next</span><span class="title">m4.4s</span></a></footer></article></body></html>

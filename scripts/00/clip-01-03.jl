@@ -36,3 +36,5 @@ x = exp(x)
 # ### snippet 0.3
 
 [log(0.01^200) 200 * log(0.01)]
+
+# End of `00/clip-01-03.jl`

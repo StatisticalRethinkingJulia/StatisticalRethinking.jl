@@ -5,7 +5,7 @@ using Reexport
 @reexport using Distributions, RDatasets, DataFrames
 @reexport using StatsBase, StatsPlots, StatsFuns 
 @reexport using CSV, DelimitedFiles, Serialization
-@reexport using MCMCChains
+@reexport using MCMCChains, QueryTables, IterableTables
 
 using DataStructures
 
@@ -29,6 +29,7 @@ include("link.jl")
 include("scriptentry.jl")
 include("generate.jl")
 include("quap.jl")
+include("to_df.jl")
 
 export
   link,
@@ -37,6 +38,7 @@ export
   scriptentry,
   script_dict,
   generate,
-  quap
+  quap,
+  todf
 
 end # module

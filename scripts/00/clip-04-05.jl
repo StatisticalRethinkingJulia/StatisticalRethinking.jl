@@ -25,7 +25,5 @@ coef(m)
 
 scatter( cars[:Speed], residuals(m), xlab="Speed",
 ylab="Model residual values", lab="Model residuals")
-
-#-
   
-# End of `clip_04_05.jl`
+# End of `00/clip-04-05.jl`

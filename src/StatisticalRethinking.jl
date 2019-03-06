@@ -5,7 +5,7 @@ using Reexport
 @reexport using Distributions, RDatasets, DataFrames
 @reexport using StatsBase, StatsPlots, StatsFuns 
 @reexport using CSV, DelimitedFiles, Serialization
-@reexport using MCMCChains, QueryTables, IterableTables
+@reexport using MCMCChains
 
 using DataStructures
 

@@ -39,6 +39,6 @@ export
   script_dict,
   generate,
   quap,
-  todf
+  to_df
 
 end # module

@@ -32,7 +32,7 @@ include("generate.jl")
 include("quap.jl")
 include("to_df.jl")
 include("sampling.jl")
-include("shadling.jl")
+include("shading.jl")
 
 export
   link,

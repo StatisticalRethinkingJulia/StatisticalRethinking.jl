@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
-using CmdStan, StanMCMCChains
+using CmdStan, StanMCMCChains, KernelDensity
 gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
@@ -62,19 +62,3 @@ rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
 
 describe(chn)
 
-# Plot the density of posterior draws
-
-plot(chn)
-
-# Plot regression line using means and observations
-
-scatter(df2[:weight_c], df2[:height], lab="Observations",
-  ylab="height [cm]", xlab="weight[kg]")
-xi = -16.0:0.1:18.0
-rws, vars, chns = size(chn)
-alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)));
-beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)));
-yi = mean(alpha_vals) .+ mean(beta_vals)*xi;
-plot!(xi, yi, lab="Regression line")
-
-# End of `clip-43s.jl`

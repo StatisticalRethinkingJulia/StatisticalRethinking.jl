@@ -5,9 +5,10 @@ using Reexport
 @reexport using Distributions, RDatasets, DataFrames
 @reexport using StatsBase, StatsPlots, StatsFuns 
 @reexport using CSV, DelimitedFiles, Serialization
-@reexport using MCMCChains
+@reexport using MCMCChains, KernelDensity
 
 using DataStructures
+import StatsBase: sample
 
 const src_path = @__DIR__
 
@@ -30,6 +31,8 @@ include("scriptentry.jl")
 include("generate.jl")
 include("quap.jl")
 include("to_df.jl")
+include("sampling.jl")
+include("shadling.jl")
 
 export
   link,
@@ -39,6 +42,8 @@ export
   script_dict,
   generate,
   quap,
-  to_df
+  to_df,
+  #shade,
+  sample
 
 end # module

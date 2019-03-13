@@ -37,7 +37,7 @@ samples = sample(p_grid, Weights(posterior), N);
 # In StatisticalRethinkingJulia samples will always be stored
 # in an MCMCChains.Chains object. 
 
-chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [:toss]);
+chn = MCMCChains.Chains(reshape(samples, N, 1, 1), ["toss"]);
 
 # Describe the chain
 

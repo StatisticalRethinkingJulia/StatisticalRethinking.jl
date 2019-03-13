@@ -77,7 +77,7 @@ lrdata = Dict("N" => size(train, 1), "K" => size(dmat, 2), "y" => train_label, "
 rc, sim, cnames = stan(stanmodel, lrdata, ProjDir, diagnostics=false,
   summary=false, CmdStanDir=CMDSTAN_HOME);
 
-cnames = ["intercept", "beta[1]", "sigma"]
+cnames = ["alpha", "beta[1]", "sigma"]
 chain = convert_a3d(sim, cnames, Val(:mcmcchains))
 
 describe(chain)
@@ -88,8 +88,8 @@ train_cut.OLSPrediction = predict(ols);
 test_cut.OLSPrediction = predict(ols, test_cut);
 
 function prediction(chain, x)
-    α = chain.value[:, 1, :]
-    β = [chain.value[:, i, :] for i in 2:2]
+    α = chain.value[:, 1, :];
+    β = [chain.value[:, i, :] for i in 2:2];
     return  mean(α) .+ x * mean.(β)
 end
 
@@ -114,7 +114,7 @@ println("Test set:")
 println("  Bayes loss: $bayes_loss2")
 println("  OLS loss: $ols_loss2")
 
-plot(chain)
+#plot(chain)
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

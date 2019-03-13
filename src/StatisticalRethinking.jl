@@ -30,19 +30,20 @@ include("link.jl")
 include("scriptentry.jl")
 include("generate.jl")
 include("quap.jl")
-include("to_df.jl")
+include("utils.jl")
 include("sampling.jl")
 include("shading.jl")
 
 export
-  link,
   rel_path,
   ScriptEntry,
   scriptentry,
   script_dict,
   generate,
   quap,
+  link,
   to_df,
+  chain_to_array,
   #shade,
   sample
 

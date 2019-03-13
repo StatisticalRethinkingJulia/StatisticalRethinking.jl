@@ -31,3 +31,19 @@ function to_df(chn::MCMCChains.AbstractChains, sections=Nothing)
   end
   df
 end
+
+function chain_to_array(chn::MCMCChains.AbstractChains)
+  local a
+  println(names(chn))
+  for (i, par) in enumerate(names(chn))
+    println([i, par])
+    x = get(chn, Symbol(par))
+    d, c = size(x[Symbol(par)])
+    if i == 1
+      a = reshape(convert(Array{Float64}, x[Symbol(par)]), d*c)[:, 1]
+    else
+      a = hcat(a, reshape(convert(Array{Float64}, x[Symbol(par)]), d*c)[:, 1])
+    end
+  end
+  a
+end  

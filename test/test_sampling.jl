@@ -19,4 +19,8 @@ display(chn_sample)
 println()
 
 s = kde(df[:sigma])
-#plot(s.x, s.density)
+plot(s.x, s.density)
+
+c = kde(par_to_array(chn, :sigma))
+plot!(c.x, c.density)
+

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>m4.5s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../clip-30s/">clip-30s</a></li><li><a class="toctext" href="../clip-38s/">clip-38s</a></li><li><a class="toctext" href="../clip-43s/">clip-43s</a></li><li><a class="toctext" href="../clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../clip-48-54s/">clip-48-54s</a></li><li><a class="toctext" href="../m4.2s/">m4.2s</a></li><li><a class="toctext" href="../m4.3s/">m4.3s</a></li><li><a class="toctext" href="../m4.4s/">m4.4s</a></li><li class="current"><a class="toctext" href>m4.5s</a><ul class="internal"></ul></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>m4.5s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/m4.5s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>m4.5s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed  for the snippets in chapter 0</p><div><pre><code class="language-julia">using StatisticalRethinking
+using CmdStan, StanMCMCChains
+gr(size=(500,500));</code></pre><pre><code class="language-none">Plots.GRBackend()</code></pre></div><p>CmdStan uses a tmp directory to store the output of cmdstan</p><div><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;04&quot;)
+cd(ProjDir)</code></pre></div><h3><a class="nav-anchor" id="snippet-4.7-1" href="#snippet-4.7-1">snippet 4.7</a></h3><div><pre><code class="language-julia">howell1 = CSV.read(rel_path(&quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
+df = convert(DataFrame, howell1);</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>544 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>6</th><td>163.83</td><td>62.9926</td><td>35.0</td><td>1</td></tr><tr><th>7</th><td>149.225</td><td>38.2435</td><td>32.0</td><td>0</td></tr><tr><th>8</th><td>168.91</td><td>55.48</td><td>27.0</td><td>1</td></tr><tr><th>9</th><td>147.955</td><td>34.8699</td><td>19.0</td><td>0</td></tr><tr><th>10</th><td>165.1</td><td>54.4877</td><td>54.0</td><td>1</td></tr><tr><th>11</th><td>154.305</td><td>49.8951</td><td>47.0</td><td>0</td></tr><tr><th>12</th><td>151.13</td><td>41.2202</td><td>66.0</td><td>1</td></tr><tr><th>13</th><td>144.78</td><td>36.0322</td><td>73.0</td><td>0</td></tr><tr><th>14</th><td>149.9</td><td>47.7</td><td>20.0</td><td>0</td></tr><tr><th>15</th><td>150.495</td><td>33.8493</td><td>65.3</td><td>0</td></tr><tr><th>16</th><td>163.195</td><td>48.5627</td><td>36.0</td><td>1</td></tr><tr><th>17</th><td>157.48</td><td>42.3258</td><td>44.0</td><td>1</td></tr><tr><th>18</th><td>143.942</td><td>38.3569</td><td>31.0</td><td>0</td></tr><tr><th>19</th><td>121.92</td><td>19.6179</td><td>12.0</td><td>1</td></tr><tr><th>20</th><td>105.41</td><td>13.948</td><td>8.0</td><td>0</td></tr><tr><th>21</th><td>86.36</td><td>10.4893</td><td>6.5</td><td>0</td></tr><tr><th>22</th><td>161.29</td><td>48.9879</td><td>39.0</td><td>1</td></tr><tr><th>23</th><td>156.21</td><td>42.7227</td><td>29.0</td><td>0</td></tr><tr><th>24</th><td>129.54</td><td>23.5868</td><td>13.0</td><td>1</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table></div><p>Use only adults</p><div><pre><code class="language-julia">df2 = filter(row -&gt; row[:age] &gt;= 18, df)
+df2[:height] = convert(Vector{Float64}, df2[:height]);
+df2[:weight] = convert(Vector{Float64}, df2[:weight]);
+df2[:weight_s] = (df2[:weight] .- mean(df2[:weight])) / std(df2[:weight]);
+df2[:weight_s2] = df2[:weight_s] .^ 2;</code></pre><pre><code class="language-none">352-element Array{Float64,1}:
+ 0.19280615097192907
+ 1.7349763044783346
+ 4.1325600023146265
+ 1.5549757699350777
+ 0.3308042660851645
+ 7.7736359966100865
+ 1.0919440933750901
+ 2.6392838898982456
+ 2.45691571770544
+ 2.163583954566629
+ ⋮
+ 0.2005950450601446
+ 0.748125332136797
+ 0.37244351134337544
+ 0.416550377673148
+ 0.0999553970190397
+ 2.7690646673659187
+ 1.2340428738476732
+ 1.9741712709264059
+ 1.3641165169515888</code></pre></div><p>Define the Stan language model</p><div><pre><code class="language-julia">weightsmodel = &quot;
+data{
+    int N;
+    real height[N];
+    real weight_s2[N];
+    real weight_s[N];
+}
+parameters{
+    real a;
+    real b1;
+    real b2;
+    real sigma;
+}
+model{
+    vector[N] mu;
+    sigma ~ uniform( 0 , 50 );
+    b2 ~ normal( 0 , 10 );
+    b1 ~ normal( 0 , 10 );
+    a ~ normal( 178 , 100 );
+    for ( i in 1:N ) {
+        mu[i] = a + b1 * weight_s[i] + b2 * weight_s2[i];
+    }
+    height ~ normal( mu , sigma );
+}
+&quot;;</code></pre><pre><code class="language-none">&quot;\ndata{\n    int N;\n    real height[N];\n    real weight_s2[N];\n    real weight_s[N];\n}\nparameters{\n    real a;\n    real b1;\n    real b2;\n    real sigma;\n}\nmodel{\n    vector[N] mu;\n    sigma ~ uniform( 0 , 50 );\n    b2 ~ normal( 0 , 10 );\n    b1 ~ normal( 0 , 10 );\n    a ~ normal( 178 , 100 );\n    for ( i in 1:N ) {\n        mu[i] = a + b1 * weight_s[i] + b2 * weight_s2[i];\n    }\n    height ~ normal( mu , sigma );\n}\n&quot;</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchains.</p><div><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;weights&quot;, monitors = [&quot;a&quot;, &quot;b1&quot;, &quot;b2&quot;, &quot;sigma&quot;],
+model=weightsmodel,  output_format=:mcmcchains);</code></pre><pre><code class="language-none">
+File /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan will be updated.</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">heightsdata = Dict(&quot;N&quot; =&gt; size(df2, 1), &quot;height&quot; =&gt; df2[:height],
+&quot;weight_s&quot; =&gt; df2[:weight_s], &quot;weight_s2&quot; =&gt; df2[:weight_s2]);</code></pre><pre><code class="language-none">Dict{String,Any} with 4 entries:
+  &quot;weight_s2&quot; =&gt; [0.192806, 1.73498, 4.13256, 1.55498, 0.330804, 7.77364, 1.091…
+  &quot;height&quot;    =&gt; [151.765, 139.7, 136.525, 156.845, 145.415, 163.83, 149.225, 1…
+  &quot;weight_s&quot;  =&gt; [0.439097, -1.31718, -2.03287, 1.24699, -0.575156, 2.78812, -1…
+  &quot;N&quot;         =&gt; 352</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
+CmdStanDir=CMDSTAN_HOME);</code></pre><pre><code class="language-none">Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -1938.72, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -1960.11, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -464.702, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -113.254, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -20.8341, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -21.4278, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -5371.51, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -5344.79, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -1347.49, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -328.691, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -72.4397, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -15.7826, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -889.043, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -900.387, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -214.617, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -50.7306, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -7.14192, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -4.53296, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -35.8635, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -98.3081, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -99.6397, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -18.3469, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -40.6438, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -5.00311, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan&#39; at line 22)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+
+Inference for Stan model: weights_model
+4 chains: each with iter=(1000,1000,1000,1000); warmup=(0,0,0,0); thin=(1,1,1,1); 4000 iterations saved.
+
+Warmup took (0.39, 0.59, 0.41, 0.42) seconds, 1.8 seconds total
+Sampling took (0.23, 0.18, 0.21, 0.25) seconds, 0.88 seconds total
+
+                    Mean     MCSE  StdDev     5%       50%   95%    N_Eff  N_Eff/s    R_hat
+lp__            -7.5e+02  3.1e-02     1.4   -752  -7.5e+02  -748  2.0e+03  2.2e+03  1.0e+00
+accept_stat__    9.1e-01  5.3e-03    0.11   0.69   9.5e-01   1.0  4.1e+02  4.6e+02  1.0e+00
+stepsize__       5.7e-01  5.5e-02   0.078   0.46   6.3e-01  0.66  2.0e+00  2.3e+00  7.2e+13
+treedepth__      2.6e+00  2.4e-02    0.57    2.0   3.0e+00   3.0  5.5e+02  6.3e+02  1.0e+00
+n_leapfrog__     6.6e+00  3.7e-01     3.9    3.0   7.0e+00    15  1.1e+02  1.3e+02  1.0e+00
+divergent__      0.0e+00     -nan    0.00   0.00   0.0e+00  0.00     -nan     -nan     -nan
+energy__         7.5e+02  4.9e-02     2.0    749   7.5e+02   755  1.6e+03  1.9e+03  1.0e+00
+a                1.5e+02  6.3e-03    0.35    154   1.5e+02   155  3.1e+03  3.5e+03  1.0e+00
+b1               5.8e+00  4.5e-03    0.27    5.4   5.8e+00   6.3  3.6e+03  4.0e+03  1.0e+00
+b2              -1.6e-02  4.4e-03    0.22  -0.38  -2.3e-02  0.37  2.7e+03  3.0e+03  1.0e+00
+sigma            5.1e+00  3.2e-03    0.20    4.8   5.1e+00   5.4  3.8e+03  4.3e+03  1.0e+00
+
+Samples were drawn using hmc with nuts.
+For each parameter, N_Eff is a crude measure of effective sample size,
+and R_hat is the potential scale reduction factor on split chains (at
+convergence, R_hat=1).
+
+(0, Object of type Chains, with data of type 1000×4×4 Array{Float64,3}
+
+Log evidence      = 0.0
+Iterations        = 1:1000
+Thinning interval = 1
+Chains            = 1, 2, 3, 4
+Samples per chain = 1000
+internals         =
+parameters        = a, b1, b2, sigma
+
+parameters
+        Mean     SD   Naive SE  MCSE   ESS
+    a 154.6102 0.3502   0.0055 0.0058 1000
+   b1   5.8418 0.2702   0.0043 0.0044 1000
+   b2  -0.0157 0.2249   0.0036 0.0043 1000
+sigma   5.1089 0.1956   0.0031 0.0030 1000
+
+, [&quot;a&quot;, &quot;b1&quot;, &quot;b2&quot;, &quot;sigma&quot;])</code></pre></div><p>Describe the draws</p><div><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">Log evidence      = 0.0
+Iterations        = 1:1000
+Thinning interval = 1
+Chains            = 1, 2, 3, 4
+Samples per chain = 1000
+parameters        = a, b1, b2, sigma
+
+Empirical Posterior Estimates
+──────────────────────────────────────────────────
+parameters
+        Mean     SD   Naive SE  MCSE   ESS
+    a 154.6102 0.3502   0.0055 0.0058 1000
+   b1   5.8418 0.2702   0.0043 0.0044 1000
+   b2  -0.0157 0.2249   0.0036 0.0043 1000
+sigma   5.1089 0.1956   0.0031 0.0030 1000
+
+Quantiles
+──────────────────────────────────────────────────
+parameters
+        2.5%     25.0%    50.0%    75.0%    97.5%
+    a 153.3870 154.3770 154.6125 154.8530 155.7590
+   b1   4.9580   5.6612   5.8384   6.0219   6.7869
+   b2  -0.7224  -0.1672  -0.0227   0.1388   0.7730
+sigma   4.5465   4.9763   5.1021   5.2378   5.9687</code></pre></div><p>End of <code>m4.5s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../m4.4s/"><span class="direction">Previous</span><span class="title">m4.4s</span></a><a class="next" href="../../"><span class="direction">Next</span><span class="title">Functions</span></a></footer></article></body></html>

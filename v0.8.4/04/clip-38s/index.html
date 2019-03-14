@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-38s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-16s/">clip-06-16s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../clip-30s/">clip-30s</a></li><li class="current"><a class="toctext" href>clip-38s</a><ul class="internal"><li><a class="toctext" href="#Linear-Regression-1">Linear Regression</a></li></ul></li><li><a class="toctext" href="../clip-43s/">clip-43s</a></li><li><a class="toctext" href="../clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../clip-48-54s/">clip-48-54s</a></li><li><a class="toctext" href="../m4.2s/">m4.2s</a></li><li><a class="toctext" href="../m4.3s/">m4.3s</a></li><li><a class="toctext" href="../m4.4s/">m4.4s</a></li><li><a class="toctext" href="../m4.5s/">m4.5s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>clip-38s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-38s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-38s</span><a class="fa fa-bars" href="#"></a></div></header><h2><a class="nav-anchor" id="Linear-Regression-1" href="#Linear-Regression-1">Linear Regression</a></h2><h3><a class="nav-anchor" id="Added-snippet-used-as-a-reference-for-all-models-1" href="#Added-snippet-used-as-a-reference-for-all-models-1">Added snippet used as a reference for all models</a></h3><p>This model is based on the TuringTutorial example <a href="https://github.com/TuringLang/TuringTutorials/blob/csp/linear/LinearRegression.ipynb">LinearRegression</a> by Cameron Pfiffer.</p><p>Turing is powerful when applied to complex hierarchical models, but it can also be put to task at common statistical procedures, like linear regression. This tutorial covers how to implement a linear regression model in Turing.</p><p>We begin by importing all the necessary libraries.</p><div><pre><code class="language-julia">using StatisticalRethinking, CmdStan, StanMCMCChains, GLM
+gr(size=(500,500))
+
+ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;00&quot;)
+cd(ProjDir)</code></pre></div><p>Import the dataset.</p><div><pre><code class="language-julia">howell1 = CSV.read(rel_path(&quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
+df = convert(DataFrame, howell1);</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>544 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>6</th><td>163.83</td><td>62.9926</td><td>35.0</td><td>1</td></tr><tr><th>7</th><td>149.225</td><td>38.2435</td><td>32.0</td><td>0</td></tr><tr><th>8</th><td>168.91</td><td>55.48</td><td>27.0</td><td>1</td></tr><tr><th>9</th><td>147.955</td><td>34.8699</td><td>19.0</td><td>0</td></tr><tr><th>10</th><td>165.1</td><td>54.4877</td><td>54.0</td><td>1</td></tr><tr><th>11</th><td>154.305</td><td>49.8951</td><td>47.0</td><td>0</td></tr><tr><th>12</th><td>151.13</td><td>41.2202</td><td>66.0</td><td>1</td></tr><tr><th>13</th><td>144.78</td><td>36.0322</td><td>73.0</td><td>0</td></tr><tr><th>14</th><td>149.9</td><td>47.7</td><td>20.0</td><td>0</td></tr><tr><th>15</th><td>150.495</td><td>33.8493</td><td>65.3</td><td>0</td></tr><tr><th>16</th><td>163.195</td><td>48.5627</td><td>36.0</td><td>1</td></tr><tr><th>17</th><td>157.48</td><td>42.3258</td><td>44.0</td><td>1</td></tr><tr><th>18</th><td>143.942</td><td>38.3569</td><td>31.0</td><td>0</td></tr><tr><th>19</th><td>121.92</td><td>19.6179</td><td>12.0</td><td>1</td></tr><tr><th>20</th><td>105.41</td><td>13.948</td><td>8.0</td><td>0</td></tr><tr><th>21</th><td>86.36</td><td>10.4893</td><td>6.5</td><td>0</td></tr><tr><th>22</th><td>161.29</td><td>48.9879</td><td>39.0</td><td>1</td></tr><tr><th>23</th><td>156.21</td><td>42.7227</td><td>29.0</td><td>0</td></tr><tr><th>24</th><td>129.54</td><td>23.5868</td><td>13.0</td><td>1</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table></div><p>Use only adults</p><div><pre><code class="language-julia">data = filter(row -&gt; row[:age] &gt;= 18, df)</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>352 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>6</th><td>163.83</td><td>62.9926</td><td>35.0</td><td>1</td></tr><tr><th>7</th><td>149.225</td><td>38.2435</td><td>32.0</td><td>0</td></tr><tr><th>8</th><td>168.91</td><td>55.48</td><td>27.0</td><td>1</td></tr><tr><th>9</th><td>147.955</td><td>34.8699</td><td>19.0</td><td>0</td></tr><tr><th>10</th><td>165.1</td><td>54.4877</td><td>54.0</td><td>1</td></tr><tr><th>11</th><td>154.305</td><td>49.8951</td><td>47.0</td><td>0</td></tr><tr><th>12</th><td>151.13</td><td>41.2202</td><td>66.0</td><td>1</td></tr><tr><th>13</th><td>144.78</td><td>36.0322</td><td>73.0</td><td>0</td></tr><tr><th>14</th><td>149.9</td><td>47.7</td><td>20.0</td><td>0</td></tr><tr><th>15</th><td>150.495</td><td>33.8493</td><td>65.3</td><td>0</td></tr><tr><th>16</th><td>163.195</td><td>48.5627</td><td>36.0</td><td>1</td></tr><tr><th>17</th><td>157.48</td><td>42.3258</td><td>44.0</td><td>1</td></tr><tr><th>18</th><td>143.942</td><td>38.3569</td><td>31.0</td><td>0</td></tr><tr><th>19</th><td>161.29</td><td>48.9879</td><td>39.0</td><td>1</td></tr><tr><th>20</th><td>156.21</td><td>42.7227</td><td>29.0</td><td>0</td></tr><tr><th>21</th><td>146.4</td><td>35.4936</td><td>56.0</td><td>1</td></tr><tr><th>22</th><td>148.59</td><td>37.9033</td><td>45.0</td><td>0</td></tr><tr><th>23</th><td>147.32</td><td>35.4652</td><td>19.0</td><td>0</td></tr><tr><th>24</th><td>147.955</td><td>40.313</td><td>29.0</td><td>1</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table></div><p>Show the first six rows of the dataset.</p><div><pre><code class="language-julia">first(data, 6)</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>6 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>6</th><td>163.83</td><td>62.9926</td><td>35.0</td><td>1</td></tr></tbody></table></div><p>The next step is to get our data ready for testing. We&#39;ll split the mtcars dataset into two subsets, one for training our model and one for evaluating our model. Then, we separate the labels we want to learn (MPG, in this case) and standardize the datasets by subtracting each column&#39;s means and dividing by the standard deviation of that column.</p><p>The resulting data is not very familiar looking, but this standardization process helps the sampler converge far easier. We also create a function called unstandardize, which returns the standardized values to their original form. We will use this function later on when we make predictions.</p><p>Split our dataset 70%/30% into training/test sets.</p><div><pre><code class="language-julia">n = size(data, 1)
+test_ind = sample(1:n, Int(floor(0.3*n)), replace=false);
+train_ind = [(i) for i=1:n if !(i in test_ind)];
+test = data[test_ind, :];
+train = data[train_ind, :];</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>247 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>3</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>4</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>5</th><td>149.225</td><td>38.2435</td><td>32.0</td><td>0</td></tr><tr><th>6</th><td>168.91</td><td>55.48</td><td>27.0</td><td>1</td></tr><tr><th>7</th><td>165.1</td><td>54.4877</td><td>54.0</td><td>1</td></tr><tr><th>8</th><td>154.305</td><td>49.8951</td><td>47.0</td><td>0</td></tr><tr><th>9</th><td>151.13</td><td>41.2202</td><td>66.0</td><td>1</td></tr><tr><th>10</th><td>144.78</td><td>36.0322</td><td>73.0</td><td>0</td></tr><tr><th>11</th><td>163.195</td><td>48.5627</td><td>36.0</td><td>1</td></tr><tr><th>12</th><td>157.48</td><td>42.3258</td><td>44.0</td><td>1</td></tr><tr><th>13</th><td>143.942</td><td>38.3569</td><td>31.0</td><td>0</td></tr><tr><th>14</th><td>161.29</td><td>48.9879</td><td>39.0</td><td>1</td></tr><tr><th>15</th><td>156.21</td><td>42.7227</td><td>29.0</td><td>0</td></tr><tr><th>16</th><td>146.4</td><td>35.4936</td><td>56.0</td><td>1</td></tr><tr><th>17</th><td>148.59</td><td>37.9033</td><td>45.0</td><td>0</td></tr><tr><th>18</th><td>147.955</td><td>40.313</td><td>29.0</td><td>1</td></tr><tr><th>19</th><td>161.925</td><td>55.1114</td><td>30.0</td><td>1</td></tr><tr><th>20</th><td>146.05</td><td>37.5064</td><td>24.0</td><td>0</td></tr><tr><th>21</th><td>146.05</td><td>38.4986</td><td>35.0</td><td>0</td></tr><tr><th>22</th><td>152.705</td><td>46.6066</td><td>33.0</td><td>0</td></tr><tr><th>23</th><td>142.875</td><td>38.8388</td><td>27.0</td><td>0</td></tr><tr><th>24</th><td>147.955</td><td>47.4004</td><td>36.0</td><td>0</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table></div><p>Save dataframe versions of our dataset.</p><div><pre><code class="language-julia">train_cut = DataFrame(train)
+test_cut = DataFrame(test)</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>105 rows × 4 columns</p><tr><th>1</th><td>158.75</td><td>51.4827</td><td>59.0</td><td>1</td></tr><tr><th>2</th><td>153.67</td><td>44.8206</td><td>18.0</td><td>0</td></tr><tr><th>3</th><td>140.97</td><td>40.9367</td><td>85.6</td><td>0</td></tr><tr><th>4</th><td>149.86</td><td>42.9778</td><td>29.0</td><td>0</td></tr><tr><th>5</th><td>158.75</td><td>52.5316</td><td>68.0</td><td>1</td></tr><tr><th>6</th><td>152.4</td><td>40.8233</td><td>49.0</td><td>0</td></tr><tr><th>7</th><td>154.94</td><td>49.6967</td><td>26.0</td><td>1</td></tr><tr><th>8</th><td>154.305</td><td>47.6272</td><td>25.0</td><td>0</td></tr><tr><th>9</th><td>144.78</td><td>38.045</td><td>29.0</td><td>0</td></tr><tr><th>10</th><td>157.48</td><td>40.0295</td><td>72.0</td><td>1</td></tr><tr><th>11</th><td>151.994</td><td>49.9518</td><td>30.0</td><td>0</td></tr><tr><th>12</th><td>156.845</td><td>46.5782</td><td>41.0</td><td>1</td></tr><tr><th>13</th><td>146.685</td><td>36.0889</td><td>62.0</td><td>0</td></tr><tr><th>14</th><td>147.955</td><td>34.8699</td><td>19.0</td><td>0</td></tr><tr><th>15</th><td>144.145</td><td>37.1945</td><td>27.0</td><td>0</td></tr><tr><th>16</th><td>165.989</td><td>48.6477</td><td>27.0</td><td>1</td></tr><tr><th>17</th><td>148.59</td><td>39.4342</td><td>47.0</td><td>0</td></tr><tr><th>18</th><td>155.575</td><td>54.3176</td><td>37.0</td><td>0</td></tr><tr><th>19</th><td>161.29</td><td>48.1942</td><td>19.0</td><td>1</td></tr><tr><th>20</th><td>145.415</td><td>45.6427</td><td>23.0</td><td>0</td></tr><tr><th>21</th><td>149.86</td><td>38.6687</td><td>57.0</td><td>0</td></tr><tr><th>22</th><td>161.011</td><td>48.4209</td><td>31.0</td><td>1</td></tr><tr><th>23</th><td>148.59</td><td>40.7666</td><td>44.0</td><td>1</td></tr><tr><th>24</th><td>154.94</td><td>42.2408</td><td>26.0</td><td>1</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table></div><p>Create our labels. These are the values we are trying to predict.</p><div><pre><code class="language-julia">train_label = train[:, :height]
+test_label = test[:, :height]</code></pre><pre><code class="language-none">105-element Array{Union{Missing, Float64},1}:
+ 158.75
+ 153.67
+ 140.97
+ 149.86
+ 158.75
+ 152.4
+ 154.94
+ 154.305
+ 144.78
+ 157.48
+   ⋮
+ 154.94
+ 145.415
+ 153.035
+ 172.72
+ 163.83
+ 154.305
+ 151.13
+ 149.225
+ 147.955</code></pre></div><p>Get the list of columns to keep.</p><div><pre><code class="language-julia">remove_names = filter(x-&gt;!in(x, [:height, :age, :male]), names(data))</code></pre><pre><code class="language-none">1-element Array{Symbol,1}:
+ :weight</code></pre></div><p>Filter the test and train sets.</p><div><pre><code class="language-julia">train = Matrix(train[:, remove_names]);
+test = Matrix(test[:, remove_names]);</code></pre><pre><code class="language-none">105×1 Array{Union{Missing, Float64},2}:
+ 51.482692
+ 44.8205595
+ 40.936678
+ 42.977842
+ 52.5316235
+ 40.82328
+ 49.6966735
+ 47.62716
+ 38.045029
+ 40.029494
+  ⋮
+ 48.477645
+ 39.3774555
+ 39.972795
+ 61.80191
+ 46.719976
+ 41.2485225
+ 42.2691045
+ 52.3048275
+ 42.751046</code></pre></div><p>A handy helper function to rescale our dataset.</p><div><pre><code class="language-julia">function standardize(x)
+    return (x .- mean(x, dims=1)) ./ std(x, dims=1), x
+end</code></pre><pre><code class="language-none">standardize (generic function with 1 method)</code></pre></div><p>Another helper function to unstandardize our datasets.</p><div><pre><code class="language-julia">function unstandardize(x, orig)
+    return x .* std(orig, dims=1) .+ mean(orig, dims=1)
+end</code></pre><pre><code class="language-none">unstandardize (generic function with 1 method)</code></pre></div><p>Standardize our dataset.</p><div><pre><code class="language-julia">(train, train_orig) = standardize(train)
+(test, test_orig) = standardize(test)
+(train_label, train_l_orig) = standardize(train_label)
+(test_label, test_l_orig) = standardize(test_label);</code></pre><pre><code class="language-none">([0.584895, -0.0747233, -1.72377, -0.569437, 0.584895, -0.239628, 0.0901812, 0.00772893, -1.22906, 0.41999  …  0.667347, 0.0901812, -1.1466, -0.157176, 2.39884, 1.24451, 0.00772893, -0.404532, -0.651889, -0.816794], Union{Missing, Float64}[158.75, 153.67, 140.97, 149.86, 158.75, 152.4, 154.94, 154.305, 144.78, 157.48  …  159.385, 154.94, 145.415, 153.035, 172.72, 163.83, 154.305, 151.13, 149.225, 147.955])</code></pre></div><p>Design matrix</p><div><pre><code class="language-julia">dmat = [ones(size(train, 1)) train]</code></pre><pre><code class="language-none">247×2 Array{Float64,2}:
+ 1.0   0.442951
+ 1.0  -2.02551
+ 1.0   1.2497
+ 1.0  -0.569864
+ 1.0  -1.039
+ 1.0   1.62676
+ 1.0   1.4733
+ 1.0   0.763018
+ 1.0  -0.578633
+ 1.0  -1.38099
+ ⋮
+ 1.0  -1.06531
+ 1.0  -0.131416
+ 1.0  -0.144569
+ 1.0   0.45172
+ 1.0  -0.85924
+ 1.0  -0.60494
+ 1.0   0.320186
+ 1.0  -1.65722
+ 1.0   1.40754</code></pre></div><p>Bayesian linear regression.</p><div><pre><code class="language-julia">lrmodel = &quot;
+data {
+  int N; //the number of observations
+  int K; //the number of columns in the model matrix
+  real y[N]; //the response
+  matrix[N,K] X; //the model matrix
+}
+parameters {
+  vector[K] beta; //the regression parameters
+  real sigma; //the standard deviation
+}
+transformed parameters {
+  vector[N] linpred;
+  linpred &lt;- X*beta;
+}
+model {
+  beta[1] ~ cauchy(0,10); //prior for the intercept following Gelman 2008
+
+  for(i in 2:K)
+   beta[i] ~ cauchy(0,2.5);//prior for the slopes following Gelman 2008
+
+  y ~ normal(linpred,sigma);
+}
+&quot;;</code></pre><pre><code class="language-none">&quot;\ndata {\n  int N; //the number of observations\n  int K; //the number of columns in the model matrix\n  real y[N]; //the response\n  matrix[N,K] X; //the model matrix\n}\nparameters {\n  vector[K] beta; //the regression parameters\n  real sigma; //the standard deviation\n}\ntransformed parameters {\n  vector[N] linpred;\n  linpred &lt;- X*beta;\n}\nmodel {\n  beta[1] ~ cauchy(0,10); //prior for the intercept following Gelman 2008\n\n  for(i in 2:K)\n   beta[i] ~ cauchy(0,2.5);//prior for the slopes following Gelman 2008\n\n  y ~ normal(linpred,sigma);\n}\n&quot;</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchains.</p><div><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;linear_regression&quot;,
+  monitors = [&quot;beta.1&quot;, &quot;beta.2&quot;, &quot;sigma&quot;],
+  model=lrmodel);</code></pre></div><p>Input data for cmdstan</p><div><pre><code class="language-julia">lrdata = Dict(&quot;N&quot; =&gt; size(train, 1), &quot;K&quot; =&gt; size(dmat, 2), &quot;y&quot; =&gt; train_label, &quot;X&quot; =&gt; dmat);</code></pre><pre><code class="language-none">
+File /home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan will be updated.
+
+Dict{String,Any} with 4 entries:
+  &quot;X&quot; =&gt; [1.0 0.442951; 1.0 -2.02551; … ; 1.0 -1.65722; 1.0 1.40754]
+  &quot;N&quot; =&gt; 247
+  &quot;K&quot; =&gt; 2
+  &quot;y&quot; =&gt; [-0.383708, -2.34499, 0.270055, -1.20091, -0.710589, 1.82274, 1.33242,…</code></pre></div><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, sim, cnames = stan(stanmodel, lrdata, ProjDir, diagnostics=false,
+  summary=false, CmdStanDir=CMDSTAN_HOME);</code></pre></div><p>Convert to a  Chain object</p><div><pre><code class="language-julia">cnames = [&quot;alpha&quot;, &quot;beta[1]&quot;, &quot;sigma&quot;]
+chain = convert_a3d(sim, cnames, Val(:mcmcchains))</code></pre><pre><code class="language-none">Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -4529.74, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -1082.2, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -31.8891, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -3.90546, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -1.06313, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -128.844, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -0.00327115, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -0.105629, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -0.250162, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -2.03465, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -1.12215, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -2.92659, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+Exception: normal_lpdf: Scale parameter is -0.474342, but must be &gt; 0!  (in &#39;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/linear_regression.stan&#39; at line 21)
+
+If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+
+Object of type Chains, with data of type 1000×3×4 Array{Float64,3}
+
+Log evidence      = 0.0
+Iterations        = 1:1000
+Thinning interval = 1
+Chains            = 1, 2, 3, 4
+Samples per chain = 1000
+internals         =
+parameters        = alpha, beta[1], sigma
+
+parameters
+          Mean    SD   Naive SE  MCSE   ESS
+  alpha -0.0001 0.0419   0.0007 0.0007 1000
+beta[1]  0.7701 0.0411   0.0006 0.0007 1000
+  sigma  0.6408 0.0289   0.0005 0.0004 1000</code></pre></div><p>Describe the chains.</p><div><pre><code class="language-julia">describe(chain)</code></pre><pre><code class="language-none">Log evidence      = 0.0
+Iterations        = 1:1000
+Thinning interval = 1
+Chains            = 1, 2, 3, 4
+Samples per chain = 1000
+parameters        = alpha, beta[1], sigma
+
+Empirical Posterior Estimates
+─────────────────────────────────────────────
+parameters
+          Mean    SD   Naive SE  MCSE   ESS
+  alpha -0.0001 0.0419   0.0007 0.0007 1000
+beta[1]  0.7701 0.0411   0.0006 0.0007 1000
+  sigma  0.6408 0.0289   0.0005 0.0004 1000
+
+Quantiles
+─────────────────────────────────────────────
+parameters
+          2.5%   25.0%   50.0%   75.0%  97.5%
+  alpha -0.1547 -0.0278 -0.0006 0.0283 0.1673
+beta[1]  0.6117  0.7420  0.7695 0.7974 0.9255
+  sigma  0.5292  0.6207  0.6402 0.6596 0.7626</code></pre></div><p>Perform multivariate OLS.</p><div><pre><code class="language-julia">ols = lm(@formula(height ~ weight), train_cut)</code></pre><pre><code class="language-none">StatsModels.DataFrameRegressionModel{GLM.LinearModel{GLM.LmResp{Array{Float64,1}},GLM.DensePredChol{Float64,LinearAlgebra.Cholesky{Float64,Array{Float64,2}}}},Array{Float64,2}}
+
+Formula: height ~ 1 + weight
+
+Coefficients:
+             Estimate Std.Error t value Pr(&gt;|t|)
+(Intercept)   113.053   2.21819 50.9661   &lt;1e-99
+weight       0.927324  0.048835 18.9889   &lt;1e-49</code></pre></div><p>Store our predictions in the original dataframe.</p><div><pre><code class="language-julia">train_cut.OLSPrediction = predict(ols);
+test_cut.OLSPrediction = predict(ols, test_cut);</code></pre><pre><code class="language-none">105-element Array{Union{Missing, Float64},1}:
+ 160.7937858589188
+ 154.61583032576547
+ 151.0142136957995
+ 152.90703411446773
+ 161.76648524073443
+ 150.90905700587348
+ 159.13756799258405
+ 157.2184584014343
+ 148.33271810268613
+ 150.17296017639137
+   ⋮
+ 158.0071335758794
+ 149.5683092093168
+ 150.12038183142838
+ 170.36304464218603
+ 156.3772048820262
+ 151.30339459309602
+ 152.24980480243016
+ 161.5561718608824
+ 152.69672073461572</code></pre></div><p>Make a prediction given an input vector.</p><div><pre><code class="language-julia">function prediction(chain, x)
+    α = chain.value[:, 1, :];
+    β = [chain.value[:, i, :] for i in 2:2];
+    return  mean(α) .+ x * mean.(β)
+end</code></pre><pre><code class="language-none">prediction (generic function with 1 method)</code></pre></div><p>Calculate the predictions for the training and testing sets.</p><div><pre><code class="language-julia">train_cut.BayesPredictions = unstandardize(prediction(chain, train), train_l_orig);
+test_cut.BayesPredictions = unstandardize(prediction(chain, test), test_l_orig);</code></pre><pre><code class="language-none">105-element Array{Float64,1}:
+ 160.13732290527057
+ 154.0264472724336
+ 150.4639367971201
+ 152.33620507611695
+ 161.0994607708662
+ 150.3599218927314
+ 158.4990881611483
+ 156.60081615605426
+ 147.8115567352079
+ 149.63181756201038
+   ⋮
+ 157.38092793896962
+ 149.03373186177527
+ 149.57981010981604
+ 169.6026792046436
+ 155.76869692094456
+ 150.74997778418907
+ 151.6861119236875
+ 160.89143096208875
+ 152.12817526733954</code></pre></div><p>Show the first side rows of the modified dataframe.</p><div><pre><code class="language-julia">remove_names = filter(x-&gt;!in(x, [:age, :male]), names(test_cut));
+test_cut = test_cut[remove_names];
+first(test_cut, 6)
+
+bayes_loss1 = sum((train_cut.BayesPredictions - train_cut.height).^2);
+ols_loss1 = sum((train_cut.OLSPrediction - train_cut.height).^2);
+
+bayes_loss2 = sum((test_cut.BayesPredictions - test_cut.height).^2);
+ols_loss2 = sum((test_cut.OLSPrediction - test_cut.height).^2);
+
+println(&quot;\nTraining set:&quot;)
+println(&quot;  Bayes loss: $bayes_loss1&quot;)
+println(&quot;  OLS loss: $ols_loss1&quot;)
+
+println(&quot;Test set:&quot;)
+println(&quot;  Bayes loss: $bayes_loss2&quot;)
+println(&quot;  OLS loss: $ols_loss2&quot;)</code></pre><pre><code class="language-none">
+Training set:
+  Bayes loss: 6009.258426803772
+  OLS loss: 6009.221116696976
+Test set:
+  Bayes loss: 3021.0539258175004
+  OLS loss: 3063.7811835843977</code></pre></div><p>Plot the chains.</p><div><pre><code class="language-julia">#plot(chain)</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-30s/"><span class="direction">Previous</span><span class="title">clip-30s</span></a><a class="next" href="../clip-43s/"><span class="direction">Next</span><span class="title">clip-43s</span></a></footer></article></body></html>

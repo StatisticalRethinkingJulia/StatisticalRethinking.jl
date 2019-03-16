@@ -217,11 +217,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "02/clip-06-07/#snippet-2.6-(see-03/clip-01.jl-for-explanations)-1",
+    "location": "02/clip-06-07/#snippet-2.6-1",
     "page": "clip-06-07",
-    "title": "snippet 2.6 (see 03/clip-01.jl for explanations)",
+    "title": "snippet 2.6",
     "category": "section",
-    "text": "p_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)\nsamples = sample(p_grid, Weights(posterior), length(p_grid));\nsamples[1:5]Compute the MAP (maximumaposteriori) estimatex0 = [0.5]\nlower = [0.0]\nupper = [1.0]\n\nfunction loglik(x)\n  ll = 0.0\n  ll += log.(pdf.(Beta(1, 1), x[1]))\n  ll += sum(log.(pdf.(Binomial(9, x[1]), repeat([6], 1))))\n  -ll\nend\n\n(qmap, opt) = quap(loglik, x0, lower, upper)Show optimization resultsoptFit quadratic approcimationquapfit = [qmap[1], std(samples, mean=qmap[1])]\n\np = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)\np[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")\ndensity!(p[2], samples, lab=\"Sample density\")quadratic approximationp[3] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")\nplot!( p[3], x, pdf.(Normal( quapfit[1], quapfit[2] ) , x ), lab=\"Quap approximation\")"
+    "text": "Grid of 1001 stepsp_grid = range(0, step=0.001, stop=1);all priors = 1.0prior = ones(length(p_grid));Binomial pdflikelihood = [pdf(Binomial(9, p), 6) for p in p_grid];As Uniform prior has been used, unstandardized posterior is equal to likelihoodposterior = likelihood .* prior;Scale posterior such that they become probabilitiesposterior = posterior / sum(posterior);"
+},
+
+{
+    "location": "02/clip-06-07/#snippet-3.3-1",
+    "page": "clip-06-07",
+    "title": "snippet 3.3",
+    "category": "section",
+    "text": "Sample using the computed posterior values as weightsN = 10000\nsamples = sample(p_grid, Weights(posterior), N);In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [\"toss\"]);Describe the chaindescribe(chn)Plot the chainplot(chn)Compute the MAP (maximumaposteriori) estimatex0 = [0.5]\nlower = [0.0]\nupper = [1.0]\n\nfunction loglik(x)\n  ll = 0.0\n  ll += log.(pdf.(Beta(1, 1), x[1]))\n  ll += sum(log.(pdf.(Binomial(9, x[1]), repeat([6], 1))))\n  -ll\nend\n\n(qmap, opt) = quap(loglik, x0, lower, upper)Show optimization resultsoptFit quadratic approcimationquapfit = [qmap[1], std(samples, mean=qmap[1])]\n\np = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)\np[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")\ndensity!(p[2], samples, lab=\"Sample density\")quadratic approximationp[3] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")\nplot!( p[3], x, pdf.(Normal( quapfit[1], quapfit[2] ) , x ), lab=\"Quap approximation\")"
 },
 
 {
@@ -245,7 +253,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-08",
     "title": "snippet 2.8",
     "category": "section",
-    "text": "n_samples = 10000\na3d = ones(n_samples,1,1)\nw = 6; l = 3; n = w +l\np = [0.5]\nfor i in 2:n_samples\n  p_new = rand(Normal(p[i-1], 0.1), 1)[1]\n  if  p_new < 0\n    p_new = abs(p_new)\n  end\n  if p_new > 1\n    p_new = 2 - p_new\n  end\n  q0 = pdf(Binomial(n, p[i-1]), w)\n  q1 = pdf(Binomial(n, p_new), w)\n  append!(p, [rand(Uniform(0, 1), 1)[1] < q1/q0 ? p_new : p[i-1]])\nend\n\na3d[:, 1, 1] = p\nchns = MCMCChains.Chains(a3d, [\"toss\"])\n\ndescribe(chns)\n\nplot(chns)\n\ndensity(chns, lab=\"Samples\")\n\nw = 6; n = 9; x = 0:0.01:1\nplot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")End of 02/clip-08.jlThis page was generated using Literate.jl."
+    "text": "Simple Metropolis algorithmn_samples = 10000\na3d = ones(n_samples,1,1)\nw = 6; l = 3; n = w +l\np = [0.5]\nfor i in 2:n_samples\n  p_new = rand(Normal(p[i-1], 0.1), 1)[1]\n  if  p_new < 0\n    p_new = abs(p_new)\n  end\n  if p_new > 1\n    p_new = 2 - p_new\n  end\n  q0 = pdf(Binomial(n, p[i-1]), w)\n  q1 = pdf(Binomial(n, p_new), w)\n  append!(p, [rand(Uniform(0, 1), 1)[1] < q1/q0 ? p_new : p[i-1]])\nendCreate an MCMCChains.Chains object. This Chains object has length(p) samples, one varable and a single chain.a3d[:, 1, 1] = p\nchns = MCMCChains.Chains(a3d, [\"toss\"])Describe the chaindescribe(chns)Plot the chainplot(chns)Show density and computed conjugate solutionw = 6; n = 9; x = 0:0.01:1\ndensity(chns, lab=\"Samples\")\nplot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")End of 02/clip-08.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -293,15 +301,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-02-05",
     "title": "snippet 3.2",
     "category": "section",
-    "text": "Grid of 1001 stepsp_grid = range(0, step=0.001, stop=1);all priors = 1.0prior = ones(length(p_grid));Binomial pdflikelihood = [pdf(Binomial(9, p), 6) for p in p_grid];As Uniform prior has been used, unstandardized posterior is equal to likelihoodposterior = likelihood .* prior;Scale posterior such that they become probabilitiesposterior = posterior / sum(posterior);"
-},
-
-{
-    "location": "03/clip-02-05/#snippet-3.3-1",
-    "page": "clip-02-05",
-    "title": "snippet 3.3",
-    "category": "section",
-    "text": "Sample using the computed posterior values as weightsN = 10000\nsamples = sample(p_grid, Weights(posterior), N);In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [\"toss\"]);Describe the chaindescribe(chn)Plot the chainplot(chn)"
+    "text": "p_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)\nsamples = sample(p_grid, Weights(posterior), length(p_grid));\nsamples[1:5]Draw 10000 samples from this posterior distributionN = 10000\nsamples = sample(p_grid, Weights(posterior), N);In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [\"toss\"]);Describe the chaindescribe(chn)Plot the chainplot(chn)"
 },
 
 {

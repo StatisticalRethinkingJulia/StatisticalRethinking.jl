@@ -4,6 +4,8 @@ using StatisticalRethinking
 
 # ### snippet 2.8
 
+# Simple Metropolis algorithm
+
 n_samples = 10000
 a3d = ones(n_samples,1,1)
 w = 6; l = 3; n = w +l
@@ -21,17 +23,24 @@ for i in 2:n_samples
   append!(p, [rand(Uniform(0, 1), 1)[1] < q1/q0 ? p_new : p[i-1]])
 end
 
+# Create an MCMCChains.Chains object.
+# This Chains object has length(p) samples, one varable and a single chain.
+
 a3d[:, 1, 1] = p
 chns = MCMCChains.Chains(a3d, ["toss"])
 
+# Describe the chain
+
 describe(chns)
+
+# Plot the chain
 
 plot(chns)
 
-density(chns, lab="Samples")
+# Show density and computed conjugate solution
 
 w = 6; n = 9; x = 0:0.01:1
+density(chns, lab="Samples")
 plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
-
 
 # End of `02/clip-08.jl`

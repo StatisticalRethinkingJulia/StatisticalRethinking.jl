@@ -1,13 +1,24 @@
 using StatisticalRethinking, Optim
 gr(size=(600,600));
 
-p_grid = range(0, step=0.001, stop=1)
-prior = ones(length(p_grid))
-likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
-posterior = likelihood .* prior
-posterior = posterior / sum(posterior)
-samples = sample(p_grid, Weights(posterior), length(p_grid));
-samples[1:5]
+p_grid = range(0, step=0.001, stop=1);
+
+prior = ones(length(p_grid));
+
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid];
+
+posterior = likelihood .* prior;
+
+posterior = posterior / sum(posterior);
+
+N = 10000
+samples = sample(p_grid, Weights(posterior), N);
+
+chn = MCMCChains.Chains(reshape(samples, N, 1, 1), ["toss"]);
+
+describe(chn)
+
+plot(chn)
 
 x0 = [0.5]
 lower = [0.0]

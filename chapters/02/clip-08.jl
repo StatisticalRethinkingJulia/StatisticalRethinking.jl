@@ -24,9 +24,8 @@ describe(chns)
 
 plot(chns)
 
-density(chns, lab="Samples")
-
 w = 6; n = 9; x = 0:0.01:1
+density(chns, lab="Samples")
 plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

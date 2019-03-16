@@ -3,15 +3,47 @@
 using StatisticalRethinking, Optim
 gr(size=(600,600));
 
-# ### snippet 2.6 (see `03/clip-01.jl` for explanations)
+# ### snippet 2.6
 
-p_grid = range(0, step=0.001, stop=1)
-prior = ones(length(p_grid))
-likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
-posterior = likelihood .* prior
-posterior = posterior / sum(posterior)
-samples = sample(p_grid, Weights(posterior), length(p_grid));
-samples[1:5]
+# Grid of 1001 steps
+
+p_grid = range(0, step=0.001, stop=1);
+
+# all priors = 1.0
+
+prior = ones(length(p_grid));
+
+# Binomial pdf
+
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid];
+
+# As Uniform prior has been used, unstandardized posterior is equal to likelihood
+
+posterior = likelihood .* prior;
+
+# Scale posterior such that they become probabilities
+
+posterior = posterior / sum(posterior);
+
+# ### snippet 3.3
+
+# Sample using the computed posterior values as weights
+
+N = 10000
+samples = sample(p_grid, Weights(posterior), N);
+
+# In StatisticalRethinkingJulia samples will always be stored
+# in an MCMCChains.Chains object. 
+
+chn = MCMCChains.Chains(reshape(samples, N, 1, 1), ["toss"]);
+
+# Describe the chain
+
+describe(chn)
+
+# Plot the chain
+
+plot(chn)
 
 # Compute the MAP (maximum_a_posteriori) estimate
 

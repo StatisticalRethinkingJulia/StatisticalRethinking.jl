@@ -1,15 +1,13 @@
 using StatisticalRethinking, Optim
 gr(size=(600,300));
 
-p_grid = range(0, step=0.001, stop=1);
-
-prior = ones(length(p_grid));
-
-likelihood = [pdf(Binomial(9, p), 6) for p in p_grid];
-
-posterior = likelihood .* prior;
-
-posterior = posterior / sum(posterior);
+p_grid = range(0, step=0.001, stop=1)
+prior = ones(length(p_grid))
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+posterior = likelihood .* prior
+posterior = posterior / sum(posterior)
+samples = sample(p_grid, Weights(posterior), length(p_grid));
+samples[1:5]
 
 N = 10000
 samples = sample(p_grid, Weights(posterior), N);

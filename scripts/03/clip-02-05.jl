@@ -7,29 +7,15 @@ gr(size=(600,300));
 
 # ### snippet 3.2
 
-# Grid of 1001 steps
+p_grid = range(0, step=0.001, stop=1)
+prior = ones(length(p_grid))
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+posterior = likelihood .* prior
+posterior = posterior / sum(posterior)
+samples = sample(p_grid, Weights(posterior), length(p_grid));
+samples[1:5]
 
-p_grid = range(0, step=0.001, stop=1);
-
-# all priors = 1.0
-
-prior = ones(length(p_grid));
-
-# Binomial pdf
-
-likelihood = [pdf(Binomial(9, p), 6) for p in p_grid];
-
-# As Uniform prior has been used, unstandardized posterior is equal to likelihood
-
-posterior = likelihood .* prior;
-
-# Scale posterior such that they become probabilities
-
-posterior = posterior / sum(posterior);
-
-# ### snippet 3.3
-
-# Sample using the computed posterior values as weights
+# Draw 10000 samples from this posterior distribution
 
 N = 10000
 samples = sample(p_grid, Weights(posterior), N);

@@ -173,7 +173,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-01-02",
     "title": "snippet 2.2",
     "category": "section",
-    "text": "Create a distribution with n = 9 (e.g. tosses) and p = 0.5.d = Binomial(9, 0.5)Probability density for 6 waters holding n = 9 and p = 0.5.pdf(d, 6)End of clip_01_02.jlThis page was generated using Literate.jl."
+    "text": "Create a distribution with n = 9 (e.g. tosses) and p = 0.5.d = Binomial(9, 0.5)Probability density for 6 waters holding n = 9 and p = 0.5.pdf(d, 6)End of 02/clip-01-02.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -205,7 +205,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-03-05",
     "title": "snippet 2.5",
     "category": "section",
-    "text": "prior1 = [p < 0.5 ? 0 : 1 for p in p_grid]\nprior2 = [exp( -5*abs( p - 0.5 ) ) for p in p_grid]\n\np3 = plot(p_grid, prior1,\n  xlab=\"probability of water\" , ylab=\"posterior probability\",\n  lab = \"semi_uniform\", title=\"Other priors\" )\nscatter!(p3, p_grid, prior1, lab = \"semi_uniform grid point\")\nplot!(p3, p_grid, prior2,  lab = \"double_exponential\" )\nscatter!(p3, p_grid, prior2,  lab = \"double_exponential grid point\" )End of clip_03_05.jlThis page was generated using Literate.jl."
+    "text": "prior1 = [p < 0.5 ? 0 : 1 for p in p_grid]\nprior2 = [exp( -5*abs( p - 0.5 ) ) for p in p_grid]\n\np3 = plot(p_grid, prior1,\n  xlab=\"probability of water\" , ylab=\"posterior probability\",\n  lab = \"semi_uniform\", title=\"Other priors\" )\nscatter!(p3, p_grid, prior1, lab = \"semi_uniform grid point\")\nplot!(p3, p_grid, prior2,  lab = \"double_exponential\" )\nscatter!(p3, p_grid, prior2,  lab = \"double_exponential grid point\" )End of 02/clip-03-05.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -213,15 +213,15 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-06-07",
     "title": "clip-06-07",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/02/clip-06-07.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, Optim\ngr(size=(600,300));"
+    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/02/clip-06-07.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, Optim\ngr(size=(600,600));"
 },
 
 {
-    "location": "02/clip-06-07/#snippet-2.6-(see-snippet-3_2-for-explanations)-1",
+    "location": "02/clip-06-07/#snippet-2.6-(see-03/clip-01.jl-for-explanations)-1",
     "page": "clip-06-07",
-    "title": "snippet 2.6 (see snippet 3_2 for explanations)",
+    "title": "snippet 2.6 (see 03/clip-01.jl for explanations)",
     "category": "section",
-    "text": "p_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)\nsamples = sample(p_grid, Weights(posterior), length(p_grid));\nsamples[1:5]p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)\np[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = density(samples, ylim=(0.0, 5.0), lab=\"Sample density\")\np[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")quadratic approximationplot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")\nplot(p..., layout=(1, 2))"
+    "text": "p_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)\nsamples = sample(p_grid, Weights(posterior), length(p_grid));\nsamples[1:5]Compute the MAP (maximumaposteriori) estimatex0 = [0.5]\nlower = [0.0]\nupper = [1.0]\n\nfunction loglik(x)\n  ll = 0.0\n  ll += log.(pdf.(Beta(1, 1), x[1]))\n  ll += sum(log.(pdf.(Binomial(9, x[1]), repeat([6], 1))))\n  -ll\nend\n\n(qmap, opt) = quap(loglik, x0, lower, upper)Show optimization resultsoptFit quadratic approcimationquapfit = [qmap[1], std(samples, mean=qmap[1])]\n\np = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)\np[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab=\"Draws\")analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")\ndensity!(p[2], samples, lab=\"Sample density\")quadratic approximationp[3] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")\nplot!( p[3], x, pdf.(Normal( quapfit[1], quapfit[2] ) , x ), lab=\"Quap approximation\")"
 },
 
 {
@@ -229,7 +229,23 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-06-07",
     "title": "snippet 2.7",
     "category": "section",
-    "text": "analytical calculationw = 6; n = 9; x = 0:0.01:1\nscatter( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")quadratic approximationscatter!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")End of clip_06_07.jlThis page was generated using Literate.jl."
+    "text": "quadratic approximationw = 6; n = 9; x = 0:0.01:1\np[4] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")\nplot!(p[4], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")\nplot(p..., layout=(2, 2))End of 02/clip-06-07.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "02/clip-08/#",
+    "page": "clip-08",
+    "title": "clip-08",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/02/clip-08.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking"
+},
+
+{
+    "location": "02/clip-08/#snippet-2.8-1",
+    "page": "clip-08",
+    "title": "snippet 2.8",
+    "category": "section",
+    "text": "n_samples = 10000\na3d = ones(n_samples,1,1)\nw = 6; l = 3; n = w +l\np = [0.5]\nfor i in 2:n_samples\n  p_new = rand(Normal(p[i-1], 0.1), 1)[1]\n  if  p_new < 0\n    p_new = abs(p_new)\n  end\n  if p_new > 1\n    p_new = 2 - p_new\n  end\n  q0 = pdf(Binomial(n, p[i-1]), w)\n  q1 = pdf(Binomial(n, p_new), w)\n  append!(p, [rand(Uniform(0, 1), 1)[1] < q1/q0 ? p_new : p[i-1]])\nend\n\na3d[:, 1, 1] = p\nchns = MCMCChains.Chains(a3d, [\"toss\"])\n\ndescribe(chns)\n\nplot(chns)\n\ndensity(chns, lab=\"Samples\")\n\nw = 6; n = 9; x = 0:0.01:1\nplot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")End of 02/clip-08.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -237,7 +253,7 @@ var documenterSearchIndex = {"docs": [
     "page": "m2.1s",
     "title": "m2.1s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/02/m2.1s.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, CmdStan, StanMCMCChains\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"02\")\ncd(ProjDir)Define the Stan language modelbinomialstanmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  int<lower=0> k[N];\n  int<lower=1> n[N];\n}\nparameters {\n  real<lower=0,upper=1> theta;\n  real<lower=0,upper=1> thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n\";Define the Stanmodel and set the output format to :mcmcchains.stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n  output_format=:mcmcchains);Use 16 observationsN2 = 15\nd = Binomial(9, 0.66)\nn2 = Int.(9 * ones(Int, N2));Show first 5 (generated) observationsk2 = rand(d, N2);\nk2[1:min(5, N2)]Input data for cmdstanbinomialdata = Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2);Sample using cmdstanrc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Allocate array of Normal fitsfits = Vector{Normal{Float64}}(undef, 4)\nfor i in 1:4\n  fits[i] = fit_mle(Normal, convert.(Float64, chn.value[:, 1, i]))\n  println(fits[i])\nendPlot the 4 chainsmu_avg = sum([fits[i].μ for i in 1:4]) / 4.0;\nsigma_avg = sum([fits[i].σ for i in 1:4]) / 4.0;\n\nif rc == 0\n  p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)\n  x = 0:0.001:1\n  for i in 1:4\n    vals = convert.(Float64, chn.value[:, 1, i])\n    μ = round(fits[i].μ, digits=2)\n    σ = round(fits[i].σ, digits=2)\n    p[i] = density(vals, lab=\"Chain $i density\",\n       xlim=(0.45, 1.0), title=\"$(N2) data points\")\n    plot!(p[i], x, pdf.(Normal(fits[i].μ, fits[i].σ), x), lab=\"Fitted Normal($μ, $σ)\")\n  end\n  plot(p..., layout=(4, 1))\nendShow the hpd regionMCMCChains.hpd(chn, alpha=0.055, suppress_header=true);Compute the hpd bounds for plottingd, p, c = size(chn);\ntheta = convert(Vector{Float64}, reshape(chn.value, (d*p*c)));\nbnds = quantile(theta, [0.045, 0.945])Show hpd regionprintln(\"hpd bounds = $bnds\\n\")quadratic approximationCompute MAP, compare with CmndStan & MLEtmp = convert(Array{Float64,3}, chn.value)\ndraws = reshape(tmp, (size(tmp, 1)*size(tmp, 3)),)Compute MAPusing Optim\n\nx0 = [0.5]\nlower = [0.2]\nupper = [1.0]\n\ninner_optimizer = GradientDescent()\n\nfunction loglik(x)\n  ll = 0.0\n  ll += log.(pdf.(Beta(1, 1), x[1]))\n  ll += sum(log.(pdf.(Binomial(9, x[1]), k2)))\n  -ll\nend\n\nres = optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))Summarize mean and sd estimatesCmdStan mean and sd:[mean(chn.value), std(chn.value)]MAP estimate and associated sd:[Optim.minimizer(res)[1], std(draws, mean=mean(chn.value))]MLE of mean and sd:[mu_avg, sigma_avg]Turing Chain &  89% hpd region boundariesplot( x, pdf.(Normal( mu_avg , sigma_avg  ) , x ),\nxlim=(0.0, 1.2), lab=\"Normal approximation using MLE\")\nplot!( x, pdf.(Normal( Optim.minimizer(res)[1] , std(draws, mean=mean(chn.value))) , x),\nlab=\"Normal approximation using MAP\")\ndensity!(draws, lab=\"CmdStan chain\")\nvline!([bnds[1]], line=:dash, lab=\"hpd lower bound\")\nvline!([bnds[2]], line=:dash, lab=\"hpd upper bound\")End of clip_08s.jlThis page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/02/m2.1s.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, CmdStan, StanMCMCChains\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"02\")\ncd(ProjDir)Define the Stan language modelbinomialstanmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  int<lower=0> k[N];\n  int<lower=1> n[N];\n}\nparameters {\n  real<lower=0,upper=1> theta;\n  real<lower=0,upper=1> thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n\";Define the Stanmodel and set the output format to :mcmcchains.stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n  output_format=:mcmcchains);Use 16 observationsN2 = 15\nd = Binomial(9, 0.66)\nn2 = Int.(9 * ones(Int, N2));Show first 5 (generated) observationsk2 = rand(d, N2);\nk2[1:min(5, N2)]Input data for cmdstanbinomialdata = Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2);Sample using cmdstanrc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Allocate array of Normal fitsfits = Vector{Normal{Float64}}(undef, 4)\nfor i in 1:4\n  fits[i] = fit_mle(Normal, convert.(Float64, chn.value[:, 1, i]))\n  println(fits[i])\nendPlot the 4 chainsmu_avg = sum([fits[i].μ for i in 1:4]) / 4.0;\nsigma_avg = sum([fits[i].σ for i in 1:4]) / 4.0;\n\nif rc == 0\n  p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)\n  x = 0:0.001:1\n  for i in 1:4\n    vals = convert.(Float64, chn.value[:, 1, i])\n    μ = round(fits[i].μ, digits=2)\n    σ = round(fits[i].σ, digits=2)\n    p[i] = density(vals, lab=\"Chain $i density\",\n       xlim=(0.45, 1.0), title=\"$(N2) data points\")\n    plot!(p[i], x, pdf.(Normal(fits[i].μ, fits[i].σ), x), lab=\"Fitted Normal($μ, $σ)\")\n  end\n  plot(p..., layout=(4, 1))\nendShow the hpd regionMCMCChains.hpd(chn, alpha=0.055, suppress_header=true);Compute the hpd bounds for plottingd, p, c = size(chn);\ntheta = convert(Vector{Float64}, reshape(chn.value, (d*p*c)));\nbnds = quantile(theta, [0.045, 0.945])Show hpd regionprintln(\"hpd bounds = $bnds\\n\")quadratic approximationCompute MAP, compare with CmndStan & MLEtmp = convert(Array{Float64,3}, chn.value)\ndraws = reshape(tmp, (size(tmp, 1)*size(tmp, 3)),)Compute MAPusing Optim\n\nx0 = [0.5]\nlower = [0.2]\nupper = [1.0]\n\ninner_optimizer = GradientDescent()\n\nfunction loglik(x)\n  ll = 0.0\n  ll += log.(pdf.(Beta(1, 1), x[1]))\n  ll += sum(log.(pdf.(Binomial(9, x[1]), k2)))\n  -ll\nend\n\nres = optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))Summarize mean and sd estimatesCmdStan mean and sd:[mean(chn.value), std(chn.value)]MAP estimate and associated sd:[Optim.minimizer(res)[1], std(draws, mean=mean(chn.value))]MLE of mean and sd:[mu_avg, sigma_avg]Turing Chain &  89% hpd region boundariesplot( x, pdf.(Normal( mu_avg , sigma_avg  ) , x ),\nxlim=(0.0, 1.2), lab=\"Normal approximation using MLE\")\nplot!( x, pdf.(Normal( Optim.minimizer(res)[1] , std(draws, mean=mean(chn.value))) , x),\nlab=\"Normal approximation using MAP\")\ndensity!(draws, lab=\"CmdStan chain\")\nvline!([bnds[1]], line=:dash, lab=\"hpd lower bound\")\nvline!([bnds[2]], line=:dash, lab=\"hpd upper bound\")End of 02/clip_08s.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -253,7 +269,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-01",
     "title": "snippet 3.1",
     "category": "section",
-    "text": "PrPV = 0.95\nPrPM = 0.01\nPrV = 0.001\nPrP = PrPV*PrV + PrPM*(1-PrV)\nPrVP = PrPV*PrV / PrPEnd of clip_01.jlThis page was generated using Literate.jl."
+    "text": "PrPV = 0.95\nPrPM = 0.01\nPrV = 0.001\nPrP = PrPV*PrV + PrPM*(1-PrV)\nPrVP = PrPV*PrV / PrPEnd of 03/clip-01.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -285,7 +301,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-02-05",
     "title": "snippet 3.3",
     "category": "section",
-    "text": "Sample using the computed posterior values as weightsN = 10000\nsamples = sample(p_grid, Weights(posterior), N);In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [\"toss\"]);Describe the chaindescribe(chn)Plot the chainplot(chn)Compute the MAP (maximumaposteriori) estimatex0 = [0.5]\nlower = [0.0]\nupper = [1.0]\n\nfunction loglik(x)\n  ll = 0.0\n  ll += log.(pdf.(Beta(1, 1), x[1]))\n  ll += sum(log.(pdf.(Binomial(9, x[1]), repeat([6], N))))\n  -ll\nend\n\n(qmap, opt) = quap(samples, loglik, lower, upper, x0)Show optimization resultsoptFit quadratic approcimationquapfit = [qmap[1], std(samples, mean=qmap[1])]"
+    "text": "Sample using the computed posterior values as weightsN = 10000\nsamples = sample(p_grid, Weights(posterior), N);In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [\"toss\"]);Describe the chaindescribe(chn)Plot the chainplot(chn)"
 },
 
 {
@@ -301,7 +317,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-02-05",
     "title": "snippet 3.5",
     "category": "section",
-    "text": "Analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = density(samples, ylim=(0.0, 5.0), lab=\"Sample density\")\np[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")Add quadratic approximationplot!( p[2], x, pdf.(Normal( quapfit[1], quapfit[2] ) , x ), lab=\"Quap approximation\")\nplot(p..., layout=(1, 2))End of clip_02_05.jlThis page was generated using Literate.jl."
+    "text": "Analytical calculationw = 6\nn = 9\nx = 0:0.01:1\np[2] = density(samples, ylim=(0.0, 5.0), lab=\"Sample density\")\np[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")Add quadratic approximationplot(p..., layout=(1, 2))End of 03/clip-02-05.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -309,7 +325,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-05s",
     "title": "clip-05s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-05s.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, CmdStan, StanMCMCChains\ngr(size=(500,800));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"03\")\ncd(ProjDir)Define the Stan language modelbinomialstanmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  int<lower=0> k[N];\n  int<lower=1> n[N];\n}\nparameters {\n  real<lower=0,upper=1> theta;\n  real<lower=0,upper=1> thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n\";Define the Stanmodel and set the output format to :mcmcchains.stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n  output_format=:mcmcchains);Use 16 observationsN2 = 4^2\nd = Binomial(9, 0.66)\nn2 = Int.(9 * ones(Int, N2))\nk2 = rand(d, N2);Input data for cmdstanbinomialdata = Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2);Sample using cmdstanrc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Plot the 4 chainsif rc == 0\n  plot(chn)\nendEnd of clip_05s.jlThis page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-05s.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, CmdStan, StanMCMCChains\ngr(size=(500,800));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"03\")\ncd(ProjDir)Define the Stan language modelbinomialstanmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  int<lower=0> k[N];\n  int<lower=1> n[N];\n}\nparameters {\n  real<lower=0,upper=1> theta;\n  real<lower=0,upper=1> thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n\";Define the Stanmodel and set the output format to :mcmcchains.stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n  output_format=:mcmcchains);Use 16 observationsN2 = 4^2\nd = Binomial(9, 0.66)\nn2 = Int.(9 * ones(Int, N2))\nk2 = rand(d, N2);Input data for cmdstanbinomialdata = Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2);Sample using cmdstanrc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Plot the 4 chainsif rc == 0\n  plot(chn)\nendEnd of 03/clip-05s.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -317,7 +333,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-06-16s",
     "title": "clip-06-16s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-06-16s.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, CmdStan, StanMCMCChains\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"03\")\ncd(ProjDir)Define the Stan language modelbinomialstanmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  int<lower=0> k[N];\n  int<lower=1> n[N];\n}\nparameters {\n  real<lower=0,upper=1> theta;\n  real<lower=0,upper=1> thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n\";Define the Stanmodel and set the output format to :mcmcchains.stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n  output_format=:mcmcchains);Use 4 observationsN2 = 4\nn2 = Int.(9 * ones(Int, N2))\nk2 = [6, 5, 7, 6]Input data for cmdstanbinomialdata = Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2);Sample using cmdstanrc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Look at area of hpdMCMCChains.hpd(chn)Plot the 4 chainsif rc == 0\n  mixeddensity(chn, xlab=\"height [cm]\", ylab=\"density\")\n  bnds =MCMCChains.hpd(convert(Vector{Float64}, chn.value[:,1,1]))\n  vline!([bnds[1]], line=:dash)\n  vline!([bnds[2]], line=:dash)\nendEnd of clip_06_16s.jlThis page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-06-16s.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, CmdStan, StanMCMCChains\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"03\")\ncd(ProjDir)Define the Stan language modelbinomialstanmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  int<lower=0> k[N];\n  int<lower=1> n[N];\n}\nparameters {\n  real<lower=0,upper=1> theta;\n  real<lower=0,upper=1> thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n\";Define the Stanmodel and set the output format to :mcmcchains.stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n  output_format=:mcmcchains);Use 4 observationsN2 = 4\nn2 = Int.(9 * ones(Int, N2))\nk2 = [6, 5, 7, 6]Input data for cmdstanbinomialdata = Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2);Sample using cmdstanrc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Look at area of hpdMCMCChains.hpd(chn)Plot the 4 chainsif rc == 0\n  mixeddensity(chn, xlab=\"height [cm]\", ylab=\"density\")\n  bnds =MCMCChains.hpd(convert(Vector{Float64}, chn.value[:,1,1]))\n  vline!([bnds[1]], line=:dash)\n  vline!([bnds[2]], line=:dash)\nendEnd of clip-06-16s.jlThis page was generated using Literate.jl."
 },
 
 {

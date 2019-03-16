@@ -68,4 +68,4 @@ if rc == 0
   vline!([bnds[2]], line=:dash)
 end
 
-# End of `clip_06_16s.jl`
+# End of `clip-06-16s.jl`

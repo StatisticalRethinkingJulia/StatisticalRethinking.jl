@@ -151,4 +151,4 @@ density!(draws, lab="CmdStan chain")
 vline!([bnds[1]], line=:dash, lab="hpd lower bound")
 vline!([bnds[2]], line=:dash, lab="hpd upper bound")
 
-# End of `clip_08s.jl`
+# End of `02/clip_08s.jl`

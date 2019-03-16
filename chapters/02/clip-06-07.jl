@@ -1,5 +1,5 @@
 using StatisticalRethinking, Optim
-gr(size=(600,300));
+gr(size=(600,600));
 
 p_grid = range(0, step=0.001, stop=1)
 prior = ones(length(p_grid))
@@ -9,22 +9,39 @@ posterior = posterior / sum(posterior)
 samples = sample(p_grid, Weights(posterior), length(p_grid));
 samples[1:5]
 
-p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
+x0 = [0.5]
+lower = [0.0]
+upper = [1.0]
+
+function loglik(x)
+  ll = 0.0
+  ll += log.(pdf.(Beta(1, 1), x[1]))
+  ll += sum(log.(pdf.(Binomial(9, x[1]), repeat([6], 1))))
+  -ll
+end
+
+(qmap, opt) = quap(loglik, x0, lower, upper)
+
+opt
+
+quapfit = [qmap[1], std(samples, mean=qmap[1])]
+
+p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
 p[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
 
 w = 6
 n = 9
 x = 0:0.01:1
-p[2] = density(samples, ylim=(0.0, 5.0), lab="Sample density")
-p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
+p[2] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
+density!(p[2], samples, lab="Sample density")
 
-plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
-plot(p..., layout=(1, 2))
+p[3] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
+plot!( p[3], x, pdf.(Normal( quapfit[1], quapfit[2] ) , x ), lab="Quap approximation")
 
 w = 6; n = 9; x = 0:0.01:1
-scatter( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
-
-scatter!( x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
+p[4] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
+plot!(p[4], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
+plot(p..., layout=(2, 2))
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

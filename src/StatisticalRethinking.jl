@@ -9,6 +9,8 @@ using Reexport
 
 using DataStructures
 import StatsBase: sample
+import Core.Array
+import DataFrames:DataFrame
 
 const src_path = @__DIR__
 
@@ -42,9 +44,9 @@ export
   generate,
   quap,
   link,
-  to_df,
-  chain_to_array,
   #shade,
+  DataFrame,
+  Array,
   sample
 
 end # module

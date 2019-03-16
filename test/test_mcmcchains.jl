@@ -45,6 +45,6 @@ chn2 = set_section(chn, Dict(
 
 chn2.name_map
 
-df = to_df(chn2)
+df = DataFrame(chn2)
 df |> display
 x.bp

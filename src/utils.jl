@@ -18,7 +18,7 @@ function sort_sections(chn::MCMCChains.AbstractChains)
   section_list
 end
 
-function to_df(chn::MCMCChains.AbstractChains, sections=Nothing)
+function DataFrame(chn::MCMCChains.AbstractChains, sections=Nothing)
   df = DataFrame()
   section_list = sections !== Nothing ? sections : sort_sections(chn)
   for section in section_list
@@ -32,7 +32,7 @@ function to_df(chn::MCMCChains.AbstractChains, sections=Nothing)
   df
 end
 
-function chain_to_array(chn::MCMCChains.AbstractChains)
+function Array(chn::MCMCChains.AbstractChains)
   local a
   for (i, par) in enumerate(names(chn))
     x = get(chn, Symbol(par))

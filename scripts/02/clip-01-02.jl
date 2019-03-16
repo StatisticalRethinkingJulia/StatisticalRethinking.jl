@@ -20,4 +20,4 @@ d = Binomial(9, 0.5)
 
 pdf(d, 6)
 
-# End of `clip_01_02.jl`
+# End of `02/clip-01-02.jl`

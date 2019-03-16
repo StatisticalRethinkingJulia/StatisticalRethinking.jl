@@ -46,4 +46,4 @@ scatter!(p3, p_grid, prior1, lab = "semi_uniform grid point")
 plot!(p3, p_grid, prior2,  lab = "double_exponential" )
 scatter!(p3, p_grid, prior2,  lab = "double_exponential grid point" )
 
-# End of `clip_03_05.jl`
+# End of `02/clip-03-05.jl`

@@ -10,4 +10,4 @@ PrV = 0.001
 PrP = PrPV*PrV + PrPM*(1-PrV)
 PrVP = PrPV*PrV / PrP
 
-# End of `clip_01.jl`
+# End of `03/clip-01.jl`

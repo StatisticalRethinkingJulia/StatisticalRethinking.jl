@@ -237,7 +237,7 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-06-07",
     "title": "snippet 2.7",
     "category": "section",
-    "text": "quadratic approximationw = 6; n = 9; x = 0:0.01:1\np[4] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")\nplot!(p[4], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")\nplot(p..., layout=(2, 2))End of 02/clip-06-07.jlThis page was generated using Literate.jl."
+    "text": "w = 6; n = 9; x = 0:0.01:1\np[4] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab=\"Conjugate solution\")\nplot!(p[4], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab=\"Normal approximation\")\nplot(p..., layout=(2, 2))End of 02/clip-06-07.jlThis page was generated using Literate.jl."
 },
 
 {
@@ -269,7 +269,15 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-01",
     "title": "clip-01",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-01.jl\"Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking"
+    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-01.jl\""
+},
+
+{
+    "location": "03/clip-01/#clip-01.jl-1",
+    "page": "clip-01",
+    "title": "clip-01.jl",
+    "category": "section",
+    "text": "Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking"
 },
 
 {
@@ -301,7 +309,15 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-02-05",
     "title": "snippet 3.2",
     "category": "section",
-    "text": "p_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)\nsamples = sample(p_grid, Weights(posterior), length(p_grid));\nsamples[1:5]Draw 10000 samples from this posterior distributionN = 10000\nsamples = sample(p_grid, Weights(posterior), N);In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [\"toss\"]);Describe the chaindescribe(chn)Plot the chainplot(chn)"
+    "text": "p_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)\nsamples = sample(p_grid, Weights(posterior), length(p_grid));\nsamples[1:5]"
+},
+
+{
+    "location": "03/clip-02-05/#snippet-3.3-1",
+    "page": "clip-02-05",
+    "title": "snippet 3.3",
+    "category": "section",
+    "text": "Draw 10000 samples from this posterior distributionN = 10000\nsamples = sample(p_grid, Weights(posterior), N);In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [\"toss\"]);Describe the chaindescribe(chn)Plot the chainplot(chn)"
 },
 
 {
@@ -325,15 +341,159 @@ var documenterSearchIndex = {"docs": [
     "page": "clip-05s",
     "title": "clip-05s",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-05s.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, CmdStan, StanMCMCChains\ngr(size=(500,800));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"03\")\ncd(ProjDir)Define the Stan language modelbinomialstanmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  int<lower=0> k[N];\n  int<lower=1> n[N];\n}\nparameters {\n  real<lower=0,upper=1> theta;\n  real<lower=0,upper=1> thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n\";Define the Stanmodel and set the output format to :mcmcchains.stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n  output_format=:mcmcchains);Use 16 observationsN2 = 4^2\nd = Binomial(9, 0.66)\nn2 = Int.(9 * ones(Int, N2))\nk2 = rand(d, N2);Input data for cmdstanbinomialdata = Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2);Sample using cmdstanrc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Plot the 4 chainsif rc == 0\n  plot(chn)\nendEnd of 03/clip-05s.jlThis page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-05s.jl\""
 },
 
 {
-    "location": "03/clip-06-16s/#",
-    "page": "clip-06-16s",
-    "title": "clip-06-16s",
+    "location": "03/clip-05s/#clip-05s.jl-1",
+    "page": "clip-05s",
+    "title": "clip-05s.jl",
+    "category": "section",
+    "text": "Load Julia packages (libraries) neededusing StatisticalRethinking, CmdStan, StanMCMCChains\ngr(size=(500,800));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"03\")\ncd(ProjDir)Define the Stan language modelbinomialstanmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  int<lower=0> k[N];\n  int<lower=1> n[N];\n}\nparameters {\n  real<lower=0,upper=1> theta;\n  real<lower=0,upper=1> thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n\";Define the Stanmodel and set the output format to :mcmcchains.stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n  output_format=:mcmcchains);Use 16 observationsN2 = 4^2\nd = Binomial(9, 0.66)\nn2 = Int.(9 * ones(Int, N2))\nk2 = rand(d, N2);Input data for cmdstanbinomialdata = Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2);Sample using cmdstanrc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Plot the 4 chainsif rc == 0\n  plot(chn)\nendEnd of 03/clip-05s.jlThis page was generated using Literate.jl."
+},
+
+{
+    "location": "03/clip-06-10/#",
+    "page": "clip-06-10",
+    "title": "clip-06-10",
     "category": "page",
-    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-06-16s.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, CmdStan, StanMCMCChains\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"03\")\ncd(ProjDir)Define the Stan language modelbinomialstanmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  int<lower=0> k[N];\n  int<lower=1> n[N];\n}\nparameters {\n  real<lower=0,upper=1> theta;\n  real<lower=0,upper=1> thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n\";Define the Stanmodel and set the output format to :mcmcchains.stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n  output_format=:mcmcchains);Use 4 observationsN2 = 4\nn2 = Int.(9 * ones(Int, N2))\nk2 = [6, 5, 7, 6]Input data for cmdstanbinomialdata = Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2);Sample using cmdstanrc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Look at area of hpdMCMCChains.hpd(chn)Plot the 4 chainsif rc == 0\n  mixeddensity(chn, xlab=\"height [cm]\", ylab=\"density\")\n  bnds =MCMCChains.hpd(convert(Vector{Float64}, chn.value[:,1,1]))\n  vline!([bnds[1]], line=:dash)\n  vline!([bnds[2]], line=:dash)\nendEnd of clip-06-16s.jlThis page was generated using Literate.jl."
+    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-06-10.jl\""
+},
+
+{
+    "location": "03/clip-06-10/#clip-06-10.jl-1",
+    "page": "clip-06-10",
+    "title": "clip-06-10.jl",
+    "category": "section",
+    "text": "Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, Optim\ngr(size=(600,300));"
+},
+
+{
+    "location": "03/clip-06-10/#snippet-3.2-1",
+    "page": "clip-06-10",
+    "title": "snippet 3.2",
+    "category": "section",
+    "text": "p_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(9, p), 6) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)"
+},
+
+{
+    "location": "03/clip-06-10/#snippet-3.3-1",
+    "page": "clip-06-10",
+    "title": "snippet 3.3",
+    "category": "section",
+    "text": "Draw 10000 samples from this posterior distributionN = 10000\nsamples = sample(p_grid, Weights(posterior), N);In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [\"toss\"]);Describe the chaindescribe(chn)"
+},
+
+{
+    "location": "03/clip-06-10/#snippet-3.6-1",
+    "page": "clip-06-10",
+    "title": "snippet 3.6",
+    "category": "section",
+    "text": "v = 0.0\nfor i in 1:length(p_grid)\n  global v\n  if p_grid[i] < 0.5\n    v += posterior[i]\n  end\nend\nv"
+},
+
+{
+    "location": "03/clip-06-10/#snippet-3.7-1",
+    "page": "clip-06-10",
+    "title": "snippet 3.7",
+    "category": "section",
+    "text": "mapreduce(p -> p < 0.5 ? 1 : 0, +, samples) / N   |> display"
+},
+
+{
+    "location": "03/clip-06-10/#snippet-3.8-1",
+    "page": "clip-06-10",
+    "title": "snippet 3.8",
+    "category": "section",
+    "text": "mapreduce(p -> (p > 0.5 && p < 0.75) ? 1 : 0, +, samples) / N   |> display"
+},
+
+{
+    "location": "03/clip-06-10/#snippet-3.9-1",
+    "page": "clip-06-10",
+    "title": "snippet 3.9",
+    "category": "section",
+    "text": "quantile(samples, 0.8)"
+},
+
+{
+    "location": "03/clip-06-10/#snippet-3.10-1",
+    "page": "clip-06-10",
+    "title": "snippet 3.10",
+    "category": "section",
+    "text": "quantile(samples, [0.1, 0.9])End of 03/clip-06-10.jl#- This page was generated using Literate.jl."
+},
+
+{
+    "location": "03/clip-11-16/#",
+    "page": "clip-11-16",
+    "title": "clip-11-16",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-11-16.jl\""
+},
+
+{
+    "location": "03/clip-11-16/#clip-11-16.jl-1",
+    "page": "clip-11-16",
+    "title": "clip-11-16.jl",
+    "category": "section",
+    "text": "Load Julia packages (libraries) needed  for the snippets in chapter 0using StatisticalRethinking, Optim\ngr(size=(600,300));"
+},
+
+{
+    "location": "03/clip-11-16/#snippet-3.11-1",
+    "page": "clip-11-16",
+    "title": "snippet 3.11",
+    "category": "section",
+    "text": "p_grid = range(0, step=0.001, stop=1)\nprior = ones(length(p_grid))\nlikelihood = [pdf(Binomial(3, p), 3) for p in p_grid]\nposterior = likelihood .* prior\nposterior = posterior / sum(posterior)Draw 10000 samples from this posterior distributionN = 10000\nsamples = sample(p_grid, Weights(posterior), N);In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [\"toss\"]);"
+},
+
+{
+    "location": "03/clip-11-16/#snippet-3.12-1",
+    "page": "clip-11-16",
+    "title": "snippet 3.12",
+    "category": "section",
+    "text": "describe(chn)"
+},
+
+{
+    "location": "03/clip-11-16/#snippet-3.13-1",
+    "page": "clip-11-16",
+    "title": "snippet 3.13",
+    "category": "section",
+    "text": "MCMCChains.hpd(chn, alpha=0.5)"
+},
+
+{
+    "location": "03/clip-11-16/#snippet-3.14-1",
+    "page": "clip-11-16",
+    "title": "snippet 3.14",
+    "category": "section",
+    "text": "mode(samples)"
+},
+
+{
+    "location": "03/clip-11-16/#snippet-3.15-1",
+    "page": "clip-11-16",
+    "title": "snippet 3.15",
+    "category": "section",
+    "text": "mean(samples)"
+},
+
+{
+    "location": "03/clip-11-16/#snippet-3.16-1",
+    "page": "clip-11-16",
+    "title": "snippet 3.16",
+    "category": "section",
+    "text": "median(samples)End of 03/clip-11-16.jl#- This page was generated using Literate.jl."
+},
+
+{
+    "location": "03/clip-17s/#",
+    "page": "clip-17s",
+    "title": "clip-17s",
+    "category": "page",
+    "text": "EditURL = \"https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-17s.jl\"Load Julia packages (libraries) neededusing StatisticalRethinking, CmdStan, StanMCMCChains\ngr(size=(500,500));CmdStan uses a tmp directory to store the output of cmdstanProjDir = rel_path(\"..\", \"scripts\", \"03\")\ncd(ProjDir)Define the Stan language modelbinomialstanmodel = \"\n// Inferring a Rate\ndata {\n  int N;\n  int<lower=0> k[N];\n  int<lower=1> n[N];\n}\nparameters {\n  real<lower=0,upper=1> theta;\n  real<lower=0,upper=1> thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n\";Define the Stanmodel and set the output format to :mcmcchains.stanmodel = Stanmodel(name=\"binomial\", monitors = [\"theta\"], model=binomialstanmodel,\n  output_format=:mcmcchains);Use 4 observationsN2 = 4\nn2 = Int.(9 * ones(Int, N2))\nk2 = [6, 5, 7, 6]Input data for cmdstanbinomialdata = Dict(\"N\" => length(n2), \"n\" => n2, \"k\" => k2);Sample using cmdstanrc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,\n  CmdStanDir=CMDSTAN_HOME);Describe the drawsdescribe(chn)Look at area of hpdMCMCChains.hpd(chn)Plot the 4 chainsif rc == 0\n  mixeddensity(chn, xlab=\"height [cm]\", ylab=\"density\")\n  bnds =MCMCChains.hpd(convert(Vector{Float64}, chn.value[:,1,1]))\n  vline!([bnds[1]], line=:dash)\n  vline!([bnds[2]], line=:dash)\nendEnd of clip-06-16s.jlThis page was generated using Literate.jl."
 },
 
 {

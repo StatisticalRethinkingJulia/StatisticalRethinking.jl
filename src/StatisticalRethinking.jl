@@ -46,7 +46,7 @@ export
   link,
   #shade,
   DataFrame,
-  Array,
+  Array
   sample
 
 end # module

@@ -1,35 +1,38 @@
 using StatisticalRethinking
-import StatsBase: sample
 
 ProjDir = @__DIR__
 cd(ProjDir)
 
-include("../test/samplechain.jl")
+include("samplechain.jl")
 
-describe(chn)
+describe(chns)
 
-df = DataFrame(chn)
+df = DataFrame(chns)
 
 df_sample = sample(df, 5)
 display(df_sample)
 println()
 
-chn_sample = sample(chn, 2048)
-display(chn_sample)
+chns_sample = sample(chns, 2048)
+display(chns_sample)
 println()
 
 s = kde(df[:sigma])
 plot(s.x, s.density, lab="df_kde")
 
-c = kde(Array(chn[:sigma]))
-plot!(c.x, c.density, lab="chn_kde")
+l1 = size(Array(chns[:sigma]), 1)
 
-chn_weighted_sample = sample(chn_sample, Weights(c.density), 100000)
-display(chn_weighted_sample)
+c = kde(Array(chns[:sigma]))
+plot!(c.x, c.density, lab="chns_kde")
+
+chns_weighted_sample = sample(chns_sample, Weights(c.density), 100000)
+display(chns_weighted_sample)
 println()
-cw = kde(chain_to_array(chn_weighted_sample[:sigma]))
-plot!(cw.x, cw.density, lab="chn_weighted_sample")
+
+l2 = size(Array(chns_weighted_sample[:sigma]), 1)
+
+cw = kde(Array(chns_weighted_sample[:sigma]))
+plot!(cw.x, cw.density, lab="chns_weighted_sample")
 
 x1 = 4.0:0.00001:6.0
 plot!(x1, pdf(cw, x1), lab="pdf_kde")
-

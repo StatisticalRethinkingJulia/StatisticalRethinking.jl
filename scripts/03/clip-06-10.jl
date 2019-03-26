@@ -1,4 +1,4 @@
-# # clip-02-05.jl
+# # clip-06-10.jl
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
@@ -12,8 +12,6 @@ prior = ones(length(p_grid))
 likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
 posterior = likelihood .* prior
 posterior = posterior / sum(posterior)
-samples = sample(p_grid, Weights(posterior), length(p_grid));
-samples[1:5]
 
 # ### snippet 3.3
 # Draw 10000 samples from this posterior distribution
@@ -30,29 +28,31 @@ chn = MCMCChains.Chains(reshape(samples, N, 1, 1), ["toss"]);
 
 describe(chn)
 
-# Plot the chain
+# ### snippet 3.6
 
-plot(chn)
+v = 0.0
+for i in 1:length(p_grid)
+  global v
+  if p_grid[i] < 0.5
+    v += posterior[i]
+  end
+end
+v
 
-# ### snippet 3.4
+# ### snippet 3.7
 
-# Create a vector to hold the plots so we can later combine them
+mapreduce(p -> p < 0.5 ? 1 : 0, +, samples) / N   |> display
 
-p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
-p[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
+# ### snippet 3.8
 
-# ### snippet 3.5
+mapreduce(p -> (p > 0.5 && p < 0.75) ? 1 : 0, +, samples) / N   |> display
 
-# Analytical calculation
+# ### snippet 3.9
 
-w = 6
-n = 9
-x = 0:0.01:1
-p[2] = density(samples, ylim=(0.0, 5.0), lab="Sample density")
-p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
+quantile(samples, 0.8) 
 
-# Add quadratic approximation
+# ### snippet 3.10
 
-plot(p..., layout=(1, 2))
+quantile(samples, [0.1, 0.9])
 
-# End of `03/clip-02-05.jl`
+# End of `03/clip-06-10.jl`

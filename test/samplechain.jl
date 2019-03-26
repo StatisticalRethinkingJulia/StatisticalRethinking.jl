@@ -1,8 +1,8 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
-using CmdStan, StanMCMCChains, KernelDensity
-gr(size=(500,500));
+using CmdStan
+#gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -55,10 +55,10 @@ heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weigh
 
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
+rc, chns, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
   summary=false, CmdStanDir=CMDSTAN_HOME);
 
 # Describe the draws
 
-describe(chn)
+describe(chns)
 

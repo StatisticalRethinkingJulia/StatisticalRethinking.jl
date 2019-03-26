@@ -85,7 +85,6 @@ p[3] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 plot!( p[3], x, pdf.(Normal( quapfit[1], quapfit[2] ) , x ), lab="Quap approximation")
 
 # ### snippet 2.7
-# quadratic approximation
 
 w = 6; n = 9; x = 0:0.01:1
 p[4] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")

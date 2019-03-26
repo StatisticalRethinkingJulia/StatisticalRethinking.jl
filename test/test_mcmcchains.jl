@@ -1,5 +1,4 @@
-using MCMCChains, Parameters, Statistics, DataFrames
-using StatisticalRethinking: to_df
+using StatisticalRethinking, Parameters, Statistics, DataFrames
 
 val = rand(10, 6, 3)
 

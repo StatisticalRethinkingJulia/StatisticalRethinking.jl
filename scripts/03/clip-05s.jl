@@ -1,3 +1,5 @@
+# # clip-05s.jl
+
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking, CmdStan, StanMCMCChains

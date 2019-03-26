@@ -1,6 +1,19 @@
 using StatisticalRethinking
 using Test
 
-println("Tests are executed in docs job.")
+@testset "Array constructor tests" begin
+  
+  tests = [
+    "test_array_constructor.jl",
+    "test_df_constructor.jl",
+    "test_mcmcchains.jl",
+    "test_sampling.jl"
+  ]
 
-@test 1 == 1
+  for test in tests
+    include(test)
+  end
+
+  println("More tests are executed in docs job.")
+
+end

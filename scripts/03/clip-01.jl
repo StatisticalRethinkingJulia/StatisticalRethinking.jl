@@ -1,3 +1,5 @@
+# # clip-01.jl
+
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking

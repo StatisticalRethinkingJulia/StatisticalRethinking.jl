@@ -13,10 +13,10 @@ transformed parameters {
   linpred <- X*beta;
 }
 model {
-  beta[1] ~ cauchy(0,10); //prior for the intercept following Gelman 2008
+  beta[1] ~ cauchy(0,10); // prior for the intercept following Gelman 2008
 
   for(i in 2:K)
-   beta[i] ~ cauchy(0,2.5);//prior for the slopes following Gelman 2008
+   beta[i] ~ cauchy(0,2.5); // prior for the slopes following Gelman 2008
 
   y ~ normal(linpred,sigma);
 }

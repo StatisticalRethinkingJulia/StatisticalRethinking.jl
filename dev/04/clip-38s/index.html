@@ -1,24 +1,85 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-38s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08/">clip-08</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-10/">clip-06-10</a></li><li><a class="toctext" href="../../03/clip-11-16/">clip-11-16</a></li><li><a class="toctext" href="../../03/clip-17s/">clip-17s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../clip-30s/">clip-30s</a></li><li class="current"><a class="toctext" href>clip-38s</a><ul class="internal"><li><a class="toctext" href="#Linear-Regression-1">Linear Regression</a></li></ul></li><li><a class="toctext" href="../clip-43s/">clip-43s</a></li><li><a class="toctext" href="../clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../clip-48-54s/">clip-48-54s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>clip-38s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-38s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-38s</span><a class="fa fa-bars" href="#"></a></div></header><h2><a class="nav-anchor" id="Linear-Regression-1" href="#Linear-Regression-1">Linear Regression</a></h2><h3><a class="nav-anchor" id="Added-snippet-used-as-a-reference-for-all-models-1" href="#Added-snippet-used-as-a-reference-for-all-models-1">Added snippet used as a reference for all models</a></h3><p>This model is based on the TuringTutorial example <a href="https://github.com/TuringLang/TuringTutorials/blob/csp/linear/LinearRegression.ipynb">LinearRegression</a> by Cameron Pfiffer.</p><p>Turing is powerful when applied to complex hierarchical models, but it can also be put to task at common statistical procedures, like linear regression. This tutorial covers how to implement a linear regression model in Turing.</p><p>We begin by importing all the necessary libraries.</p><pre><code class="language-">using StatisticalRethinking, CmdStan, StanMCMCChains, GLM
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-38s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08/">clip-08</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-10/">clip-06-10</a></li><li><a class="toctext" href="../../03/clip-11-16/">clip-11-16</a></li><li><a class="toctext" href="../../03/clip-17s/">clip-17s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../clip-30s/">clip-30s</a></li><li class="current"><a class="toctext" href>clip-38s</a><ul class="internal"><li><a class="toctext" href="#Linear-Regression-1">Linear Regression</a></li></ul></li><li><a class="toctext" href="../clip-43s/">clip-43s</a></li><li><a class="toctext" href="../clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../clip-48-54s/">clip-48-54s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>clip-38s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-38s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-38s</span><a class="fa fa-bars" href="#"></a></div></header><h2><a class="nav-anchor" id="Linear-Regression-1" href="#Linear-Regression-1">Linear Regression</a></h2><h3><a class="nav-anchor" id="Added-snippet-used-as-a-reference-for-all-models-1" href="#Added-snippet-used-as-a-reference-for-all-models-1">Added snippet used as a reference for all models</a></h3><p>This model is based on the TuringTutorial example <a href="https://github.com/TuringLang/TuringTutorials/blob/csp/linear/LinearRegression.ipynb">LinearRegression</a> by Cameron Pfiffer.</p><p>Turing is powerful when applied to complex hierarchical models, but it can also be put to task at common statistical procedures, like linear regression. This tutorial covers how to implement a linear regression model in Turing.</p><p>We begin by importing all the necessary libraries.</p><pre><code class="language-julia">using StatisticalRethinking, CmdStan, GLM
 gr(size=(500,500))
 
 ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;00&quot;)
-cd(ProjDir)</code></pre><p>Import the dataset.</p><pre><code class="language-">howell1 = CSV.read(rel_path(&quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
-df = convert(DataFrame, howell1);</code></pre><p>Use only adults</p><pre><code class="language-">data = filter(row -&gt; row[:age] &gt;= 18, df)</code></pre><p>Show the first six rows of the dataset.</p><pre><code class="language-">first(data, 6)</code></pre><p>The next step is to get our data ready for testing. We&#39;ll split the mtcars dataset into two subsets, one for training our model and one for evaluating our model. Then, we separate the labels we want to learn (MPG, in this case) and standardize the datasets by subtracting each column&#39;s means and dividing by the standard deviation of that column.</p><p>The resulting data is not very familiar looking, but this standardization process helps the sampler converge far easier. We also create a function called unstandardize, which returns the standardized values to their original form. We will use this function later on when we make predictions.</p><p>Split our dataset 70%/30% into training/test sets.</p><pre><code class="language-">n = size(data, 1)
+cd(ProjDir)</code></pre><p>Import the dataset.</p><pre><code class="language-julia">howell1 = CSV.read(rel_path(&quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
+df = convert(DataFrame, howell1);</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>544 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>6</th><td>163.83</td><td>62.9926</td><td>35.0</td><td>1</td></tr><tr><th>7</th><td>149.225</td><td>38.2435</td><td>32.0</td><td>0</td></tr><tr><th>8</th><td>168.91</td><td>55.48</td><td>27.0</td><td>1</td></tr><tr><th>9</th><td>147.955</td><td>34.8699</td><td>19.0</td><td>0</td></tr><tr><th>10</th><td>165.1</td><td>54.4877</td><td>54.0</td><td>1</td></tr><tr><th>11</th><td>154.305</td><td>49.8951</td><td>47.0</td><td>0</td></tr><tr><th>12</th><td>151.13</td><td>41.2202</td><td>66.0</td><td>1</td></tr><tr><th>13</th><td>144.78</td><td>36.0322</td><td>73.0</td><td>0</td></tr><tr><th>14</th><td>149.9</td><td>47.7</td><td>20.0</td><td>0</td></tr><tr><th>15</th><td>150.495</td><td>33.8493</td><td>65.3</td><td>0</td></tr><tr><th>16</th><td>163.195</td><td>48.5627</td><td>36.0</td><td>1</td></tr><tr><th>17</th><td>157.48</td><td>42.3258</td><td>44.0</td><td>1</td></tr><tr><th>18</th><td>143.942</td><td>38.3569</td><td>31.0</td><td>0</td></tr><tr><th>19</th><td>121.92</td><td>19.6179</td><td>12.0</td><td>1</td></tr><tr><th>20</th><td>105.41</td><td>13.948</td><td>8.0</td><td>0</td></tr><tr><th>21</th><td>86.36</td><td>10.4893</td><td>6.5</td><td>0</td></tr><tr><th>22</th><td>161.29</td><td>48.9879</td><td>39.0</td><td>1</td></tr><tr><th>23</th><td>156.21</td><td>42.7227</td><td>29.0</td><td>0</td></tr><tr><th>24</th><td>129.54</td><td>23.5868</td><td>13.0</td><td>1</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table><p>Use only adults</p><pre><code class="language-julia">data = filter(row -&gt; row[:age] &gt;= 18, df)</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>352 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>6</th><td>163.83</td><td>62.9926</td><td>35.0</td><td>1</td></tr><tr><th>7</th><td>149.225</td><td>38.2435</td><td>32.0</td><td>0</td></tr><tr><th>8</th><td>168.91</td><td>55.48</td><td>27.0</td><td>1</td></tr><tr><th>9</th><td>147.955</td><td>34.8699</td><td>19.0</td><td>0</td></tr><tr><th>10</th><td>165.1</td><td>54.4877</td><td>54.0</td><td>1</td></tr><tr><th>11</th><td>154.305</td><td>49.8951</td><td>47.0</td><td>0</td></tr><tr><th>12</th><td>151.13</td><td>41.2202</td><td>66.0</td><td>1</td></tr><tr><th>13</th><td>144.78</td><td>36.0322</td><td>73.0</td><td>0</td></tr><tr><th>14</th><td>149.9</td><td>47.7</td><td>20.0</td><td>0</td></tr><tr><th>15</th><td>150.495</td><td>33.8493</td><td>65.3</td><td>0</td></tr><tr><th>16</th><td>163.195</td><td>48.5627</td><td>36.0</td><td>1</td></tr><tr><th>17</th><td>157.48</td><td>42.3258</td><td>44.0</td><td>1</td></tr><tr><th>18</th><td>143.942</td><td>38.3569</td><td>31.0</td><td>0</td></tr><tr><th>19</th><td>161.29</td><td>48.9879</td><td>39.0</td><td>1</td></tr><tr><th>20</th><td>156.21</td><td>42.7227</td><td>29.0</td><td>0</td></tr><tr><th>21</th><td>146.4</td><td>35.4936</td><td>56.0</td><td>1</td></tr><tr><th>22</th><td>148.59</td><td>37.9033</td><td>45.0</td><td>0</td></tr><tr><th>23</th><td>147.32</td><td>35.4652</td><td>19.0</td><td>0</td></tr><tr><th>24</th><td>147.955</td><td>40.313</td><td>29.0</td><td>1</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table><p>Show the first six rows of the dataset.</p><pre><code class="language-julia">first(data, 6)</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>6 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>6</th><td>163.83</td><td>62.9926</td><td>35.0</td><td>1</td></tr></tbody></table><p>The next step is to get our data ready for testing. We&#39;ll split the mtcars dataset into two subsets, one for training our model and one for evaluating our model. Then, we separate the labels we want to learn (MPG, in this case) and standardize the datasets by subtracting each column&#39;s means and dividing by the standard deviation of that column.</p><p>The resulting data is not very familiar looking, but this standardization process helps the sampler converge far easier. We also create a function called unstandardize, which returns the standardized values to their original form. We will use this function later on when we make predictions.</p><p>Split our dataset 70%/30% into training/test sets.</p><pre><code class="language-julia">n = size(data, 1)
 test_ind = sample(1:n, Int(floor(0.3*n)), replace=false);
 train_ind = [(i) for i=1:n if !(i in test_ind)];
 test = data[test_ind, :];
-train = data[train_ind, :];</code></pre><p>Save dataframe versions of our dataset.</p><pre><code class="language-">train_cut = DataFrame(train)
-test_cut = DataFrame(test)</code></pre><p>Create our labels. These are the values we are trying to predict.</p><pre><code class="language-">train_label = train[:, :height]
-test_label = test[:, :height]</code></pre><p>Get the list of columns to keep.</p><pre><code class="language-">remove_names = filter(x-&gt;!in(x, [:height, :age, :male]), names(data))</code></pre><p>Filter the test and train sets.</p><pre><code class="language-">train = Matrix(train[:, remove_names]);
-test = Matrix(test[:, remove_names]);</code></pre><p>A handy helper function to rescale our dataset.</p><div><pre><code class="language-julia">function standardize(x)
+train = data[train_ind, :];</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>247 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>4</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>5</th><td>149.225</td><td>38.2435</td><td>32.0</td><td>0</td></tr><tr><th>6</th><td>168.91</td><td>55.48</td><td>27.0</td><td>1</td></tr><tr><th>7</th><td>149.9</td><td>47.7</td><td>20.0</td><td>0</td></tr><tr><th>8</th><td>150.495</td><td>33.8493</td><td>65.3</td><td>0</td></tr><tr><th>9</th><td>163.195</td><td>48.5627</td><td>36.0</td><td>1</td></tr><tr><th>10</th><td>157.48</td><td>42.3258</td><td>44.0</td><td>1</td></tr><tr><th>11</th><td>146.4</td><td>35.4936</td><td>56.0</td><td>1</td></tr><tr><th>12</th><td>148.59</td><td>37.9033</td><td>45.0</td><td>0</td></tr><tr><th>13</th><td>147.32</td><td>35.4652</td><td>19.0</td><td>0</td></tr><tr><th>14</th><td>147.955</td><td>40.313</td><td>29.0</td><td>1</td></tr><tr><th>15</th><td>161.925</td><td>55.1114</td><td>30.0</td><td>1</td></tr><tr><th>16</th><td>146.05</td><td>38.4986</td><td>35.0</td><td>0</td></tr><tr><th>17</th><td>152.705</td><td>46.6066</td><td>33.0</td><td>0</td></tr><tr><th>18</th><td>147.955</td><td>47.4004</td><td>36.0</td><td>0</td></tr><tr><th>19</th><td>151.765</td><td>49.4132</td><td>30.0</td><td>1</td></tr><tr><th>20</th><td>162.865</td><td>49.3848</td><td>24.0</td><td>1</td></tr><tr><th>21</th><td>147.32</td><td>39.1223</td><td>42.0</td><td>0</td></tr><tr><th>22</th><td>147.955</td><td>49.8951</td><td>19.0</td><td>0</td></tr><tr><th>23</th><td>154.305</td><td>41.2485</td><td>55.0</td><td>1</td></tr><tr><th>24</th><td>146.7</td><td>42.4</td><td>20.0</td><td>1</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table><p>Save dataframe versions of our dataset.</p><pre><code class="language-julia">train_cut = DataFrame(train)
+test_cut = DataFrame(test)</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>105 rows × 4 columns</p><tr><th>1</th><td>160.96</td><td>43.2046</td><td>29.0</td><td>1</td></tr><tr><th>2</th><td>158.75</td><td>48.6761</td><td>28.0</td><td>1</td></tr><tr><th>3</th><td>148.285</td><td>38.4419</td><td>39.0</td><td>0</td></tr><tr><th>4</th><td>149.86</td><td>38.6971</td><td>58.0</td><td>0</td></tr><tr><th>5</th><td>162.56</td><td>48.1091</td><td>50.0</td><td>1</td></tr><tr><th>6</th><td>146.05</td><td>42.8077</td><td>23.0</td><td>0</td></tr><tr><th>7</th><td>161.29</td><td>41.8722</td><td>24.0</td><td>1</td></tr><tr><th>8</th><td>156.845</td><td>45.6427</td><td>41.0</td><td>1</td></tr><tr><th>9</th><td>162.56</td><td>47.0318</td><td>27.0</td><td>0</td></tr><tr><th>10</th><td>148.59</td><td>40.7666</td><td>44.0</td><td>1</td></tr><tr><th>11</th><td>161.29</td><td>49.3565</td><td>21.0</td><td>1</td></tr><tr><th>12</th><td>149.225</td><td>35.8054</td><td>82.0</td><td>1</td></tr><tr><th>13</th><td>141.605</td><td>36.2023</td><td>30.0</td><td>0</td></tr><tr><th>14</th><td>151.13</td><td>42.2691</td><td>48.0</td><td>0</td></tr><tr><th>15</th><td>146.7</td><td>36.6</td><td>20.0</td><td>0</td></tr><tr><th>16</th><td>151.994</td><td>49.9518</td><td>30.0</td><td>0</td></tr><tr><th>17</th><td>142.875</td><td>38.8388</td><td>27.0</td><td>0</td></tr><tr><th>18</th><td>154.305</td><td>49.8951</td><td>47.0</td><td>0</td></tr><tr><th>19</th><td>163.83</td><td>46.7767</td><td>21.0</td><td>1</td></tr><tr><th>20</th><td>147.32</td><td>40.8516</td><td>64.0</td><td>0</td></tr><tr><th>21</th><td>158.42</td><td>47.287</td><td>24.0</td><td>0</td></tr><tr><th>22</th><td>148.59</td><td>39.5192</td><td>62.0</td><td>1</td></tr><tr><th>23</th><td>171.45</td><td>56.5573</td><td>52.0</td><td>1</td></tr><tr><th>24</th><td>163.83</td><td>62.9926</td><td>35.0</td><td>1</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table><p>Create our labels. These are the values we are trying to predict.</p><pre><code class="language-julia">train_label = train[:, :height]
+test_label = test[:, :height]</code></pre><pre><code class="language-none">105-element Array{Union{Missing, Float64},1}:
+ 160.9598
+ 158.75  
+ 148.2852
+ 149.86  
+ 162.56  
+ 146.05  
+ 161.29  
+ 156.845 
+ 162.56  
+ 148.59  
+   ⋮     
+ 164.465 
+ 147.32  
+ 160.655 
+ 149.86  
+ 154.305 
+ 153.67  
+ 154.94  
+ 154.94  
+ 140.335 </code></pre><p>Get the list of columns to keep.</p><pre><code class="language-julia">remove_names = filter(x-&gt;!in(x, [:height, :age, :male]), names(data))</code></pre><pre><code class="language-none">1-element Array{Symbol,1}:
+ :weight</code></pre><p>Filter the test and train sets.</p><pre><code class="language-julia">train = Matrix(train[:, remove_names]);
+test = Matrix(test[:, remove_names]);</code></pre><pre><code class="language-none">105×1 Array{Union{Missing, Float64},2}:
+ 43.204638 
+ 48.6760915
+ 38.441922 
+ 38.6970675
+ 48.1091015
+ 42.807745 
+ 41.8722115
+ 45.642695 
+ 47.0318205
+ 40.766581 
+  ⋮        
+ 52.16308  
+ 36.8826995
+ 47.8823055
+ 42.410852 
+ 45.756093 
+ 44.565414 
+ 39.9444455
+ 48.477645 
+ 37.4496895</code></pre><p>A handy helper function to rescale our dataset.</p><pre><code class="language-julia">function standardize(x)
     return (x .- mean(x, dims=1)) ./ std(x, dims=1), x
-end</code></pre><pre><code class="language-none">standardize (generic function with 1 method)</code></pre></div><p>Another helper function to unstandardize our datasets.</p><div><pre><code class="language-julia">function unstandardize(x, orig)
+end</code></pre><pre><code class="language-none">standardize (generic function with 1 method)</code></pre><p>Another helper function to unstandardize our datasets.</p><pre><code class="language-julia">function unstandardize(x, orig)
     return x .* std(orig, dims=1) .+ mean(orig, dims=1)
-end</code></pre><pre><code class="language-none">unstandardize (generic function with 1 method)</code></pre></div><p>Standardize our dataset.</p><pre><code class="language-">(train, train_orig) = standardize(train)
+end</code></pre><pre><code class="language-none">unstandardize (generic function with 1 method)</code></pre><p>Standardize our dataset.</p><pre><code class="language-julia">(train, train_orig) = standardize(train)
 (test, test_orig) = standardize(test)
 (train_label, train_l_orig) = standardize(train_label)
-(test_label, test_l_orig) = standardize(test_label);</code></pre><p>Design matrix</p><pre><code class="language-">dmat = [ones(size(train, 1)) train]</code></pre><p>Bayesian linear regression.</p><div><pre><code class="language-julia">lrmodel = &quot;
+(test_label, test_l_orig) = standardize(test_label);</code></pre><pre><code class="language-none">([1.02278, 0.733311, -0.637523, -0.431233, 1.2324, -0.930323, 1.06604, 0.483766, 1.2324, -0.597596  …  -1.0135, 1.48195, -0.763959, 0.982856, -0.431233, 0.151039, 0.0678576, 0.234221, 0.234221, -1.67896], Union{Missing, Float64}[160.96, 158.75, 148.285, 149.86, 162.56, 146.05, 161.29, 156.845, 162.56, 148.59  …  145.415, 164.465, 147.32, 160.655, 149.86, 154.305, 153.67, 154.94, 154.94, 140.335])</code></pre><p>Design matrix</p><pre><code class="language-julia">dmat = [ones(size(train, 1)) train]</code></pre><pre><code class="language-none">247×2 Array{Float64,2}:
+ 1.0   0.36416 
+ 1.0  -1.36492 
+ 1.0   1.15954 
+ 1.0  -0.634385
+ 1.0  -1.09691 
+ 1.0   1.53129 
+ 1.0   0.345008
+ 1.0  -1.76693 
+ 1.0   0.47655 
+ 1.0  -0.474445
+ ⋮             
+ 1.0  -0.400959
+ 1.0  -1.4557  
+ 1.0  -0.215083
+ 1.0   0.372805
+ 1.0  -0.668967
+ 1.0  -0.703548
+ 1.0   1.02553 
+ 1.0   1.31516 
+ 1.0   1.08173 </code></pre><p>Bayesian linear regression.</p><pre><code class="language-julia">lrmodel = &quot;
 data {
   int N; //the number of observations
   int K; //the number of columns in the model matrix
@@ -34,24 +95,60 @@ transformed parameters {
   linpred &lt;- X*beta;
 }
 model {
-  beta[1] ~ cauchy(0,10); //prior for the intercept following Gelman 2008
+  beta[1] ~ cauchy(0,10); // prior for the intercept following Gelman 2008
 
   for(i in 2:K)
-   beta[i] ~ cauchy(0,2.5);//prior for the slopes following Gelman 2008
+   beta[i] ~ cauchy(0,2.5); // prior for the slopes following Gelman 2008
 
   y ~ normal(linpred,sigma);
 }
-&quot;;</code></pre><pre><code class="language-none">&quot;\ndata {\n  int N; //the number of observations\n  int K; //the number of columns in the model matrix\n  real y[N]; //the response\n  matrix[N,K] X; //the model matrix\n}\nparameters {\n  vector[K] beta; //the regression parameters\n  real sigma; //the standard deviation\n}\ntransformed parameters {\n  vector[N] linpred;\n  linpred &lt;- X*beta;\n}\nmodel {\n  beta[1] ~ cauchy(0,10); //prior for the intercept following Gelman 2008\n\n  for(i in 2:K)\n   beta[i] ~ cauchy(0,2.5);//prior for the slopes following Gelman 2008\n\n  y ~ normal(linpred,sigma);\n}\n&quot;</code></pre></div><p>Define the Stanmodel and set the output format to :mcmcchains.</p><div><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;linear_regression&quot;,
-  monitors = [&quot;beta.1&quot;, &quot;beta.2&quot;, &quot;sigma&quot;],
-  model=lrmodel);</code></pre></div><p>Input data for cmdstan</p><pre><code class="language-">lrdata = Dict(&quot;N&quot; =&gt; size(train, 1), &quot;K&quot; =&gt; size(dmat, 2), &quot;y&quot; =&gt; train_label, &quot;X&quot; =&gt; dmat);</code></pre><p>Sample using cmdstan</p><div><pre><code class="language-julia">rc, sim, cnames = stan(stanmodel, lrdata, ProjDir, diagnostics=false,
-  summary=false, CmdStanDir=CMDSTAN_HOME);</code></pre></div><p>Convert to a  Chain object</p><pre><code class="language-">cnames = [&quot;alpha&quot;, &quot;beta[1]&quot;, &quot;sigma&quot;]
-chain = convert_a3d(sim, cnames, Val(:mcmcchains))</code></pre><p>Describe the chains.</p><pre><code class="language-">describe(chain)</code></pre><p>Perform multivariate OLS.</p><pre><code class="language-">ols = lm(@formula(height ~ weight), train_cut)</code></pre><p>Store our predictions in the original dataframe.</p><pre><code class="language-">train_cut.OLSPrediction = predict(ols);
-test_cut.OLSPrediction = predict(ols, test_cut);</code></pre><p>Make a prediction given an input vector.</p><div><pre><code class="language-julia">function prediction(chain, x)
-    α = chain.value[:, 1, :];
-    β = [chain.value[:, i, :] for i in 2:2];
-    return  mean(α) .+ x * mean.(β)
-end</code></pre><pre><code class="language-none">prediction (generic function with 1 method)</code></pre></div><p>Calculate the predictions for the training and testing sets.</p><pre><code class="language-">train_cut.BayesPredictions = unstandardize(prediction(chain, train), train_l_orig);
-test_cut.BayesPredictions = unstandardize(prediction(chain, test), test_l_orig);</code></pre><p>Show the first side rows of the modified dataframe.</p><pre><code class="language-">remove_names = filter(x-&gt;!in(x, [:age, :male]), names(test_cut));
+&quot;;</code></pre><pre><code class="language-none">&quot;\ndata {\n  int N; //the number of observations\n  int K; //the number of columns in the model matrix\n  real y[N]; //the response\n  matrix[N,K] X; //the model matrix\n}\nparameters {\n  vector[K] beta; //the regression parameters\n  real sigma; //the standard deviation\n}\ntransformed parameters {\n  vector[N] linpred;\n  linpred &lt;- X*beta;\n}\nmodel {\n  beta[1] ~ cauchy(0,10); // prior for the intercept following Gelman 2008\n\n  for(i in 2:K)\n   beta[i] ~ cauchy(0,2.5); // prior for the slopes following Gelman 2008\n\n  y ~ normal(linpred,sigma);\n}\n&quot;</code></pre><p>Define the Stanmodel and set the output format to :mcmcchains.</p><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;linear_regression&quot;,
+  model=lrmodel, output_format=:mcmcchains);</code></pre><p>Input data for cmdstan</p><pre><code class="language-julia">lrdata = Dict(&quot;N&quot; =&gt; size(train, 1), &quot;K&quot; =&gt; size(dmat, 2), &quot;y&quot; =&gt; train_label, &quot;X&quot; =&gt; dmat);</code></pre><pre><code class="language-none">Dict{String,Any} with 4 entries:
+  &quot;X&quot; =&gt; [1.0 0.36416; 1.0 -1.36492; … ; 1.0 1.31516; 1.0 1.08173]
+  &quot;N&quot; =&gt; 247
+  &quot;K&quot; =&gt; 2
+  &quot;y&quot; =&gt; [-0.446338, -2.00885, 0.211563, -1.26871, -0.775288, 1.77408, -0.68787…</code></pre><p>Sample using cmdstan</p><pre><code class="language-julia">rc, chain, cnames = stan(stanmodel, lrdata, ProjDir, diagnostics=false,
+  summary=false, CmdStanDir=CMDSTAN_HOME);</code></pre><p>Convert to a  Chain object</p><pre><code class="language-">chns = set_section(chain, Dict(
+    :parameters =&gt; [&quot;beta.1&quot;, &quot;beta.2&quot;, &quot;sigma&quot;],
+    :linpred =&gt; [&quot;linpred.$i&quot; for i in 1:247],
+    :internals =&gt; [&quot;lp__&quot;, &quot;accept_stat__&quot;, &quot;stepsize__&quot;, &quot;treedepth__&quot;,
+      &quot;n_leapfrog__&quot;, &quot;divergent__&quot;, &quot;energy__&quot;]
+  )
+)</code></pre><p>Describe the chains.</p><pre><code class="language-">describe(chns)</code></pre><p>Perform multivariate OLS.</p><pre><code class="language-julia">ols = lm(@formula(height ~ weight), train_cut)</code></pre><pre><code class="language-none">StatsModels.DataFrameRegressionModel{GLM.LinearModel{GLM.LmResp{Array{Float64,1}},GLM.DensePredChol{Float64,LinearAlgebra.Cholesky{Float64,Array{Float64,2}}}},Array{Float64,2}}
+
+Formula: height ~ 1 + weight
+
+Coefficients:
+             Estimate Std.Error t value Pr(&gt;|t|)
+(Intercept)   114.823   2.26435  50.709   &lt;1e-99
+weight       0.888887 0.0493254 18.0209   &lt;1e-46
+</code></pre><p>Store our predictions in the original dataframe.</p><pre><code class="language-julia">train_cut.OLSPrediction = predict(ols);
+test_cut.OLSPrediction = predict(ols, test_cut);</code></pre><pre><code class="language-none">105-element Array{Union{Missing, Float64},1}:
+ 153.2267874752799 
+ 158.090289247714  
+ 148.99327297906783
+ 149.22006839850775
+ 157.5862994267364 
+ 152.87399460059555
+ 152.04241139598247
+ 155.3939437054837 
+ 156.62871876687888
+ 151.0596312450761 
+   ⋮               
+ 161.18982664672643
+ 147.60730097137935
+ 157.38470349834535
+ 152.52120172591123
+ 155.49474166967923
+ 154.4363630456262 
+ 150.32884600465854
+ 157.91389281037183
+ 148.11129079235695</code></pre><p>Make a prediction given an input vector.</p><pre><code class="language-julia">function prediction(chn, x)
+    α = Array(chn[Symbol(&quot;beta.1&quot;)]);
+    β = Array(chn[Symbol(&quot;beta.2&quot;)]);
+    return  mean(α) .+ x .* mean(β)
+end</code></pre><pre><code class="language-none">prediction (generic function with 1 method)</code></pre><p>Calculate the predictions for the training and testing sets.</p><pre><code class="language-">train_cut.BayesPredictions = unstandardize(prediction(chns, train), train_l_orig)[:,1];
+test_cut.BayesPredictions = unstandardize(prediction(chns, test), test_l_orig)[:,1];</code></pre><p>Show the first side rows of the modified dataframe.</p><pre><code class="language-">remove_names = filter(x-&gt;!in(x, [:age, :male]), names(test_cut));
 test_cut = test_cut[remove_names];
 first(test_cut, 6)
 
@@ -67,4 +164,4 @@ println(&quot;  OLS loss: $ols_loss1&quot;)
 
 println(&quot;Test set:&quot;)
 println(&quot;  Bayes loss: $bayes_loss2&quot;)
-println(&quot;  OLS loss: $ols_loss2&quot;)</code></pre><p>Plot the chains.</p><div><pre><code class="language-julia">#plot(chain)</code></pre></div><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-30s/"><span class="direction">Previous</span><span class="title">clip-30s</span></a><a class="next" href="../clip-43s/"><span class="direction">Next</span><span class="title">clip-43s</span></a></footer></article></body></html>
+println(&quot;  OLS loss: $ols_loss2&quot;)</code></pre><p>Plot the chains.</p><pre><code class="language-julia">#plot(chain)</code></pre><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-30s/"><span class="direction">Previous</span><span class="title">clip-30s</span></a><a class="next" href="../clip-43s/"><span class="direction">Next</span><span class="title">clip-43s</span></a></footer></article></body></html>

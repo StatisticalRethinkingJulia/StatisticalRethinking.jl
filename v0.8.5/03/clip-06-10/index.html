@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-06-10 · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08/">clip-08</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../clip-01/">clip-01</a></li><li><a class="toctext" href="../clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../clip-05s/">clip-05s</a></li><li class="current"><a class="toctext" href>clip-06-10</a><ul class="internal"></ul></li><li><a class="toctext" href="../clip-11-16/">clip-11-16</a></li><li><a class="toctext" href="../clip-17s/">clip-17s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/m4.1s/">m4.1s</a></li><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../../04/clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../../04/clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../../04/clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../../04/clip-30s/">clip-30s</a></li><li><a class="toctext" href="../../04/clip-38s/">clip-38s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 03</li><li><a href>clip-06-10</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/03/clip-06-10.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-06-10</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="clip-06-10.jl-1" href="#clip-06-10.jl-1">clip-06-10.jl</a></h1><p>Load Julia packages (libraries) needed  for the snippets in chapter 0</p><pre><code class="language-julia">using StatisticalRethinking, Optim
+gr(size=(600,300));</code></pre><pre><code class="language-none">Plots.GRBackend()</code></pre><h3><a class="nav-anchor" id="snippet-3.2-1" href="#snippet-3.2-1">snippet 3.2</a></h3><pre><code class="language-julia">p_grid = range(0, step=0.001, stop=1)
+prior = ones(length(p_grid))
+likelihood = [pdf(Binomial(9, p), 6) for p in p_grid]
+posterior = likelihood .* prior
+posterior = posterior / sum(posterior)</code></pre><pre><code class="language-none">1001-element Array{Float64,1}:
+ 0.0                   
+ 8.374825191541396e-19 
+ 5.3438084689545866e-17
+ 6.068652771820298e-16 
+ 3.3995172504952293e-15
+ 1.2929107734284453e-14
+ 3.84898254467861e-14  
+ 9.67643250408127e-14  
+ 2.149583027999239e-13 
+ 4.3446551042066853e-13
+ ⋮                     
+ 4.0984465911760347e-7 
+ 2.7622876204248817e-7 
+ 1.7500535729671214e-7 
+ 1.01889113481695e-7   
+ 5.248259379294106e-8  
+ 2.22748095801673e-8   
+ 6.639762126365043e-9  
+ 8.349725832067523e-10 
+ 0.0                   </code></pre><h3><a class="nav-anchor" id="snippet-3.3-1" href="#snippet-3.3-1">snippet 3.3</a></h3><p>Draw 10000 samples from this posterior distribution</p><pre><code class="language-julia">N = 10000
+samples = sample(p_grid, Weights(posterior), N);</code></pre><pre><code class="language-none">10000-element Array{Float64,1}:
+ 0.689
+ 0.685
+ 0.802
+ 0.814
+ 0.611
+ 0.451
+ 0.682
+ 0.875
+ 0.861
+ 0.505
+ ⋮    
+ 0.551
+ 0.784
+ 0.787
+ 0.934
+ 0.689
+ 0.652
+ 0.591
+ 0.698
+ 0.722</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
+
+Iterations        = 1:10000
+Thinning interval = 1
+Chains            = 1
+Samples per chain = 10000
+parameters        = toss
+
+parameters
+      Mean    SD   Naive SE  MCSE     ESS  
+toss 0.6366 0.1381   0.0014 0.0015 8508.443
+
+</code></pre><p>Describe the chain</p><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">Iterations        = 1:10000
+Thinning interval = 1
+Chains            = 1
+Samples per chain = 10000
+parameters        = toss
+
+Empirical Posterior Estimates
+───────────────────────────────────────────
+parameters
+      Mean    SD   Naive SE  MCSE     ESS
+toss 0.6366 0.1381   0.0014 0.0015 8508.443
+
+Quantiles
+───────────────────────────────────────────
+parameters
+      2.5% 25.0% 50.0% 75.0% 97.5%
+toss 0.131 0.543 0.645 0.739 0.981</code></pre><h3><a class="nav-anchor" id="snippet-3.6-1" href="#snippet-3.6-1">snippet 3.6</a></h3><pre><code class="language-julia">v = 0.0
+for i in 1:length(p_grid)
+  global v
+  if p_grid[i] &lt; 0.5
+    v += posterior[i]
+  end
+end
+v</code></pre><pre><code class="language-none">0.17105550781217763</code></pre><h3><a class="nav-anchor" id="snippet-3.7-1" href="#snippet-3.7-1">snippet 3.7</a></h3><pre><code class="language-julia">mapreduce(p -&gt; p &lt; 0.5 ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.8-1" href="#snippet-3.8-1">snippet 3.8</a></h3><pre><code class="language-julia">mapreduce(p -&gt; (p &gt; 0.5 &amp;&amp; p &lt; 0.75) ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.9-1" href="#snippet-3.9-1">snippet 3.9</a></h3><pre><code class="language-julia">quantile(samples, 0.8)</code></pre><pre><code class="language-none">0.76</code></pre><h3><a class="nav-anchor" id="snippet-3.10-1" href="#snippet-3.10-1">snippet 3.10</a></h3><pre><code class="language-julia">quantile(samples, [0.1, 0.9])</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
+ 0.451             
+ 0.8111000000000004</code></pre><p>End of <code>03/clip-06-10.jl</code>#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-05s/"><span class="direction">Previous</span><span class="title">clip-05s</span></a><a class="next" href="../clip-11-16/"><span class="direction">Next</span><span class="title">clip-11-16</span></a></footer></article></body></html>

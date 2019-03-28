@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>m2.1s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../clip-08/">clip-08</a></li><li class="current"><a class="toctext" href>m2.1s</a><ul class="internal"></ul></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-10/">clip-06-10</a></li><li><a class="toctext" href="../../03/clip-11-16/">clip-11-16</a></li><li><a class="toctext" href="../../03/clip-17s/">clip-17s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/m4.1s/">m4.1s</a></li><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../../04/clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../../04/clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../../04/clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../../04/clip-30s/">clip-30s</a></li><li><a class="toctext" href="../../04/clip-38s/">clip-38s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 02</li><li><a href>m2.1s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/02/m2.1s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>m2.1s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed</p><pre><code class="language-julia">using StatisticalRethinking, CmdStan
+gr(size=(500,500));</code></pre><pre><code class="language-none">Plots.GRBackend()</code></pre><p>CmdStan uses a tmp directory to store the output of cmdstan</p><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;02&quot;)
+cd(ProjDir)</code></pre><p>Define the Stan language model</p><pre><code class="language-julia">binomialstanmodel = &quot;
+// Inferring a Rate
+data {
+  int N;
+  int&lt;lower=0&gt; k[N];
+  int&lt;lower=1&gt; n[N];
+}
+parameters {
+  real&lt;lower=0,upper=1&gt; theta;
+  real&lt;lower=0,upper=1&gt; thetaprior;
+}
+model {
+  // Prior Distribution for Rate Theta
+  theta ~ beta(1, 1);
+  thetaprior ~ beta(1, 1);
+
+  // Observed Counts
+  k ~ binomial(n, theta);
+}
+&quot;;</code></pre><pre><code class="language-none">&quot;\n// Inferring a Rate\ndata {\n  int N;\n  int&lt;lower=0&gt; k[N];\n  int&lt;lower=1&gt; n[N];\n}\nparameters {\n  real&lt;lower=0,upper=1&gt; theta;\n  real&lt;lower=0,upper=1&gt; thetaprior;\n}\nmodel {\n  // Prior Distribution for Rate Theta\n  theta ~ beta(1, 1);\n  thetaprior ~ beta(1, 1);\n\n  // Observed Counts\n  k ~ binomial(n, theta);\n}\n&quot;</code></pre><p>Define the Stanmodel and set the output format to :mcmcchains.</p><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;binomial&quot;, monitors = [&quot;theta&quot;], model=binomialstanmodel,
+  output_format=:mcmcchains);</code></pre><p>Use 16 observations</p><pre><code class="language-julia">N2 = 15
+d = Binomial(9, 0.66)
+n2 = Int.(9 * ones(Int, N2));</code></pre><pre><code class="language-none">15-element Array{Int64,1}:
+ 9
+ 9
+ 9
+ 9
+ 9
+ 9
+ 9
+ 9
+ 9
+ 9
+ 9
+ 9
+ 9
+ 9
+ 9</code></pre><p>Show first 5 (generated) observations</p><pre><code class="language-julia">k2 = rand(d, N2);
+k2[1:min(5, N2)]</code></pre><pre><code class="language-none">5-element Array{Int64,1}:
+ 7
+ 6
+ 7
+ 6
+ 5</code></pre><p>Input data for cmdstan</p><pre><code class="language-julia">binomialdata = Dict(&quot;N&quot; =&gt; length(n2), &quot;n&quot; =&gt; n2, &quot;k&quot; =&gt; k2);</code></pre><pre><code class="language-none">Dict{String,Any} with 3 entries:
+  &quot;N&quot; =&gt; 15
+  &quot;k&quot; =&gt; [7, 6, 7, 6, 5, 5, 7, 3, 7, 6, 7, 6, 7, 4, 8]
+  &quot;n&quot; =&gt; [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]</code></pre><p>Sample using cmdstan</p><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
+  CmdStanDir=CMDSTAN_HOME);</code></pre><p>Describe the draws</p><pre><code class="language- 1s">describe(chn)</code></pre><p>Allocate array of Normal fits</p><pre><code class="language- 1s">fits = Vector{Normal{Float64}}(undef, 4)
+for i in 1:4
+  fits[i] = fit_mle(Normal, convert.(Float64, chn.value[:, 1, i]))
+  println(fits[i])
+end</code></pre><p>Plot the 4 chains</p><pre><code class="language- 1s">mu_avg = sum([fits[i].μ for i in 1:4]) / 4.0;
+sigma_avg = sum([fits[i].σ for i in 1:4]) / 4.0;
+
+if rc == 0
+  p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
+  x = 0:0.001:1
+  for i in 1:4
+    vals = convert.(Float64, chn.value[:, 1, i])
+    μ = round(fits[i].μ, digits=2)
+    σ = round(fits[i].σ, digits=2)
+    p[i] = density(vals, lab=&quot;Chain $i density&quot;,
+       xlim=(0.45, 1.0), title=&quot;$(N2) data points&quot;)
+    plot!(p[i], x, pdf.(Normal(fits[i].μ, fits[i].σ), x), lab=&quot;Fitted Normal($μ, $σ)&quot;)
+  end
+  plot(p..., layout=(4, 1))
+end</code></pre><p>Show the hpd region</p><pre><code class="language- 1s">MCMCChains.hpd(chn, alpha=0.055, suppress_header=true);</code></pre><p>Compute the hpd bounds for plotting</p><pre><code class="language- 1s">d, p, c = size(chn);
+theta = convert(Vector{Float64}, reshape(chn.value, (d*p*c)));
+bnds = quantile(theta, [0.045, 0.945])</code></pre><p>Show hpd region</p><pre><code class="language- 1s">println(&quot;hpd bounds = $bnds\n&quot;)</code></pre><p>quadratic approximation</p><p>Compute MAP, compare with CmndStan &amp; MLE</p><pre><code class="language- 1s">tmp = convert(Array{Float64,3}, chn.value)
+draws = reshape(tmp, (size(tmp, 1)*size(tmp, 3)),)</code></pre><p>Compute MAP</p><pre><code class="language-julia">using Optim
+
+x0 = [0.5]
+lower = [0.2]
+upper = [1.0]
+
+inner_optimizer = GradientDescent()
+
+function loglik(x)
+  ll = 0.0
+  ll += log.(pdf.(Beta(1, 1), x[1]))
+  ll += sum(log.(pdf.(Binomial(9, x[1]), k2)))
+  -ll
+end
+
+res = optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))</code></pre><pre><code class="language-none">Results of Optimization Algorithm
+ * Algorithm: Fminbox with Gradient Descent
+ * Starting Point: [0.5]
+ * Minimizer: [0.674074074027159]
+ * Minimum: 2.485827e+01
+ * Iterations: 4
+ * Convergence: true
+   * |x - x&#39;| ≤ 0.0e+00: true 
+     |x - x&#39;| = 0.00e+00 
+   * |f(x) - f(x&#39;)| ≤ 0.0e+00 |f(x)|: true
+     |f(x) - f(x&#39;)| = 0.00e+00 |f(x)|
+   * |g(x)| ≤ 1.0e-08: true 
+     |g(x)| = 8.80e-10 
+   * Stopped by an increasing objective: false
+   * Reached Maximum Number of Iterations: false
+ * Objective Calls: 87
+ * Gradient Calls: 87</code></pre><p>Summarize mean and sd estimates</p><p>CmdStan mean and sd:</p><pre><code class="language- 1s">[mean(chn.value), std(chn.value)]</code></pre><p>MAP estimate and associated sd:</p><pre><code class="language- 1s">[Optim.minimizer(res)[1], std(draws, mean=mean(chn.value))]</code></pre><p>MLE of mean and sd:</p><pre><code class="language-julia">[mu_avg, sigma_avg]</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
+ 6.9392561738649e-310
+ 5.2044421404565e-310</code></pre><p>Turing Chain &amp;  89% hpd region boundaries</p><pre><code class="language- 1s">plot( x, pdf.(Normal( mu_avg , sigma_avg  ) , x ),
+xlim=(0.0, 1.2), lab=&quot;Normal approximation using MLE&quot;)
+plot!( x, pdf.(Normal( Optim.minimizer(res)[1] , std(draws, mean=mean(chn.value))) , x),
+lab=&quot;Normal approximation using MAP&quot;)
+density!(draws, lab=&quot;CmdStan chain&quot;)
+vline!([bnds[1]], line=:dash, lab=&quot;hpd lower bound&quot;)
+vline!([bnds[2]], line=:dash, lab=&quot;hpd upper bound&quot;)</code></pre><p>End of <code>02/clip_08s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-08/"><span class="direction">Previous</span><span class="title">clip-08</span></a><a class="next" href="../../03/clip-01/"><span class="direction">Next</span><span class="title">clip-01</span></a></footer></article></body></html>

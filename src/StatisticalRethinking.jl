@@ -32,7 +32,6 @@ include("link.jl")
 include("scriptentry.jl")
 include("generate.jl")
 include("quap.jl")
-include("utils.jl")
 include("sampling.jl")
 include("shading.jl")
 
@@ -43,10 +42,7 @@ export
   script_dict,
   generate,
   quap,
-  link,
-  #shade,
-  DataFrame,
-  Array
-  sample
+  link
+  #shade
 
 end # module

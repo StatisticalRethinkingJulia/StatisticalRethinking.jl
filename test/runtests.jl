@@ -1,12 +1,9 @@
 using StatisticalRethinking
 using Test
 
-@testset "Array constructor tests" begin
+@testset "DataFrame sampling tests" begin
   
   tests = [
-    "test_array_constructor.jl",
-    "test_df_constructor.jl",
-    "test_mcmcchains.jl",
     "test_sampling.jl"
   ]
 

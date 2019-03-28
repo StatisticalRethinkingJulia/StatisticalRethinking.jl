@@ -2,7 +2,7 @@
 
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, CmdStan, StanMCMCChains
+using StatisticalRethinking, CmdStan
 gr(size=(500,800));
 
 # CmdStan uses a tmp directory to store the output of cmdstan

@@ -1,4 +1,4 @@
-using StatisticalRethinking, CmdStan, StanMCMCChains
+using StatisticalRethinking, CmdStan
 gr(size=(500,500));
 
 ProjDir = rel_path("..", "scripts", "04")

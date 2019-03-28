@@ -9,8 +9,6 @@ using Reexport
 
 using DataStructures
 import StatsBase: sample
-import Core.Array
-import DataFrames:DataFrame
 
 const src_path = @__DIR__
 

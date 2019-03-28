@@ -8,7 +8,7 @@
 
 # We begin by importing all the necessary libraries.
 
-using StatisticalRethinking, CmdStan, StanMCMCChains, GLM
+using StatisticalRethinking, CmdStan, GLM
 gr(size=(500,500))
 
 ProjDir = rel_path("..", "scripts", "00")
@@ -99,10 +99,10 @@ transformed parameters {
   linpred <- X*beta;
 }
 model {  
-  beta[1] ~ cauchy(0,10); //prior for the intercept following Gelman 2008
+  beta[1] ~ cauchy(0,10); // prior for the intercept following Gelman 2008
 
   for(i in 2:K)
-   beta[i] ~ cauchy(0,2.5);//prior for the slopes following Gelman 2008
+   beta[i] ~ cauchy(0,2.5); // prior for the slopes following Gelman 2008
   
   y ~ normal(linpred,sigma);
 }
@@ -111,8 +111,7 @@ model {
 # Define the Stanmodel and set the output format to :mcmcchains.
 
 stanmodel = Stanmodel(name="linear_regression",
-  monitors = ["beta.1", "beta.2", "sigma"],
-  model=lrmodel);
+  model=lrmodel, output_format=:mcmcchains);
 
 # Input data for cmdstan
 
@@ -120,17 +119,22 @@ lrdata = Dict("N" => size(train, 1), "K" => size(dmat, 2), "y" => train_label, "
 
 # Sample using cmdstan
  
-rc, sim, cnames = stan(stanmodel, lrdata, ProjDir, diagnostics=false,
+rc, chain, cnames = stan(stanmodel, lrdata, ProjDir, diagnostics=false,
   summary=false, CmdStanDir=CMDSTAN_HOME);
   
 # Convert to a  Chain object
 
-cnames = ["alpha", "beta[1]", "sigma"]
-chain = convert_a3d(sim, cnames, Val(:mcmcchains))
+chns = set_section(chain, Dict(
+    :parameters => ["beta.1", "beta.2", "sigma"],
+    :linpred => ["linpred.$i" for i in 1:247],
+    :internals => ["lp__", "accept_stat__", "stepsize__", "treedepth__",
+      "n_leapfrog__", "divergent__", "energy__"]
+  )
+)
 
 # Describe the chains.
 
-describe(chain)
+describe(chns)
 
 # Perform multivariate OLS.
 
@@ -142,16 +146,16 @@ test_cut.OLSPrediction = predict(ols, test_cut);
 
 # Make a prediction given an input vector.
 
-function prediction(chain, x)
-    α = chain.value[:, 1, :];
-    β = [chain.value[:, i, :] for i in 2:2];
-    return  mean(α) .+ x * mean.(β)
+function prediction(chn, x)
+    α = Array(chn[Symbol("beta.1")]);
+    β = Array(chn[Symbol("beta.2")]);
+    return  mean(α) .+ x .* mean(β)
 end
 
 # Calculate the predictions for the training and testing sets.
 
-train_cut.BayesPredictions = unstandardize(prediction(chain, train), train_l_orig);
-test_cut.BayesPredictions = unstandardize(prediction(chain, test), test_l_orig);
+train_cut.BayesPredictions = unstandardize(prediction(chns, train), train_l_orig)[:,1];
+test_cut.BayesPredictions = unstandardize(prediction(chns, test), test_l_orig)[:,1];
 
 # Show the first side rows of the modified dataframe.
 

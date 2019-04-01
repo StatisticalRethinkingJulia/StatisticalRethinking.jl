@@ -26,26 +26,26 @@ posterior = posterior / sum(posterior)</code></pre><pre><code class="language-no
  0.003980047920111856  
  0.003992011984019976  </code></pre><p>Draw 10000 samples from this posterior distribution</p><pre><code class="language-julia">N = 10000
 samples = sample(p_grid, Weights(posterior), N);</code></pre><pre><code class="language-none">10000-element Array{Float64,1}:
- 0.765
- 0.919
- 0.93 
- 0.706
- 0.715
- 0.984
- 0.564
- 0.951
- 0.686
- 0.994
+ 0.944
+ 0.98 
+ 0.963
+ 0.918
+ 0.545
+ 0.969
+ 0.216
+ 0.792
+ 0.971
+ 0.932
  ⋮    
- 0.745
- 0.904
- 0.652
- 0.618
+ 0.771
+ 0.801
+ 0.52 
+ 0.929
+ 0.983
  0.927
- 0.887
- 0.731
- 0.854
- 0.783</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
+ 0.997
+ 0.955
+ 0.797</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
 
 Iterations        = 1:10000
 Thinning interval = 1
@@ -54,8 +54,8 @@ Samples per chain = 10000
 parameters        = toss
 
 parameters
-      Mean    SD   Naive SE  MCSE     ESS  
-toss 0.8002 0.1631   0.0016 0.0017 8782.418
+     Mean   SD   Naive SE  MCSE     ESS  
+toss  0.8 0.1634   0.0016 0.0017 9163.044
 
 </code></pre><h3><a class="nav-anchor" id="snippet-3.12-1" href="#snippet-3.12-1">snippet 3.12</a></h3><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">Iterations        = 1:10000
 Thinning interval = 1
@@ -64,16 +64,16 @@ Samples per chain = 10000
 parameters        = toss
 
 Empirical Posterior Estimates
-───────────────────────────────────────────
+─────────────────────────────────────────
 parameters
-      Mean    SD   Naive SE  MCSE     ESS
-toss 0.8002 0.1631   0.0016 0.0017 8782.418
+     Mean   SD   Naive SE  MCSE     ESS
+toss  0.8 0.1634   0.0016 0.0017 9163.044
 
 Quantiles
-───────────────────────────────────────────
+─────────────────────────────────────────
 parameters
-      2.5%  25.0% 50.0% 75.0% 97.5%
-toss 0.078 0.7048 0.841 0.932     1</code></pre><h3><a class="nav-anchor" id="snippet-3.13-1" href="#snippet-3.13-1">snippet 3.13</a></h3><pre><code class="language-julia">MCMCChains.hpd(chn, alpha=0.5)</code></pre><pre><code class="language-none">Iterations        = 1:10000
+      2.5% 25.0%  50.0% 75.0% 97.5%
+toss 0.066 0.707 0.8405  0.93     1</code></pre><h3><a class="nav-anchor" id="snippet-3.13-1" href="#snippet-3.13-1">snippet 3.13</a></h3><pre><code class="language-julia">MCMCChains.hpd(chn, alpha=0.5)</code></pre><pre><code class="language-none">Iterations        = 1:10000
 Thinning interval = 1
 Chains            = 1
 Samples per chain = 10000
@@ -81,6 +81,6 @@ parameters        = toss
 
 parameters
      50% Lower 50% Upper
-toss     0.841         1
+toss      0.84         1
 
-</code></pre><h3><a class="nav-anchor" id="snippet-3.14-1" href="#snippet-3.14-1">snippet 3.14</a></h3><pre><code class="language-julia">mode(samples)</code></pre><pre><code class="language-none">0.984</code></pre><h3><a class="nav-anchor" id="snippet-3.15-1" href="#snippet-3.15-1">snippet 3.15</a></h3><pre><code class="language-julia">mean(samples)</code></pre><pre><code class="language-none">0.8002188</code></pre><h3><a class="nav-anchor" id="snippet-3.16-1" href="#snippet-3.16-1">snippet 3.16</a></h3><pre><code class="language-julia">median(samples)</code></pre><pre><code class="language-none">0.841</code></pre><p>End of <code>03/clip-11-16.jl</code>#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-06-10/"><span class="direction">Previous</span><span class="title">clip-06-10</span></a><a class="next" href="../clip-17s/"><span class="direction">Next</span><span class="title">clip-17s</span></a></footer></article></body></html>
+</code></pre><h3><a class="nav-anchor" id="snippet-3.14-1" href="#snippet-3.14-1">snippet 3.14</a></h3><pre><code class="language-julia">mode(samples)</code></pre><pre><code class="language-none">0.991</code></pre><h3><a class="nav-anchor" id="snippet-3.15-1" href="#snippet-3.15-1">snippet 3.15</a></h3><pre><code class="language-julia">mean(samples)</code></pre><pre><code class="language-none">0.8000391</code></pre><h3><a class="nav-anchor" id="snippet-3.16-1" href="#snippet-3.16-1">snippet 3.16</a></h3><pre><code class="language-julia">median(samples)</code></pre><pre><code class="language-none">0.8405</code></pre><p>End of <code>03/clip-11-16.jl</code>#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-06-10/"><span class="direction">Previous</span><span class="title">clip-06-10</span></a><a class="next" href="../clip-17s/"><span class="direction">Next</span><span class="title">clip-17s</span></a></footer></article></body></html>

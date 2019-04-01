@@ -26,26 +26,26 @@ posterior = posterior / sum(posterior)</code></pre><pre><code class="language-no
  8.349725832067523e-10 
  0.0                   </code></pre><h3><a class="nav-anchor" id="snippet-3.3-1" href="#snippet-3.3-1">snippet 3.3</a></h3><p>Draw 10000 samples from this posterior distribution</p><pre><code class="language-julia">N = 10000
 samples = sample(p_grid, Weights(posterior), N);</code></pre><pre><code class="language-none">10000-element Array{Float64,1}:
- 0.545
- 0.516
- 0.444
- 0.296
- 0.685
- 0.855
- 0.561
- 0.766
- 0.769
- 0.626
+ 0.79 
+ 0.667
+ 0.647
+ 0.429
+ 0.677
+ 0.698
+ 0.575
+ 0.557
+ 0.73 
+ 0.76 
  ⋮    
- 0.762
- 0.57 
- 0.797
- 0.831
- 0.592
- 0.66 
- 0.525
- 0.737
- 0.505</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
+ 0.761
+ 0.662
+ 0.663
+ 0.502
+ 0.602
+ 0.578
+ 0.67 
+ 0.591
+ 0.836</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
 
 Iterations        = 1:10000
 Thinning interval = 1
@@ -54,8 +54,8 @@ Samples per chain = 10000
 parameters        = toss
 
 parameters
-      Mean    SD   Naive SE  MCSE   ESS 
-toss 0.6372 0.1379   0.0014 0.0013 10000
+      Mean    SD   Naive SE  MCSE    ESS  
+toss 0.6369 0.1384   0.0014 0.0014 9514.98
 
 </code></pre><p>Describe the chain</p><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">Iterations        = 1:10000
 Thinning interval = 1
@@ -64,22 +64,22 @@ Samples per chain = 10000
 parameters        = toss
 
 Empirical Posterior Estimates
-────────────────────────────────────────
+──────────────────────────────────────────
 parameters
-      Mean    SD   Naive SE  MCSE   ESS
-toss 0.6372 0.1379   0.0014 0.0013 10000
+      Mean    SD   Naive SE  MCSE    ESS
+toss 0.6369 0.1384   0.0014 0.0014 9514.98
 
 Quantiles
-────────────────────────────────────────
+──────────────────────────────────────────
 parameters
-      2.5% 25.0% 50.0% 75.0% 97.5%
-toss 0.105 0.545 0.646 0.738 0.978</code></pre><h3><a class="nav-anchor" id="snippet-3.6-1" href="#snippet-3.6-1">snippet 3.6</a></h3><pre><code class="language-julia">v = 0.0
+     2.5% 25.0% 50.0% 75.0% 97.5%
+toss 0.15 0.543 0.645  0.74 0.977</code></pre><h3><a class="nav-anchor" id="snippet-3.6-1" href="#snippet-3.6-1">snippet 3.6</a></h3><pre><code class="language-julia">v = 0.0
 for i in 1:length(p_grid)
   global v
   if p_grid[i] &lt; 0.5
     v += posterior[i]
   end
 end
-v</code></pre><pre><code class="language-none">0.17105550781217763</code></pre><h3><a class="nav-anchor" id="snippet-3.7-1" href="#snippet-3.7-1">snippet 3.7</a></h3><pre><code class="language-julia">mapreduce(p -&gt; p &lt; 0.5 ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.8-1" href="#snippet-3.8-1">snippet 3.8</a></h3><pre><code class="language-julia">mapreduce(p -&gt; (p &gt; 0.5 &amp;&amp; p &lt; 0.75) ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.9-1" href="#snippet-3.9-1">snippet 3.9</a></h3><pre><code class="language-julia">quantile(samples, 0.8)</code></pre><pre><code class="language-none">0.76</code></pre><h3><a class="nav-anchor" id="snippet-3.10-1" href="#snippet-3.10-1">snippet 3.10</a></h3><pre><code class="language-julia">quantile(samples, [0.1, 0.9])</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
- 0.454             
- 0.8121000000000004</code></pre><p>End of <code>03/clip-06-10.jl</code>#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-05s/"><span class="direction">Previous</span><span class="title">clip-05s</span></a><a class="next" href="../clip-11-16/"><span class="direction">Next</span><span class="title">clip-11-16</span></a></footer></article></body></html>
+v</code></pre><pre><code class="language-none">0.17105550781217763</code></pre><h3><a class="nav-anchor" id="snippet-3.7-1" href="#snippet-3.7-1">snippet 3.7</a></h3><pre><code class="language-julia">mapreduce(p -&gt; p &lt; 0.5 ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.8-1" href="#snippet-3.8-1">snippet 3.8</a></h3><pre><code class="language-julia">mapreduce(p -&gt; (p &gt; 0.5 &amp;&amp; p &lt; 0.75) ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.9-1" href="#snippet-3.9-1">snippet 3.9</a></h3><pre><code class="language-julia">quantile(samples, 0.8)</code></pre><pre><code class="language-none">0.759</code></pre><h3><a class="nav-anchor" id="snippet-3.10-1" href="#snippet-3.10-1">snippet 3.10</a></h3><pre><code class="language-julia">quantile(samples, [0.1, 0.9])</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
+ 0.4499000000000001
+ 0.812             </code></pre><p>End of <code>03/clip-06-10.jl</code>#- <em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-05s/"><span class="direction">Previous</span><span class="title">clip-05s</span></a><a class="next" href="../clip-11-16/"><span class="direction">Next</span><span class="title">clip-11-16</span></a></footer></article></body></html>

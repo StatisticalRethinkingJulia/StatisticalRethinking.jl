@@ -1,10 +1,11 @@
 using StatisticalRethinking
 using Test
 
-@testset "DataFrame sampling tests" begin
+@testset "DataFrame tests" begin
   
   tests = [
-    "test_sampling.jl"
+    "sampling_tests.jl", 
+    "summarize_tests.jl"
   ]
 
   for test in tests

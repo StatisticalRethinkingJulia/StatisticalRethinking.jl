@@ -2,11 +2,8 @@
 
 using StatisticalRethinking
 using CmdStan
-#gr(size=(500,500));
 
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path("..", "scripts", "04")
+ProjDir = @__DIR__
 cd(ProjDir)
 
 # ### snippet 4.7
@@ -61,4 +58,7 @@ rc, chns, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
 # Describe the draws
 
 describe(chns)
+
+serialize("samplechains.jls", chns)
+
 

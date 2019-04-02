@@ -3,18 +3,17 @@ using StatisticalRethinking
 ProjDir = @__DIR__
 cd(ProjDir)
 
-include("samplechain.jl")
+!isfile(joinpath(ProjDir, "samplechains.jls")) && include(joinpath(ProjDir, "samplechains.jl"))
+chns = deserialize(joinpath(ProjDir, "samplechains.jls"))
 
-describe(chns)
-
-df = DataFrame(chns)
+df = DataFrame(chns[[:alpha, :beta, :sigma, :lp__]])
 
 df_sample = sample(df, 5)
 display(df_sample)
 println()
 
 chns_sample = sample(chns, 2048)
-display(chns_sample)
+display(chns_sample[[:alpha, :beta, :sigma, :lp__]])
 println()
 
 s = kde(df[:sigma])

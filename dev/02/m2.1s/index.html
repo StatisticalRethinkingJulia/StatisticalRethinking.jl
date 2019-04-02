@@ -40,13 +40,13 @@ n2 = Int.(9 * ones(Int, N2));</code></pre><pre><code class="language-none">15-el
  9
  9</code></pre><p>Show first 5 (generated) observations</p><pre><code class="language-julia">k2 = rand(d, N2);
 k2[1:min(5, N2)]</code></pre><pre><code class="language-none">5-element Array{Int64,1}:
- 4
- 6
+ 5
+ 5
  7
- 6
- 3</code></pre><p>Input data for cmdstan</p><pre><code class="language-julia">binomialdata = Dict(&quot;N&quot; =&gt; length(n2), &quot;n&quot; =&gt; n2, &quot;k&quot; =&gt; k2);</code></pre><pre><code class="language-none">Dict{String,Any} with 3 entries:
+ 8
+ 8</code></pre><p>Input data for cmdstan</p><pre><code class="language-julia">binomialdata = Dict(&quot;N&quot; =&gt; length(n2), &quot;n&quot; =&gt; n2, &quot;k&quot; =&gt; k2);</code></pre><pre><code class="language-none">Dict{String,Any} with 3 entries:
   &quot;N&quot; =&gt; 15
-  &quot;k&quot; =&gt; [4, 6, 7, 6, 3, 7, 8, 5, 5, 6, 6, 8, 6, 5, 5]
+  &quot;k&quot; =&gt; [5, 5, 7, 8, 8, 5, 7, 4, 7, 9, 6, 2, 5, 7, 7]
   &quot;n&quot; =&gt; [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]</code></pre><p>Sample using cmdstan</p><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME);</code></pre><p>Describe the draws</p><pre><code class="language- 1s">describe(chn)</code></pre><p>Allocate array of Normal fits</p><pre><code class="language- 1s">fits = Vector{Normal{Float64}}(undef, 4)
 for i in 1:4
@@ -88,22 +88,22 @@ end
 res = optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))</code></pre><pre><code class="language-none">Results of Optimization Algorithm
  * Algorithm: Fminbox with Gradient Descent
  * Starting Point: [0.5]
- * Minimizer: [0.6444444444170093]
- * Minimum: 2.553264e+01
- * Iterations: 3
+ * Minimizer: [0.6814814814612185]
+ * Minimum: 2.996815e+01
+ * Iterations: 4
  * Convergence: true
    * |x - x&#39;| ≤ 0.0e+00: false 
-     |x - x&#39;| = 1.39e-08 
+     |x - x&#39;| = 3.39e-11 
    * |f(x) - f(x&#39;)| ≤ 0.0e+00 |f(x)|: false
-     |f(x) - f(x&#39;)| = 2.50e-15 |f(x)|
+     |f(x) - f(x&#39;)| = 1.19e-16 |f(x)|
    * |g(x)| ≤ 1.0e-08: true 
-     |g(x)| = 7.03e-09 
+     |g(x)| = 2.93e-10 
    * Stopped by an increasing objective: false
    * Reached Maximum Number of Iterations: false
- * Objective Calls: 60
- * Gradient Calls: 60</code></pre><p>Summarize mean and sd estimates</p><p>CmdStan mean and sd:</p><pre><code class="language- 1s">[mean(chn.value), std(chn.value)]</code></pre><p>MAP estimate and associated sd:</p><pre><code class="language- 1s">[Optim.minimizer(res)[1], std(draws, mean=mean(chn.value))]</code></pre><p>MLE of mean and sd:</p><pre><code class="language-julia">[mu_avg, sigma_avg]</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
- 6.92420992072236e-310
- 6.92420992073343e-310</code></pre><p>Turing Chain &amp;  89% hpd region boundaries</p><pre><code class="language- 1s">plot( x, pdf.(Normal( mu_avg , sigma_avg  ) , x ),
+ * Objective Calls: 87
+ * Gradient Calls: 87</code></pre><p>Summarize mean and sd estimates</p><p>CmdStan mean and sd:</p><pre><code class="language- 1s">[mean(chn.value), std(chn.value)]</code></pre><p>MAP estimate and associated sd:</p><pre><code class="language- 1s">[Optim.minimizer(res)[1], std(draws, mean=mean(chn.value))]</code></pre><p>MLE of mean and sd:</p><pre><code class="language-julia">[mu_avg, sigma_avg]</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
+ 6.9063948847078e-310
+ 6.9063948847072e-310</code></pre><p>Turing Chain &amp;  89% hpd region boundaries</p><pre><code class="language- 1s">plot( x, pdf.(Normal( mu_avg , sigma_avg  ) , x ),
 xlim=(0.0, 1.2), lab=&quot;Normal approximation using MLE&quot;)
 plot!( x, pdf.(Normal( Optim.minimizer(res)[1] , std(draws, mean=mean(chn.value))) , x),
 lab=&quot;Normal approximation using MAP&quot;)

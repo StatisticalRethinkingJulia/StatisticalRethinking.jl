@@ -25,24 +25,24 @@ model {
 d = Binomial(9, 0.66)
 n2 = Int.(9 * ones(Int, N2))
 k2 = rand(d, N2);</code></pre><pre><code class="language-none">16-element Array{Int64,1}:
- 5
- 7
  6
- 6
- 7
- 6
- 4
- 3
- 7
- 5
- 7
- 8
  8
  6
+ 7
+ 6
+ 5
+ 7
+ 5
+ 9
+ 6
+ 8
+ 7
+ 5
+ 5
  6
  7</code></pre><p>Input data for cmdstan</p><pre><code class="language-julia">binomialdata = Dict(&quot;N&quot; =&gt; length(n2), &quot;n&quot; =&gt; n2, &quot;k&quot; =&gt; k2);</code></pre><pre><code class="language-none">Dict{String,Any} with 3 entries:
   &quot;N&quot; =&gt; 16
-  &quot;k&quot; =&gt; [5, 7, 6, 6, 7, 6, 4, 3, 7, 5, 7, 8, 8, 6, 6, 7]
+  &quot;k&quot; =&gt; [6, 8, 6, 7, 6, 5, 7, 5, 9, 6, 8, 7, 5, 5, 6, 7]
   &quot;n&quot; =&gt; [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]</code></pre><p>Sample using cmdstan</p><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME);</code></pre><p>Describe the draws</p><pre><code class="language-">describe(chn)</code></pre><p>Plot the 4 chains</p><pre><code class="language-">if rc == 0
   plot(chn)

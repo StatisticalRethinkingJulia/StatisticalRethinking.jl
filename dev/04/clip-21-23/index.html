@@ -7,7 +7,7 @@ df = convert(DataFrame, howell1);
 df2 = filter(row -&gt; row[:age] &gt;= 18, df);
 first(df2, 5)</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>5 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr></tbody></table><h3><a class="nav-anchor" id="Snippet-4.21-1" href="#Snippet-4.21-1">Snippet 4.21</a></h3><p>Sample 20 random heights</p><pre><code class="language-julia">n = size(df2, 1)
 selected_ind = sample(1:n, 20, replace=false);
-df3 = df2[selected_ind, :];</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>20 rows × 4 columns</p><tr><th>1</th><td>162.56</td><td>45.6994</td><td>55.0</td><td>1</td></tr><tr><th>2</th><td>161.29</td><td>49.3565</td><td>21.0</td><td>1</td></tr><tr><th>3</th><td>150.495</td><td>43.4598</td><td>27.0</td><td>0</td></tr><tr><th>4</th><td>149.86</td><td>40.9367</td><td>43.0</td><td>0</td></tr><tr><th>5</th><td>160.02</td><td>48.1942</td><td>25.0</td><td>1</td></tr><tr><th>6</th><td>162.56</td><td>56.7557</td><td>30.0</td><td>0</td></tr><tr><th>7</th><td>140.97</td><td>40.9367</td><td>85.6</td><td>0</td></tr><tr><th>8</th><td>163.195</td><td>49.1013</td><td>43.0</td><td>1</td></tr><tr><th>9</th><td>154.305</td><td>41.2769</td><td>25.0</td><td>0</td></tr><tr><th>10</th><td>147.32</td><td>39.1223</td><td>42.0</td><td>0</td></tr><tr><th>11</th><td>147.32</td><td>36.9677</td><td>48.0</td><td>0</td></tr><tr><th>12</th><td>160.7</td><td>46.3</td><td>31.0</td><td>1</td></tr><tr><th>13</th><td>160.655</td><td>48.506</td><td>24.0</td><td>1</td></tr><tr><th>14</th><td>149.225</td><td>42.1557</td><td>27.0</td><td>0</td></tr><tr><th>15</th><td>156.21</td><td>44.1118</td><td>21.0</td><td>0</td></tr><tr><th>16</th><td>152.4</td><td>43.0629</td><td>29.0</td><td>0</td></tr><tr><th>17</th><td>160.985</td><td>46.6916</td><td>51.0</td><td>1</td></tr><tr><th>18</th><td>163.83</td><td>47.9107</td><td>57.0</td><td>1</td></tr><tr><th>19</th><td>152.4</td><td>40.8233</td><td>49.0</td><td>0</td></tr><tr><th>20</th><td>144.78</td><td>36.0322</td><td>73.0</td><td>0</td></tr></tbody></table><h3><a class="nav-anchor" id="Snippet-4.22-1" href="#Snippet-4.22-1">Snippet 4.22</a></h3><p>Generate approximate probabilities</p><pre><code class="language-julia">struct Post
+df3 = df2[selected_ind, :];</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64⍰</th><th>Float64⍰</th><th>Float64⍰</th><th>Int64⍰</th></tr></thead><tbody><p>20 rows × 4 columns</p><tr><th>1</th><td>147.955</td><td>41.1635</td><td>37.0</td><td>0</td></tr><tr><th>2</th><td>146.05</td><td>37.5064</td><td>24.0</td><td>0</td></tr><tr><th>3</th><td>165.1</td><td>54.4877</td><td>54.0</td><td>1</td></tr><tr><th>4</th><td>161.29</td><td>48.9879</td><td>39.0</td><td>1</td></tr><tr><th>5</th><td>159.385</td><td>48.8462</td><td>32.0</td><td>1</td></tr><tr><th>6</th><td>154.94</td><td>49.6967</td><td>26.0</td><td>1</td></tr><tr><th>7</th><td>149.225</td><td>41.2769</td><td>26.0</td><td>0</td></tr><tr><th>8</th><td>156.21</td><td>42.7227</td><td>29.0</td><td>0</td></tr><tr><th>9</th><td>153.67</td><td>44.8206</td><td>18.0</td><td>0</td></tr><tr><th>10</th><td>157.48</td><td>50.1786</td><td>42.0</td><td>1</td></tr><tr><th>11</th><td>160.02</td><td>51.9646</td><td>38.0</td><td>1</td></tr><tr><th>12</th><td>154.94</td><td>39.9444</td><td>33.0</td><td>0</td></tr><tr><th>13</th><td>142.24</td><td>31.6664</td><td>36.0</td><td>0</td></tr><tr><th>14</th><td>159.385</td><td>42.9778</td><td>43.0</td><td>1</td></tr><tr><th>15</th><td>149.86</td><td>42.9778</td><td>29.0</td><td>0</td></tr><tr><th>16</th><td>156.845</td><td>45.6427</td><td>41.0</td><td>1</td></tr><tr><th>17</th><td>162.56</td><td>49.5549</td><td>19.0</td><td>1</td></tr><tr><th>18</th><td>157.48</td><td>45.1324</td><td>24.2</td><td>0</td></tr><tr><th>19</th><td>147.32</td><td>39.1223</td><td>42.0</td><td>0</td></tr><tr><th>20</th><td>167.005</td><td>52.9002</td><td>32.0</td><td>1</td></tr></tbody></table><h3><a class="nav-anchor" id="Snippet-4.22-1" href="#Snippet-4.22-1">Snippet 4.22</a></h3><p>Generate approximate probabilities</p><pre><code class="language-julia">struct Post
   mu::Float64
   sigma::Float64
   ll:: Float64
@@ -29,149 +29,149 @@ d3 = Uniform(0, 50)
 prod = ll + log.(pdf.(d2, mu_list)) + log.(pdf.(d3, sigma_list))
 prob = exp.(prod .- maximum(prod))
 post = DataFrame(mu=mu_list, sigma=sigma_list, ll=ll, prod=prod, prob=prob)
-first(post, 10)</code></pre><table class="data-frame"><thead><tr><th></th><th>mu</th><th>sigma</th><th>ll</th><th>prod</th><th>prob</th></tr><tr><th></th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th></tr></thead><tbody><p>10 rows × 5 columns</p><tr><th>1</th><td>140.0</td><td>4.0</td><td>-217.095</td><td>-226.726</td><td>1.81862e-66</td></tr><tr><th>2</th><td>140.151</td><td>4.0</td><td>-214.272</td><td>-223.89</td><td>3.10307e-65</td></tr><tr><th>3</th><td>140.302</td><td>4.0</td><td>-211.478</td><td>-221.081</td><td>5.14611e-64</td></tr><tr><th>4</th><td>140.452</td><td>4.0</td><td>-208.712</td><td>-218.301</td><td>8.29477e-63</td></tr><tr><th>5</th><td>140.603</td><td>4.0</td><td>-205.975</td><td>-215.55</td><td>1.29947e-61</td></tr><tr><th>6</th><td>140.754</td><td>4.0</td><td>-203.266</td><td>-212.827</td><td>1.97865e-60</td></tr><tr><th>7</th><td>140.905</td><td>4.0</td><td>-200.585</td><td>-210.132</td><td>2.92824e-59</td></tr><tr><th>8</th><td>141.055</td><td>4.0</td><td>-197.933</td><td>-207.466</td><td>4.21195e-58</td></tr><tr><th>9</th><td>141.206</td><td>4.0</td><td>-195.309</td><td>-204.828</td><td>5.88841e-57</td></tr><tr><th>10</th><td>141.357</td><td>4.0</td><td>-192.714</td><td>-202.219</td><td>8.0011e-56</td></tr></tbody></table><p>Sample post</p><pre><code class="language-julia">samples = post[sample(1:size(post, 1), Weights(post[:prob]), 10000, replace=true), :]</code></pre><table class="data-frame"><thead><tr><th></th><th>mu</th><th>sigma</th><th>ll</th><th>prod</th><th>prob</th></tr><tr><th></th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th></tr></thead><tbody><p>10,000 rows × 5 columns</p><tr><th>1</th><td>154.623</td><td>6.49246</td><td>-66.9765</td><td>-75.4863</td><td>0.876004</td></tr><tr><th>2</th><td>155.226</td><td>7.77889</td><td>-67.1727</td><td>-75.6477</td><td>0.745457</td></tr><tr><th>3</th><td>155.829</td><td>7.21608</td><td>-67.0389</td><td>-75.48</td><td>0.881513</td></tr><tr><th>4</th><td>152.513</td><td>7.8593</td><td>-68.2611</td><td>-76.8998</td><td>0.213117</td></tr><tr><th>5</th><td>154.322</td><td>7.21608</td><td>-67.0265</td><td>-75.554</td><td>0.818614</td></tr><tr><th>6</th><td>155.528</td><td>6.65327</td><td>-66.9404</td><td>-75.3984</td><td>0.956502</td></tr><tr><th>7</th><td>152.513</td><td>6.17085</td><td>-68.804</td><td>-77.4428</td><td>0.123829</td></tr><tr><th>8</th><td>153.417</td><td>6.49246</td><td>-67.5681</td><td>-76.1502</td><td>0.450987</td></tr><tr><th>9</th><td>153.116</td><td>6.09045</td><td>-68.1863</td><td>-76.787</td><td>0.238556</td></tr><tr><th>10</th><td>153.719</td><td>7.45729</td><td>-67.3278</td><td>-75.8915</td><td>0.584159</td></tr><tr><th>11</th><td>155.829</td><td>8.66332</td><td>-67.8978</td><td>-76.3389</td><td>0.373425</td></tr><tr><th>12</th><td>156.884</td><td>6.01005</td><td>-68.1761</td><td>-76.5601</td><td>0.299323</td></tr><tr><th>13</th><td>154.02</td><td>8.42211</td><td>-67.7672</td><td>-76.3127</td><td>0.38334</td></tr><tr><th>14</th><td>152.965</td><td>5.36683</td><td>-69.8031</td><td>-78.4133</td><td>0.046917</td></tr><tr><th>15</th><td>154.623</td><td>7.37688</td><td>-67.0095</td><td>-75.5193</td><td>0.847545</td></tr><tr><th>16</th><td>154.472</td><td>7.69849</td><td>-67.18</td><td>-75.6986</td><td>0.708414</td></tr><tr><th>17</th><td>154.925</td><td>7.77889</td><td>-67.1705</td><td>-75.6628</td><td>0.734248</td></tr><tr><th>18</th><td>154.322</td><td>6.01005</td><td>-67.397</td><td>-75.9246</td><td>0.565143</td></tr><tr><th>19</th><td>152.06</td><td>10.7538</td><td>-70.7197</td><td>-79.3875</td><td>0.0177104</td></tr><tr><th>20</th><td>155.226</td><td>8.1005</td><td>-67.3785</td><td>-75.8535</td><td>0.606766</td></tr><tr><th>21</th><td>153.719</td><td>6.89447</td><td>-67.2478</td><td>-75.8115</td><td>0.632793</td></tr><tr><th>22</th><td>154.472</td><td>7.37688</td><td>-67.0376</td><td>-75.5562</td><td>0.81685</td></tr><tr><th>23</th><td>153.266</td><td>7.69849</td><td>-67.6621</td><td>-76.2535</td><td>0.406724</td></tr><tr><th>24</th><td>153.568</td><td>6.65327</td><td>-67.3887</td><td>-75.9616</td><td>0.544622</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table><h3><a class="nav-anchor" id="Snippet-4.23-1" href="#Snippet-4.23-1">Snippet 4.23</a></h3><p>Density of sigma</p><pre><code class="language-julia">density(samples[:sigma])</code></pre><?xml version="1.0" encoding="utf-8"?>
+first(post, 10)</code></pre><table class="data-frame"><thead><tr><th></th><th>mu</th><th>sigma</th><th>ll</th><th>prod</th><th>prob</th></tr><tr><th></th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th></tr></thead><tbody><p>10 rows × 5 columns</p><tr><th>1</th><td>140.0</td><td>4.0</td><td>-221.278</td><td>-230.91</td><td>8.14433e-69</td></tr><tr><th>2</th><td>140.151</td><td>4.0</td><td>-218.381</td><td>-227.999</td><td>1.49675e-67</td></tr><tr><th>3</th><td>140.302</td><td>4.0</td><td>-215.513</td><td>-225.116</td><td>2.6735e-66</td></tr><tr><th>4</th><td>140.452</td><td>4.0</td><td>-212.673</td><td>-222.262</td><td>4.64141e-65</td></tr><tr><th>5</th><td>140.603</td><td>4.0</td><td>-209.861</td><td>-219.436</td><td>7.83172e-64</td></tr><tr><th>6</th><td>140.754</td><td>4.0</td><td>-207.078</td><td>-216.639</td><td>1.28441e-62</td></tr><tr><th>7</th><td>140.905</td><td>4.0</td><td>-204.323</td><td>-213.87</td><td>2.04731e-61</td></tr><tr><th>8</th><td>141.055</td><td>4.0</td><td>-201.597</td><td>-211.13</td><td>3.17179e-60</td></tr><tr><th>9</th><td>141.206</td><td>4.0</td><td>-198.899</td><td>-208.418</td><td>4.77598e-59</td></tr><tr><th>10</th><td>141.357</td><td>4.0</td><td>-196.229</td><td>-205.734</td><td>6.9897e-58</td></tr></tbody></table><p>Sample post</p><pre><code class="language-julia">samples = post[sample(1:size(post, 1), Weights(post[:prob]), 10000, replace=true), :]</code></pre><table class="data-frame"><thead><tr><th></th><th>mu</th><th>sigma</th><th>ll</th><th>prod</th><th>prob</th></tr><tr><th></th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th><th>Float64</th></tr></thead><tbody><p>10,000 rows × 5 columns</p><tr><th>1</th><td>151.608</td><td>6.81407</td><td>-68.9017</td><td>-77.599</td><td>0.0311123</td></tr><tr><th>2</th><td>155.98</td><td>6.09045</td><td>-65.8143</td><td>-74.2471</td><td>0.888464</td></tr><tr><th>3</th><td>155.226</td><td>6.73367</td><td>-65.7148</td><td>-74.1899</td><td>0.940843</td></tr><tr><th>4</th><td>155.678</td><td>8.1809</td><td>-66.644</td><td>-75.0935</td><td>0.381124</td></tr><tr><th>5</th><td>155.829</td><td>10.995</td><td>-69.7838</td><td>-78.2249</td><td>0.0166386</td></tr><tr><th>6</th><td>155.528</td><td>5.84925</td><td>-65.8766</td><td>-74.3345</td><td>0.814114</td></tr><tr><th>7</th><td>158.392</td><td>7.77889</td><td>-67.7202</td><td>-76.0275</td><td>0.149774</td></tr><tr><th>8</th><td>156.583</td><td>5.36683</td><td>-66.8866</td><td>-75.2866</td><td>0.314195</td></tr><tr><th>9</th><td>153.417</td><td>6.41206</td><td>-66.6727</td><td>-75.2548</td><td>0.324365</td></tr><tr><th>10</th><td>154.472</td><td>6.09045</td><td>-65.9947</td><td>-74.5133</td><td>0.680836</td></tr><tr><th>11</th><td>154.623</td><td>6.89447</td><td>-65.8958</td><td>-74.4056</td><td>0.758284</td></tr><tr><th>12</th><td>156.884</td><td>6.33166</td><td>-66.1906</td><td>-74.5746</td><td>0.640344</td></tr><tr><th>13</th><td>156.884</td><td>9.46734</td><td>-68.2113</td><td>-76.5954</td><td>0.0848826</td></tr><tr><th>14</th><td>154.322</td><td>7.05528</td><td>-66.0739</td><td>-74.6014</td><td>0.623412</td></tr><tr><th>15</th><td>155.98</td><td>6.41206</td><td>-65.7383</td><td>-74.1711</td><td>0.958675</td></tr><tr><th>16</th><td>156.281</td><td>6.01005</td><td>-65.9669</td><td>-74.3832</td><td>0.77542</td></tr><tr><th>17</th><td>156.734</td><td>5.92965</td><td>-66.2901</td><td>-74.6821</td><td>0.575091</td></tr><tr><th>18</th><td>158.392</td><td>8.82412</td><td>-68.3889</td><td>-76.6962</td><td>0.0767383</td></tr><tr><th>19</th><td>156.583</td><td>7.13568</td><td>-66.1112</td><td>-74.5112</td><td>0.68226</td></tr><tr><th>20</th><td>155.829</td><td>6.41206</td><td>-65.7048</td><td>-74.1459</td><td>0.983093</td></tr><tr><th>21</th><td>152.814</td><td>8.34171</td><td>-67.7848</td><td>-76.4044</td><td>0.102739</td></tr><tr><th>22</th><td>154.774</td><td>7.69849</td><td>-66.3013</td><td>-74.8023</td><td>0.509957</td></tr><tr><th>23</th><td>157.337</td><td>5.76884</td><td>-67.0114</td><td>-75.3718</td><td>0.288549</td></tr><tr><th>24</th><td>156.432</td><td>7.05528</td><td>-66.0136</td><td>-74.4217</td><td>0.746117</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table><h3><a class="nav-anchor" id="Snippet-4.23-1" href="#Snippet-4.23-1">Snippet 4.23</a></h3><p>Density of sigma</p><pre><code class="language-julia">density(samples[:sigma])</code></pre><?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" viewBox="0 0 2000 2000">
 <defs>
-  <clipPath id="clip8000">
+  <clipPath id="clip7400">
     <rect x="0" y="0" width="2000" height="2000"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip8000)" points="
+<polygon clip-path="url(#clip7400)" points="
 0,2000 2000,2000 2000,0 0,0 
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip8001">
+  <clipPath id="clip7401">
     <rect x="400" y="200" width="1401" height="1401"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip8000)" points="
+<polygon clip-path="url(#clip7400)" points="
 94.4882,1937.01 1921.26,1937.01 1921.26,47.2441 94.4882,47.2441 
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip8002">
+  <clipPath id="clip7402">
     <rect x="94" y="47" width="1828" height="1891"/>
   </clipPath>
 </defs>
-<polyline clip-path="url(#clip8002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  418.988,1937.01 418.988,47.2441 
+<polyline clip-path="url(#clip7402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  341.743,1937.01 341.743,47.2441 
   "/>
-<polyline clip-path="url(#clip8002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  767.072,1937.01 767.072,47.2441 
+<polyline clip-path="url(#clip7402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  662.556,1937.01 662.556,47.2441 
   "/>
-<polyline clip-path="url(#clip8002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  1115.16,1937.01 1115.16,47.2441 
+<polyline clip-path="url(#clip7402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  983.37,1937.01 983.37,47.2441 
   "/>
-<polyline clip-path="url(#clip8002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  1463.24,1937.01 1463.24,47.2441 
+<polyline clip-path="url(#clip7402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1304.18,1937.01 1304.18,47.2441 
   "/>
-<polyline clip-path="url(#clip8002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  1811.32,1937.01 1811.32,47.2441 
+<polyline clip-path="url(#clip7402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1625,1937.01 1625,47.2441 
   "/>
-<polyline clip-path="url(#clip8002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip7402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
   94.4882,1883.52 1921.26,1883.52 
   "/>
-<polyline clip-path="url(#clip8002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  94.4882,1357.62 1921.26,1357.62 
+<polyline clip-path="url(#clip7402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  94.4882,1373.78 1921.26,1373.78 
   "/>
-<polyline clip-path="url(#clip8002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  94.4882,831.716 1921.26,831.716 
+<polyline clip-path="url(#clip7402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  94.4882,864.045 1921.26,864.045 
   "/>
-<polyline clip-path="url(#clip8002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  94.4882,305.812 1921.26,305.812 
+<polyline clip-path="url(#clip7402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  94.4882,354.305 1921.26,354.305 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   94.4882,1937.01 1921.26,1937.01 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   94.4882,1937.01 94.4882,47.2441 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  418.988,1937.01 418.988,1908.66 
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  341.743,1937.01 341.743,1908.66 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  767.072,1937.01 767.072,1908.66 
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  662.556,1937.01 662.556,1908.66 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1115.16,1937.01 1115.16,1908.66 
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  983.37,1937.01 983.37,1908.66 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1463.24,1937.01 1463.24,1908.66 
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1304.18,1937.01 1304.18,1908.66 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1811.32,1937.01 1811.32,1908.66 
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1625,1937.01 1625,1908.66 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   94.4882,1883.52 121.89,1883.52 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  94.4882,1357.62 121.89,1357.62 
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  94.4882,1373.78 121.89,1373.78 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  94.4882,831.716 121.89,831.716 
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  94.4882,864.045 121.89,864.045 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  94.4882,305.812 121.89,305.812 
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  94.4882,354.305 121.89,354.305 
   "/>
-<g clip-path="url(#clip8000)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 418.988, 1989.01)" x="418.988" y="1989.01">6</text>
+<g clip-path="url(#clip7400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 341.743, 1989.01)" x="341.743" y="1989.01">5.0</text>
 </g>
-<g clip-path="url(#clip8000)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 767.072, 1989.01)" x="767.072" y="1989.01">9</text>
+<g clip-path="url(#clip7400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 662.556, 1989.01)" x="662.556" y="1989.01">7.5</text>
 </g>
-<g clip-path="url(#clip8000)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1115.16, 1989.01)" x="1115.16" y="1989.01">12</text>
+<g clip-path="url(#clip7400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 983.37, 1989.01)" x="983.37" y="1989.01">10.0</text>
 </g>
-<g clip-path="url(#clip8000)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1463.24, 1989.01)" x="1463.24" y="1989.01">15</text>
+<g clip-path="url(#clip7400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1304.18, 1989.01)" x="1304.18" y="1989.01">12.5</text>
 </g>
-<g clip-path="url(#clip8000)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1811.32, 1989.01)" x="1811.32" y="1989.01">18</text>
+<g clip-path="url(#clip7400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1625, 1989.01)" x="1625" y="1989.01">15.0</text>
 </g>
-<g clip-path="url(#clip8000)">
+<g clip-path="url(#clip7400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 1901.02)" x="74.4882" y="1901.02">0.0</text>
 </g>
-<g clip-path="url(#clip8000)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 1375.12)" x="74.4882" y="1375.12">0.1</text>
+<g clip-path="url(#clip7400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 1391.28)" x="74.4882" y="1391.28">0.1</text>
 </g>
-<g clip-path="url(#clip8000)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 849.216)" x="74.4882" y="849.216">0.2</text>
+<g clip-path="url(#clip7400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 881.545)" x="74.4882" y="881.545">0.2</text>
 </g>
-<g clip-path="url(#clip8000)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 323.312)" x="74.4882" y="323.312">0.3</text>
+<g clip-path="url(#clip7400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 74.4882, 371.805)" x="74.4882" y="371.805">0.3</text>
 </g>
-<polyline clip-path="url(#clip8002)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
-  146.189,1883.52 154.849,1883.52 163.51,1883.51 172.17,1883.49 180.83,1883.42 189.49,1883.24 198.15,1882.86 206.81,1882.15 215.47,1880.96 224.131,1879.09 
-  232.791,1876.29 241.451,1872.14 250.111,1866.14 258.771,1857.77 267.431,1846.63 276.091,1832.5 284.752,1815.24 293.412,1794.67 302.072,1770.46 310.732,1742.03 
-  319.392,1708.49 328.052,1668.6 336.713,1620.87 345.373,1563.97 354.033,1497.32 362.693,1421.76 371.353,1339.7 380.013,1254.4 388.673,1168.8 397.334,1084.6 
-  405.994,1002.09 414.654,920.739 423.314,839.847 431.974,758.868 440.634,677.525 449.294,595.958 457.955,515.064 466.615,436.895 475.275,364.607 483.935,301.554 
-  492.595,249.736 501.255,208.701 509.915,175.989 518.576,148.946 527.236,126.486 535.896,109.612 544.556,100.728 553.216,102.629 561.876,117.738 570.537,147.449 
-  579.197,191.234 587.857,245.835 596.517,305.552 605.177,364.176 613.837,417.587 622.497,465.174 631.158,509.014 639.818,551.483 648.478,593.111 657.138,632.296 
-  665.798,667.237 674.458,698.759 683.118,731.56 691.779,772.147 700.439,824.378 709.099,886.164 717.759,950.567 726.419,1010.64 735.079,1063.74 743.739,1111.68 
-  752.4,1157.49 761.06,1202.31 769.72,1245.13 778.38,1284.51 787.04,1320.28 795.7,1353.72 804.361,1386.42 813.021,1419.14 821.681,1451.31 830.341,1481.54 
-  839.001,1508.62 847.661,1532.36 856.321,1553.64 864.982,1573.78 873.642,1593.67 882.302,1613.52 890.962,1633.03 899.622,1651.97 908.282,1670.3 916.942,1688.01 
-  925.603,1704.76 934.263,1719.9 942.923,1732.72 951.583,1742.84 960.243,1750.51 968.903,1756.49 977.563,1761.67 986.224,1766.69 994.884,1771.79 1003.54,1777.1 
-  1012.2,1782.81 1020.86,1789.14 1029.52,1796.07 1038.18,1803.22 1046.84,1810.04 1055.5,1816.23 1064.16,1821.9 1072.83,1827.37 1081.49,1832.75 1090.15,1837.71 
-  1098.81,1841.78 1107.47,1844.78 1116.13,1847.06 1124.79,1849.28 1133.45,1851.99 1142.11,1855.31 1150.77,1858.91 1159.43,1862.35 1168.09,1865.31 1176.75,1867.66 
-  1185.41,1869.44 1194.07,1870.77 1202.73,1871.8 1211.39,1872.65 1220.05,1873.37 1228.71,1873.87 1237.37,1874.07 1246.03,1874 1254.69,1873.86 1263.35,1873.92 
-  1272.01,1874.36 1280.67,1875.08 1289.33,1875.75 1297.99,1876.09 1306.65,1876.07 1315.31,1875.93 1323.97,1876 1332.63,1876.47 1341.29,1877.28 1349.95,1878.24 
-  1358.61,1879.14 1367.27,1879.86 1375.93,1880.41 1384.59,1880.82 1393.25,1881.17 1401.91,1881.5 1410.57,1881.85 1419.23,1882.24 1427.89,1882.62 1436.55,1882.96 
-  1445.21,1883.22 1453.87,1883.38 1462.53,1883.46 1471.19,1883.5 1479.85,1883.52 1488.51,1883.52 1497.17,1883.52 1505.83,1883.5 1514.49,1883.46 1523.15,1883.37 
-  1531.81,1883.21 1540.47,1882.96 1549.13,1882.62 1557.79,1882.26 1566.45,1881.96 1575.11,1881.77 1583.77,1881.73 1592.43,1881.86 1601.09,1882.12 1609.75,1882.45 
-  1618.41,1882.8 1627.07,1883.09 1635.73,1883.3 1644.39,1883.42 1653.06,1883.48 1661.72,1883.51 1670.38,1883.52 1679.04,1883.52 1687.7,1883.52 1696.36,1883.52 
-  1705.02,1883.52 1713.68,1883.52 1722.34,1883.5 1731,1883.45 1739.66,1883.35 1748.32,1883.19 1756.98,1882.95 1765.64,1882.69 1774.3,1882.49 1782.96,1882.42 
-  1791.62,1882.51 1800.28,1882.73 1808.94,1883 1817.6,1883.22 1826.26,1883.38 1834.92,1883.46 1843.58,1883.5 1852.24,1883.52 1860.9,1883.52 1869.56,1883.52 
+<polyline clip-path="url(#clip7402)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
+  146.189,1883.52 154.849,1883.52 163.51,1883.51 172.17,1883.49 180.83,1883.41 189.49,1883.21 198.15,1882.74 206.81,1881.75 215.47,1879.86 224.131,1876.66 
+  232.791,1871.7 241.451,1864.73 250.111,1855.75 258.771,1845.07 267.431,1833.21 276.091,1820.5 284.752,1806.62 293.412,1790.29 302.072,1769.52 310.732,1742.31 
+  319.392,1707.5 328.052,1665.1 336.713,1615.83 345.373,1560.21 354.033,1497.92 362.693,1428.19 371.353,1350.93 380.013,1267.54 388.673,1180.47 397.334,1091.79 
+  405.994,1002.22 414.654,911.766 423.314,821.452 431.974,734.183 440.634,653.53 449.294,581.215 457.955,515.68 466.615,453.276 475.275,391.222 483.935,329.775 
+  492.595,271.834 501.255,220.591 509.915,177.581 518.576,142.917 527.236,117.116 535.896,102.243 544.556,100.728 553.216,112.629 561.876,133.982 570.537,158.229 
+  579.197,180.08 587.857,198.831 596.517,218.261 605.177,242.934 613.837,273.947 622.497,307.983 631.158,340.7 639.818,371.342 648.478,404.072 657.138,444.462 
+  665.798,494.333 674.458,549.852 683.118,604.792 691.779,655.904 700.439,705.485 709.099,758.99 717.759,820.068 726.419,887.402 735.079,955.714 743.739,1019.53 
+  752.4,1076.25 761.06,1126.36 769.72,1171.46 778.38,1212.25 787.04,1248.35 795.7,1279.45 804.361,1306.31 813.021,1330.68 821.681,1354.26 830.341,1377.71 
+  839.001,1400.76 847.661,1423.15 856.321,1445.56 864.982,1469.53 873.642,1496.25 882.302,1525.39 890.962,1554.96 899.622,1582.42 908.282,1606.25 916.942,1626.65 
+  925.603,1645.02 934.263,1662.65 942.923,1679.87 951.583,1696.08 960.243,1710.67 968.903,1723.69 977.563,1735.82 986.224,1747.84 994.884,1759.88 1003.54,1771.35 
+  1012.2,1781.4 1020.86,1789.6 1029.52,1796.1 1038.18,1801.37 1046.84,1805.65 1055.5,1808.86 1064.16,1810.94 1072.83,1812.21 1081.49,1813.44 1090.15,1815.43 
+  1098.81,1818.54 1107.47,1822.49 1116.13,1826.77 1124.79,1831.05 1133.45,1835.44 1142.11,1840.25 1150.77,1845.5 1159.43,1850.73 1168.09,1855.14 1176.75,1858.09 
+  1185.41,1859.48 1194.07,1859.78 1202.73,1859.7 1211.39,1859.89 1220.05,1860.64 1228.71,1861.96 1237.37,1863.65 1246.03,1865.48 1254.69,1867.21 1263.35,1868.62 
+  1272.01,1869.59 1280.67,1870.2 1289.33,1870.74 1297.99,1871.53 1306.65,1872.72 1315.31,1874.12 1323.97,1875.35 1332.63,1876.06 1341.29,1876.18 1349.95,1875.9 
+  1358.61,1875.59 1367.27,1875.52 1375.93,1875.79 1384.59,1876.25 1393.25,1876.7 1401.91,1876.99 1410.57,1877.16 1419.23,1877.35 1427.89,1877.75 1436.55,1878.43 
+  1445.21,1879.34 1453.87,1880.33 1462.53,1881.25 1471.19,1881.96 1479.85,1882.37 1488.51,1882.49 1497.17,1882.41 1505.83,1882.24 1514.49,1882.09 1523.15,1882.02 
+  1531.81,1882 1540.47,1882.01 1549.13,1882.07 1557.79,1882.21 1566.45,1882.44 1575.11,1882.72 1583.77,1882.98 1592.43,1883.13 1601.09,1883.12 1609.75,1882.91 
+  1618.41,1882.51 1627.07,1881.98 1635.73,1881.49 1644.39,1881.21 1653.06,1881.26 1661.72,1881.62 1670.38,1882.14 1679.04,1882.66 1687.7,1883.06 1696.36,1883.31 
+  1705.02,1883.44 1713.68,1883.48 1722.34,1883.48 1731,1883.44 1739.66,1883.33 1748.32,1883.15 1756.98,1882.89 1765.64,1882.62 1774.3,1882.41 1782.96,1882.35 
+  1791.62,1882.46 1800.28,1882.69 1808.94,1882.97 1817.6,1883.21 1826.26,1883.37 1834.92,1883.46 1843.58,1883.5 1852.24,1883.52 1860.9,1883.52 1869.56,1883.52 
   
   "/>
-<polygon clip-path="url(#clip8000)" points="
+<polygon clip-path="url(#clip7400)" points="
 1610.43,227.724 1861.26,227.724 1861.26,106.764 1610.43,106.764 
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
-<polyline clip-path="url(#clip8000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip7400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   1610.43,227.724 1861.26,227.724 1861.26,106.764 1610.43,106.764 1610.43,227.724 
   "/>
-<polyline clip-path="url(#clip8000)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip7400)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
   1630.43,167.244 1750.43,167.244 
   "/>
-<g clip-path="url(#clip8000)">
+<g clip-path="url(#clip7400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:start;" transform="rotate(0, 1770.43, 184.744)" x="1770.43" y="184.744">y1</text>
 </g>
 </svg>

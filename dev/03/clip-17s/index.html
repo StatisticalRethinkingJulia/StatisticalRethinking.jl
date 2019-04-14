@@ -33,7 +33,7 @@ k2 = [6, 5, 7, 6]</code></pre><pre><code class="language-none">4-element Array{I
   &quot;n&quot; =&gt; [9, 9, 9, 9]</code></pre><p>Sample using cmdstan</p><pre><code class="language-julia">rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME);</code></pre><p>Describe the draws</p><pre><code class="language-">describe(chn)</code></pre><p>Look at area of hpd</p><pre><code class="language-">MCMCChains.hpd(chn)</code></pre><p>Plot the 4 chains</p><pre><code class="language-">if rc == 0
   mixeddensity(chn, xlab=&quot;height [cm]&quot;, ylab=&quot;density&quot;)
-  bnds =MCMCChains.hpd(convert(Vector{Float64}, chn.value[:,1,1]))
-  vline!([bnds[1]], line=:dash)
-  vline!([bnds[2]], line=:dash)
+  bnds = hpd(chn[:,1,1])
+  vline!([bnds[:lower]], line=:dash)
+  vline!([bnds[:upper]], line=:dash)
 end</code></pre><p>End of <code>clip-06-16s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-11-16/"><span class="direction">Previous</span><span class="title">clip-11-16</span></a><a class="next" href="../../04/m4.1s/"><span class="direction">Next</span><span class="title">m4.1s</span></a></footer></article></body></html>

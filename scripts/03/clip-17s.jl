@@ -63,9 +63,9 @@ MCMCChains.hpd(chn)
 
 if rc == 0
   mixeddensity(chn, xlab="height [cm]", ylab="density")
-  bnds =MCMCChains.hpd(convert(Vector{Float64}, chn.value[:,1,1]))
-  vline!([bnds[1]], line=:dash)
-  vline!([bnds[2]], line=:dash)
+  bnds = hpd(chn[:,1,1])
+  vline!([bnds[:lower]], line=:dash)
+  vline!([bnds[:upper]], line=:dash)
 end
 
 # End of `clip-06-16s.jl`

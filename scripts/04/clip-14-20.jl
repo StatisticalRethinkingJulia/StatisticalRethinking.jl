@@ -71,10 +71,10 @@ density(samples[:sigma])
 
 # Hdp mu
 
-MCMCChains.hpd(samples[:mu])
+#hpd(samples[:mu])
 
 # Hdp sigma
 
-MCMCChains.hpd(samples[:sigma])
+#hpd(samples[:sigma])
 
 # End of `clip-14-20.jl`

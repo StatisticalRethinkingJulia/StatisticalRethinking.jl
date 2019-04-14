@@ -65,7 +65,7 @@ if rc == 0
   plot(p..., layout=(4, 1))
 end
 
-MCMCChains.hpd(chn, alpha=0.055, suppress_header=true);
+hpd(chn, alpha=0.055)
 
 d, p, c = size(chn);
 theta = convert(Vector{Float64}, reshape(chn.value, (d*p*c)));

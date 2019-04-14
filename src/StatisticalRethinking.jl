@@ -32,6 +32,7 @@ include("generate.jl")
 include("quap.jl")
 include("sampling.jl")
 include("shading.jl")
+#include("summarize.jl")
 
 export
   rel_path,
@@ -41,6 +42,8 @@ export
   generate,
   quap,
   link
+  #summarize,
+ # ChainDataFrame
   #shade
 
 end # module

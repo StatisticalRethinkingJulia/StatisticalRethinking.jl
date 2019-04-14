@@ -41,9 +41,9 @@ density(samples[:mu])
 
 density(samples[:sigma])
 
-MCMCChains.hpd(samples[:mu])
+#hpd(samples[:mu])
 
-MCMCChains.hpd(samples[:sigma])
+#hpd(samples[:sigma])
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

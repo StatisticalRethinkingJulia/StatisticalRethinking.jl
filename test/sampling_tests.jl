@@ -6,14 +6,13 @@ cd(ProjDir)
 !isfile(joinpath(ProjDir, "samplechains.jls")) && include(joinpath(ProjDir, "samplechains.jl"))
 chns = deserialize(joinpath(ProjDir, "samplechains.jls"))
 
-df = DataFrame(chns[[:alpha, :beta, :sigma, :lp__]])
-
+df = DataFrame(chns[[:alpha, :beta, :sigma, :lp__]], [:parameters, :internals])
 df_sample = sample(df, 5)
 display(df_sample)
 println()
 
 chns_sample = sample(chns, 2048)
-display(chns_sample[[:alpha, :beta, :sigma, :lp__]])
+describe(chns_sample[[:alpha, :beta, :sigma, :lp__]])
 println()
 
 s = kde(df[:sigma])
@@ -25,7 +24,7 @@ c = kde(Array(chns[:sigma]))
 plot!(c.x, c.density, lab="chns_kde")
 
 chns_weighted_sample = sample(chns_sample, Weights(c.density), 100000)
-display(chns_weighted_sample)
+describe(chns_weighted_sample)
 println()
 
 l2 = size(Array(chns_weighted_sample[:sigma]), 1)

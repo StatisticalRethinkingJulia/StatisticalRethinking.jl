@@ -61,4 +61,6 @@ describe(chns)
 
 serialize("samplechains.jls", chns)
 
+plot(chns)
+
 

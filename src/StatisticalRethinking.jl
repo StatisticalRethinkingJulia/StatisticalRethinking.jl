@@ -31,8 +31,8 @@ include("scriptentry.jl")
 include("generate.jl")
 include("quap.jl")
 include("sampling.jl")
+include("scale.jl")
 include("shading.jl")
-#include("summarize.jl")
 
 export
   rel_path,
@@ -41,9 +41,9 @@ export
   script_dict,
   generate,
   quap,
-  link
-  #summarize,
- # ChainDataFrame
-  #shade
+  link,
+  #shade,
+  scale,
+  standardize
 
 end # module

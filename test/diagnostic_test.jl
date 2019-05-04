@@ -41,35 +41,42 @@ data = Dict("y" => rand(Normal(0,1),N),
     Sample(num_samples = Nsamples-Nadapt, num_warmup = Nadapt, adapt = CmdStan.Adapt(delta=0.8)
       ,save_warmup = false));
 
-series = []
  initOutput() = DataFrame(μ=Float64[],σ=Float64[])
+ 
+ # Collect ess dfs
  ess_array_cmdstan = initOutput()
  ess_array_MCMCChains_cmdstan = initOutput()
  ess_array_MCMCDiagnostics_cmdstan = initOutput()
  ess_array_MCMCChains_turing = initOutput()
  ess_array_MCMCDiagnostics_turing = initOutput()
 
+ # Collect rhat dfs
  rhat_array_cmdstan = initOutput()
  rhat_array_MCMCChains_turing = initOutput()
  rhat_array_MCMCChains_cmdstan = initOutput()
+ 
+ # Collect stepsize dfs
+ ϵ_array_cmdstan = initOutput()
+ ϵ_array_turing = initOutput()
 
  for i in 1:100
-   chn = mapreduce(x->sample(model(data["y"]),
+   
+   global chn = mapreduce(x->sample(model(data["y"]),
      NUTS(Nsamples, Nadapt, 0.8)), chainscat, 1:4)
      
    dft = describe(chn[(Nadapt+1):end,:,:])[1]
    push!(ess_array_MCMCChains_turing, dft[:ess])
    push!(rhat_array_MCMCChains_turing, dft[:r_hat])
    
-   rc, chns, cnames = stan(stanmodel,data, summary=true, ProjDir)
+   global rc, chns, cnames = stan(stanmodel,data, summary=true, ProjDir)
    dfc = describe(chns)[1]
    
    push!(ess_array_MCMCChains_cmdstan, dfc[:ess])
    push!(rhat_array_MCMCChains_cmdstan, dfc[:r_hat])
    
-   cdf = read_summary(stanmodel, ProjDir)
-   push!(ess_array_cmdstan, cdf[[:mu, :sigma], :ess])
-   push!(rhat_array_cmdstan, cdf[[:mu, :sigma], :r_hat])
+   summary_df = read_summary(stanmodel, ProjDir)
+   push!(ess_array_cmdstan, summary_df[[:mu, :sigma], :ess])
+   push!(rhat_array_cmdstan, summary_df[[:mu, :sigma], :r_hat])
    
    ac = DataFrame(chns);
    at = DataFrame(chn[1001:2000,:,:]);
@@ -79,7 +86,18 @@ series = []
    push!(ess_array_MCMCDiagnostics_turing,
      [effective_sample_size(at[:μ]), 
       effective_sample_size(at[:σ])])
- end
+  
+  push!(ϵ_array_cmdstan, 
+    [summary_df[:stepsize__, :mean][1],
+    summary_df[:stepsize__, :std][1]]
+  )
+  dfti = describe(chn[(Nadapt+1):end,:,:], sections=[:internals])[1]
+  push!(ϵ_array_turing, 
+    [dfti[:epsilon, :mean][1], 
+    dfti[:epsilon, :std][1]]
+  )
+  
+end
 
 p = Array{Plots.Plot{Plots.GRBackend}}(undef, 3);
 p[1] = plot(convert(Vector{Float64}, ess_array_cmdstan[:μ]), 
@@ -162,3 +180,15 @@ q[2] = plot!(convert(Vector{Float64}, rhat_array_MCMCChains_cmdstan[:σ]),
   line=(:dash), lab="MCMCChains/CmdStan r_hat")
 plot(q..., layout=(2,1))
 savefig("rhat_sigma_estimates_plot.pdf")
+
+q = Array{Plots.Plot{Plots.GRBackend}}(undef, 2);
+q[1] = plot(convert(Vector{Float64}, ϵ_array_cmdstan[:μ]),
+  lab="CmdStan stepsize__", xlim=(0, 200), title="mean stepsize__")
+q[1] = plot!(convert(Vector{Float64}, ϵ_array_turing[:μ]),
+  lab="Turing epsilon")
+q[2] = plot(convert(Vector{Float64}, ϵ_array_cmdstan[:σ]),
+  lab="CmdStan stepsize__", xlim=(0, 200), title="std stepsize__")
+q[2] = plot!(convert(Vector{Float64}, ϵ_array_turing[:σ]),
+  lab="Turing epsilon")
+plot(q..., layout=(2,1))
+savefig("stepsize_sigma_estimates_plot.pdf")

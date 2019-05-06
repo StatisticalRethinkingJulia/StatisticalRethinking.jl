@@ -1,6 +1,4 @@
-# # Heights problem with restricted prior on mu.
-
-# Result is not conform cmdstan result
+# chris_test_5a.jl
 
 using DynamicHMCModels
 
@@ -20,31 +18,14 @@ function pdf(dist::mydist, x::Float64)
   pdf(Normal(μ,σ), x)
 end
 
-function logpdf(dist::mydist,data::Array{Float64,1})
-    @unpack μ,σ=dist
-    LL = 0.0
-    for d in data
-        LL += logpdf(Normal(μ,σ),d)
-    end
-    isnan(LL) ? (return Inf) : (return LL) #not as robust as I thought
-end
-
-#Function barrier in mydist
-@model model(y) = begin
-    μ ~ Normal(0,1)
-    σ ~ Truncated(Cauchy(0,1),0,Inf)
-    y ~ mydist(μ,σ)
-end
-# No covariates, just height observations.
-
-struct ConstraintHeightsProblem{TY <: AbstractVector}
+struct ChrisProblem5a{TY <: AbstractVector}
     "Observations."
     y::TY
 end;
 
 # Very constraint prior on μ. Flat σ.
 
-function (problem::ConstraintHeightsProblem)(θ)
+function (problem::ChrisProblem5a)(θ)
     @unpack y = problem   # extract the data
     @unpack μ, σ = θ
     loglikelihood(mydist(μ, σ), y) + logpdf(Normal(0.1), μ) + 
@@ -52,68 +33,51 @@ function (problem::ConstraintHeightsProblem)(θ)
 end;
 
 # Define problem with data and inits.
+function dhmc(data::Dict, nsamples=2000)
+  
+  N = data["N"]
+  obs = data["y"]
+  p = ChrisProblem5a(obs);
+  p((μ = 0, σ = 5.0))
 
-N = 30
-obs = rand(Normal(0,1),N)
-p = ConstraintHeightsProblem(obs);
-p((μ = 0, σ = 5.0))
+  # Write a function to return properly dimensioned transformation.
 
-# Write a function to return properly dimensioned transformation.
+  problem_transformation(p::ChrisProblem5a) =
+      as((μ  = as(Real, -25, 25), σ = asℝ₊), )
 
-problem_transformation(p::ConstraintHeightsProblem) =
-    as((μ  = as(Real, 0, 250), σ = asℝ₊), )
+  # Use Flux for the gradient.
 
-# Use Flux for the gradient.
+  P = TransformedLogDensity(problem_transformation(p), p)
+  ∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
 
-P = TransformedLogDensity(problem_transformation(p), p)
-∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
+  # FSample from the posterior.
 
-# FSample from the posterior.
+  chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, nsamples);
 
-chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
+  # Undo the transformation to obtain the posterior from the chain.
 
-# Undo the transformation to obtain the posterior from the chain.
+  posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
+  
+  # Set varable names, this will be automated using θ
 
-posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
+  parameter_names = ["μ", "σ"]
 
-# Extract the parameter posterior means: `μ`,
+  # Create a3d
 
-posterior_μ = mean(first, posterior)
+  a3d = Array{Float64, 3}(undef, 2000, 2, 1);
+  for i in 1:2000
+    a3d[i, 1, 1] = values(posterior[i][1])
+    a3d[i, 2, 1] = values(posterior[i][2])
+  end
 
-# Extract the parameter posterior means: `μ`,
+  chns = MCMCChains.Chains(a3d,
+    parameter_names,
+    Dict(
+      :parameters => parameter_names,
+    )
+  );
+  
+  chns
+end
 
-posterior_σ = mean(last, posterior)
-
-# Effective sample sizes (of untransformed draws)
-
-ess = mapslices(effective_sample_size,
-                get_position_matrix(chain); dims = 1)
-
-# NUTS-specific statistics
-
-NUTS_statistics(chain)
-
-# cmdstan result
-
-cmdstan_result = "
-Iterations = 1:1000
-Thinning interval = 1
-Chains = 1,2,3,4
-Samples per chain = 1000
-
-Empirical Posterior Estimates:
-         Mean         SD       Naive SE       MCSE      ESS
-sigma  24.604616 0.946911707 0.0149719887 0.0162406632 1000
-   mu 177.864069 0.102284043 0.0016172527 0.0013514459 1000
-
-Quantiles:
-         2.5%       25.0%     50.0%     75.0%     97.5%  
-sigma  22.826377  23.942275  24.56935  25.2294  26.528368
-   mu 177.665000 177.797000 177.86400 177.9310 178.066000
-";
-
-# Extract the parameter posterior means: `β`,
-
-[posterior_μ, posterior_σ]
-
-# end of m4.5d.jl
+# end of chris_test_5a.jl

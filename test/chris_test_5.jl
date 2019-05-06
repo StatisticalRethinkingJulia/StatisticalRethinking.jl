@@ -1,6 +1,8 @@
 using CmdStan, Turing,DynamicHMC,LogDensityProblems
 using Random,Distributions,Parameters
 
+include("chris_test_5a.jl")
+
 Random.seed!(38445)
 
 ProjDir = @__DIR__
@@ -52,32 +54,42 @@ N = 30
 
 stanmodel = Stanmodel(
    name = "normstanmodel", model = normstanmodel, nchains = Nchains,
-   Sample(num_samples = Nsamples-Nadapt, num_warmup = Nadapt, adapt = CmdStan.Adapt(delta=0.8)
+   Sample(num_samples = Nsamples, num_warmup = Nadapt, adapt = CmdStan.Adapt(delta=0.8)
      ,save_warmup = false));
 
 function timing(model,stanmodel)
   t1 = 0.0
   t2 = 0.0
+  t3 = 0.0
   iter = 1
   count = 0
   while iter <= 100
     println("\nIter = $iter\n")
-    data = Dict("y" => rand(Normal(0,1),N),
-      "N" => N)
+    global data = Dict("y" => rand(Normal(0,1),N), "N" => N)
     try
-      t1tmp = @elapsed chn = sample(model(data["y"]), DynamicNUTS(Nsamples))
-      t2tmp = @elapsed trc, chns, cnames = stan(stanmodel,data, summary=true, ProjDir)
+      t1tmp = @elapsed chns_t = sample(model(data["y"]), DynamicNUTS(Nsamples))
+      t2tmp = @elapsed trc, chns_s, cnames = stan(stanmodel, data, summary=false, ProjDir)
+      t3tmp = @elapsed chns_d = dhmc(data, Nsamples)
       t1 += t1tmp
       t2 += t2tmp
+      t3 += t3tmp
       iter += 1
+      
+      # Show results
+      
+      show(chns_t)
+      println()
+      show(chns_s)
+      println()
+      show(chns_d)
+      println()
     catch e
       println(e)
       count += 1
     end
   end
-  println(count)
-  return t1,t2, iter, count
+  return t1, t2, t3, (iter-1), count
 end
 
-t1,t2, iter, count = timing(model,stanmodel)
-println(t1/t2)
+t1, t2, t3, iter, count = timing(model,stanmodel)
+println([t1, t2, t3, iter, count])

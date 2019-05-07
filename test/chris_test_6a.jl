@@ -1,6 +1,6 @@
 # chris_test_5a.jl
 
-using DynamicHMCModels
+using DynamicHMCModels, ReverseDiff
 
 ProjDir = @__DIR__
 cd(ProjDir)
@@ -38,7 +38,7 @@ function dhmc(data::Dict, nsamples=2000)
   N = data["N"]
   obs = data["y"]
   p = ChrisProblem5a(obs);
-  p((μ = 0.0, σ = 1.0))
+  p((μ = 0, σ = 5.0))
 
   # Write a function to return properly dimensioned transformation.
 
@@ -48,6 +48,7 @@ function dhmc(data::Dict, nsamples=2000)
   # Use Flux for the gradient.
 
   P = TransformedLogDensity(problem_transformation(p), p)
+  #∇P = LogDensityRejectErrors(ADgradient(:ReverseDiff, P));
   ∇P = LogDensityRejectErrors(ADgradient(:ForwardDiff, P));
 
   # FSample from the posterior.

@@ -104,7 +104,7 @@ function timing(N, Niters)
  return (N, t...), ((iter .- 1), count)
 end
 
-function dataLoop(Ns,nIter=50)
+function dataLoop(Ns,nIter=100)
   df = DataFrame(N=Int64[],DynamicNUTS=Float64[],
       CmdStan=Float64[],DynamicHMC=Float64[])
   for N in Ns
@@ -115,7 +115,7 @@ function dataLoop(Ns,nIter=50)
   return df
 end
 
-Ns = [10,100,500,1000]
+Ns = [10, 100, 500, 1000, 1500]
 df = dataLoop(Ns)
 summary = aggregate(df,:N,mean)
 

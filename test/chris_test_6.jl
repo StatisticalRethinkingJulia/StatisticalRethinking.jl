@@ -57,70 +57,67 @@ stanmodel = Stanmodel(
      ,save_warmup = false));
 
 function timing(N, Niters)
- t = fill(0.0, 3)
- iter = fill(1, 3)
- count = fill(0, 3)
- while iter[1] <= Niters || iter[2] <= Niters || iter[3] <= Niters
-   println("\nIter = $iter\n")
-   sleep(1)
-   global data = Dict("y" => rand(Normal(0,1),N), "N" => N)
-   try
-     if iter[1] <= Niters
-       t1tmp = @elapsed chns_t = sample(model(data["y"]), DynamicNUTS(Nsamples))
-       t[1] += t1tmp
-       iter[1] += 1
-       show(chns_t)
-       println()
-     end
-   catch e
-     println("\ndNUTS: $(e)\n")
-     count[1] += 1
-   end
-   try
-     if iter[2] <= Niters
-       t2tmp = @elapsed trc, chns_s, cnames = stan(stanmodel, data, summary=false, ProjDir)
-       t[2] += t2tmp
-       iter[2] += 1
-       show(chns_s)
-       println()
-     end
-   catch e
-     println("\nCmdStan: $(e)\n")
-     count[2] += 1
-   end
-   try
-     if iter[3] <= Niters
-       t3tmp = @elapsed chns_d = dhmc(data, Nsamples)
-       t[3] += t3tmp
-       iter[3] += 1
-       show(chns_d)
-       println()
-     end
-   catch e
-     println("\ndHMC: $(e)\n")
-     count[3] += 1
-   end
- end
- return (N, t...), ((iter .- 1), count)
+  local t = fill(0.0, 3)
+  local ttmp = fill(0.0, 3)
+  local count = fill(0, 3)
+  local success = fill(true, 3)
+  local iter = 1
+  local chns_t, chns_s, chns_d
+  for i in 1:Niters
+    println("\nIter = $iter\n")
+    sleep(1)
+    global data = Dict("y" => rand(Normal(0,1),N), "N" => N)
+    try
+      ttmp[1] = @elapsed chns_t = sample(model(data["y"]), DynamicNUTS(Nsamples))
+    catch e
+      println("\ndNUTS: $(e)\n")
+      count[1] += 1
+    end
+    try
+      ttmp[2] = @elapsed trc, chns_s, cnames = stan(stanmodel, data, summary=false, ProjDir)
+    catch e
+      println("\nCmdStan: $(e)\n")
+      count[2] += 1
+    end
+    try
+      ttmp[3] = @elapsed chns_d = dhmc(data, Nsamples)
+    catch e
+      println("\ndHMC: $(e)\n")
+      count[3] += 1
+    end
+    if success == [true, true, true]
+      iter += 1
+      t += ttmp
+      show(chns_t)
+      println()
+      show(chns_s)
+      println()
+      show(chns_d)
+      println()
+    end
+  end
+  return (iter - 1), N, t, count
 end
 
-function dataLoop(Ns,nIter=100)
-  df = DataFrame(N=Int64[],DynamicNUTS=Float64[],
-      CmdStan=Float64[],DynamicHMC=Float64[])
+function dataLoop(Ns,nIter=50)
+  df = DataFrame(Iters=Int64[], N=Int64[],
+    dNUTS=Float64[], dNUTS_f=Int64[],
+    CmdStan=Float64[], CmdStan_f=Int64[],
+    dHMC=Float64[], dHMC_f=Int64[])
   for N in Ns
-    results, counts = timing(N, nIter)
-    push!(df,results)
-    println(results," ",counts)
+    iters, nObs, t, c = timing(N, nIter)
+    println(iters, " ", nObs, " ", t,  " ", c )
+    push!(df,vcat(iters, nObs, t[1], c[1], t[2], c[2], t[3], c[3]))
   end
   return df
 end
 
-Ns = [10, 100, 500, 1000, 1500]
+Ns = [10, 100, 200, 500, 1000, 1500]
 df = dataLoop(Ns)
-summary = aggregate(df,:N,mean)
+summary = aggregate(df[[:N, :Iters,:dNUTS,:CmdStan,:dHMC]], :N, mean)
 
 gr()
-sdf = stack(df,[:DynamicNUTS,:CmdStan,:DynamicHMC])
+sdf = stack(df,[:dNUTS,:CmdStan,:dHMC])
 rename!(sdf,:value=>:time,:variable=>:sampler)
 @df sdf plot(:N,:time,group=:sampler,ylabel="Cummulative Time",
   xlabel="Data Points")

@@ -1,6 +1,6 @@
 # chris_test_5a.jl
 
-using DynamicHMCModels, ReverseDiff
+using DynamicHMCModels
 
 ProjDir = @__DIR__
 cd(ProjDir)

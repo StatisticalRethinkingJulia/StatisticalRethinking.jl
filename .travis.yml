@@ -1,25 +1,43 @@
 ## Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
 
+dist: xenial
+
+os:
+  - linux
+  
+env:
+  - JULIA_CMDSTAN_HOME="$HOME/cmdstan-2.19.1/"
+  
+before_install:
+  - OLDWD=`pwd`
+  - cd ~
+  - wget https://github.com/stan-dev/cmdstan/releases/download/v2.19.1/cmdstan-2.19.1.tar.gz
+  - tar -xzpf cmdstan-2.19.1.tar.gz
+  - make -C $JULIA_CMDSTAN_HOME build
+  - cd $OLDWD
+  
+julia:
+  - 1.1
+  
+notifications:
+  email: true
+  
+git:
+  depth: 99999999
+  
 jobs:
   include:
     - stage: Documentation
       julia: 1.1
       os: linux
       script:
-        - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-        - cd $HOME; if [[ ! -d cmdstan ]]; then git clone https://github.com/stan-dev/cmdstan.git; fi
-        - cd $HOME/cmdstan; git checkout v2.19.0; make stan-update; make build
-        - export JULIA_CMDSTAN_HOME=$HOME/cmdstan
-        - cd $TRAVIS_BUILD_DIR
+        #- if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+        #- cd $HOME; if [[ ! -d cmdstan ]]; then git clone https://github.com/stan-dev/cmdstan.git; fi
+        #- cd $HOME/cmdstan; git checkout v2.19.1; make stan-update; make build
+        #- export JULIA_CMDSTAN_HOME=$HOME/cmdstan
+        #- cd $TRAVIS_BUILD_DIR
         - julia --project=docs -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
         - julia --project=docs --color=yes docs/make.jl
       after_success: skip
-
-
-notifications:
-  email: true
-
-git:
-  depth: 99999999
 

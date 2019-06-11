@@ -345,7 +345,6 @@
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/integral_constant.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/config/no_tr1/cmath.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/math/tools/user.hpp \
- stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_floating_point.hpp \
  stan/lib/stan_math/stan/math/rev/core/ddv_vari.hpp \
  stan/lib/stan_math/stan/math/rev/core/dv_vari.hpp \
  stan/lib/stan_math/stan/math/rev/core/dvd_vari.hpp \
@@ -700,8 +699,7 @@
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_function.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/config.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/version.hpp \
- stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_function_cxx_03.hpp \
- stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_function_ptr_helper.hpp \
+ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_function_cxx_11.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/yes_no_type.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_default_constructible.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/conditional.hpp \
@@ -714,6 +712,7 @@
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/intrinsics.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_array.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_arithmetic.hpp \
+ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_floating_point.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_abstract.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/add_lvalue_reference.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/add_reference.hpp \
@@ -727,10 +726,9 @@
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_class.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_volatile.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_member_function_pointer.hpp \
- stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
- stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
- stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/remove_cv.hpp \
+ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_member_pointer.hpp \
+ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/remove_cv.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/remove_pointer.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/detail/select_type.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/iterator/detail/enable_if.hpp \
@@ -830,6 +828,7 @@
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/type_identity.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/lexical_cast/detail/is_character.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/lexical_cast/detail/converter_numeric.hpp \
+ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_base_of.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_float.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/numeric/conversion/cast.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type.hpp \
@@ -933,6 +932,9 @@
  stan/lib/stan_math/stan/math/prim/arr/meta/index_type.hpp \
  stan/lib/stan_math/stan/math/prim/scal/meta/index_type.hpp \
  stan/lib/stan_math/stan/math/prim/arr/meta/is_vector.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/meta/as_array_or_scalar.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/meta/as_column_vector_or_scalar.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/meta/as_scalar.hpp \
  stan/lib/stan_math/stan/math/prim/mat/meta/broadcast_array.hpp \
  stan/lib/stan_math/stan/math/prim/mat/meta/get.hpp \
  stan/lib/stan_math/stan/math/prim/mat/meta/index_type.hpp \
@@ -976,8 +978,9 @@
  stan/lib/stan_math/stan/math/prim/arr/err/check_nonzero_size.hpp \
  stan/lib/stan_math/stan/math/prim/mat/err/check_column_index.hpp \
  stan/lib/stan_math/stan/math/prim/scal/err/out_of_range.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/check_consistent_size_mvt.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/check_consistent_sizes_mvt.hpp \
  stan/lib/stan_math/stan/math/prim/mat/err/check_corr_matrix.hpp \
- stan/lib/stan_math/stan/math/prim/scal/err/check_positive_size.hpp \
  stan/lib/stan_math/stan/math/prim/mat/err/check_pos_definite.hpp \
  stan/lib/stan_math/stan/math/prim/scal/err/check_not_nan.hpp \
  stan/lib/stan_math/stan/math/prim/scal/fun/value_of_rec.hpp \
@@ -1026,6 +1029,23 @@
  stan/lib/stan_math/stan/math/prim/mat/err/check_spsd_matrix.hpp \
  stan/lib/stan_math/stan/math/prim/mat/err/check_std_vector_index.hpp \
  stan/lib/stan_math/stan/math/prim/mat/err/check_vector.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_cholesky_factor_corr.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_cholesky_factor.hpp \
+ stan/lib/stan_math/stan/math/prim/scal/err/is_positive.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_lower_triangular.hpp \
+ stan/lib/stan_math/stan/math/prim/scal/err/is_less_or_equal.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_unit_vector.hpp \
+ stan/lib/stan_math/stan/math/prim/arr/err/is_nonzero_size.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_column_index.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_corr_matrix.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_pos_definite.hpp \
+ stan/lib/stan_math/stan/math/prim/scal/err/is_not_nan.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_symmetric.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_square.hpp \
+ stan/lib/stan_math/stan/math/prim/scal/err/is_size_match.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_ldlt_factor.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_mat_finite.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/err/is_matching_dims.hpp \
  stan/lib/stan_math/stan/math/prim/mat/err/validate_non_negative_index.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/Phi.hpp \
  stan/lib/stan_math/stan/math/prim/scal/fun/Phi.hpp \
@@ -1095,12 +1115,12 @@
  stan/lib/stan_math/stan/math/prim/mat/fun/col.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/cols.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/columns_dot_product.hpp \
- stan/lib/stan_math/stan/math/prim/mat/fun/typedefs.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/columns_dot_self.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/corr_matrix_constrain.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/read_corr_matrix.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/read_corr_L.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/multiply_lower_tri_self_transpose.hpp \
+ stan/lib/stan_math/stan/math/prim/mat/fun/typedefs.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/corr_matrix_free.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/factor_cov_matrix.hpp \
  stan/lib/stan_math/stan/math/prim/mat/fun/factor_U.hpp \
@@ -1385,6 +1405,11 @@
  stan/lib/stan_math/stan/math/prim/mat/functor/map_rect_combine.hpp \
  stan/lib/stan_math/stan/math/prim/mat/prob/bernoulli_logit_glm_log.hpp \
  stan/lib/stan_math/stan/math/prim/mat/prob/bernoulli_logit_glm_lpmf.hpp \
+ stan/lib/stan_math/stan/math/prim/arr/fun/value_of_rec.hpp \
+ stan/lib/stan_math/stan/math/prim/scal/meta/as_array_or_scalar.hpp \
+ stan/lib/stan_math/stan/math/prim/scal/meta/as_scalar.hpp \
+ stan/lib/stan_math/stan/math/prim/arr/meta/as_scalar.hpp \
+ stan/lib/stan_math/stan/math/prim/scal/meta/as_column_vector_or_scalar.hpp \
  stan/lib/stan_math/stan/math/prim/scal/meta/include_summand.hpp \
  stan/lib/stan_math/stan/math/prim/scal/fun/size_zero.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/random/variate_generator.hpp \
@@ -1520,6 +1545,7 @@
  stan/lib/stan_math/stan/math/prim/mat/prob/neg_binomial_2_log_glm_lpmf.hpp \
  stan/lib/stan_math/stan/math/prim/scal/fun/digamma.hpp \
  stan/lib/stan_math/stan/math/prim/scal/fun/boost_policy.hpp \
+ stan/lib/stan_math/stan/math/prim/scal/fun/sum.hpp \
  stan/lib/stan_math/stan/math/prim/mat/prob/normal_id_glm_log.hpp \
  stan/lib/stan_math/stan/math/prim/mat/prob/normal_id_glm_lpdf.hpp \
  stan/lib/stan_math/stan/math/prim/mat/prob/ordered_logistic_log.hpp \
@@ -1539,8 +1565,6 @@
  stan/lib/stan_math/stan/math/prim/arr/meta/contains_std_vector.hpp \
  stan/lib/stan_math/stan/math/prim/arr/meta/VectorBuilderHelper.hpp \
  stan/lib/stan_math/stan/math/prim/arr/err/is_matching_size.hpp \
- stan/lib/stan_math/stan/math/prim/scal/err/is_size_match.hpp \
- stan/lib/stan_math/stan/math/prim/arr/err/is_nonzero_size.hpp \
  stan/lib/stan_math/stan/math/prim/arr/err/is_ordered.hpp \
  stan/lib/stan_math/stan/math/prim/arr/fun/array_builder.hpp \
  stan/lib/stan_math/stan/math/prim/arr/fun/dot.hpp \
@@ -1556,7 +1580,6 @@
  stan/lib/stan_math/stan/math/prim/arr/fun/sort_desc.hpp \
  stan/lib/stan_math/stan/math/prim/arr/fun/sub.hpp \
  stan/lib/stan_math/stan/math/prim/arr/fun/value_of.hpp \
- stan/lib/stan_math/stan/math/prim/arr/fun/value_of_rec.hpp \
  stan/lib/stan_math/stan/math/prim/arr/functor/coupled_ode_observer.hpp \
  stan/lib/stan_math/stan/math/prim/arr/functor/coupled_ode_system.hpp \
  stan/lib/stan_math/stan/math/prim/arr/functor/integrate_1d.hpp \
@@ -1578,6 +1601,7 @@
  stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/array_wrapper.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/nvp.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/level.hpp \
+ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_fundamental.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/level_enum.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/tracking.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/tracking_enum.hpp \
@@ -1598,7 +1622,6 @@
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/has_nothrow_constructor.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/has_nothrow_copy.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_copy_constructible.hpp \
- stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_noncopyable.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/split_free.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/serialization.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/is_bitwise_serializable.hpp \
@@ -1616,6 +1639,7 @@
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/alignment_of.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/type_with_alignment.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/copy_cv.hpp \
+ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/enable_if.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/extent.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/floating_point_promotion.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/has_bit_and.hpp \
@@ -1663,6 +1687,7 @@
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/has_virtual_destructor.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_compound.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_copy_assignable.hpp \
+ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_noncopyable.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_empty.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_final.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_list_constructible.hpp \
@@ -1674,7 +1699,6 @@
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_stateless.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_union.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_virtual_base_of.hpp \
- stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/make_void.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/make_signed.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/rank.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/remove_all_extents.hpp \
@@ -2366,6 +2390,7 @@
  stan/lib/stan_math/stan/math/prim/scal/err/check_2F1_converges.hpp \
  stan/lib/stan_math/stan/math/prim/scal/err/check_3F2_converges.hpp \
  stan/lib/stan_math/stan/math/prim/scal/err/invalid_argument_vec.hpp \
+ stan/lib/stan_math/stan/math/prim/scal/err/is_scal_finite.hpp \
  stan/lib/stan_math/stan/math/prim/scal/fun/as_bool.hpp \
  stan/lib/stan_math/stan/math/prim/scal/fun/bessel_first_kind.hpp \
  stan/lib/stan_math/lib/boost_1.69.0/boost/math/special_functions/bessel.hpp \
@@ -3982,8 +4007,6 @@ stan/lib/stan_math/lib/boost_1.69.0/boost/config/no_tr1/cmath.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/math/tools/user.hpp:
 
-stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_floating_point.hpp:
-
 stan/lib/stan_math/stan/math/rev/core/ddv_vari.hpp:
 
 stan/lib/stan_math/stan/math/rev/core/dv_vari.hpp:
@@ -4692,9 +4715,7 @@ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/config.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/version.hpp:
 
-stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_function_cxx_03.hpp:
-
-stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_function_ptr_helper.hpp:
+stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_function_cxx_11.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/yes_no_type.hpp:
 
@@ -4719,6 +4740,8 @@ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/intrinsics.hpp:
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_array.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_arithmetic.hpp:
+
+stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_floating_point.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_abstract.hpp:
 
@@ -4746,13 +4769,11 @@ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_volatile.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_member_function_pointer.hpp:
 
-stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp:
-
-stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp:
-
-stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/remove_cv.hpp:
+stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_member_pointer.hpp:
+
+stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/remove_cv.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/remove_pointer.hpp:
 
@@ -4951,6 +4972,8 @@ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/type_identity.hpp:
 stan/lib/stan_math/lib/boost_1.69.0/boost/lexical_cast/detail/is_character.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/lexical_cast/detail/converter_numeric.hpp:
+
+stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_base_of.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_float.hpp:
 
@@ -5158,6 +5181,12 @@ stan/lib/stan_math/stan/math/prim/scal/meta/index_type.hpp:
 
 stan/lib/stan_math/stan/math/prim/arr/meta/is_vector.hpp:
 
+stan/lib/stan_math/stan/math/prim/mat/meta/as_array_or_scalar.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/meta/as_column_vector_or_scalar.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/meta/as_scalar.hpp:
+
 stan/lib/stan_math/stan/math/prim/mat/meta/broadcast_array.hpp:
 
 stan/lib/stan_math/stan/math/prim/mat/meta/get.hpp:
@@ -5244,9 +5273,11 @@ stan/lib/stan_math/stan/math/prim/mat/err/check_column_index.hpp:
 
 stan/lib/stan_math/stan/math/prim/scal/err/out_of_range.hpp:
 
-stan/lib/stan_math/stan/math/prim/mat/err/check_corr_matrix.hpp:
+stan/lib/stan_math/stan/math/prim/mat/err/check_consistent_size_mvt.hpp:
 
-stan/lib/stan_math/stan/math/prim/scal/err/check_positive_size.hpp:
+stan/lib/stan_math/stan/math/prim/mat/err/check_consistent_sizes_mvt.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/check_corr_matrix.hpp:
 
 stan/lib/stan_math/stan/math/prim/mat/err/check_pos_definite.hpp:
 
@@ -5343,6 +5374,40 @@ stan/lib/stan_math/stan/math/prim/mat/err/check_spsd_matrix.hpp:
 stan/lib/stan_math/stan/math/prim/mat/err/check_std_vector_index.hpp:
 
 stan/lib/stan_math/stan/math/prim/mat/err/check_vector.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_cholesky_factor_corr.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_cholesky_factor.hpp:
+
+stan/lib/stan_math/stan/math/prim/scal/err/is_positive.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_lower_triangular.hpp:
+
+stan/lib/stan_math/stan/math/prim/scal/err/is_less_or_equal.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_unit_vector.hpp:
+
+stan/lib/stan_math/stan/math/prim/arr/err/is_nonzero_size.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_column_index.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_corr_matrix.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_pos_definite.hpp:
+
+stan/lib/stan_math/stan/math/prim/scal/err/is_not_nan.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_symmetric.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_square.hpp:
+
+stan/lib/stan_math/stan/math/prim/scal/err/is_size_match.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_ldlt_factor.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_mat_finite.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/err/is_matching_dims.hpp:
 
 stan/lib/stan_math/stan/math/prim/mat/err/validate_non_negative_index.hpp:
 
@@ -5482,8 +5547,6 @@ stan/lib/stan_math/stan/math/prim/mat/fun/cols.hpp:
 
 stan/lib/stan_math/stan/math/prim/mat/fun/columns_dot_product.hpp:
 
-stan/lib/stan_math/stan/math/prim/mat/fun/typedefs.hpp:
-
 stan/lib/stan_math/stan/math/prim/mat/fun/columns_dot_self.hpp:
 
 stan/lib/stan_math/stan/math/prim/mat/fun/corr_matrix_constrain.hpp:
@@ -5493,6 +5556,8 @@ stan/lib/stan_math/stan/math/prim/mat/fun/read_corr_matrix.hpp:
 stan/lib/stan_math/stan/math/prim/mat/fun/read_corr_L.hpp:
 
 stan/lib/stan_math/stan/math/prim/mat/fun/multiply_lower_tri_self_transpose.hpp:
+
+stan/lib/stan_math/stan/math/prim/mat/fun/typedefs.hpp:
 
 stan/lib/stan_math/stan/math/prim/mat/fun/corr_matrix_free.hpp:
 
@@ -6062,6 +6127,16 @@ stan/lib/stan_math/stan/math/prim/mat/prob/bernoulli_logit_glm_log.hpp:
 
 stan/lib/stan_math/stan/math/prim/mat/prob/bernoulli_logit_glm_lpmf.hpp:
 
+stan/lib/stan_math/stan/math/prim/arr/fun/value_of_rec.hpp:
+
+stan/lib/stan_math/stan/math/prim/scal/meta/as_array_or_scalar.hpp:
+
+stan/lib/stan_math/stan/math/prim/scal/meta/as_scalar.hpp:
+
+stan/lib/stan_math/stan/math/prim/arr/meta/as_scalar.hpp:
+
+stan/lib/stan_math/stan/math/prim/scal/meta/as_column_vector_or_scalar.hpp:
+
 stan/lib/stan_math/stan/math/prim/scal/meta/include_summand.hpp:
 
 stan/lib/stan_math/stan/math/prim/scal/fun/size_zero.hpp:
@@ -6332,6 +6407,8 @@ stan/lib/stan_math/stan/math/prim/scal/fun/digamma.hpp:
 
 stan/lib/stan_math/stan/math/prim/scal/fun/boost_policy.hpp:
 
+stan/lib/stan_math/stan/math/prim/scal/fun/sum.hpp:
+
 stan/lib/stan_math/stan/math/prim/mat/prob/normal_id_glm_log.hpp:
 
 stan/lib/stan_math/stan/math/prim/mat/prob/normal_id_glm_lpdf.hpp:
@@ -6370,10 +6447,6 @@ stan/lib/stan_math/stan/math/prim/arr/meta/VectorBuilderHelper.hpp:
 
 stan/lib/stan_math/stan/math/prim/arr/err/is_matching_size.hpp:
 
-stan/lib/stan_math/stan/math/prim/scal/err/is_size_match.hpp:
-
-stan/lib/stan_math/stan/math/prim/arr/err/is_nonzero_size.hpp:
-
 stan/lib/stan_math/stan/math/prim/arr/err/is_ordered.hpp:
 
 stan/lib/stan_math/stan/math/prim/arr/fun/array_builder.hpp:
@@ -6403,8 +6476,6 @@ stan/lib/stan_math/stan/math/prim/arr/fun/sort_desc.hpp:
 stan/lib/stan_math/stan/math/prim/arr/fun/sub.hpp:
 
 stan/lib/stan_math/stan/math/prim/arr/fun/value_of.hpp:
-
-stan/lib/stan_math/stan/math/prim/arr/fun/value_of_rec.hpp:
 
 stan/lib/stan_math/stan/math/prim/arr/functor/coupled_ode_observer.hpp:
 
@@ -6448,6 +6519,8 @@ stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/nvp.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/level.hpp:
 
+stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_fundamental.hpp:
+
 stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/level_enum.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/tracking.hpp:
@@ -6488,8 +6561,6 @@ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/has_nothrow_copy.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_copy_constructible.hpp:
 
-stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_noncopyable.hpp:
-
 stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/split_free.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/serialization/serialization.hpp:
@@ -6523,6 +6594,8 @@ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/alignment_of.hpp:
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/type_with_alignment.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/copy_cv.hpp:
+
+stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/enable_if.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/extent.hpp:
 
@@ -6618,6 +6691,8 @@ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_compound.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_copy_assignable.hpp:
 
+stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_noncopyable.hpp:
+
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_empty.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_final.hpp:
@@ -6639,8 +6714,6 @@ stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_stateless.hpp:
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_union.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/is_virtual_base_of.hpp:
-
-stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/make_void.hpp:
 
 stan/lib/stan_math/lib/boost_1.69.0/boost/type_traits/make_signed.hpp:
 
@@ -8023,6 +8096,8 @@ stan/lib/stan_math/stan/math/prim/scal/err/check_2F1_converges.hpp:
 stan/lib/stan_math/stan/math/prim/scal/err/check_3F2_converges.hpp:
 
 stan/lib/stan_math/stan/math/prim/scal/err/invalid_argument_vec.hpp:
+
+stan/lib/stan_math/stan/math/prim/scal/err/is_scal_finite.hpp:
 
 stan/lib/stan_math/stan/math/prim/scal/fun/as_bool.hpp:
 

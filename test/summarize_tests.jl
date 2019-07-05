@@ -25,7 +25,7 @@ cd(ProjDir)
   parm_df = summarize(chns, sections=[:parameters])
 
   @test 154 < parm_df[:alpha, :mean][1] < 155
-  @test names(parm_df) == [:parameters, :mean, :std, :naive_se, :mcse, :ess]
+  @test names(parm_df) == [:parameters, :mean, :std, :naive_se, :mcse, :ess, :r_hat]
   
   all_sections_df = summarize(chns, sections=[:parameters, :internals])
   @test all_sections_df[:parameters] == 

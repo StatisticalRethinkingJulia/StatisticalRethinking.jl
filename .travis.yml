@@ -5,6 +5,7 @@ dist: xenial
 
 os:
   - linux
+  - osx
   
 env:
   - JULIA_CMDSTAN_HOME="$HOME/cmdstan-2.19.1/"
@@ -24,7 +25,7 @@ julia:
 
 matrix:
   allow_failures:
-  - julia: nightly
+  - julia: 1.1, nightly
   - os: osx
   
 notifications:
@@ -36,7 +37,7 @@ git:
 jobs:
   include:
     - stage: Documentation
-      julia: 1.1
+      julia: 1.2
       os: linux
       script:
         - julia --project=docs -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'

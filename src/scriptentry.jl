@@ -98,7 +98,7 @@ script_dict = DataStructures.OrderedDict{AbstractString, Vector{ScriptEntry}}(
     scriptentry("clip-48-54s.jl")
   ],
   "05" => [
-    scriptentry("clip-01-05s.jl")
+    scriptentry("clip-01-05s.jl"),
     scriptentry("clip-06-10s.jl")
    ],
   "09" => [

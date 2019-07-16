@@ -63,6 +63,7 @@ if rc == 0
     plot!(p[i], x, pdf.(Normal(fits[i].μ, fits[i].σ), x), lab="Fitted Normal($μ, $σ)")
   end
   plot(p..., layout=(4, 1))
+  #savefig("m2.1s.pdf")
 end
 
 hpd(chn, alpha=0.055)

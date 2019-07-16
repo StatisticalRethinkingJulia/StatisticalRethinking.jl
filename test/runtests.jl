@@ -3,6 +3,7 @@ using Test
 
 @testset "DataFrame tests" begin
   
+  #=
   tests = [
     "sampling_tests.jl", 
     "summarize_tests.jl"
@@ -11,7 +12,8 @@ using Test
   for test in tests
     include(test)
   end
-
-  println("More tests are executed in docs job.")
+  =#
+  
+  println("All tests are executed in docs job.")
 
 end

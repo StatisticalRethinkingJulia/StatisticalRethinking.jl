@@ -1,4 +1,5 @@
-using Distributions, Statistics, StatsPlots
+using StatisticalRethinking
+gr(size=(500,500));
 
 ProjDir = @__DIR__
 
@@ -29,12 +30,11 @@ end
 N = 100000
 walk = generate_walk(N)
 
-gr()
-p1 = plot(walk[1:100], leg=false, title="First 100 steps")
-#scatter!(p1, walk[1:100])
-p2 = histogram(walk, leg=false, title="$N steps")
-plot(p1, p2, layout=(1, 2))
-#savefig(joinpath(ProjDir, "Figure 9.3.pdf"))
+p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
+p[1] = plot(walk[1:100], leg=false, xlabel="Week", ylabel="Island", title="First 100 steps")
+p[2] = histogram(walk, leg=false, xlabel="Island", ylabel="Number of weeks",
+  title="$N steps")
+plot(p..., layout=(1, 2))
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

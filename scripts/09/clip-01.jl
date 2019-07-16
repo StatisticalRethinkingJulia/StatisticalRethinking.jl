@@ -1,8 +1,13 @@
-# clip-01
+# `clip-01`
 
-using Distributions, Statistics, StatsPlots
+using StatisticalRethinking
+gr(size=(500,500));
 
 ProjDir = @__DIR__
+
+# ### snippet 9.1
+
+# Metropolis algorithm
 
 function generate_walk(N::Int64)
   num_weeks = N
@@ -31,13 +36,17 @@ function generate_walk(N::Int64)
   
 end
 
+# Generate the visits 
+
 N = 100000
 walk = generate_walk(N)
 
-gr()
-p1 = plot(walk[1:100], leg=false, xlabel="Week", ylabel="Island", title="First 100 steps")
-#scatter!(p1, walk[1:100])
-p2 = histogram(walk, leg=false, xlabel="Island", ylabel="Number of weeks",
+# Plot the first 100 weeks and a histogram of weeks per iosland
+
+p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
+p[1] = plot(walk[1:100], leg=false, xlabel="Week", ylabel="Island", title="First 100 steps")
+p[2] = histogram(walk, leg=false, xlabel="Island", ylabel="Number of weeks",
   title="$N steps")
-plot(p1, p2, layout=(1, 2))
-#savefig(joinpath(ProjDir, "Figure 9.3.pdf"))
+plot(p..., layout=(1, 2))
+
+# End of `clip-01.jl`

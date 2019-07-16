@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-30s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08/">clip-08</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-10/">clip-06-10</a></li><li><a class="toctext" href="../../03/clip-11-16/">clip-11-16</a></li><li><a class="toctext" href="../../03/clip-17s/">clip-17s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li class="current"><a class="toctext" href>clip-30s</a><ul class="internal"></ul></li><li><a class="toctext" href="../clip-38s/">clip-38s</a></li><li><a class="toctext" href="../clip-43s/">clip-43s</a></li><li><a class="toctext" href="../clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../clip-48-54s/">clip-48-54s</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>clip-30s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-30s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-30s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed  for the snippets in chapter 0</p><pre><code class="language-julia">using StatisticalRethinking, CmdStan, LinearAlgebra
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-30s · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08/">clip-08</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-10/">clip-06-10</a></li><li><a class="toctext" href="../../03/clip-11-16/">clip-11-16</a></li><li><a class="toctext" href="../../03/clip-17s/">clip-17s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../m4.1s/">m4.1s</a></li><li><a class="toctext" href="../clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../clip-24-29s/">clip-24-29s</a></li><li class="current"><a class="toctext" href>clip-30s</a><ul class="internal"></ul></li><li><a class="toctext" href="../clip-38s/">clip-38s</a></li><li><a class="toctext" href="../clip-43s/">clip-43s</a></li><li><a class="toctext" href="../clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../clip-48-54s/">clip-48-54s</a></li></ul></li><li><span class="toctext">Chapter 05</span><ul><li><a class="toctext" href="../../05/clip-01-05s/">clip-01-05s</a></li><li><a class="toctext" href="../../05/clip-06-10s/">clip-06-10s</a></li></ul></li><li><span class="toctext">Chapter 09</span><ul><li><a class="toctext" href="../../09/clip-01/">clip-01</a></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 04</li><li><a href>clip-30s</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/04/clip-30s.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-30s</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed  for the snippets in chapter 0</p><pre><code class="language-julia">using StatisticalRethinking, CmdStan, LinearAlgebra
 gr(size=(500,500));</code></pre><pre><code class="language-none">Plots.GRBackend()</code></pre><p>CmdStan uses a tmp directory to store the output of cmdstan</p><pre><code class="language-julia">ProjDir = rel_path(&quot;..&quot;, &quot;scripts&quot;, &quot;04&quot;)
 cd(ProjDir)</code></pre><h3><a class="nav-anchor" id="snippet-4.7-1" href="#snippet-4.7-1">snippet 4.7</a></h3><pre><code class="language-julia">howell1 = CSV.read(rel_path(&quot;..&quot;, &quot;data&quot;, &quot;Howell1.csv&quot;), delim=&#39;;&#39;)
 df = convert(DataFrame, howell1);</code></pre><table class="data-frame"><thead><tr><th></th><th>height</th><th>weight</th><th>age</th><th>male</th></tr><tr><th></th><th>Float64</th><th>Float64</th><th>Float64</th><th>Int64</th></tr></thead><tbody><p>544 rows × 4 columns</p><tr><th>1</th><td>151.765</td><td>47.8256</td><td>63.0</td><td>1</td></tr><tr><th>2</th><td>139.7</td><td>36.4858</td><td>63.0</td><td>0</td></tr><tr><th>3</th><td>136.525</td><td>31.8648</td><td>65.0</td><td>0</td></tr><tr><th>4</th><td>156.845</td><td>53.0419</td><td>41.0</td><td>1</td></tr><tr><th>5</th><td>145.415</td><td>41.2769</td><td>51.0</td><td>0</td></tr><tr><th>6</th><td>163.83</td><td>62.9926</td><td>35.0</td><td>1</td></tr><tr><th>7</th><td>149.225</td><td>38.2435</td><td>32.0</td><td>0</td></tr><tr><th>8</th><td>168.91</td><td>55.48</td><td>27.0</td><td>1</td></tr><tr><th>9</th><td>147.955</td><td>34.8699</td><td>19.0</td><td>0</td></tr><tr><th>10</th><td>165.1</td><td>54.4877</td><td>54.0</td><td>1</td></tr><tr><th>11</th><td>154.305</td><td>49.8951</td><td>47.0</td><td>0</td></tr><tr><th>12</th><td>151.13</td><td>41.2202</td><td>66.0</td><td>1</td></tr><tr><th>13</th><td>144.78</td><td>36.0322</td><td>73.0</td><td>0</td></tr><tr><th>14</th><td>149.9</td><td>47.7</td><td>20.0</td><td>0</td></tr><tr><th>15</th><td>150.495</td><td>33.8493</td><td>65.3</td><td>0</td></tr><tr><th>16</th><td>163.195</td><td>48.5627</td><td>36.0</td><td>1</td></tr><tr><th>17</th><td>157.48</td><td>42.3258</td><td>44.0</td><td>1</td></tr><tr><th>18</th><td>143.942</td><td>38.3569</td><td>31.0</td><td>0</td></tr><tr><th>19</th><td>121.92</td><td>19.6179</td><td>12.0</td><td>1</td></tr><tr><th>20</th><td>105.41</td><td>13.948</td><td>8.0</td><td>0</td></tr><tr><th>21</th><td>86.36</td><td>10.4893</td><td>6.5</td><td>0</td></tr><tr><th>22</th><td>161.29</td><td>48.9879</td><td>39.0</td><td>1</td></tr><tr><th>23</th><td>156.21</td><td>42.7227</td><td>29.0</td><td>0</td></tr><tr><th>24</th><td>129.54</td><td>23.5868</td><td>13.0</td><td>1</td></tr><tr><th>25</th><td>109.22</td><td>15.9891</td><td>7.0</td><td>0</td></tr><tr><th>26</th><td>146.4</td><td>35.4936</td><td>56.0</td><td>1</td></tr><tr><th>27</th><td>148.59</td><td>37.9033</td><td>45.0</td><td>0</td></tr><tr><th>28</th><td>147.32</td><td>35.4652</td><td>19.0</td><td>0</td></tr><tr><th>29</th><td>137.16</td><td>27.3289</td><td>17.0</td><td>1</td></tr><tr><th>30</th><td>125.73</td><td>22.6796</td><td>16.0</td><td>0</td></tr><tr><th>31</th><td>114.3</td><td>17.8602</td><td>11.0</td><td>1</td></tr><tr><th>32</th><td>147.955</td><td>40.313</td><td>29.0</td><td>1</td></tr><tr><th>33</th><td>161.925</td><td>55.1114</td><td>30.0</td><td>1</td></tr><tr><th>34</th><td>146.05</td><td>37.5064</td><td>24.0</td><td>0</td></tr><tr><th>35</th><td>146.05</td><td>38.4986</td><td>35.0</td><td>0</td></tr><tr><th>36</th><td>152.705</td><td>46.6066</td><td>33.0</td><td>0</td></tr><tr><th>37</th><td>142.875</td><td>38.8388</td><td>27.0</td><td>0</td></tr><tr><th>38</th><td>142.875</td><td>35.5786</td><td>32.0</td><td>0</td></tr><tr><th>39</th><td>147.955</td><td>47.4004</td><td>36.0</td><td>0</td></tr><tr><th>40</th><td>160.655</td><td>47.8823</td><td>24.0</td><td>1</td></tr><tr><th>41</th><td>151.765</td><td>49.4132</td><td>30.0</td><td>1</td></tr><tr><th>42</th><td>162.865</td><td>49.3848</td><td>24.0</td><td>1</td></tr><tr><th>43</th><td>171.45</td><td>56.5573</td><td>52.0</td><td>1</td></tr><tr><th>44</th><td>147.32</td><td>39.1223</td><td>42.0</td><td>0</td></tr><tr><th>45</th><td>147.955</td><td>49.8951</td><td>19.0</td><td>0</td></tr><tr><th>46</th><td>144.78</td><td>28.8031</td><td>17.0</td><td>0</td></tr><tr><th>47</th><td>121.92</td><td>20.4116</td><td>8.0</td><td>1</td></tr><tr><th>48</th><td>128.905</td><td>23.36</td><td>12.0</td><td>0</td></tr><tr><th>49</th><td>97.79</td><td>13.2676</td><td>5.0</td><td>0</td></tr><tr><th>50</th><td>154.305</td><td>41.2485</td><td>55.0</td><td>1</td></tr><tr><th>51</th><td>143.51</td><td>38.5553</td><td>43.0</td><td>0</td></tr><tr><th>52</th><td>146.7</td><td>42.4</td><td>20.0</td><td>1</td></tr><tr><th>53</th><td>157.48</td><td>44.6505</td><td>18.0</td><td>1</td></tr><tr><th>54</th><td>127.0</td><td>22.0106</td><td>13.0</td><td>1</td></tr><tr><th>55</th><td>110.49</td><td>15.4221</td><td>9.0</td><td>0</td></tr><tr><th>56</th><td>97.79</td><td>12.7573</td><td>5.0</td><td>0</td></tr><tr><th>57</th><td>165.735</td><td>58.5984</td><td>42.0</td><td>1</td></tr><tr><th>58</th><td>152.4</td><td>46.72</td><td>44.0</td><td>0</td></tr><tr><th>59</th><td>141.605</td><td>44.2252</td><td>60.0</td><td>0</td></tr><tr><th>60</th><td>158.8</td><td>50.9</td><td>20.0</td><td>0</td></tr><tr><th>61</th><td>155.575</td><td>54.3176</td><td>37.0</td><td>0</td></tr><tr><th>62</th><td>164.465</td><td>45.8978</td><td>50.0</td><td>1</td></tr><tr><th>63</th><td>151.765</td><td>48.0241</td><td>50.0</td><td>0</td></tr><tr><th>64</th><td>161.29</td><td>52.2198</td><td>31.0</td><td>1</td></tr><tr><th>65</th><td>154.305</td><td>47.6272</td><td>25.0</td><td>0</td></tr><tr><th>66</th><td>145.415</td><td>45.6427</td><td>23.0</td><td>0</td></tr><tr><th>67</th><td>145.415</td><td>42.4109</td><td>52.0</td><td>0</td></tr><tr><th>68</th><td>152.4</td><td>36.4858</td><td>79.3</td><td>1</td></tr><tr><th>69</th><td>163.83</td><td>55.9336</td><td>35.0</td><td>1</td></tr><tr><th>70</th><td>144.145</td><td>37.1945</td><td>27.0</td><td>0</td></tr><tr><th>71</th><td>129.54</td><td>24.5507</td><td>13.0</td><td>1</td></tr><tr><th>72</th><td>129.54</td><td>25.6279</td><td>14.0</td><td>0</td></tr><tr><th>73</th><td>153.67</td><td>48.3075</td><td>38.0</td><td>1</td></tr><tr><th>74</th><td>142.875</td><td>37.3363</td><td>39.0</td><td>0</td></tr><tr><th>75</th><td>146.05</td><td>29.5969</td><td>12.0</td><td>0</td></tr><tr><th>76</th><td>167.005</td><td>47.1736</td><td>30.0</td><td>1</td></tr><tr><th>77</th><td>158.42</td><td>47.287</td><td>24.0</td><td>0</td></tr><tr><th>78</th><td>91.44</td><td>12.9274</td><td>0.6</td><td>1</td></tr><tr><th>79</th><td>165.735</td><td>57.5495</td><td>51.0</td><td>1</td></tr><tr><th>80</th><td>149.86</td><td>37.9316</td><td>46.0</td><td>0</td></tr><tr><th>81</th><td>147.955</td><td>41.9006</td><td>17.0</td><td>0</td></tr><tr><th>82</th><td>137.795</td><td>27.5841</td><td>12.0</td><td>0</td></tr><tr><th>83</th><td>154.94</td><td>47.2019</td><td>22.0</td><td>0</td></tr><tr><th>84</th><td>160.96</td><td>43.2046</td><td>29.0</td><td>1</td></tr><tr><th>85</th><td>161.925</td><td>50.2637</td><td>38.0</td><td>1</td></tr><tr><th>86</th><td>147.955</td><td>39.3775</td><td>30.0</td><td>0</td></tr><tr><th>87</th><td>113.665</td><td>17.4633</td><td>6.0</td><td>1</td></tr><tr><th>88</th><td>159.385</td><td>50.689</td><td>45.0</td><td>1</td></tr><tr><th>89</th><td>148.59</td><td>39.4342</td><td>47.0</td><td>0</td></tr><tr><th>90</th><td>136.525</td><td>36.2874</td><td>79.0</td><td>0</td></tr><tr><th>91</th><td>158.115</td><td>46.2664</td><td>45.0</td><td>1</td></tr><tr><th>92</th><td>144.78</td><td>42.2691</td><td>54.0</td><td>0</td></tr><tr><th>93</th><td>156.845</td><td>47.6272</td><td>31.0</td><td>1</td></tr><tr><th>94</th><td>179.07</td><td>55.7068</td><td>23.0</td><td>1</td></tr><tr><th>95</th><td>118.745</td><td>18.8241</td><td>9.0</td><td>0</td></tr><tr><th>96</th><td>170.18</td><td>48.5627</td><td>41.0</td><td>1</td></tr><tr><th>97</th><td>146.05</td><td>42.8077</td><td>23.0</td><td>0</td></tr><tr><th>98</th><td>147.32</td><td>35.0683</td><td>36.0</td><td>0</td></tr><tr><th>99</th><td>113.03</td><td>17.8885</td><td>5.0</td><td>1</td></tr><tr><th>100</th><td>162.56</td><td>56.7557</td><td>30.0</td><td>0</td></tr><tr><th>101</th><td>133.985</td><td>27.4423</td><td>12.0</td><td>1</td></tr><tr><th>102</th><td>152.4</td><td>51.2559</td><td>34.0</td><td>0</td></tr><tr><th>103</th><td>160.02</td><td>47.2303</td><td>44.0</td><td>1</td></tr><tr><th>104</th><td>149.86</td><td>40.9367</td><td>43.0</td><td>0</td></tr><tr><th>105</th><td>142.875</td><td>32.7153</td><td>73.3</td><td>0</td></tr><tr><th>106</th><td>167.005</td><td>57.0675</td><td>38.0</td><td>1</td></tr><tr><th>107</th><td>159.385</td><td>42.9778</td><td>43.0</td><td>1</td></tr><tr><th>108</th><td>154.94</td><td>39.9444</td><td>33.0</td><td>0</td></tr><tr><th>109</th><td>148.59</td><td>32.4602</td><td>16.0</td><td>0</td></tr><tr><th>110</th><td>111.125</td><td>17.1231</td><td>11.0</td><td>1</td></tr><tr><th>111</th><td>111.76</td><td>16.4994</td><td>6.0</td><td>1</td></tr><tr><th>112</th><td>162.56</td><td>45.9545</td><td>35.0</td><td>1</td></tr><tr><th>113</th><td>152.4</td><td>41.1068</td><td>29.0</td><td>0</td></tr><tr><th>114</th><td>124.46</td><td>18.2571</td><td>12.0</td><td>0</td></tr><tr><th>115</th><td>111.76</td><td>15.0819</td><td>9.0</td><td>1</td></tr><tr><th>116</th><td>86.36</td><td>11.4815</td><td>7.6</td><td>1</td></tr><tr><th>117</th><td>170.18</td><td>47.5988</td><td>58.0</td><td>1</td></tr><tr><th>118</th><td>146.05</td><td>37.5064</td><td>53.0</td><td>0</td></tr><tr><th>119</th><td>159.385</td><td>45.019</td><td>51.0</td><td>1</td></tr><tr><th>120</th><td>151.13</td><td>42.2691</td><td>48.0</td><td>0</td></tr><tr><th>121</th><td>160.655</td><td>54.8563</td><td>29.0</td><td>1</td></tr><tr><th>122</th><td>169.545</td><td>53.5239</td><td>41.0</td><td>1</td></tr><tr><th>123</th><td>158.75</td><td>52.1914</td><td>81.75</td><td>1</td></tr><tr><th>124</th><td>74.295</td><td>9.75223</td><td>1.0</td><td>1</td></tr><tr><th>125</th><td>149.86</td><td>42.4109</td><td>35.0</td><td>0</td></tr><tr><th>126</th><td>153.035</td><td>49.5833</td><td>46.0</td><td>0</td></tr><tr><th>127</th><td>96.52</td><td>13.0975</td><td>5.0</td><td>1</td></tr><tr><th>128</th><td>161.925</td><td>41.7305</td><td>29.0</td><td>1</td></tr><tr><th>129</th><td>162.56</td><td>56.0186</td><td>42.0</td><td>1</td></tr><tr><th>130</th><td>149.225</td><td>42.1557</td><td>27.0</td><td>0</td></tr><tr><th>131</th><td>116.84</td><td>19.3911</td><td>8.0</td><td>0</td></tr><tr><th>132</th><td>100.076</td><td>15.0819</td><td>6.0</td><td>1</td></tr><tr><th>133</th><td>163.195</td><td>53.0986</td><td>22.0</td><td>1</td></tr><tr><th>134</th><td>161.925</td><td>50.2353</td><td>43.0</td><td>1</td></tr><tr><th>135</th><td>145.415</td><td>42.5243</td><td>53.0</td><td>0</td></tr><tr><th>136</th><td>163.195</td><td>49.1013</td><td>43.0</td><td>1</td></tr><tr><th>137</th><td>151.13</td><td>38.4986</td><td>41.0</td><td>0</td></tr><tr><th>138</th><td>150.495</td><td>49.8101</td><td>50.0</td><td>0</td></tr><tr><th>139</th><td>141.605</td><td>29.3134</td><td>15.0</td><td>1</td></tr><tr><th>140</th><td>170.815</td><td>59.7607</td><td>33.0</td><td>1</td></tr><tr><th>141</th><td>91.44</td><td>11.7083</td><td>3.0</td><td>0</td></tr><tr><th>142</th><td>157.48</td><td>47.939</td><td>62.0</td><td>1</td></tr><tr><th>143</th><td>152.4</td><td>39.2924</td><td>49.0</td><td>0</td></tr><tr><th>144</th><td>149.225</td><td>38.1301</td><td>17.0</td><td>1</td></tr><tr><th>145</th><td>129.54</td><td>21.9992</td><td>12.0</td><td>0</td></tr><tr><th>146</th><td>147.32</td><td>36.8827</td><td>22.0</td><td>0</td></tr><tr><th>147</th><td>145.415</td><td>42.1274</td><td>29.0</td><td>0</td></tr><tr><th>148</th><td>121.92</td><td>19.788</td><td>8.0</td><td>0</td></tr><tr><th>149</th><td>113.665</td><td>16.7829</td><td>5.0</td><td>1</td></tr><tr><th>150</th><td>157.48</td><td>44.5654</td><td>33.0</td><td>1</td></tr><tr><th>151</th><td>154.305</td><td>47.854</td><td>34.0</td><td>0</td></tr><tr><th>152</th><td>120.65</td><td>21.1771</td><td>12.0</td><td>0</td></tr><tr><th>153</th><td>115.6</td><td>18.9</td><td>7.0</td><td>1</td></tr><tr><th>154</th><td>167.005</td><td>55.1965</td><td>42.0</td><td>1</td></tr><tr><th>155</th><td>142.875</td><td>32.9988</td><td>40.0</td><td>0</td></tr><tr><th>156</th><td>152.4</td><td>40.88</td><td>27.0</td><td>0</td></tr><tr><th>157</th><td>96.52</td><td>13.2676</td><td>3.0</td><td>0</td></tr><tr><th>158</th><td>160.0</td><td>51.2</td><td>25.0</td><td>1</td></tr><tr><th>159</th><td>159.385</td><td>49.0446</td><td>29.0</td><td>1</td></tr><tr><th>160</th><td>149.86</td><td>53.4388</td><td>45.0</td><td>0</td></tr><tr><th>161</th><td>160.655</td><td>54.0908</td><td>26.0</td><td>1</td></tr><tr><th>162</th><td>160.655</td><td>55.3666</td><td>45.0</td><td>1</td></tr><tr><th>163</th><td>149.225</td><td>42.2408</td><td>45.0</td><td>0</td></tr><tr><th>164</th><td>125.095</td><td>22.3678</td><td>11.0</td><td>0</td></tr><tr><th>165</th><td>140.97</td><td>40.9367</td><td>85.6</td><td>0</td></tr><tr><th>166</th><td>154.94</td><td>49.6967</td><td>26.0</td><td>1</td></tr><tr><th>167</th><td>141.605</td><td>44.3386</td><td>24.0</td><td>0</td></tr><tr><th>168</th><td>160.02</td><td>45.9545</td><td>57.0</td><td>1</td></tr><tr><th>169</th><td>150.165</td><td>41.9573</td><td>22.0</td><td>0</td></tr><tr><th>170</th><td>155.575</td><td>51.4827</td><td>24.0</td><td>0</td></tr><tr><th>171</th><td>103.505</td><td>12.7573</td><td>6.0</td><td>0</td></tr><tr><th>172</th><td>94.615</td><td>13.0124</td><td>4.0</td><td>0</td></tr><tr><th>173</th><td>156.21</td><td>44.1118</td><td>21.0</td><td>0</td></tr><tr><th>174</th><td>153.035</td><td>32.205</td><td>79.0</td><td>0</td></tr><tr><th>175</th><td>167.005</td><td>56.7557</td><td>50.0</td><td>1</td></tr><tr><th>176</th><td>149.86</td><td>52.6734</td><td>40.0</td><td>0</td></tr><tr><th>177</th><td>147.955</td><td>36.4858</td><td>64.0</td><td>0</td></tr><tr><th>178</th><td>159.385</td><td>48.8462</td><td>32.0</td><td>1</td></tr><tr><th>179</th><td>161.925</td><td>56.9541</td><td>38.7</td><td>1</td></tr><tr><th>180</th><td>155.575</td><td>42.099</td><td>26.0</td><td>0</td></tr><tr><th>181</th><td>159.385</td><td>50.1786</td><td>63.0</td><td>1</td></tr><tr><th>182</th><td>146.685</td><td>46.5499</td><td>62.0</td><td>0</td></tr><tr><th>183</th><td>172.72</td><td>61.8019</td><td>22.0</td><td>1</td></tr><tr><th>184</th><td>166.37</td><td>48.9879</td><td>41.0</td><td>1</td></tr><tr><th>185</th><td>141.605</td><td>31.5246</td><td>19.0</td><td>1</td></tr><tr><th>186</th><td>142.875</td><td>32.205</td><td>17.0</td><td>0</td></tr><tr><th>187</th><td>133.35</td><td>23.7569</td><td>14.0</td><td>0</td></tr><tr><th>188</th><td>127.635</td><td>24.4089</td><td>9.0</td><td>1</td></tr><tr><th>189</th><td>119.38</td><td>21.5173</td><td>7.0</td><td>1</td></tr><tr><th>190</th><td>151.765</td><td>35.2951</td><td>74.0</td><td>0</td></tr><tr><th>191</th><td>156.845</td><td>45.6427</td><td>41.0</td><td>1</td></tr><tr><th>192</th><td>148.59</td><td>43.885</td><td>33.0</td><td>0</td></tr><tr><th>193</th><td>157.48</td><td>45.5576</td><td>53.0</td><td>0</td></tr><tr><th>194</th><td>149.86</td><td>39.0089</td><td>18.0</td><td>0</td></tr><tr><th>195</th><td>147.955</td><td>41.1635</td><td>37.0</td><td>0</td></tr><tr><th>196</th><td>102.235</td><td>13.1258</td><td>6.0</td><td>0</td></tr><tr><th>197</th><td>153.035</td><td>45.2458</td><td>61.0</td><td>0</td></tr><tr><th>198</th><td>160.655</td><td>53.6373</td><td>44.0</td><td>1</td></tr><tr><th>199</th><td>149.225</td><td>52.3048</td><td>35.0</td><td>0</td></tr><tr><th>200</th><td>114.3</td><td>18.3421</td><td>7.0</td><td>1</td></tr><tr><th>201</th><td>100.965</td><td>13.7495</td><td>4.0</td><td>1</td></tr><tr><th>202</th><td>138.43</td><td>39.094</td><td>23.0</td><td>0</td></tr><tr><th>203</th><td>91.44</td><td>12.5305</td><td>4.0</td><td>1</td></tr><tr><th>204</th><td>162.56</td><td>45.6994</td><td>55.0</td><td>1</td></tr><tr><th>205</th><td>149.225</td><td>40.398</td><td>53.0</td><td>0</td></tr><tr><th>206</th><td>158.75</td><td>51.4827</td><td>59.0</td><td>1</td></tr><tr><th>207</th><td>149.86</td><td>38.6687</td><td>57.0</td><td>0</td></tr><tr><th>208</th><td>158.115</td><td>39.2357</td><td>35.0</td><td>1</td></tr><tr><th>209</th><td>156.21</td><td>44.3386</td><td>29.0</td><td>0</td></tr><tr><th>210</th><td>148.59</td><td>39.5192</td><td>62.0</td><td>1</td></tr><tr><th>211</th><td>143.51</td><td>31.0711</td><td>18.0</td><td>0</td></tr><tr><th>212</th><td>154.305</td><td>46.7767</td><td>51.0</td><td>0</td></tr><tr><th>213</th><td>131.445</td><td>22.5095</td><td>14.0</td><td>0</td></tr><tr><th>214</th><td>157.48</td><td>40.6248</td><td>19.0</td><td>1</td></tr><tr><th>215</th><td>157.48</td><td>50.1786</td><td>42.0</td><td>1</td></tr><tr><th>216</th><td>154.305</td><td>41.2769</td><td>25.0</td><td>0</td></tr><tr><th>217</th><td>107.95</td><td>17.5767</td><td>6.0</td><td>1</td></tr><tr><th>218</th><td>168.275</td><td>54.6</td><td>41.0</td><td>1</td></tr><tr><th>219</th><td>145.415</td><td>44.9907</td><td>37.0</td><td>0</td></tr><tr><th>220</th><td>147.955</td><td>44.7355</td><td>16.0</td><td>0</td></tr><tr><th>221</th><td>100.965</td><td>14.4015</td><td>5.0</td><td>1</td></tr><tr><th>222</th><td>113.03</td><td>19.0509</td><td>9.0</td><td>1</td></tr><tr><th>223</th><td>149.225</td><td>35.8054</td><td>82.0</td><td>1</td></tr><tr><th>224</th><td>154.94</td><td>45.2175</td><td>28.0</td><td>1</td></tr><tr><th>225</th><td>162.56</td><td>48.1091</td><td>50.0</td><td>1</td></tr><tr><th>226</th><td>156.845</td><td>45.671</td><td>43.0</td><td>0</td></tr><tr><th>227</th><td>123.19</td><td>20.8085</td><td>8.0</td><td>1</td></tr><tr><th>228</th><td>161.011</td><td>48.4209</td><td>31.0</td><td>1</td></tr><tr><th>229</th><td>144.78</td><td>41.1918</td><td>67.0</td><td>0</td></tr><tr><th>230</th><td>143.51</td><td>38.4136</td><td>39.0</td><td>0</td></tr><tr><th>231</th><td>149.225</td><td>42.1274</td><td>18.0</td><td>0</td></tr><tr><th>232</th><td>110.49</td><td>17.6617</td><td>11.0</td><td>0</td></tr><tr><th>233</th><td>149.86</td><td>38.2435</td><td>48.0</td><td>0</td></tr><tr><th>234</th><td>165.735</td><td>48.3359</td><td>30.0</td><td>1</td></tr><tr><th>235</th><td>144.145</td><td>38.9239</td><td>64.0</td><td>0</td></tr><tr><th>236</th><td>157.48</td><td>40.0295</td><td>72.0</td><td>1</td></tr><tr><th>237</th><td>154.305</td><td>50.207</td><td>68.0</td><td>0</td></tr><tr><th>238</th><td>163.83</td><td>54.2893</td><td>44.0</td><td>1</td></tr><tr><th>239</th><td>156.21</td><td>45.6</td><td>43.0</td><td>0</td></tr><tr><th>240</th><td>153.67</td><td>40.7666</td><td>16.0</td><td>0</td></tr><tr><th>241</th><td>134.62</td><td>27.1305</td><td>13.0</td><td>0</td></tr><tr><th>242</th><td>144.145</td><td>39.4342</td><td>34.0</td><td>0</td></tr><tr><th>243</th><td>114.3</td><td>20.4967</td><td>10.0</td><td>0</td></tr><tr><th>244</th><td>162.56</td><td>43.2046</td><td>62.0</td><td>1</td></tr><tr><th>245</th><td>146.05</td><td>31.8648</td><td>44.0</td><td>0</td></tr><tr><th>246</th><td>120.65</td><td>20.8936</td><td>11.0</td><td>1</td></tr><tr><th>247</th><td>154.94</td><td>45.4442</td><td>31.0</td><td>1</td></tr><tr><th>248</th><td>144.78</td><td>38.045</td><td>29.0</td><td>0</td></tr><tr><th>249</th><td>106.68</td><td>15.9891</td><td>8.0</td><td>0</td></tr><tr><th>250</th><td>146.685</td><td>36.0889</td><td>62.0</td><td>0</td></tr><tr><th>251</th><td>152.4</td><td>40.88</td><td>67.0</td><td>0</td></tr><tr><th>252</th><td>163.83</td><td>47.9107</td><td>57.0</td><td>1</td></tr><tr><th>253</th><td>165.735</td><td>47.7122</td><td>32.0</td><td>1</td></tr><tr><th>254</th><td>156.21</td><td>46.3798</td><td>24.0</td><td>0</td></tr><tr><th>255</th><td>152.4</td><td>41.1635</td><td>77.0</td><td>1</td></tr><tr><th>256</th><td>140.335</td><td>36.5992</td><td>62.0</td><td>0</td></tr><tr><th>257</th><td>158.115</td><td>43.0912</td><td>17.0</td><td>1</td></tr><tr><th>258</th><td>163.195</td><td>48.1375</td><td>67.0</td><td>1</td></tr><tr><th>259</th><td>151.13</td><td>36.7126</td><td>70.0</td><td>0</td></tr><tr><th>260</th><td>171.12</td><td>56.5573</td><td>37.0</td><td>1</td></tr><tr><th>261</th><td>149.86</td><td>38.6971</td><td>58.0</td><td>0</td></tr><tr><th>262</th><td>163.83</td><td>47.4854</td><td>35.0</td><td>1</td></tr><tr><th>263</th><td>141.605</td><td>36.2023</td><td>30.0</td><td>0</td></tr><tr><th>264</th><td>93.98</td><td>14.2881</td><td>5.0</td><td>0</td></tr><tr><th>265</th><td>149.225</td><td>41.2769</td><td>26.0</td><td>0</td></tr><tr><th>266</th><td>105.41</td><td>15.2237</td><td>5.0</td><td>0</td></tr><tr><th>267</th><td>146.05</td><td>44.7639</td><td>21.0</td><td>0</td></tr><tr><th>268</th><td>161.29</td><td>50.4338</td><td>41.0</td><td>1</td></tr><tr><th>269</th><td>162.56</td><td>55.2815</td><td>46.0</td><td>1</td></tr><tr><th>270</th><td>145.415</td><td>37.9316</td><td>49.0</td><td>0</td></tr><tr><th>271</th><td>145.415</td><td>35.4936</td><td>15.0</td><td>1</td></tr><tr><th>272</th><td>170.815</td><td>58.4567</td><td>28.0</td><td>1</td></tr><tr><th>273</th><td>127.0</td><td>21.4889</td><td>12.0</td><td>0</td></tr><tr><th>274</th><td>159.385</td><td>44.4237</td><td>83.0</td><td>0</td></tr><tr><th>275</th><td>159.4</td><td>44.4</td><td>54.0</td><td>1</td></tr><tr><th>276</th><td>153.67</td><td>44.5654</td><td>54.0</td><td>0</td></tr><tr><th>277</th><td>160.02</td><td>44.6221</td><td>68.0</td><td>1</td></tr><tr><th>278</th><td>150.495</td><td>40.4831</td><td>68.0</td><td>0</td></tr><tr><th>279</th><td>149.225</td><td>44.0835</td><td>56.0</td><td>0</td></tr><tr><th>280</th><td>127.0</td><td>24.4089</td><td>15.0</td><td>0</td></tr><tr><th>281</th><td>142.875</td><td>34.4163</td><td>57.0</td><td>0</td></tr><tr><th>282</th><td>142.113</td><td>32.772</td><td>22.0</td><td>0</td></tr><tr><th>283</th><td>147.32</td><td>35.9472</td><td>40.0</td><td>0</td></tr><tr><th>284</th><td>162.56</td><td>49.5549</td><td>19.0</td><td>1</td></tr><tr><th>285</th><td>164.465</td><td>53.1837</td><td>41.0</td><td>1</td></tr><tr><th>286</th><td>160.02</td><td>37.0811</td><td>75.9</td><td>1</td></tr><tr><th>287</th><td>153.67</td><td>40.5114</td><td>73.9</td><td>0</td></tr><tr><th>288</th><td>167.005</td><td>50.6039</td><td>49.0</td><td>1</td></tr><tr><th>289</th><td>151.13</td><td>43.9701</td><td>26.0</td><td>1</td></tr><tr><th>290</th><td>147.955</td><td>33.7926</td><td>17.0</td><td>0</td></tr><tr><th>291</th><td>125.4</td><td>21.3755</td><td>13.0</td><td>0</td></tr><tr><th>292</th><td>111.125</td><td>16.6695</td><td>8.0</td><td>0</td></tr><tr><th>293</th><td>153.035</td><td>49.89</td><td>88.0</td><td>1</td></tr><tr><th>294</th><td>139.065</td><td>33.5942</td><td>68.0</td><td>0</td></tr><tr><th>295</th><td>152.4</td><td>43.8567</td><td>33.0</td><td>1</td></tr><tr><th>296</th><td>154.94</td><td>48.1375</td><td>26.0</td><td>0</td></tr><tr><th>297</th><td>147.955</td><td>42.751</td><td>56.0</td><td>0</td></tr><tr><th>298</th><td>143.51</td><td>34.8415</td><td>16.0</td><td>1</td></tr><tr><th>299</th><td>117.983</td><td>24.0971</td><td>13.0</td><td>0</td></tr><tr><th>300</th><td>144.145</td><td>33.906</td><td>34.0</td><td>0</td></tr><tr><th>301</th><td>92.71</td><td>12.0769</td><td>5.0</td><td>0</td></tr><tr><th>302</th><td>147.955</td><td>41.2769</td><td>17.0</td><td>0</td></tr><tr><th>303</th><td>155.575</td><td>39.7176</td><td>74.0</td><td>1</td></tr><tr><th>304</th><td>150.495</td><td>35.9472</td><td>69.0</td><td>0</td></tr><tr><th>305</th><td>155.575</td><td>50.9157</td><td>50.0</td><td>1</td></tr><tr><th>306</th><td>154.305</td><td>45.7561</td><td>44.0</td><td>0</td></tr><tr><th>307</th><td>130.607</td><td>25.2594</td><td>15.0</td><td>0</td></tr><tr><th>308</th><td>101.6</td><td>15.3371</td><td>5.0</td><td>0</td></tr><tr><th>309</th><td>157.48</td><td>49.2147</td><td>18.0</td><td>0</td></tr><tr><th>310</th><td>168.91</td><td>58.8252</td><td>41.0</td><td>1</td></tr><tr><th>311</th><td>150.495</td><td>43.4598</td><td>27.0</td><td>0</td></tr><tr><th>312</th><td>111.76</td><td>17.8318</td><td>8.9</td><td>1</td></tr><tr><th>313</th><td>160.02</td><td>51.9646</td><td>38.0</td><td>1</td></tr><tr><th>314</th><td>167.64</td><td>50.6889</td><td>57.0</td><td>1</td></tr><tr><th>315</th><td>144.145</td><td>34.2462</td><td>64.5</td><td>0</td></tr><tr><th>316</th><td>145.415</td><td>39.3775</td><td>42.0</td><td>0</td></tr><tr><th>317</th><td>160.02</td><td>59.5623</td><td>24.0</td><td>1</td></tr><tr><th>318</th><td>147.32</td><td>40.313</td><td>16.0</td><td>1</td></tr><tr><th>319</th><td>164.465</td><td>52.1631</td><td>71.0</td><td>1</td></tr><tr><th>320</th><td>153.035</td><td>39.9728</td><td>49.5</td><td>0</td></tr><tr><th>321</th><td>149.225</td><td>43.9417</td><td>33.0</td><td>1</td></tr><tr><th>322</th><td>160.02</td><td>54.6011</td><td>28.0</td><td>0</td></tr><tr><th>323</th><td>149.225</td><td>45.0757</td><td>47.0</td><td>0</td></tr><tr><th>324</th><td>85.09</td><td>11.4532</td><td>3.0</td><td>1</td></tr><tr><th>325</th><td>84.455</td><td>11.765</td><td>1.0</td><td>1</td></tr><tr><th>326</th><td>59.6138</td><td>5.8967</td><td>1.0</td><td>0</td></tr><tr><th>327</th><td>92.71</td><td>12.1052</td><td>3.0</td><td>1</td></tr><tr><th>328</th><td>111.125</td><td>18.3138</td><td>6.0</td><td>0</td></tr><tr><th>329</th><td>90.805</td><td>11.3681</td><td>5.0</td><td>0</td></tr><tr><th>330</th><td>153.67</td><td>41.3336</td><td>27.0</td><td>0</td></tr><tr><th>331</th><td>99.695</td><td>16.2443</td><td>5.0</td><td>0</td></tr><tr><th>332</th><td>62.484</td><td>6.80388</td><td>1.0</td><td>0</td></tr><tr><th>333</th><td>81.915</td><td>11.8784</td><td>2.0</td><td>1</td></tr><tr><th>334</th><td>96.52</td><td>14.9685</td><td>2.0</td><td>0</td></tr><tr><th>335</th><td>80.01</td><td>9.86563</td><td>1.0</td><td>1</td></tr><tr><th>336</th><td>150.495</td><td>41.9006</td><td>55.0</td><td>0</td></tr><tr><th>337</th><td>151.765</td><td>42.524</td><td>83.4</td><td>1</td></tr><tr><th>338</th><td>140.64</td><td>28.8598</td><td>12.0</td><td>1</td></tr><tr><th>339</th><td>88.265</td><td>12.7856</td><td>2.0</td><td>0</td></tr><tr><th>340</th><td>158.115</td><td>43.1479</td><td>63.0</td><td>1</td></tr><tr><th>341</th><td>149.225</td><td>40.8233</td><td>52.0</td><td>0</td></tr><tr><th>342</th><td>151.765</td><td>42.8644</td><td>49.0</td><td>1</td></tr><tr><th>343</th><td>154.94</td><td>46.2097</td><td>31.0</td><td>0</td></tr><tr><th>344</th><td>123.825</td><td>20.5817</td><td>9.0</td><td>0</td></tr><tr><th>345</th><td>104.14</td><td>15.8757</td><td>6.0</td><td>0</td></tr><tr><th>346</th><td>161.29</td><td>47.854</td><td>35.0</td><td>1</td></tr><tr><th>347</th><td>148.59</td><td>42.5243</td><td>35.0</td><td>0</td></tr><tr><th>348</th><td>97.155</td><td>17.0664</td><td>7.0</td><td>0</td></tr><tr><th>349</th><td>93.345</td><td>13.1825</td><td>5.0</td><td>1</td></tr><tr><th>350</th><td>160.655</td><td>48.506</td><td>24.0</td><td>1</td></tr><tr><th>351</th><td>157.48</td><td>45.8695</td><td>41.0</td><td>1</td></tr><tr><th>352</th><td>167.005</td><td>52.9002</td><td>32.0</td><td>1</td></tr><tr><th>353</th><td>157.48</td><td>47.5705</td><td>43.0</td><td>1</td></tr><tr><th>354</th><td>91.44</td><td>12.9274</td><td>6.0</td><td>0</td></tr><tr><th>355</th><td>60.452</td><td>5.6699</td><td>1.0</td><td>1</td></tr><tr><th>356</th><td>137.16</td><td>28.9165</td><td>15.0</td><td>1</td></tr><tr><th>357</th><td>152.4</td><td>43.5448</td><td>63.0</td><td>0</td></tr><tr><th>358</th><td>152.4</td><td>43.4314</td><td>21.0</td><td>0</td></tr><tr><th>359</th><td>81.28</td><td>11.5099</td><td>1.0</td><td>1</td></tr><tr><th>360</th><td>109.22</td><td>11.7083</td><td>2.0</td><td>0</td></tr><tr><th>361</th><td>71.12</td><td>7.54097</td><td>1.0</td><td>1</td></tr><tr><th>362</th><td>89.2048</td><td>12.7006</td><td>3.0</td><td>0</td></tr><tr><th>363</th><td>67.31</td><td>7.20077</td><td>1.0</td><td>0</td></tr><tr><th>364</th><td>85.09</td><td>12.3604</td><td>1.0</td><td>1</td></tr><tr><th>365</th><td>69.85</td><td>7.79611</td><td>1.0</td><td>0</td></tr><tr><th>366</th><td>161.925</td><td>53.212</td><td>55.0</td><td>0</td></tr><tr><th>367</th><td>152.4</td><td>44.6788</td><td>38.0</td><td>0</td></tr><tr><th>368</th><td>88.9</td><td>12.5588</td><td>3.0</td><td>1</td></tr><tr><th>369</th><td>90.17</td><td>12.7006</td><td>3.0</td><td>1</td></tr><tr><th>370</th><td>71.755</td><td>7.37087</td><td>1.0</td><td>0</td></tr><tr><th>371</th><td>83.82</td><td>9.21359</td><td>1.0</td><td>0</td></tr><tr><th>372</th><td>159.385</td><td>47.2019</td><td>28.0</td><td>1</td></tr><tr><th>373</th><td>142.24</td><td>28.633</td><td>16.0</td><td>0</td></tr><tr><th>374</th><td>142.24</td><td>31.6664</td><td>36.0</td><td>0</td></tr><tr><th>375</th><td>168.91</td><td>56.4439</td><td>38.0</td><td>1</td></tr><tr><th>376</th><td>123.19</td><td>20.0147</td><td>12.0</td><td>1</td></tr><tr><th>377</th><td>74.93</td><td>8.50485</td><td>1.0</td><td>1</td></tr><tr><th>378</th><td>74.295</td><td>8.3064</td><td>1.0</td><td>0</td></tr><tr><th>379</th><td>90.805</td><td>11.6233</td><td>3.0</td><td>0</td></tr><tr><th>380</th><td>160.02</td><td>55.7918</td><td>48.0</td><td>1</td></tr><tr><th>381</th><td>67.945</td><td>7.96621</td><td>1.0</td><td>0</td></tr><tr><th>382</th><td>135.89</td><td>27.2155</td><td>15.0</td><td>0</td></tr><tr><th>383</th><td>158.115</td><td>47.4854</td><td>45.0</td><td>1</td></tr><tr><th>384</th><td>85.09</td><td>10.8012</td><td>3.0</td><td>1</td></tr><tr><th>385</th><td>93.345</td><td>14.0047</td><td>3.0</td><td>0</td></tr><tr><th>386</th><td>152.4</td><td>45.1608</td><td>38.0</td><td>0</td></tr><tr><th>387</th><td>155.575</td><td>45.5293</td><td>21.0</td><td>0</td></tr><tr><th>388</th><td>154.305</td><td>48.8745</td><td>50.0</td><td>0</td></tr><tr><th>389</th><td>156.845</td><td>46.5782</td><td>41.0</td><td>1</td></tr><tr><th>390</th><td>120.015</td><td>20.1281</td><td>13.0</td><td>0</td></tr><tr><th>391</th><td>114.3</td><td>18.1437</td><td>8.0</td><td>1</td></tr><tr><th>392</th><td>83.82</td><td>10.9146</td><td>3.0</td><td>1</td></tr><tr><th>393</th><td>156.21</td><td>43.885</td><td>30.0</td><td>0</td></tr><tr><th>394</th><td>137.16</td><td>27.1588</td><td>12.0</td><td>1</td></tr><tr><th>395</th><td>114.3</td><td>19.0509</td><td>7.0</td><td>1</td></tr><tr><th>396</th><td>93.98</td><td>13.8346</td><td>4.0</td><td>0</td></tr><tr><th>397</th><td>168.275</td><td>56.047</td><td>21.0</td><td>1</td></tr><tr><th>398</th><td>147.955</td><td>40.0862</td><td>38.0</td><td>0</td></tr><tr><th>399</th><td>139.7</td><td>26.5635</td><td>15.0</td><td>1</td></tr><tr><th>400</th><td>157.48</td><td>50.8023</td><td>19.0</td><td>0</td></tr><tr><th>401</th><td>76.2</td><td>9.21359</td><td>1.0</td><td>1</td></tr><tr><th>402</th><td>66.04</td><td>7.56932</td><td>1.0</td><td>1</td></tr><tr><th>403</th><td>160.7</td><td>46.3</td><td>31.0</td><td>1</td></tr><tr><th>404</th><td>114.3</td><td>19.4194</td><td>8.0</td><td>0</td></tr><tr><th>405</th><td>146.05</td><td>37.9033</td><td>16.0</td><td>1</td></tr><tr><th>406</th><td>161.29</td><td>49.3565</td><td>21.0</td><td>1</td></tr><tr><th>407</th><td>69.85</td><td>7.31417</td><td>0.0</td><td>0</td></tr><tr><th>408</th><td>133.985</td><td>28.1511</td><td>13.0</td><td>1</td></tr><tr><th>409</th><td>67.945</td><td>7.82446</td><td>0.0</td><td>1</td></tr><tr><th>410</th><td>150.495</td><td>44.1118</td><td>50.0</td><td>0</td></tr><tr><th>411</th><td>163.195</td><td>51.0291</td><td>39.0</td><td>1</td></tr><tr><th>412</th><td>148.59</td><td>40.7666</td><td>44.0</td><td>1</td></tr><tr><th>413</th><td>148.59</td><td>37.5631</td><td>36.0</td><td>0</td></tr><tr><th>414</th><td>161.925</td><td>51.5961</td><td>36.0</td><td>1</td></tr><tr><th>415</th><td>153.67</td><td>44.8206</td><td>18.0</td><td>0</td></tr><tr><th>416</th><td>68.58</td><td>8.02291</td><td>0.0</td><td>0</td></tr><tr><th>417</th><td>151.13</td><td>43.4031</td><td>58.0</td><td>0</td></tr><tr><th>418</th><td>163.83</td><td>46.72</td><td>58.0</td><td>1</td></tr><tr><th>419</th><td>153.035</td><td>39.5476</td><td>33.0</td><td>0</td></tr><tr><th>420</th><td>151.765</td><td>34.7848</td><td>21.5</td><td>0</td></tr><tr><th>421</th><td>132.08</td><td>22.793</td><td>11.0</td><td>1</td></tr><tr><th>422</th><td>156.21</td><td>39.2924</td><td>26.0</td><td>1</td></tr><tr><th>423</th><td>140.335</td><td>37.4497</td><td>22.0</td><td>0</td></tr><tr><th>424</th><td>158.75</td><td>48.6761</td><td>28.0</td><td>1</td></tr><tr><th>425</th><td>142.875</td><td>35.607</td><td>42.0</td><td>0</td></tr><tr><th>426</th><td>84.455</td><td>9.38368</td><td>2.0</td><td>1</td></tr><tr><th>427</th><td>151.943</td><td>43.7149</td><td>21.0</td><td>1</td></tr><tr><th>428</th><td>161.29</td><td>48.1942</td><td>19.0</td><td>1</td></tr><tr><th>429</th><td>127.991</td><td>29.852</td><td>13.0</td><td>1</td></tr><tr><th>430</th><td>160.985</td><td>50.9724</td><td>48.0</td><td>1</td></tr><tr><th>431</th><td>144.78</td><td>43.9984</td><td>46.0</td><td>0</td></tr><tr><th>432</th><td>132.08</td><td>28.2928</td><td>11.0</td><td>1</td></tr><tr><th>433</th><td>117.983</td><td>20.3549</td><td>8.0</td><td>1</td></tr><tr><th>434</th><td>160.02</td><td>48.1942</td><td>25.0</td><td>1</td></tr><tr><th>435</th><td>154.94</td><td>39.179</td><td>16.0</td><td>1</td></tr><tr><th>436</th><td>160.985</td><td>46.6916</td><td>51.0</td><td>1</td></tr><tr><th>437</th><td>165.989</td><td>56.4155</td><td>25.0</td><td>1</td></tr><tr><th>438</th><td>157.988</td><td>48.591</td><td>28.0</td><td>1</td></tr><tr><th>439</th><td>154.94</td><td>48.2225</td><td>26.0</td><td>0</td></tr><tr><th>440</th><td>97.9932</td><td>13.2959</td><td>5.0</td><td>1</td></tr><tr><th>441</th><td>64.135</td><td>6.66213</td><td>1.0</td><td>0</td></tr><tr><th>442</th><td>160.655</td><td>47.4854</td><td>54.0</td><td>1</td></tr><tr><th>443</th><td>147.32</td><td>35.5503</td><td>66.0</td><td>0</td></tr><tr><th>444</th><td>146.7</td><td>36.6</td><td>20.0</td><td>0</td></tr><tr><th>445</th><td>147.32</td><td>48.9596</td><td>25.0</td><td>0</td></tr><tr><th>446</th><td>172.999</td><td>51.2559</td><td>38.0</td><td>1</td></tr><tr><th>447</th><td>158.115</td><td>46.5215</td><td>51.0</td><td>1</td></tr><tr><th>448</th><td>147.32</td><td>36.9677</td><td>48.0</td><td>0</td></tr><tr><th>449</th><td>124.993</td><td>25.1177</td><td>13.0</td><td>1</td></tr><tr><th>450</th><td>106.045</td><td>16.2726</td><td>6.0</td><td>1</td></tr><tr><th>451</th><td>165.989</td><td>48.6477</td><td>27.0</td><td>1</td></tr><tr><th>452</th><td>149.86</td><td>38.045</td><td>22.0</td><td>0</td></tr><tr><th>453</th><td>76.2</td><td>8.50485</td><td>1.0</td><td>0</td></tr><tr><th>454</th><td>161.925</td><td>47.287</td><td>60.0</td><td>1</td></tr><tr><th>455</th><td>140.005</td><td>28.3495</td><td>15.0</td><td>0</td></tr><tr><th>456</th><td>66.675</td><td>8.13631</td><td>0.0</td><td>0</td></tr><tr><th>457</th><td>62.865</td><td>7.20077</td><td>0.0</td><td>1</td></tr><tr><th>458</th><td>163.83</td><td>55.3949</td><td>43.0</td><td>1</td></tr><tr><th>459</th><td>147.955</td><td>32.4885</td><td>12.0</td><td>1</td></tr><tr><th>460</th><td>160.02</td><td>54.2042</td><td>27.0</td><td>1</td></tr><tr><th>461</th><td>154.94</td><td>48.4776</td><td>30.0</td><td>1</td></tr><tr><th>462</th><td>152.4</td><td>43.0629</td><td>29.0</td><td>0</td></tr><tr><th>463</th><td>62.23</td><td>7.25747</td><td>0.0</td><td>0</td></tr><tr><th>464</th><td>146.05</td><td>34.1895</td><td>23.0</td><td>0</td></tr><tr><th>465</th><td>151.994</td><td>49.9518</td><td>30.0</td><td>0</td></tr><tr><th>466</th><td>157.48</td><td>41.3052</td><td>17.0</td><td>1</td></tr><tr><th>467</th><td>55.88</td><td>4.84776</td><td>0.0</td><td>0</td></tr><tr><th>468</th><td>60.96</td><td>6.23689</td><td>0.0</td><td>1</td></tr><tr><th>469</th><td>151.765</td><td>44.3386</td><td>41.0</td><td>0</td></tr><tr><th>470</th><td>144.78</td><td>33.4524</td><td>42.0</td><td>0</td></tr><tr><th>471</th><td>118.11</td><td>16.8963</td><td>7.0</td><td>0</td></tr><tr><th>472</th><td>78.105</td><td>8.22136</td><td>3.0</td><td>0</td></tr><tr><th>473</th><td>160.655</td><td>47.287</td><td>43.0</td><td>1</td></tr><tr><th>474</th><td>151.13</td><td>46.1246</td><td>35.0</td><td>0</td></tr><tr><th>475</th><td>121.92</td><td>20.1848</td><td>10.0</td><td>0</td></tr><tr><th>476</th><td>92.71</td><td>12.7573</td><td>3.0</td><td>1</td></tr><tr><th>477</th><td>153.67</td><td>47.4004</td><td>75.5</td><td>1</td></tr><tr><th>478</th><td>147.32</td><td>40.8516</td><td>64.0</td><td>0</td></tr><tr><th>479</th><td>139.7</td><td>50.3487</td><td>38.0</td><td>1</td></tr><tr><th>480</th><td>157.48</td><td>45.1324</td><td>24.2</td><td>0</td></tr><tr><th>481</th><td>91.44</td><td>11.6233</td><td>4.0</td><td>0</td></tr><tr><th>482</th><td>154.94</td><td>42.2408</td><td>26.0</td><td>1</td></tr><tr><th>483</th><td>143.51</td><td>41.6454</td><td>19.0</td><td>0</td></tr><tr><th>484</th><td>83.185</td><td>9.15689</td><td>2.0</td><td>1</td></tr><tr><th>485</th><td>158.115</td><td>45.2175</td><td>43.0</td><td>1</td></tr><tr><th>486</th><td>147.32</td><td>51.2559</td><td>38.0</td><td>0</td></tr><tr><th>487</th><td>123.825</td><td>21.2054</td><td>10.0</td><td>1</td></tr><tr><th>488</th><td>88.9</td><td>11.5949</td><td>3.0</td><td>1</td></tr><tr><th>489</th><td>160.02</td><td>49.2714</td><td>23.0</td><td>1</td></tr><tr><th>490</th><td>137.16</td><td>27.9526</td><td>16.0</td><td>0</td></tr><tr><th>491</th><td>165.1</td><td>51.1992</td><td>49.0</td><td>1</td></tr><tr><th>492</th><td>154.94</td><td>43.8567</td><td>41.0</td><td>0</td></tr><tr><th>493</th><td>111.125</td><td>17.6901</td><td>6.0</td><td>1</td></tr><tr><th>494</th><td>153.67</td><td>35.5219</td><td>23.0</td><td>0</td></tr><tr><th>495</th><td>145.415</td><td>34.2462</td><td>14.0</td><td>0</td></tr><tr><th>496</th><td>141.605</td><td>42.8854</td><td>43.0</td><td>0</td></tr><tr><th>497</th><td>144.78</td><td>32.5452</td><td>15.0</td><td>0</td></tr><tr><th>498</th><td>163.83</td><td>46.7767</td><td>21.0</td><td>1</td></tr><tr><th>499</th><td>161.29</td><td>41.8722</td><td>24.0</td><td>1</td></tr><tr><th>500</th><td>154.9</td><td>38.2</td><td>20.0</td><td>1</td></tr><tr><th>501</th><td>161.3</td><td>43.3</td><td>20.0</td><td>1</td></tr><tr><th>502</th><td>170.18</td><td>53.6373</td><td>34.0</td><td>1</td></tr><tr><th>503</th><td>149.86</td><td>42.9778</td><td>29.0</td><td>0</td></tr><tr><th>504</th><td>123.825</td><td>21.5456</td><td>11.0</td><td>1</td></tr><tr><th>505</th><td>85.09</td><td>11.4248</td><td>3.0</td><td>0</td></tr><tr><th>506</th><td>160.655</td><td>39.7743</td><td>65.0</td><td>1</td></tr><tr><th>507</th><td>154.94</td><td>43.3464</td><td>46.0</td><td>0</td></tr><tr><th>508</th><td>106.045</td><td>15.4788</td><td>8.0</td><td>0</td></tr><tr><th>509</th><td>126.365</td><td>21.9142</td><td>15.0</td><td>1</td></tr><tr><th>510</th><td>166.37</td><td>52.6734</td><td>43.0</td><td>1</td></tr><tr><th>511</th><td>148.285</td><td>38.4419</td><td>39.0</td><td>0</td></tr><tr><th>512</th><td>124.46</td><td>19.2777</td><td>12.0</td><td>0</td></tr><tr><th>513</th><td>89.535</td><td>11.113</td><td>3.0</td><td>1</td></tr><tr><th>514</th><td>101.6</td><td>13.4944</td><td>4.0</td><td>0</td></tr><tr><th>515</th><td>151.765</td><td>42.8077</td><td>43.0</td><td>0</td></tr><tr><th>516</th><td>148.59</td><td>35.8905</td><td>70.0</td><td>0</td></tr><tr><th>517</th><td>153.67</td><td>44.2252</td><td>26.0</td><td>0</td></tr><tr><th>518</th><td>53.975</td><td>4.25242</td><td>0.0</td><td>0</td></tr><tr><th>519</th><td>146.685</td><td>38.0734</td><td>48.0</td><td>0</td></tr><tr><th>520</th><td>56.515</td><td>5.15961</td><td>0.0</td><td>0</td></tr><tr><th>521</th><td>100.965</td><td>14.3165</td><td>5.0</td><td>1</td></tr><tr><th>522</th><td>121.92</td><td>23.2182</td><td>8.0</td><td>1</td></tr><tr><th>523</th><td>81.5848</td><td>10.6594</td><td>3.0</td><td>0</td></tr><tr><th>524</th><td>154.94</td><td>44.1118</td><td>44.0</td><td>1</td></tr><tr><th>525</th><td>156.21</td><td>44.0268</td><td>33.0</td><td>0</td></tr><tr><th>526</th><td>132.715</td><td>24.9759</td><td>15.0</td><td>1</td></tr><tr><th>527</th><td>125.095</td><td>22.5946</td><td>12.0</td><td>0</td></tr><tr><th>528</th><td>101.6</td><td>14.3448</td><td>5.0</td><td>0</td></tr><tr><th>529</th><td>160.655</td><td>47.8823</td><td>41.0</td><td>1</td></tr><tr><th>530</th><td>146.05</td><td>39.4058</td><td>37.4</td><td>0</td></tr><tr><th>531</th><td>132.715</td><td>24.7775</td><td>13.0</td><td>0</td></tr><tr><th>532</th><td>87.63</td><td>10.6594</td><td>6.0</td><td>0</td></tr><tr><th>533</th><td>156.21</td><td>41.0501</td><td>53.0</td><td>1</td></tr><tr><th>534</th><td>152.4</td><td>40.8233</td><td>49.0</td><td>0</td></tr><tr><th>535</th><td>162.56</td><td>47.0318</td><td>27.0</td><td>0</td></tr><tr><th>536</th><td>114.935</td><td>17.52</td><td>7.0</td><td>1</td></tr><tr><th>537</th><td>67.945</td><td>7.22912</td><td>1.0</td><td>0</td></tr><tr><th>538</th><td>142.875</td><td>34.2462</td><td>31.0</td><td>0</td></tr><tr><th>539</th><td>76.835</td><td>8.02291</td><td>1.0</td><td>1</td></tr><tr><th>540</th><td>145.415</td><td>31.1278</td><td>17.0</td><td>1</td></tr><tr><th>541</th><td>162.56</td><td>52.1631</td><td>31.0</td><td>1</td></tr><tr><th>542</th><td>156.21</td><td>54.0625</td><td>21.0</td><td>0</td></tr><tr><th>543</th><td>71.12</td><td>8.05126</td><td>0.0</td><td>1</td></tr><tr><th>544</th><td>158.75</td><td>52.5316</td><td>68.0</td><td>1</td></tr></tbody></table><p>Use only adults</p><pre><code class="language-julia">df2 = filter(row -&gt; row[:age] &gt;= 18, df);
@@ -21,16 +21,16 @@ Summary Statistics
 │ Row │ parameters │ mean    │ std      │ naive_se   │ mcse       │ ess     │
 │     │ Symbol     │ Float64 │ Float64  │ Float64    │ Float64    │ Any     │
 ├─────┼────────────┼─────────┼──────────┼────────────┼────────────┼─────────┤
-│ 1   │ mu         │ 154.613 │ 0.415611 │ 0.00657139 │ 0.00855796 │ 3360.01 │
-│ 2   │ sigma      │ 7.76704 │ 0.293409 │ 0.0046392  │ 0.0049645  │ 3018.16 │
+│ 1   │ mu         │ 154.611 │ 0.425414 │ 0.00672639 │ 0.00712575 │ 4000.0  │
+│ 2   │ sigma      │ 7.76744 │ 0.297197 │ 0.0046991  │ 0.00494669 │ 3749.33 │
 
 Quantiles
 
 │ Row │ parameters │ 2.5%    │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
 │     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
 ├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│ 1   │ mu         │ 153.82  │ 154.336 │ 154.614 │ 154.893 │ 155.422 │
-│ 2   │ sigma      │ 7.2095  │ 7.56297 │ 7.76808 │ 7.95756 │ 8.37963 │
+│ 1   │ mu         │ 153.806 │ 154.324 │ 154.611 │ 154.888 │ 155.472 │
+│ 2   │ sigma      │ 7.20817 │ 7.56576 │ 7.75314 │ 7.95955 │ 8.38652 │
 </code></pre><p>Describe the draws</p><pre><code class="language-julia">describe(chn)</code></pre><pre><code class="language-none">2-element Array{ChainDataFrame,1}
 
 Summary Statistics
@@ -38,454 +38,427 @@ Summary Statistics
 │ Row │ parameters │ mean    │ std      │ naive_se   │ mcse       │ ess     │
 │     │ Symbol     │ Float64 │ Float64  │ Float64    │ Float64    │ Any     │
 ├─────┼────────────┼─────────┼──────────┼────────────┼────────────┼─────────┤
-│ 1   │ mu         │ 154.613 │ 0.415611 │ 0.00657139 │ 0.00855796 │ 3360.01 │
-│ 2   │ sigma      │ 7.76704 │ 0.293409 │ 0.0046392  │ 0.0049645  │ 3018.16 │
+│ 1   │ mu         │ 154.611 │ 0.425414 │ 0.00672639 │ 0.00712575 │ 4000.0  │
+│ 2   │ sigma      │ 7.76744 │ 0.297197 │ 0.0046991  │ 0.00494669 │ 3749.33 │
 
 Quantiles
 
 │ Row │ parameters │ 2.5%    │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
 │     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
 ├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│ 1   │ mu         │ 153.82  │ 154.336 │ 154.614 │ 154.893 │ 155.422 │
-│ 2   │ sigma      │ 7.2095  │ 7.56297 │ 7.76808 │ 7.95756 │ 8.37963 │
+│ 1   │ mu         │ 153.806 │ 154.324 │ 154.611 │ 154.888 │ 155.472 │
+│ 2   │ sigma      │ 7.20817 │ 7.56576 │ 7.75314 │ 7.95955 │ 8.38652 │
 </code></pre><p>Plot the density of posterior draws</p><pre><code class="language-julia">density(chn, lab=&quot;All heights&quot;, xlab=&quot;height [cm]&quot;, ylab=&quot;density&quot;)</code></pre><?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" viewBox="0 0 2000 2000">
 <defs>
-  <clipPath id="clip2800">
+  <clipPath id="clip5000">
     <rect x="0" y="0" width="2000" height="2000"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip2800)" points="
+<polygon clip-path="url(#clip5000)" points="
 0,2000 2000,2000 2000,0 0,0 
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip2801">
+  <clipPath id="clip5001">
     <rect x="400" y="200" width="1401" height="1401"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip2800)" points="
+<polygon clip-path="url(#clip5000)" points="
 98.7402,911.26 1952.76,911.26 1952.76,62.9921 98.7402,62.9921 
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip2802">
+  <clipPath id="clip5002">
     <rect x="98" y="62" width="1855" height="849"/>
   </clipPath>
 </defs>
-<polyline clip-path="url(#clip2802)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  265.654,911.26 265.654,62.9921 
+<polyline clip-path="url(#clip5002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  355.909,911.26 355.909,62.9921 
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  714.75,911.26 714.75,62.9921 
+<polyline clip-path="url(#clip5002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  774.428,911.26 774.428,62.9921 
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  1163.84,911.26 1163.84,62.9921 
+<polyline clip-path="url(#clip5002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1192.95,911.26 1192.95,62.9921 
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  1612.94,911.26 1612.94,62.9921 
+<polyline clip-path="url(#clip5002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1611.46,911.26 1611.46,62.9921 
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip5002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
   98.7402,887.254 1952.76,887.254 
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  98.7402,685.576 1952.76,685.576 
+<polyline clip-path="url(#clip5002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  98.7402,689.438 1952.76,689.438 
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  98.7402,483.899 1952.76,483.899 
+<polyline clip-path="url(#clip5002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  98.7402,491.622 1952.76,491.622 
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  98.7402,282.221 1952.76,282.221 
+<polyline clip-path="url(#clip5002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  98.7402,293.805 1952.76,293.805 
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  98.7402,80.5438 1952.76,80.5438 
+<polyline clip-path="url(#clip5002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  98.7402,95.9893 1952.76,95.9893 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   98.7402,911.26 1952.76,911.26 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   98.7402,911.26 98.7402,62.9921 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  265.654,911.26 265.654,898.536 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  355.909,911.26 355.909,898.536 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  714.75,911.26 714.75,898.536 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  774.428,911.26 774.428,898.536 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1163.84,911.26 1163.84,898.536 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1192.95,911.26 1192.95,898.536 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1612.94,911.26 1612.94,898.536 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1611.46,911.26 1611.46,898.536 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   98.7402,887.254 126.55,887.254 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  98.7402,685.576 126.55,685.576 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  98.7402,689.438 126.55,689.438 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  98.7402,483.899 126.55,483.899 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  98.7402,491.622 126.55,491.622 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  98.7402,282.221 126.55,282.221 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  98.7402,293.805 126.55,293.805 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  98.7402,80.5438 126.55,80.5438 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  98.7402,95.9893 126.55,95.9893 
   "/>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 265.654, 963.26)" x="265.654" y="963.26">153</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 355.909, 963.26)" x="355.909" y="963.26">153</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 714.75, 963.26)" x="714.75" y="963.26">154</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 774.428, 963.26)" x="774.428" y="963.26">154</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1163.84, 963.26)" x="1163.84" y="963.26">155</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1192.95, 963.26)" x="1192.95" y="963.26">155</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1612.94, 963.26)" x="1612.94" y="963.26">156</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1611.46, 963.26)" x="1611.46" y="963.26">156</text>
 </g>
-<g clip-path="url(#clip2800)">
+<g clip-path="url(#clip5000)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 904.754)" x="78.7402" y="904.754">0.00</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 703.076)" x="78.7402" y="703.076">0.25</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 706.938)" x="78.7402" y="706.938">0.25</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 501.399)" x="78.7402" y="501.399">0.50</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 509.122)" x="78.7402" y="509.122">0.50</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 299.721)" x="78.7402" y="299.721">0.75</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 311.305)" x="78.7402" y="311.305">0.75</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 98.0438)" x="78.7402" y="98.0438">1.00</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 113.489)" x="78.7402" y="113.489">1.00</text>
 </g>
-<g clip-path="url(#clip2800)">
+<g clip-path="url(#clip5000)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:84px; text-anchor:middle;" transform="rotate(0, 1025.75, 73.2)" x="1025.75" y="73.2">mu</text>
 </g>
-<g clip-path="url(#clip2800)">
+<g clip-path="url(#clip5000)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(0, 1025.75, 1041.12)" x="1025.75" y="1041.12">Sample value</text>
 </g>
-<g clip-path="url(#clip2800)">
+<g clip-path="url(#clip5000)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(-90, -46.4901, 487.126)" x="-46.4901" y="487.126">Density</text>
 </g>
-<polyline clip-path="url(#clip2802)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
-  178.072,887.252 186.528,887.251 194.984,887.248 203.44,887.242 211.896,887.23 220.352,887.21 228.809,887.175 237.265,887.119 245.721,887.031 254.177,886.902 
-  262.633,886.72 271.089,886.477 279.546,886.17 288.002,885.803 296.458,885.391 304.914,884.959 313.37,884.541 321.827,884.175 330.283,883.896 338.739,883.731 
-  347.195,883.687 355.651,883.752 364.107,883.892 372.564,884.049 381.02,884.152 389.476,884.123 397.932,883.881 406.388,883.355 414.844,882.484 423.301,881.231 
-  431.757,879.58 440.213,877.545 448.669,875.17 457.125,872.525 465.581,869.706 474.038,866.826 482.494,863.997 490.95,861.322 499.406,858.874 507.862,856.681 
-  516.318,854.721 524.775,852.91 533.231,851.117 541.687,849.164 550.143,846.851 558.599,843.959 567.056,840.268 575.512,835.557 583.968,829.61 592.424,822.214 
-  600.88,813.171 609.336,802.316 617.793,789.534 626.249,774.793 634.705,758.165 643.161,739.834 651.617,720.098 660.073,699.341 668.53,678.001 676.986,656.528 
-  685.442,635.339 693.898,614.781 702.354,595.105 710.81,576.457 719.267,558.877 727.723,542.31 736.179,526.62 744.635,511.61 753.091,497.034 761.547,482.618 
-  770.004,468.082 778.46,453.168 786.916,437.67 795.372,421.458 803.828,404.502 812.284,386.874 820.741,368.741 829.197,350.339 837.653,331.946 846.109,313.844 
-  854.565,296.272 863.022,279.388 871.478,263.232 879.934,247.705 888.39,232.575 896.846,217.515 905.302,202.179 913.759,186.308 922.215,169.834 930.671,152.966 
-  939.127,136.224 947.583,120.424 956.039,106.579 964.496,95.7749 972.952,89.001 981.408,86.9997 989.864,90.1368 998.32,98.3231 1006.78,110.996 1015.23,127.165 
-  1023.69,145.516 1032.14,164.568 1040.6,182.862 1049.06,199.154 1057.51,212.599 1065.97,222.871 1074.43,230.224 1082.88,235.454 1091.34,239.782 1099.79,244.662 
-  1108.25,251.551 1116.71,261.685 1125.16,275.89 1133.62,294.466 1142.08,317.169 1150.53,343.271 1158.99,371.705 1167.44,401.236 1175.9,430.651 1184.36,458.907 
-  1192.81,485.241 1201.27,509.214 1209.72,530.701 1218.18,549.847 1226.64,566.994 1235.09,582.605 1243.55,597.189 1252.01,611.239 1260.46,625.178 1268.92,639.323 
-  1277.37,653.859 1285.83,668.833 1294.29,684.171 1302.74,699.698 1311.2,715.179 1319.65,730.352 1328.11,744.968 1336.57,758.807 1345.02,771.705 1353.48,783.554 
-  1361.94,794.309 1370.39,803.981 1378.85,812.631 1387.3,820.347 1395.76,827.237 1404.22,833.404 1412.67,838.937 1421.13,843.903 1429.59,848.348 1438.04,852.303 
-  1446.5,855.794 1454.95,858.85 1463.41,861.514 1471.87,863.839 1480.32,865.892 1488.78,867.744 1497.23,869.466 1505.69,871.117 1514.15,872.742 1522.6,874.364 
-  1531.06,875.986 1539.52,877.589 1547.97,879.143 1556.43,880.607 1564.88,881.942 1573.34,883.113 1581.8,884.096 1590.25,884.876 1598.71,885.451 1607.16,885.826 
-  1615.62,886.014 1624.08,886.031 1632.53,885.9 1640.99,885.647 1649.45,885.307 1657.9,884.919 1666.36,884.527 1674.81,884.18 1683.27,883.92 1691.73,883.781 
-  1700.18,883.781 1708.64,883.922 1717.09,884.188 1725.55,884.548 1734.01,884.962 1742.46,885.393 1750.92,885.804 1759.38,886.171 1767.83,886.477 1776.29,886.72 
-  1784.74,886.902 1793.2,887.031 1801.66,887.119 1810.11,887.175 1818.57,887.21 1827.03,887.23 1835.48,887.242 1843.94,887.248 1852.39,887.251 1860.85,887.252 
+<polyline clip-path="url(#clip5002)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
+  151.212,887.251 160.002,887.248 168.791,887.24 177.58,887.224 186.37,887.193 195.159,887.134 203.948,887.031 212.737,886.859 221.527,886.591 230.316,886.196 
+  239.105,885.652 247.895,884.952 256.684,884.113 265.473,883.185 274.263,882.251 283.052,881.413 291.841,880.779 300.63,880.44 309.42,880.444 318.209,880.789 
+  326.998,881.42 335.788,882.24 344.577,883.134 353.366,883.987 362.156,884.705 370.945,885.225 379.734,885.516 388.524,885.578 397.313,885.439 406.102,885.144 
+  414.891,884.753 423.681,884.33 432.47,883.934 441.259,883.606 450.049,883.352 458.838,883.14 467.627,882.892 476.417,882.488 485.206,881.777 493.995,880.593 
+  502.784,878.774 511.574,876.179 520.363,872.711 529.152,868.329 537.942,863.064 546.731,857.017 555.52,850.349 564.31,843.258 573.099,835.944 581.888,828.579 
+  590.677,821.286 599.467,814.127 608.256,807.115 617.045,800.228 625.835,793.426 634.624,786.654 643.413,779.832 652.203,772.838 660.992,765.49 669.781,757.544 
+  678.571,748.708 687.36,738.699 696.149,727.3 704.938,714.435 713.728,700.203 722.517,684.894 731.306,668.939 740.096,652.837 748.885,637.062 757.674,621.989 
+  766.464,607.845 775.253,594.713 784.042,582.55 792.831,571.212 801.621,560.472 810.41,550 819.199,539.35 827.989,527.947 836.778,515.119 845.567,500.18 
+  854.357,482.543 863.146,461.849 871.935,438.061 880.725,411.502 889.514,382.818 898.303,352.889 907.092,322.703 915.882,293.235 924.671,265.363 933.46,239.822 
+  942.25,217.205 951.039,197.975 959.828,182.48 968.618,170.942 977.407,163.407 986.196,159.676 994.985,159.221 1003.77,161.151 1012.56,164.248 1021.35,167.122 
+  1030.14,168.464 1038.93,167.349 1047.72,163.516 1056.51,157.523 1065.3,150.709 1074.09,144.963 1082.88,142.349 1091.67,144.704 1100.46,153.305 1109.25,168.691 
+  1118.04,190.656 1126.83,218.362 1135.61,250.515 1144.4,285.552 1153.19,321.8 1161.98,357.636 1170.77,391.656 1179.56,422.832 1188.35,450.651 1197.14,475.151 
+  1205.93,496.848 1214.72,516.553 1223.51,535.12 1232.3,553.219 1241.09,571.203 1249.88,589.091 1258.66,606.674 1267.45,623.66 1276.24,639.83 1285.03,655.118 
+  1293.82,669.618 1302.61,683.527 1311.4,697.048 1320.19,710.304 1328.98,723.295 1337.77,735.891 1346.56,747.884 1355.35,759.058 1364.14,769.266 1372.93,778.479 
+  1381.71,786.794 1390.5,794.4 1399.29,801.512 1408.08,808.295 1416.87,814.811 1425.66,821.002 1434.45,826.717 1443.24,831.778 1452.03,836.054 1460.82,839.524 
+  1469.61,842.302 1478.4,844.619 1487.19,846.769 1495.98,849.039 1504.77,851.643 1513.55,854.682 1522.34,858.136 1531.13,861.886 1539.92,865.755 1548.71,869.551 
+  1557.5,873.102 1566.29,876.278 1575.08,879.002 1583.87,881.247 1592.66,883.024 1601.45,884.377 1610.24,885.364 1619.03,886.052 1627.82,886.505 1636.6,886.778 
+  1645.39,886.915 1654.18,886.941 1662.97,886.873 1671.76,886.714 1680.55,886.466 1689.34,886.131 1698.13,885.72 1706.92,885.26 1715.71,884.792 1724.5,884.367 
+  1733.29,884.039 1742.08,883.856 1750.87,883.844 1759.65,884.005 1768.44,884.315 1777.23,884.731 1786.02,885.197 1794.81,885.662 1803.6,886.085 1812.39,886.438 
+  1821.18,886.714 1829.97,886.915 1838.76,887.052 1847.55,887.139 1856.34,887.192 1865.13,887.223 1873.92,887.239 1882.71,887.247 1891.49,887.251 1900.28,887.252 
   
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#e26f46; stroke-width:4; stroke-opacity:1; fill:none" points="
-  335.143,887.252 342.319,887.251 349.494,887.249 356.67,887.246 363.845,887.239 371.021,887.228 378.196,887.21 385.371,887.182 392.547,887.139 399.722,887.074 
-  406.898,886.981 414.073,886.85 421.249,886.67 428.424,886.432 435.6,886.122 442.775,885.729 449.951,885.242 457.126,884.649 464.301,883.937 471.477,883.094 
-  478.652,882.102 485.828,880.937 493.003,879.57 500.179,877.962 507.354,876.063 514.53,873.812 521.705,871.142 528.881,867.977 536.056,864.236 543.231,859.84 
-  550.407,854.714 557.582,848.798 564.758,842.045 571.933,834.436 579.109,825.985 586.284,816.741 593.46,806.793 600.635,796.265 607.811,785.311 614.986,774.098 
-  622.161,762.79 629.337,751.53 636.512,740.421 643.688,729.515 650.863,718.805 658.039,708.234 665.214,697.704 672.39,687.094 679.565,676.282 686.741,665.163 
-  693.916,653.658 701.091,641.722 708.267,629.34 715.442,616.514 722.618,603.253 729.793,589.565 736.969,575.44 744.144,560.856 751.32,545.775 758.495,530.153 
-  765.671,513.952 772.846,497.139 780.021,479.703 787.197,461.654 794.372,443.023 801.548,423.871 808.723,404.286 815.899,384.393 823.074,364.356 830.25,344.389 
-  837.425,324.757 844.601,305.769 851.776,287.768 858.951,271.109 866.127,256.124 873.302,243.089 880.478,232.187 887.653,223.485 894.829,216.912 902.004,212.262 
-  909.18,209.203 916.355,207.311 923.531,206.104 930.706,205.09 937.881,203.81 945.057,201.879 952.232,199.026 959.408,195.11 966.583,190.135 973.759,184.248 
-  980.934,177.724 988.11,170.935 995.285,164.311 1002.46,158.299 1009.64,153.319 1016.81,149.72 1023.99,147.756 1031.16,147.575 1038.34,149.216 1045.51,152.629 
-  1052.69,157.704 1059.86,164.3 1067.04,172.274 1074.22,181.503 1081.39,191.897 1088.57,203.395 1095.74,215.965 1102.92,229.59 1110.09,244.259 1117.27,259.958 
-  1124.44,276.664 1131.62,294.349 1138.79,312.969 1145.97,332.462 1153.15,352.743 1160.32,373.684 1167.5,395.108 1174.67,416.786 1181.85,438.435 1189.02,459.736 
-  1196.2,480.364 1203.37,500.017 1210.55,518.454 1217.72,535.522 1224.9,551.171 1232.08,565.455 1239.25,578.516 1246.43,590.557 1253.6,601.809 1260.78,612.493 
-  1267.95,622.798 1275.13,632.862 1282.3,642.759 1289.48,652.512 1296.65,662.097 1303.83,671.46 1311.01,680.54 1318.18,689.279 1325.36,697.644 1332.53,705.628 
-  1339.71,713.264 1346.88,720.617 1354.06,727.781 1361.23,734.869 1368.41,741.993 1375.58,749.258 1382.76,756.741 1389.94,764.489 1397.11,772.506 1404.29,780.759 
-  1411.46,789.181 1418.64,797.677 1425.81,806.137 1432.99,814.442 1440.16,822.471 1447.34,830.114 1454.51,837.267 1461.69,843.845 1468.87,849.778 1476.04,855.019 
-  1483.22,859.541 1490.39,863.343 1497.57,866.445 1504.74,868.893 1511.92,870.752 1519.09,872.104 1526.27,873.043 1533.44,873.669 1540.62,874.082 1547.8,874.377 
-  1554.97,874.639 1562.15,874.938 1569.32,875.325 1576.5,875.835 1583.67,876.482 1590.85,877.262 1598.02,878.155 1605.2,879.131 1612.37,880.153 1619.55,881.18 
-  1626.73,882.174 1633.9,883.103 1641.08,883.941 1648.25,884.674 1655.43,885.293 1662.6,885.8 1669.78,886.203 1676.95,886.514 1684.13,886.746 1691.3,886.914 
-  1698.48,887.033 1705.66,887.114 1712.83,887.167 1720.01,887.202 1727.18,887.224 1734.36,887.237 1741.53,887.244 1748.71,887.249 1755.88,887.251 1763.06,887.252 
+<polyline clip-path="url(#clip5002)" style="stroke:#e26f46; stroke-width:4; stroke-opacity:1; fill:none" points="
+  318.838,887.252 326.573,887.251 334.309,887.248 342.045,887.241 349.78,887.229 357.516,887.207 365.251,887.168 372.987,887.104 380.722,887.005 388.458,886.857 
+  396.193,886.649 403.929,886.372 411.665,886.023 419.4,885.609 427.136,885.146 434.871,884.663 442.607,884.191 450.342,883.762 458.078,883.396 465.813,883.094 
+  473.549,882.83 481.285,882.556 489.02,882.204 496.756,881.703 504.491,880.993 512.227,880.039 519.962,878.845 527.698,877.453 535.433,875.939 543.169,874.393 
+  550.905,872.899 558.64,871.51 566.376,870.236 574.111,869.024 581.847,867.772 589.582,866.334 597.318,864.54 605.054,862.22 612.789,859.221 620.525,855.413 
+  628.26,850.702 635.996,845.02 643.731,838.333 651.467,830.64 659.202,821.985 666.938,812.463 674.674,802.227 682.409,791.488 690.145,780.496 697.88,769.514 
+  705.616,758.777 713.351,748.458 721.087,738.628 728.822,729.235 736.558,720.087 744.294,710.86 752.029,701.117 759.765,690.348 767.5,678.023 775.236,663.662 
+  782.971,646.904 790.707,627.574 798.442,605.719 806.178,581.626 813.914,555.791 821.649,528.859 829.385,501.531 837.12,474.459 844.856,448.141 852.591,422.847 
+  860.327,398.58 868.062,375.098 875.798,351.986 883.534,328.775 891.269,305.083 899.005,280.737 906.74,255.863 914.476,230.901 922.211,206.55 929.947,183.643 
+  937.682,162.978 945.418,145.163 953.154,130.488 960.889,118.888 968.625,109.983 976.36,103.205 984.096,97.9547 991.831,93.77 999.567,90.4416 1007.3,88.0635 
+  1015.04,86.9997 1022.77,87.7805 1030.51,90.9542 1038.24,96.932 1045.98,105.865 1053.72,117.583 1061.45,131.615 1069.19,147.277 1076.92,163.816 1084.66,180.554 
+  1092.39,197.024 1100.13,213.034 1107.86,228.68 1115.6,244.29 1123.34,260.322 1131.07,277.239 1138.81,295.378 1146.54,314.854 1154.28,335.507 1162.01,356.919 
+  1169.75,378.503 1177.48,399.637 1185.22,419.822 1192.96,438.814 1200.69,456.684 1208.43,473.795 1216.16,490.693 1223.9,507.945 1231.63,525.97 1239.37,544.922 
+  1247.1,564.637 1254.84,584.679 1262.58,604.442 1270.31,623.294 1278.05,640.704 1285.78,656.336 1293.52,670.087 1301.25,682.079 1308.99,692.603 1316.72,702.054 
+  1324.46,710.853 1332.2,719.388 1339.93,727.96 1347.67,736.755 1355.4,745.834 1363.14,755.141 1370.87,764.531 1378.61,773.8 1386.34,782.73 1394.08,791.128 
+  1401.82,798.857 1409.55,805.863 1417.29,812.175 1425.02,817.897 1432.76,823.184 1440.49,828.207 1448.23,833.113 1455.96,837.997 1463.7,842.885 1471.44,847.731 
+  1479.17,852.432 1486.91,856.859 1494.64,860.885 1502.38,864.413 1510.11,867.399 1517.85,869.852 1525.58,871.83 1533.32,873.425 1541.06,874.733 1548.79,875.842 
+  1556.53,876.809 1564.26,877.658 1572,878.383 1579.73,878.964 1587.47,879.378 1595.2,879.619 1602.94,879.706 1610.68,879.682 1618.41,879.607 1626.15,879.547 
+  1633.88,879.557 1641.62,879.669 1649.35,879.888 1657.09,880.195 1664.82,880.556 1672.56,880.935 1680.3,881.302 1688.03,881.648 1695.77,881.977 1703.5,882.311 
+  1711.24,882.672 1718.97,883.08 1726.71,883.54 1734.44,884.044 1742.18,884.571 1749.92,885.092 1757.65,885.578 1765.39,886.007 1773.12,886.364 1780.86,886.645 
+  1788.59,886.855 1796.33,887.004 1804.06,887.104 1811.8,887.168 1819.54,887.207 1827.27,887.229 1835.01,887.241 1842.74,887.248 1850.48,887.251 1858.21,887.252 
   
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#3da44d; stroke-width:4; stroke-opacity:1; fill:none" points="
-  174.462,887.252 182.248,887.251 190.034,887.248 197.82,887.242 205.606,887.232 213.392,887.213 221.178,887.181 228.964,887.13 236.75,887.05 244.536,886.931 
-  252.323,886.762 260.109,886.533 267.895,886.237 275.681,885.873 283.467,885.444 291.253,884.963 299.039,884.448 306.825,883.917 314.611,883.385 322.397,882.858 
-  330.183,882.323 337.969,881.756 345.756,881.115 353.542,880.355 361.328,879.432 369.114,878.321 376.9,877.024 384.686,875.572 392.472,874.031 400.258,872.486 
-  408.044,871.035 415.83,869.774 423.616,868.778 431.403,868.093 439.189,867.731 446.975,867.661 454.761,867.817 462.547,868.101 470.333,868.392 478.119,868.556 
-  485.905,868.45 493.691,867.94 501.477,866.895 509.263,865.202 517.049,862.763 524.836,859.502 532.622,855.369 540.408,850.351 548.194,844.479 555.98,837.832 
-  563.766,830.539 571.552,822.767 579.338,814.702 587.124,806.521 594.91,798.362 602.696,790.296 610.483,782.315 618.269,774.333 626.055,766.198 633.841,757.727 
-  641.627,748.735 649.413,739.069 657.199,728.63 664.985,717.387 672.771,705.368 680.557,692.652 688.343,679.352 696.129,665.603 703.916,651.559 711.702,637.39 
-  719.488,623.282 727.274,609.43 735.06,596.009 742.846,583.147 750.632,570.872 758.418,559.076 766.204,547.496 773.99,535.714 781.776,523.205 789.563,509.404 
-  797.349,493.787 805.135,475.96 812.921,455.723 820.707,433.101 828.493,408.354 836.279,381.936 844.065,354.445 851.851,326.546 859.637,298.905 867.423,272.125 
-  875.209,246.712 882.996,223.058 890.782,201.449 898.568,182.094 906.354,165.15 914.14,150.739 921.926,138.952 929.712,129.812 937.498,123.241 945.284,119.005 
-  953.07,116.692 960.856,115.721 968.643,115.4 976.429,115.031 984.215,114.031 992.001,112.052 999.787,109.06 1007.57,105.349 1015.36,101.492 1023.15,98.2292 
-  1030.93,96.337 1038.72,96.5047 1046.5,99.2485 1054.29,104.88 1062.08,113.523 1069.86,125.164 1077.65,139.703 1085.43,156.984 1093.22,176.798 1101.01,198.862 
-  1108.79,222.78 1116.58,248.027 1124.36,273.958 1132.15,299.863 1139.94,325.049 1147.72,348.947 1155.51,371.2 1163.29,391.726 1171.08,410.728 1178.87,428.648 
-  1186.65,446.072 1194.44,463.611 1202.23,481.77 1210.01,500.854 1217.8,520.909 1225.58,541.729 1233.37,562.918 1241.16,583.979 1248.94,604.43 1256.73,623.889 
-  1264.51,642.13 1272.3,659.09 1280.09,674.836 1287.87,689.506 1295.66,703.242 1303.44,716.134 1311.23,728.199 1319.02,739.384 1326.8,749.595 1334.59,758.746 
-  1342.37,766.799 1350.16,773.803 1357.95,779.898 1365.73,785.303 1373.52,790.278 1381.31,795.081 1389.09,799.926 1396.88,804.95 1404.66,810.205 1412.45,815.665 
-  1420.24,821.253 1428.02,826.87 1435.81,832.423 1443.59,837.844 1451.38,843.096 1459.17,848.16 1466.95,853.027 1474.74,857.676 1482.52,862.066 1490.31,866.137 
-  1498.1,869.814 1505.88,873.028 1513.67,875.727 1521.45,877.892 1529.24,879.546 1537.03,880.749 1544.81,881.589 1552.6,882.17 1560.39,882.594 1568.17,882.949 
-  1575.96,883.3 1583.74,883.683 1591.53,884.108 1599.32,884.565 1607.1,885.032 1614.89,885.482 1622.67,885.893 1630.46,886.248 1638.25,886.538 1646.03,886.764 
-  1653.82,886.932 1661.6,887.05 1669.39,887.13 1677.18,887.181 1684.96,887.213 1692.75,887.232 1700.53,887.242 1708.32,887.248 1716.11,887.251 1723.89,887.252 
+<polyline clip-path="url(#clip5002)" style="stroke:#3da44d; stroke-width:4; stroke-opacity:1; fill:none" points="
+  374.578,887.251 381.613,887.25 388.647,887.247 395.682,887.241 402.716,887.231 409.75,887.212 416.785,887.181 423.819,887.129 430.854,887.046 437.888,886.917 
+  444.923,886.722 451.957,886.436 458.992,886.029 466.026,885.466 473.06,884.711 480.095,883.726 487.129,882.479 494.164,880.947 501.198,879.118 508.233,876.998 
+  515.267,874.61 522.302,871.997 529.336,869.216 536.37,866.334 543.405,863.422 550.439,860.544 557.474,857.749 564.508,855.07 571.543,852.513 578.577,850.063 
+  585.612,847.682 592.646,845.318 599.68,842.911 606.715,840.396 613.749,837.712 620.784,834.798 627.818,831.599 634.853,828.06 641.887,824.123 648.922,819.723 
+  655.956,814.783 662.99,809.217 670.025,802.928 677.059,795.811 684.094,787.757 691.128,778.659 698.163,768.413 705.197,756.929 712.232,744.133 719.266,729.975 
+  726.3,714.438 733.335,697.549 740.369,679.39 747.404,660.107 754.438,639.913 761.473,619.093 768.507,597.99 775.542,576.99 782.576,556.496 789.61,536.896 
+  796.645,518.528 803.679,501.645 810.714,486.392 817.748,472.789 824.783,460.729 831.817,449.995 838.852,440.292 845.886,431.283 852.92,422.638 859.955,414.07 
+  866.989,405.365 874.024,396.399 881.058,387.122 888.093,377.548 895.127,367.711 902.162,357.643 909.196,347.344 916.23,336.776 923.265,325.869 930.299,314.546 
+  937.334,302.758 944.368,290.511 951.403,277.888 958.437,265.052 965.472,252.23 972.506,239.679 979.54,227.643 986.575,216.315 993.609,205.807 1000.64,196.137 
+  1007.68,187.247 1014.71,179.03 1021.75,171.378 1028.78,164.227 1035.82,157.601 1042.85,151.628 1049.88,146.551 1056.92,142.696 1063.95,140.438 1070.99,140.149 
+  1078.02,142.149 1085.06,146.664 1092.09,153.807 1099.13,163.573 1106.16,175.852 1113.19,190.453 1120.23,207.133 1127.26,225.619 1134.3,245.62 1141.33,266.835 
+  1148.37,288.944 1155.4,311.606 1162.44,334.455 1169.47,357.107 1176.5,379.18 1183.54,400.324 1190.57,420.255 1197.61,438.79 1204.64,455.866 1211.68,471.552 
+  1218.71,486.032 1225.75,499.581 1232.78,512.52 1239.81,525.173 1246.85,537.827 1253.88,550.699 1260.92,563.925 1267.95,577.556 1274.99,591.574 1282.02,605.911 
+  1289.06,620.471 1296.09,635.149 1303.12,649.84 1310.16,664.44 1317.19,678.848 1324.23,692.953 1331.26,706.638 1338.3,719.773 1345.33,732.228 1352.37,743.882 
+  1359.4,754.637 1366.43,764.434 1373.47,773.257 1380.5,781.138 1387.54,788.149 1394.57,794.388 1401.61,799.967 1408.64,804.996 1415.68,809.572 1422.71,813.77 
+  1429.74,817.648 1436.78,821.244 1443.81,824.591 1450.85,827.72 1457.88,830.666 1464.92,833.479 1471.95,836.214 1478.99,838.934 1486.02,841.699 1493.05,844.554 
+  1500.09,847.526 1507.12,850.61 1514.16,853.771 1521.19,856.947 1528.23,860.055 1535.26,863.002 1542.3,865.7 1549.33,868.077 1556.36,870.089 1563.4,871.728 
+  1570.43,873.015 1577.47,874.006 1584.5,874.777 1591.54,875.412 1598.57,875.995 1605.61,876.598 1612.64,877.271 1619.67,878.04 1626.71,878.906 1633.74,879.852 
+  1640.78,880.844 1647.81,881.839 1654.85,882.798 1661.88,883.684 1668.92,884.471 1675.95,885.145 1682.98,885.7 1690.02,886.141 1697.05,886.479 1704.09,886.73 
+  1711.12,886.91 1718.16,887.034 1725.19,887.118 1732.23,887.172 1739.26,887.206 1746.29,887.227 1753.33,887.239 1760.36,887.246 1767.4,887.249 1774.43,887.251 
   
   "/>
-<polyline clip-path="url(#clip2802)" style="stroke:#c271d2; stroke-width:4; stroke-opacity:1; fill:none" points="
-  151.212,887.252 160.002,887.251 168.791,887.247 177.58,887.24 186.37,887.227 195.159,887.204 203.948,887.163 212.737,887.096 221.527,886.988 230.316,886.825 
-  239.105,886.588 247.895,886.259 256.684,885.826 265.473,885.281 274.263,884.632 283.052,883.901 291.841,883.129 300.63,882.368 309.42,881.681 318.209,881.127 
-  326.998,880.754 335.788,880.586 344.577,880.615 353.366,880.803 362.156,881.083 370.945,881.368 379.734,881.564 388.524,881.583 397.313,881.351 406.102,880.814 
-  414.891,879.938 423.681,878.702 432.47,877.091 441.259,875.09 450.049,872.677 458.838,869.826 467.627,866.512 476.417,862.721 485.206,858.465 493.995,853.786 
-  502.784,848.761 511.574,843.493 520.363,838.088 529.152,832.633 537.942,827.165 546.731,821.648 555.52,815.957 564.31,809.885 573.099,803.161 581.888,795.488 
-  590.677,786.588 599.467,776.252 608.256,764.383 617.045,751.02 625.835,736.344 634.624,720.658 643.413,704.35 652.203,687.839 660.992,671.519 669.781,655.71 
-  678.571,640.616 687.36,626.302 696.149,612.693 704.938,599.584 713.728,586.67 722.517,573.589 731.306,559.981 740.096,545.542 748.885,530.078 757.674,513.546 
-  766.464,496.054 775.253,477.844 784.042,459.227 792.831,440.517 801.621,421.961 810.41,403.701 819.199,385.77 827.989,368.133 836.778,350.749 845.567,333.641 
-  854.357,316.938 863.146,300.877 871.935,285.763 880.725,271.897 889.514,259.497 898.303,248.642 907.092,239.251 915.882,231.109 924.671,223.935 933.46,217.458 
-  942.25,211.492 951.039,205.972 959.828,200.964 968.618,196.625 977.407,193.157 986.196,190.756 994.985,189.576 1003.77,189.721 1012.56,191.254 1021.35,194.223 
-  1030.14,198.673 1038.93,204.657 1047.72,212.217 1056.51,221.358 1065.3,232.018 1074.09,244.044 1082.88,257.182 1091.67,271.096 1100.46,285.401 1109.25,299.719 
-  1118.04,313.728 1126.83,327.223 1135.61,340.147 1144.4,352.604 1153.19,364.841 1161.98,377.201 1170.77,390.049 1179.56,403.699 1188.35,418.34 1197.14,434.002 
-  1205.93,450.552 1214.72,467.736 1223.51,485.241 1232.3,502.78 1241.09,520.155 1249.88,537.293 1258.66,554.256 1267.45,571.198 1276.24,588.32 1285.03,605.804 
-  1293.82,623.764 1302.61,642.21 1311.4,661.039 1320.19,680.046 1328.98,698.95 1337.77,717.429 1346.56,735.16 1355.35,751.857 1364.14,767.302 1372.93,781.365 
-  1381.71,794.011 1390.5,805.299 1399.29,815.358 1408.08,824.364 1416.87,832.5 1425.66,839.93 1434.45,846.774 1443.24,853.096 1452.03,858.912 1460.82,864.195 
-  1469.61,868.905 1478.4,872.999 1487.19,876.454 1495.98,879.273 1504.77,881.487 1513.55,883.148 1522.34,884.325 1531.13,885.091 1539.92,885.52 1548.71,885.679 
-  1557.5,885.63 1566.29,885.431 1575.08,885.133 1583.87,884.789 1592.66,884.445 1601.45,884.143 1610.24,883.915 1619.03,883.778 1627.82,883.733 1636.6,883.765 
-  1645.39,883.844 1654.18,883.936 1662.97,884.007 1671.76,884.034 1680.55,884.007 1689.34,883.936 1698.13,883.844 1706.92,883.766 1715.71,883.735 1724.5,883.782 
-  1733.29,883.923 1742.08,884.16 1750.87,884.479 1759.65,884.855 1768.44,885.257 1777.23,885.655 1786.02,886.023 1794.81,886.342 1803.6,886.605 1812.39,886.81 
-  1821.18,886.963 1829.97,887.07 1838.76,887.142 1847.55,887.189 1856.34,887.217 1865.13,887.234 1873.92,887.244 1882.71,887.249 1891.49,887.251 1900.28,887.252 
+<polyline clip-path="url(#clip5002)" style="stroke:#c271d2; stroke-width:4; stroke-opacity:1; fill:none" points="
+  288.937,887.252 296.479,887.251 304.021,887.249 311.563,887.245 319.104,887.237 326.646,887.223 334.188,887.2 341.73,887.163 349.272,887.106 356.814,887.023 
+  364.355,886.904 371.897,886.743 379.439,886.534 386.981,886.274 394.523,885.966 402.065,885.618 409.607,885.248 417.148,884.876 424.69,884.529 432.232,884.231 
+  439.774,884.003 447.316,883.856 454.858,883.785 462.399,883.769 469.941,883.771 477.483,883.737 485.025,883.603 492.567,883.299 500.109,882.76 507.65,881.929 
+  515.192,880.768 522.734,879.257 530.276,877.406 537.818,875.246 545.36,872.827 552.901,870.215 560.443,867.478 567.985,864.676 575.527,861.854 583.069,859.029 
+  590.611,856.186 598.152,853.273 605.694,850.198 613.236,846.836 620.778,843.026 628.32,838.582 635.862,833.306 643.403,827.001 650.945,819.498 658.487,810.677 
+  666.029,800.493 673.571,788.99 681.113,776.314 688.654,762.693 696.196,748.415 703.738,733.788 711.28,719.088 718.822,704.52 726.364,690.185 733.905,676.073 
+  741.447,662.075 748.989,648.019 756.531,633.711 764.073,618.989 771.615,603.754 779.157,587.995 786.698,571.782 794.24,555.248 801.782,538.556 809.324,521.859 
+  816.866,505.274 824.408,488.873 831.949,472.685 839.491,456.721 847.033,441.006 854.575,425.604 862.117,410.631 869.659,396.256 877.2,382.671 884.742,370.055 
+  892.284,358.531 899.826,348.119 907.368,338.716 914.91,330.081 922.451,321.848 929.993,313.556 937.535,304.697 945.077,294.769 952.619,283.341 960.161,270.112 
+  967.702,254.972 975.244,238.044 982.786,219.703 990.328,200.581 997.87,181.529 1005.41,163.551 1012.95,147.722 1020.5,135.078 1028.04,126.511 1035.58,122.671 
+  1043.12,123.89 1050.66,130.146 1058.2,141.051 1065.75,155.889 1073.29,173.683 1080.83,193.295 1088.37,213.541 1095.91,233.316 1103.46,251.706 1111,268.077 
+  1118.54,282.132 1126.08,293.914 1133.62,303.771 1141.16,312.28 1148.71,320.144 1156.25,328.087 1163.79,336.75 1171.33,346.618 1178.87,357.979 1186.42,370.919 
+  1193.96,385.347 1201.5,401.041 1209.04,417.712 1216.58,435.062 1224.12,452.828 1231.67,470.815 1239.21,488.9 1246.75,507.023 1254.29,525.162 1261.83,543.303 
+  1269.38,561.417 1276.92,579.44 1284.46,597.264 1292,614.748 1299.54,631.721 1307.09,648 1314.63,663.408 1322.17,677.785 1329.71,691.008 1337.25,703.009 
+  1344.79,713.783 1352.34,723.405 1359.88,732.027 1367.42,739.879 1374.96,747.244 1382.5,754.428 1390.05,761.724 1397.59,769.368 1405.13,777.503 1412.67,786.16 
+  1420.21,795.252 1427.75,804.589 1435.3,813.918 1442.84,822.959 1450.38,831.452 1457.92,839.194 1465.46,846.064 1473.01,852.023 1480.55,857.108 1488.09,861.409 
+  1495.63,865.044 1503.17,868.135 1510.71,870.783 1518.26,873.067 1525.8,875.03 1533.34,876.694 1540.88,878.064 1548.42,879.143 1555.97,879.938 1563.51,880.47 
+  1571.05,880.777 1578.59,880.912 1586.13,880.935 1593.67,880.912 1601.22,880.904 1608.76,880.961 1616.3,881.119 1623.84,881.395 1631.38,881.787 1638.93,882.282 
+  1646.47,882.852 1654.01,883.465 1661.55,884.084 1669.09,884.679 1676.64,885.225 1684.18,885.703 1691.72,886.104 1699.26,886.428 1706.8,886.68 1714.34,886.867 
+  1721.89,887.002 1729.43,887.095 1736.97,887.157 1744.51,887.197 1752.05,887.221 1759.6,887.236 1767.14,887.244 1774.68,887.249 1782.22,887.251 1789.76,887.252 
   
   "/>
-<polygon clip-path="url(#clip2800)" points="
+<polygon clip-path="url(#clip5000)" points="
 98.7402,1911.26 1952.76,1911.26 1952.76,1062.99 98.7402,1062.99 
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip2803">
+  <clipPath id="clip5003">
     <rect x="98" y="1062" width="1855" height="849"/>
   </clipPath>
 </defs>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  150.734,1911.26 150.734,1062.99 
+<polyline clip-path="url(#clip5003)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  389.987,1911.26 389.987,1062.99 
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  473.901,1911.26 473.901,1062.99 
+<polyline clip-path="url(#clip5003)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  745.606,1911.26 745.606,1062.99 
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  797.068,1911.26 797.068,1062.99 
+<polyline clip-path="url(#clip5003)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1101.23,1911.26 1101.23,1062.99 
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  1120.24,1911.26 1120.24,1062.99 
+<polyline clip-path="url(#clip5003)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1456.84,1911.26 1456.84,1062.99 
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  1443.4,1911.26 1443.4,1062.99 
+<polyline clip-path="url(#clip5003)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1812.46,1911.26 1812.46,1062.99 
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  1766.57,1911.26 1766.57,1062.99 
-  "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip5003)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
   98.7402,1887.25 1952.76,1887.25 
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  98.7402,1745.56 1952.76,1745.56 
+<polyline clip-path="url(#clip5003)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  98.7402,1619.42 1952.76,1619.42 
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  98.7402,1603.87 1952.76,1603.87 
+<polyline clip-path="url(#clip5003)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  98.7402,1351.58 1952.76,1351.58 
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  98.7402,1462.17 1952.76,1462.17 
+<polyline clip-path="url(#clip5003)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  98.7402,1083.74 1952.76,1083.74 
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  98.7402,1320.48 1952.76,1320.48 
-  "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
-  98.7402,1178.78 1952.76,1178.78 
-  "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   98.7402,1911.26 1952.76,1911.26 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   98.7402,1911.26 98.7402,1062.99 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  150.734,1911.26 150.734,1898.54 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  389.987,1911.26 389.987,1898.54 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  473.901,1911.26 473.901,1898.54 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  745.606,1911.26 745.606,1898.54 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  797.068,1911.26 797.068,1898.54 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1101.23,1911.26 1101.23,1898.54 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1120.24,1911.26 1120.24,1898.54 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1456.84,1911.26 1456.84,1898.54 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1443.4,1911.26 1443.4,1898.54 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1812.46,1911.26 1812.46,1898.54 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1766.57,1911.26 1766.57,1898.54 
-  "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
   98.7402,1887.25 126.55,1887.25 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  98.7402,1745.56 126.55,1745.56 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  98.7402,1619.42 126.55,1619.42 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  98.7402,1603.87 126.55,1603.87 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  98.7402,1351.58 126.55,1351.58 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  98.7402,1462.17 126.55,1462.17 
+<polyline clip-path="url(#clip5000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  98.7402,1083.74 126.55,1083.74 
   "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  98.7402,1320.48 126.55,1320.48 
-  "/>
-<polyline clip-path="url(#clip2800)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
-  98.7402,1178.78 126.55,1178.78 
-  "/>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 150.734, 1963.26)" x="150.734" y="1963.26">6.5</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 389.987, 1963.26)" x="389.987" y="1963.26">7.0</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 473.901, 1963.26)" x="473.901" y="1963.26">7.0</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 745.606, 1963.26)" x="745.606" y="1963.26">7.5</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 797.068, 1963.26)" x="797.068" y="1963.26">7.5</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1101.23, 1963.26)" x="1101.23" y="1963.26">8.0</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1120.24, 1963.26)" x="1120.24" y="1963.26">8.0</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1456.84, 1963.26)" x="1456.84" y="1963.26">8.5</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1443.4, 1963.26)" x="1443.4" y="1963.26">8.5</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1812.46, 1963.26)" x="1812.46" y="1963.26">9.0</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1766.57, 1963.26)" x="1766.57" y="1963.26">9.0</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 1904.75)" x="78.7402" y="1904.75">0.0</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 1904.75)" x="78.7402" y="1904.75">0.00</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 1636.92)" x="78.7402" y="1636.92">0.5</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 1763.06)" x="78.7402" y="1763.06">0.25</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 1369.08)" x="78.7402" y="1369.08">1.0</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 1621.37)" x="78.7402" y="1621.37">0.50</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 1101.24)" x="78.7402" y="1101.24">1.5</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 1479.67)" x="78.7402" y="1479.67">0.75</text>
-</g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 1337.98)" x="78.7402" y="1337.98">1.00</text>
-</g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 78.7402, 1196.28)" x="78.7402" y="1196.28">1.25</text>
-</g>
-<g clip-path="url(#clip2800)">
+<g clip-path="url(#clip5000)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:84px; text-anchor:middle;" transform="rotate(0, 1025.75, 1073.2)" x="1025.75" y="1073.2">sigma</text>
 </g>
-<g clip-path="url(#clip2800)">
+<g clip-path="url(#clip5000)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(0, 1025.75, 2041.12)" x="1025.75" y="2041.12">Sample value</text>
 </g>
-<g clip-path="url(#clip2800)">
-<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(-90, -46.4901, 1487.13)" x="-46.4901" y="1487.13">Density</text>
+<g clip-path="url(#clip5000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(-90, -19.7278, 1487.13)" x="-19.7278" y="1487.13">Density</text>
 </g>
-<polyline clip-path="url(#clip2803)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
-  151.212,1887.25 160.002,1887.25 168.791,1887.25 177.58,1887.24 186.37,1887.23 195.159,1887.22 203.948,1887.19 212.737,1887.14 221.527,1887.06 230.316,1886.95 
-  239.105,1886.79 247.895,1886.58 256.684,1886.31 265.473,1885.97 274.263,1885.59 283.052,1885.17 291.841,1884.74 300.63,1884.33 309.42,1883.96 318.209,1883.63 
-  326.998,1883.36 335.788,1883.11 344.577,1882.84 353.366,1882.49 362.156,1881.99 370.945,1881.29 379.734,1880.34 388.524,1879.1 397.313,1877.58 406.102,1875.81 
-  414.891,1873.82 423.681,1871.66 432.47,1869.39 441.259,1867.02 450.049,1864.57 458.838,1862.02 467.627,1859.33 476.417,1856.45 485.206,1853.28 493.995,1849.77 
-  502.784,1845.82 511.574,1841.39 520.363,1836.42 529.152,1830.89 537.942,1824.8 546.731,1818.13 555.52,1810.88 564.31,1803.03 573.099,1794.53 581.888,1785.29 
-  590.677,1775.19 599.467,1764.06 608.256,1751.72 617.045,1737.94 625.835,1722.54 634.624,1705.36 643.413,1686.33 652.203,1665.45 660.992,1642.86 669.781,1618.79 
-  678.571,1593.56 687.36,1567.59 696.149,1541.32 704.938,1515.24 713.728,1489.86 722.517,1465.66 731.306,1443.1 740.096,1422.6 748.885,1404.47 757.674,1388.88 
-  766.464,1375.86 775.253,1365.24 784.042,1356.71 792.831,1349.81 801.621,1344.03 810.41,1338.85 819.199,1333.8 827.989,1328.49 836.778,1322.6 845.567,1315.88 
-  854.357,1308.15 863.146,1299.27 871.935,1289.17 880.725,1277.86 889.514,1265.46 898.303,1252.23 907.092,1238.58 915.882,1224.99 924.671,1212 933.46,1200.12 
-  942.25,1189.77 951.039,1181.21 959.828,1174.54 968.618,1169.68 977.407,1166.42 986.196,1164.54 994.985,1163.83 1003.77,1164.19 1012.56,1165.67 1021.35,1168.46 
-  1030.14,1172.85 1038.93,1179.13 1047.72,1187.57 1056.51,1198.27 1065.3,1211.2 1074.09,1226.16 1082.88,1242.85 1091.67,1260.9 1100.46,1279.9 1109.25,1299.5 
-  1118.04,1319.38 1126.83,1339.3 1135.61,1359.07 1144.4,1378.6 1153.19,1397.87 1161.98,1416.93 1170.77,1435.91 1179.56,1454.99 1188.35,1474.4 1197.14,1494.34 
-  1205.93,1514.99 1214.72,1536.45 1223.51,1558.7 1232.3,1581.62 1241.09,1604.94 1249.88,1628.33 1258.66,1651.37 1267.45,1673.66 1276.24,1694.78 1285.03,1714.4 
-  1293.82,1732.26 1302.61,1748.25 1311.4,1762.31 1320.19,1774.55 1328.98,1785.14 1337.77,1794.32 1346.56,1802.37 1355.35,1809.57 1364.14,1816.15 1372.93,1822.31 
-  1381.71,1828.14 1390.5,1833.68 1399.29,1838.89 1408.08,1843.71 1416.87,1848.07 1425.66,1851.89 1434.45,1855.16 1443.24,1857.89 1452.03,1860.15 1460.82,1862.05 
-  1469.61,1863.7 1478.4,1865.21 1487.19,1866.67 1495.98,1868.15 1504.77,1869.67 1513.55,1871.21 1522.34,1872.72 1531.13,1874.15 1539.92,1875.43 1548.71,1876.51 
-  1557.5,1877.34 1566.29,1877.91 1575.08,1878.23 1583.87,1878.31 1592.66,1878.21 1601.45,1877.99 1610.24,1877.72 1619.03,1877.48 1627.82,1877.31 1636.6,1877.26 
-  1645.39,1877.35 1654.18,1877.59 1662.97,1877.94 1671.76,1878.39 1680.55,1878.91 1689.34,1879.47 1698.13,1880.04 1706.92,1880.63 1715.71,1881.23 1724.5,1881.84 
-  1733.29,1882.46 1742.08,1883.09 1750.87,1883.72 1759.65,1884.33 1768.44,1884.9 1777.23,1885.42 1786.02,1885.87 1794.81,1886.25 1803.6,1886.55 1812.39,1886.77 
-  1821.18,1886.94 1829.97,1887.06 1838.76,1887.14 1847.55,1887.19 1856.34,1887.22 1865.13,1887.23 1873.92,1887.24 1882.71,1887.25 1891.49,1887.25 1900.28,1887.25 
+<polyline clip-path="url(#clip5003)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
+  191.177,1887.25 199.623,1887.25 208.07,1887.24 216.516,1887.23 224.962,1887.21 233.408,1887.18 241.854,1887.12 250.301,1887.02 258.747,1886.88 267.193,1886.65 
+  275.639,1886.32 284.086,1885.86 292.532,1885.22 300.978,1884.37 309.424,1883.28 317.871,1881.93 326.317,1880.32 334.763,1878.45 343.209,1876.36 351.655,1874.09 
+  360.102,1871.69 368.548,1869.22 376.994,1866.69 385.44,1864.11 393.887,1861.43 402.333,1858.57 410.779,1855.41 419.225,1851.79 427.672,1847.55 436.118,1842.57 
+  444.564,1836.75 453.01,1830.06 461.457,1822.55 469.903,1814.34 478.349,1805.62 486.795,1796.61 495.241,1787.54 503.688,1778.62 512.134,1770 520.58,1761.78 
+  529.026,1753.95 537.473,1746.41 545.919,1738.98 554.365,1731.45 562.811,1723.52 571.258,1714.91 579.704,1705.37 588.15,1694.66 596.596,1682.62 605.042,1669.19 
+  613.489,1654.35 621.935,1638.21 630.381,1620.91 638.827,1602.69 647.274,1583.79 655.72,1564.49 664.166,1545.03 672.612,1525.66 681.059,1506.54 689.505,1487.8 
+  697.951,1469.5 706.397,1451.67 714.843,1434.28 723.29,1417.3 731.736,1400.69 740.182,1384.44 748.628,1368.57 757.075,1353.13 765.521,1338.2 773.967,1323.89 
+  782.413,1310.32 790.86,1297.6 799.306,1285.84 807.752,1275.09 816.198,1265.41 824.645,1256.78 833.091,1249.17 841.537,1242.5 849.983,1236.7 858.429,1231.68 
+  866.876,1227.38 875.322,1223.75 883.768,1220.77 892.214,1218.41 900.661,1216.67 909.107,1215.51 917.553,1214.84 925.999,1214.53 934.446,1214.42 942.892,1214.3 
+  951.338,1213.98 959.784,1213.33 968.23,1212.31 976.677,1211.03 985.123,1209.72 993.569,1208.79 1002.02,1208.74 1010.46,1210.15 1018.91,1213.61 1027.35,1219.65 
+  1035.8,1228.65 1044.25,1240.85 1052.69,1256.26 1061.14,1274.68 1069.59,1295.71 1078.03,1318.78 1086.48,1343.2 1094.92,1368.23 1103.37,1393.12 1111.82,1417.21 
+  1120.26,1439.94 1128.71,1460.91 1137.16,1479.9 1145.6,1496.87 1154.05,1511.93 1162.49,1525.32 1170.94,1537.4 1179.39,1548.55 1187.83,1559.19 1196.28,1569.7 
+  1204.73,1580.41 1213.17,1591.56 1221.62,1603.31 1230.06,1615.7 1238.51,1628.73 1246.96,1642.3 1255.4,1656.28 1263.85,1670.5 1272.29,1684.79 1280.74,1698.96 
+  1289.19,1712.82 1297.63,1726.17 1306.08,1738.82 1314.53,1750.56 1322.97,1761.24 1331.42,1770.7 1339.86,1778.87 1348.31,1785.74 1356.76,1791.39 1365.2,1795.97 
+  1373.65,1799.72 1382.1,1802.92 1390.54,1805.87 1398.99,1808.86 1407.43,1812.15 1415.88,1815.92 1424.33,1820.26 1432.77,1825.19 1441.22,1830.64 1449.67,1836.45 
+  1458.11,1842.43 1466.56,1848.37 1475,1854.05 1483.45,1859.25 1491.9,1863.84 1500.34,1867.7 1508.79,1870.79 1517.24,1873.12 1525.68,1874.75 1534.13,1875.77 
+  1542.57,1876.31 1551.02,1876.49 1559.47,1876.44 1567.91,1876.26 1576.36,1876.03 1584.81,1875.82 1593.25,1875.63 1601.7,1875.49 1610.14,1875.39 1618.59,1875.32 
+  1627.04,1875.29 1635.48,1875.29 1643.93,1875.35 1652.38,1875.5 1660.82,1875.77 1669.27,1876.18 1677.71,1876.76 1686.16,1877.49 1694.61,1878.37 1703.05,1879.36 
+  1711.5,1880.41 1719.95,1881.47 1728.39,1882.5 1736.84,1883.46 1745.28,1884.3 1753.73,1885.03 1762.18,1885.62 1770.62,1886.09 1779.07,1886.45 1787.52,1886.71 
+  1795.96,1886.9 1804.41,1887.03 1812.85,1887.12 1821.3,1887.17 1829.75,1887.21 1838.19,1887.23 1846.64,1887.24 1855.08,1887.25 1863.53,1887.25 1871.98,1887.25 
   
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#e26f46; stroke-width:4; stroke-opacity:1; fill:none" points="
-  274.513,1887.25 281.941,1887.25 289.368,1887.24 296.796,1887.24 304.224,1887.22 311.651,1887.19 319.079,1887.15 326.507,1887.07 333.934,1886.95 341.362,1886.77 
-  348.79,1886.5 356.217,1886.12 363.645,1885.6 371.073,1884.92 378.501,1884.06 385.928,1883.01 393.356,1881.76 400.784,1880.33 408.211,1878.75 415.639,1877.05 
-  423.067,1875.28 430.494,1873.48 437.922,1871.68 445.35,1869.94 452.777,1868.28 460.205,1866.74 467.633,1865.35 475.061,1864.13 482.488,1863.12 489.916,1862.33 
-  497.344,1861.74 504.771,1861.33 512.199,1861.02 519.627,1860.68 527.054,1860.16 534.482,1859.3 541.91,1857.91 549.337,1855.82 556.765,1852.9 564.193,1849.04 
-  571.62,1844.2 579.048,1838.35 586.476,1831.5 593.904,1823.67 601.331,1814.88 608.759,1805.13 616.187,1794.44 623.614,1782.8 631.042,1770.25 638.47,1756.84 
-  645.897,1742.65 653.325,1727.82 660.753,1712.47 668.18,1696.8 675.608,1680.94 683.036,1665.05 690.463,1649.21 697.891,1633.44 705.319,1617.69 712.747,1601.79 
-  720.174,1585.46 727.602,1568.37 735.03,1550.1 742.457,1530.28 749.885,1508.6 757.313,1484.93 764.74,1459.37 772.168,1432.26 779.596,1404.21 787.023,1375.98 
-  794.451,1348.44 801.879,1322.44 809.306,1298.68 816.734,1277.64 824.162,1259.53 831.59,1244.25 839.017,1231.46 846.445,1220.65 853.873,1211.19 861.3,1202.45 
-  868.728,1193.87 876.156,1185.05 883.583,1175.76 891.011,1166.01 898.439,1155.98 905.866,1145.99 913.294,1136.44 920.722,1127.72 928.149,1120.12 935.577,1113.78 
-  943.005,1108.66 950.433,1104.61 957.86,1101.36 965.288,1098.68 972.716,1096.41 980.143,1094.54 987.571,1093.23 994.999,1092.75 1002.43,1093.45 1009.85,1095.64 
-  1017.28,1099.53 1024.71,1105.18 1032.14,1112.49 1039.56,1121.23 1046.99,1131.08 1054.42,1141.75 1061.85,1153.06 1069.28,1164.91 1076.7,1177.38 1084.13,1190.67 
-  1091.56,1205.08 1098.99,1220.95 1106.41,1238.57 1113.84,1258.19 1121.27,1279.95 1128.7,1303.84 1136.12,1329.71 1143.55,1357.25 1150.98,1386.03 1158.41,1415.54 
-  1165.84,1445.18 1173.26,1474.36 1180.69,1502.54 1188.12,1529.23 1195.55,1554.07 1202.97,1576.84 1210.4,1597.43 1217.83,1615.88 1225.26,1632.34 1232.68,1647.04 
-  1240.11,1660.27 1247.54,1672.34 1254.97,1683.56 1262.4,1694.19 1269.82,1704.45 1277.25,1714.46 1284.68,1724.28 1292.11,1733.89 1299.53,1743.24 1306.96,1752.2 
-  1314.39,1760.68 1321.82,1768.57 1329.24,1775.8 1336.67,1782.34 1344.1,1788.18 1351.53,1793.36 1358.96,1797.96 1366.38,1802.04 1373.81,1805.69 1381.24,1809 
-  1388.67,1812.06 1396.09,1814.97 1403.52,1817.84 1410.95,1820.77 1418.38,1823.88 1425.8,1827.24 1433.23,1830.93 1440.66,1834.94 1448.09,1839.24 1455.52,1843.74 
-  1462.94,1848.31 1470.37,1852.82 1477.8,1857.11 1485.23,1861.07 1492.65,1864.59 1500.08,1867.64 1507.51,1870.21 1514.94,1872.32 1522.36,1874.04 1529.79,1875.43 
-  1537.22,1876.55 1544.65,1877.48 1552.08,1878.27 1559.5,1878.96 1566.93,1879.59 1574.36,1880.18 1581.79,1880.76 1589.21,1881.34 1596.64,1881.93 1604.07,1882.52 
-  1611.5,1883.13 1618.92,1883.73 1626.35,1884.31 1633.78,1884.86 1641.21,1885.36 1648.64,1885.79 1656.06,1886.16 1663.49,1886.46 1670.92,1886.7 1678.35,1886.87 
-  1685.77,1887 1693.2,1887.09 1700.63,1887.16 1708.06,1887.2 1715.48,1887.22 1722.91,1887.24 1730.34,1887.24 1737.77,1887.25 1745.2,1887.25 1752.62,1887.25 
+<polyline clip-path="url(#clip5003)" style="stroke:#e26f46; stroke-width:4; stroke-opacity:1; fill:none" points="
+  151.212,1887.25 159.292,1887.25 167.371,1887.25 175.45,1887.24 183.53,1887.22 191.609,1887.2 199.688,1887.16 207.768,1887.1 215.847,1887 223.926,1886.84 
+  232.006,1886.62 240.085,1886.29 248.164,1885.84 256.243,1885.25 264.323,1884.47 272.402,1883.5 280.481,1882.34 288.561,1880.99 296.64,1879.47 304.719,1877.85 
+  312.799,1876.17 320.878,1874.52 328.957,1872.97 337.037,1871.58 345.116,1870.4 353.195,1869.44 361.275,1868.68 369.354,1868.06 377.433,1867.49 385.513,1866.86 
+  393.592,1866.05 401.671,1864.92 409.751,1863.36 417.83,1861.25 425.909,1858.51 433.989,1855.08 442.068,1850.91 450.147,1845.96 458.227,1840.22 466.306,1833.71 
+  474.385,1826.46 482.465,1818.54 490.544,1810.05 498.623,1801.1 506.703,1791.85 514.782,1782.45 522.861,1773 530.94,1763.62 539.02,1754.34 547.099,1745.12 
+  555.178,1735.89 563.258,1726.5 571.337,1716.82 579.416,1706.67 587.496,1695.93 595.575,1684.5 603.654,1672.32 611.734,1659.39 619.813,1645.68 627.892,1631.21 
+  635.972,1615.95 644.051,1599.88 652.13,1582.95 660.21,1565.15 668.289,1546.52 676.368,1527.17 684.448,1507.32 692.527,1487.29 700.606,1467.46 708.686,1448.23 
+  716.765,1429.98 724.844,1413.01 732.924,1397.46 741.003,1383.33 749.082,1370.46 757.162,1358.55 765.241,1347.25 773.32,1336.21 781.399,1325.08 789.479,1313.63 
+  797.558,1301.71 805.637,1289.27 813.717,1276.33 821.796,1262.97 829.875,1249.28 837.955,1235.39 846.034,1221.45 854.113,1207.68 862.193,1194.33 870.272,1181.76 
+  878.351,1170.36 886.431,1160.57 894.51,1152.82 902.589,1147.45 910.669,1144.65 918.748,1144.44 926.827,1146.67 934.907,1151.03 942.986,1157.09 951.065,1164.41 
+  959.145,1172.6 967.224,1181.36 975.303,1190.53 983.383,1200.06 991.462,1210.01 999.541,1220.46 1007.62,1231.49 1015.7,1243.1 1023.78,1255.24 1031.86,1267.79 
+  1039.94,1280.6 1048.02,1293.5 1056.1,1306.39 1064.18,1319.23 1072.26,1332.08 1080.33,1345.05 1088.41,1358.31 1096.49,1372.04 1104.57,1386.39 1112.65,1401.47 
+  1120.73,1417.3 1128.81,1433.87 1136.89,1451.09 1144.97,1468.8 1153.05,1486.85 1161.13,1505.06 1169.21,1523.23 1177.29,1541.19 1185.37,1558.79 1193.44,1575.86 
+  1201.52,1592.28 1209.6,1607.95 1217.68,1622.76 1225.76,1636.69 1233.84,1649.72 1241.92,1661.88 1250,1673.26 1258.08,1683.95 1266.16,1694.08 1274.24,1703.78 
+  1282.32,1713.15 1290.4,1722.24 1298.48,1731.1 1306.56,1739.7 1314.63,1748.01 1322.71,1755.98 1330.79,1763.55 1338.87,1770.69 1346.95,1777.39 1355.03,1783.7 
+  1363.11,1789.66 1371.19,1795.35 1379.27,1800.82 1387.35,1806.14 1395.43,1811.33 1403.51,1816.38 1411.59,1821.28 1419.67,1825.96 1427.75,1830.37 1435.82,1834.45 
+  1443.9,1838.16 1451.98,1841.49 1460.06,1844.45 1468.14,1847.08 1476.22,1849.45 1484.3,1851.63 1492.38,1853.7 1500.46,1855.72 1508.54,1857.73 1516.62,1859.77 
+  1524.7,1861.84 1532.78,1863.94 1540.86,1866.06 1548.94,1868.17 1557.01,1870.24 1565.09,1872.25 1573.17,1874.18 1581.25,1876.01 1589.33,1877.72 1597.41,1879.29 
+  1605.49,1880.72 1613.57,1881.99 1621.65,1883.1 1629.73,1884.04 1637.81,1884.82 1645.89,1885.46 1653.97,1885.96 1662.05,1886.34 1670.12,1886.63 1678.2,1886.84 
+  1686.28,1886.98 1694.36,1887.08 1702.44,1887.15 1710.52,1887.19 1718.6,1887.22 1726.68,1887.23 1734.76,1887.24 1742.84,1887.25 1750.92,1887.25 1759,1887.25 
   
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#3da44d; stroke-width:4; stroke-opacity:1; fill:none" points="
-  234.186,1887.25 241.992,1887.25 249.799,1887.25 257.606,1887.25 265.412,1887.24 273.219,1887.22 281.026,1887.2 288.832,1887.17 296.639,1887.12 304.446,1887.04 
-  312.252,1886.94 320.059,1886.79 327.865,1886.59 335.672,1886.35 343.479,1886.06 351.285,1885.72 359.092,1885.35 366.899,1884.96 374.705,1884.57 382.512,1884.2 
-  390.319,1883.88 398.125,1883.6 405.932,1883.35 413.739,1883.12 421.545,1882.85 429.352,1882.48 437.159,1881.93 444.965,1881.11 452.772,1879.92 460.578,1878.27 
-  468.385,1876.09 476.192,1873.32 483.998,1869.93 491.805,1865.92 499.612,1861.31 507.418,1856.16 515.225,1850.56 523.032,1844.59 530.838,1838.36 538.645,1831.94 
-  546.452,1825.39 554.258,1818.7 562.065,1811.82 569.871,1804.65 577.678,1797.03 585.485,1788.74 593.291,1779.58 601.098,1769.36 608.905,1757.95 616.711,1745.29 
-  624.518,1731.4 632.325,1716.43 640.131,1700.58 647.938,1684.1 655.745,1667.29 663.551,1650.43 671.358,1633.77 679.165,1617.52 686.971,1601.83 694.778,1586.79 
-  702.584,1572.41 710.391,1558.66 718.198,1545.4 726.004,1532.49 733.811,1519.73 741.618,1506.91 749.424,1493.85 757.231,1480.4 765.038,1466.48 772.844,1452.03 
-  780.651,1437.09 788.458,1421.69 796.264,1405.89 804.071,1389.77 811.878,1373.41 819.684,1356.9 827.491,1340.38 835.297,1324.01 843.104,1308.01 850.911,1292.59 
-  858.717,1277.96 866.524,1264.31 874.331,1251.72 882.137,1240.21 889.944,1229.66 897.751,1219.9 905.557,1210.69 913.364,1201.77 921.171,1192.92 928.977,1184.01 
-  936.784,1174.97 944.59,1165.86 952.397,1156.88 960.204,1148.28 968.01,1140.44 975.817,1133.74 983.624,1128.6 991.43,1125.37 999.237,1124.36 1007.04,1125.74 
-  1014.85,1129.59 1022.66,1135.85 1030.46,1144.33 1038.27,1154.79 1046.08,1166.92 1053.88,1180.38 1061.69,1194.86 1069.5,1210.08 1077.3,1225.81 1085.11,1241.86 
-  1092.92,1258.11 1100.72,1274.44 1108.53,1290.81 1116.34,1307.2 1124.14,1323.65 1131.95,1340.26 1139.76,1357.16 1147.56,1374.54 1155.37,1392.61 1163.18,1411.54 
-  1170.98,1431.45 1178.79,1452.4 1186.6,1474.29 1194.4,1496.93 1202.21,1520 1210.02,1543.09 1217.82,1565.74 1225.63,1587.51 1233.44,1607.96 1241.24,1626.78 
-  1249.05,1643.74 1256.86,1658.73 1264.66,1671.79 1272.47,1683.04 1280.28,1692.74 1288.08,1701.18 1295.89,1708.68 1303.7,1715.58 1311.5,1722.15 1319.31,1728.63 
-  1327.12,1735.18 1334.92,1741.87 1342.73,1748.71 1350.54,1755.66 1358.34,1762.66 1366.15,1769.62 1373.96,1776.48 1381.76,1783.17 1389.57,1789.66 1397.38,1795.94 
-  1405.18,1801.99 1412.99,1807.81 1420.8,1813.38 1428.6,1818.72 1436.41,1823.8 1444.22,1828.63 1452.02,1833.23 1459.83,1837.6 1467.64,1841.77 1475.44,1845.76 
-  1483.25,1849.6 1491.06,1853.3 1498.86,1856.86 1506.67,1860.26 1514.48,1863.5 1522.28,1866.54 1530.09,1869.35 1537.9,1871.89 1545.7,1874.15 1553.51,1876.1 
-  1561.32,1877.74 1569.12,1879.08 1576.93,1880.14 1584.74,1880.97 1592.54,1881.61 1600.35,1882.11 1608.16,1882.52 1615.96,1882.9 1623.77,1883.26 1631.58,1883.64 
-  1639.38,1884.04 1647.19,1884.46 1655,1884.89 1662.8,1885.31 1670.61,1885.7 1678.42,1886.04 1686.22,1886.34 1694.03,1886.59 1701.84,1886.79 1709.64,1886.93 
-  1717.45,1887.04 1725.26,1887.12 1733.06,1887.17 1740.87,1887.2 1748.67,1887.22 1756.48,1887.24 1764.29,1887.25 1772.09,1887.25 1779.9,1887.25 1787.71,1887.25 
+<polyline clip-path="url(#clip5003)" style="stroke:#3da44d; stroke-width:4; stroke-opacity:1; fill:none" points="
+  217.298,1887.25 225.374,1887.25 233.449,1887.24 241.525,1887.22 249.601,1887.2 257.677,1887.16 265.753,1887.09 273.829,1886.98 281.905,1886.81 289.98,1886.56 
+  298.056,1886.19 306.132,1885.65 314.208,1884.91 322.284,1883.91 330.36,1882.59 338.436,1880.9 346.511,1878.78 354.587,1876.22 362.663,1873.18 370.739,1869.68 
+  378.815,1865.76 386.891,1861.47 394.966,1856.91 403.042,1852.18 411.118,1847.4 419.194,1842.69 427.27,1838.15 435.346,1833.89 443.422,1829.94 451.497,1826.34 
+  459.573,1823.04 467.649,1819.96 475.725,1816.99 483.801,1813.96 491.877,1810.67 499.952,1806.92 508.028,1802.51 516.104,1797.23 524.18,1790.93 532.256,1783.49 
+  540.332,1774.81 548.408,1764.87 556.483,1753.69 564.559,1741.34 572.635,1727.9 580.711,1713.53 588.787,1698.41 596.863,1682.71 604.938,1666.66 613.014,1650.45 
+  621.09,1634.27 629.166,1618.27 637.242,1602.55 645.318,1587.17 653.394,1572.09 661.469,1557.26 669.545,1542.54 677.621,1527.79 685.697,1512.83 693.773,1497.53 
+  701.849,1481.76 709.925,1465.49 718,1448.71 726.076,1431.54 734.152,1414.15 742.228,1396.76 750.304,1379.67 758.38,1363.19 766.455,1347.63 774.531,1333.25 
+  782.607,1320.25 790.683,1308.73 798.759,1298.68 806.835,1290 814.911,1282.48 822.986,1275.86 831.062,1269.89 839.138,1264.33 847.214,1259.01 855.29,1253.88 
+  863.366,1248.96 871.441,1244.38 879.517,1240.32 887.593,1236.99 895.669,1234.57 903.745,1233.16 911.821,1232.81 919.897,1233.45 927.972,1234.93 936.048,1237.03 
+  944.124,1239.54 952.2,1242.24 960.276,1244.97 968.352,1247.66 976.427,1250.35 984.503,1253.18 992.579,1256.36 1000.66,1260.16 1008.73,1264.84 1016.81,1270.62 
+  1024.88,1277.61 1032.96,1285.81 1041.03,1295.09 1049.11,1305.17 1057.19,1315.7 1065.26,1326.29 1073.34,1336.55 1081.41,1346.2 1089.49,1355.05 1097.57,1363.06 
+  1105.64,1370.36 1113.72,1377.22 1121.79,1384 1129.87,1391.15 1137.94,1399.12 1146.02,1408.32 1154.1,1419.09 1162.17,1431.65 1170.25,1446.08 1178.32,1462.34 
+  1186.4,1480.23 1194.48,1499.42 1202.55,1519.5 1210.63,1539.98 1218.7,1560.36 1226.78,1580.14 1234.85,1598.91 1242.93,1616.34 1251.01,1632.22 1259.08,1646.49 
+  1267.16,1659.19 1275.23,1670.48 1283.31,1680.6 1291.39,1689.83 1299.46,1698.46 1307.54,1706.73 1315.61,1714.87 1323.69,1723.01 1331.76,1731.24 1339.84,1739.59 
+  1347.92,1748.02 1355.99,1756.51 1364.07,1764.97 1372.14,1773.36 1380.22,1781.6 1388.3,1789.67 1396.37,1797.5 1404.45,1805.07 1412.52,1812.33 1420.6,1819.25 
+  1428.67,1825.77 1436.75,1831.85 1444.83,1837.45 1452.9,1842.53 1460.98,1847.07 1469.05,1851.06 1477.13,1854.52 1485.21,1857.47 1493.28,1859.95 1501.36,1862.02 
+  1509.43,1863.74 1517.51,1865.17 1525.59,1866.37 1533.66,1867.39 1541.74,1868.28 1549.81,1869.07 1557.89,1869.78 1565.96,1870.44 1574.04,1871.07 1582.12,1871.68 
+  1590.19,1872.3 1598.27,1872.93 1606.34,1873.62 1614.42,1874.36 1622.5,1875.18 1630.57,1876.09 1638.65,1877.07 1646.72,1878.11 1654.8,1879.19 1662.87,1880.28 
+  1670.95,1881.35 1679.03,1882.36 1687.1,1883.29 1695.18,1884.12 1703.25,1884.83 1711.33,1885.43 1719.41,1885.92 1727.48,1886.3 1735.56,1886.59 1743.63,1886.8 
+  1751.71,1886.95 1759.78,1887.06 1767.86,1887.13 1775.94,1887.18 1784.01,1887.21 1792.09,1887.23 1800.16,1887.24 1808.24,1887.25 1816.32,1887.25 1824.39,1887.25 
   
   "/>
-<polyline clip-path="url(#clip2803)" style="stroke:#c271d2; stroke-width:4; stroke-opacity:1; fill:none" points="
-  256.508,1887.25 263.977,1887.25 271.446,1887.25 278.914,1887.24 286.383,1887.23 293.852,1887.22 301.321,1887.19 308.79,1887.14 316.259,1887.07 323.728,1886.96 
-  331.197,1886.8 338.666,1886.57 346.135,1886.26 353.604,1885.84 361.073,1885.29 368.541,1884.6 376.01,1883.76 383.479,1882.75 390.948,1881.58 398.417,1880.24 
-  405.886,1878.74 413.355,1877.07 420.824,1875.24 428.293,1873.24 435.762,1871.05 443.231,1868.66 450.7,1866.02 458.169,1863.11 465.637,1859.88 473.106,1856.28 
-  480.575,1852.26 488.044,1847.75 495.513,1842.7 502.982,1837.04 510.451,1830.76 517.92,1823.84 525.389,1816.31 532.858,1808.24 540.327,1799.75 547.796,1790.97 
-  555.264,1782.05 562.733,1773.1 570.202,1764.22 577.671,1755.44 585.14,1746.73 592.609,1737.99 600.078,1729.09 607.547,1719.86 615.016,1710.14 622.485,1699.77 
-  629.954,1688.65 637.423,1676.74 644.892,1664.04 652.36,1650.66 659.829,1636.73 667.298,1622.5 674.767,1608.21 682.236,1594.15 689.705,1580.59 697.174,1567.73 
-  704.643,1555.69 712.112,1544.46 719.581,1533.87 727.05,1523.61 734.519,1513.25 741.987,1502.29 749.456,1490.22 756.925,1476.63 764.394,1461.23 771.863,1443.94 
-  779.332,1424.94 786.801,1404.64 794.27,1383.67 801.739,1362.8 809.208,1342.87 816.677,1324.64 824.146,1308.71 831.615,1295.42 839.083,1284.81 846.552,1276.57 
-  854.021,1270.11 861.49,1264.58 868.959,1259.05 876.428,1252.61 883.897,1244.46 891.366,1234.09 898.835,1221.3 906.304,1206.26 913.773,1189.44 921.242,1171.62 
-  928.71,1153.7 936.179,1136.63 943.648,1121.3 951.117,1108.41 958.586,1098.41 966.055,1091.53 973.524,1087.78 980.993,1087 988.462,1088.92 995.931,1093.27 
-  1003.4,1099.78 1010.87,1108.24 1018.34,1118.5 1025.81,1130.48 1033.28,1144.14 1040.74,1159.46 1048.21,1176.41 1055.68,1194.98 1063.15,1215.08 1070.62,1236.6 
-  1078.09,1259.35 1085.56,1283.09 1093.03,1307.54 1100.5,1332.37 1107.96,1357.25 1115.43,1381.84 1122.9,1405.86 1130.37,1429.07 1137.84,1451.3 1145.31,1472.44 
-  1152.78,1492.46 1160.25,1511.38 1167.72,1529.26 1175.18,1546.17 1182.65,1562.2 1190.12,1577.43 1197.59,1591.92 1205.06,1605.7 1212.53,1618.82 1220,1631.3 
-  1227.47,1643.15 1234.94,1654.38 1242.41,1665.01 1249.87,1675.03 1257.34,1684.43 1264.81,1693.19 1272.28,1701.29 1279.75,1708.71 1287.22,1715.45 1294.69,1721.53 
-  1302.16,1727.01 1309.63,1731.98 1317.09,1736.53 1324.56,1740.81 1332.03,1744.93 1339.5,1749.01 1346.97,1753.15 1354.44,1757.44 1361.91,1761.9 1369.38,1766.56 
-  1376.85,1771.41 1384.31,1776.43 1391.78,1781.59 1399.25,1786.85 1406.72,1792.19 1414.19,1797.57 1421.66,1803.01 1429.13,1808.48 1436.6,1813.98 1444.07,1819.5 
-  1451.53,1825.03 1459,1830.54 1466.47,1835.98 1473.94,1841.31 1481.41,1846.47 1488.88,1851.41 1496.35,1856.07 1503.82,1860.39 1511.29,1864.32 1518.76,1867.83 
-  1526.22,1870.9 1533.69,1873.52 1541.16,1875.71 1548.63,1877.51 1556.1,1878.96 1563.57,1880.14 1571.04,1881.1 1578.51,1881.9 1585.98,1882.59 1593.44,1883.21 
-  1600.91,1883.78 1608.38,1884.32 1615.85,1884.82 1623.32,1885.28 1630.79,1885.69 1638.26,1886.05 1645.73,1886.36 1653.2,1886.6 1660.66,1886.79 1668.13,1886.94 
-  1675.6,1887.05 1683.07,1887.12 1690.54,1887.17 1698.01,1887.2 1705.48,1887.22 1712.95,1887.24 1720.42,1887.24 1727.88,1887.25 1735.35,1887.25 1742.82,1887.25 
+<polyline clip-path="url(#clip5003)" style="stroke:#c271d2; stroke-width:4; stroke-opacity:1; fill:none" points="
+  208.966,1887.25 217.465,1887.25 225.964,1887.24 234.463,1887.23 242.962,1887.22 251.461,1887.19 259.961,1887.13 268.46,1887.05 276.959,1886.91 285.458,1886.71 
+  293.957,1886.42 302.456,1886.02 310.955,1885.48 319.454,1884.78 327.953,1883.9 336.452,1882.82 344.951,1881.54 353.45,1880.02 361.95,1878.25 370.449,1876.18 
+  378.948,1873.75 387.447,1870.89 395.946,1867.54 404.445,1863.62 412.944,1859.11 421.443,1854.02 429.942,1848.45 438.441,1842.5 446.94,1836.34 455.439,1830.15 
+  463.939,1824.08 472.438,1818.21 480.937,1812.56 489.436,1807.04 497.935,1801.51 506.434,1795.77 514.933,1789.59 523.432,1782.75 531.931,1775.11 540.43,1766.55 
+  548.929,1757.03 557.428,1746.57 565.928,1735.23 574.427,1723.1 582.926,1710.27 591.425,1696.82 599.924,1682.79 608.423,1668.22 616.922,1653.09 625.421,1637.36 
+  633.92,1620.98 642.419,1603.91 650.918,1586.13 659.417,1567.69 667.917,1548.72 676.416,1529.42 684.915,1510.04 693.414,1490.89 701.913,1472.21 710.412,1454.18 
+  718.911,1436.83 727.41,1420.04 735.909,1403.55 744.408,1387.02 752.907,1370.04 761.406,1352.28 769.906,1333.49 778.405,1313.58 786.904,1292.6 795.403,1270.76 
+  803.902,1248.38 812.401,1225.82 820.9,1203.53 829.399,1181.97 837.898,1161.59 846.397,1142.87 854.896,1126.26 863.396,1112.22 871.895,1101.08 880.394,1093.12 
+  888.893,1088.44 897.392,1087 905.891,1088.59 914.39,1092.9 922.889,1099.55 931.388,1108.16 939.887,1118.44 948.386,1130.19 956.885,1143.34 965.385,1157.88 
+  973.884,1173.85 982.383,1191.25 990.882,1210.02 999.381,1229.99 1007.88,1250.85 1016.38,1272.26 1024.88,1293.77 1033.38,1314.96 1041.88,1335.44 1050.38,1354.91 
+  1058.87,1373.14 1067.37,1390.09 1075.87,1405.81 1084.37,1420.51 1092.87,1434.46 1101.37,1448.03 1109.87,1461.56 1118.37,1475.34 1126.87,1489.55 1135.37,1504.26 
+  1143.87,1519.36 1152.36,1534.69 1160.86,1549.97 1169.36,1564.96 1177.86,1579.47 1186.36,1593.37 1194.86,1606.67 1203.36,1619.46 1211.86,1631.89 1220.36,1644.11 
+  1228.86,1656.22 1237.36,1668.27 1245.85,1680.17 1254.35,1691.78 1262.85,1702.9 1271.35,1713.33 1279.85,1722.9 1288.35,1731.54 1296.85,1739.28 1305.35,1746.24 
+  1313.85,1752.63 1322.35,1758.68 1330.85,1764.58 1339.34,1770.5 1347.84,1776.48 1356.34,1782.48 1364.84,1788.38 1373.34,1793.99 1381.84,1799.14 1390.34,1803.67 
+  1398.84,1807.51 1407.34,1810.67 1415.84,1813.27 1424.34,1815.52 1432.83,1817.67 1441.33,1819.99 1449.83,1822.72 1458.33,1826.01 1466.83,1829.93 1475.33,1834.44 
+  1483.83,1839.39 1492.33,1844.57 1500.83,1849.73 1509.33,1854.62 1517.82,1859.03 1526.32,1862.79 1534.82,1865.82 1543.32,1868.1 1551.82,1869.67 1560.32,1870.62 
+  1568.82,1871.1 1577.32,1871.23 1585.82,1871.17 1594.32,1871.05 1602.82,1870.99 1611.31,1871.05 1619.81,1871.31 1628.31,1871.77 1636.81,1872.42 1645.31,1873.24 
+  1653.81,1874.18 1662.31,1875.18 1670.81,1876.19 1679.31,1877.17 1687.81,1878.1 1696.31,1878.97 1704.8,1879.78 1713.3,1880.55 1721.8,1881.27 1730.3,1881.98 
+  1738.8,1882.66 1747.3,1883.33 1755.8,1883.98 1764.3,1884.58 1772.8,1885.13 1781.3,1885.62 1789.8,1886.03 1798.29,1886.37 1806.79,1886.63 1815.29,1886.83 
+  1823.79,1886.98 1832.29,1887.08 1840.79,1887.15 1849.29,1887.19 1857.79,1887.22 1866.29,1887.23 1874.79,1887.24 1883.29,1887.25 1891.78,1887.25 1900.28,1887.25 
   
   "/>
 </svg>
 <p>Compute cor</p><pre><code class="language-julia">mu_sigma = hcat(chn.value[:, 2, 1], chn.value[:,1, 1])
 LinearAlgebra.diag(cov(mu_sigma))</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
- 0.0897186030266951 
- 0.16473087967567593</code></pre><p>Compute cov</p><pre><code class="language-julia">cor(mu_sigma)</code></pre><pre><code class="language-none">2×2 Array{Float64,2}:
- 1.0        0.0214776
- 0.0214776  1.0      </code></pre><p>End of <code>clip_07.0s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-24-29s/"><span class="direction">Previous</span><span class="title">clip-24-29s</span></a><a class="next" href="../clip-38s/"><span class="direction">Next</span><span class="title">clip-38s</span></a></footer></article></body></html>
+ 0.08906791324043685
+ 0.19453386681081072</code></pre><p>Compute cov</p><pre><code class="language-julia">cor(mu_sigma)</code></pre><pre><code class="language-none">2×2 Array{Float64,2}:
+  1.0         -0.00646465
+ -0.00646465   1.0       </code></pre><p>End of <code>clip_07.0s.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-24-29s/"><span class="direction">Previous</span><span class="title">clip-24-29s</span></a><a class="next" href="../clip-38s/"><span class="direction">Next</span><span class="title">clip-38s</span></a></footer></article></body></html>

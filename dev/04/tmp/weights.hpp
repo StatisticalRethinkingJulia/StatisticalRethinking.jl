@@ -18,7 +18,7 @@ static int current_statement_begin__;
 stan::io::program_reader prog_reader__() {
     stan::io::program_reader reader;
     reader.add_event(0, 0, "start", "/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan");
-    reader.add_event(20, 18, "end", "/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan");
+    reader.add_event(17, 15, "end", "/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/04/tmp/weights.stan");
     return reader;
 }
 

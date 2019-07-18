@@ -13,6 +13,3 @@ parameters {
 model {
  height ~ normal(alpha + weight * beta , sigma);
 }
-
-generated quantities {
-}

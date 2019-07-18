@@ -1,5 +1,5 @@
 using StatisticalRethinking
-gr(size=(500,500));
+gr(size=(600,600));
 
 ProjDir = @__DIR__
 

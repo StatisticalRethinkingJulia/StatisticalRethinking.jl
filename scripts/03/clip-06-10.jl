@@ -3,7 +3,7 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, Optim
-gr(size=(600,300));
+gr(size=(600,600));
 
 # ### snippet 3.2
 

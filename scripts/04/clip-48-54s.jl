@@ -2,7 +2,7 @@
 
 using StatisticalRethinking
 using CmdStan
-gr(size=(500,500));
+gr(size=(600,600));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 

@@ -1,5 +1,5 @@
 using StatisticalRethinking, LinearAlgebra
-gr(size=(300, 300))
+gr(size=(600, 600))
 
 ProjDir = @__DIR__
 

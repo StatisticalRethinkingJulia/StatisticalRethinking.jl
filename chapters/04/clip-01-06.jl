@@ -1,5 +1,5 @@
 using StatisticalRethinking
-gr(size=(600,300));
+gr(size=(600,600));
 
 noofsteps = 20;
 noofwalks = 15;

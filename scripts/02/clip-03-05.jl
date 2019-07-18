@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking
-gr(size=(600,300));
+gr(size=(600,600));
 
 # ### snippet 2.3
 

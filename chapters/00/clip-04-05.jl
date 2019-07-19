@@ -1,5 +1,5 @@
 using StatisticalRethinking, GLM
-gr(size=(600, 600));
+#gr(size=(600, 600));
 
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);

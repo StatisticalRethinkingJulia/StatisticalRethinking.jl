@@ -1,5 +1,5 @@
 using StatisticalRethinking, CmdStan
-gr(size=(600,800));
+#gr(size=(600,800));
 
 ProjDir = rel_path("..", "scripts", "03")
 cd(ProjDir)

@@ -1,5 +1,5 @@
 using StatisticalRethinking
-gr(size=(600,600));
+#gr(size=(600,600));
 
 N = 20
 p_grid = range( 0 , stop=1 , length=N )

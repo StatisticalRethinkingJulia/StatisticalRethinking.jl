@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed.
 
 using StatisticalRethinking, CmdStan
-gr(size=(600,600));
+#gr(size=(600,600));
 
 ProjDir = rel_path("..", "scripts", "05")
 cd(ProjDir)

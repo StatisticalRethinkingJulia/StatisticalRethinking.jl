@@ -3,7 +3,7 @@
 # ### snippet 0.5 is replaced by below `using StatisticalRethinking`.
 
 using StatisticalRethinking, GLM
-gr(size=(600, 600));
+#gr(size=(600, 600));
 
 # ### snippet 0.4
 

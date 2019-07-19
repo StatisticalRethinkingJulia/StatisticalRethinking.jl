@@ -3,7 +3,7 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking, CmdStan
-gr(size=(600,800));
+#gr(size=(600,800));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 

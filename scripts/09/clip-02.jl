@@ -3,7 +3,7 @@
 # ### Snippet 9.2
 
 using StatisticalRethinking, LinearAlgebra
-gr(size=(600, 600))
+#gr(size=(600, 600))
 
 ProjDir = @__DIR__
 

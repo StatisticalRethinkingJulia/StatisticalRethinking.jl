@@ -10,17 +10,12 @@ function generate_walk(N::Int64)
   d = Uniform(0, 1)
 
   for i in 1:N
-
-    positions[i] = current
-
-    proposal = current + sample([-1, 1], 1)[1]
-
+    positions[i] = current  # Record current position
+    proposal = current + sample([-1, 1], 1)[1] # Generate proposal
     proposal = proposal < 1  ? 10 : proposal
     proposal = proposal > 10  ? 1 : proposal
-
-    prob_move = proposal/current
+    prob_move = proposal/current  # Move?
     current = rand(d, 1)[1] <  prob_move ? proposal : current
-
   end
 
   positions

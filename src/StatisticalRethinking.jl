@@ -33,6 +33,8 @@ include("quap.jl")
 include("sampling.jl")
 include("scale.jl")
 include("shading.jl")
+include("HMC2.jl")
+include("generate_n_samples.jl")
 
 export
   rel_path,
@@ -44,6 +46,8 @@ export
   link,
   #shade,
   scale,
-  standardize
+  standardize,
+  HMC2,
+  generate_n_samples
 
 end # module

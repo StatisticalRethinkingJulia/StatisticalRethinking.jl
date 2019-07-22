@@ -18,20 +18,6 @@ first(df, 5)
 
 std(df[:MedianAgeMarriage])
 
-# Define the Stan language model
-#=
-m5.1.1 <- ulam(
-    alist(
-        D ~ dnorm( mu , sigma ) ,
-        mu <- a + bA * A ,
-        a ~ dnorm( 0 , 0.2 ) ,
-        bA ~ dnorm( 0 , 0.5 ) ,
-        sigma ~ dexp( 1 )
-    ) , data = list(A=d$MedianAgeMarriage.s,
-      D=d$Divorce.s), chain=4 )
-precis(m5.1.1)
-=#
-
 ad = "
 data {
  int < lower = 1 > N; // Sample size
@@ -47,12 +33,9 @@ parameters {
 
 model {
   vector[N] mu;
-  # priors
   a ~ normal(0, 0.2);
   bA ~ normal(0, 0.5);
   sigma ~ exponential(1);
-  
-  # likelihood
   mu = a + bA * A;
   D ~ normal(mu , sigma);
 }

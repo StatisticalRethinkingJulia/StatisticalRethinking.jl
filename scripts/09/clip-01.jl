@@ -16,20 +16,12 @@ function generate_walk(N::Int64)
   d = Uniform(0, 1)
 
   for i in 1:N
-    # Record current position
-    positions[i] = current
-  
-    # Flip a coin to generate proposal
-    proposal = current + sample([-1, 1], 1)[1]
-  
-    # Make sure it stays on achipelago
+    positions[i] = current  # Record current position
+    proposal = current + sample([-1, 1], 1)[1] # Generate proposal
     proposal = proposal < 1  ? 10 : proposal
-    proposal = proposal > 10  ? 1 : proposal
-  
-    # Move?
-    prob_move = proposal/current
+    proposal = proposal > 10  ? 1 : proposal  
+    prob_move = proposal/current  # Move?
     current = rand(d, 1)[1] <  prob_move ? proposal : current
-  
   end
 
   positions

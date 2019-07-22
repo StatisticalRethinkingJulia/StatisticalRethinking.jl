@@ -22,7 +22,7 @@ coef(m)
 
 # Plot residuals against speed
 
-scatter( df2[:height], residuals(m), xlab="Height",
+scatter( df2[!, :height], residuals(m), xlab="Height",
 ylab="Model residual values", lab="Model residuals")
   
 # End of `00/clip-04-05.jl`

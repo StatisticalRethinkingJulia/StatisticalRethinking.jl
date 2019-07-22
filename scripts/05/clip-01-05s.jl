@@ -10,13 +10,13 @@ cd(ProjDir)
 
 wd = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';');
 df = convert(DataFrame, wd);
-df[:A] = scale(df[:MedianAgeMarriage]);
-df[:D] = scale(df[:Divorce]);
+df[!, :A] = scale(df[!, :MedianAgeMarriage]);
+df[!, :D] = scale(df[!, :Divorce]);
 first(df, 5)
 
 # ### snippet 5.1
 
-std(df[:MedianAgeMarriage])
+std(df[!, :MedianAgeMarriage])
 
 ad = "
 data {
@@ -47,8 +47,8 @@ m5_1s = Stanmodel(name="MedianAgeDivorce", model=ad);
 
 # Input data for cmdstan
 
-data = Dict("N" => length(df[:D]), "D" => df[:Divorce],
-    "A" => df[:A]);
+data = Dict("N" => length(df[!, :D]), "D" => df[!, :Divorce],
+    "A" => df[!, :A]);
 
 # Sample using cmdstan
 
@@ -80,7 +80,7 @@ alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))
 beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)))
 yi = mean(alpha_vals) .+ mean(beta_vals)*xi
 
-scatter(df[:A], df[:D], color=:darkblue,
+scatter(df[!, :A], df[!, :D], color=:darkblue,
   xlab="Standardized median age of marriage",
   ylab="Standardize divorce rate")
 plot!(xi, yi, lab="Regression line")
@@ -99,7 +99,7 @@ plot!((xi, yh), color=:lightgrey, leg=false)
 for i in 1:length(xi)
   plot!([xi[i], xi[i]], [yl[i], yh[i]], color=:lightgrey, leg=false)
 end
-scatter!(df[:A], df[:D], color=:darkblue)
+scatter!(df[!, :A], df[!, :D], color=:darkblue)
 plot!(xi, yi, lab="Regression line")
 
 # End of `05/m5.1s.jl`

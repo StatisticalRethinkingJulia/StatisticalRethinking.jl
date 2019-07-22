@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>clip-03d1 · StatisticalRethinking.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>StatisticalRethinking.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../intro/">Home</a></li><li><a class="toctext" href="../../layout/">Layout</a></li><li><a class="toctext" href="../../versions/">Versions</a></li><li><a class="toctext" href="../../acknowledgements/">Acknowledgements</a></li><li><a class="toctext" href="../../references/">References</a></li><li><span class="toctext">Chapter 00</span><ul><li><a class="toctext" href="../../00/clip-01-03/">clip-01-03</a></li><li><a class="toctext" href="../../00/clip-04-05/">clip-04-05</a></li></ul></li><li><span class="toctext">Chapter 02</span><ul><li><a class="toctext" href="../../02/clip-01-02/">clip-01-02</a></li><li><a class="toctext" href="../../02/clip-03-05/">clip-03-05</a></li><li><a class="toctext" href="../../02/clip-06-07/">clip-06-07</a></li><li><a class="toctext" href="../../02/clip-08/">clip-08</a></li><li><a class="toctext" href="../../02/m2.1s/">m2.1s</a></li></ul></li><li><span class="toctext">Chapter 03</span><ul><li><a class="toctext" href="../../03/clip-01/">clip-01</a></li><li><a class="toctext" href="../../03/clip-02-05/">clip-02-05</a></li><li><a class="toctext" href="../../03/clip-05s/">clip-05s</a></li><li><a class="toctext" href="../../03/clip-06-10/">clip-06-10</a></li><li><a class="toctext" href="../../03/clip-11-16/">clip-11-16</a></li><li><a class="toctext" href="../../03/clip-17s/">clip-17s</a></li></ul></li><li><span class="toctext">Chapter 04</span><ul><li><a class="toctext" href="../../04/m4.1s/">m4.1s</a></li><li><a class="toctext" href="../../04/clip-01-06/">clip-01-06</a></li><li><a class="toctext" href="../../04/clip-07-13s/">clip-07-13s</a></li><li><a class="toctext" href="../../04/clip-14-20/">clip-14-20</a></li><li><a class="toctext" href="../../04/clip-21-23/">clip-21-23</a></li><li><a class="toctext" href="../../04/clip-24-29s/">clip-24-29s</a></li><li><a class="toctext" href="../../04/clip-30s/">clip-30s</a></li><li><a class="toctext" href="../../04/clip-38s/">clip-38s</a></li><li><a class="toctext" href="../../04/clip-43s/">clip-43s</a></li><li><a class="toctext" href="../../04/clip-45-47s/">clip-45-47s</a></li><li><a class="toctext" href="../../04/clip-48-54s/">clip-48-54s</a></li></ul></li><li><span class="toctext">Chapter 05</span><ul><li><a class="toctext" href="../../05/clip-01-05s/">clip-01-05s</a></li><li><a class="toctext" href="../../05/clip-06-10s/">clip-06-10s</a></li></ul></li><li><span class="toctext">Chapter 09</span><ul><li><a class="toctext" href="../clip-01/">clip-01</a></li><li><a class="toctext" href="../clip-02/">clip-02</a></li><li><a class="toctext" href="../clip-03d/">clip-03d</a></li><li class="current"><a class="toctext" href>clip-03d1</a><ul class="internal"></ul></li></ul></li><li><a class="toctext" href="../../">Functions</a></li></ul></nav><article id="docs"><header><nav><ul><li>Chapter 09</li><li><a href>clip-03d1</a></li></ul><a class="edit-page" href="https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/blob/master/scripts/09/clip-03d1.jl"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>clip-03d1</span><a class="fa fa-bars" href="#"></a></div></header><p>Load Julia packages (libraries) needed  for the snippets in chapter 0</p><pre><code class="language-julia">using StatisticalRethinking
+import LogDensityProblems: ValueGradient
+import StatisticalRethinking: HMC2, generate_n_samples</code></pre><p>CmdStan uses a tmp directory to store the output of cmdstan</p><pre><code class="language-julia">ProjDir = @__DIR__
+cd(ProjDir)</code></pre><h3><a class="nav-anchor" id="snippet-9.3-1" href="#snippet-9.3-1">snippet 9.3</a></h3><p>Construct the logdensity problem</p><pre><code class="language-julia">struct clip_9_3_model{TY &lt;: AbstractVector, TX &lt;: AbstractVector}
+    &quot;Observations.&quot;
+    y::TY
+    &quot;Covariate&quot;
+    x::TX
+end</code></pre><p>Make the type callable with the parameters <em>as a single argument</em>.</p><pre><code class="language-julia">function (problem:: clip_9_3_model)(θ)
+    @unpack y, x, = problem    # extract the data
+    @unpack muy, mux = θ     # works on the named tuple too
+    ll = 0.0
+    ll += loglikelihood(Normal(mux, 1), x)
+    ll += loglikelihood(Normal(muy, 1), y)
+    ll += logpdf(Normal(0, 1), mux)
+    ll += logpdf(Normal(0, 1), muy)
+    ll
+end</code></pre><p>Instantiate the model with data and inits.</p><pre><code class="language-julia">Random.seed!(1234591)
+
+N = 100
+x = rand(Normal(0, 1), N)
+y = rand(Normal(0, 1), N)
+
+p = clip_9_3_model(y, x)
+θ = (muy = 0.0, mux=0.0)
+p(θ)</code></pre><pre><code class="language-none">-270.6068992198965</code></pre><p>Write a function to return properly dimensioned transformation.</p><pre><code class="language-julia">problem_transformation(p::clip_9_3_model) =
+    as((muy = asℝ, mux = asℝ))</code></pre><pre><code class="language-none">problem_transformation (generic function with 1 method)</code></pre><p>Wrap the problem with a transformation, then use Flux for the gradient.</p><pre><code class="language-julia">P = TransformedLogDensity(problem_transformation(p), p)
+∇P = ADgradient(:ForwardDiff, P);</code></pre><pre><code class="language-none">ForwardDiff AD wrapper for TransformedLogDensity of dimension 2, w/ chunk size 2</code></pre><p>Tune and sample.</p><pre><code class="language-julia">chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);</code></pre><pre><code class="language-none">(NUTS_Transition{Array{Float64,1},Float64}[NUTS_Transition{Array{Float64,1},Float64}([0.15445758348573502, -0.24666128235804452], -277.2638237763073, 1, DynamicHMC.AdjacentTurn, 0.4065977441533492, 3), NUTS_Transition{Array{Float64,1},Float64}([0.10443257080884145, 0.20063929254338442], -275.9786676788261, 2, DynamicHMC.DoubledTurn, 1.0, 3), NUTS_Transition{Array{Float64,1},Float64}([0.2764445954086601, -0.09292232053703986], -276.9586772001316, 2, DynamicHMC.DoubledTurn, 0.7295353542568507, 3), NUTS_Transition{Array{Float64,1},Float64}([-0.05818933574068935, -0.055627414770045715], -273.93323082361474, 2, DynamicHMC.DoubledTurn, 1.0, 3), NUTS_Transition{Array{Float64,1},Float64}([0.056623908328120115, 0.0332714285784052], -271.7387639170072, 1, DynamicHMC.AdjacentTurn, 0.9200146144871089, 3), NUTS_Transition{Array{Float64,1},Float64}([-0.06932021054097154, 0.011726206571136877], -272.1318149971882, 2, DynamicHMC.DoubledTurn, 0.8414702966356516, 3), NUTS_Transition{Array{Float64,1},Float64}([0.03712738714818987, -0.000262938581854881], -270.9140841879035, 2, DynamicHMC.DoubledTurn, 1.0, 3), NUTS_Transition{Array{Float64,1},Float64}([-0.03240089084398318, -0.0503905247031944], -270.85222591488053, 2, DynamicHMC.DoubledTurn, 0.9742862835039713, 3), NUTS_Transition{Array{Float64,1},Float64}([0.04791172060874521, 0.07664891700455768], -271.2039226495846, 3, DynamicHMC.AdjacentTurn, 0.9839057876242504, 15), NUTS_Transition{Array{Float64,1},Float64}([0.06385413266699726, 0.07939469214909681], -271.0612863761975, 1, DynamicHMC.DoubledTurn, 0.9840522116091446, 1)  …  NUTS_Transition{Array{Float64,1},Float64}([0.16723452006285777, -0.0707263067806132], -276.06155148278384, 2, DynamicHMC.DoubledTurn, 0.9376557633310104, 3), NUTS_Transition{Array{Float64,1},Float64}([-0.05310636675617551, 0.06750030098980293], -271.9344253012777, 2, DynamicHMC.AdjacentTurn, 0.9957682318929528, 7), NUTS_Transition{Array{Float64,1},Float64}([0.08066483911569487, -0.1057852200540324], -271.52719770277116, 2, DynamicHMC.DoubledTurn, 0.9809432026904933, 3), NUTS_Transition{Array{Float64,1},Float64}([-0.0051989008035806805, 0.10012204016116126], -271.7501930683011, 3, DynamicHMC.AdjacentTurn, 0.9827150131029988, 11), NUTS_Transition{Array{Float64,1},Float64}([0.017156941791803958, -0.05856447722260069], -271.45837137726454, 2, DynamicHMC.DoubledTurn, 0.9751123622887863, 3), NUTS_Transition{Array{Float64,1},Float64}([0.0693520076489042, 0.02410291659296701], -271.79067189759286, 2, DynamicHMC.DoubledTurn, 0.886653219994717, 3), NUTS_Transition{Array{Float64,1},Float64}([-0.14031844626822818, 0.09195000837193275], -272.37745552230405, 2, DynamicHMC.DoubledTurn, 0.8474023862865708, 3), NUTS_Transition{Array{Float64,1},Float64}([0.08541936860393429, -0.009513060662713152], -273.92998379120553, 2, DynamicHMC.DoubledTurn, 0.8733091087956457, 3), NUTS_Transition{Array{Float64,1},Float64}([0.005816523637658999, -0.058599380754985116], -270.96053882370734, 2, DynamicHMC.DoubledTurn, 0.9997482968512741, 3), NUTS_Transition{Array{Float64,1},Float64}([-0.03869412340365467, 0.13979836608598972], -273.26922169831334, 1, DynamicHMC.AdjacentTurn, 0.7166171770433826, 3)], NUTS sampler in 2 dimensions
+  stepsize (ϵ) ≈ 0.913
+  maximum depth = 10
+  Gaussian kinetic energy, √diag(M⁻¹): [0.09823341594245835, 0.09318006758772511]
+)</code></pre><p>We use the transformation to obtain the posterior from the chain.</p><pre><code class="language-julia">posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));</code></pre><pre><code class="language-none">1000-element Array{NamedTuple{(:muy, :mux),Tuple{Float64,Float64}},1}:
+ (muy = 0.15445758348573502, mux = -0.24666128235804452)  
+ (muy = 0.10443257080884145, mux = 0.20063929254338442)   
+ (muy = 0.2764445954086601, mux = -0.09292232053703986)   
+ (muy = -0.05818933574068935, mux = -0.055627414770045715)
+ (muy = 0.056623908328120115, mux = 0.0332714285784052)   
+ (muy = -0.06932021054097154, mux = 0.011726206571136877) 
+ (muy = 0.03712738714818987, mux = -0.000262938581854881) 
+ (muy = -0.03240089084398318, mux = -0.0503905247031944)  
+ (muy = 0.04791172060874521, mux = 0.07664891700455768)   
+ (muy = 0.06385413266699726, mux = 0.07939469214909681)   
+ ⋮                                                        
+ (muy = -0.05310636675617551, mux = 0.06750030098980293)  
+ (muy = 0.08066483911569487, mux = -0.1057852200540324)   
+ (muy = -0.0051989008035806805, mux = 0.10012204016116126)
+ (muy = 0.017156941791803958, mux = -0.05856447722260069) 
+ (muy = 0.0693520076489042, mux = 0.02410291659296701)    
+ (muy = -0.14031844626822818, mux = 0.09195000837193275)  
+ (muy = 0.08541936860393429, mux = -0.009513060662713152) 
+ (muy = 0.005816523637658999, mux = -0.058599380754985116)
+ (muy = -0.03869412340365467, mux = 0.13979836608598972)  </code></pre><p>Extract the posterior means,</p><pre><code class="language-julia">[mean(first, posterior), mean(last, posterior)]</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
+  0.01476282823305742 
+ -0.004578168737638241</code></pre><p>Draw 200 samples:</p><pre><code class="language-julia">function draw_n_samples(model, grad;
+  epsilon = 0.03, # Step size
+  L = 11, # No of leapfrog steps
+  n_samples = 1000, # No of samples
+  q = [-0.1, 0.2]) # Initial position
+
+  samples = zeros(n_samples, 2)
+  for i in 1:n_samples
+    q, ptraj, qtraj, accept, dH = HMC2(model, grad, 0.03, 11, q)
+    samples[i, :] = q
+  end
+
+  samples
+
+end
+
+samples = draw_n_samples(p, ∇P; n_samples=200);
+mean(samples, dims=1)</code></pre><pre><code class="language-none">1×2 Array{Float64,2}:
+ 0.0197914  -0.00163069</code></pre><p>End of <code>09/clip-03.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-03d/"><span class="direction">Previous</span><span class="title">clip-03d</span></a><a class="next" href="../../"><span class="direction">Next</span><span class="title">Functions</span></a></footer></article></body></html>

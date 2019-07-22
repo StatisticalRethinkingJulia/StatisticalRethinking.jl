@@ -6,6 +6,9 @@ using Reexport
 @reexport using StatsBase, StatsPlots, StatsFuns 
 @reexport using CSV, DelimitedFiles, Serialization
 @reexport using MCMCChains, KernelDensity
+@reexport using DynamicHMC, LogDensityProblems
+@reexport using TransformVariables, MCMCDiagnostics
+@reexport using Parameters, Random
 
 using DataStructures
 import StatsBase: sample
@@ -46,8 +49,6 @@ export
   link,
   #shade,
   scale,
-  standardize,
-  HMC2,
-  generate_n_samples
+  standardize
 
 end # module

@@ -1,11 +1,12 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using DynamicHMCModels, Random, Plots
+using StatisticalRethinking
 import LogDensityProblems: ValueGradient
+import StatisticalRethinking: HMC2, generate_n_samples
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path("..", "scripts", "09")
+ProjDir = @__DIR__
 cd(ProjDir)
 
 # ### snippet 9.3

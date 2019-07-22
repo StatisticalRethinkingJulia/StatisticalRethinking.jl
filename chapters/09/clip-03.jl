@@ -1,7 +1,8 @@
-using DynamicHMCModels, Random, Plots
+using StatisticalRethinking
 import LogDensityProblems: ValueGradient
+import StatisticalRethinking: HMC2, generate_n_samples
 
-ProjDir = rel_path("..", "scripts", "09")
+ProjDir = @__DIR__
 cd(ProjDir)
 
 struct clip_9_3_model{TY <: AbstractVector, TX <: AbstractVector}

@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, Zygote
+using StatisticalRethinking
 import LogDensityProblems: ValueGradient
 import StatisticalRethinking: HMC2, generate_n_samples
 
@@ -54,6 +54,7 @@ problem_transformation(p::clip_9_3_model) =
 
 P = TransformedLogDensity(problem_transformation(p), p)
 #∇P = ADgradient(:ForwardDiff, P);
+#import Zygote
 ∇P = ADgradient(:Zygote, P);
 
 # Tune and sample.

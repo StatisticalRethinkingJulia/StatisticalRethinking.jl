@@ -54,7 +54,7 @@ problem_transformation(p::clip_9_3_model) =
 
 P = TransformedLogDensity(problem_transformation(p), p)
 #∇P = ADgradient(:ForwardDiff, P);
-#import Zygote
+import Zygote
 ∇P = ADgradient(:Zygote, P);
 
 # Tune and sample.

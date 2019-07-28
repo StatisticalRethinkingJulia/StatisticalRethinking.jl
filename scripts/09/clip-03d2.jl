@@ -1,7 +1,7 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking
-import LogDensityProblems: ValueGradient
+#using StatisticalRethinking
+import LogDensityProblems: logdensity_and_gradient
 import StatisticalRethinking: HMC2, generate_n_samples
 
 # CmdStan uses a tmp directory to store the output of cmdstan

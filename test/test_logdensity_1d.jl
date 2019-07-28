@@ -5,10 +5,6 @@ using LogDensityProblems: logdensity_and_gradient, LogDensityOrder
 import ForwardDiff, Flux, Zygote, ReverseDiff, TransformVariables, Random
 using Parameters: @unpack
 
-####
-#### test setup and utilities
-####
-
 Random.seed!(1)
 
 ####
@@ -17,7 +13,8 @@ Random.seed!(1)
 
 @testset "transformed Bayesian problem" begin
     t = as((y = asℝ₊, ))
-    d = LogNormal(1.0, 2.0)
+    #d = LogNormal(1.0, 2.0)
+    d = Normal(1.0, 2.0)
     logposterior = ((x, ), ) -> logpdf(d, x)
 
     # a Bayesian problem

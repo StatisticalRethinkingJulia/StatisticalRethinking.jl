@@ -57,6 +57,6 @@ P = TransformedLogDensity(problem_transformation(p), p)
 
 # Generate and show fig 9.3
 
-fig = generate_n_samples(p, ∇P);
+fig = generate_n_samples_2(p, ∇P);
 
 # End of `09/clip-03d.jl`

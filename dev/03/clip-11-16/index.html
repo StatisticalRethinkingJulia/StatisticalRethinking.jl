@@ -26,26 +26,26 @@ posterior = posterior / sum(posterior)</code></pre><pre><code class="language-no
  0.003980047920111856  
  0.003992011984019976  </code></pre><p>Draw 10000 samples from this posterior distribution</p><pre><code class="language-julia">N = 10000
 samples = sample(p_grid, Weights(posterior), N);</code></pre><pre><code class="language-none">10000-element Array{Float64,1}:
- 0.729
- 0.905
- 0.731
- 0.983
- 0.464
- 0.963
- 0.177
- 0.76 
- 0.842
- 0.563
- ⋮    
- 0.945
- 0.987
- 0.682
+ 0.517
+ 0.408
+ 0.973
+ 0.94 
+ 0.723
+ 0.625
+ 0.971
  0.857
- 0.768
- 0.534
- 0.882
- 0.778
- 0.984</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
+ 0.819
+ 0.523
+ ⋮    
+ 0.948
+ 0.798
+ 0.531
+ 0.376
+ 0.933
+ 0.931
+ 0.893
+ 0.912
+ 0.721</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
 
 Iterations        = 1:10000
 Thinning interval = 1
@@ -57,35 +57,35 @@ parameters        = toss
 
 Summary Statistics
 . Omitted printing of 1 columns
-│ Row │ parameters │ mean    │ std      │ naive_se   │ mcse       │ ess     │
-│     │ Symbol     │ Float64 │ Float64  │ Float64    │ Float64    │ Any     │
-├─────┼────────────┼─────────┼──────────┼────────────┼────────────┼─────────┤
-│ 1   │ toss       │ 0.79991 │ 0.163374 │ 0.00163374 │ 0.00171763 │ 10000.0 │
+│ Row │ parameters │ mean     │ std     │ naive_se  │ mcse      │ ess     │
+│     │ Symbol     │ Float64  │ Float64 │ Float64   │ Float64   │ Any     │
+├─────┼────────────┼──────────┼─────────┼───────────┼───────────┼─────────┤
+│ 1   │ toss       │ 0.802777 │ 0.16017 │ 0.0016017 │ 0.0014569 │ 10000.0 │
 
 Quantiles
 
 │ Row │ parameters │ 2.5%    │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
 │     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
 ├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│ 1   │ toss       │ 0.395   │ 0.707   │ 0.8395  │ 0.931   │ 0.994   │
+│ 1   │ toss       │ 0.414   │ 0.712   │ 0.843   │ 0.93    │ 0.994   │
 </code></pre><h3><a class="nav-anchor" id="snippet-3.12-1" href="#snippet-3.12-1">snippet 3.12</a></h3><pre><code class="language-julia">MCMCChains.describe(chn)</code></pre><pre><code class="language-none">2-element Array{ChainDataFrame,1}
 
 Summary Statistics
 . Omitted printing of 1 columns
-│ Row │ parameters │ mean    │ std      │ naive_se   │ mcse       │ ess     │
-│     │ Symbol     │ Float64 │ Float64  │ Float64    │ Float64    │ Any     │
-├─────┼────────────┼─────────┼──────────┼────────────┼────────────┼─────────┤
-│ 1   │ toss       │ 0.79991 │ 0.163374 │ 0.00163374 │ 0.00171763 │ 10000.0 │
+│ Row │ parameters │ mean     │ std     │ naive_se  │ mcse      │ ess     │
+│     │ Symbol     │ Float64  │ Float64 │ Float64   │ Float64   │ Any     │
+├─────┼────────────┼──────────┼─────────┼───────────┼───────────┼─────────┤
+│ 1   │ toss       │ 0.802777 │ 0.16017 │ 0.0016017 │ 0.0014569 │ 10000.0 │
 
 Quantiles
 
 │ Row │ parameters │ 2.5%    │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
 │     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
 ├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│ 1   │ toss       │ 0.395   │ 0.707   │ 0.8395  │ 0.931   │ 0.994   │
+│ 1   │ toss       │ 0.414   │ 0.712   │ 0.843   │ 0.93    │ 0.994   │
 </code></pre><h3><a class="nav-anchor" id="snippet-3.13-1" href="#snippet-3.13-1">snippet 3.13</a></h3><pre><code class="language-julia">MCMCChains.hpd(chn, alpha=0.5)</code></pre><pre><code class="language-none">HPD
 
 │ Row │ parameters │ upper   │ lower   │
 │     │ Symbol     │ Float64 │ Float64 │
 ├─────┼────────────┼─────────┼─────────┤
-│ 1   │ toss       │ 0.838   │ 0.999   │</code></pre><h3><a class="nav-anchor" id="snippet-3.14-1" href="#snippet-3.14-1">snippet 3.14</a></h3><pre><code class="language-julia">mode(samples)</code></pre><pre><code class="language-none">0.977</code></pre><h3><a class="nav-anchor" id="snippet-3.15-1" href="#snippet-3.15-1">snippet 3.15</a></h3><pre><code class="language-julia">mean(samples)</code></pre><pre><code class="language-none">0.7999099999999999</code></pre><h3><a class="nav-anchor" id="snippet-3.16-1" href="#snippet-3.16-1">snippet 3.16</a></h3><pre><code class="language-julia">median(samples)</code></pre><pre><code class="language-none">0.8394999999999999</code></pre><p>End of <code>03/clip-11-16.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-06-10/"><span class="direction">Previous</span><span class="title">clip-06-10</span></a><a class="next" href="../clip-17s/"><span class="direction">Next</span><span class="title">clip-17s</span></a></footer></article></body></html>
+│ 1   │ toss       │ 0.843   │ 1.0     │</code></pre><h3><a class="nav-anchor" id="snippet-3.14-1" href="#snippet-3.14-1">snippet 3.14</a></h3><pre><code class="language-julia">mode(samples)</code></pre><pre><code class="language-none">0.959</code></pre><h3><a class="nav-anchor" id="snippet-3.15-1" href="#snippet-3.15-1">snippet 3.15</a></h3><pre><code class="language-julia">mean(samples)</code></pre><pre><code class="language-none">0.8027767</code></pre><h3><a class="nav-anchor" id="snippet-3.16-1" href="#snippet-3.16-1">snippet 3.16</a></h3><pre><code class="language-julia">median(samples)</code></pre><pre><code class="language-none">0.843</code></pre><p>End of <code>03/clip-11-16.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-06-10/"><span class="direction">Previous</span><span class="title">clip-06-10</span></a><a class="next" href="../clip-17s/"><span class="direction">Next</span><span class="title">clip-17s</span></a></footer></article></body></html>

@@ -84,7 +84,7 @@ chns = set_section(chain, Dict(
   )
 )
 
-describe(chns)
+MCMCChains.describe(chns)
 
 ols = lm(@formula(height ~ weight), train_cut)
 

@@ -6,12 +6,13 @@ using Reexport
 @reexport using StatsBase, StatsPlots, StatsFuns 
 @reexport using CSV, DelimitedFiles, Serialization
 @reexport using MCMCChains, KernelDensity
-@reexport using DynamicHMC, LogDensityProblems
+@reexport using LogDensityProblems
 @reexport using TransformVariables, MCMCDiagnostics
 @reexport using Parameters, Random
 
 using DataStructures
 import StatsBase: sample
+import MCMCChains: describe
 
 const src_path = @__DIR__
 
@@ -36,7 +37,7 @@ include("quap.jl")
 include("sampling.jl")
 include("scale.jl")
 include("shading.jl")
-include("HMC2.jl")
+include("HMC.jl")
 include("generate_n_samples.jl")
 
 export
@@ -47,6 +48,7 @@ export
   generate,
   quap,
   link,
+  describe,
   #shade,
   scale,
   standardize

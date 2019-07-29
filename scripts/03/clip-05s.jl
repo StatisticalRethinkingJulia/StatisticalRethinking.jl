@@ -56,7 +56,7 @@ rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
 
 # Describe the draws
 
-describe(chn)
+MCMCChains.describe(chn)
 
 # Plot the 4 chains
 

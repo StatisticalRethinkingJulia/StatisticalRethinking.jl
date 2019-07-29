@@ -12,7 +12,7 @@ samples = sample(p_grid, Weights(posterior), N);
 
 chn = MCMCChains.Chains(reshape(samples, N, 1, 1), ["toss"]);
 
-describe(chn)
+MCMCChains.describe(chn)
 
 MCMCChains.hpd(chn, alpha=0.5)
 

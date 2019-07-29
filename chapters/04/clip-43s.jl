@@ -41,7 +41,7 @@ heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weigh
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
   summary=false, CmdStanDir=CMDSTAN_HOME);
 
-describe(chn)
+MCMCChains.describe(chn)
 
 plot(chn)
 

@@ -20,7 +20,7 @@ end
 a3d[:, 1, 1] = p
 chns = MCMCChains.Chains(a3d, ["toss"])
 
-describe(chns)
+MCMCChains.describe(chns)
 
 plot(chns)
 

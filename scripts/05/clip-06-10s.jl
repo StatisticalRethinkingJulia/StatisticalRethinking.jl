@@ -1,10 +1,10 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StanModels
+using StatisticalRethinking, CmdStan
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path_s("..", "scripts", "05")
+ProjDir = rel_path("..", "scripts", "05")
 cd(ProjDir)
 
 # ### snippet 5.1
@@ -74,7 +74,7 @@ rc, chn, cnames = stan(stanmodel, m5_3_data, ProjDir, diagnostics=false,
 
 # Describe the draws
 
-describe(chn)
+MCMCChains.describe(chn)
 
 # Rethinking results
 

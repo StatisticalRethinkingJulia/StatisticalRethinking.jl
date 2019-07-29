@@ -43,7 +43,7 @@ data = Dict("N" => length(df[!, :D]), "D" => df[!, :Divorce],
 rc, chn, cnames = stan(m5_1s, data, ProjDir, diagnostics=false,
   summary=true, CmdStanDir=CMDSTAN_HOME);
 
-describe(chn)
+MCMCChains.describe(chn)
 
 plot(chn)
 

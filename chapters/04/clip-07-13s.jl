@@ -42,7 +42,7 @@ density(prior_height, lab="prior_height")
 
 chn = deserialize(joinpath(ProjDir, "m4.1s.jls"))
 
-describe(chn)
+MCMCChains.describe(chn)
 
 density(chn)
 

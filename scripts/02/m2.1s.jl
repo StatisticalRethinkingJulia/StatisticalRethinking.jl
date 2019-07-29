@@ -58,7 +58,7 @@ rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
 
 # Describe the draws
 
-describe(chn)
+MCMCChains.describe(chn)
 
 # Allocate array of Normal fits
 

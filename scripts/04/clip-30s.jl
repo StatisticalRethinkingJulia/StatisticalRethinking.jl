@@ -28,7 +28,7 @@ chn = deserialize(joinpath(ProjDir, "m4.1s.jls"))
 
 # Describe the draws
 
-describe(chn)
+MCMCChains.describe(chn)
 
 # Plot the density of posterior draws
 

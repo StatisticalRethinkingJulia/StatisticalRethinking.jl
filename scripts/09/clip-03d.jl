@@ -1,10 +1,6 @@
 # Snippet 09/clip-03.jl
 
 using StatisticalRethinking
-import LogDensityProblems: ValueGradient
-import StatisticalRethinking: HMC2, generate_n_samples
-
-# CmdStan uses a tmp directory to store the output of cmdstan
 
 ProjDir = @__DIR__
 cd(ProjDir)
@@ -57,6 +53,6 @@ P = TransformedLogDensity(problem_transformation(p), p)
 
 # Generate and show fig 9.3
 
-fig = generate_n_samples_2(p, ∇P);
+fig = StatisticalRethinking.generate_n_samples(p, ∇P);
 
 # End of `09/clip-03d.jl`

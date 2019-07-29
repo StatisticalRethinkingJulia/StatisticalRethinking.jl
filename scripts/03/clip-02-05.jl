@@ -28,7 +28,7 @@ chn = MCMCChains.Chains(reshape(samples, N, 1, 1), ["toss"]);
 
 # Describe the chain
 
-describe(chn)
+MCMCChains.describe(chn)
 
 # Plot the chain
 

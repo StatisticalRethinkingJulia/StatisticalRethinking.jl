@@ -57,7 +57,7 @@ rc, chn, cnames = stan(m5_1s, data, ProjDir, diagnostics=false,
 
 # Describe the draws
 
-describe(chn)
+MCMCChains.describe(chn)
 
 # Plot the density of posterior draws
 

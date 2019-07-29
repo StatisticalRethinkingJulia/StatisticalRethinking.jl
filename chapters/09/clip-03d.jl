@@ -1,6 +1,4 @@
 using StatisticalRethinking
-import LogDensityProblems: ValueGradient
-import StatisticalRethinking: HMC2, generate_n_samples
 
 ProjDir = @__DIR__
 cd(ProjDir)
@@ -39,7 +37,7 @@ problem_transformation(p::clip_9_3_model) =
 P = TransformedLogDensity(problem_transformation(p), p)
 ∇P = ADgradient(:ForwardDiff, P);
 
-fig = generate_n_samples(p, ∇P);
+fig = StatisticalRethinking.generate_n_samples(p, ∇P);
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

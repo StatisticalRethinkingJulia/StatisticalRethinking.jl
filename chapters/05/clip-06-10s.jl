@@ -1,6 +1,6 @@
-using StanModels
+using StatisticalRethinking, CmdStan
 
-ProjDir = rel_path_s("..", "scripts", "05")
+ProjDir = rel_path("..", "scripts", "05")
 cd(ProjDir)
 
 wd = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
@@ -58,7 +58,7 @@ m5_3_data = Dict("N" => size(df, 1), "divorce" => df[!, :Divorce],
 rc, chn, cnames = stan(stanmodel, m5_3_data, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME);
 
-describe(chn)
+MCMCChains.describe(chn)
 
 rethinking_results = "
        mean   sd  5.5% 94.5% n_eff Rhat

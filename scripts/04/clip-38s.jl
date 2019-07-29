@@ -134,7 +134,7 @@ chns = set_section(chain, Dict(
 
 # Describe the chains.
 
-describe(chns)
+MCMCChains.describe(chns)
 
 # Perform multivariate OLS.
 

@@ -10,7 +10,7 @@ m = lm(@formula(height ~ weight), df2)
 
 coef(m)
 
-scatter( df2[:height], residuals(m), xlab="Height",
+scatter( df2[!, :height], residuals(m), xlab="Height",
 ylab="Model residual values", lab="Model residuals")
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl

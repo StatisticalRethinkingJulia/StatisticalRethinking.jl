@@ -38,12 +38,12 @@ heightsdata = Dict("N" => length(df2[:height]), "h" => df2[:height]);
 rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME);
 
-describe(chn)
+MCMCChains.describe(chn)
 
 serialize("m4.1s.jls", chn)
 chn2 = deserialize("m4.1s.jls")
 
-describe(chn2)
+MCMCChains.describe(chn2)
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

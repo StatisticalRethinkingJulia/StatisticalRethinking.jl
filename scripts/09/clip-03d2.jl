@@ -1,8 +1,8 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-#using StatisticalRethinking
+using StatisticalRethinking
 import LogDensityProblems: logdensity_and_gradient
-import StatisticalRethinking: HMC2, generate_n_samples
+import StatisticalRethinking: HMC, generate_n_samples
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -57,18 +57,6 @@ P = TransformedLogDensity(problem_transformation(p), p)
 import Zygote
 ∇P = ADgradient(:Zygote, P);
 
-# Tune and sample.
-
-chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
-
-# We use the transformation to obtain the posterior from the chain.
-
-posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
-
-# Extract the posterior means,
-
-[mean(first, posterior), mean(last, posterior)]
-
 # Draw 200 samples:
 
 function draw_n_samples(model, grad;
@@ -79,7 +67,7 @@ function draw_n_samples(model, grad;
   
   samples = zeros(n_samples, 2)
   for i in 1:n_samples
-    q, ptraj, qtraj, accept, dH = HMC2(model, grad, 0.03, 11, q)
+    q, ptraj, qtraj, accept, dH = HMC(model, grad, 0.03, 11, q)
     samples[i, :] = q
   end
   

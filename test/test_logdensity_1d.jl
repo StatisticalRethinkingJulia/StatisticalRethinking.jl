@@ -2,7 +2,7 @@ using LogDensityProblems, Test, Distributions, TransformVariables
 import LogDensityProblems: capabilities, dimension, logdensity
 using LogDensityProblems: logdensity_and_gradient, LogDensityOrder
 
-import ForwardDiff, Flux, Zygote, ReverseDiff, TransformVariables, Random
+import ForwardDiff, Flux, Zygote, TransformVariables, Random
 using Parameters: @unpack
 
 Random.seed!(1)

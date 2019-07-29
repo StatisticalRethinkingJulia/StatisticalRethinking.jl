@@ -1,5 +1,5 @@
 using StatisticalRethinking
-import LogDensityProblems: ValueGradient
+import LogDensityProblems: logdensity, logdensity_and_gradient
 import StatisticalRethinking: HMC2, generate_n_samples
 
 ProjDir = @__DIR__
@@ -53,7 +53,7 @@ function draw_n_samples(model, grad;
 
   samples = zeros(n_samples, 2)
   for i in 1:n_samples
-    q, ptraj, qtraj, accept, dH = HMC2(model, grad, 0.03, 11, q)
+    q, ptraj, qtraj, accept, dH = HMC(model, grad, 0.03, 11, q)
     samples[i, :] = q
   end
 

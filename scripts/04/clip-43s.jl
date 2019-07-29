@@ -59,7 +59,7 @@ rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
 
 # Describe the draws
 
-describe(chn)
+MCMCChains.describe(chn)
 
 # Plot the density of posterior draws
 

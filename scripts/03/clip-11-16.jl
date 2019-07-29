@@ -25,7 +25,7 @@ chn = MCMCChains.Chains(reshape(samples, N, 1, 1), ["toss"]);
 
 # ### snippet 3.12
 
-describe(chn)
+MCMCChains.describe(chn)
 
 # ### snippet 3.13
 

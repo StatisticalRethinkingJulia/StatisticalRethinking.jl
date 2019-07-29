@@ -38,7 +38,7 @@ binomialdata = Dict("N" => length(n2), "n" => n2, "k" => k2);
 rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
   CmdStanDir=CMDSTAN_HOME);
 
-describe(chn)
+MCMCChains.describe(chn)
 
 if rc == 0
   plot(chn)

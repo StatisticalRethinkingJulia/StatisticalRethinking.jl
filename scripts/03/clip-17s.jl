@@ -53,7 +53,7 @@ rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
 
 # Describe the draws
 
-describe(chn)
+MCMCChains.describe(chn)
 
 # Look at area of hpd
 

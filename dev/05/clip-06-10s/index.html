@@ -43,7 +43,41 @@ model {
 }
 &quot;;</code></pre><pre><code class="language-none">&quot;\ndata {\n  int N;\n  vector[N] divorce;\n  vector[N] marriage_z;\n  vector[N] median_age_z;\n}\nparameters {\n  real a;\n  real bA;\n  real bM;\n  real&lt;lower=0&gt; sigma;\n}\nmodel {\n  vector[N] mu = a + median_age_z * bA + marriage_z * bM;\n  sigma ~ uniform( 0 , 10 );\n  bA ~ normal( 0 , 1 );\n  bM ~ normal( 0 , 1 );\n  a ~ normal( 10 , 10 );\n  divorce ~ normal( mu , sigma );\n}\n&quot;</code></pre><p>Define the Stanmodel and set the output format to :mcmcchains.</p><pre><code class="language-julia">stanmodel = Stanmodel(name=&quot;m5_3&quot;,
 monitors = [&quot;a&quot;, &quot;bA&quot;, &quot;bM&quot;, &quot;sigma&quot;, &quot;Divorce&quot;],
- model=m5_3, output_format=:mcmcchains);</code></pre><pre><code class="language-none"></code></pre><p>Input data for cmdstan</p><pre><code class="language-julia">m5_3_data = Dict(&quot;N&quot; =&gt; size(df, 1), &quot;divorce&quot; =&gt; df[!, :Divorce],
+ model=m5_3, output_format=:mcmcchains);</code></pre><pre><code class="language-none">  name =                    &quot;m5_3&quot;
+  nchains =                 4
+  num_samples =             1000
+  num_warmup =                1000
+  thin =                    1
+  monitors =                [&quot;a&quot;, &quot;bA&quot;, &quot;bM&quot;, &quot;sigma&quot;, &quot;Divorce&quot;]
+  model_file =              &quot;m5_3.stan&quot;
+  data_file =               &quot;&quot;
+  output =                  Output()
+    file =                    &quot;&quot;
+    diagnostics_file =        &quot;&quot;
+    refresh =                 100
+  pdir =                   &quot;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/05&quot;
+  tmpdir =                 &quot;/home/travis/build/StatisticalRethinkingJulia/StatisticalRethinking.jl/docs/build/05/tmp&quot;
+  output_format =           :mcmcchains
+  method =                  Sample()
+    num_samples =             1000
+    num_warmup =              1000
+    save_warmup =             false
+    thin =                    1
+    algorithm =               HMC()
+      engine =                  NUTS()
+        max_depth =               10
+      metric =                  CmdStan.diag_e
+      stepsize =                1.0
+      stepsize_jitter =         1.0
+    adapt =                   Adapt()
+      gamma =                   0.05
+      delta =                   0.8
+      kappa =                   0.75
+      t0 =                      10.0
+      init_buffer =             75
+      term_buffer =             50
+      window =                  25
+</code></pre><p>Input data for cmdstan</p><pre><code class="language-julia">m5_3_data = Dict(&quot;N&quot; =&gt; size(df, 1), &quot;divorce&quot; =&gt; df[!, :Divorce],
     &quot;marriage_z&quot; =&gt; df[!, :Marriage_s], &quot;median_age_z&quot; =&gt; df[!, :MedianAgeMarriage_s]);</code></pre><pre><code class="language-none">Dict{String,Any} with 4 entries:
   &quot;divorce&quot;      =&gt; [12.7, 12.5, 10.8, 13.5, 8.0, 11.6, 6.7, 8.9, 6.3, 8.5  …  …
   &quot;N&quot;            =&gt; 50
@@ -65,20 +99,20 @@ Summary Statistics
 │ Row │ parameters │ mean      │ std      │ naive_se   │ mcse       │ ess     │
 │     │ Symbol     │ Float64   │ Float64  │ Float64    │ Float64    │ Any     │
 ├─────┼────────────┼───────────┼──────────┼────────────┼────────────┼─────────┤
-│ 1   │ a          │ 9.68424   │ 0.220684 │ 0.00348931 │ 0.00363819 │ 3537.29 │
-│ 2   │ bA         │ -1.12456  │ 0.295384 │ 0.00467043 │ 0.00547145 │ 2562.7  │
-│ 3   │ bM         │ -0.130023 │ 0.296087 │ 0.00468155 │ 0.00599768 │ 2558.58 │
-│ 4   │ sigma      │ 1.52224   │ 0.165862 │ 0.00262251 │ 0.00267852 │ 3454.74 │
+│ 1   │ a          │ 9.68936   │ 0.212066 │ 0.00335305 │ 0.00314105 │ 3870.88 │
+│ 2   │ bA         │ -1.12743  │ 0.290589 │ 0.00459461 │ 0.00518737 │ 2813.93 │
+│ 3   │ bM         │ -0.128694 │ 0.294072 │ 0.00464969 │ 0.00547369 │ 3123.35 │
+│ 4   │ sigma      │ 1.52435   │ 0.161508 │ 0.00255366 │ 0.00284364 │ 3539.02 │
 
 Quantiles
 
-│ Row │ parameters │ 2.5%      │ 25.0%    │ 50.0%     │ 75.0%     │ 97.5%     │
-│     │ Symbol     │ Float64   │ Float64  │ Float64   │ Float64   │ Float64   │
-├─────┼────────────┼───────────┼──────────┼───────────┼───────────┼───────────┤
-│ 1   │ a          │ 9.2575    │ 9.53509  │ 9.68279   │ 9.83358   │ 10.1213   │
-│ 2   │ bA         │ -1.68208  │ -1.32707 │ -1.12693  │ -0.928455 │ -0.538009 │
-│ 3   │ bM         │ -0.716857 │ -0.32621 │ -0.134734 │ 0.0664071 │ 0.460448  │
-│ 4   │ sigma      │ 1.2418    │ 1.40589  │ 1.50726   │ 1.62318   │ 1.90006   │
+│ Row │ parameters │ 2.5%      │ 25.0%     │ 50.0%     │ 75.0%     │ 97.5%     │
+│     │ Symbol     │ Float64   │ Float64   │ Float64   │ Float64   │ Float64   │
+├─────┼────────────┼───────────┼───────────┼───────────┼───────────┼───────────┤
+│ 1   │ a          │ 9.26422   │ 9.54988   │ 9.69645   │ 9.83018   │ 10.1003   │
+│ 2   │ bA         │ -1.69568  │ -1.32601  │ -1.12596  │ -0.932743 │ -0.553949 │
+│ 3   │ bM         │ -0.715098 │ -0.321962 │ -0.129151 │ 0.0659565 │ 0.457159  │
+│ 4   │ sigma      │ 1.24754   │ 1.41165   │ 1.50799   │ 1.62092   │ 1.88162   │
 , [&quot;a&quot;, &quot;bA&quot;, &quot;bM&quot;, &quot;sigma&quot;])</code></pre><p>Describe the draws</p><pre><code class="language-julia">MCMCChains.describe(chn)</code></pre><pre><code class="language-none">2-element Array{ChainDataFrame,1}
 
 Summary Statistics
@@ -86,20 +120,20 @@ Summary Statistics
 │ Row │ parameters │ mean      │ std      │ naive_se   │ mcse       │ ess     │
 │     │ Symbol     │ Float64   │ Float64  │ Float64    │ Float64    │ Any     │
 ├─────┼────────────┼───────────┼──────────┼────────────┼────────────┼─────────┤
-│ 1   │ a          │ 9.68424   │ 0.220684 │ 0.00348931 │ 0.00363819 │ 3537.29 │
-│ 2   │ bA         │ -1.12456  │ 0.295384 │ 0.00467043 │ 0.00547145 │ 2562.7  │
-│ 3   │ bM         │ -0.130023 │ 0.296087 │ 0.00468155 │ 0.00599768 │ 2558.58 │
-│ 4   │ sigma      │ 1.52224   │ 0.165862 │ 0.00262251 │ 0.00267852 │ 3454.74 │
+│ 1   │ a          │ 9.68936   │ 0.212066 │ 0.00335305 │ 0.00314105 │ 3870.88 │
+│ 2   │ bA         │ -1.12743  │ 0.290589 │ 0.00459461 │ 0.00518737 │ 2813.93 │
+│ 3   │ bM         │ -0.128694 │ 0.294072 │ 0.00464969 │ 0.00547369 │ 3123.35 │
+│ 4   │ sigma      │ 1.52435   │ 0.161508 │ 0.00255366 │ 0.00284364 │ 3539.02 │
 
 Quantiles
 
-│ Row │ parameters │ 2.5%      │ 25.0%    │ 50.0%     │ 75.0%     │ 97.5%     │
-│     │ Symbol     │ Float64   │ Float64  │ Float64   │ Float64   │ Float64   │
-├─────┼────────────┼───────────┼──────────┼───────────┼───────────┼───────────┤
-│ 1   │ a          │ 9.2575    │ 9.53509  │ 9.68279   │ 9.83358   │ 10.1213   │
-│ 2   │ bA         │ -1.68208  │ -1.32707 │ -1.12693  │ -0.928455 │ -0.538009 │
-│ 3   │ bM         │ -0.716857 │ -0.32621 │ -0.134734 │ 0.0664071 │ 0.460448  │
-│ 4   │ sigma      │ 1.2418    │ 1.40589  │ 1.50726   │ 1.62318   │ 1.90006   │
+│ Row │ parameters │ 2.5%      │ 25.0%     │ 50.0%     │ 75.0%     │ 97.5%     │
+│     │ Symbol     │ Float64   │ Float64   │ Float64   │ Float64   │ Float64   │
+├─────┼────────────┼───────────┼───────────┼───────────┼───────────┼───────────┤
+│ 1   │ a          │ 9.26422   │ 9.54988   │ 9.69645   │ 9.83018   │ 10.1003   │
+│ 2   │ bA         │ -1.69568  │ -1.32601  │ -1.12596  │ -0.932743 │ -0.553949 │
+│ 3   │ bM         │ -0.715098 │ -0.321962 │ -0.129151 │ 0.0659565 │ 0.457159  │
+│ 4   │ sigma      │ 1.24754   │ 1.41165   │ 1.50799   │ 1.62092   │ 1.88162   │
 </code></pre><p>Rethinking results</p><pre><code class="language-julia">rethinking_results = &quot;
        mean   sd  5.5% 94.5% n_eff Rhat
 a      9.69 0.22  9.34 10.03  1313    1

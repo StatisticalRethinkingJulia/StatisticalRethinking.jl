@@ -26,26 +26,26 @@ posterior = posterior / sum(posterior)</code></pre><pre><code class="language-no
  8.349725832067523e-10 
  0.0                   </code></pre><h3><a class="nav-anchor" id="snippet-3.3-1" href="#snippet-3.3-1">snippet 3.3</a></h3><p>Draw 10000 samples from this posterior distribution</p><pre><code class="language-julia">N = 10000
 samples = sample(p_grid, Weights(posterior), N);</code></pre><pre><code class="language-none">10000-element Array{Float64,1}:
- 0.844
- 0.887
- 0.653
- 0.601
- 0.548
- 0.807
- 0.804
- 0.675
- 0.704
- 0.318
+ 0.539
+ 0.588
+ 0.679
+ 0.631
+ 0.397
+ 0.797
+ 0.719
+ 0.721
+ 0.411
+ 0.649
  ⋮    
- 0.738
- 0.619
- 0.828
- 0.927
- 0.729
- 0.756
- 0.825
- 0.562
- 0.671</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
+ 0.665
+ 0.758
+ 0.689
+ 0.709
+ 0.545
+ 0.621
+ 0.627
+ 0.454
+ 0.867</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
 
 Iterations        = 1:10000
 Thinning interval = 1
@@ -60,14 +60,14 @@ Summary Statistics
 │ Row │ parameters │ mean     │ std      │ naive_se   │ mcse       │ ess     │
 │     │ Symbol     │ Float64  │ Float64  │ Float64    │ Float64    │ Any     │
 ├─────┼────────────┼──────────┼──────────┼────────────┼────────────┼─────────┤
-│ 1   │ toss       │ 0.638074 │ 0.138445 │ 0.00138445 │ 0.00125121 │ 9263.64 │
+│ 1   │ toss       │ 0.636806 │ 0.138734 │ 0.00138734 │ 0.00143167 │ 10323.8 │
 
 Quantiles
 
 │ Row │ parameters │ 2.5%    │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
 │     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
 ├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│ 1   │ toss       │ 0.353   │ 0.543   │ 0.648   │ 0.74    │ 0.88    │
+│ 1   │ toss       │ 0.349   │ 0.544   │ 0.645   │ 0.738   │ 0.88    │
 </code></pre><p>Describe the chain</p><pre><code class="language-julia">MCMCChains.describe(chn)</code></pre><pre><code class="language-none">2-element Array{ChainDataFrame,1}
 
 Summary Statistics
@@ -75,14 +75,14 @@ Summary Statistics
 │ Row │ parameters │ mean     │ std      │ naive_se   │ mcse       │ ess     │
 │     │ Symbol     │ Float64  │ Float64  │ Float64    │ Float64    │ Any     │
 ├─────┼────────────┼──────────┼──────────┼────────────┼────────────┼─────────┤
-│ 1   │ toss       │ 0.638074 │ 0.138445 │ 0.00138445 │ 0.00125121 │ 9263.64 │
+│ 1   │ toss       │ 0.636806 │ 0.138734 │ 0.00138734 │ 0.00143167 │ 10323.8 │
 
 Quantiles
 
 │ Row │ parameters │ 2.5%    │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
 │     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
 ├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│ 1   │ toss       │ 0.353   │ 0.543   │ 0.648   │ 0.74    │ 0.88    │
+│ 1   │ toss       │ 0.349   │ 0.544   │ 0.645   │ 0.738   │ 0.88    │
 </code></pre><h3><a class="nav-anchor" id="snippet-3.6-1" href="#snippet-3.6-1">snippet 3.6</a></h3><pre><code class="language-julia">v = 0.0
 for i in 1:length(p_grid)
   global v
@@ -90,6 +90,6 @@ for i in 1:length(p_grid)
     v += posterior[i]
   end
 end
-v</code></pre><pre><code class="language-none">0.17105550781217763</code></pre><h3><a class="nav-anchor" id="snippet-3.7-1" href="#snippet-3.7-1">snippet 3.7</a></h3><pre><code class="language-julia">mapreduce(p -&gt; p &lt; 0.5 ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.8-1" href="#snippet-3.8-1">snippet 3.8</a></h3><pre><code class="language-julia">mapreduce(p -&gt; (p &gt; 0.5 &amp;&amp; p &lt; 0.75) ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.9-1" href="#snippet-3.9-1">snippet 3.9</a></h3><pre><code class="language-julia">quantile(samples, 0.8)</code></pre><pre><code class="language-none">0.762</code></pre><h3><a class="nav-anchor" id="snippet-3.10-1" href="#snippet-3.10-1">snippet 3.10</a></h3><pre><code class="language-julia">quantile(samples, [0.1, 0.9])</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
- 0.451
- 0.814</code></pre><p>End of <code>03/clip-06-10.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-05s/"><span class="direction">Previous</span><span class="title">clip-05s</span></a><a class="next" href="../clip-11-16/"><span class="direction">Next</span><span class="title">clip-11-16</span></a></footer></article></body></html>
+v</code></pre><pre><code class="language-none">0.17105550781217763</code></pre><h3><a class="nav-anchor" id="snippet-3.7-1" href="#snippet-3.7-1">snippet 3.7</a></h3><pre><code class="language-julia">mapreduce(p -&gt; p &lt; 0.5 ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.8-1" href="#snippet-3.8-1">snippet 3.8</a></h3><pre><code class="language-julia">mapreduce(p -&gt; (p &gt; 0.5 &amp;&amp; p &lt; 0.75) ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.9-1" href="#snippet-3.9-1">snippet 3.9</a></h3><pre><code class="language-julia">quantile(samples, 0.8)</code></pre><pre><code class="language-none">0.76</code></pre><h3><a class="nav-anchor" id="snippet-3.10-1" href="#snippet-3.10-1">snippet 3.10</a></h3><pre><code class="language-julia">quantile(samples, [0.1, 0.9])</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
+ 0.449
+ 0.812</code></pre><p>End of <code>03/clip-06-10.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-05s/"><span class="direction">Previous</span><span class="title">clip-05s</span></a><a class="next" href="../clip-11-16/"><span class="direction">Next</span><span class="title">clip-11-16</span></a></footer></article></body></html>

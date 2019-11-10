@@ -26,26 +26,26 @@ posterior = posterior / sum(posterior)</code></pre><pre><code class="language-no
  0.003980047920111856  
  0.003992011984019976  </code></pre><p>Draw 10000 samples from this posterior distribution</p><pre><code class="language-julia">N = 10000
 samples = sample(p_grid, Weights(posterior), N);</code></pre><pre><code class="language-none">10000-element Array{Float64,1}:
- 0.787
- 0.858
- 0.962
- 0.505
- 0.617
- 0.728
- 0.555
- 0.973
- 0.929
- 0.851
+ 0.997
+ 0.855
+ 0.939
+ 0.823
+ 0.475
+ 0.871
+ 0.825
+ 0.447
+ 0.974
+ 0.638
  ⋮    
- 0.78 
- 0.75 
- 0.993
- 0.745
- 0.93 
- 0.76 
- 0.788
- 0.687
- 0.979</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
+ 0.738
+ 0.742
+ 0.608
+ 0.581
+ 0.621
+ 0.94 
+ 0.961
+ 1.0  
+ 0.714</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
 
 Iterations        = 1:10000
 Thinning interval = 1
@@ -57,35 +57,35 @@ parameters        = toss
 
 Summary Statistics
 . Omitted printing of 1 columns
-│ Row │ parameters │ mean     │ std      │ naive_se   │ mcse      │ ess     │
-│     │ Symbol     │ Float64  │ Float64  │ Float64    │ Float64   │ Any     │
-├─────┼────────────┼──────────┼──────────┼────────────┼───────────┼─────────┤
-│ 1   │ toss       │ 0.800655 │ 0.162778 │ 0.00162778 │ 0.0015998 │ 10060.7 │
+│ Row │ parameters │ mean     │ std      │ naive_se   │ mcse       │ ess     │
+│     │ Symbol     │ Float64  │ Float64  │ Float64    │ Float64    │ Any     │
+├─────┼────────────┼──────────┼──────────┼────────────┼────────────┼─────────┤
+│ 1   │ toss       │ 0.800871 │ 0.164281 │ 0.00164281 │ 0.00183016 │ 9267.88 │
 
 Quantiles
 
-│ Row │ parameters │ 2.5%     │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
-│     │ Symbol     │ Float64  │ Float64 │ Float64 │ Float64 │ Float64 │
-├─────┼────────────┼──────────┼─────────┼─────────┼─────────┼─────────┤
-│ 1   │ toss       │ 0.401975 │ 0.707   │ 0.841   │ 0.93    │ 0.995   │
+│ Row │ parameters │ 2.5%    │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
+│     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
+├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+│ 1   │ toss       │ 0.394   │ 0.71    │ 0.841   │ 0.932   │ 0.994   │
 </code></pre><h3><a class="nav-anchor" id="snippet-3.12-1" href="#snippet-3.12-1">snippet 3.12</a></h3><pre><code class="language-julia">MCMCChains.describe(chn)</code></pre><pre><code class="language-none">2-element Array{ChainDataFrame,1}
 
 Summary Statistics
 . Omitted printing of 1 columns
-│ Row │ parameters │ mean     │ std      │ naive_se   │ mcse      │ ess     │
-│     │ Symbol     │ Float64  │ Float64  │ Float64    │ Float64   │ Any     │
-├─────┼────────────┼──────────┼──────────┼────────────┼───────────┼─────────┤
-│ 1   │ toss       │ 0.800655 │ 0.162778 │ 0.00162778 │ 0.0015998 │ 10060.7 │
+│ Row │ parameters │ mean     │ std      │ naive_se   │ mcse       │ ess     │
+│     │ Symbol     │ Float64  │ Float64  │ Float64    │ Float64    │ Any     │
+├─────┼────────────┼──────────┼──────────┼────────────┼────────────┼─────────┤
+│ 1   │ toss       │ 0.800871 │ 0.164281 │ 0.00164281 │ 0.00183016 │ 9267.88 │
 
 Quantiles
 
-│ Row │ parameters │ 2.5%     │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
-│     │ Symbol     │ Float64  │ Float64 │ Float64 │ Float64 │ Float64 │
-├─────┼────────────┼──────────┼─────────┼─────────┼─────────┼─────────┤
-│ 1   │ toss       │ 0.401975 │ 0.707   │ 0.841   │ 0.93    │ 0.995   │
+│ Row │ parameters │ 2.5%    │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
+│     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
+├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+│ 1   │ toss       │ 0.394   │ 0.71    │ 0.841   │ 0.932   │ 0.994   │
 </code></pre><h3><a class="nav-anchor" id="snippet-3.13-1" href="#snippet-3.13-1">snippet 3.13</a></h3><pre><code class="language-julia">MCMCChains.hpd(chn, alpha=0.5)</code></pre><pre><code class="language-none">HPD
 
 │ Row │ parameters │ upper   │ lower   │
 │     │ Symbol     │ Float64 │ Float64 │
 ├─────┼────────────┼─────────┼─────────┤
-│ 1   │ toss       │ 0.841   │ 1.0     │</code></pre><h3><a class="nav-anchor" id="snippet-3.14-1" href="#snippet-3.14-1">snippet 3.14</a></h3><pre><code class="language-julia">mode(samples)</code></pre><pre><code class="language-none">0.976</code></pre><h3><a class="nav-anchor" id="snippet-3.15-1" href="#snippet-3.15-1">snippet 3.15</a></h3><pre><code class="language-julia">mean(samples)</code></pre><pre><code class="language-none">0.8006549000000001</code></pre><h3><a class="nav-anchor" id="snippet-3.16-1" href="#snippet-3.16-1">snippet 3.16</a></h3><pre><code class="language-julia">median(samples)</code></pre><pre><code class="language-none">0.841</code></pre><p>End of <code>03/clip-11-16.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-06-10/"><span class="direction">Previous</span><span class="title">clip-06-10</span></a><a class="next" href="../clip-17s/"><span class="direction">Next</span><span class="title">clip-17s</span></a></footer></article></body></html>
+│ 1   │ toss       │ 0.841   │ 1.0     │</code></pre><h3><a class="nav-anchor" id="snippet-3.14-1" href="#snippet-3.14-1">snippet 3.14</a></h3><pre><code class="language-julia">mode(samples)</code></pre><pre><code class="language-none">0.964</code></pre><h3><a class="nav-anchor" id="snippet-3.15-1" href="#snippet-3.15-1">snippet 3.15</a></h3><pre><code class="language-julia">mean(samples)</code></pre><pre><code class="language-none">0.8008712</code></pre><h3><a class="nav-anchor" id="snippet-3.16-1" href="#snippet-3.16-1">snippet 3.16</a></h3><pre><code class="language-julia">median(samples)</code></pre><pre><code class="language-none">0.841</code></pre><p>End of <code>03/clip-11-16.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-06-10/"><span class="direction">Previous</span><span class="title">clip-06-10</span></a><a class="next" href="../clip-17s/"><span class="direction">Next</span><span class="title">clip-17s</span></a></footer></article></body></html>

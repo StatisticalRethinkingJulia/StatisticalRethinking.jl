@@ -26,26 +26,26 @@ posterior = posterior / sum(posterior)</code></pre><pre><code class="language-no
  8.349725832067523e-10 
  0.0                   </code></pre><h3><a class="nav-anchor" id="snippet-3.3-1" href="#snippet-3.3-1">snippet 3.3</a></h3><p>Draw 10000 samples from this posterior distribution</p><pre><code class="language-julia">N = 10000
 samples = sample(p_grid, Weights(posterior), N);</code></pre><pre><code class="language-none">10000-element Array{Float64,1}:
- 0.613
- 0.338
- 0.738
- 0.545
- 0.701
- 0.715
- 0.817
- 0.628
- 0.507
- 0.581
+ 0.686
+ 0.84 
+ 0.655
+ 0.836
+ 0.694
+ 0.59 
+ 0.624
+ 0.869
+ 0.377
+ 0.65 
  ⋮    
- 0.687
- 0.771
- 0.743
- 0.478
- 0.703
- 0.602
- 0.566
- 0.759
- 0.674</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
+ 0.72 
+ 0.735
+ 0.74 
+ 0.656
+ 0.53 
+ 0.773
+ 0.827
+ 0.396
+ 0.661</code></pre><p>In StatisticalRethinkingJulia samples will always be stored in an MCMCChains.Chains object.</p><pre><code class="language-julia">chn = MCMCChains.Chains(reshape(samples, N, 1, 1), [&quot;toss&quot;]);</code></pre><pre><code class="language-none">Object of type Chains, with data of type 10000×1×1 Array{Float64,3}
 
 Iterations        = 1:10000
 Thinning interval = 1
@@ -57,32 +57,32 @@ parameters        = toss
 
 Summary Statistics
 . Omitted printing of 1 columns
-│ Row │ parameters │ mean    │ std      │ naive_se   │ mcse       │ ess     │
-│     │ Symbol     │ Float64 │ Float64  │ Float64    │ Float64    │ Any     │
-├─────┼────────────┼─────────┼──────────┼────────────┼────────────┼─────────┤
-│ 1   │ toss       │ 0.6386  │ 0.139283 │ 0.00139283 │ 0.00141397 │ 9592.04 │
+│ Row │ parameters │ mean     │ std      │ naive_se   │ mcse       │ ess     │
+│     │ Symbol     │ Float64  │ Float64  │ Float64    │ Float64    │ Any     │
+├─────┼────────────┼──────────┼──────────┼────────────┼────────────┼─────────┤
+│ 1   │ toss       │ 0.638086 │ 0.137072 │ 0.00137072 │ 0.00134467 │ 10242.1 │
 
 Quantiles
 
 │ Row │ parameters │ 2.5%    │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
 │     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
 ├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│ 1   │ toss       │ 0.35    │ 0.544   │ 0.647   │ 0.74225 │ 0.879   │
+│ 1   │ toss       │ 0.356   │ 0.546   │ 0.647   │ 0.739   │ 0.878   │
 </code></pre><p>Describe the chain</p><pre><code class="language-julia">MCMCChains.describe(chn)</code></pre><pre><code class="language-none">2-element Array{ChainDataFrame,1}
 
 Summary Statistics
 . Omitted printing of 1 columns
-│ Row │ parameters │ mean    │ std      │ naive_se   │ mcse       │ ess     │
-│     │ Symbol     │ Float64 │ Float64  │ Float64    │ Float64    │ Any     │
-├─────┼────────────┼─────────┼──────────┼────────────┼────────────┼─────────┤
-│ 1   │ toss       │ 0.6386  │ 0.139283 │ 0.00139283 │ 0.00141397 │ 9592.04 │
+│ Row │ parameters │ mean     │ std      │ naive_se   │ mcse       │ ess     │
+│     │ Symbol     │ Float64  │ Float64  │ Float64    │ Float64    │ Any     │
+├─────┼────────────┼──────────┼──────────┼────────────┼────────────┼─────────┤
+│ 1   │ toss       │ 0.638086 │ 0.137072 │ 0.00137072 │ 0.00134467 │ 10242.1 │
 
 Quantiles
 
 │ Row │ parameters │ 2.5%    │ 25.0%   │ 50.0%   │ 75.0%   │ 97.5%   │
 │     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
 ├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│ 1   │ toss       │ 0.35    │ 0.544   │ 0.647   │ 0.74225 │ 0.879   │
+│ 1   │ toss       │ 0.356   │ 0.546   │ 0.647   │ 0.739   │ 0.878   │
 </code></pre><h3><a class="nav-anchor" id="snippet-3.6-1" href="#snippet-3.6-1">snippet 3.6</a></h3><pre><code class="language-julia">v = 0.0
 for i in 1:length(p_grid)
   global v
@@ -90,6 +90,6 @@ for i in 1:length(p_grid)
     v += posterior[i]
   end
 end
-v</code></pre><pre><code class="language-none">0.17105550781217763</code></pre><h3><a class="nav-anchor" id="snippet-3.7-1" href="#snippet-3.7-1">snippet 3.7</a></h3><pre><code class="language-julia">mapreduce(p -&gt; p &lt; 0.5 ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.8-1" href="#snippet-3.8-1">snippet 3.8</a></h3><pre><code class="language-julia">mapreduce(p -&gt; (p &gt; 0.5 &amp;&amp; p &lt; 0.75) ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.9-1" href="#snippet-3.9-1">snippet 3.9</a></h3><pre><code class="language-julia">quantile(samples, 0.8)</code></pre><pre><code class="language-none">0.765</code></pre><h3><a class="nav-anchor" id="snippet-3.10-1" href="#snippet-3.10-1">snippet 3.10</a></h3><pre><code class="language-julia">quantile(samples, [0.1, 0.9])</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
- 0.45 
- 0.815</code></pre><p>End of <code>03/clip-06-10.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-05s/"><span class="direction">Previous</span><span class="title">clip-05s</span></a><a class="next" href="../clip-11-16/"><span class="direction">Next</span><span class="title">clip-11-16</span></a></footer></article></body></html>
+v</code></pre><pre><code class="language-none">0.17105550781217763</code></pre><h3><a class="nav-anchor" id="snippet-3.7-1" href="#snippet-3.7-1">snippet 3.7</a></h3><pre><code class="language-julia">mapreduce(p -&gt; p &lt; 0.5 ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.8-1" href="#snippet-3.8-1">snippet 3.8</a></h3><pre><code class="language-julia">mapreduce(p -&gt; (p &gt; 0.5 &amp;&amp; p &lt; 0.75) ? 1 : 0, +, samples) / N   |&gt; display</code></pre><h3><a class="nav-anchor" id="snippet-3.9-1" href="#snippet-3.9-1">snippet 3.9</a></h3><pre><code class="language-julia">quantile(samples, 0.8)</code></pre><pre><code class="language-none">0.76</code></pre><h3><a class="nav-anchor" id="snippet-3.10-1" href="#snippet-3.10-1">snippet 3.10</a></h3><pre><code class="language-julia">quantile(samples, [0.1, 0.9])</code></pre><pre><code class="language-none">2-element Array{Float64,1}:
+ 0.454
+ 0.811</code></pre><p>End of <code>03/clip-06-10.jl</code></p><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><footer><hr/><a class="previous" href="../clip-05s/"><span class="direction">Previous</span><span class="title">clip-05s</span></a><a class="next" href="../clip-11-16/"><span class="direction">Next</span><span class="title">clip-11-16</span></a></footer></article></body></html>

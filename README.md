@@ -16,12 +16,6 @@ I'm still experimenting with a useful replacement for quap().
 
 StanModels will be updated to use the new suite of packages StanSample.jl, StanOptimize.jl, StanVariational.jl, etc. (all modeled after Tamas Papp's StanDump.jl, StanRun.jl and StanSamples.jl). 
 
-Documentation will also change substantially. I no longer plan to generate and store notebook (and chapter) versions as part of the documentation. If a user is interested to use the notebook versions they can be generated. This also has consequences for testing. 
-
-Figures will be stored in the chapter directories. This is one of the reasons why I am planning this change. I have noticed that the quality of the figures as generated and included by Literate.jl are less than optimal. 
-
-Towards the end of this year I also plan to update TuringModels.jl based on the new AdvancedHMC option.
-
 At the meantime time, Chris Fisher has made tremendous progress with MCMCBenchmarks.jl, which compares three NUTS mcmc options.
 
 ## Introduction
@@ -63,11 +57,10 @@ The author of the book states: "*If that (the statistical model) doesn't make mu
 1. [CmdStan](https://github.com/StanJulia)
 2. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
 3. [TuringLang](https://github.com/TuringLang)
-4. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
 
-Implementations of the models using Turing, CmdStan, DynamicHMC and Mamba can be found in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl), [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [MambaModels](https://github.com/StatisticalRethinkingJulia/MambaModels.jl).
+Implementations of the models using TCmdStan, DynamicHMC and Turing can be found in [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
 
-A secondary objective of `StatisticalRethinkingJulia` is to compare definition and execution of a variety of models in the above four mcmc packages.
+A secondary objective of `StatisticalRethinkingJulia` is to compare definition and execution of a variety of models in the above three mcmc packages.
 
 As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia.
 
@@ -90,7 +83,7 @@ Occasionally lines in scripts are suppressed when Literate processes input sourc
 
 A single snippet clip will be referred to as `03/clip-02.jl`. 
 
-Models with names such as `08/m8.1t.jl`, `04/m4.1s.jl`, `04/m4.4m.jl` and `04/m4.5d.jl` generate mcmc samples using **Turing.jl**, **CmdStan.jl**, **Mamba.jl** or **DynamicHMC.jl** respectively. In some cases the results of the mcmc chains have been stored and retrieved (or regenerated if missing) in other clips, e.g. `04/clip-30s.jl`.
+Models with names such as `08/m8.1s.jl`, `04/m4.1d.jl` and `04/m4.5t.jl` generate mcmc samples using **CmdStan.jl**, **DynamicHMC.jl** or **Turing.jl**, respectively. In some cases the results of the mcmc chains have been stored and retrieved (or regenerated if missing) in other clips, e.g. `04/clip-30s.jl`.
 
 ## Documentation
 
@@ -99,9 +92,9 @@ Models with names such as `08/m8.1t.jl`, `04/m4.1s.jl`, `04/m4.4m.jl` and `04/m4
 
 ## Acknowledgements
 
-Richard Torkar has taken the lead in developing the Turing versions of the models in chapter 8 and subsequent chapters. 
+Tamas Papp has been very helpful during the development of the DynamicHMC versions of the models.
 
-Tamas Papp has also been very helpful during the development og the DynamicHMC versions of the models.
+Richard Torkar has taken the lead in developing the Turing versions of the models in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl). 
 
 The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer are followed closely in several example scripts.
 

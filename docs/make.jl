@@ -46,13 +46,16 @@ end # for chapter
 
 append!(page_list, [Pair("Functions", "index.md")])
 
-makedocs(root = DOC_ROOT,
-    modules = Module[],
+makedocs(
+    format = Documenter.HTML(prettyurls = haskey(ENV, "GITHUB_ACTIONS")),
     sitename = "StatisticalRethinking.jl",
-    authors = "Rob Goedman, Richard Torkar, and contributors.",
+    authors = "Rob Goedman and contributors.",
+    doctest = false,
+    strict = false,
     pages = page_list
 )
 
 deploydocs(root = DOC_ROOT,
     repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
+    push_preview=true,
  )

@@ -71,8 +71,6 @@ A secondary objective of `StatisticalRethinkingJulia` is to compare definition a
 
 As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia.
 
-At least one other package  [(Klara)](https://github.com/JuliaStats/Klara.jl) is available for mcmc in Julia. Time constraints prevented this option to be included in `StatisticalRethinkingJulia`. For similar reasons, the number of models implemented in MambaModels is very limited.
-
 
 ## Layout of the package
 

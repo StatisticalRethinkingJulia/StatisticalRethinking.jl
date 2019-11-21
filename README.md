@@ -14,9 +14,7 @@ Version 0.9.0 introduced model simulations based on DynamicHMC, e.g. the nice ex
 In version 1.0 I plan to switch to predominantly use DynamicHMC but
 I'm still experimenting with a useful replacement for quap().
 
-StanModels will be updated to use the new suite of packages StanSample.jl, StanOptimize.jl, StanVariational.jl, etc. (all modeled after Tamas Papp's StanDump.jl, StanRun.jl and StanSamples.jl). 
-
-At the meantime time, Chris Fisher has made tremendous progress with MCMCBenchmarks.jl, which compares three NUTS mcmc options.
+StanModels has been updated to use the new suite of packages StanSample.jl, StanOptimize.jl, StanVariational.jl, etc. (all modeled after Tamas Papp's StanDump.jl, StanRun.jl and StanSamples.jl). DynamicHMCModels use the latest versions of DynamicHMC and supporting packages. TuringModels use the AdvancedHMC/Nuts variant.
 
 ## Introduction
 
@@ -52,13 +50,13 @@ m4.32 <- ulam(flist, data=d2)
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
-[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using four available mcmc options in Julia:
+[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using three available mcmc options in Julia:
 
-1. [CmdStan](https://github.com/StanJulia)
+1. [Stan](https://github.com/StanJulia/Stan.jl)
 2. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
 3. [TuringLang](https://github.com/TuringLang)
 
-Implementations of the models using TCmdStan, DynamicHMC and Turing can be found in [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
+Implementations of the models using Stan, DynamicHMC and Turing can be found in [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
 
 A secondary objective of `StatisticalRethinkingJulia` is to compare definition and execution of a variety of models in the above three mcmc packages.
 

@@ -55,7 +55,7 @@ makedocs(
     pages = page_list
 )
 
-deploydocs(root = DOC_ROOT,
+deploydocs(
     repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
-    push_preview=true,
+    forcepush=true,
  )

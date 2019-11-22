@@ -57,5 +57,5 @@ makedocs(
 
 deploydocs(
     repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
-    forcepush=true,
+    push_previews=true,
  )

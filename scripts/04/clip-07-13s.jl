@@ -1,7 +1,8 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, CmdStan
-#gr(size=(700,700));
+
+ProjDir = rel_path("..", "scripts", "04")
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -59,6 +60,7 @@ d2 = Uniform(0, 50)
 p[3] = plot(0:0.1:50, [pdf(d2, σ) for σ in 0:0.1:50], lab="Prior on sigma")
 
 plot(p..., layout=(3,1))
+savefig("$ProjDir/fig-07-13.1.pdf")
 
 # ### snippet 4.13
 
@@ -71,6 +73,7 @@ first(df2, 5)
 # Show density of prior_height
 
 density(prior_height, lab="prior_height")
+savefig("$ProjDir/fig-07-13.2.pdf")
 
 # Use data from m4.1s to show CmdStan results
 
@@ -87,5 +90,6 @@ MCMCChains.describe(chn)
 # Plot the density of posterior draws
 
 density(chn)
+savefig("$ProjDir/fig-07-13.3.pdf")
 
 # End of `clip-07-13s.jl`

@@ -1,7 +1,8 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking
-#gr(size=(600,600));
+
+ProjDir = rel_path("..", "scripts", "04")
 
 # ### snippet 4.1
 
@@ -28,6 +29,7 @@ plot!(p1, [9], seriestype="vline")
 annotate!(9, mx, text("step 8", f, :left))
 plot!(p1, [17], seriestype="vline")
 annotate!(17, mx, text("step 16", f, :left))
+savefig("$ProjDir/fig-4_2.1.pdf")
 
 # Generate 3 plots of densities at 3 different step numbers (4, 8 and 16)
 
@@ -44,7 +46,7 @@ for step in [4, 8, 16]
 end
 p3 = plot(p2..., layout=(1, 3))
 plot(p1, p3, layout=(2,1))
-#src savefig("fig4_2.pdf")
+savefig("$ProjDir/fig-4_2.2.pdf")
 
 # ### snippet 4.2
 
@@ -56,7 +58,7 @@ growth = [prod(1 .+ rand(Uniform(0, 0.1), 10)) for i in 1:10000];
 fit = fit_mle(Normal, growth)
 plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(growth, lab="'sample' distribution")
-savefig("s4_3.pdf") #src
+savefig("$ProjDir/fig-4_3.pdf") #src
 
 # ### snippet 4.4
 
@@ -69,7 +71,7 @@ p2 = plot(Normal(fits.μ , fits.σ ), lab="Small normal distribution", fill=(0, 
 density!(p1, big, lab="'big' distribution")
 density!(p2, small, lab="'small' distribution")
 plot(p1, p2, layout=(1, 2))
-#src savefig("s4_4.pdf")
+savefig("$ProjDir/fig-4-4.pdf")
 
 
 # ### snippet 4.5
@@ -78,7 +80,7 @@ log_big = [log(prod(1 .+ rand(Uniform(0, 0.5), 12))) for i in 1:10000];
 fit = fit_mle(Normal, log_big)
 plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(log_big, lab="'sample' distribution")
-#src savefig("s4_5.pdf")
+savefig("$ProjDir/fig-4-5.pdf")
 
 # ### snippet 4.6
 
@@ -122,5 +124,6 @@ p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 
 plot!( p[2], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation", fill=(0, .5,:orange))
 plot(p..., layout=(1, 2))
+savefig("$ProjDir/fig-4-5.2.pdf")
 
 # End of `clip-01-06.jl`

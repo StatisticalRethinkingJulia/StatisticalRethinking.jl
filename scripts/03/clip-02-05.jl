@@ -1,9 +1,8 @@
 # # clip-02-05.jl
 
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
-
 using StatisticalRethinking, Optim
-#gr(size=(600,600));
+
+ProjDir = rel_path("..", "scripts", "03")
 
 # ### snippet 3.2
 
@@ -54,5 +53,6 @@ p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 # Add quadratic approximation
 
 plot(p..., layout=(1, 2))
+savefig("$ProjDir/fig-02-05.pdf")
 
 # End of `03/clip-02-05.jl`

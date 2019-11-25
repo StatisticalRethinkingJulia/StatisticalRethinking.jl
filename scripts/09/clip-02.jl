@@ -3,9 +3,8 @@
 # ### Snippet 9.2
 
 using StatisticalRethinking, LinearAlgebra
-#gr(size=(600, 600))
 
-ProjDir = @__DIR__
+ProjDir = rel_path("..", "scripts", "09")
 
 # Number of samples
 
@@ -27,5 +26,7 @@ for d in [1, 10, 100, 1000]
 end
 
 plot(p)
+savefig("$ProjDir/fig-02.pdf")
+
 
 # End of `09/clip-02.jl 

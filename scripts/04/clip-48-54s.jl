@@ -2,12 +2,8 @@
 
 using StatisticalRethinking
 using CmdStan
-#gr(size=(600,600));
-
-# CmdStan uses a tmp directory to store the output of cmdstan
 
 ProjDir = rel_path("..", "scripts", "04")
-cd(ProjDir)
 
 # ### Preliminary snippets
 
@@ -47,8 +43,7 @@ model {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],model=weightsmodel,
-  output_format=:mcmcchains);
+stanmodel = Stanmodel(name="weights",model=weightsmodel);
 
 # Input data for cmdstan.
 
@@ -94,6 +89,7 @@ for i in 1:length(nvals)
   end
 end
 plot(p..., layout=(2, 2))
+savefig("$ProjDir/fig-48-54.1.pdf")
 
 # ### Snippet 4.50
 
@@ -102,6 +98,7 @@ plot(p..., layout=(2, 2))
 rws, vars, chns = size(chn)
 mu_at_50 = link(50:10:50, chn, [1, 2], mean_weight);
 density(mu_at_50)
+savefig("$ProjDir/fig-48-54.2.pdf")
 
 # ### Snippet 4.54
 
@@ -115,5 +112,6 @@ for i in 1:size(mu, 1)
     leg=false, title="mu_bar = $(round(mean(mu[i]), digits=1))")
 end
 plot(q..., layout=(2, 3), ticks=(3))
+savefig("$ProjDir/fig-48-54.3.pdf")
 
 # End of `clip_48_54s.jl`

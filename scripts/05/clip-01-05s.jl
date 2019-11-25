@@ -1,10 +1,8 @@
 # Load Julia packages (libraries) needed.
 
 using StatisticalRethinking, CmdStan
-#gr(size=(600,600));
 
 ProjDir = rel_path("..", "scripts", "05")
-cd(ProjDir)
 
 # ### snippet 5.1
 
@@ -62,6 +60,7 @@ MCMCChains.describe(chn)
 # Plot the density of posterior draws
 
 plot(chn)
+savefig("$ProjDir/fig-01-05.1.pdf")
 
 # Result rethinking
 
@@ -101,6 +100,7 @@ for i in 1:length(xi)
 end
 scatter!(df[!, :A], df[!, :D], color=:darkblue)
 plot!(xi, yi, lab="Regression line")
+savefig("$ProjDir/fig-01-05.2.pdf")
 
 # End of `05/m5.1s.jl`
 

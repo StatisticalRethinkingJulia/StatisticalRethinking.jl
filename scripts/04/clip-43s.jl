@@ -1,7 +1,6 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
-
 using StatisticalRethinking, CmdStan
-#gr(size=(600,600));
+
+ProjDir = rel_path("..", "scripts", "04")
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -75,5 +74,6 @@ alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)));
 beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)));
 yi = mean(alpha_vals) .+ mean(beta_vals)*xi;
 plot!(xi, yi, lab="Regression line")
+savefig("$ProjDir/fig-43s.pdf")
 
 # End of `clip-43s.jl`

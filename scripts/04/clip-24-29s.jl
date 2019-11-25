@@ -1,7 +1,8 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, Optim
-#gr(size=(600,600));
+
+ProjDir = rel_path("..", "scripts", "04")
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 

@@ -1,7 +1,8 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, CmdStan
-#gr(size=(600,600));
+
+ProjDir = rel_path("..", "scripts", "04")
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -65,5 +66,6 @@ samples = post[sample(1:size(post, 1), Weights(post[:prob]), 10000, replace=true
 # Density of sigma
 
 density(samples[:sigma])
+savefig("$ProjDir/fig-21-21.pdf")
 
 # End of `clip-21-23.jl`

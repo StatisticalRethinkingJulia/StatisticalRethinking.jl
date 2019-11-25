@@ -1,12 +1,7 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, CmdStan
-#gr(size=(600,600));
-
-# CmdStan uses a tmp directory to store the output of cmdstan
-
 ProjDir = rel_path("..", "scripts", "04")
-cd(ProjDir)
 
 # ### snippet 4.7
 
@@ -90,5 +85,6 @@ for i in 1:length(nvals)
     color=:darkblue, xlab="weight")
 end
 plot(p..., layout=(2, 2))
+savefig("$ProjDir/fig-45-47.pdf")
 
 # End of `clip_45_47s.jl`

@@ -6,7 +6,6 @@ using StatisticalRethinking, CmdStan
 # CmdStan uses a tmp directory to store the output of cmdstan
 
 ProjDir = rel_path("..", "scripts", "04")
-cd(ProjDir)
 
 # ### snippet 4.7
 
@@ -62,10 +61,12 @@ samples = post[sample(1:size(post, 1), Weights(post[:prob]), 10000, replace=true
 # Density of mu
 
 density(samples[:mu])
+savefig("$ProjDir/fig-14-20.1.pdf")
 
 # Density of sigma
 
 density(samples[:sigma])
+savefig("$ProjDir/fig-14-20.2.pdf")
 
 # ### Snippet 4.20
 

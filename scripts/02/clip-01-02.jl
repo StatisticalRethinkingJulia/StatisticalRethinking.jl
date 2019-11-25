@@ -2,15 +2,12 @@
 
 using StatisticalRethinking
 
-# ### snippet 2.1
+# snippet 2.1
 
 ways  = [0, 3, 8, 9, 0];
-
-#-
-
 ways/sum(ways)
 
-# ### snippet 2.2
+# snippet 2.2
 
 # Create a distribution with n = 9 (e.g. tosses) and p = 0.5.
 

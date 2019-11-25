@@ -2,7 +2,6 @@ using StatisticalRethinking, CmdStan
 #gr(size=(600,600));
 
 ProjDir = rel_path("..", "scripts", "04")
-cd(ProjDir)
 
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
@@ -30,8 +29,7 @@ model {
 }
 ";
 
-stanmodel = Stanmodel(name="heights", monitors = ["mu", "sigma"],model=heightsmodel,
-  output_format=:mcmcchains);
+stanmodel = Stanmodel(name="heights", model=heightsmodel);
 
 heightsdata = Dict("N" => length(df2[:height]), "h" => df2[:height]);
 

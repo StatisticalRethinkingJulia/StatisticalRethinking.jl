@@ -2,8 +2,7 @@
 
 using StatisticalRethinking
 
-ProjDir = @__DIR__
-cd(ProjDir)
+ProjDir = rel_path("..", "scripts", "09")
 
 # ### snippet 9.3
 
@@ -53,6 +52,7 @@ P = TransformedLogDensity(problem_transformation(p), p)
 
 # Generate and show fig 9.3
 
-fig = StatisticalRethinking.generate_n_samples(p, ∇P);
+fig = StatisticalRethinking.generate_n_samples(p, ∇P; pr=0.5);
+savefig("$ProjDir/fig-03.pdf")
 
 # End of `09/clip-03d.jl`

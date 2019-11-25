@@ -14,7 +14,11 @@ Version 0.9.0 introduced model simulations based on DynamicHMC, e.g. the nice ex
 In version 1.0 I plan to switch to predominantly use DynamicHMC but
 I'm still experimenting with a useful replacement for quap().
 
-StanModels has been updated to use the new suite of packages StanSample.jl, StanOptimize.jl, StanVariational.jl, etc. (all modeled after Tamas Papp's StanDump.jl, StanRun.jl and StanSamples.jl). DynamicHMCModels use the latest versions of DynamicHMC and supporting packages. TuringModels use the AdvancedHMC/Nuts variant.
+StanModels will be updated to use the new suite of packages StanSample.jl, StanOptimize.jl, StanVariational.jl, etc. (all modeled after Tamas Papp's StanDump.jl, StanRun.jl and StanSamples.jl). 
+
+Documentation will also change substantially. I no longer plan to generate and store notebook (and chapter) versions as part of the documentation.
+
+At the meantime time, Chris Fisher has made tremendous progress with MCMCBenchmarks.jl, which compares three NUTS mcmc options.
 
 ## Introduction
 
@@ -52,7 +56,7 @@ The author of the book states: "*If that (the statistical model) doesn't make mu
 
 [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using three available mcmc options in Julia:
 
-1. [Stan](https://github.com/StanJulia/Stan.jl)
+1. [Stan](https://github.com/StanJulia)
 2. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
 3. [TuringLang](https://github.com/TuringLang)
 
@@ -62,7 +66,6 @@ A secondary objective of `StatisticalRethinkingJulia` is to compare definition a
 
 As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia.
 
-
 ## Layout of the package
 
 Instead of having all snippets in a single file, the snippets are organized by chapter and grouped in clips by related snippets. E.g. chapter 0 of the R package has snippets 0.1 to 0.5. Those have been combined into 2 clips:
@@ -70,18 +73,9 @@ Instead of having all snippets in a single file, the snippets are organized by c
 1. `clip-01-03.jl` - contains snippets 0.1 through 0.3
 2. `clip-04-05.jl` - contains snippets 0.4 and 0.5.
 
-These 2 files are in scripts/00 and later on processed by Literate.jl to create 3 derived versions, e.g. from `clip_01_03.jl` in scripts/00:
-
-1. `clip-01-03.md` - included in the documentation
-2. `clip-01-03.ipynb` - stored in the notebooks/_chapter_ directory
-3. `clip-01-03.jl` - stored in the chapters/_chapter_ directory
-
-Occasionally lines in scripts are suppressed when Literate processes input source files, e.g. in Turing scripts the statement
-`#nb Turing.turnprogress(false);` is only inserted in the generated notebook but not in the corresponding chapter .jl script. Similarly `#src ...` will only be included in the .jl scripts in the chapters subdirectories.
-
 A single snippet clip will be referred to as `03/clip-02.jl`. 
 
-Models with names such as `08/m8.1s.jl`, `04/m4.1d.jl` and `04/m4.5t.jl` generate mcmc samples using **CmdStan.jl**, **DynamicHMC.jl** or **Turing.jl**, respectively. In some cases the results of the mcmc chains have been stored and retrieved (or regenerated if missing) in other clips, e.g. `04/clip-30s.jl`.
+Models with names such as `08/m8.1s.jl`, `04/m4.1d.jl` and `04/m4.5t.jl` generate mcmc samples using **Stan.jl** or **DynamicHMC.jl** respectively. 
 
 ## Documentation
 
@@ -90,13 +84,11 @@ Models with names such as `08/m8.1s.jl`, `04/m4.1d.jl` and `04/m4.5t.jl` generat
 
 ## Acknowledgements
 
-Tamas Papp has been very helpful during the development of the DynamicHMC versions of the models.
+Richard Torkar has taken the lead in developing the Turing versions of the models contained in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl). 
 
-Richard Torkar has taken the lead in developing the Turing versions of the models in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl). 
+Tamas Papp has been very helpful during the development og the DynamicHMC versions of the models.
 
 The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer are followed closely in several example scripts.
-
-The  documentation has been generated using Literate.jl and Documenter.jl based on several ideas demonstrated by Tamas Papp in  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
 
 ## Questions and issues
 
@@ -106,7 +98,7 @@ Question and contributions are very welcome, as are feature requests and suggest
 
 Developing `rethinking` must have been an on-going process over several years, `StatisticalRethinkinh.jl` will likely follow a similar path.
 
-1. The initial version (v1) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-process the results using Julia.
+1. The initial version (v0.x) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-process the results using Julia.
 
 2. As mentioned above, a second objective of v1 is to experiment and compare the four selected mcmc options in Julia in terms of results, performance, ease of expressing models, etc.
 
@@ -115,15 +107,6 @@ Developing `rethinking` must have been an on-going process over several years, `
 4. Several other interesting approaches that could become a good basis for such an endeavour are being explored in Julia, e.g. Soss.jl and Omega.jl.
 
 5. Many other R functions such as precis(), link(), shade(), etc. are not in v1, although some very early versions are being tested. Expect significant refactoring of those in future versions and at the same time better integration with MCMCChains.Chains objects.
-
-6. The Mamba examples should really use `@everywhere using Mamba` in stead of `using Mamba`. This was done to get around a limitation in Literate.jl to test the notebooks when running in distributed mode. 
-
-7. In the `src` directory of all packages is a file scriptentry.jl which defines an object `script_dict` which is used to control the generation of documentation, notebooks and .jl scripts in chapters and testing of the notebooks. See `?ScriptEntry` or enter e.g. `script_dict["02"]` in the REPL. In the model packages this file is suffixed by an indication of the used mcmc option. e.g. `script_dict_d` in DynamicHMCModels.
-
-8. A utility function, generate() is part of each package to regenerate notebooks and chapter scripts, please see ?generate. Again, e.g. `generate_t` in TuringModels generates all model notebooks and chapter scripts for Turing models.
-
-9. In a similar fashion, borrowed from DynamicHMCExamples I define several variations on `rel_path()`. By itself, `rel_path()` points at the scr directory of StatisticalRethinking.jl and e.g. `rel_path_s()` points to the src directory of StanModels. The `rel_path()` version is typically used to read in data files. All others are used to locate directorres to read from or store generated files into.
-
 
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
 [docs-dev-url]: https://statisticalrethinkingjulia.github.io/StatisticalRethinking.jl/latest

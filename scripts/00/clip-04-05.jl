@@ -3,7 +3,8 @@
 # ### snippet 0.5 is replaced by below `using StatisticalRethinking`.
 
 using StatisticalRethinking, GLM
-#gr(size=(600, 600));
+
+ProjDir = rel_path("..", "scripts", "00")
 
 # ### snippet 0.4
 
@@ -24,5 +25,6 @@ coef(m)
 
 scatter( df2[!, :height], residuals(m), xlab="Height",
 ylab="Model residual values", lab="Model residuals")
-  
+savefig("$ProjDir/Fig-04-05.pdf")
+
 # End of `00/clip-04-05.jl`

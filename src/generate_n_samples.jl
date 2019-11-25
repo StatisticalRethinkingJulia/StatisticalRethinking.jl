@@ -20,4 +20,3 @@ function generate_n_samples(model, grad;
   fig
   
 end
-

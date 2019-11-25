@@ -9,10 +9,9 @@
 # We begin by importing all the necessary libraries.
 
 using StatisticalRethinking, CmdStan, GLM
-#gr(size=(600,600))
 
-ProjDir = rel_path("..", "scripts", "00")
-cd(ProjDir)
+
+ProjDir = rel_path("..", "scripts", "04")
 
 # Import the dataset.
 
@@ -176,8 +175,3 @@ println("  OLS loss: $ols_loss1")
 println("Test set:")
 println("  Bayes loss: $bayes_loss2")
 println("  OLS loss: $ols_loss2")
-
-# Plot the chains.
-
-#plot(chain)
-

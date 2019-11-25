@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, CmdStan
+using StatisticalRethinking, Stan
 #gr(size=(600,600));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
@@ -10,7 +10,7 @@ cd(ProjDir)
 
 # Define the Stan language model
 
-binomialstanmodel = "
+m_17s = "
 // Inferring a Rate
 data {
   int N;
@@ -33,8 +33,7 @@ model {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
-  output_format=:mcmcchains);
+sm = SampleModel("m_17s", m_17s);
 
 # Use 4 observations
 
@@ -44,28 +43,30 @@ k2 = [6, 5, 7, 6]
 
 # Input data for cmdstan
 
-binomialdata = Dict("N" => length(n2), "n" => n2, "k" => k2);
+m_17s_data = Dict("N" => length(n2), "n" => n2, "k" => k2);
 
 # Sample using cmdstan
  
-rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file_) = stan_sample(sm, data=m_17s_data)
 
-# Describe the draws
+if sample_file !== nothing
 
-MCMCChains.describe(chn)
+  # Describe the draws
 
-# Look at area of hpd
+  show(chn)
 
-MCMCChains.hpd(chn)
+  # Look at area of hpd
 
-# Plot the 4 chains
+  hpd(chn)
 
-if rc == 0
+  # Plot the 4 chains
+
   mixeddensity(chn, xlab="height [cm]", ylab="density")
   bnds = hpd(chn[:,1,1])
   vline!([bnds[:lower]], line=:dash)
   vline!([bnds[:upper]], line=:dash)
+  savefig("Fig_17s.pdf")
+
 end
 
 # End of `clip-06-16s.jl`

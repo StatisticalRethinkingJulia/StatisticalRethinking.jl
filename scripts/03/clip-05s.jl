@@ -2,14 +2,14 @@
 
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, CmdStan
+using StatisticalRethinking, StanSample
 
 ProjDir = @__DIR__
 cd(ProjDir)
 
 # Define the Stan language model
 
-binomialstanmodel = "
+model_05s = "
 // Inferring a Rate
 data {
   int N;
@@ -32,8 +32,7 @@ model {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
-  output_format=:mcmcchains);
+sm = SampleModel("m_05s", model_05s);
 
 # Use 16 observations
 
@@ -44,22 +43,27 @@ k2 = rand(d, N2);
 
 # Input data for cmdstan
 
-binomialdata = Dict("N" => length(n2), "n" => n2, "k" => k2);
+m_05s_data = Dict("N" => length(n2), "n" => n2, "k" => k2);
 
 # Sample using cmdstan
  
-rc, chn, cnames = stan(stanmodel, binomialdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
-
-# Describe the draws
-
-MCMCChains.describe(chn)
+(sample_file, log_file) = stan_sample(sm, data=m_05s_data);
 
 # Plot the 4 chains
 
-if rc == 0
+if sample_file !== nothing
+
+  # Describe the draws
+
+  chn = read_samples(sm)
+  show(chn)
   plot(chn)
   savefig("Fig-05s.pdf")
+
 end
+
+# Notice in this example that the prior theta ("thetaprior"),
+# the `unconditioned-on-the data theta` shows a mean of 0.5
+# and a std of 0.29.
 
 # End of `03/clip-05s.jl`

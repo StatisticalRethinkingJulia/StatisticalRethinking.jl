@@ -61,7 +61,8 @@ function loglik(x)
   -ll
 end
 
-(qmap, opt) = quap(loglik, x0, lower, upper)
+opt = optimize(loglik, lower, upper, x0, Fminbox(GradientDescent()))
+qmap = Optim.minimizer(opt)
 
 # Show optimization results
 

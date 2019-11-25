@@ -1,4 +1,4 @@
-using StatisticalRethinking, CmdStan
+using StatisticalRethinking, StanSample
 
 ProjDir = rel_path("..", "scripts", "04")
 
@@ -15,8 +15,8 @@ df = convert(DataFrame, howell1);
 # Use only adults
 
 df2 = filter(row -> row[:age] >= 18, df);
-mean_weight = mean(df2[:weight]);
-df2[:weight_c] = df2[:weight] .- mean_weight;
+mean_weight = mean(df2[:, :weight]);
+df2[!, :weight_c] = df2[:, :weight] .- mean_weight;
 first(df2, 5)
 
 # Define the Stan language model
@@ -44,36 +44,40 @@ generated quantities {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="weights", model=weightsmodel,
-  output_format=:mcmcchains);
+sm = SampleModel("weights", weightsmodel);
 
 # Input data for cmdstan
 
-heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height], "weight" => df2[:weight_c]);
+heightsdata = Dict("N" => length(df2[:, :height]), 
+	"height" => df2[:, :height], "weight" => df2[:, :weight_c]);
 
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  summary=false, CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file) = stan_sample(sm, data=heightsdata);
 
-# Describe the draws
+if sample_file !== nothing
 
-MCMCChains.describe(chn)
+	# Describe the draws
 
-# Plot the density of posterior draws
+	show(chn)
 
-plot(chn)
+	# Plot the density of posterior draws
 
-# Plot regression line using means and observations
+	plot(chn)
+	savefig("$ProjDir/Fig-43s.1.pdf")
 
-scatter(df2[:weight_c], df2[:height], lab="Observations",
-  ylab="height [cm]", xlab="weight[kg]")
-xi = -16.0:0.1:18.0
-rws, vars, chns = size(chn)
-alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)));
-beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)));
-yi = mean(alpha_vals) .+ mean(beta_vals)*xi;
-plot!(xi, yi, lab="Regression line")
-savefig("$ProjDir/fig-43s.pdf")
+	# Plot regression line using means and observations
+
+	scatter(df2[:, :weight_c], df2[:, :height], lab="Observations",
+	  ylab="height [cm]", xlab="weight[kg]")
+	xi = -16.0:0.1:18.0
+	rws, vars, chns = size(chn)
+	alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)));
+	beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)));
+	yi = mean(alpha_vals) .+ mean(beta_vals)*xi;
+	plot!(xi, yi, lab="Regression line")
+	savefig("$ProjDir/Fig-43s.2.pdf")
+
+end
 
 # End of `clip-43s.jl`

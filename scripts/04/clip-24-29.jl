@@ -2,17 +2,12 @@
 
 using StatisticalRethinking, Optim
 
-ProjDir = rel_path("..", "scripts", "04")
-
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path("..", "scripts", "04")
+ProjDir = @__DIR__
 cd(ProjDir)
 
 # ### snippet 4.24
 
-howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
-df = convert(DataFrame, howell1);
+df = DataFrame(CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';'))
 df2 = filter(row -> row[:age] >= 18, df);
 first(df2, 5)
 
@@ -30,7 +25,7 @@ m4_1 = "
 
 # Compute MAP
 
-obs = df2[:height]
+obs = df2[:, :height]
 
 function loglik(x)
   ll = 0.0
@@ -64,7 +59,7 @@ m4_2 = "
 
 # Compute MAP
 
-obs = df2[:height]
+obs = df2[:, :height]
 
 function loglik2(x)
   ll = 0.0

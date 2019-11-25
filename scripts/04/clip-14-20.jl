@@ -1,9 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, CmdStan
-#gr(size=(600,600));
-
-# CmdStan uses a tmp directory to store the output of cmdstan
+using StatisticalRethinking, StanSample
 
 ProjDir = rel_path("..", "scripts", "04")
 
@@ -40,33 +37,35 @@ sigma_list = repeat(range(4, 9, length=200), inner=200);
 ll = zeros(40000);
 for i in 1:40000
     d1 = Normal(mu_list[i], sigma_list[i])
-    ll[i] = sum(log.(pdf.(d1, df2[:height])))
+    ll[i] = sum(log.(pdf.(d1, df2[:, :height])))
 end
   
 d2 = Normal(178.0, 20.0)
 d3 = Uniform(0, 50)
-prod = ll + log.(pdf.(d2, mu_list)) + log.(pdf.(d3, sigma_list))
-prob = exp.(prod .- maximum(prod))
-post = DataFrame(mu=mu_list, sigma=sigma_list, ll=ll, prod=prod, prob=prob)
+the_prod = ll + log.(pdf.(d2, mu_list)) + log.(pdf.(d3, sigma_list))
+prob = exp.(the_prod .- maximum(the_prod))
+post = DataFrame(mu=mu_list, sigma=sigma_list, ll=ll, 
+	prod=the_prod, prob=prob)
 first(post, 10)
 
 # ### Snippet 4.15
 
 # Sample post
 
-samples = post[sample(1:size(post, 1), Weights(post[:prob]), 10000, replace=true), :]
+samples = post[sample(1:size(post, 1), Weights(post[:, :prob]), 
+	10000, replace=true), :]
 
 # ### Snippet 4.19
 
 # Density of mu
 
-density(samples[:mu])
-savefig("$ProjDir/fig-14-20.1.pdf")
+density(samples[:, :mu])
+savefig("$ProjDir/Fig-14-20.1.pdf")
 
 # Density of sigma
 
-density(samples[:sigma])
-savefig("$ProjDir/fig-14-20.2.pdf")
+density(samples[:, :sigma])
+savefig("$ProjDir/Fig-14-20.2.pdf")
 
 # ### Snippet 4.20
 
@@ -78,4 +77,4 @@ savefig("$ProjDir/fig-14-20.2.pdf")
 
 #hpd(samples[:sigma])
 
-# End of `clip-14-20.jl`
+# End of `04/clip-14-20.jl`

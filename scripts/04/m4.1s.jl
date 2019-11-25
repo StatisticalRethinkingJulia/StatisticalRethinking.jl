@@ -1,7 +1,6 @@
-using StatisticalRethinking, CmdStan
-#gr(size=(600,600));
+using StatisticalRethinking, StanSample
 
-ProjDir = rel_path("..", "scripts", "04")
+ProjDir = @__DIR__
 
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df = convert(DataFrame, howell1);
@@ -29,18 +28,21 @@ model {
 }
 ";
 
-stanmodel = Stanmodel(name="heights", model=heightsmodel);
+sm = SampleModel("heights", heightsmodel);
 
-heightsdata = Dict("N" => length(df2[:height]), "h" => df2[:height]);
+heightsdata = Dict("N" => length(df2[:, :height]), "h" => df2[:, :height]);
 
-rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file) = stan_sample(sm, data=heightsdata);
 
-MCMCChains.describe(chn)
+if sample_file !== nothing
+  chn = read_samples(sm)
+  show(chn)
 
-serialize("m4.1s.jls", chn)
-chn2 = deserialize("m4.1s.jls")
+  serialize("m4.1s.jls", chn)
+  chn2 = deserialize("m4.1s.jls")
 
-MCMCChains.describe(chn2)
+  show(chn2)
+
+end
 
 # end of m4.1s

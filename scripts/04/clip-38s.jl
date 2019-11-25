@@ -8,7 +8,7 @@
 
 # We begin by importing all the necessary libraries.
 
-using StatisticalRethinking, CmdStan, GLM
+using StatisticalRethinking, StanSample, GLM
 
 
 ProjDir = rel_path("..", "scripts", "04")
@@ -109,8 +109,7 @@ model {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="linear_regression",
-  model=lrmodel, output_format=:mcmcchains);
+sm = SampleModel("linear_regression", lrmodel);
 
 # Input data for cmdstan
 
@@ -118,60 +117,66 @@ lrdata = Dict("N" => size(train, 1), "K" => size(dmat, 2), "y" => train_label, "
 
 # Sample using cmdstan
  
-rc, chain, cnames = stan(stanmodel, lrdata, ProjDir, diagnostics=false,
-  summary=false, CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file) = stan_sample(sm, data=lrdata);
+
+if sample_file !== nothing
   
-# Convert to a  Chain object
+  # Convert samples to a Chain object and update section
 
-chns = set_section(chain, Dict(
-    :parameters => ["beta.1", "beta.2", "sigma"],
-    :linpred => ["linpred.$i" for i in 1:247],
-    :internals => ["lp__", "accept_stat__", "stepsize__", "treedepth__",
-      "n_leapfrog__", "divergent__", "energy__"]
+  chns = read_samples(sm)
+  chns = set_section(chns, Dict(
+      :parameters => ["beta.1", "beta.2", "sigma"],
+      :linpred => ["linpred.$i" for i in 1:247],
+      :internals => ["lp__", "accept_stat__", "stepsize__", "treedepth__",
+        "n_leapfrog__", "divergent__", "energy__"]
+    )
   )
-)
 
-# Describe the chains.
+  # Describe the chains.
 
-MCMCChains.describe(chns)
+  show(chns)
 
-# Perform multivariate OLS.
+  # Perform multivariate OLS.
 
-ols = lm(@formula(height ~ weight), train_cut)
+  ols = lm(@formula(height ~ weight), train_cut)
 
-# Store our predictions in the original dataframe.
-train_cut.OLSPrediction = predict(ols);
-test_cut.OLSPrediction = predict(ols, test_cut);
+  # Store our predictions in the original dataframe.
+  train_cut.OLSPrediction = predict(ols);
+  test_cut.OLSPrediction = predict(ols, test_cut);
 
-# Make a prediction given an input vector.
+  # Make a prediction given an input vector.
 
-function prediction(chn, x)
-    α = Array(chn[Symbol("beta.1")]);
-    β = Array(chn[Symbol("beta.2")]);
-    return  mean(α) .+ x .* mean(β)
+  function prediction(chn, x)
+      α = Array(chn[Symbol("beta.1")]);
+      β = Array(chn[Symbol("beta.2")]);
+      return  mean(α) .+ x .* mean(β)
+  end
+
+  # Calculate the predictions for the training and testing sets.
+
+  train_cut.BayesPredictions = unstandardize(prediction(chns, train), train_l_orig)[:,1];
+  test_cut.BayesPredictions = unstandardize(prediction(chns, test), test_l_orig)[:,1];
+
+  # Show the first side rows of the modified dataframe.
+
+  remove_names = filter(x->!in(x, [:age, :male]), names(test_cut));
+  test_cut = test_cut[:, remove_names];
+  first(test_cut, 6)
+
+  bayes_loss1 = sum((train_cut.BayesPredictions - train_cut.height).^2);
+  ols_loss1 = sum((train_cut.OLSPrediction - train_cut.height).^2);
+
+  bayes_loss2 = sum((test_cut.BayesPredictions - test_cut.height).^2);
+  ols_loss2 = sum((test_cut.OLSPrediction - test_cut.height).^2);
+
+  println("\nTraining set:")
+  println("  Bayes loss: $bayes_loss1")
+  println("  OLS loss: $ols_loss1")
+
+  println("Test set:")
+  println("  Bayes loss: $bayes_loss2")
+  println("  OLS loss: $ols_loss2")
+
 end
 
-# Calculate the predictions for the training and testing sets.
-
-train_cut.BayesPredictions = unstandardize(prediction(chns, train), train_l_orig)[:,1];
-test_cut.BayesPredictions = unstandardize(prediction(chns, test), test_l_orig)[:,1];
-
-# Show the first side rows of the modified dataframe.
-
-remove_names = filter(x->!in(x, [:age, :male]), names(test_cut));
-test_cut = test_cut[remove_names];
-first(test_cut, 6)
-
-bayes_loss1 = sum((train_cut.BayesPredictions - train_cut.height).^2);
-ols_loss1 = sum((train_cut.OLSPrediction - train_cut.height).^2);
-
-bayes_loss2 = sum((test_cut.BayesPredictions - test_cut.height).^2);
-ols_loss2 = sum((test_cut.OLSPrediction - test_cut.height).^2);
-
-println("\nTraining set:")
-println("  Bayes loss: $bayes_loss1")
-println("  OLS loss: $ols_loss1")
-
-println("Test set:")
-println("  Bayes loss: $bayes_loss2")
-println("  OLS loss: $ols_loss2")
+# end of "04/clip-38s.jl"

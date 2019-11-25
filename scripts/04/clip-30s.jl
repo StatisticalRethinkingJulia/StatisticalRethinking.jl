@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, CmdStan, LinearAlgebra
+using StatisticalRethinking, StanSample, LinearAlgebra
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 

@@ -31,14 +31,15 @@ MCMCChains.describe(chn)
 
 # Plot the chain
 
-plot(chn)
+p1 = plot(chn)
+savefig(p1, "$ProjDir/Fig-02-05.1.pdf")
 
 # ### snippet 3.4
 
 # Create a vector to hold the plots so we can later combine them
 
-p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
-p[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
+p2 = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
+p2[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
 
 # ### snippet 3.5
 
@@ -47,12 +48,12 @@ p[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
 w = 6
 n = 9
 x = 0:0.01:1
-p[2] = density(samples, ylim=(0.0, 5.0), lab="Sample density")
-p[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
+p2[2] = density(samples, ylim=(0.0, 5.0), lab="Sample density")
+p2[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
 
 # Add quadratic approximation
 
-plot(p..., layout=(1, 2))
-savefig("$ProjDir/fig-02-05.pdf")
+p3 = plot(p2..., layout=(1, 2))
+savefig(p3, "$ProjDir/Fig-02-05.2.pdf")
 
 # End of `03/clip-02-05.jl`

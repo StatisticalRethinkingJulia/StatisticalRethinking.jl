@@ -3,11 +3,8 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking, CmdStan
-#gr(size=(600,800));
 
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path("..", "scripts", "03")
+ProjDir = @__DIR__
 cd(ProjDir)
 
 # Define the Stan language model
@@ -62,6 +59,7 @@ MCMCChains.describe(chn)
 
 if rc == 0
   plot(chn)
+  savefig("Fig-05s.pdf")
 end
 
 # End of `03/clip-05s.jl`

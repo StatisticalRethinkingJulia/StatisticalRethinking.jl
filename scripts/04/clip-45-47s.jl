@@ -67,16 +67,14 @@ for i in 1:length(nvals)
 
     xi = 30.0:0.1:65.0
     chnN = read_samples(sm)
-    rws, vars, chns = size(chnN)
-    alpha_vals = convert(Vector{Float64}, reshape(chnN.value[:, 1, :], (rws*chns)))
-    beta_vals = convert(Vector{Float64}, reshape(chnN.value[:, 2, :], (rws*chns)))
-
-    p[i] = scatter(df2[1:N, :weight], df2[1:N, :height], leg=false,
-      color=:darkblue, xlab="weight")
+    sample_df = DataFrame(chnN)
+    p[i] = scatter(df2[1:N, :weight], df2[1:N, :height], 
+      leg=false, xlab="weight_c")
     for j in 1:N
-      yi = alpha_vals[j] .+ beta_vals[j]*xi
-      plot!(p[i], xi, yi, title="N = $N", color=:lightgrey)
+      yi = sample_df[j, :alpha] .+ sample_df[j, :beta]*xi
+      plot!(p[i], xi, yi, title="N = $N")
     end
+
     scatter!(p[i], df2[1:N, :weight], df2[1:N, :height], leg=false,
       color=:darkblue, xlab="weight")
 

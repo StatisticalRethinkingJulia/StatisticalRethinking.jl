@@ -34,6 +34,8 @@ include("scale.jl")
 include("shading.jl")
 include("generate_n_samples.jl")
 include("link.jl")
+include("HMC.jl")
+include("dhmc2mcmcchains.jl")
 
 export
 	rel_path,
@@ -41,6 +43,10 @@ export
  	describe,
  	#shade,
  	scale,
- 	standardize
+ 	standardize,
+ 	HMC,
+ 	create_a3d,
+ 	insert_chain,
+ 	create_mcmcchains
 
 end # module

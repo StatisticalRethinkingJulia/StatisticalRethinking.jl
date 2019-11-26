@@ -1,8 +1,7 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking
-import LogDensityProblems: logdensity, logdensity_and_gradient
-import StatisticalRethinking: HMC2, generate_n_samples
+using StatisticalRethinking, DynamicHMC
+using LogDensityProblems, TransformVariables
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -13,24 +12,18 @@ cd(ProjDir)
 
 # Construct the logdensity problem
 
-struct clip_9_3_model{TY <: AbstractVector, TX <: AbstractVector}
+Base.@kwdef mutable struct clip_9_3_model{
+  TY <: AbstractVector, TX <: AbstractVector}
     "Observations."
     y::TY
     "Covariate"
     x::TX
 end
 
-# Make the type callable with the parameters *as a single argument*.
+# Write a function to return properly dimensioned transformation.
 
-function (problem:: clip_9_3_model)(θ)
-    @unpack y, x, = problem    # extract the data
-    @unpack muy, mux = θ     # works on the named tuple too
-    ll = 0.0
-    ll += loglikelihood(Normal(mux, 1), x)
-    ll += loglikelihood(Normal(muy, 1), y)
-    ll += logpdf(Normal(0, 1), mux) 
-    ll += logpdf(Normal(0, 1), muy)
-    ll
+function make_transformation(model::clip_9_3_model)
+  as((muy = asℝ, mux = asℝ))
 end
 
 # Instantiate the model with data and inits.
@@ -41,31 +34,56 @@ N = 100
 x = rand(Normal(0, 1), N)
 y = rand(Normal(0, 1), N)
  
-p = clip_9_3_model(y, x)
+model = clip_9_3_model(;y=y, x=x)
+
 θ = (muy = 0.0, mux=0.0)
-p(θ)
 
-# Write a function to return properly dimensioned transformation.
+# Make the type callable with the parameters *as a single argument*.
 
-problem_transformation(p::clip_9_3_model) =
-    as((muy = asℝ, mux = asℝ))
+function (model:: clip_9_3_model)(θ)
+    @unpack y, x, = model    # extract the data
+    @unpack muy, mux = θ     # works on the named tuple too
+    ll = 0.0
+    ll += loglikelihood(Normal(mux, 1), x)
+    ll += loglikelihood(Normal(muy, 1), y)
+    ll += logpdf(Normal(0, 1), mux) 
+    ll += logpdf(Normal(0, 1), muy)
+    ll
+end
+
+println()
+model(θ) |> display
+println()
+
 
 # Wrap the problem with a transformation, then use Flux for the gradient.
 
-P = TransformedLogDensity(problem_transformation(p), p)
+P = TransformedLogDensity(make_transformation(model), model)
 ∇P = ADgradient(:ForwardDiff, P);
 
 # Tune and sample.
 
-chain, NUTS_tuned = NUTS_init_tune_mcmc(∇P, 1000);
+results = mcmc_with_warmup(Random.GLOBAL_RNG, ∇P, 1000);
 
 # We use the transformation to obtain the posterior from the chain.
 
-posterior = TransformVariables.transform.(Ref(problem_transformation(p)), get_position.(chain));
+posterior = P.transformation.(results.chain)
 
 # Extract the posterior means,
 
 [mean(first, posterior), mean(last, posterior)]
+a3d = Array{Float64, 3}(undef, 1000, 2, 1)
+for j in 1:1
+  for i in 1:1000
+    a3d[i, 1, j] = values(posterior[i].muy)
+    a3d[i, 2, j] = values(posterior[i].mux)
+  end
+end
+
+pnames = ["muy", "mux"]
+sections = Dict(:parameters =>pnames,)
+chn = create_mcmcchains(a3d, pnames, sections, start=1)
+show(chn)
 
 # Draw 200 samples:
 
@@ -85,7 +103,8 @@ function draw_n_samples(model, grad;
   
 end
 
-samples = draw_n_samples(p, ∇P; n_samples=200);
-mean(samples, dims=1)
+samples = draw_n_samples(model, ∇P; n_samples=200);
+mean(samples, dims=1) |> display
+mean(chn) |> display
     
-# End of `09/clip-03.jl`
+# End of `09/clip-03d1.jl`

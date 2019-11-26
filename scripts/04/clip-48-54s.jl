@@ -82,14 +82,11 @@ if sample_file !== nothing
     if sample_file !== nothing
 
       chnN = read_samples(sm)
-      rws, vars, chns = size(chnN) 
       xi = -15.0:0.1:15.0
-      alpha_vals = convert(Vector{Float64}, reshape(chnN.value[:, 1, :], (rws*chns)))
-      beta_vals = convert(Vector{Float64}, reshape(chnN.value[:, 2, :], (rws*chns)))
-
+      sample_df = DataFrame(chnN)
       p[i] = scatter(df2[1:N, :weight_c], df2[1:N, :height], leg=false, xlab="weight_c")
       for j in 1:N
-        yi = alpha_vals[j] .+ beta_vals[j]*xi
+        yi = sample_df[j, :alpha] .+ sample_df[j, :beta]*xi
         plot!(p[i], xi, yi, title="N = $N")
       end
 

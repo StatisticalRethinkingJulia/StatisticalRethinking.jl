@@ -42,9 +42,9 @@ prior2 = [exp( -5*abs( p - 0.5 ) ) for p in p_grid]
 
 p3 = plot( 
   xlab="probability of water" , ylab="posterior probability",
-  lab = "semi_uniform", title="Other priors" )
-scatter!(p3, p_grid, prior1, lab = "semi_uniform grid point")
-scatter!(p3, p_grid, prior2,  lab = "double_exponential grid point" )
+  lab = "semi_uniform", title="Other priors", legend=:bottomright )
+scatter!(p3, p_grid, prior1, lab = "semi_uniform")
+scatter!(p3, p_grid, prior2,  lab = "double_exponential" )
 savefig("$ProjDir/Fig-03-05.pdf")
 
 # End of `02/clip-03-05.jl`

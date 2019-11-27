@@ -16,7 +16,7 @@ jobs:
         with:
           version: ${{ matrix.julia-version }}
       - name: Install dependencies
-        run: julia --project=docs -e 'using Pkg; Pkg.instantiate(); Pkg.update()'
+        run: julia --project=docs -e 'using Pkg; Pkg.add("StatisticalRethinking"); Pkg.instantiate(); Pkg.update()'
       - name: Build and deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -2,7 +2,7 @@
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, Optim
+using StatisticalRethinking, Optim, StanSample
 #gr(size=(600,600));
 
 # ### snippet 3.11
@@ -25,22 +25,29 @@ chn = MCMCChains.Chains(reshape(samples, N, 1, 1), ["toss"]);
 
 # ### snippet 3.12
 
-MCMCChains.describe(chn)
+MCMCChains.show(chn)
 
 # ### snippet 3.13
 
-MCMCChains.hpd(chn, alpha=0.5)
+MCMCChains.hpd(chn, alpha=0.5) |> display
 
 # ### snippet 3.14
 
-mode(samples)
+println("\nMode: $(mode(samples))\n")
 
 # ### snippet 3.15
 
-mean(samples)
+println("Mean: $(mean(samples))\n")
 
 # ### snippet 3.16
 
-median(samples)
+println("Median: $(median(samples))\n")
+
+density(samples, lab="density")
+vline!([mode(samples)], line=:dash, lab="mode")
+vline!([median(samples)], line=:dash, lab="median")
+vline!([mean(samples)], line=:dash, lab="mean")
+savefig("Fig-11-16.pdf")
+
 
 # End of `03/clip-11-16.jl`

@@ -18,12 +18,12 @@ samples[1:5]
 # Draw 10000 samples from this posterior distribution
 
 N = 10000
-samples = sample(p_grid, Weights(posterior), N);
+samples2 = sample(p_grid, Weights(posterior), N);
 
-# In StatisticalRethinkingJulia samples will always be stored
+# In StatisticalRethinkingJulia samples are stored
 # in an MCMCChains.Chains object. 
 
-chn = MCMCChains.Chains(reshape(samples, N, 1, 1), ["toss"]);
+chn = MCMCChains.Chains(reshape(samples2, N, 1, 1), ["toss"]);
 
 # Describe the chain
 
@@ -39,7 +39,8 @@ savefig(p1, "$ProjDir/Fig-02-05.1.pdf")
 # Create a vector to hold the plots so we can later combine them
 
 p2 = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
-p2[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
+p2[1] = density(samples, ylim=(0.0, 5.0), lab="Grid density")
+p2[1] = density!(samples2, ylim=(0.0, 5.0), lab="Sample density")
 
 # ### snippet 3.5
 
@@ -48,8 +49,8 @@ p2[1] = scatter(1:N, samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
 w = 6
 n = 9
 x = 0:0.01:1
-p2[2] = density(samples, ylim=(0.0, 5.0), lab="Sample density")
-p2[2] = plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
+p2[2] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
+p2[2] = density!(samples2, ylim=(0.0, 5.0), lab="Sample density")
 
 # Add quadratic approximation
 

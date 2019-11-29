@@ -49,10 +49,10 @@ mapreduce(p -> (p > 0.5 && p < 0.75) ? 1 : 0, +, samples) / N   |> display
 
 # ### snippet 3.9
 
-quantile(samples, 0.8) 
+quantile(samples, 0.8) |> display
 
 # ### snippet 3.10
 
-quantile(samples, [0.1, 0.9])
+quantile(samples, [0.1, 0.9]) |> display
 
 # End of `03/clip-06-10.jl`

@@ -20,7 +20,6 @@ makedocs(root = DOC_ROOT,
     pages = page_list
 )
 
-deploydocs(
 deploydocs(root = DOC_ROOT,
     repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
     versions = "v#",

@@ -13,6 +13,7 @@ append!(page_list, [Pair("Functions", "index.md")])
 
 makedocs(
     format = Documenter.HTML(prettyurls = haskey(ENV, "GITHUB_ACTIONS")),
+    root = DOC_ROOT,
     modules = Module[],
     sitename = "StatisticalRethinking.jl",
     authors = "Rob Goedman and contributors.",

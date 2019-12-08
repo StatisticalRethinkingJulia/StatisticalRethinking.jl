@@ -2,9 +2,7 @@ using StatisticalRethinking, StanSample
 
 ProjDir = @__DIR__
 
-howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
-df = convert(DataFrame, howell1);
-
+df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df2 = filter(row -> row[:age] >= 18, df)
 first(df2, 5)
 

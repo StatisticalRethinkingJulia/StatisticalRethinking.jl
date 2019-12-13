@@ -1,4 +1,6 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
+Merged Huckleberry Cash Flow - Cash Plan.csv
+Merged Huckleberry Cash Flow - CWC Admin Fee.csv
+Merged Huckleberry Cash Flow - Debt Payoff.csv# Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, DynamicHMC
 using LogDensityProblems, TransformVariables

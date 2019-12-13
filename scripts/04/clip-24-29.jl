@@ -21,7 +21,7 @@ m4_1 = "
   σ ~ Uniform(0, 50) # prior
 "
 
-# ### snippet 4.26
+# ### snippet 4.28
 
 # Compute MAP
 
@@ -35,17 +35,18 @@ function loglik(x)
   -ll
 end
 
-# ### snippet 4.28
+# ### snippet 4.29
 
-x0 = [ 178, 10.0]
+# Start values
+
 lower = [0.0, 0.0]
 upper = [250.0, 50.0]
 
-# ### snippet 4.27
-
 inner_optimizer = GradientDescent()
 
-@show optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))
+@show res = optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))
+
+@show minimizer(res)
 
 # Our second model:
 

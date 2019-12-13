@@ -31,6 +31,7 @@ MCMCChains.describe(chn)
 # Plot the density of posterior draws
 
 density(chn, lab="All heights", xlab="height [cm]", ylab="density")
+savefig(joinpath(@__DIR__, "Fig-30s.png"))
 
 # Compute cor
 
@@ -39,6 +40,6 @@ LinearAlgebra.diag(cov(mu_sigma))
 
 # Compute cov
 
-cor(mu_sigma)
+@show cor(mu_sigma)
 
 # End of `clip_07.0s.jl`

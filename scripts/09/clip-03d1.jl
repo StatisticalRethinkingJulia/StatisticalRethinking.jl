@@ -1,7 +1,3 @@
-Merged Huckleberry Cash Flow - Cash Plan.csv
-Merged Huckleberry Cash Flow - CWC Admin Fee.csv
-Merged Huckleberry Cash Flow - Debt Payoff.csv# Load Julia packages (libraries) needed  for the snippets in chapter 0
-
 using StatisticalRethinking, DynamicHMC
 using LogDensityProblems, TransformVariables
 
@@ -14,7 +10,7 @@ cd(ProjDir)
 
 # Construct the logdensity problem
 
-Base.@kwdef mutable struct clip_9_3_model{
+Base.@kwdef mutable struct clip_9_3_1_model{
   TY <: AbstractVector, TX <: AbstractVector}
     "Observations."
     y::TY
@@ -24,7 +20,7 @@ end
 
 # Write a function to return properly dimensioned transformation.
 
-function make_transformation(model::clip_9_3_model)
+function make_transformation(model::clip_9_3_1_model)
   as((muy = asℝ, mux = asℝ))
 end
 
@@ -36,13 +32,13 @@ N = 100
 x = rand(Normal(0, 1), N)
 y = rand(Normal(0, 1), N)
  
-model = clip_9_3_model(;y=y, x=x)
+model = clip_9_3_1_model(;y=y, x=x)
 
 θ = (muy = 0.0, mux=0.0)
 
 # Make the type callable with the parameters *as a single argument*.
 
-function (model:: clip_9_3_model)(θ)
+function (model:: clip_9_3_1_model)(θ)
     @unpack y, x, = model    # extract the data
     @unpack muy, mux = θ     # works on the named tuple too
     ll = 0.0

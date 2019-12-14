@@ -17,5 +17,5 @@ println()
   @test optim_optim[2] ≈ 0.04 atol=0.03
   @test mu_sigma_avg[1] ≈ 0.58 atol=0.05
   @test mu_sigma_avg[2] ≈ 0.04 atol=0.03
-  @test optim_stan["theta"][end] ≈ 0.58 atol=0.05
+  @test optim_stan["theta"][end] ≈ 0.58 atol=0.05cd
 end

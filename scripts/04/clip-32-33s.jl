@@ -6,10 +6,7 @@ using StatisticalRethinking, StanSample, LinearAlgebra
 
 ProjDir = rel_path("..", "scripts", "04")
 
-# ### snippet 4.7
-
-howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
-df = convert(DataFrame, howell1);
+df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # Use only adults
 
@@ -31,12 +28,17 @@ MCMCChains.describe(chn)
 # Plot the density of posterior draws
 
 density(chn, lab="All heights", xlab="height [cm]", ylab="density")
-savefig(joinpath(@__DIR__, "Fig-30s.png"))
+savefig(joinpath(@__DIR__, "Fig-32-33s.png"))
+
+# ### snippet 4.32
 
 # Compute cor
 
-mu_sigma = hcat(chn.value[:, 2, 1], chn.value[:,1, 1])
-LinearAlgebra.diag(cov(mu_sigma))
+mu_sigma = hcat(chn.value[:, 1, 1], chn.value[:,2, 1])
+
+@show LinearAlgebra.diag(cov(mu_sigma))
+
+# ### snippet 4.34
 
 # Compute cov
 

@@ -9,16 +9,7 @@
 
 Over the next 2 months I'm planning to update StatisticalRethinking.jl to reflect the changes in the 2nd edition of the book. At the same time (but this will likely take longer) I'll also expand coverage of chapters 5 and beyond.
 
-Version 0.9.0 introduced model simulations based on DynamicHMC, e.g. the nice explanation of HMC (and NUTS) in chapter 9.
-
-In version 1.0 I plan to switch to predominantly use DynamicHMC but
-I'm still experimenting with a useful replacement for quap().
-
-StanModels will be updated to use the new suite of packages StanSample.jl, StanOptimize.jl, StanVariational.jl, etc. (all modeled after Tamas Papp's StanDump.jl, StanRun.jl and StanSamples.jl). 
-
-Documentation will also change substantially. I no longer plan to generate and store notebook (and chapter) versions as part of the documentation.
-
-At the meantime time, Chris Fisher has made tremendous progress with MCMCBenchmarks.jl, which compares three NUTS mcmc options.
+Documentation will change substantially. I no longer plan to generate and store notebook (and chapter) versions as part of the documentation.
 
 ## Introduction
 
@@ -54,15 +45,7 @@ m4.32 <- ulam(flist, data=d2)
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
-[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using three available mcmc options in Julia:
-
-1. [Stan](https://github.com/StanJulia)
-2. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
-3. [TuringLang](https://github.com/TuringLang)
-
-Implementations of the models using Stan, DynamicHMC and Turing can be found in [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
-
-A secondary objective of `StatisticalRethinkingJulia` is to compare definition and execution of a variety of models in the above three mcmc packages.
+[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using [Stan](https://github.com/StanJulia). As such, in v1.x quap() and ulam() have been replaced by StanOptimize.jl and StanSample. This means that much earlier on StatisticalRethinking.jl introduces the reader to the Stan language. 
 
 As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia.
 
@@ -75,7 +58,13 @@ Instead of having all snippets in a single file, the snippets are organized by c
 
 A single snippet clip will be referred to as `03/clip-02.jl`. 
 
-Models with names such as `08/m8.1s.jl`, `04/m4.1d.jl` and `04/m4.5t.jl` generate mcmc samples using **Stan.jl** or **DynamicHMC.jl** respectively. 
+## Other packages in the StatisticalRethinkingJulia Github organization
+
+Implementations of the models using Stan, DynamicHMC and Turing can be found in [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
+
+StanModels has been updated to use the new suite of packages StanSample.jl, StanOptimize.jl, StanVariational.jl, etc. (all modeled after Tamas Papp's StanDump.jl, StanRun.jl and StanSamples.jl). 
+
+In the meantime time, Chris Fisher has made tremendous progress with MCMCBenchmarks.jl, which compares three NUTS mcmc options.
 
 ## Documentation
 
@@ -86,7 +75,7 @@ Models with names such as `08/m8.1s.jl`, `04/m4.1d.jl` and `04/m4.5t.jl` generat
 
 Richard Torkar has taken the lead in developing the Turing versions of the models contained in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl). 
 
-Tamas Papp has been very helpful during the development og the DynamicHMC versions of the models.
+Tamas Papp has been very helpful during the development of the DynamicHMC versions of the models.
 
 The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer are followed closely in several example scripts.
 
@@ -98,11 +87,11 @@ Question and contributions are very welcome, as are feature requests and suggest
 
 Developing `rethinking` must have been an on-going process over several years, `StatisticalRethinkinh.jl` will likely follow a similar path.
 
-1. The initial version (v0.x) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-process the results using Julia.
+1. The first version (v1.x) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-process the results using Julia.
 
-2. As mentioned above, a second objective of v1 is to experiment and compare the four selected mcmc options in Julia in terms of results, performance, ease of expressing models, etc.
+2. The R package `rethinking`, in the experimental branch on Github, contains 2 functions `quap` and `ulam` (previously called `map` and `map2stan`) which are not in v1 of `Statisticalrethinking.jl`. 
 
-3. The R package `rethinking`, in the experimental branch on Github, contains 2 functions `quap` and `ulam` (previously called `map` and `map2stan`) which are not in v1 of `Statisticalrethinking.jl`. It is my *intention* to study those and _possibly_ include something similar to `quap` or `ulam` (or both) in a future of `Statisticalrethinking`. In `clip-02-05.jl` an inital example of using the `maximum_a_posteriori` estimate and associated quadratic (Normal) approximation is illustrated.
+3. It is my *intention* to study those and _possibly_ include something similar to `quap` or `ulam` (or both) in a future of `Statisticalrethinking`. In `clip-02-05.jl` an inital example of using the `maximum_a_posteriori` estimate and associated quadratic (Normal) approximation is illustrated.
 
 4. Several other interesting approaches that could become a good basis for such an endeavour are being explored in Julia, e.g. Soss.jl and Omega.jl.
 

@@ -46,6 +46,6 @@ lab="Normal approximation using MAP")
 density!(dfsa[:, :theta], lab="StanSample chain")
 vline!([bnds[1]], line=:dash, lab="hpd lower bound")
 vline!([bnds[2]], line=:dash, lab="hpd upper bound")
-savefig("$ProjDir/Fig-part_3.pdf")
+savefig("$ProjDir/Fig-part_3.png")
 
 # End of `intro/intro_part_3.jl`

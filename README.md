@@ -45,7 +45,10 @@ m4.32 <- ulam(flist, data=d2)
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
-[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using [Stan](https://github.com/StanJulia). As such, in v1.x quap() and ulam() have been replaced by StanOptimize.jl and StanSample. This means that much earlier on StatisticalRethinking.jl introduces the reader to the Stan language. 
+[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using [Stan](https://github.com/StanJulia).
+
+As such, in v1.x quap() and ulam() have been replaced by StanOptimize.jl and StanSample.jl. This means that much earlier on StatisticalRethinking.jl introduces the reader to the Stan language.
+Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.4). This is illustrated in the 4 snippets in the subdirectory `intro_scripts` in this package.
 
 As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia.
 
@@ -65,6 +68,10 @@ Implementations of the models using Stan, DynamicHMC and Turing can be found in 
 StanModels has been updated to use the new suite of packages StanSample.jl, StanOptimize.jl, StanVariational.jl, etc. (all modeled after Tamas Papp's StanDump.jl, StanRun.jl and StanSamples.jl). 
 
 In the meantime time, Chris Fisher has made tremendous progress with MCMCBenchmarks.jl, which compares three NUTS mcmc options.
+
+## Future plans
+
+There is a plan to release a version 2 of StatisticalRethinking.jl that will be based on Soss.jl and DynamicHMC.jl. No firm timeline has been set for this.
 
 ## Documentation
 

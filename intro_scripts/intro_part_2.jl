@@ -37,7 +37,7 @@ if !(sample_file == nothing)
     plot!(p[i], x, pdf.(Normal(fits[i].μ, fits[i].σ), x), lab="Fitted Normal($μ, $σ)")
   end
   plot(p..., layout=(4, 1))
-  savefig("$ProjDir/Fig-part_2.pdf")
+  savefig("$ProjDir/Fig-part_2.png")
 
   # Show the hpd region
 

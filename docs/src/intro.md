@@ -4,6 +4,8 @@
 
 This package contains Julia versions of selected code snippets and mcmc models contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
+This package is part of the broader [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization.
+
 In the book and associated R package `rethinking`, statistical models are defined as illustrated below:
 
 ```
@@ -32,20 +34,10 @@ m4.32 <- ulam(flist, data=d2)
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
-The [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization is intended to allow experimenting with this learning process using four available mcmc options in Julia:
+[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using [Stan](https://github.com/StanJulia).
 
-1. [CmdStan](https://github.com/StanJulia)
-2. [DynamicHMC](https://github.com/tpapp/DynamicHMC.jl)
-3. [TuringLang](https://github.com/TuringLang)
-4. [Mamba](https://github.com/brian-j-smith/Mamba.jl)
+As such, in v1.x quap() and ulam() have been replaced by StanOptimize.jl and StanSample.jl. This means that much earlier on StatisticalRethinking.jl introduces the reader to the Stan language.
+Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.4). This is illustrated in the 4 snippets in the subdirectory `intro_scripts` in this package.
 
-At least one other package is available for mcmc in Julia:
-
-5. [Klara](https://github.com/JuliaStats/Klara.jl)
-
-Time constraints prevented this option to be in `StatisticalRethinkingJulia`.
-
-A secondary objective of `StatisticalRethinkingJulia` is to compare definition and execution of a variety of models in the above four mcmc packages.
-
-Model scripts using Turing, Mamba, CmdStan or DynamicHMC can be found in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl), [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [MambaModels](https://github.com/StatisticalRethinkingJulia/MambaModels.jl), part of the [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization set of packages.
+As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia.
 

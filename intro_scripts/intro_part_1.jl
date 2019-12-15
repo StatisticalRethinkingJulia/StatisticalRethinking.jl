@@ -7,7 +7,7 @@ ProjDir = @__DIR__
 # Define the Stan language model
 
 m1_1s = "
-// Inferring a Rate
+// Inferring a rate
 data {
   int N;
   int<lower=0> k[N];
@@ -17,7 +17,7 @@ parameters {
   real<lower=0,upper=1> theta;
 }
 model {
-  // Prior Distribution for Rate Theta
+  // Prior distribution for θ
   theta ~ beta(1, 1);
 
   // Observed Counts
@@ -52,7 +52,7 @@ if !(sample_file == nothing)
   println()
   show(chn)
 
-  savefig(plot(chn), "$ProjDir/Fig-part_1.pdf")
+  savefig(plot(chn), "$ProjDir/Fig-part_1.png")
 
 end
 

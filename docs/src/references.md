@@ -1,4 +1,4 @@
-# References
+## References
 
 There is no shortage of good books on Bayesian statistics. A few of my favorites are:
 

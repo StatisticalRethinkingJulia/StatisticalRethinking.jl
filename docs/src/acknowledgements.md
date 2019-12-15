@@ -1,5 +1,3 @@
-# Acknowledgements
-
 ## Acknowledgements
 
 Richard Torkar has taken the lead in developing the Turing versions of the models in chapter 8 and subsequent chapters. 

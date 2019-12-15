@@ -22,7 +22,7 @@ const src_path = @__DIR__
 Relative path using the StatisticalRethinking src/ directory. Copied from
 [DynamicHMCExamples.jl](https://github.com/tpapp/DynamicHMCExamples.jl)
 
-### Example to get access to the data suqqbdirectory
+### Example to get access to the data subdirectory
 ```julia
 rel_path("..", "data")
 ```

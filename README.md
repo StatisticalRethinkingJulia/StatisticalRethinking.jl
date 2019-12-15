@@ -7,7 +7,7 @@
 
 ## Purpose of this package
 
-This package contains Julia versions of selected code snippets and mcmc models contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
+This package contains Julia versions of selected `code snippets` and `mcmc models` contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
 ## Important note
 
@@ -15,9 +15,25 @@ Over the next 2 months (until March 2020) I'm planning to update StatisticalReth
 
 Documentation will change substantially. I no longer plan to generate and store notebook (and chapter) versions as part of the documentation.
 
-## Introduction
+## Installation
 
 This package is part of the broader [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization.
+
+To install the package (from the REPL):
+
+```
+] add StatisticalRethinking
+```
+
+or, in some cases easier to use from within an editor:
+
+```
+] dev StatisticalRethinking
+```
+
+All scripts contain in fact examples. A good initial introduction to running a Stan language program is in `intro_secript/intro_part_1.jl`.
+
+## Introduction
 
 In the book and associated R package `rethinking`, statistical models are defined as illustrated below:
 

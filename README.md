@@ -45,9 +45,9 @@ m4.32 <- ulam(flist, data=d2)
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
-[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using [Stan](https://github.com/StanJulia).
+[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using [StanJulia](https://github.com/StanJulia).
 
-As such, in v1.x quap() and ulam() have been replaced by StanOptimize.jl and StanSample.jl. This means that much earlier on StatisticalRethinking.jl introduces the reader to the Stan language.
+As such, in v1.x, quap() and ulam() have been replaced by StanOptimize.jl and StanSample.jl. This means that much earlier on StatisticalRethinking.jl introduces the reader to the Stan language.
 Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.4). This is illustrated in the 4 snippets in the subdirectory `intro_scripts` in this package.
 
 As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia.
@@ -92,17 +92,13 @@ Question and contributions are very welcome, as are feature requests and suggest
 
 ## Versions & notes
 
-Developing `rethinking` must have been an on-going process over several years, `StatisticalRethinkinh.jl` will likely follow a similar path.
+Developing `rethinking` must have been an on-going process over several years, `StatisticalRethinking.jl` will likely follow a similar path.
 
 1. The first version (v1.x) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-process the results using Julia.
 
-2. The R package `rethinking`, in the experimental branch on Github, contains 2 functions `quap` and `ulam` (previously called `map` and `map2stan`) which are not in v1 of `Statisticalrethinking.jl`. 
+2. Many other R functions such as precis(), link(), shade(), etc. are not in v1, although some very early versions are being tested. Expect significant refactoring of those in future versions and at the same time better integration with MCMCChains.Chains objects.
 
-3. It is my *intention* to study those and _possibly_ include something similar to `quap` or `ulam` (or both) in a future of `Statisticalrethinking`. In `clip-02-05.jl` an inital example of using the `maximum_a_posteriori` estimate and associated quadratic (Normal) approximation is illustrated.
-
-4. Several other interesting approaches that could become a good basis for such an endeavour are being explored in Julia, e.g. Soss.jl and Omega.jl.
-
-5. Many other R functions such as precis(), link(), shade(), etc. are not in v1, although some very early versions are being tested. Expect significant refactoring of those in future versions and at the same time better integration with MCMCChains.Chains objects.
+3. Several other interesting approaches to mcmc modeling are being explored in Julia, e.g. Soss.jl and Omega.jl. These are tracked as candidates for use in a future v2 of StatisticalRethinking.jl.
 
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
 [docs-dev-url]: https://statisticalrethinkingjulia.github.io/StatisticalRethinking.jl/latest

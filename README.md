@@ -25,7 +25,7 @@ To install the package (from the REPL):
 ] add StatisticalRethinking
 ```
 
-or, in some cases easier to use from within an editor:
+or, easier in some cases to use from within an editor:
 
 ```
 ] dev StatisticalRethinking
@@ -66,7 +66,7 @@ The author of the book states: "*If that (the statistical model) doesn't make mu
 [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl) is intended to allow experimenting with this learning process using [StanJulia](https://github.com/StanJulia).
 
 As such, in v1.x, quap() and ulam() have been replaced by StanOptimize.jl and StanSample.jl. This means that much earlier on StatisticalRethinking.jl introduces the reader to the Stan language.
-Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5). This is illustrated in the 4 snippets in the subdirectory `intro_scripts` in this package.
+Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5). This is illustrated in the 4 introductory scripts in the subdirectory `intro_scripts` in this package.
 
 As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia.
 

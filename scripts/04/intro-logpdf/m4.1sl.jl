@@ -6,23 +6,28 @@ df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 df2 = filter(row -> row[:age] >= 18, df)
 first(df2, 5)
 
+# This is an alternative way of writing the Stan language
+# model for the heights example.
+
+# This is referred to in chapter 9. The model block resembles
+# the way loglik() functions used for Optim are constructed.
+
 heightsmodel = "
-// Inferring the mean and std
+// Inferring a Rate
 data {
-  int N;
+  int<lower=1> N;
   real<lower=0> h[N];
 }
 parameters {
-  real<lower=0> sigma;
-  real<lower=0,upper=250> mu;
+  real mu;
+  real<lower=0,upper=250> sigma;
 }
 model {
   // Priors for mu and sigma
-  mu ~ normal(178, 20);
-  sigma ~ uniform( 0 , 50 );
+  target += normal_lpdf(mu | 178, 20);
 
-  // Observed heights
-  h ~ normal(mu, sigma);
+  // Observed heights, add loglikelihood to target
+  target += normal_lpdf(h | mu, sigma);
 }
 ";
 
@@ -35,12 +40,6 @@ heightsdata = Dict("N" => length(df2[:, :height]), "h" => df2[:, :height]);
 if sample_file !== nothing
   chn = read_samples(sm)
   show(chn)
-
-  serialize("m4.1s.jls", chn)
-  chn2 = deserialize("m4.1s.jls")
-
-  show(chn2)
-
 end
 
-# end of m4.1s
+# end of m4.1sl

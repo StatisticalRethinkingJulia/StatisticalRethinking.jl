@@ -9,6 +9,8 @@
 
 This package contains Julia versions of selected `code snippets` and `mcmc models` contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
+As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia and Stan.
+
 ## Important note
 
 Over the next 2 months (until March 2020) I'm planning to update StatisticalRethinking.jl to reflect the changes in the 2nd edition of the book. At the same time (but this will likely take longer) I'll also expand coverage of chapters 5 and beyond.
@@ -31,7 +33,7 @@ or, easier in some cases to use from within an editor:
 ] dev StatisticalRethinking
 ```
 
-All scripts contain in fact examples. A good initial introduction to running a Stan language program is in `intro_secript/intro_part_1.jl`.
+All scripts contain in fact examples. A good initial introduction to running a Stan language program is in `scripts/03/intro-stan/intro-part-1.jl`.
 
 ## Introduction
 
@@ -65,10 +67,23 @@ The author of the book states: "*If that (the statistical model) doesn't make mu
 
 [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl) is intended to allow experimenting with this learning process using [StanJulia](https://github.com/StanJulia).
 
-As such, in v1.x, quap() and ulam() have been replaced by StanOptimize.jl and StanSample.jl. This means that much earlier on StatisticalRethinking.jl introduces the reader to the Stan language.
-Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5). This is illustrated in the 4 introductory scripts in the subdirectory `intro_scripts` in this package.
+## Rethinking `rethinking`
 
-As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia.
+There are a few important differences between `rethinking` and `StatisticalRethinking.jl`:
+
+1. In v1.x of StatisticalRethinking.jl, ulam() has been replaced by StanSample.jl.
+
+This means that much earlier on StatisticalRethinking.jl introduces the reader to the Stan language.
+
+In the subdirectory `scripts/03/intro-stan` this is illustrated.
+
+Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5).
+
+The R function quap() is a different story. A bit more detail can be found in `scripts/03/intro-stan/intro-part-4.jl`.
+
+3. In `sripts/04` an additional section has been added, `intro-logpdf` which introduces an alternative way to compute the MAP (quap) using Optim.jl. This kind of builds on the logpdf formulation introduced in `scripts/03/intro-stan/intro-part-4.jl`
+
+2. In `scripts/09` an additional intro section has been included, `scripts/09/intro-dhmc`. I consider this a precursor to the envisaged changes in StatisticalRethinking.jl v2 (see also the section "Future plans" below).
 
 ## Layout of the package
 
@@ -89,7 +104,7 @@ In the meantime time, Chris Fisher has made tremendous progress with MCMCBenchma
 
 ## Future plans
 
-There is a plan to release a version 2 of StatisticalRethinking.jl that will be based on Soss.jl and DynamicHMC.jl. No firm timeline has been set for this.
+There is a plan to release a version 2 of StatisticalRethinking.jl based on Soss.jl and DynamicHMC.jl. No firm timeline has been set for this.
 
 ## Documentation
 

@@ -32,7 +32,7 @@ MCMCChains.show(chn)
 # Plot the chain
 
 p1 = plot(chn)
-savefig(p1, "$ProjDir/Fig-02-05.1.pdf")
+savefig(p1, "$ProjDir/Fig-02-05.1.png")
 
 # ### snippet 3.4
 
@@ -55,6 +55,6 @@ p2[2] = density!(samples2, ylim=(0.0, 5.0), lab="Sample density")
 # Add quadratic approximation
 
 p3 = plot(p2..., layout=(1, 2))
-savefig(p3, "$ProjDir/Fig-02-05.2.pdf")
+savefig(p3, "$ProjDir/Fig-02-05.2.png")
 
 # End of `03/clip-02-05.jl`

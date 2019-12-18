@@ -39,7 +39,7 @@ p[1] = plot(walk[1:100], leg=false, xlabel="Week", ylabel="Island", title="First
 p[2] = histogram(walk, leg=false, xlabel="Island", ylabel="Number of weeks",
   title="$N steps")
 plot(p..., layout=(1, 2))
-savefig("$ProjDir/Fig-01.pdf")
+savefig("$ProjDir/Fig-01.png")
 
 
 # End of `clip-01.jl`

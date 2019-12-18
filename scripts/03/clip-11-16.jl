@@ -47,7 +47,7 @@ density(samples, lab="density")
 vline!([mode(samples)], line=:dash, lab="mode")
 vline!([median(samples)], line=:dash, lab="median")
 vline!([mean(samples)], line=:dash, lab="mean")
-savefig("Fig-11-16.pdf")
+savefig("Fig-11-16.png")
 
 
 # End of `03/clip-11-16.jl`

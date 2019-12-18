@@ -26,7 +26,7 @@ for d in [1, 10, 100, 1000]
 end
 
 plot(p)
-savefig("$ProjDir/Fig-02.pdf")
+savefig("$ProjDir/Fig-02.png")
 
 
 # End of `09/clip-02.jl 

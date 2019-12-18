@@ -2,7 +2,7 @@
 
 using StatisticalRethinking, StanSample
 
-ProjDir = rel_path("..", "scripts", "05")
+ProjDir = @__DIR__
 
 # ### snippet 5.1
 
@@ -70,7 +70,7 @@ if sample_file !== nothing
   # Plot the density of posterior draws
 
   plot(chn)
-  savefig("$ProjDir/Fig-01-05.1.pdf")
+  savefig("$ProjDir/Fig-01-05.1.png")
 
   # Result rethinking
 
@@ -108,7 +108,7 @@ if sample_file !== nothing
   end
   scatter!(df[!, :MedianAgeMarriage_s], df[!, :Divorce], color=:darkblue)
   plot!(xi, yi, lab="Regression line")
-  savefig("$ProjDir/Fig-01-05.2.pdf")
+  savefig("$ProjDir/Fig-01-05.2.png")
 
 end
 

@@ -7,7 +7,7 @@ using Reexport
 @reexport using StatsBase, StatsPlots, StatsFuns 
 @reexport using CSV, DelimitedFiles, Serialization
 @reexport using MCMCChains, KernelDensity
-@reexport using Parameters, Random
+@reexport using Parameters, Random, MonteCarloMeasurements
 
 using DataStructures
 import StatsBase: sample

@@ -4,12 +4,6 @@ using StatisticalRethinking, StanSample
 
 ProjDir = @__DIR__
 
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path("..", "scripts", "04")
-cd(ProjDir)
-
-
 df = DataFrame(CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';'))
 df2 = filter(row -> row[:age] >= 18, df);
 first(df2, 5)
@@ -77,7 +71,7 @@ post_df = grid_prob(mu_list, sigma_list, prior_mu, prior_sigma,
 
 # Sample post
 
-samples = post[sample(1:size(post_df, 1), Weights(post_df[:, :prob]), 
+samples = post_df[sample(1:size(post_df, 1), Weights(post_df[:, :prob]), 
 	10000, replace=true), :]
 
 # ### Snippet 4.25

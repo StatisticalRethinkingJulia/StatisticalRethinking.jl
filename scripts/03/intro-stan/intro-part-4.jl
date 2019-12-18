@@ -31,20 +31,20 @@ println("\nMode of samples based estimates of mean, std:\n")
 
 # Use mode of Stan samples, determine std using mode as mean
 
-mu_map = mode(dfsa[:, :theta])
-sigma_map = std(dfsa[:, :theta], mean=mu_map)
-display([mu_map, sigma_map])
+mu_mode = mode(dfsa[:, :theta])
+sigma_mode = std(dfsa[:, :theta], mean=mu_mode)
+display([mu_mode, sigma_mode])
 
 # Use kernel density of Stan samples
 
-println("\nKernel density of samples to estimate the mean and std:\n")
+println("\nQuap estimate the mean and std:\n")
 
-# Determine theta value with highest density
+# Determine theta value with highest density (MAP)
 
-dens = kde(dfsa[:, :theta])
-mu_kde = collect(dens.x)[findmax(dens.density)[2]]
-sigma_kde = std(dfsa[:, :theta], mean=mu_kde)
-display([mu_kde, sigma_kde])
+d = quap(dfsa)
+mu_quap = mean(d[:theta])
+sigma_quap = std(d[:theta])
+display([mu_quap, sigma_quap])
 
 # Using optim
 
@@ -88,22 +88,26 @@ println("$bnds\n")
 
 plot( x, pdf.(Normal( mu_mle , sigma_mle) , x ),
 xlim=(0.5, 0.8), lab="MLE approximation",
-legend=:bottomleft)
-
-plot!( x, pdf.(Normal( mu_map, sigma_map), x ),
-lab="Particle approximation", line=:dash)
+legend=:bottomleft, line=:dash)
 
 plot!( x, pdf.(Normal( mean(p), std(p)), x ),
 lab="Particle approximation", line=:dash)
+
+plot!( x, pdf.(Normal( mu_quap, sigma_quap), x ),
+lab="quap approximation")
 
 density!(dfsa[:, :theta], lab="StanSample chain")
 
 vline!([bnds[1]], line=:dash, lab="hpd lower bound")
 vline!([bnds[2]], line=:dash, lab="hpd upper bound")
-savefig("$ProjDir/Fig-part-4.png")
+savefig(joinpath(@__DIR__, "Fig-part-4.png"))
 
-# In this example most approximations are similar.
+# In this example usually most approximations are similar.
 # Other examples are less clear. In particular with
 # stan_optimize() I've seen rather unstable results.
 
-# End of `intro/intro_part_4.jl`
+# Given that in StatisticalRethinking.jl we have the
+# actual Stan samples, quap() uses this to fit a Normal
+# distribution with mean equal to the sample MAP.
+
+# End of `intro/intro-part-4.jl`

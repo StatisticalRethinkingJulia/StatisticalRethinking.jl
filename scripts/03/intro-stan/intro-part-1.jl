@@ -106,6 +106,16 @@ if !(sample_file == nothing)
 
   savefig(plot(chn), "$ProjDir/Fig-part-1.png")
 
+# Turn chains into DataFrames
+
+  # Separate df for each chain
+
+  dfs = DataFrame(chn, append_chains=false);
+
+  # Or, often handy, all chains appended
+
+  dfsa = DataFrame(chn);
+
 end
 
 # End of `intro/intro-part-1.jl`

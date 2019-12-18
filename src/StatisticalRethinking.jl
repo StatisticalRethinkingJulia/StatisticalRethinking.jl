@@ -36,12 +36,14 @@ include("generate_n_samples.jl")
 include("link.jl")
 include("HMC.jl")
 include("dhmc2mcmcchains.jl")
+include("quap.jl")
 
 export
 	rel_path,
 	link,
  	describe,
  	#shade,
+ 	quap,
  	scale,
  	standardize,
  	HMC,

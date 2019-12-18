@@ -1,9 +1,16 @@
-using StatisticalRethinking, StanSample
+# Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-ProjDir = @__DIR__
+using StatisticalRethinking, StanSample, LinearAlgebra
+
+# CmdStan uses a tmp directory to store the output of cmdstan
+
+ProjDir = rel_path("..", "scripts", "04")
 
 df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
-df2 = filter(row -> row[:age] >= 18, df)
+
+# Use only adults
+
+df2 = filter(row -> row[:age] >= 18, df);
 first(df2, 5)
 
 heightsmodel = "
@@ -33,14 +40,25 @@ heightsdata = Dict("N" => length(df2[:, :height]), "h" => df2[:, :height]);
 (sample_file, log_file) = stan_sample(sm, data=heightsdata);
 
 if sample_file !== nothing
-  chn = read_samples(sm)
-  show(chn)
+	println()
+	chn = read_samples(sm)
+	sigma_mu = Array(chn)
+	@show p = Particles(sigma_mu)
 
-  serialize("m4.1s.jls", chn)
-  chn2 = deserialize("m4.1s.jls")
+	# ### snippet 4.32
 
-  show(chn2)
+	# Compute cov
+
+	println()
+	@show cov(p)
+
+	# ### snippet 4.34
+
+	# Compute cov
+
+	println()
+	@show cor(sigma_mu)
 
 end
 
-# end of m4.1s
+# End of `clip-32-33.jl`

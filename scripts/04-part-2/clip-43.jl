@@ -56,7 +56,7 @@ if sample_file !== nothing
 	# Describe the draws
 
 	chn = read_samples(sm)
-	@show df = DataFrame(chn)
+	df = DataFrame(chn)
 
 	# Plot the density of posterior draws
 

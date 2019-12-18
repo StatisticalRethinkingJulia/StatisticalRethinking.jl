@@ -79,7 +79,7 @@ In the subdirectory `scripts/03/intro-stan` this is illustrated.
 
 Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5).
 
-The R function quap() is a different story. A bit more detail can be found in `scripts/03/intro-stan/intro-part-4.jl`.
+The R function quap() in StatisticalRethinking.jl uses the MAP density of the Stan samples as the mean of the Normal distribution. An example can be found in `scripts/03/intro-stan/intro-part-4.jl`. 
 
 3. In `sripts/04` an additional section has been added, `intro-logpdf` which introduces an alternative way to compute the MAP (quap) using Optim.jl. This kind of builds on the logpdf formulation introduced in `scripts/03/intro-stan/intro-part-4.jl`
 

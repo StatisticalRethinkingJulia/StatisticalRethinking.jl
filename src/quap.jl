@@ -6,7 +6,7 @@ function quap(df::DataFrame)
 		dens = kde(df[:, var])
 		mu = collect(dens.x)[findmax(dens.density)[2]]
 		sigma = std(df[:, var], mean=mu)
-		d[var] = Particles(size(dfsa, 1), Normal(mu, sigma))
+		d[var] = Particles(size(df, 1), Normal(mu, sigma))
 	end
 
 	d

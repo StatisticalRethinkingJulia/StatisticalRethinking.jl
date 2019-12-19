@@ -1,17 +1,18 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
+# Load Julia packages (libraries) needed  for the snippets in chapter 04
 
 using StatisticalRethinking, StanSample, LinearAlgebra
 
-# CmdStan uses a tmp directory to store the output of cmdstan
+# ### Snippet 4.26
 
-ProjDir = rel_path("..", "scripts", "04")
-
+ProjDir = @__DIR__
 df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # Use only adults
 
 df2 = filter(row -> row[:age] >= 18, df);
 first(df2, 5)
+
+# ### Snippet 4.27
 
 heightsmodel = "
 // Inferring the mean and std
@@ -46,8 +47,15 @@ if sample_file !== nothing
 	@show p = Particles(sigma_mu)
 	println()
 
+# ### Snippet 4.28 & 4.29
+
 	quap(DataFrame(chn)) |> display
 
 end
 
-# End of `clip-32-33.jl`
+# ### Snippet 4.30
+
+# If required, startring values can be passed in to `stan_sample()`
+# See `?stan_sample`
+
+# End of `clip-26-30.jl`

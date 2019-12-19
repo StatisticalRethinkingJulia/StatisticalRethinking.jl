@@ -1,12 +1,8 @@
 using StatisticalRethinking, StanSample
 
 ProjDir = @__DIR__
-cd(ProjDir)
 
-# ### snippet 4.7
-
-howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
-df = convert(DataFrame, howell1);
+df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # Use only adults
 
@@ -56,22 +52,31 @@ if sample_file !== nothing
 	# Describe the draws
 
 	chn = read_samples(sm)
-	df = DataFrame(chn)
+	dfa = DataFrame(chn)
+
+	# ### snippet 4.37
 
 	# Plot the density of posterior draws
 
 	plot(chn)
-	savefig("$ProjDir/Fig-43.1.png")
+	savefig("$ProjDir/Fig-37-43.1.png")
 
 	# Plot regression line using means and observations
 
 	scatter(df2[:, :weight_c], df2[:, :height], lab="Observations",
 	  ylab="height [cm]", xlab="weight[kg]")
 	xi = -16.0:0.1:18.0
-	yi = mean(df[:, :alpha]) .+ mean(df[:, :beta])*xi;
+	yi = mean(dfa[:, :alpha]) .+ mean(dfa[:, :beta])*xi;
 	plot!(xi, yi, lab="Regression line")
-	savefig("$ProjDir/Fig-43.2.png")
+	savefig("$ProjDir/Fig-37-43.2.png")
+
+	# ### snippet 4.44
+
+	dfa = DataFrame(chn)
+	println()
+	q = quap(dfa)
+	display(q)
 
 end
 
-# End of `clip-43.jl`
+# End of `clip-37-44.jl`

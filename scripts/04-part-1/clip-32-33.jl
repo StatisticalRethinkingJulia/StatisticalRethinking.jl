@@ -2,14 +2,10 @@
 
 using StatisticalRethinking, StanSample, LinearAlgebra
 
-# CmdStan uses a tmp directory to store the output of cmdstan
+# ### Snippet 4.26
 
-ProjDir = rel_path("..", "scripts", "04")
-
+ProjDir = @__DIR__
 df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
-
-# Use only adults
-
 df2 = filter(row -> row[:age] >= 18, df);
 first(df2, 5)
 
@@ -33,6 +29,8 @@ model {
 }
 ";
 
+# ### Snippet 4.31
+
 sm = SampleModel("heights", heightsmodel);
 
 heightsdata = Dict("N" => length(df2[:, :height]), "h" => df2[:, :height]);
@@ -52,7 +50,7 @@ if sample_file !== nothing
 	println()
 	@show cov(p)
 
-	# ### snippet 4.34
+	# ### snippet 4.33
 
 	# Compute cov
 
@@ -61,4 +59,4 @@ if sample_file !== nothing
 
 end
 
-# End of `clip-32-33.jl`
+# End of `clip-32-34.jl`

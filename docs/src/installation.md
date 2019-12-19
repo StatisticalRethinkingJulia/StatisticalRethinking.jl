@@ -7,7 +7,7 @@ This package can be installed from the REPL as follows:
 [del] 
 ```
 
-While working throught the book/snippets I suggest:
+While working through the book/snippets I suggest:
 
 ```
 ] dev StatisticalRethinking

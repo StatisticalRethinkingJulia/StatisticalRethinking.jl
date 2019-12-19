@@ -11,7 +11,7 @@ link(xrange, chain, vars, xbar)
 
 ### Required arguments
 ```julia
-* `xrange::Turing model`        : Range over which link values are computed
+* `xrange::range`				: Range over which link values are computed
 * `chain::Float64`              : Chain samples used
 * `vars::Float64`               : Variables in chain used
 * `xbar::Float64`               : Mean value of observed predictor

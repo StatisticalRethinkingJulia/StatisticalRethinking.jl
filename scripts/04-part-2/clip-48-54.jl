@@ -49,7 +49,7 @@ sm = SampleModel("weights", weightsmodel);
 heightsdata = Dict("N" => length(df2[:, :height]), 
   "height" => df2[:, :height], "weight" => df2[:, :weight_c]);
 
-# Sample using cmdstan
+# Sample using stan
 
 (sample_file, log_file) = stan_sample(sm, data=heightsdata);
 

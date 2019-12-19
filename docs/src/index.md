@@ -2,12 +2,16 @@
 CurrentModule = StatisticalRethinking
 ```
 
+## `rel_path`
+```@docs
+rel_path(parts...)
+```
 ## `link`
 ```@docs
 link(xrange, chain, vars, xbar) 
 ```
 
-## `rel_path`
+## `quap`
 ```@docs
-rel_path(parts...)
+quap(df) 
 ```

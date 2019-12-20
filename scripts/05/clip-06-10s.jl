@@ -2,23 +2,14 @@
 
 using StatisticalRethinking, StanSample
 
-ProjDir = rel_path("..", "scripts", "05")
-
+ProjDir = @__DIR__
 
 # ### snippet 5.1
 
-wd = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
-df = convert(DataFrame, wd);
-
-mean_ma = mean(df[!, :Marriage])
-df[!, :Marriage_s] = convert(Vector{Float64},
-  (df[!, :Marriage]) .- mean_ma)/std(df[!, :Marriage]);
-
-mean_mam = mean(df[!, :MedianAgeMarriage])
-df[!, :MedianAgeMarriage_s] = convert(Vector{Float64},
-  (df[!, :MedianAgeMarriage]) .- mean_mam)/std(df[!, :MedianAgeMarriage]);
-  
-df[1:6, [1, 7, 14, 15]]
+df = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
+scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
+df[1:5, [1, 7, 14, 15]] |> display
+println()
 
 rethinking_data = "
     Location Divorce  Marriage.s MedianAgeMarriage.s
@@ -58,10 +49,14 @@ model {
 
 sm = SampleModel("m5_3", m5_3);
 
-# Input data for cmdstan
+# Input data
 
-m5_3_data = Dict("N" => size(df, 1), "divorce" => df[!, :Divorce],
-    "marriage_z" => df[!, :Marriage_s], "median_age_z" => df[!, :MedianAgeMarriage_s]);
+m5_3_data = Dict(
+  "N" => size(df, 1), 
+  "divorce" => df[:, :Divorce],
+  "marriage_z" => df[:, :Marriage_s], 
+  "median_age_z" => df[:, :MedianAgeMarriage_s]
+);
 
 # Sample using cmdstan
 

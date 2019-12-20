@@ -6,17 +6,8 @@ ProjDir = @__DIR__
 
 # ### snippet 5.1
 
-df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), 
-    delim=';')
-
-mean_ma = mean(df[!, :MedianAgeMarriage])
-df[!, :MedianAgeMarriage_s] = 
-  convert(Vector{Float64},  (df[!, :MedianAgeMarriage]) .-
-    mean_ma)/std(df[!, :MedianAgeMarriage]);
-mean_div = mean(df[!, :Divorce])
-df[!, :Divorce_s] = 
-  convert(Vector{Float64},  (df[!, :Divorce]) .-
-    mean_div)/std(df[!, :Divorce]);
+df = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
+scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
 
 # ### snippet 5.1
 
@@ -103,7 +94,7 @@ if sample_file !== nothing
   for i in 1:length(xi)
     plot!([xi[i], xi[i]], [yl[i], yh[i]], color=:lightgrey, leg=false)
   end
-  scatter!(df[!, :MedianAgeMarriage_s], df[!, :Divorce], color=:darkblue)
+  scatter!(df[:, :MedianAgeMarriage_s], df[:, :Divorce], color=:darkblue)
   plot!(xi, yi, lab="Regression line")
   savefig("$ProjDir/Fig-01-05.2.png")
 

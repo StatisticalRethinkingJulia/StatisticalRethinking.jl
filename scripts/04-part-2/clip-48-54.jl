@@ -46,8 +46,11 @@ sm = SampleModel("weights", weightsmodel);
 
 # Input data.
 
-heightsdata = Dict("N" => length(df2[:, :height]), 
-  "height" => df2[:, :height], "weight" => df2[:, :weight_c]);
+heightsdata = Dict(
+  "N" => length(df2[:, :height]), 
+  "height" => df2[:, :height], 
+  "weight" => df2[:, :weight_c]
+);
 
 # Sample using stan
 
@@ -61,7 +64,10 @@ if sample_file !== nothing
 
   # Show first 5 draws of correlated parameter values in chain 1
 
-  chn.value[1:5,:,1]
+  dfa = DataFrame(chn)
+  println()
+  dfa[1:5,:] |> display
+  println()
 
   # ### Snippets 4.48 & 4.49
 
@@ -74,9 +80,12 @@ if sample_file !== nothing
   p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
   for i in 1:length(nvals)
     N = nvals[i]
-    heightsdataN = [
-      Dict("N" => N, "height" => df2[1:N, :height], "weight" => df2[1:N, :weight_c])
-    ]
+    heightsdataN = Dict(
+      "N" => N, 
+      "height" => df2[1:N, :height], 
+      "weight" => df2[1:N, :weight_c]
+    )
+    
     (sample_file, log_file) = stan_sample(sm, data=heightsdataN)
 
     if sample_file !== nothing
@@ -84,7 +93,9 @@ if sample_file !== nothing
       chnN = read_samples(sm)
       xi = -15.0:0.1:15.0
       sample_df = DataFrame(chnN)
-      p[i] = scatter(df2[1:N, :weight_c], df2[1:N, :height], leg=false, xlab="weight_c")
+      p[i] = scatter(df2[1:N, :weight_c], df2[1:N, :height],
+        leg=false, xlab="weight_c")
+
       for j in 1:N
         yi = sample_df[j, :alpha] .+ sample_df[j, :beta]*xi
         plot!(p[i], xi, yi, title="N = $N")
@@ -98,10 +109,9 @@ if sample_file !== nothing
 
   # ### Snippet 4.50
 
-  # Get dimensions of chains
+  dfa = DataFrame(chn)
+  mu_at_50 = link(dfa, [:alpha, :beta], 50:10:50, mean_weight);
 
-  rws, vars, chns = size(chn)
-  mu_at_50 = link(50:10:50, chn, [1, 2], mean_weight);
   density(mu_at_50)
   savefig("$ProjDir/fig-48-54.2.png")
 
@@ -109,7 +119,7 @@ if sample_file !== nothing
 
   # Show posterior density for 6 mu_bar values
 
-  mu = link(25:10:75, chn, [1, 2], mean_weight);
+  mu = link(DataFrame(chn), [:alpha, :beta], 25:10:75, mean_weight);
 
   q = Vector{Plots.Plot{Plots.GRBackend}}(undef, size(mu, 1))
   for i in 1:size(mu, 1)

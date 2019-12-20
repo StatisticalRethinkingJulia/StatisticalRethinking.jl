@@ -6,12 +6,20 @@ CurrentModule = StatisticalRethinking
 ```@docs
 rel_path(parts...)
 ```
+
 ## `link`
 ```@docs
-link(xrange, chain, vars, xbar) 
+link(df::DataFrame, vars, xrange, xbar) 
 ```
 
 ## `quap`
 ```@docs
 quap(df::DataFrame)
+```
+
+## `scale!`
+```@docs
+scale!(df::DataFrame, vars::Vector{Symbol}, ext="_s")
+scale!(df::DataFrame, var::Symbol, ext="_s")
+
 ```

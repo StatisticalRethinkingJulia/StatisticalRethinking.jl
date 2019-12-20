@@ -5,8 +5,7 @@ ProjDir = @__DIR__
 
 # ### snippet 4.7
 
-howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
-df = convert(DataFrame, howell1);
+df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # Use only adults
 
@@ -42,9 +41,11 @@ sm = SampleModel("weights", weightsmodel);
 
 # Input data for cmdstan
 
-heightsdata = Dict("N" => length(df2[:, :height]), 
+heightsdata = Dict(
+  "N" => length(df2[:, :height]), 
   "height" => df2[:, :height],
-  "weight" => df2[:, :weight]);
+  "weight" => df2[:, :weight]
+);
 
 # Sample using cmdstan
 
@@ -56,10 +57,15 @@ p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
 nvals = [10, 50, 150, 352];
 
 for i in 1:length(nvals)
+
   N = nvals[i]
-  heightsdataN = [
-    Dict("N" => N, "height" => df2[1:N, :height], "weight" => df2[1:N, :weight])
-  ]
+
+  heightsdataN = Dict(
+    "N" => N, 
+    "height" => df2[1:N, :height], 
+    "weight" => df2[1:N, :weight]
+  )
+  
 
   (sample_file, log_file) = stan_sample(sm, data=heightsdataN)
 

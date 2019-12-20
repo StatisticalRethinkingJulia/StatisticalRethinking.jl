@@ -13,7 +13,7 @@ link(xrange, chain, vars, xbar)
 ```julia
 * `xrange::range`				: Range over which link values are computed
 * `chain::Float64`              : Chain samples used
-* `vars::Float64`               : Variables in chain used
+* `vars::Vector{Symbol}`               : Variables in chain used
 * `xbar::Float64`               : Mean value of observed predictor
 ```
 
@@ -23,7 +23,7 @@ link(xrange, chain, vars, xbar)
 ```
 
 """
-function link(xrange, chain, vars, xbar) 
-  res = [chain.value[:, vars[1], :] + chain.value[:, vars[2], :] * (x - xbar) for x in xrange]
+function link(xrange, df::DataFrame, vars, xbar) 
+  res = [df[:, vars[1]] + df[:, vars[2]] * (x - xbar) for x in xrange]
 end
 

@@ -8,18 +8,15 @@ ProjDir = @__DIR__
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), 
     delim=';')
+
 mean_ma = mean(df[!, :MedianAgeMarriage])
 df[!, :MedianAgeMarriage_s] = 
   convert(Vector{Float64},  (df[!, :MedianAgeMarriage]) .-
     mean_ma)/std(df[!, :MedianAgeMarriage]);
-
-#=
-wd = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';');
-df = convert(DataFrame, wd);
-df[!, :A] = scale(df[!, :MedianAgeMarriage]);
-df[!, :D] = scale(df[!, :Divorce]);
-first(df, 5)
-=#
+mean_div = mean(df[!, :Divorce])
+df[!, :Divorce_s] = 
+  convert(Vector{Float64},  (df[!, :Divorce]) .-
+    mean_div)/std(df[!, :Divorce]);
 
 # ### snippet 5.1
 
@@ -39,16 +36,16 @@ parameters {
 }
 
 model {
-  vector[N] mu;
-  a ~ normal(10, 10);
+  vector[N] mu;            // mu is a vector
+  a ~ normal(10, 10);      //Priors
   bA ~ normal(0, 0.5);
   sigma ~ uniform(0, 10);
   mu = a + bA * A;
-  D ~ normal(mu , sigma);
+  D ~ normal(mu , sigma);   // Likelihood
 }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchains.
+# Define the SampleModel and set the output format to :mcmcchains.
 
 sm = SampleModel("MedianAgeDivorce", ad);
 
@@ -94,7 +91,7 @@ if sample_file !== nothing
 
   # shade(), abline() and link()
 
-  mu = link(xi, chn, [1, 2], mean(xi));
+  mu = link(xi, DataFrame(chn), [:a, :bA], mean(xi));
   yl = [minimum(mu[i]) for i in 1:length(xi)];
   yh =  [maximum(mu[i]) for i in 1:length(xi)];
   ym =  [mean(mu[i]) for i in 1:length(xi)];

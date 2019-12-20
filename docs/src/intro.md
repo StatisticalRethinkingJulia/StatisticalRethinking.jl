@@ -22,7 +22,7 @@ Posterior values can be approximated by
  
 ```
 # Simulate quadratic approximation (for simpler models)
-m4.31 <- quad(flist, data=d2)
+m4.31 <- quap(flist, data=d2)
 ```
 
 or generated using Stan by:

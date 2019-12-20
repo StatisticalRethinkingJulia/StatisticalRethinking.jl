@@ -13,5 +13,5 @@ link(xrange, chain, vars, xbar)
 
 ## `quap`
 ```@docs
-quap(df) 
+quap(df::DataFrame)
 ```

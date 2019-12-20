@@ -1,8 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, CmdStan
-
-# CmdStan uses a tmp directory to store the output of cmdstan
+using StatisticalRethinking, StanSample
 
 ProjDir = rel_path("..", "scripts", "05")
 
@@ -56,11 +54,9 @@ model {
 }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchains.
+# Define the SampleModel
 
-stanmodel = Stanmodel(name="m5_3",
-monitors = ["a", "bA", "bM", "sigma", "Divorce"],
- model=m5_3, output_format=:mcmcchains);
+sm = SampleModel("m5_3", m5_3);
 
 # Input data for cmdstan
 
@@ -69,12 +65,17 @@ m5_3_data = Dict("N" => size(df, 1), "divorce" => df[!, :Divorce],
 
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, m5_3_data, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file) = stan_sample(sm, data=m5_3_data);
 
-# Describe the draws
+if sample_file !== nothing
 
-MCMCChains.describe(chn)
+  # Describe the draws
+  chn = read_samples(sm)
+  
+  q = quap(DataFrame(chn))
+  println()
+  display(q)
+end
 
 # Rethinking results
 

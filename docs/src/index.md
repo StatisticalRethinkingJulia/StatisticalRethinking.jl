@@ -20,6 +20,4 @@ quap(df::DataFrame)
 ## `scale!`
 ```@docs
 scale!(df::DataFrame, vars::Vector{Symbol}, ext="_s")
-scale!(df::DataFrame, var::Symbol, ext="_s")
-
 ```

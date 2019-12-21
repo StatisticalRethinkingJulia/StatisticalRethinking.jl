@@ -11,7 +11,7 @@ quap(df)
 
 ### Required arguments
 ```julia
-* `df::DataFrame`				: Dataframe generated from a chain
+* `df::DataFrame`               : Dataframe generated from a chain
 ```
 
 ### Return values

@@ -21,3 +21,12 @@ quap(df::DataFrame)
 ```@docs
 scale!(df::DataFrame, vars::Vector{Symbol}, ext="_s")
 ```
+
+## `sample`
+```@docs
+sample(df::DataFrame, n; replace=true, ordered=false)```
+
+## `scale!`
+```@docs
+sample(q::Particles, n; permute=true)```
+

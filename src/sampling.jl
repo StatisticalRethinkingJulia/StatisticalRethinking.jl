@@ -1,6 +1,36 @@
 using Random, StatsBase
 import StatsBase: sample
 
+"""
+
+# sample
+
+Sample rows from a DataFrame
+
+### Method
+```julia
+sample(df, n; replace, ordered) 
+```
+
+### Required arguments
+```julia
+* `df::DataFrame`               : DataFrame
+* `n::Int`                      : Number of samples
+```
+
+### Optional argument
+```julia
+* `rng::AbstractRNG`            : Random number generator
+* `replace::Bool=true`          : Sample with replace 
+* `ordered::Bool=false`         : Sort sample 
+```
+
+### Result
+```julia
+* `result`                      : Array of samples
+```
+
+"""
 function sample(rng::AbstractRNG, df::DataFrame, n;
     replace=true, ordered=false)
   indxs = sample(rng,
@@ -18,3 +48,37 @@ function sample(df::DataFrame, n;
     replace=replace, ordered=ordered)
   df[indxs, :]
 end
+
+"""
+
+# sample
+
+Sample from a Particles object
+
+### Method
+```julia
+sample(q::Particles, n; permute=true) 
+```
+
+### Required arguments
+```julia
+* `q::Particles`                : Particles object
+* `n::Int`                      : Number of samples
+```
+
+### Optional argument
+```julia
+* permute::Bool=false`          : Sort sample 
+```
+
+This method uses `systemetic_sample`.
+See [MonteCarloMeasurements](https://baggepinnen.github.io/MonteCarloMeasurements.jl/latest/).
+
+### Result
+```julia
+* `result`                      : Vector of samples
+```
+
+"""
+sample(q::Particles, n; permute=true) =
+  systematic_sample(n, q, permute=permute)

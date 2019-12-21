@@ -46,9 +46,9 @@ if sample_file !== nothing
 
 	# Check equivalence of Stan samples and Particles.
 	mu_range = 152.0:0.01:157.0
-	plot(mu_range, ecdf(dfa[:, :mu])(mu_range),
+	plot(mu_range, ecdf(sample(dfa[:, :mu], 10000))(mu_range),
 		xlabel="ecdf", ylabel="mu", lab="Stan samples")
-	plot!(mu_range, ecdf(systematic_sample(4000, q[:mu]))(mu_range),
+	plot!(mu_range, ecdf(sample(q[:mu], 10000))(mu_range),
 		lab="Particles samples")
 	savefig("$ProjDir/Fig-34-36.png")
 end

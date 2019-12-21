@@ -1,14 +1,16 @@
 ## References
 
-There is no shortage of good books on Bayesian statistics. A few of my favorites are:
+This package is based on:
 
-1. [Bolstad: Introduction to Bayesian statistics](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118593227.html)
+1. [McElreath: Statistical Rethinking 2nd edition](http://xcelab.net/rm/statistical-rethinking/)
 
-2. [Bolstad: Understanding Computational Bayesian Statistics](http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470046090.html)
+There is no shortage of additional good books on Bayesian statistics. A few of my favorites are:
 
-3. [Gelman, Hill: Data Analysis using regression and multileve,/hierachical models](http://www.stat.columbia.edu/~gelman/arm/)
+2. [Bolstad: Introduction to Bayesian statistics](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118593227.html)
 
-4. [McElreath: Statistical Rethinking](http://xcelab.net/rm/statistical-rethinking/)
+3. [Bolstad: Understanding Computational Bayesian Statistics](http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470046090.html)
+
+4. [Gelman, Hill: Data Analysis using regression and multileve,/hierachical models](http://www.stat.columbia.edu/~gelman/arm/)
 
 5. [Kruschke: Doing Bayesian Data Analysis](https://sites.google.com/site/doingbayesiandataanalysis/what-s-new-in-2nd-ed)
 

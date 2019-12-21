@@ -13,7 +13,7 @@ scale!(df, var, ext)
 
 ### Required arguments
 ```julia
-* `df::DataFrame`				       : DataFrame
+* `df::DataFrame`                      : DataFrame
 * `var::Union{Symbol, Vector{Symbol}}` : Variables to scale
 * `ext::String="_s"`                   : Suffix for scaled varable(s)
 ```

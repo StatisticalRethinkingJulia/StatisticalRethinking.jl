@@ -1,5 +1,7 @@
 ## Acknowledgements
 
+Of course, without this excellent textbook by Richard McElreath, this package would not have been possible. The author has also been supportive of this work and gave permission to use the datasets.
+
 Richard Torkar has taken the lead in developing the Turing versions of the models in chapter 8 and subsequent chapters. 
 
 Tamas Papp has been very helpful during the development of the DynamicHMC versions of the models.

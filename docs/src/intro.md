@@ -4,6 +4,10 @@ This package contains Julia versions of selected code snippets and mcmc models c
 
 As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia and Stan.
 
+## Time line
+
+The 2nd edition of the book is going to print in March 2020. This is also the target date for completion of v1 of StatisticalRethinking.jl.
+
 ## Introduction
 
 In the book and associated R package `rethinking`, statistical models are defined as illustrated below:

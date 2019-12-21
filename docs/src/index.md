@@ -26,7 +26,8 @@ scale!(df::DataFrame, vars::Vector{Symbol}, ext="_s")
 ```@docs
 sample(df::DataFrame, n; replace=true, ordered=false)```
 
-## `scale!`
+
+## `sample`
 ```@docs
 sample(q::Particles, n; permute=true)```
 

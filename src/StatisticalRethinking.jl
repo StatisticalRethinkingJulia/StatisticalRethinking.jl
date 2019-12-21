@@ -41,14 +41,14 @@ include("quap.jl")
 export
 	rel_path,
 	link,
- 	describe,
- 	#shade,
+ 	#describe,
  	quap,
  	scale,
- 	standardize,
- 	HMC,
+ 	sample,
+ 	#HMC,
  	create_a3d,
  	insert_chain,
  	create_mcmcchains
+ 	#shade
 
 end # module

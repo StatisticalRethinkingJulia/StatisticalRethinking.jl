@@ -6,7 +6,7 @@ Compute the link function
 
 ### Method
 ```julia
-link(xrange, df, vars, xbar) 
+link(df, vars, xrange, xbar) 
 ```
 
 ### Required arguments

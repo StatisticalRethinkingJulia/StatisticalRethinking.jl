@@ -91,7 +91,8 @@ function draw_n_samples(model, grad;
   
   samples = zeros(n_samples, 2)
   for i in 1:n_samples
-    q, ptraj, qtraj, accept, dH = HMC(model, grad, 0.03, 11, q)
+    q, ptraj, qtraj, accept, 
+      dH = StatisticalRethinking.HMC(model, grad, 0.03, 11, q)
     samples[i, :] = q
   end
   

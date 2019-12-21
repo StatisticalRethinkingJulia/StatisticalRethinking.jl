@@ -25,7 +25,7 @@ sample(df, n; replace, ordered)
 * `ordered::Bool=false`         : Sort sample 
 ```
 
-### Result
+### Return values
 ```julia
 * `result`                      : Array of samples
 ```
@@ -71,10 +71,10 @@ sample(q::Particles, n; permute=true)
 * permute::Bool=false`          : Sort sample 
 ```
 
-This method uses `systemetic_sample`.
+This method uses `systematic_sample`.
 See [MonteCarloMeasurements](https://baggepinnen.github.io/MonteCarloMeasurements.jl/latest/).
 
-### Result
+### Return values
 ```julia
 * `result`                      : Vector of samples
 ```

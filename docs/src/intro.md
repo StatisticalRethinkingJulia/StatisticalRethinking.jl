@@ -22,7 +22,11 @@ flist <- alist(
 )
 ```
 
-Posterior values can be approximated by
+The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
+
+[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using [Stan](https://github.com/StanJulia) and Julia.
+
+In `rethinking`, posterior values can be approximated by
  
 ```
 # Simulate quadratic approximation (for simpler models)
@@ -35,10 +39,6 @@ or generated using Stan by:
 # Generate a Stan model and run a simulation
 m4.32 <- ulam(flist, data=d2)
 ```
-
-The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
-
-[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using [Stan](https://github.com/StanJulia) and Julia.
 
 In v1.x of StatisticalRethinking.jl, R's ulam() has been replaced by StanSample.jl. This means that much earlier on than in the book, StatisticalRethinking.jl introduces the reader to the Stan language.
 

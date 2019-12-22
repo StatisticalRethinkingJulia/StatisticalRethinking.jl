@@ -13,7 +13,7 @@ As stated many times by the author in his [online lectures](https://www.youtube.
 
 ## Important note
 
-Over the next 2 months (until March 2020) I'm planning to update StatisticalRethinking.jl to reflect the changes in the 2nd edition of the book. At the same time (but this will likely take longer) I'll also expand coverage of chapters 5 and beyond.
+Over the next 2 months I'm planning to update StatisticalRethinking.jl to reflect the changes in the 2nd edition of the book. At the same time (but this will likely take longer) I'll also expand coverage of chapters 5 and beyond.
 
 Documentation will change substantially. I no longer plan to generate and store notebook (and chapter) versions as part of the documentation.
 
@@ -73,9 +73,9 @@ There are a few important differences between `rethinking` and `StatisticalRethi
 
 1. In v1.x of StatisticalRethinking.jl, ulam() has been replaced by StanSample.jl.
 
-This means that much earlier on StatisticalRethinking.jl introduces the reader to the Stan language.
+This means that much earlier on than in the book, StatisticalRethinking.jl introduces the reader to the Stan language.
 
-In the subdirectory `scripts/03/intro-stan` this is illustrated.
+To help out with this, in the subdirectory `scripts/03/intro-stan` the Stan language is introduced and the execution of Stan language programs illustrated. Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5).
 
 Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5).
 
@@ -113,6 +113,8 @@ There is a plan to release a version 2 of StatisticalRethinking.jl based on Soss
 
 ## Acknowledgements
 
+Of course, without this excellent textbook by Richard McElreath, this package would not have been possible. The author has also been supportive of this work and gave permission to use the datasets.
+
 Richard Torkar has taken the lead in developing the Turing versions of the models contained in [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl). 
 
 Tamas Papp has been very helpful during the development of the DynamicHMC versions of the models.
@@ -127,9 +129,9 @@ Question and contributions are very welcome, as are feature requests and suggest
 
 Developing `rethinking` must have been an on-going process over several years, `StatisticalRethinking.jl` will likely follow a similar path.
 
-1. The first version (v1.x) of `StatisticalRethinking` is really just a first attempt to capture the models and show ways of setting up those models, execute the models and post-process the results using Julia.
+1. The first version (v1.x) of `StatisticalRethinking` attempts to capture the models and to show ways of setting up those models, execute the models and post-process the results using Julia.
 
-2. Many other R functions such as precis(), link(), shade(), etc. are not in v1, although some very early versions are being tested. Expect significant refactoring of those in future versions and at the same time better integration with MCMCChains.Chains objects.
+2. Many R functions such as precis(), shade(), etc. are either not in v1 or replaced by Julia equivalents, e.g. the Particles approach is used instead of precis(). Expect significant refactoring of those in future versions of StatisticalRethinking.jl. 
 
 3. Several other interesting approaches to mcmc modeling are being explored in Julia, e.g. Soss.jl and Omega.jl. These are tracked as candidates for use in a future v2 of StatisticalRethinking.jl.
 

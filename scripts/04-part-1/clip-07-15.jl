@@ -145,11 +145,11 @@ heightsdata = Dict("N" => length(df[:, :height]), "h" => df[:, :height]);
 
 # Run Stan's cmdstan:
 
-(sample_file, log_file) = stan_sample(sm, data=heightsdata);
+rc = stan_sample(sm, data=heightsdata);
 
 # Check if sampling went ok:
 
-if sample_file !== nothing
+if success(rc)
  	
  	# Read in the samples and show a chain summary
  

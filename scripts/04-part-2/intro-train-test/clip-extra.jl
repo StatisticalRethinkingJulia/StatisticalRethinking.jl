@@ -114,9 +114,9 @@ lrdata = Dict("N" => size(train, 1), "K" => size(dmat, 2), "y" => train_label, "
 
 # Sample using cmdstan
  
-(sample_file, log_file) = stan_sample(sm, data=lrdata);
+rc = stan_sample(sm, data=lrdata);
 
-if sample_file !== nothing
+if success(rc)
   
   # Convert samples to a Chain object and update section
 

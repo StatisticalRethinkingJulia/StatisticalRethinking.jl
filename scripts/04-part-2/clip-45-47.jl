@@ -49,7 +49,7 @@ heightsdata = Dict(
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=heightsdata);
+rc = stan_sample(sm, data=heightsdata);
 
 # Plot estimates using the N = [10, 50, 150, 352] observations
 
@@ -67,9 +67,9 @@ for i in 1:length(nvals)
   )
   
 
-  (sample_file, log_file) = stan_sample(sm, data=heightsdataN)
+  rc = stan_sample(sm, data=heightsdataN)
 
-  if sample_file !== nothing
+  if success(rc)
 
     xi = 30.0:0.1:65.0
     chnN = read_samples(sm)

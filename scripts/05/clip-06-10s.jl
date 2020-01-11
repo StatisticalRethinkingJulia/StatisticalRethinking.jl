@@ -60,9 +60,9 @@ m5_3_data = Dict(
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m5_3_data);
+rc = stan_sample(sm, data=m5_3_data);
 
-if sample_file !== nothing
+if success(rc)
 
   # Describe the draws
   chn = read_samples(sm)

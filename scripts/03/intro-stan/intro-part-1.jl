@@ -94,11 +94,11 @@ m1_1_data = Dict("N" => N, "n" => n, "k" => k);
 
 # 4. Sample using stan_sample.
  
-(sample_file, log_file) = stan_sample(sm, data=m1_1_data);
+rc = stan_sample(sm, data=m1_1_data);
 
 # 5. Describe and check the results
 
-if !(sample_file == nothing)
+success(rc)
   chn = read_samples(sm)
 
   println()

@@ -42,11 +42,11 @@ m1_1_data = Dict("N" => N, "n" => n, "k" => k);
 
 # Sample using cmdstan
  
-(sample_file, log_file) = stan_sample(sm, data=m1_1_data);
+rc = stan_sample(sm, data=m1_1_data);
 
 # Collect the draws
 
-if !(sample_file == nothing)
+success(rc)
   chn = read_samples(sm);
 end
 

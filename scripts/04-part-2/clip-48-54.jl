@@ -54,9 +54,9 @@ heightsdata = Dict(
 
 # Sample using stan
 
-(sample_file, log_file) = stan_sample(sm, data=heightsdata);
+rc = stan_sample(sm, data=heightsdata);
 
-if sample_file !== nothing
+if success(rc)
 
   chn = read_samples(sm)
 
@@ -86,9 +86,9 @@ if sample_file !== nothing
       "weight" => df2[1:N, :weight_c]
     )
     
-    (sample_file, log_file) = stan_sample(sm, data=heightsdataN)
+    rc = stan_sample(sm, data=heightsdataN)
 
-    if sample_file !== nothing
+    if success(rc)
 
       chnN = read_samples(sm)
       xi = -15.0:0.1:15.0

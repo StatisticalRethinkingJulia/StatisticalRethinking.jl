@@ -47,11 +47,11 @@ m_05s_data = Dict("N" => length(n2), "n" => n2, "k" => k2);
 
 # Sample using cmdstan
  
-(sample_file, log_file) = stan_sample(sm, data=m_05s_data);
+rc = stan_sample(sm, data=m_05s_data);
 
 # Plot the 4 chains
 
-if sample_file !== nothing
+if success(rc)
 
   # Describe the draws
 

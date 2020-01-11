@@ -47,9 +47,9 @@ ad_data = Dict("N" => size(df, 1), "D" => df[!, :Divorce],
 
 # Sample using StanSample
 
-(sample_file, log_file) = stan_sample(sm, data=ad_data);
+rc = stan_sample(sm, data=ad_data);
 
-if sample_file !== nothing
+if success(rc)
 
   # Describe the draws
   chn = read_samples(sm)

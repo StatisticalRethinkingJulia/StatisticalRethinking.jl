@@ -24,7 +24,7 @@ quap(df)
 
 # Run stan_sample() on a SampleModel
 
-if sample_file !== nothing
+if success(rc)
 	
 	chn = read_samples(sm)
 	quap(DataFrame(chn))

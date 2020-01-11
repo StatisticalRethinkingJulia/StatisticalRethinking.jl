@@ -49,7 +49,7 @@ m_17s_data = Dict("N" => length(n2), "n" => n2, "k" => k2);
  
 (sample_file, log_file_) = stan_sample(sm, data=m_17s_data)
 
-if sample_file !== nothing
+if success(rc)
 
   # Describe the draws
 

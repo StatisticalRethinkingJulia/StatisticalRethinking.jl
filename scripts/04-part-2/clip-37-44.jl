@@ -45,9 +45,9 @@ heightsdata = Dict("N" => length(df2[:, :height]),
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=heightsdata);
+rc = stan_sample(sm, data=heightsdata);
 
-if sample_file !== nothing
+if success(rc)
 
 	# Describe the draws
 

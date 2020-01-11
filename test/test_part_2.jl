@@ -1,4 +1,4 @@
-if !(sample_file == nothing)
+success(rc)
 
   # Turn chains into DataFrames
 

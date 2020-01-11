@@ -35,9 +35,9 @@ sm = SampleModel("heights", heightsmodel);
 
 heightsdata = Dict("N" => length(df2[:, :height]), "h" => df2[:, :height]);
 
-(sample_file, log_file) = stan_sample(sm, data=heightsdata);
+rc = stan_sample(sm, data=heightsdata);
 
-if sample_file !== nothing
+if success(rc)
 	println()
 	chn = read_samples(sm)
 	dfa = DataFrame(chn)

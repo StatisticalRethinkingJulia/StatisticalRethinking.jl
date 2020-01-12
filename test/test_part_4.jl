@@ -12,10 +12,10 @@ m1_1_data = Dict("N" => N, "n" => n, "k" => k);
 
 # Sample using cmdstan
  
-(optim_file, log_file) = stan_optimize(sm, data=m1_1_data);
+rc = stan_optimize(sm, data=m1_1_data);
 
 # Describe the draws
 
-if !(optim_file == nothing)
+if success(rc)
   optim_stan, cnames = read_optimize(sm)
 end

@@ -1,4 +1,4 @@
-success(rc)
+if success(rc)
 
   # Turn chains into DataFrames
 

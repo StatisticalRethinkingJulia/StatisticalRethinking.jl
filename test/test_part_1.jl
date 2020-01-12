@@ -46,8 +46,8 @@ rc = stan_sample(sm, data=m1_1_data);
 
 # Collect the draws
 
-success(rc)
-  chn = read_samples(sm);
+if success(rc)
+ chn = read_samples(sm);
 end
 
 println()

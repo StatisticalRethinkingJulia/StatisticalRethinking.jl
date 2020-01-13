@@ -95,7 +95,7 @@ samples = post_df[sample(1:size(post_df, 1), Weights(post_df[:, :prob]),
 # Convert to an MCMCChains.Chains object
 
 chn = StanSample.convert_a3d(hcat(samples[:, :mu], samples[:, :sigma]),
-	["mu", "sigma"], Val(:mcmcchains); start=1)
+	["mu", "sigma"]; start=1)
 
 show(chn)
 

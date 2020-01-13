@@ -2,7 +2,7 @@ using StatisticalRethinking, StanSample
 
 ProjDir = @__DIR__
 
-df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
+df = CSV.read(joinpath(ProjDir, "..", "..", "data", "Howell1.csv"), delim=';')
 
 # Use only adults
 
@@ -73,6 +73,7 @@ if success(rc)
 	# ### snippet 4.44
 
 	dfa = DataFrame(chn)
+
 	println()
 	q = quap(dfa)
 	display(q)

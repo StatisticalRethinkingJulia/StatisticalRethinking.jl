@@ -5,7 +5,7 @@ using StatisticalRethinking, StanSample, LinearAlgebra
 # ### Snippet 4.26
 
 ProjDir = @__DIR__
-df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
+df = CSV.read(joinpath(ProjDir, "..", "..", "data", "Howell1.csv"), delim=';')
 df2 = filter(row -> row[:age] >= 18, df);
 first(df2, 5)
 

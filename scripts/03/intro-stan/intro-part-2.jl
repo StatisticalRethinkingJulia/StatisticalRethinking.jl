@@ -1,6 +1,6 @@
 # Execute this script after `scripts/03/intro_stan/intro-part-1.jl`
 
-success(rc)
+if success(rc)
 
   # Allocate array of 4 Normal fits
 

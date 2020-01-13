@@ -6,8 +6,7 @@ ProjDir = @__DIR__
 
 # ### Preliminary snippets
 
-howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
-df = convert(DataFrame, howell1);
+df = CSV.read(joinpath(ProjDir, "..", "..", "data", "Howell1.csv"), delim=';')
 
 # Use only adults
 
@@ -16,8 +15,7 @@ df2 = filter(row -> row[:age] >= 18, df);
 # Center weight and store as weight_c
 
 mean_weight = mean(df2[:, :weight])
-df2 = hcat(df2, df2[:, :weight] .- mean_weight)
-rename!(df2, :x1 => :weight_c); # Rename our col :x1 => :weight_c
+df2[!, :weight_c] = (df2[:, :weight] .- mean_weight)/std(df2[:, :weight])
 first(df2, 5)
 
 # Define the Stan language model
@@ -86,6 +84,8 @@ if success(rc)
       "weight" => df2[1:N, :weight_c]
     )
     
+    # Make sure previous sample files are removed!
+    sm = SampleModel("weights", weightsmodel);
     rc = stan_sample(sm, data=heightsdataN)
 
     if success(rc)

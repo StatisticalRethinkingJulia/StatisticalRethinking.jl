@@ -6,7 +6,7 @@ ProjDir = @__DIR__
 
 # ### snippet 5.1
 
-df = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
+df = CSV.read(joinpath(ProjDir, "..", "..", "data", "WaffleDivorce.csv"), delim=';')
 scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
 
 # ### snippet 5.1
@@ -82,7 +82,7 @@ if success(rc)
 
   # shade(), abline() and link()
 
-  mu = link(xi, DataFrame(chn), [:a, :bA], mean(xi));
+  mu = link(DataFrame(chn), [:a, :bA], xi, mean(xi));
   yl = [minimum(mu[i]) for i in 1:length(xi)];
   yh =  [maximum(mu[i]) for i in 1:length(xi)];
   ym =  [mean(mu[i]) for i in 1:length(xi)];

@@ -98,7 +98,7 @@ rc = stan_sample(sm, data=m1_1_data);
 
 # 5. Describe and check the results
 
-success(rc)
+if success(rc)
   chn = read_samples(sm)
 
   println()

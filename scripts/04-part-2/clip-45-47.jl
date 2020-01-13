@@ -5,11 +5,13 @@ ProjDir = @__DIR__
 
 # ### snippet 4.7
 
-df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
+df = CSV.read(joinpath(ProjDir, "..", "..", "data", "Howell1.csv"), delim=';')
 
 # Use only adults
 
 df2 = filter(row -> row[:age] >= 18, df);
+mean_weight = mean(df2[:, :weight]);
+df2[!, :weight_c] = df2[:, :weight] .- mean_weight;
 first(df2, 5)
 
 # Define the Stan language model
@@ -35,17 +37,14 @@ generated quantities {
 } 
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchains.
+# Define the SampleModel.
 
 sm = SampleModel("weights", weightsmodel);
 
 # Input data for cmdstan
 
-heightsdata = Dict(
-  "N" => length(df2[:, :height]), 
-  "height" => df2[:, :height],
-  "weight" => df2[:, :weight]
-);
+heightsdata = Dict("N" => length(df2[:, :height]), 
+  "height" => df2[:, :height], "weight" => df2[:, :weight_c]);
 
 # Sample using cmdstan
 
@@ -54,7 +53,9 @@ rc = stan_sample(sm, data=heightsdata);
 # Plot estimates using the N = [10, 50, 150, 352] observations
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
+
 nvals = [10, 50, 150, 352];
+#nvals = [10, 50];
 
 for i in 1:length(nvals)
 
@@ -66,7 +67,8 @@ for i in 1:length(nvals)
     "weight" => df2[1:N, :weight]
   )
   
-
+  # Make sure previous sample files are removed!
+  sm = SampleModel("weights", weightsmodel);
   rc = stan_sample(sm, data=heightsdataN)
 
   if success(rc)

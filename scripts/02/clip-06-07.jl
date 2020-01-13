@@ -4,7 +4,6 @@ using StatisticalRethinking, Optim
 
 ProjDir = rel_path("..", "scripts", "02")
 
-
 # ### snippet 2.6
 
 # Grid of 1001 steps

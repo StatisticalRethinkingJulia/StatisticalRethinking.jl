@@ -47,7 +47,7 @@ m_17s_data = Dict("N" => length(n2), "n" => n2, "k" => k2);
 
 # Sample using cmdstan
  
-(sample_file, log_file_) = stan_sample(sm, data=m_17s_data)
+rc = stan_sample(sm, data=m_17s_data)
 
 if success(rc)
 

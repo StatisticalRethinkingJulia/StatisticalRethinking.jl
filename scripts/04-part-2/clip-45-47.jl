@@ -39,7 +39,8 @@ generated quantities {
 
 # Define the SampleModel.
 
-sm = SampleModel("weights", weightsmodel);
+sm = SampleModel("weights", weightsmodel,
+  tmpdir=joinpath(ProjDir, "tmp"));
 
 # Input data for cmdstan
 
@@ -55,7 +56,6 @@ rc = stan_sample(sm, data=heightsdata);
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
 
 nvals = [10, 50, 150, 352];
-#nvals = [10, 50];
 
 for i in 1:length(nvals)
 

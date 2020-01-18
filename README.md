@@ -94,6 +94,19 @@ Instead of having all snippets in a single file, the snippets are organized by c
 
 A single snippet clip will be referred to as `03/clip-02.jl`. 
 
+### Data Access
+
+If you want to use this package as an easy way to access the dataset samples, the package offers the function `rel_path` to work with paths inside the StatisticalRethinking package:
+
+```julia
+
+using StatisticalRethinking, CSV
+
+# for example, grabbing the `Howell1` dataset used in Chapter 4
+datapath = rel_path("..", "data/","Howell1.csv") 
+CSV.read(datapath)
+```
+
 ## Other packages in the StatisticalRethinkingJulia Github organization
 
 Implementations of the models using Stan, DynamicHMC and Turing can be found in [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).

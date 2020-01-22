@@ -18,9 +18,6 @@ before_install:
   - make -C $JULIA_CMDSTAN_HOME build
   - cd $OLDWD
   
-julia:
-  - nightly
-
 matrix:
   allow_failures:
   - julia: nightly
@@ -35,7 +32,13 @@ git:
 jobs:
   include:
     - stage: Test
+      julia: 1.2
+      os: linux
+    - stage: Test
       julia: 1.3
+      os: linux
+    - stage: Test
+      julia: nightly
       os: linux
     - stage: Documentation
       julia: 1.3

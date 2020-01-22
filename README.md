@@ -17,6 +17,10 @@ Over the next 2 months I'm planning to update StatisticalRethinking.jl to reflec
 
 Documentation will change substantially. I no longer plan to generate and store notebook (and chapter) versions as part of the documentation.
 
+## Versions
+
+Version 2.0.0 follows the ongoing changes in the packages in the StanJulia Github organization, particularly the changes in StanSample.jl. This version breaks the approach chosen in v1.x with respect to the return values of stan_sample().
+
 ## Installation
 
 This package is part of the broader [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization.
@@ -83,7 +87,7 @@ The R function quap() in StatisticalRethinking.jl uses the MAP density of the St
 
 3. In `sripts/04` an additional section has been added, `intro-logpdf` which introduces an alternative way to compute the MAP (quap) using Optim.jl. This kind of builds on the logpdf formulation introduced in `scripts/03/intro-stan/intro-part-4.jl`
 
-2. In `scripts/09` an additional intro section has been included, `scripts/09/intro-dhmc`. I consider this a precursor to the envisaged changes in StatisticalRethinking.jl v2 (see also the section "Future plans" below).
+2. In `scripts/09` an additional intro section has been included, `scripts/09/intro-dhmc`. It is envisage that a future version of StatisticalRethinking.jl will be based on DynamicHMC.jl and possibly Soss.jl. No time line has been set for this work.
 
 ## Layout of the package
 
@@ -117,7 +121,7 @@ In the meantime time, Chris Fisher has made tremendous progress with MCMCBenchma
 
 ## Future plans
 
-There is a plan to release a version 2 of StatisticalRethinking.jl based on Soss.jl and DynamicHMC.jl. No firm timeline has been set for this.
+There is a plan to release a version of StatisticalRethinking.jl based on Soss.jl and DynamicHMC.jl. No firm timeline has been set for this.
 
 ## Documentation
 
@@ -146,7 +150,7 @@ Developing `rethinking` must have been an on-going process over several years, `
 
 2. Many R functions such as precis(), shade(), etc. are either not in v1 or replaced by Julia equivalents, e.g. the Particles approach is used instead of precis(). Expect significant refactoring of those in future versions of StatisticalRethinking.jl. 
 
-3. Several other interesting approaches to mcmc modeling are being explored in Julia, e.g. Soss.jl and Omega.jl. These are tracked as candidates for use in a future v2 of StatisticalRethinking.jl.
+3. Several other interesting approaches to mcmc modeling are being explored in Julia, e.g. Soss.jl and Omega.jl. These are tracked as candidates for use in a future version of StatisticalRethinking.jl.
 
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
 [docs-dev-url]: https://statisticalrethinkingjulia.github.io/StatisticalRethinking.jl/latest

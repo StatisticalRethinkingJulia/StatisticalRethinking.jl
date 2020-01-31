@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, MCMCChains
 
 ProjDir = @__DIR__
 
@@ -47,7 +47,7 @@ rc = stan_sample(sm, data=m1_1_data);
 # Collect the draws
 
 if success(rc)
- chn = read_samples(sm);
+ chn = read_samples(sm; ouput_format=:mcmcchains);
 end
 
 println()

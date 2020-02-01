@@ -1,4 +1,4 @@
-using Random, StatsBase
+using Random, StatsBase, DataFrames, MonteCarloMeasurements
 import StatsBase: sample
 
 """

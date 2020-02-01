@@ -1,32 +1,59 @@
 if success(rc)
 
-  # Turn chains into DataFrames
+  # Fit a normal distribution to the chain.
 
-  # Separate df for each chain
+  fits_mu = fit_mle(Normal, df[:, :theta]).μ
+  fits_sigma = fit_mle(Normal, df[:, :theta]).σ
 
-  dfs = DataFrame(chn, append_chains=false);
+  # MLE of mean and sd:
 
-  # All chains appended
+  mu_sigma = [fits_mu, fits_sigma]
 
-  dfsa = DataFrame(chn);
+  # quadratic approximation
 
-  # Fit a normal distribution to each chain.
+  # Compute MAP, compare with CmndStan & MLE
 
-  fits_mu = zeros(4)
-  fits_sigma = zeros(4)
-  for i in 1:4
-    fits_mu[i] = fit_mle(Normal, dfs[i][:, :theta]).μ
-    fits_sigma[i] = fit_mle(Normal, dfs[i][:, :theta]).σ
+  using Optim
+
+  x0 = [0.5]
+  lower = [0.2]
+  upper = [1.0]
+
+  inner_optimizer = GradientDescent()
+
+  function loglik(x)
+    ll = 0.0
+    ll += log.(pdf.(Beta(1, 1), x[1]))
+    ll += sum(log.(pdf.(Binomial(9, x[1]), k)))
+    -ll
   end
 
-  # Plot the 4 chains
+  res = optimize(loglik, lower, upper, x0, Fminbox(inner_optimizer))
 
-  mu_avg = sum([fits_mu[i] for i in 1:4]) / 4.0;
-  sigma_avg = sum([fits_sigma[i] for i in 1:4]) / 4.0;
+  # MAP estimate and associated sd:
 
-    # Compute the hpd bounds for plotting using all 4 chains
+  optim_optim =[Optim.minimizer(res)[1], std(df[:, :theta], mean=mean(df[:, :theta]))]
 
-  dfsa = DataFrame(chn);
-  bnds = quantile(dfsa[:, :theta], [0.045, 0.945])
+end
 
+# Load Julia packages (libraries) needed
+
+using StanOptimize
+
+# Define the OptimizeModel, use model from intro_m1.1s.jl.
+
+sm = OptimizeModel("m1.1s", m1_1s);
+
+# Use observations generated in intro_m1.1s.jl.
+
+m1_1_data = Dict("N" => N, "n" => n, "k" => k);
+
+# Sample using cmdstan
+ 
+rc = stan_optimize(sm, data=m1_1_data);
+
+# Describe the draws
+
+if success(rc)
+  optim_stan, cnames = read_optimize(sm)
 end

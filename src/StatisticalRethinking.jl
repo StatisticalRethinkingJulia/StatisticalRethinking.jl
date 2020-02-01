@@ -1,17 +1,17 @@
 module StatisticalRethinking
 
-using Reexport 
+#using Reexport 
 
-@reexport using Distributions, Random
-@reexport using RDatasets, DataFrames
-@reexport using StatsBase, StatsPlots, StatsFuns 
-@reexport using CSV, DelimitedFiles, Serialization
-@reexport using MCMCChains, KernelDensity
-@reexport using Parameters, Random, MonteCarloMeasurements
+#@reexport using Distributions, Random
+#@reexport using RDatasets, DataFrames
+#@reexport using StatsBase, StatsPlots, StatsFuns 
+#@reexport using CSV, DelimitedFiles, Serialization
+#@reexport using MCMCChains, KernelDensity
+#@reexport using Parameters, Random, MonteCarloMeasurements
 
-using DataStructures
+#using DataStructures
 import StatsBase: sample
-import MCMCChains: describe
+#import MCMCChains: describe
 
 const src_path = @__DIR__
 
@@ -34,18 +34,16 @@ include("scale.jl")
 include("shading.jl")
 include("generate_n_samples.jl")
 include("link.jl")
-include("HMC.jl")
-include("dhmc2mcmcchains.jl")
+#include("HMC.jl")
+#include("dhmc2mcmcchains.jl")
 include("quap.jl")
 
 export
 	rel_path,
 	link,
- 	#describe,
  	quap,
  	scale,
  	sample,
- 	#HMC,
  	create_a3d,
  	insert_chain,
  	create_mcmcchains

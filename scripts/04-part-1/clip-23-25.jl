@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, DataFrames, Distributions, StatsPlots
 
 ProjDir = @__DIR__
 

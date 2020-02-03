@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, StatsPlots
 
 ProjDir = @__DIR__
 
@@ -153,7 +153,7 @@ if success(rc)
  	
  	# Read in the samples and show a chain summary
  
- 	chn = read_samples(sm)
+ 	chn = read_samples(sm; output_format=:mcmcchains)
  	show(chn)
 
  	# Plot the sampling

@@ -1,4 +1,4 @@
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, MCMCChains, DataFrames, CSV, StatsPlots
 
 ProjDir = @__DIR__
 
@@ -50,9 +50,8 @@ rc = stan_sample(sm, data=heightsdata);
 if success(rc)
 
 	# Describe the draws
-
-	chn = read_samples(sm)
-	dfa = DataFrame(chn)
+	chn = read_samples(sm; output_format=:mcmcchains)
+	dfa = read_samples(sm; output_format=:dataframe)
 
 	# ### snippet 4.37
 

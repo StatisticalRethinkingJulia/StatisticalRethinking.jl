@@ -1,12 +1,8 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, StanSample
-#gr(size=(600,600));
+using StatisticalRethinking, StanSample, Distributions, MCMCChains, StatsPlots
 
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path("..", "scripts", "03")
-cd(ProjDir)
+ProjDir = @__DIR__
 
 # Define the Stan language model
 
@@ -52,7 +48,7 @@ rc = stan_sample(sm, data=m_17s_data)
 if success(rc)
 
   # Describe the draws
-
+  chn = read_samples(sm; output_format=:mcmcchains)
   show(chn)
 
   # Look at area of hpd
@@ -65,7 +61,7 @@ if success(rc)
   bnds = hpd(chn[:,1,1])
   vline!([bnds[:lower]], line=:dash)
   vline!([bnds[:upper]], line=:dash)
-  savefig("Fig_17.png")
+  savefig("$(ProjDir)/Fig_17.png")
 
 end
 

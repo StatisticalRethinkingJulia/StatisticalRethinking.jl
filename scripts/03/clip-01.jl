@@ -1,9 +1,5 @@
 # # clip-01.jl
 
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
-
-using StatisticalRethinking
-
 # ### snippet 3.1
 
 PrPV = 0.95

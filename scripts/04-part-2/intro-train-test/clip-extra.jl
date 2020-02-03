@@ -7,7 +7,7 @@
 
 # We begin by importing all the necessary libraries.
 
-using StatisticalRethinking, StanSample, GLM
+using StatisticalRethinking, StanSample, GLM, DataFrames, CSV, GLM
 
 ProjDir = rel_path("..", "scripts", "04")
 
@@ -120,7 +120,7 @@ if success(rc)
   
   # Convert samples to a Chain object and update section
 
-  chns = read_samples(sm)
+  chns = read_samples(sm; output_format=:mcmcchains, include_internals=true)
   chns = set_section(chns, Dict(
       :parameters => ["beta.1", "beta.2", "sigma"],
       :linpred => ["linpred.$i" for i in 1:247],

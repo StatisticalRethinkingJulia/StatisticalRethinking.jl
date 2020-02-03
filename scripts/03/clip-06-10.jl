@@ -2,7 +2,7 @@
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, Optim
+using StatisticalRethinking, Distributions, Optim, StatsBase, MCMCChains
 #gr(size=(600,600));
 
 # ### snippet 3.2

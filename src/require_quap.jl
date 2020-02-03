@@ -1,3 +1,5 @@
+using .KernelDensity
+
 """
 
 # quap
@@ -48,3 +50,6 @@ function quap(df::DataFrame)
 	d
 
 end
+
+export
+	quap

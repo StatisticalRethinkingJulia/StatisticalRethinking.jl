@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking
+using StatisticalRethinking, StatsPlots
 
 ProjDir = @__DIR__
 
@@ -36,10 +36,10 @@ plt = 1
 for step in [4, 8, 16]
   indx = step + 1 # We aadded the first line of zeros
   global plt
-  fit = fit_mle(Normal, csum[indx, :])
-  x = (fit.μ-4*fit.σ):0.01:(fit.μ+4*fit.σ)
+  fitl = fit_mle(Normal, csum[indx, :])
+  lx = (fitl.μ-4*fit.σ):0.01:(fit.μ+4*fit.σ)
   p2[plt] = density(csum[indx, :], legend=false, title="$(step) steps")
-  plot!( p2[plt], x, pdf.(Normal( fit.μ , fit.σ ) , x ), fill=(0, .5,:orange))
+  plot!( p2[plt], lx, pdf.(Normal( fitl.μ , fitl.σ ) , lx ), fill=(0, .5,:orange))
   plt += 1
 end
 p3 = plot(p2..., layout=(1, 3))

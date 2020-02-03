@@ -22,7 +22,6 @@ x = x*10
 x = log.(x)
 
 # We can sum the vector x
-
 x = sum(x)
 
 # Etc.

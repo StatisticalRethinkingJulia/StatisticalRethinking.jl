@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking
+using StatisticalRethinking, Distributions, StatsPlots
 
 ProjDir = @__DIR__
 
@@ -45,6 +45,6 @@ p3 = plot(
   lab = "semi_uniform", title="Other priors", legend=:bottomright )
 scatter!(p3, p_grid, prior1, lab = "semi_uniform")
 scatter!(p3, p_grid, prior2,  lab = "double_exponential" )
-savefig("$ProjDir/Fig-03-05.pdf")
+savefig("$ProjDir/Fig-03-05.png")
 
 # End of `02/clip-03-05.jl`

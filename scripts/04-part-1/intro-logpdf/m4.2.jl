@@ -1,6 +1,6 @@
 # This scrpt shows clip-26-29 using Optim and a loglik function.
 
-using StatisticalRethinking, Optim
+using StatisticalRethinking, Optim, Distributions
 
 ProjDir = @__DIR__
 cd(ProjDir)

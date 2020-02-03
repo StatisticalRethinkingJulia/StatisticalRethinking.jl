@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking
+using StatisticalRethinking, StatsBase, Distributions
 
 # snippet 2.1
 

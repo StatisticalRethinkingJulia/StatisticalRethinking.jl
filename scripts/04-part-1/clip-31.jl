@@ -1,6 +1,7 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, StanSample, LinearAlgebra
+using KernelDensity, DataFrames, MonteCarloMeasurements
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -41,8 +42,8 @@ rc = stan_sample(sm, data=heightsdata);
 
 if success(rc)
 	println()
-	chn = read_samples(sm)
-	sigma_mu = Array(chn)
+	df = read_samples(sm; output_format=:dataframe)
+	sigma_mu = Array(df)
 	@show p = Particles(sigma_mu)
 	println()
 

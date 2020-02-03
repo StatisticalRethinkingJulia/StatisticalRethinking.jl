@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 04
 
-using StatisticalRethinking, StanSample, LinearAlgebra
+using StatisticalRethinking, StanSample, LinearAlgebra, MCMCChains, MonteCarloMeasurements
 
 # ### Snippet 4.26
 

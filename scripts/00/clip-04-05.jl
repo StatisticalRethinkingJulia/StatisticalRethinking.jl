@@ -2,9 +2,9 @@
 
 # ### snippet 0.5 is replaced by below `using StatisticalRethinking`.
 
-using StatisticalRethinking, GLM
+using StatisticalRethinking, GLM, CSV, DataFrames, StatsPlots
 
-ProjDir = rel_path("..", "scripts", "00")
+ProjDir = @__DIR__
 
 # ### snippet 0.4
 
@@ -25,6 +25,6 @@ coef(m)
 
 scatter( df2[!, :height], residuals(m), xlab="Height",
 ylab="Model residual values", lab="Model residuals")
-savefig("$ProjDir/Fig-04-05.pdf")
+savefig("$ProjDir/Fig-04-05.png")
 
 # End of `00/clip-04-05.jl`

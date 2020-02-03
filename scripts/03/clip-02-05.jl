@@ -1,6 +1,6 @@
 # # clip-02-05.jl
 
-using StatisticalRethinking, Optim
+using StatisticalRethinking, Distributions, Optim, MCMCChains, StatsBase, StatsPlots
 
 ProjDir = rel_path("..", "scripts", "03")
 

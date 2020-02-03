@@ -1,17 +1,14 @@
 module StatisticalRethinking
 
-#using Reexport 
+using Requires
 
-#@reexport using Distributions, Random
-#@reexport using RDatasets, DataFrames
-#@reexport using StatsBase, StatsPlots, StatsFuns 
-#@reexport using CSV, DelimitedFiles, Serialization
-#@reexport using MCMCChains, KernelDensity
-#@reexport using Parameters, Random, MonteCarloMeasurements
-
-#using DataStructures
-import StatsBase: sample
-#import MCMCChains: describe
+function __init__()
+  @require DataFrames="a93c6f00-e57d-5684-b7b6-d8193f3e46c0" include("require_df.jl")
+  @require MCMCChains="c7f686f2-ff18-58e9-bc7b-31028e88f75d" include("require_chns.jl")
+  @require MonteCarloMeasurements="0987c9cc-fe09-11e8-30f0-b96dd679fdca" include("require_mcm.jl")
+  @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require_hmc.jl")
+  @require KernelDensity="5ab0869b-81aa-558d-bb23-cbf5423bbe9b" include("require_quap.jl")
+end
 
 const src_path = @__DIR__
 
@@ -29,20 +26,15 @@ rel_path("..", "data")
 """
 rel_path(parts...) = normpath(joinpath(src_path, parts...))
 
-include("sampling.jl")
 include("scale.jl")
 include("shading.jl")
-include("generate_n_samples.jl")
 include("link.jl")
-#include("HMC.jl")
-#include("dhmc2mcmcchains.jl")
-include("quap.jl")
+include("a3d_utils.jl")
 
 export
 	rel_path,
 	link,
- 	quap,
- 	scale,
+ 	scale!,
  	sample,
  	create_a3d,
  	insert_chain,

@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, KernelDensity, DataFrames
 
 ProjDir = @__DIR__
 
@@ -65,9 +65,9 @@ rc = stan_sample(sm, data=m5_3_data);
 if success(rc)
 
   # Describe the draws
-  chn = read_samples(sm)
+  df = read_samples(sm; output_format=:dataframe)
   
-  q = quap(DataFrame(chn))
+  q = quap(DataFrame(df))
   println()
   display(q)
 end

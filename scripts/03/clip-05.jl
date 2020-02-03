@@ -2,7 +2,7 @@
 
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, KernelDensity, MCMCChains, MonteCarloMeasurements
 
 ProjDir = @__DIR__
 cd(ProjDir)
@@ -55,7 +55,7 @@ if success(rc)
 
   # Describe the draws
 
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   show(chn)
   plot(chn)
   savefig("Fig-05.png")
@@ -63,8 +63,8 @@ if success(rc)
 
   # Show Particles summary of theta and thetaprior
 
-  df = DataFrame(chn)
-  @show Particles(Array(chn))
+  dict = read_samples(sm; output_format=:particles)
+  dict |> display
 
   # Notice in this example that the prior theta ("thetaprior"),
   # the `unconditioned-on-the data theta`, shows a mean of 0.5

@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, CSV, StatsPlots, DataFrames
 ProjDir = @__DIR__
 
 # ### snippet 4.7
@@ -74,8 +74,7 @@ for i in 1:length(nvals)
   if success(rc)
 
     xi = 30.0:0.1:65.0
-    chnN = read_samples(sm)
-    sample_df = DataFrame(chnN)
+    sample_df = read_samples(sm; output_format=:dataframe)
     p[i] = scatter(df2[1:N, :weight], df2[1:N, :height], 
       leg=false, xlab="weight_c")
     for j in 1:N

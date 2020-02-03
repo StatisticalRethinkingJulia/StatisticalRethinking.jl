@@ -1,4 +1,4 @@
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, CSV, MCMCChains
 
 ProjDir = @__DIR__
 
@@ -38,7 +38,7 @@ heightsdata = Dict("N" => length(df2[:, :height]), "h" => df2[:, :height]);
 rc = stan_sample(sm, data=heightsdata);
 
 if success(rc)
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   show(chn)
 end
 

@@ -9,8 +9,6 @@ println()
   @test mean(df[:, :theta]) ≈ 0.58 atol=0.05
   @test fits_mu[end] ≈ 0.58 atol=0.05
   @test fits_sigma[end] ≈ 0.04 atol=0.03
-  @test optim_optim[1] ≈ 0.58 atol=0.05
-  @test optim_optim[2] ≈ 0.04 atol=0.03
   @test mu_sigma[1] ≈ 0.58 atol=0.05
   @test mu_sigma[2] ≈ 0.04 atol=0.03
   @test optim_stan["theta"][end] ≈ 0.58 atol=0.05

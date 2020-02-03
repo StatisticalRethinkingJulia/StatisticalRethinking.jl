@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking
+using StatisticalRethinking, Distributions, MCMCChains, StatsPlots
 
 ProjDir = rel_path("..", "scripts", "02")
   
@@ -38,13 +38,13 @@ MCMCChains.describe(chns)
 # Plot the chain
 
 plot(chns)
-savefig("Fig-08.1.pdf")
+savefig("$ProjDir/Fig-08.1.png")
 
 # Show density and computed conjugate solution
 
 w = 6; n = 9; x = 0:0.01:1
 density(chns, lab="Samples")
 plot!( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
-savefig("$ProjDir/fig-08.2.pdf")
+savefig("$ProjDir/fig-08.2.png")
 
 # End of `02/clip-08.jl`

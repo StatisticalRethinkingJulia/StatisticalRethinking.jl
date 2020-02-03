@@ -1,5 +1,7 @@
 # Execute this script after `scripts/03/intro_stan/intro-part-1.jl`
 
+using KernelDensity
+
 if success(rc)
 
   # Allocate array of 4 Normal fits
@@ -8,9 +10,11 @@ if success(rc)
 
   # Fit a normal distribution to each chain.
 
+  dfsa = read_samples(sm; output_format=:dataframes)
+
   println("\nFit a Normal distribution to each chain:\n")
   for i in 1:4
-    fits[i] = fit_mle(Normal, dfs[i][:, :theta])
+    fits[i] = fit_mle(Normal, dfsa[i][:, :theta])
     println(fits[i])
   end
 
@@ -24,9 +28,9 @@ if success(rc)
   for i in 1:4
     μ = round(fits[i].μ, digits=2)
     σ = round(fits[i].σ, digits=2)
-    p[i] = density(dfsa[:, :theta], lab="Chain $i density",
+    p[i] = density(dfsa[i][:, :theta], lab="Chain $i density",
        xlim=(0.45, 1.0), title="$(N) data points")
-    plot!(p[i], x, pdf.(Normal(fits[i].μ, fits[i].σ), x), lab="Fitted Normal($μ, $σ)")
+   plot!(p[i], x, pdf.(Normal(fits[i].μ, fits[i].σ), x), lab="Fitted Normal($μ, $σ)")
   end
   plot(p..., layout=(4, 1))
   savefig("$ProjDir/Fig-part-2.png")

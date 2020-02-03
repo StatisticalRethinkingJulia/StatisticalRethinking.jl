@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed.
 
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, CSV, MCMCChains, DataFrames, Statistics, StatsPlots
 
 ProjDir = @__DIR__
 
@@ -52,7 +52,7 @@ rc = stan_sample(sm, data=ad_data);
 if success(rc)
 
   # Describe the draws
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   show(chn)
 
   # Plot the density of posterior draws

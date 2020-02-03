@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample, LinearAlgebra
+using StatisticalRethinking, StanSample, CSV, LinearAlgebra, DataFrames, MCMCChains
 
 # ### Snippet 4.26
 
@@ -39,7 +39,7 @@ rc = stan_sample(sm, data=heightsdata);
 
 if success(rc)
 	println()
-	chn = read_samples(sm)
+	chn = read_samples(sm; output_format=:mcmcchains)
 	dfa = DataFrame(chn)
 
 	q = quap(dfa)

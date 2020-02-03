@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample, LinearAlgebra
+using StatisticalRethinking, StanSample, LinearAlgebra, MonteCarloMeasurements
 
 # ### Snippet 4.26
 
@@ -39,8 +39,7 @@ rc = stan_sample(sm, data=heightsdata);
 
 if success(rc)
 	println()
-	chn = read_samples(sm)
-	sigma_mu = Array(chn)
+	sigma_mu = read_samples(sm; output_format=:dataframe)
 	@show p = Particles(sigma_mu)
 
 	# ### snippet 4.32

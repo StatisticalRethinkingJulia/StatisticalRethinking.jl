@@ -2,9 +2,9 @@
 
 # ### Snippet 9.2
 
-using StatisticalRethinking, LinearAlgebra
+using StatisticalRethinking, LinearAlgebra, Distributions, StatsPlots
 
-ProjDir = rel_path("..", "scripts", "09")
+ProjDir = @__DIR__
 
 # Number of samples
 

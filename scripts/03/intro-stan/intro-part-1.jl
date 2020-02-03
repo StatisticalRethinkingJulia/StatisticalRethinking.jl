@@ -1,6 +1,6 @@
 # Introduction to a Stan Language program
 
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, Distributions, DataFrames, MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 
@@ -99,22 +99,15 @@ rc = stan_sample(sm, data=m1_1_data);
 # 5. Describe and check the results
 
 if success(rc)
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
 
   println()
   show(chn)
-
   savefig(plot(chn), "$ProjDir/Fig-part-1.png")
 
-# Turn chains into DataFrames
+  # Single df for all chains
 
-  # Separate df for each chain
-
-  dfs = DataFrame(chn, append_chains=false);
-
-  # Or, often handy, all chains appended
-
-  dfsa = DataFrame(chn);
+  df = read_samples(sm; output_format=:dataframe)
 
 end
 

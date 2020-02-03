@@ -1,5 +1,7 @@
-using LogDensityProblems
-import LogDensityProblems: logdensity, logdensity_and_gradient
+using .LogDensityProblems: logdensity, logdensity_and_gradient
+#import .LogDensityProblems: logdensity, logdensity_and_gradient
+
+using Distributions
 
 # ### snippet 9.6
 

@@ -2,8 +2,9 @@
 
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, Optim, StanSample
-#gr(size=(600,600));
+using StatisticalRethinking, Distributions, Optim, StanSample, MCMCChains, StatsPlots, StatsBase
+
+ProjDir = @__DIR__
 
 # ### snippet 3.11
 
@@ -47,7 +48,7 @@ density(samples, lab="density")
 vline!([mode(samples)], line=:dash, lab="mode")
 vline!([median(samples)], line=:dash, lab="median")
 vline!([mean(samples)], line=:dash, lab="mean")
-savefig("Fig-11-16.png")
-
+savefig("$(ProjDir)/Fig-11-16.png")
 
 # End of `03/clip-11-16.jl`
+

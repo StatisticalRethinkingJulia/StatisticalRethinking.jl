@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample
+using StatisticalRethinking, StanSample, CSV, DataFrames, StatsPlots
 
 ProjDir = @__DIR__
 
@@ -56,13 +56,12 @@ rc = stan_sample(sm, data=heightsdata);
 
 if success(rc)
 
-  chn = read_samples(sm)
+  dfa = read_samples(sm; output_format=:dataframe)
 
   # ### Snippet 4.47
 
   # Show first 5 draws of correlated parameter values in chain 1
 
-  dfa = DataFrame(chn)
   println()
   dfa[1:5,:] |> display
   println()
@@ -90,9 +89,8 @@ if success(rc)
 
     if success(rc)
 
-      chnN = read_samples(sm)
-      xi = -15.0:0.1:15.0
-      sample_df = DataFrame(chnN)
+      sample_df = read_samples(sm; output_format=:dataframe)
+      xi = -2.5:0.1:3.0
       p[i] = scatter(df2[1:N, :weight_c], df2[1:N, :height],
         leg=false, xlab="weight_c")
 
@@ -109,7 +107,6 @@ if success(rc)
 
   # ### Snippet 4.50
 
-  dfa = DataFrame(chn)
   mu_at_50 = link(dfa, [:alpha, :beta], 50:10:50, mean_weight);
 
   density(mu_at_50)

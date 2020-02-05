@@ -17,3 +17,4 @@ This puts the package source code in your development subdirectory which I find 
 
 In `scripts/00/install_packages.jl` is a scripts that installs all additional library packages needed to run the scripts in StatisticalRethinking.
 
+The installation of the necessary glue code for these packages is triggered by Requires.jl. This is not ideal in that the documentation for the glue code functions is only available online (e.g. in the REPL).

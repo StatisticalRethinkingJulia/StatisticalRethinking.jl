@@ -3,11 +3,11 @@ module StatisticalRethinking
 using Requires
 
 function __init__()
-  @require DataFrames="a93c6f00-e57d-5684-b7b6-d8193f3e46c0" include("require_df.jl")
-  @require MCMCChains="c7f686f2-ff18-58e9-bc7b-31028e88f75d" include("require_chns.jl")
-  @require MonteCarloMeasurements="0987c9cc-fe09-11e8-30f0-b96dd679fdca" include("require_mcm.jl")
-  @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require_hmc.jl")
-  @require KernelDensity="5ab0869b-81aa-558d-bb23-cbf5423bbe9b" include("require_quap.jl")
+  @require DataFrames="a93c6f00-e57d-5684-b7b6-d8193f3e46c0" include("require/df.jl")
+  @require MCMCChains="c7f686f2-ff18-58e9-bc7b-31028e88f75d" include("require/chns.jl")
+  @require MonteCarloMeasurements="0987c9cc-fe09-11e8-30f0-b96dd679fdca" include("require/mcm.jl")
+  @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require/hmc.jl")
+  @require KernelDensity="5ab0869b-81aa-558d-bb23-cbf5423bbe9b" include("require/quap.jl")
 end
 
 const src_path = @__DIR__

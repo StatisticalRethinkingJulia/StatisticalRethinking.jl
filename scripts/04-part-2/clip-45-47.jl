@@ -39,8 +39,7 @@ generated quantities {
 
 # Define the SampleModel.
 
-sm = SampleModel("weights", weightsmodel,
-  tmpdir=joinpath(ProjDir, "tmp"));
+sm = SampleModel("weights", weightsmodel;
 
 # Input data for cmdstan
 

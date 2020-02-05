@@ -4,9 +4,9 @@ This package contains Julia versions of selected code snippets and mcmc models c
 
 As stated many times by the author in his [online lectures](https://www.youtube.com/watch?v=ENxTrFf9a7c&list=PLDcUM9US4XdNM4Edgs7weiyIguLSToZRI), this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia and Stan.
 
-## Time line
+## Time line considerations
 
-The 2nd edition of the book is going to print in March 2020. This is also the target date for completion of v1 of StatisticalRethinking.jl.
+The 2nd edition of the book is going to print in March 2020. This was also the target date for completion of v2 of StatisticalRethinking.jl but I opted to apply a major refactoring of the setup to minimize load/compilation times. I'm now targetting mid May 2020. Still, I do think the currrent version is useful. Feedback is welcome!
 
 ## Introduction
 
@@ -24,9 +24,9 @@ flist <- alist(
 
 The author of the book states: "*If that (the statistical model) doesn't make much sense, good. ... you're holding the right textbook, since this book teaches you how to read and write these mathematical descriptions*" (page 77).
 
-[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using [Stan](https://github.com/StanJulia) and Julia.
+[StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) is intended to allow experimenting with this learning process using [Stan](https://github.com/StanJulia) and [Julia](https://julialang.org).
 
-In `rethinking`, posterior values can be approximated by
+In the R package `rethinking`, posterior values can be approximated by
  
 ```
 # Simulate quadratic approximation (for simpler models)

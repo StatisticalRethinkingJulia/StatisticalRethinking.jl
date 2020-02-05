@@ -6,3 +6,5 @@ Instead of having all snippets in a single file, the snippets are organized by c
 2. `clip-04-05.jl` - contains snippets 0.4 and 0.5.
 
 A single snippet clip will be referred to as `03/clip-02.jl`. 
+
+Several chapters have intro sections to bridge differences between `rethinking` and StatisticalRethinking.jl.

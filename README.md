@@ -13,7 +13,7 @@ As stated many times by the author in his [online lectures](https://www.youtube.
 
 ## Important note
 
-Over the next 2 months (probably until Apr '20)') I'm planning to update StatisticalRethinking.jl v2.0.0 to reflect the changes in the 2nd edition of the book. At the same time (but this will likely take longer) I'll also expand coverage of chapters 5 and beyond.
+Over the next 2 months (probably until Apr '20) I'm planning to update StatisticalRethinking.jl v2.0.0 to reflect the changes in the 2nd edition of the book. At the same time (but this will likely take longer) I'll also expand coverage of chapters 5 and beyond.
 
 ## Versions
 
@@ -21,7 +21,7 @@ Over the next 2 months (probably until Apr '20)') I'm planning to update Statist
 
 This version follows the ongoing changes in the packages in the StanJulia Github organization, particularly the changes in StanSample.jl. This version breaks the approach chosen in v1.x with respect to the return values of stan_sample().
 
-Another major change is that not all dependencies for the scripts are included in StatisticalRethinking.jl. Unfortunately that setup, as in version 1.0.0, leads to very long compile times. Please see the `install_packages.jl` script in `scripts/00` which other packages are used in the various scipts.
+Another major change is that not all dependencies for the scripts are included in StatisticalRethinking.jl. Unfortunately that setup, as in version 1.0.0, leads to very long compile times. Please see the `install_packages.jl` script in `scripts/00` for other packages needed in the various scipts.
 
 ### Version 1.0.0
 
@@ -89,11 +89,11 @@ To help out with this, in the subdirectory `scripts/03/intro-stan` the Stan lang
 
 Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5).
 
-The R function quap() in StatisticalRethinking.jl uses the MAP density of the Stan samples as the mean of the Normal distribution. An example can be found in `scripts/03/intro-stan/intro-part-4.jl`. 
+2. The equivalent of the R function `quap()` in StatisticalRethinking.jl uses the MAP density of the Stan samples as the mean of the Normal distribution. Examples and comparisons can be found in `scripts/03/intro-stan/intro-part-4.jl`. 
 
-3. In `sripts/04` an additional section has been added, `intro-logpdf` which introduces an alternative way to compute the MAP (quap) using Optim.jl. This kind of builds on the logpdf formulation introduced in `scripts/03/intro-stan/intro-part-4.jl`
+3. In `scripts/04` an additional section has been added, `intro-logpdf` which introduces an alternative way to compute the MAP (quap) using Optim.jl. This kind of builds on the logpdf formulation introduced in `scripts/03/intro-stan/intro-part-4.jl`
 
-2. In `scripts/09` an additional intro section has been included, `scripts/09/intro-dhmc`. It is envisage that a future version of StatisticalRethinking.jl will be based on DynamicHMC.jl. No time line has been set for this work.
+4. In `scripts/09` an additional intro section has been included, `scripts/09/intro-dhmc`. It is envisage that a future version of StatisticalRethinking.jl will be based on DynamicHMC.jl. No time line has been set for this work.
 
 ## Layout of the package
 
@@ -102,7 +102,9 @@ Instead of having all snippets in a single file, the snippets are organized by c
 1. `clip-01-03.jl` - contains snippets 0.1 through 0.3
 2. `clip-04-05.jl` - contains snippets 0.4 and 0.5.
 
-A single snippet clip will be referred to as `03/clip-02.jl`. 
+A single snippet clip will be referred to as `03/clip-02.jl`.
+
+As mentioned above, a few chapters contain additional scripts intended as introductions for specific topics.
 
 ### Data Access
 
@@ -121,7 +123,7 @@ CSV.read(datapath)
 
 Implementations of the models using Stan, DynamicHMC and Turing can be found in [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
 
-In the meantime time, Chris Fisher has made tremendous progress with MCMCBenchmarks.jl, which compares three NUTS mcmc options.
+In the meantime time, Chris Fisher has made tremendous progress with [MCMCBenchmarks.jl](https://github.com/StatisticalRethinkingJulia/MCMCBenchmarks.jl), which compares three NUTS mcmc options.
 
 ## Documentation
 

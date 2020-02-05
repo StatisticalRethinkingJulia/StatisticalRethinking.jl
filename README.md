@@ -121,13 +121,7 @@ CSV.read(datapath)
 
 Implementations of the models using Stan, DynamicHMC and Turing can be found in [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
 
-StanModels has been updated to use the new suite of packages StanSample.jl, StanOptimize.jl, StanVariational.jl, etc. (all modeled after Tamas Papp's StanDump.jl, StanRun.jl and StanSamples.jl). 
-
 In the meantime time, Chris Fisher has made tremendous progress with MCMCBenchmarks.jl, which compares three NUTS mcmc options.
-
-## Future plans
-
-There is a plan to release a version of StatisticalRethinking.jl based on Soss.jl and DynamicHMC.jl. No firm timeline has been set for this.
 
 ## Documentation
 
@@ -143,6 +137,8 @@ Richard Torkar has taken the lead in developing the Turing versions of the model
 Tamas Papp has been very helpful during the development of the DynamicHMC versions of the models.
 
 The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer are followed closely in several example scripts.
+
+The increasing use of Particles to represent quap approximations is possible thanks to the package [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl). [Soss.jl](https://github.com/cscherrer/Soss.jl) and [related write-ups](https://cscherrer.github.io) introduced me to that option.
 
 ## Questions and issues
 

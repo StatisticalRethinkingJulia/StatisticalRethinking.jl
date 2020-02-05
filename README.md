@@ -3,7 +3,7 @@
 
 | **Project Status**                                                               |  **Documentation**                                                               | **Build Status**                                                                                |
 |:-------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
-|![][project-status-img] | [![docs-stable-img][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][travis-img]][travis-url] |
+|![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][travis-img]][travis-url] |
 
 ## Purpose of this package
 
@@ -81,7 +81,7 @@ The author of the book states: "*If that (the statistical model) doesn't make mu
 
 There are a few important differences between `rethinking` and `StatisticalRethinking.jl`:
 
-1. In v1.x of StatisticalRethinking.jl, ulam() has been replaced by StanSample.jl.
+1. In v2.x of StatisticalRethinking.jl, ulam() has been replaced by StanSample.jl.
 
 This means that much earlier on than in the book, StatisticalRethinking.jl introduces the reader to the Stan language.
 
@@ -93,7 +93,7 @@ The R function quap() in StatisticalRethinking.jl uses the MAP density of the St
 
 3. In `sripts/04` an additional section has been added, `intro-logpdf` which introduces an alternative way to compute the MAP (quap) using Optim.jl. This kind of builds on the logpdf formulation introduced in `scripts/03/intro-stan/intro-part-4.jl`
 
-2. In `scripts/09` an additional intro section has been included, `scripts/09/intro-dhmc`. It is envisage that a future version of StatisticalRethinking.jl will be based on DynamicHMC.jl and possibly Soss.jl. No time line has been set for this work.
+2. In `scripts/09` an additional intro section has been included, `scripts/09/intro-dhmc`. It is envisage that a future version of StatisticalRethinking.jl will be based on DynamicHMC.jl. No time line has been set for this work.
 
 ## Layout of the package
 
@@ -138,7 +138,7 @@ Tamas Papp has been very helpful during the development of the DynamicHMC versio
 
 The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer are followed closely in several example scripts.
 
-The increasing use of Particles to represent quap approximations is possible thanks to the package [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl). [Soss.jl](https://github.com/cscherrer/Soss.jl) and [related write-ups](https://cscherrer.github.io) introduced me to that option.
+The increasing use of Particles to represent quap approximations is possible thanks to the package [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl). Package [Soss.jl](https://github.com/cscherrer/Soss.jl) and [related write-ups](https://cscherrer.github.io) introduced me to that option.
 
 ## Questions and issues
 

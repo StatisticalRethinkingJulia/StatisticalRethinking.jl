@@ -1,4 +1,4 @@
-## StatisticalRethinkingJulia Github organization
+## Github organization
 
 StatisticalRethinking.jl is part of the broader [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization.
 

@@ -1,6 +1,8 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample, KernelDensity, DataFrames
+using StatisticalRethinking
+using CSV, StanSample, DataFrames, Statistics
+using KernelDensity, MonteCarloMeasurements
 
 ProjDir = @__DIR__
 

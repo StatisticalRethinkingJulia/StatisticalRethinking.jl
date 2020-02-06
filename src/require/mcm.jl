@@ -1,5 +1,4 @@
-using .MonteCarloMeasurements
-using KernelDensity
+using .MonteCarloMeasurements, .KernelDensity
 
 import .StatsBase: sample
 

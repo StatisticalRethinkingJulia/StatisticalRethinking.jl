@@ -18,8 +18,13 @@ Pkg.add("DynamicHMC")
 Pkg.add("LogDensityProblems")
 Pkg.add("TransformVariables")
 
-# To update these packages:
-Pkg.update()
+# Optional: update packages
+#Pkg.update()
 
-# To pre-compile:
-Pkg.precompile()
+# Optional: pre-compile packages
+#Pkg.precompile()
+
+# Optional: load packages
+#using CSV, DataFrames, Distributions, GLM
+#using KernelDensity, MCMCChains, MonteCarloMeasurements
+#using Optim, StatsPlots

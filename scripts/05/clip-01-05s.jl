@@ -1,17 +1,24 @@
 # Load Julia packages (libraries) needed.
 
-using StatisticalRethinking, StanSample, CSV, MCMCChains, DataFrames, Statistics, StatsPlots
+using StatisticalRethinking
+using StanSample, CSV, DataFrames, Statistics
+using MCMCChains
+using StatsPlots
 
 ProjDir = @__DIR__
 
 # ### snippet 5.1
 
-df = CSV.read(joinpath(ProjDir, "..", "..", "data", "WaffleDivorce.csv"), delim=';')
+println()
+df = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';');
+first(df, 5) |> display
 scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
 
 # ### snippet 5.1
 
 std(df[!, :MedianAgeMarriage])
+first(df, 5) |> display
+println()
 
 ad = "
 data {

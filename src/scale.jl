@@ -1,5 +1,5 @@
+using DataFrames, Statistics
 import Distributions: scale!
-using DataFrames
 
 """
 

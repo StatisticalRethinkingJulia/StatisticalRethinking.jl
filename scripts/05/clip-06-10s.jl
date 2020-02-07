@@ -69,7 +69,7 @@ if success(rc)
   # Describe the draws
   df = read_samples(sm; output_format=:dataframe)
   
-  q = quap(DataFrame(df))
+  q = quap(df)
   println()
   display(q)
 end
@@ -79,7 +79,7 @@ end
 rethinking_results = "
        mean   sd  5.5% 94.5% n_eff Rhat
 a      9.69 0.22  9.34 10.03  1313    1
-bR    -0.12 0.30 -0.60  0.35   932    1
+bM    -0.12 0.30 -0.60  0.35   932    1
 bA    -1.13 0.29 -1.56 -0.67   994    1
 sigma  1.53 0.16  1.28  1.80  1121    1
 "

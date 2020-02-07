@@ -2,7 +2,6 @@
 
 using StatisticalRethinking
 using StanSample, CSV, DataFrames, Statistics
-using MCMCChains
 using StatsPlots
 
 ProjDir = @__DIR__
@@ -59,15 +58,6 @@ rc = stan_sample(sm, data=ad_data);
 
 if success(rc)
 
-  # Describe the draws
-  chn = read_samples(sm; output_format=:mcmcchains)
-  show(chn)
-
-  # Plot the density of posterior draws
-
-  plot(chn)
-  savefig("$ProjDir/Fig-01-05.1.png")
-
   # Result rethinking
 
   rethinking = "
@@ -80,7 +70,7 @@ if success(rc)
   # Plot regression line using means and observations
 
   xi = -3.0:0.01:3.0
-  dfs = DataFrame(chn)
+  dfs = read_samples(sm; output_format=:dataframe)
   yi = mean(dfs[:, :a]) .+ mean(dfs[:, :bA])*xi
 
   scatter(df[!, :MedianAgeMarriage_s], df[!, :Divorce], color=:darkblue,
@@ -90,7 +80,7 @@ if success(rc)
 
   # shade(), abline() and link()
 
-  mu = link(DataFrame(chn), [:a, :bA], xi, mean(xi));
+  mu = link(dfs, [:a, :bA], xi, mean(xi));
   yl = [minimum(mu[i]) for i in 1:length(xi)];
   yh =  [maximum(mu[i]) for i in 1:length(xi)];
   ym =  [mean(mu[i]) for i in 1:length(xi)];
@@ -104,7 +94,7 @@ if success(rc)
   end
   scatter!(df[:, :MedianAgeMarriage_s], df[:, :Divorce], color=:darkblue)
   plot!(xi, yi, lab="Regression line")
-  savefig("$ProjDir/Fig-01-05.2.png")
+  savefig("$ProjDir/Fig-01-05.png")
 
 end
 

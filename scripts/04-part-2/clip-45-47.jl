@@ -5,7 +5,7 @@ ProjDir = @__DIR__
 
 # ### snippet 4.7
 
-df = CSV.read(joinpath(ProjDir, "..", "..", "data", "Howell1.csv"), delim=';')
+df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # Use only adults
 
@@ -39,7 +39,7 @@ generated quantities {
 
 # Define the SampleModel.
 
-sm = SampleModel("weights", weightsmodel;
+sm = SampleModel("weights", weightsmodel);
 
 # Input data for cmdstan
 

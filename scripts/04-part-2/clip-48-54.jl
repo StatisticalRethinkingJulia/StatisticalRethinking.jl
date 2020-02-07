@@ -1,12 +1,13 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample, CSV, DataFrames, StatsPlots
+using StatisticalRethinking, StanSample, CSV
+using DataFrames, StatsPlots
 
 ProjDir = @__DIR__
 
 # ### Preliminary snippets
 
-df = CSV.read(joinpath(ProjDir, "..", "..", "data", "Howell1.csv"), delim=';')
+df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # Use only adults
 
@@ -116,7 +117,7 @@ if success(rc)
 
   # Show posterior density for 6 mu_bar values
 
-  mu = link(DataFrame(chn), [:alpha, :beta], 25:10:75, mean_weight);
+  mu = link(dfa, [:alpha, :beta], 25:10:75, mean_weight);
 
   q = Vector{Plots.Plot{Plots.GRBackend}}(undef, size(mu, 1))
   for i in 1:size(mu, 1)

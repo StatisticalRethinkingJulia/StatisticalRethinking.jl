@@ -49,7 +49,6 @@ if success(rc)
   plts = Vector{Plots.Plot{Plots.GRBackend}}(undef, size(dfa[1], 2))
 
   for (indx, par) in enumerate(names(dfa[1]))
-    println([indx, par])    
     for i in 1:size(dfa,1)
       if i == 1
         plts[indx] = plot()

@@ -1,8 +1,11 @@
-using StatisticalRethinking, StanSample, MCMCChains, DataFrames, CSV, StatsPlots
+@time using StatisticalRethinking, StanSample
+@time using DataFrames, CSV, StatsBase
+using KernelDensity, MonteCarloMeasurements
+@time using StatsPlots
 
 ProjDir = @__DIR__
 
-df = CSV.read(joinpath(ProjDir, "..", "..", "data", "Howell1.csv"), delim=';')
+df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # Use only adults
 
@@ -50,31 +53,23 @@ rc = stan_sample(sm, data=heightsdata);
 if success(rc)
 
 	# Describe the draws
-	chn = read_samples(sm; output_format=:mcmcchains)
-	dfa = read_samples(sm; output_format=:dataframe)
+	df = read_samples(sm; output_format=:dataframe)
 
 	# ### snippet 4.37
-
-	# Plot the density of posterior draws
-
-	plot(chn)
-	savefig("$ProjDir/Fig-37-43.1.png")
 
 	# Plot regression line using means and observations
 
 	scatter(df2[:, :weight_c], df2[:, :height], lab="Observations",
 	  ylab="height [cm]", xlab="weight[kg]")
 	xi = -16.0:0.1:18.0
-	yi = mean(dfa[:, :alpha]) .+ mean(dfa[:, :beta])*xi;
+	yi = mean(df[:, :alpha]) .+ mean(df[:, :beta])*xi;
 	plot!(xi, yi, lab="Regression line")
 	savefig("$ProjDir/Fig-37-43.2.png")
 
 	# ### snippet 4.44
 
-	dfa = DataFrame(chn)
-
 	println()
-	q = quap(dfa)
+	q = quap(df)
 	display(q)
 
 end

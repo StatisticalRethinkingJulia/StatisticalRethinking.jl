@@ -1,8 +1,9 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, Distributions, MCMCChains, StatsPlots
+using StatisticalRethinking, Distributions
+using MCMCChains, StatsPlots
 
-ProjDir = rel_path("..", "scripts", "02")
+ProjDir = @__DIR__
   
 # ### snippet 2.8
 

@@ -1,6 +1,8 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample, LinearAlgebra, MonteCarloMeasurements
+using StatisticalRethinking, StanSample, CSV
+using DataFrames, LinearAlgebra, Statistics
+using KernelDensity, MonteCarloMeasurements
 
 # ### Snippet 4.26
 
@@ -39,13 +41,17 @@ rc = stan_sample(sm, data=heightsdata);
 
 if success(rc)
 	println()
-	sigma_mu = read_samples(sm; output_format=:dataframe)
+  df = read_samples(sm; output_format=:dataframe)
+  q = quap(df)
+  q |> display
+  println()
+
+	sigma_mu = Array(df)
 	@show p = Particles(sigma_mu)
 
 	# ### snippet 4.32
 
 	# Compute cov
-
 	println()
 	@show cov(p)
 

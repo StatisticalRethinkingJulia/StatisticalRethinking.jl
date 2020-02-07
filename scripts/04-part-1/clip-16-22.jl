@@ -1,12 +1,12 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, StanSample, CSV
-using Distributions, MCMCChains, StatsPlots
-using StatsBase
+using Distributions, StatsBase
+using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 
-df = CSV.read(joinpath(ProjDir, "..", "..", "data", "Howell1.csv"), delim=';')
+df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # ### snippet 4.8
 

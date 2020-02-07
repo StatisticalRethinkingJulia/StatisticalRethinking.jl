@@ -1,6 +1,8 @@
 # Introduction to a Stan Language program
 
-using StatisticalRethinking, StanSample, Distributions, DataFrames, MCMCChains, StatsPlots
+using StatisticalRethinking, StanSample
+using Distributions, DataFrames
+using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 

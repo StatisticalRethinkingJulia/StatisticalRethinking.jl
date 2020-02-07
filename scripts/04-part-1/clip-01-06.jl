@@ -1,6 +1,8 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StatsPlots
+using StatisticalRethinking, DataFrames
+using Distributions, StatsBase
+using KernelDensity, StatsPlots
 
 ProjDir = @__DIR__
 
@@ -36,8 +38,8 @@ plt = 1
 for step in [4, 8, 16]
   indx = step + 1 # We aadded the first line of zeros
   global plt
-  fitl = fit_mle(Normal, csum[indx, :])
-  lx = (fitl.μ-4*fit.σ):0.01:(fit.μ+4*fit.σ)
+  global fitl = fit_mle(Normal, csum[indx, :])
+  lx = (fitl.μ-4*fitl.σ):0.01:(fitl.μ+4*fitl.σ)
   p2[plt] = density(csum[indx, :], legend=false, title="$(step) steps")
   plot!( p2[plt], lx, pdf.(Normal( fitl.μ , fitl.σ ) , lx ), fill=(0, .5,:orange))
   plt += 1
@@ -53,8 +55,8 @@ prod(1 .+ rand(Uniform(0, 0.1), 10))
 # ### snippet 4.3
 
 growth = [prod(1 .+ rand(Uniform(0, 0.1), 10)) for i in 1:10000];
-fit = fit_mle(Normal, growth)
-plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
+fitl = fit_mle(Normal, growth)
+plot(Normal(fitl.μ , fitl.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(growth, lab="'sample' distribution")
 savefig("$ProjDir/Fig-01-06.3.png") #src
 
@@ -75,8 +77,8 @@ savefig("$ProjDir/Fig-01-06.4.png")
 # ### snippet 4.5
 
 log_big = [log(prod(1 .+ rand(Uniform(0, 0.5), 12))) for i in 1:10000];
-fit = fit_mle(Normal, log_big)
-plot(Normal(fit.μ , fit.σ ), fill=(0, .5,:orange), lab="Normal distribution")
+fitl = fit_mle(Normal, log_big)
+plot(Normal(fitl.μ , fitl.σ ), fill=(0, .5,:orange), lab="Normal distribution")
 density!(log_big, lab="'sample' distribution")
 savefig("$ProjDir/Fig-01-06.5.png")
 

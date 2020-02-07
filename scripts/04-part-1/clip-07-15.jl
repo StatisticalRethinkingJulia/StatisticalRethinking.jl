@@ -1,23 +1,20 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking, StanSample, StatsPlots
+@time using StatisticalRethinking, StanSample, CSV
+@time using Distributions, DataFrames
+@time using MCMCChains,StatsPlots
 
 ProjDir = @__DIR__
-
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = @__DIR__
-cd(ProjDir)
 
 # ### snippet 4.7
 
-df = CSV.read(joinpath(ProjDir, "..", "..", "data", "Howell1.csv"), delim=';')
+df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # ### snippet 4.8
 
 # Show first 5 rows of DataFrame df
 
-first(df, 5)
+first(df, 5) |> display
 
 # ### snippet 4.9
 

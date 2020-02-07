@@ -1,6 +1,8 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, Distributions, Optim, MCMCChains, StatsBase, StatsPlots
+using StatisticalRethinking, Distributions
+using Optim, StatsBase
+using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 

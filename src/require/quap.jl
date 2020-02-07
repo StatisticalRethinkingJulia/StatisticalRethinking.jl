@@ -1,6 +1,19 @@
 using .KernelDensity, .MonteCarloMeasurements
 
 import .StatsBase: sample
+import .MonteCarloMeasurements: Particles
+import .Base: show
+
+struct Quap
+  dict::Dict{Symbol, Particles}
+end
+
+function Base.show(io::IO, ::MIME"text/plain", q::Quap)
+  println(io, "Quadratic approximation:")
+  for key in keys(q.dict)
+    println(io, "  $(key) = $(q.dict[key])")
+  end
+end
 
 """
 
@@ -49,7 +62,7 @@ function convert_a3d(a3d_array, cnames, ::Val{:particles};
     d[var] = Particles(size(df, 1), Normal(mu, sigma))
   end
 
-  d
+  Quap(d)
 
 end
 
@@ -100,9 +113,13 @@ function quap(df::DataFrame)
 		d[var] = Particles(size(df, 1), Normal(mu, sigma))
 	end
 
-	d
+	Quap(d)
 
 end
 
+Particles(df::DataFrame) = MonteCarloMeasurements.Particles(Array(df))
+
 export
-	quap
+  Quap,
+	quap,
+  Particles

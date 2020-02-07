@@ -2,7 +2,7 @@
 
 using StatisticalRethinking, Distributions, Optim, MCMCChains, StatsBase, StatsPlots
 
-ProjDir = rel_path("..", "scripts", "03")
+ProjDir = @__DIR__
 
 # ### snippet 3.2
 

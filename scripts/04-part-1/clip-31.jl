@@ -1,11 +1,12 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, StanSample, LinearAlgebra
-using KernelDensity, DataFrames, MonteCarloMeasurements
+using DataFrames, CSV
+using KernelDensity, MonteCarloMeasurements
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path("..", "scripts", "04")
+ProjDir = @__DIR__
 
 df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
@@ -43,12 +44,7 @@ rc = stan_sample(sm, data=heightsdata);
 if success(rc)
 	println()
 	df = read_samples(sm; output_format=:dataframe)
-	sigma_mu = Array(df)
-	@show p = Particles(sigma_mu)
-	println()
-
-	quap(DataFrame(chn)) |> display
-
+	quap(df) |> display
 end
 
-# End of `clip-32-33.jl`
+# End of `clip-31.jl`

@@ -11,6 +11,7 @@ ProjDir = @__DIR__
 
 println()
 df = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';');
+#df = CSV.read(joinpath(ProjDir, "..", "..", "data", "WaffleDivorce.csv"), delim=';');
 first(df, 5) |> display
 scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
 

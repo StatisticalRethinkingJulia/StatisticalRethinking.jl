@@ -44,8 +44,8 @@ println("\nQuap estimate the mean and std:\n")
 # Determine theta value with highest density (MAP)
 
 d = quap(df)
-mu_quap = mean(d[:theta])
-sigma_quap = std(d[:theta])
+mu_quap = mean(d.theta)
+sigma_quap = std(d.theta)
 display([mu_quap, sigma_quap])
 
 # Using optim

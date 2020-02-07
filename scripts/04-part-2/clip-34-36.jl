@@ -49,7 +49,7 @@ if success(rc)
 	mu_range = 152.0:0.01:157.0
 	plot(mu_range, ecdf(sample(df[:, :mu], 10000))(mu_range),
 		xlabel="ecdf", ylabel="mu", lab="Stan samples")
-	plot!(mu_range, ecdf(sample(q.dict[:mu], 10000))(mu_range),
+	plot!(mu_range, ecdf(sample(q.mu, 10000))(mu_range),
 		lab="Particles samples")
 	savefig("$ProjDir/Fig-34-36.1.png")
 

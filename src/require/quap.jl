@@ -2,18 +2,6 @@ using .KernelDensity, .MonteCarloMeasurements
 
 import .StatsBase: sample
 import .MonteCarloMeasurements: Particles
-import .Base: show
-
-struct Quap
-  dict::Dict{Symbol, Particles}
-end
-
-function Base.show(io::IO, ::MIME"text/plain", q::Quap)
-  println(io, "Quadratic approximation:")
-  for key in keys(q.dict)
-    println(io, "  $(key) = $(q.dict[key])")
-  end
-end
 
 """
 
@@ -62,7 +50,7 @@ function convert_a3d(a3d_array, cnames, ::Val{:particles};
     d[var] = Particles(size(df, 1), Normal(mu, sigma))
   end
 
-  Quap(d)
+  (; d...)
 
 end
 
@@ -84,7 +72,12 @@ quap(df)
 
 ### Return values
 ```julia
-* `result::Dict`                : Dictionary summarizing approximation
+* `result::NamedTuple`          : NamedTuple representing the quadratic approximation
+```
+
+To convert to a Dict use:
+```julia
+dct = Dict(pairs(result))
 ```
 
 ### Example
@@ -94,8 +87,8 @@ quap(df)
 
 if success(rc)
 	
-	chn = read_samples(sm)
-	quap(DataFrame(chn))
+	df = read_samples(sm; output_format=:dataframe)
+	q = quap(df)
 
 end
 
@@ -113,13 +106,14 @@ function quap(df::DataFrame)
 		d[var] = Particles(size(df, 1), Normal(mu, sigma))
 	end
 
-	Quap(d)
+	(; d...)
 
 end
 
 Particles(df::DataFrame) = MonteCarloMeasurements.Particles(Array(df))
 
 export
-  Quap,
 	quap,
-  Particles
+  Particles,
+  NamedTuple
+

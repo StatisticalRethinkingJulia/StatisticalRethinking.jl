@@ -44,7 +44,8 @@ rc = stan_sample(sm, data=heightsdata);
 if success(rc)
 	println()
 	df = read_samples(sm; output_format=:dataframe)
-	quap(df) |> display
+	q = quap(df)
+  q |> display
 end
 
 # End of `clip-31.jl`

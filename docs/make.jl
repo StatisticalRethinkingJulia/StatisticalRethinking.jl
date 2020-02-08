@@ -22,9 +22,9 @@ makedocs(
     pages = page_list,
 )
 
-deploydocs(root = DOC_ROOT,
+deploydocs(
+    root = DOC_ROOT,
     repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
-    versions = "v#.#.#",
     devbranch = "master",
     push_preview = true,
  )

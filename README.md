@@ -93,7 +93,24 @@ To help out with this, in the subdirectory `scripts/03/intro-stan` the Stan lang
 
 Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5).
 
-2. The equivalent of the R function `quap()` in StatisticalRethinking.jl uses the MAP density of the Stan samples as the mean of the Normal distribution. Examples and comparisons can be found in `scripts/03/intro-stan/intro-part-4.jl`. 
+2. The equivalent of the R function `quap()` in StatisticalRethinking.jl v2.0 uses the MAP density of the Stan samples as the mean of the Normal distribution and reports the approximation as a NamedTuple. e.g. from `scripts/04-part-1/clip-31.jl`:
+```
+if success(rc)
+  df = read_samples(sm; output_format=:dataframe)
+  q = quap(df)
+  q |> display
+end
+```
+returns:
+```
+(mu = 178.0 ± 0.1, sigma = 24.5 ± 0.94)
+```
+To obtain the mu quap:
+```
+q.mu
+```
+Examples and comparisons of different ways of computing a quap approximation can be found in `scripts/03/intro-stan/intro-part-4.jl`. 
+ 
 
 3. In `scripts/04` an additional section has been added, `intro-logpdf` which introduces an alternative way to compute the MAP (quap) using Optim.jl. This kind of builds on the logpdf formulation introduced in `scripts/03/intro-stan/intro-part-4.jl`
 

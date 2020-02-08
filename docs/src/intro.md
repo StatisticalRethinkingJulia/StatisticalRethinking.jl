@@ -44,6 +44,23 @@ In v2.x of StatisticalRethinking.jl, R's ulam() has been replaced by StanSample.
 
 To help out with this, in the subdirectory `scripts/03/intro-stan` the Stan language is introduced and the execution of Stan language programs illustrated. Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5).
 
-The R function quap() in StatisticalRethinking.jl uses the MAP density of the Stan samples as the mean of the Normal distribution. Examples and comparisons of different ways of computing a quap approximation can be found in `scripts/03/intro-stan/intro-part-4.jl`.
+The equivalent of the R function `quap()` in StatisticalRethinking.jl v2.0 uses the MAP density of the Stan samples as the mean of the Normal distribution and reports the approximation as a NamedTuple. e.g. from `./scripts/04-part-1/clip-31.jl`:
+```
+if success(rc)
+  println()
+  df = read_samples(sm; output_format=:dataframe)
+  q = quap(df)
+  q |> display
+end
+```
+returns:
+```
+(mu = 178.0 ± 0.1, sigma = 24.5 ± 0.94)
+```
+To obtain the mu quap:
+```
+q.mu
+```
+Examples and comparisons of different ways of computing a quap approximation can be found in `scripts/03/intro-stan/intro-part-4.jl`. 
 
 The increasing use of Particles to represent quap approximations is possible thanks to the package [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl). [Soss.jl](https://github.com/cscherrer/Soss.jl) and [related write-ups](https://cscherrer.github.io) introduced me to that option.

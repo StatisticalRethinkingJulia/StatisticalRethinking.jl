@@ -50,7 +50,9 @@ if success(rc)
 	plot(mu_range, ecdf(sample(df[:, :mu], 10000))(mu_range),
 		xlabel="ecdf", ylabel="mu", lab="Stan samples")
 	plot!(mu_range, ecdf(sample(q.mu, 10000))(mu_range),
-		lab="Particles samples")
+		lab="Quap samples")
+  plot!(mu_range, ecdf(sample(df[:, :mu], 10000))(mu_range),
+    lab="Particles samples")
 	savefig("$ProjDir/Fig-34-36.1.png")
 
   dfa = read_samples(sm; output_format=:dataframes)

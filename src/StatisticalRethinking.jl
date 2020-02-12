@@ -31,11 +31,13 @@ include("scale.jl")
 include("shading.jl")
 include("link.jl")
 include("a3d_utils.jl")
+include("hpdi.jl")
 
 export
 	rel_path,
 	link,
  	scale!,
+  hpdi,
  	sample,
  	create_a3d,
  	insert_chain,

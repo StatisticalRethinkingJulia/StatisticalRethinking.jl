@@ -6,7 +6,7 @@ Compute the link function
 
 ### Method
 ```julia
-link(df, vars, xrange, xbar) 
+link(df, vars, xrange, xbar, ybar) 
 ```
 
 ### Required arguments
@@ -23,7 +23,12 @@ link(df, vars, xrange, xbar)
 ```
 
 """
-function link(df::DataFrame, vars, xrange, xbar) 
-  [df[:, vars[1]] + df[:, vars[2]] * (x - xbar) for x in xrange]
+function link(dfa::DataFrame, vars, xrange, xbar, ybar) 
+  [ybar .+ dfa[:, vars[1]] + dfa[:, vars[2]] * (x - xbar) for x in xrange]
 end
+
+function link(dfa::DataFrame, vars, xrange, xbar) 
+  [dfa[:, vars[1]] + dfa[:, vars[2]] * (x - xbar) for x in xrange]
+end
+
 

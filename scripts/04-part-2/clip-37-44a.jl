@@ -1,7 +1,7 @@
-@time using StatisticalRethinking, StanSample
-@time using DataFrames, CSV, StatsBase
+using StatisticalRethinking, StanSample
+using DataFrames, CSV, StatsBase
 using KernelDensity, MonteCarloMeasurements
-@time using StatsPlots
+using StatsPlots, LaTeXStrings
 
 ProjDir = @__DIR__
 
@@ -32,9 +32,6 @@ parameters {
 model {
  height ~ normal(alpha + weight * beta , sigma);
 }
-
-generated quantities {
-} 
 ";
 
 # Define the SampleModel.
@@ -48,12 +45,15 @@ heightsdata = Dict("N" => length(df2[:, :height]),
 
 # Sample using cmdstan
 
-rc = stan_sample(sm, data=heightsdata);
+@time rc = stan_sample(sm, data=heightsdata);
 
 if success(rc)
 
 	# Describe the draws
-	df = read_samples(sm; output_format=:dataframe)
+	df3 = read_samples(sm; output_format=:dataframe)
+	p = Particles(df3)
+	p |> display
+	println()
 
 	# ### snippet 4.37
 
@@ -62,15 +62,18 @@ if success(rc)
 	scatter(df2[:, :weight_c], df2[:, :height], lab="Observations",
 	  ylab="height [cm]", xlab="weight[kg]")
 	xi = -16.0:0.1:18.0
-	yi = mean(df[:, :alpha]) .+ mean(df[:, :beta])*xi;
+	yi = mean(df3[:, :alpha]) .+ mean(df3[:, :beta])*xi;
 	plot!(xi, yi, lab="Regression line")
-	savefig("$ProjDir/Fig-37-43.2.png")
+	savefig("$ProjDir/Fig-37-44.2.png")
 
 	# ### snippet 4.44
 
 	println()
-	q = quap(df)
+	q = quap(df3)
 	display(q)
+
+	plot(plot(q.alpha, lab="\\alpha"), plot(q.beta, lab="\\beta"), layout=(2, 1))
+	savefig("$ProjDir/Fig-37-44.1.png")
 
 end
 

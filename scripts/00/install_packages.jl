@@ -12,6 +12,7 @@ Pkg.add("StanSample")
 Pkg.add("StanOptimize")
 Pkg.add("StatsPlots")
 Pkg.add("StatsBase")
+Pkg.add("LaTexStrings")
 
 # Chapter 09 only
 Pkg.add("DynamicHMC")
@@ -19,7 +20,7 @@ Pkg.add("LogDensityProblems")
 Pkg.add("TransformVariables")
 
 # Optional: update packages
-#Pkg.update()
+Pkg.update()
 
 # Optional: pre-compile packages
 #Pkg.precompile()

@@ -2,6 +2,7 @@
 
 using StatisticalRethinking, StanSample, CSV, StatsPlots, DataFrames
 ProjDir = @__DIR__
+cd(ProjDir) do
 
 # ### snippet 4.7
 
@@ -32,9 +33,6 @@ parameters {
 model {
  height ~ normal(alpha + weight * beta , sigma);
 }
-
-generated quantities {
-} 
 ";
 
 # Define the SampleModel.
@@ -66,7 +64,6 @@ for i in 1:length(nvals)
     "weight" => df2[1:N, :weight]
   )
   
-  # Make sure previous sample files are removed!
   sm = SampleModel("weights", weightsmodel);
   rc = stan_sample(sm, data=heightsdataN)
 
@@ -91,4 +88,6 @@ end
 plot(p..., layout=(2, 2))
 savefig("$ProjDir/Fig-45-47.png")
 
-# End of `04/clip-45-47s.jl`
+end # cd .. do
+
+# End of `04/clip-45-47a.jl`

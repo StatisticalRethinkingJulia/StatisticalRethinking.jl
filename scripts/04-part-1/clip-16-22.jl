@@ -104,10 +104,10 @@ show(chn)
 
 # Show hpd regions
 
-@show hpd(chn)
+@show MCMCChains.hpd(chn)
 
-mu_bnds = hpd(chn[:,1,1])
-sigma_bnds = hpd(chn[:, 2, 1])
+mu_bnds = MCMCChains.hpd(chn[:,1,1])
+sigma_bnds = MCMCChains.hpd(chn[:, 2, 1])
 
 # ### Snippet 4.21
 
@@ -130,6 +130,5 @@ density(samples[:, :sigma],
 vline!([sigma_bnds[:upper]], line=:dash, lab="Lower bound")
 vline!([sigma_bnds[:lower]], line=:dash, lab="Upper bound")
 savefig("$ProjDir/Fig-16-22.4.png")
-
 
 # End of `04/clip-16-20.jl`

@@ -1,8 +1,8 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-@time using StatisticalRethinking, StanSample, CSV
-@time using Distributions, DataFrames
-@time using MCMCChains,StatsPlots
+using StatisticalRethinking, StanSample, CSV
+using Distributions, DataFrames
+using MCMCChains,StatsPlots
 
 ProjDir = @__DIR__
 
@@ -12,9 +12,10 @@ df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # ### snippet 4.8
 
-# Show first 5 rows of DataFrame df
+# Show a summary of the  DataFrame
 
-first(df, 5) |> display
+printl()
+Particles(df) |> display
 
 # ### snippet 4.9
 

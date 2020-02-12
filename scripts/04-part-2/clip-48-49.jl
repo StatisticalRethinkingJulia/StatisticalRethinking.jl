@@ -1,9 +1,10 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
 using StatisticalRethinking, StanSample, CSV
-using DataFrames, StatsPlots
+using DataFrames, StatsPlots, Statistics
 
 ProjDir = @__DIR__
+cd(ProjDir) do
 
 # ### Preliminary snippets
 
@@ -104,29 +105,9 @@ if success(rc)
 
   end
   plot(p..., layout=(2, 2))
-  savefig("$ProjDir/Fig-48-54.1.png")
-
-  # ### Snippet 4.50
-
-  mu_at_50 = link(dfa, [:alpha, :beta], 50:10:50, mean_weight);
-
-  density(mu_at_50)
-  savefig("$ProjDir/fig-48-54.2.png")
-
-  # ### Snippet 4.54
-
-  # Show posterior density for 6 mu_bar values
-
-  mu = link(dfa, [:alpha, :beta], 25:10:75, mean_weight);
-
-  q = Vector{Plots.Plot{Plots.GRBackend}}(undef, size(mu, 1))
-  for i in 1:size(mu, 1)
-    q[i] = density(mu[i], ylim=(0.0, 1.5),
-      leg=false, title="mu_bar = $(round(mean(mu[i]), digits=1))")
-  end
-  plot(q..., layout=(2, 3), ticks=(3))
-  savefig("$ProjDir/Fig-48-54.3.png")
-
+  savefig("$ProjDir/Fig-48-49.png")
 end
 
-# End of `04/clip-48-54.jl`
+end # cd .. do
+
+# End of `04/clip-48-49.jl`

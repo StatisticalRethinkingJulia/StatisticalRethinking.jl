@@ -45,9 +45,8 @@ println("Mean: $(mean(samples))\n")
 println("Median: $(median(samples))\n")
 
 density(samples, lab="density")
-vline!([mode(samples)], line=:dash, lab="mode")
-vline!([median(samples)], line=:dash, lab="median")
-vline!([mean(samples)], line=:dash, lab="mean")
+vline!(hpdi(samples, alpha=0.5), line=:dash, lab="hpdi")
+vline!(quantile(samples, [0.25, 0.75]), line=:dash, lab="quantile (pi)")
 savefig("$(ProjDir)/Fig-11-16.png")
 
 # End of `03/clip-11-16.jl`

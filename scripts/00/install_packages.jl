@@ -1,22 +1,34 @@
 # Install all packages needed in StatisticalRethinking scripts
 
+# Used in most examples
 Pkg.add("CSV")
-Pkg.add("DataFrames")
+Pkg.add("DataFrames")                  # includes gluecode
 Pkg.add("Distributions")
-Pkg.add("GLM")
-Pkg.add("KernelDensity")
-Pkg.add("MCMCChains")
-Pkg.add("MonteCarloMeasurements")
-Pkg.add("Optim")
 Pkg.add("StanSample")
-Pkg.add("StanOptimize")
-Pkg.add("StatsPlots")
 Pkg.add("StatsBase")
-Pkg.add("LaTexStrings")
+Pkg.add("Statistics")
 
-# Chapter 09 only
+# Particles and quap()                 # includes glue code if
+Pkg.add("KernelDensity")               # both are loaded!
+Pkg.add("MonteCarloMeasurements")
+
+# MCMCChains                           # includes glue code
+Pkg.add("MCMCChains")                  # StatsPlots for plot(chns)
+
+# Alternative ways of computing quap estimates
+Pkg.add("Optim")
+Pkg.add("StanOptimize")
+
+# For plotting
+Pkg.add("StatsPlots")
+Pkg.add("LaTexStrings")                # For greek characters
+                                       # E.g. 04-part-2/clip-37-44a.jl
+# Used occasionally
+Pkg.add("GLM")
+
+# Chapter 09 only (currently)
+Pkg.add("LogDensityProblems")          # includes glue code
 Pkg.add("DynamicHMC")
-Pkg.add("LogDensityProblems")
 Pkg.add("TransformVariables")
 
 # Optional: update packages
@@ -27,5 +39,8 @@ Pkg.update()
 
 # Optional: load packages
 #using CSV, DataFrames, Distributions, GLM
-#using KernelDensity, MCMCChains, MonteCarloMeasurements
-#using Optim, StatsPlots
+#using StatsBase, Statistics
+#using KernelDensity, MonteCarloMeasurements
+#using MCMCChains 
+#using StatsPlots
+#using Opyim

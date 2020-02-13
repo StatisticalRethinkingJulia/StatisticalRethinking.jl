@@ -17,6 +17,9 @@ first(df2, 5)
 
 # Define the Stan language model
 
+# This uses a non-vectorized formulation in the model block
+# which is slightly less efficient.
+
 weightsmodel = "
 data {
  int < lower = 1 > N; // Sample size

@@ -68,9 +68,12 @@ if success(rc)
 
   # Describe the draws
   df = read_samples(sm; output_format=:dataframe)
-  
+  println("\nSample Particles summary:")
+  p = Particles(df)
+  p |> display
+
+  println("\nQuap Particles estimate:")
   q = quap(df)
-  println()
   display(q)
 end
 

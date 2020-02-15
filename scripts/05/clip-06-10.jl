@@ -90,22 +90,23 @@ if success(rc)
   bnds_quantile = [quantile(mu_r[i], [0.055, 0.945]) for i in 1:length(xi)]
   bnds_hpd = [hpdi(mu_r[i], alpha=0.11) for i in 1:length(xi)]
   
-  plot()
+  title = "Divorce rate vs. Marriage rate" * "\nshowing sample and hpd range"
+  plot(xlab="Marriage age", ylab="Divorce rate",
+    title=title)
+
   x_r = rescale(xi, xbar, xstd)
-  plot!(x_r , mu_means_r)
   for i in 1:length(xi)
     plot!([x_r[i], x_r[i]], bnds_range[i],
       color=:lightgrey, leg=false)
   end
-  scatter!(df[:, :Marriage], df[:, :Divorce],
-    color=:darkgreen, leg=false)
 
   for i in 1:length(xi)
     plot!([x_r[i], x_r[i]], bnds_hpd[i],
       color=:grey, leg=false)
   end
-  scatter!(df[:, :Marriage], df[:, :Divorce],
-    color=:darkgreen, leg=false)
+
+  plot!(x_r , mu_means_r, color=:black)
+  scatter!(df[:, :Marriage], df[:, :Divorce], leg=false, color=:darkblue)
 
   savefig("$ProjDir/Fig-06-10.png")
 

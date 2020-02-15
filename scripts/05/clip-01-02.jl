@@ -60,6 +60,12 @@ rc = stan_sample(sm1, data=ad_data);
 
 if success(rc)
 
+  # Describe the draws
+
+  dfs = read_samples(sm1; output_format=:dataframe)
+  println("\nSample Particles summary:"); p = Particles(dfs); p |> display
+  println("\nQuap Particles estimate:"); q = quap(dfs); display(q)
+
   # Result rethinking
 
   rethinking = "
@@ -71,38 +77,39 @@ if success(rc)
 
   # Plot regression line using means and observations
 
-  dfs = read_samples(sm1; output_format=:dataframe)
+  xbar = mean(df[:, :MedianAgeMarriage])
+  xstd = std(df[:, :MedianAgeMarriage])
+  ybar = mean(df[:, :Divorce])
+  ystd = std(df[:, :Divorce])
 
-  Particles(dfs) |> display
-  println()
-  q = quap(dfs)
-  q |> display
+  xi = minimum(df[:, :MedianAgeMarriage_s]):0.01:maximum(df[:, :MedianAgeMarriage_s])
+  yi = mean(dfs[:, :a]) .+ mean(dfs[:, :bA]) .* xi
+  mu = link(dfs, [:a, :bA], xi)
+  mu_r = [rescale(mu[i], ybar, ystd) for i in 1:length(xi)]
+  mu_means_r = [mean(mu_r[i]) for i in 1:length(xi)]
 
-  xi = 23.0:0.01:30.0
-  yi = mean(df[:, :Divorce]) + mean(dfs[:, :a]) .+
-    mean(dfs[:, :bA])*(xi .- mean(df[:, :MedianAgeMarriage]))
+  bnds_range = [[minimum(mu_r[i]), maximum(mu_r[i])] for i in 1:length(xi)]
+  bnds_quantile = [quantile(mu_r[i], [0.055, 0.945]) for i in 1:length(xi)]
+  bnds_hpd = [hpdi(mu_r[i], alpha=0.11) for i in 1:length(xi)]
+  
+  title = "Divorce rate vs. median age at marriage" * "\nshowing sample and hpd range"
+  plot(xlab="Median age at marriage", ylab="Divorce rate",
+    title=title)
+  x_r = rescale(xi, xbar, xstd)
 
-  scatter(df[:, :MedianAgeMarriage], df[!, :Divorce], color=:darkblue,
-    xlab="Median age of marriage",
-    ylab="Divorce rate")
-  plot!(xi, yi, lab="Regression line", color=:red)
-
-  # shade(), abline() and link()
-
-  mu = link(dfs, [:a, :bA], xi, mean(dfs[:, :a]) + mean(df[:, :MedianAgeMarriage]));
-  yl = [minimum(mu[i]) for i in 1:length(xi)] .+ mean(df[:, :Divorce])
-  yh =  [maximum(mu[i]) for i in 1:length(xi)] .+ mean(df[:, :Divorce])
-  ym =  [mean(mu[i]) for i in 1:length(xi)] .+ mean(df[:, :Divorce])
-  pi = hcat(xi, yl, ym, yh);
-  pi[1:5,:]
-
-  plot!((xi, yl), color=:lightgrey, leg=false)
-  plot!((xi, yh), color=:lightgrey, leg=false)
   for i in 1:length(xi)
-    plot!([xi[i], xi[i]], [yl[i], yh[i]], color=:lightgrey, leg=false)
+    plot!([x_r[i], x_r[i]], bnds_range[i],
+      color=:lightgrey, leg=false)
   end
+
+  for i in 1:length(xi)
+    plot!([x_r[i], x_r[i]], bnds_hpd[i],
+      color=:grey, leg=false)
+  end
+
+  plot!(x_r , mu_means_r, color=:black)
   scatter!(df[:, :MedianAgeMarriage], df[:, :Divorce], color=:darkblue)
-  plot!(xi, yi, lab="Regression line", color=:red)
+
   savefig("$ProjDir/Fig-01-02.png")
 
 end

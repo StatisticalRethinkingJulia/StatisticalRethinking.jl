@@ -57,21 +57,16 @@ if success(rc)
   # Plot regression line using means and observations
 
   dfs = read_samples(sm1; output_format=:dataframe)
-
-  Particles(dfs) |> display
-  println()
-  q = quap(dfs)
-  q |> display
-
   xi = -3.0:0.1:3.0
-  plot(xlab="Medium age marriage (scaled)", ylab="Divorce rate (scaled)")
+  plot(xlab="Medium age marriage (scaled)", ylab="Divorce rate (scaled)",
+    title="Showing 50 regression lines")
   for i in 1:50
     yi = mean(dfs[i, :a]) .+ dfs[i, :bA] .* xi
     plot!(xi, yi, color=:lightgrey, leg=false)
   end
 
   scatter!(df[:, :MedianAgeMarriage_s], df[!, :Divorce_s],
-    color=:darkblue, markersize=0.5)
+    color=:darkblue)
 
   savefig("$ProjDir/Fig-03-05.png")
 

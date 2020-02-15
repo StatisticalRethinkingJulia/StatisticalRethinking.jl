@@ -77,17 +77,11 @@ if success(rc)
   bnds_quantile = [quantile(mu_r[i], [0.055, 0.945]) for i in 1:length(xi)]
   bnds_hpd = [hpdi(mu_r[i], alpha=0.11) for i in 1:length(xi)]
 
-  plot()
-  scatter(df[:, :WaffleHouses], df[!, :Divorce], color=:darkblue,
-    xlab="WaffleHouses",
-    ylab="Divorce rate", xlim=(0.0, 60.0))
-  plot!(xi, yi, lab="Regression line", color=:red)
-
-  # shade(), abline() and link()
-
-  plot()
+  title = "Divorce rate vs. waffle houses per million" * "\nshowing sample and hpd range"
+  plot(xlab="WaffleHouses per million", ylab="Divorce rate",
+    title=title)
   x_r = rescale(xi, xbar, xstd)
-  plot!(x_r , mu_means_r)
+
   for i in 1:length(xi)
     plot!([x_r[i], x_r[i]], bnds_range[i],
       color=:lightgrey, leg=false)
@@ -97,8 +91,9 @@ if success(rc)
     plot!([x_r[i], x_r[i]], bnds_hpd[i],
       color=:grey, leg=false)
   end
-  scatter!(df[:, :WaffleHouses], df[:, :Divorce],
-    color=:darkgreen, leg=false)
+
+  plot!(x_r , mu_means_r, color=:black)
+  scatter!(df[:, :WaffleHouses], df[:, :Divorce], leg=false, color=:darkblue)
 
   savefig("$ProjDir/Fig-00.png")
 

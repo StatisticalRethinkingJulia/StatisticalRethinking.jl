@@ -2,6 +2,7 @@
 
 using StatisticalRethinking, StanSample
 using Distributions, DataFrames
+using KernelDensity, MonteCarloMeasurements
 using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
@@ -101,15 +102,24 @@ rc = stan_sample(sm, data=m1_1_data);
 # 5. Describe and check the results
 
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
 
+  # Describe the draws using Particles and Quap
+
+  dfs = read_samples(sm; output_format=:dataframe)
+  println("\nSample Particles summary:"); p = Particles(dfs); p |> display
+  println("\nQuap Particles estimate:"); q = quap(dfs); display(q)
+
+  # Check the chains using MCMCChains.jl
+  
+  chn = read_samples(sm; output_format=:mcmcchains)
   println()
   show(chn)
   savefig(plot(chn), "$ProjDir/Fig-part-1.png")
 
-  # Single df for all chains
+  # Display the stansummary result
 
-  df = read_samples(sm; output_format=:dataframe)
+  sdf = read_summary(sm)
+  display(sdf)
 
 end
 

@@ -12,7 +12,8 @@ rel_path(parts...)
 link(df::DataFrame, vars, xrange, xbar) 
 ```
 
-## `scale!`
+
+## `rescale`
 ```@docs
-scale!(df::DataFrame, vars::Vector{Symbol}, ext="_s")
+rescale(x::Vector{Float64}, xbar::Float64, xstd::Float64)
 ```

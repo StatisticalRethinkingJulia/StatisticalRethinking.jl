@@ -1,4 +1,4 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
+# Load Julia packages (libraries) needed for clip
 
 @time using StatisticalRethinking, StanSample, CSV
 @time using LinearAlgebra, DataFrames, StatsBase

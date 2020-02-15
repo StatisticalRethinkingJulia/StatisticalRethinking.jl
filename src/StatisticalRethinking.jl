@@ -11,6 +11,8 @@ function __init__()
   end
 end
 
+using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
+
 const src_path = @__DIR__
 
 """
@@ -28,6 +30,7 @@ rel_path("..", "data")
 rel_path(parts...) = normpath(joinpath(src_path, parts...))
 
 include("scale.jl")
+include("rescale.jl")
 include("shading.jl")
 include("link.jl")
 include("a3d_utils.jl")
@@ -37,6 +40,7 @@ export
 	rel_path,
 	link,
  	scale!,
+  rescale,
   hpdi,
  	sample,
  	create_a3d,

@@ -1,4 +1,4 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 04
+# Load Julia packages (libraries) needed for clip4
 
 using StatisticalRethinking, StanSample, CSV
 using DataFrames, LinearAlgebra, StatsBase, StatsPlots

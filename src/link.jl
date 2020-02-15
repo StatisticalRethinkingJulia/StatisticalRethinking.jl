@@ -2,12 +2,11 @@
 
 # link
 
-Compute the link function
+Compute the link function for standadized vars.
 
-### Method
-```julia
-link(df, vars, xrange, xbar, ybar) 
-```
+$(SIGNATURES)
+
+# Extended help
 
 ### Required arguments
 ```julia
@@ -31,4 +30,6 @@ function link(dfa::DataFrame, vars, xrange, xbar)
   [dfa[:, vars[1]] + dfa[:, vars[2]] * (x - xbar) for x in xrange]
 end
 
-
+function link(dfa::DataFrame, vars, xrange) 
+  [dfa[:, vars[1]] + dfa[:, vars[2]] * x for x in xrange]
+end

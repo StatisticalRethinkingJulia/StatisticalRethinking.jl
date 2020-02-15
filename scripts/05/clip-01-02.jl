@@ -17,6 +17,9 @@ first(df, 5) |> display
 
 scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
 println()
+
+# ### snippet 5.2
+
 std(df[:, :MedianAgeMarriage]) |> display
 
 left = "
@@ -100,9 +103,8 @@ if success(rc)
   end
   scatter!(df[:, :MedianAgeMarriage], df[:, :Divorce], color=:darkblue)
   plot!(xi, yi, lab="Regression line", color=:red)
-  savefig("$ProjDir/Fig-01-05.png")
+  savefig("$ProjDir/Fig-01-02.png")
 
 end
 
-# End of `05/m5.1s.jl`
-
+# End of `05/clip-01-02.jl`

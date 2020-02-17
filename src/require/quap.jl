@@ -1,7 +1,6 @@
 using .KernelDensity, .MonteCarloMeasurements
 
 import .StatsBase: sample
-import .MonteCarloMeasurements: Particles
 
 """
 
@@ -37,22 +36,6 @@ See [MonteCarloMeasurements](https://baggepinnen.github.io/MonteCarloMeasurement
 sample(q::Particles, n; permute=true) =
   systematic_sample(n, q, permute=permute)
 
-function convert_a3d(a3d_array, cnames, ::Val{:particles};
-    start=1, kwargs...)
-  
-  df = convert_a3d(a3d_array, cnames, Val(:dataframe))
-  d = Dict{Symbol, typeof(Particles(size(df, 1), Normal(0.0, 1.0)))}()
-
-  for var in names(df)
-    dens = kde(df[:, var])
-    mu = collect(dens.x)[findmax(dens.density)[2]]
-    sigma = std(df[:, var], mean=mu)
-    d[var] = Particles(size(df, 1), Normal(mu, sigma))
-  end
-
-  (; d...)
-
-end
 
 """
 
@@ -110,10 +93,8 @@ function quap(df::DataFrame)
 
 end
 
-Particles(df::DataFrame) = MonteCarloMeasurements.Particles(Array(df))
+#Particles(df::DataFrame) = MonteCarloMeasurements.Particles(Array(df))
 
 export
-	quap,
-  Particles,
-  NamedTuple
+	quap
 

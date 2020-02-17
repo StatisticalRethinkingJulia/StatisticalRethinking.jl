@@ -1,8 +1,8 @@
 # Load Julia packages (libraries) needed for clip
 
-using StatisticalRethinking
+using StatisticalRethinking, StanSample
 using CSV, DataFrames
-using StanSample, MonteCarloMeasurements
+using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 
@@ -13,7 +13,7 @@ scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
 
 # Define the Stan language model
 
-m_5_2 = "
+m5_2 = "
 data {
   int N;
   vector[N] divorce_s;
@@ -34,7 +34,7 @@ model {
 ";
 
 # Define the SampleModel
-m5_2s = SampleModel("m5.2", m_5_2);
+m_5_2 = SampleModel("m5_2", m5_2);
 
 # Input data
 
@@ -46,13 +46,20 @@ m5_2_data = Dict(
 
 # Sample using cmdstan
 
-rc = stan_sample(m5_2s, data=m5_2_data);
+rc = stan_sample(m_5_2, data=m5_2_data);
 
 if success(rc)
 
   # Describe the draws
 
-  dfa = read_samples(m5_2s; output_format=:dataframe)
+  chns = read_samples(m_5_2; output_format=:mcmcchains)
+  #show(chns)
+  plot(chns)
+  savefig("$(ProjDir)/m5.2chains.png")
+
+  println()
+  sdf = read_summary(m_5_2)
+  #sdf |> display
 
   # Result rethinking
 
@@ -62,7 +69,4 @@ if success(rc)
     bM    0.35 0.13  0.15  0.55
     sigma 0.91 0.09  0.77  1.05
   "
-
-  Particles(dfa)
-  
 end

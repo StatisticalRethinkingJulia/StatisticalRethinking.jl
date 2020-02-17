@@ -7,64 +7,19 @@ using KernelDensity, MonteCarloMeasurements
 
 ProjDir = @__DIR__
 
-# ### snippet 5.1
-
-println()
-df = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';');
-first(df, 5) |> display
-
-# ### snippet 5.1
-
-scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
-println()
+include("m5.1.jl")
 
 # ### snippet 5.2
 
 std(df[:, :MedianAgeMarriage]) |> display
 
-left = "
-data {
- int < lower = 1 > N; // Sample size
- vector[N] D; // Outcome
- vector[N] A; // Predictor
-}
-
-parameters {
- real a; // Intercept
- real bA; // Slope (regression coefficients)
- real < lower = 0 > sigma;    // Error SD
-}
-
-model {
-  vector[N] mu;               // mu is a vector
-  a ~ normal(0, 0.2);         //Priors
-  bA ~ normal(0, 0.5);
-  sigma ~ exponential(1);
-  mu = a + bA * A;
-  D ~ normal(mu , sigma);     // Likelihood
-}
-";
-
-# Define the SampleModel and set the output format to :mcmcchains.
-
-sm1 = SampleModel("MedianAgeMarriage", left);
-
-# Input data for cmdstan
-
-ad_data = Dict("N" => size(df, 1), "D" => df[!, :Divorce_s],
-    "A" => df[!, :MedianAgeMarriage_s]);
-
-# Sample using StanSample
-
-rc = stan_sample(sm1, data=ad_data);
-
 if success(rc)
 
   # Describe the draws
 
-  dfs = read_samples(sm1; output_format=:dataframe)
-  println("\nSample Particles summary:"); p = Particles(dfs); p |> display
-  println("\nQuap Particles estimate:"); q = quap(dfs); display(q)
+  dfs = read_samples(m_5_1; output_format=:dataframe)
+  println("\nSample Particles summary:"); p_m_5_1 = Particles(dfs); p_m_5_1 |> display
+  println("\nQuap Particles estimate:"); q_m_5_1 = quap(dfs); display(q_m_5_1)
 
   # Result rethinking
 

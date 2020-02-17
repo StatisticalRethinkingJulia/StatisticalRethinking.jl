@@ -7,64 +7,14 @@ using StatsPlots
 
 ProjDir = @__DIR__
 
-# ### snippet 5.1
-
-df = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
-scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
-
-rethinking_data = "
-    Location Divorce  Marriage.s MedianAgeMarriage.s
-1    Alabama    12.7  0.02264406          -0.6062895
-2     Alaska    12.5  1.54980162          -0.6866993
-3    Arizona    10.8  0.04897436          -0.2042408
-4   Arkansas    13.5  1.65512283          -1.4103870
-5 California     8.0 -0.26698927           0.5998567
-"
-
-# Define the Stan language model
-
-m5_2 = "
-data {
-  int N;
-  vector[N] divorce_s;
-  vector[N] marriage_s;
-}
-parameters {
-  real a;
-  real bM;
-  real<lower=0> sigma;
-}
-model {
-  vector[N] mu = a + bM * marriage_s;
-  a ~ normal( 0 , 0.2 );
-  bM ~ normal( 0 , 0.5 );
-  sigma ~ exponential( 1 );
-  divorce_s ~ normal( mu , sigma );
-}
-";
-
-# Define the SampleModel
-tmpdir = ProjDir*"/tmp"
-sm = SampleModel("m5_2", m5_2, tmpdir=tmpdir);
-
-# Input data
-
-m5_3_data = Dict(
-  "N" => size(df, 1), 
-  "divorce_s" => df[:, :Divorce_s],
-  "marriage_s" => df[:, :Marriage_s] 
-);
-
-# Sample using cmdstan
-
-rc = stan_sample(sm, data=m5_3_data);
+include("m5.2.jl")
 
 if success(rc)
 
   # Describe the draws
   dfs = read_samples(sm; output_format=:dataframe)
-  println("\nSample Particles summary:"); p = Particles(dfs); p |> display
-  println("\nQuap Particles estimate:"); q = quap(dfs); display(q)
+  println("\nSample Particles summary:"); p_m_5_2 = Particles(dfs); p_m_5_2 |> display
+  println("\nQuap Particles estimate:"); q_m_5_2 = quap(dfs); display(q_m_5_2)
 
   # Rethinking results
 
@@ -88,7 +38,7 @@ if success(rc)
 
   bnds_range = [[minimum(mu_r[i]), maximum(mu_r[i])] for i in 1:length(xi)]
   bnds_quantile = [quantile(mu_r[i], [0.055, 0.945]) for i in 1:length(xi)]
-  bnds_hpd = [hpdi(mu_r[i], alpha=0.11) for i in 1:length(xi)]
+  bnds_hpd = [hpdi(mu_r[i], alpha=0.11) for i in 1:length(xi)];
   
   title = "Divorce rate vs. Marriage rate" * "\nshowing sample and hpd range"
   plot(xlab="Marriage age", ylab="Divorce rate",
@@ -108,7 +58,7 @@ if success(rc)
   plot!(x_r , mu_means_r, color=:black)
   scatter!(df[:, :Marriage], df[:, :Divorce], leg=false, color=:darkblue)
 
-  savefig("$ProjDir/Fig-06-10.png")
+  savefig("$ProjDir/Fig-06-09.png")
 
 end
 

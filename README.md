@@ -17,15 +17,22 @@ As stated many times by the author in his [online lectures](https://www.youtube.
 
 ## Important note
 
-Over the next 2 months (probably until Apr '20) I'm planning to update StatisticalRethinking.jl v2.0.0 to reflect the changes in the 2nd edition of the book. At the same time (but this will likely take longer) I'll also expand coverage of chapters 5 and beyond.
+Over the next 2 months (probably until Apr '20) I'm planning to update StatisticalRethinking.jl v2.x to reflect the changes in the 2nd edition of the book. At the same time (but this will likely take longer) I'll also expand coverage of chapters 5 and beyond.
 
 ## Versions
+
+### Version 2.1.0
+
+This version adds [Particles](https://baggepinnen.github.io/MonteCarloMeasurements.jl/latest/) based summaries, quap() and several more plot examples.
+
+From chapter 5 onwards a format for the scripts is used that is hopefully more stable over time.
+In a future version the sripts might be imported from StanModels.
 
 ### Version 2.0.0 
 
 This version follows the ongoing changes in the packages in the StanJulia Github organization, particularly the changes in StanSample.jl. This version breaks the approach chosen in v1.x with respect to the return values of stan_sample().
 
-Another major change is that not all dependencies for the scripts are included in StatisticalRethinking.jl. Unfortunately that setup, as in version 1.0.0, leads to very long compile times. Please see the `install_packages.jl` script in `scripts/00` for other packages needed in the various scipts.
+Another major change is that not all dependencies for the scripts are included in StatisticalRethinking.jl. Please see the `install_packages.jl` script in `scripts/00` for other packages needed in some of the scipts.
 
 ### Version 1.0.0
 

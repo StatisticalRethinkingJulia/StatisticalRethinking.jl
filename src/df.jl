@@ -28,8 +28,7 @@ sample(df, n; replace, ordered)
 ```
 
 """
-function sample(df::DataFrame, n;
-    replace=true, ordered=false)
+function sample(df::DataFrame, n; replace=true, ordered=false)
   indxs = sample(Random.GLOBAL_RNG, 
     1:size(df,1), 
     n,
@@ -50,7 +49,7 @@ end
 """
 # convert_a3d
 
-# Convert the output file(s) created by cmdstan to a DataFrame.
+# Convert the output file(s) created by cmdstan to a single DataFrame.
 
 """
 function convert_a3d(a3d_array, cnames, ::Val{:dataframe})

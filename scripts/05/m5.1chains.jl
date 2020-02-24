@@ -1,7 +1,6 @@
 # Load Julia packages (libraries) needed.
 
-using StatisticalRethinking, StanSample
-using CSV, DataFrames
+using StatisticalRethinking
 using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__

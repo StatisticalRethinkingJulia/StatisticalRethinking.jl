@@ -2,7 +2,7 @@
 
 # ### snippet 0.5 is replaced by below `using StatisticalRethinking`.
 
-using StatisticalRethinking, CSV, DataFrames
+using StatisticalRethinking
 using GLM, StatsPlots
 
 ProjDir = @__DIR__

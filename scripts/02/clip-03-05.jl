@@ -1,6 +1,7 @@
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, Distributions, StatsPlots
+using StatisticalRethinking
+using StatsPlots
 
 ProjDir = @__DIR__
 

@@ -2,7 +2,8 @@
 
 # Load Julia packages (libraries) needed
 
-using StatisticalRethinking, StanSample, KernelDensity, MCMCChains, MonteCarloMeasurements
+using StatisticalRethinking
+using MCMCChains
 
 ProjDir = @__DIR__
 cd(ProjDir)

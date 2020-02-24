@@ -1,9 +1,7 @@
 # Load Julia packages (libraries) needed.
 
 using StatisticalRethinking
-using StanSample, CSV, DataFrames
-using StatsPlots, Statistics
-using KernelDensity, MonteCarloMeasurements
+using StatsPlots
 
 ProjDir = @__DIR__
 
@@ -17,7 +15,7 @@ if success(rc)
 
   # Describe the draws
 
-  dfs = read_samples(m_5_1; output_format=:dataframe)
+  dfs = read_samples(m5_1s; output_format=:dataframe)
   println("\nSample Particles summary:"); p_m_5_1 = Particles(dfs); p_m_5_1 |> display
   println("\nQuap Particles estimate:"); q_m_5_1 = quap(dfs); display(q_m_5_1)
 

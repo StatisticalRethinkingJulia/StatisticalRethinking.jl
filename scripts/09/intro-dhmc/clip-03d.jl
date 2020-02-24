@@ -1,8 +1,8 @@
 # Snippet 09/clip-03.jl
 
-using StatisticalRethinking, DynamicHMC, Parameters, Random, Distributions, Plots
+using StatisticalRethinking, DynamicHMC, Parameters
 using TransformVariables, LogDensityProblems
-using MCMCChains
+using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 

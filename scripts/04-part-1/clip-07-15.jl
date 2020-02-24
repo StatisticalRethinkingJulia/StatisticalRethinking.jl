@@ -1,8 +1,7 @@
 # Load Julia packages (libraries) needed for clip
 
-using StatisticalRethinking, StanSample, CSV
-using Distributions, DataFrames
-using MCMCChains,StatsPlots
+using StatisticalRethinking
+using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 
@@ -14,7 +13,7 @@ df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
 
 # Show a summary of the  DataFrame
 
-printl()
+println()
 Particles(df) |> display
 
 # ### snippet 4.9

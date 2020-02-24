@@ -1,6 +1,7 @@
 # `clip-01`
 
 using StatisticalRethinking
+using StatsPlots
 
 ProjDir = @__DIR__
 

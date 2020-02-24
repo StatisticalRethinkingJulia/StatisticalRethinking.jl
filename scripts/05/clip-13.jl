@@ -1,9 +1,7 @@
 # Load Julia packages (libraries) needed for clip
 
-using StatisticalRethinking, StanSample
-using CSV, DataFrames
-using KernelDensity, MonteCarloMeasurements
-using StatsPlots, Statistics
+using StatisticalRethinking
+using StatsPlots
 
 ProjDir = @__DIR__
 

@@ -1,8 +1,6 @@
 # Load Julia packages (libraries) needed for clip
 
-using StatisticalRethinking, StanSample, CSV
-using DataFrames, LinearAlgebra, Statistics
-using KernelDensity, MonteCarloMeasurements
+using StatisticalRethinking
 
 # ### Snippet 4.26
 

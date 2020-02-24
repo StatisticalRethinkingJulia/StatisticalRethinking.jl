@@ -1,8 +1,6 @@
 # Introduction to a Stan Language program
 
-using StatisticalRethinking, StanSample
-using Distributions, DataFrames
-using KernelDensity, MonteCarloMeasurements
+using StatisticalRethinking
 using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__

@@ -1,8 +1,3 @@
-using .DataFrames
-using StatsBase, Random
-
-import .StatsBase: sample
-
 """
 
 # sample

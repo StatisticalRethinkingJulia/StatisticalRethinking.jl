@@ -1,8 +1,8 @@
 # # clip-02-05.jl
 
-using StatisticalRethinking, Distributions
+using StatisticalRethinking
 using Optim, MCMCChains
-using StatsBase, StatsPlots
+using StatsPlots
 
 ProjDir = @__DIR__
 

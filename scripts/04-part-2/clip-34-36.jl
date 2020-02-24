@@ -1,8 +1,7 @@
 # Load Julia packages (libraries) needed for clip
 
-@time using StatisticalRethinking, StanSample, CSV
-@time using LinearAlgebra, DataFrames, StatsBase
-@time using KernelDensity, MonteCarloMeasurements, StatsPlots
+@time using StatisticalRethinking
+@time using StatsPlots
 
 # ### Snippet 4.26
 
@@ -41,16 +40,25 @@ rc = stan_sample(sm, data=heightsdata);
 
 if success(rc)
 	println()
-	df = read_samples(sm; output_format=:dataframe)
-	q = quap(df)
-  display(q)
+	p = read_samples(sm; output_format=:particles)
+  display("Samples: $(p)")
+
+  df = read_samples(sm; output_format=:dataframe)
+  q = quap(df)
+  display("Quap: $(q)")
 
 	# Check equivalence of Stan samples and Particles.
 	mu_range = 152.0:0.01:157.0
 	plot(mu_range, ecdf(sample(df[:, :mu], 10000))(mu_range),
 		xlabel="ecdf", ylabel="mu", lab="Stan samples")
-	plot!(mu_range, ecdf(sample(q.mu, 10000))(mu_range),
+
+  # Sampling from quap result:
+
+  d = Normal(mean(q.mu), std(q.mu))
+	plot!(mu_range, ecdf(rand(d, 10000))(mu_range),
 		lab="Quap samples")
+
+  
   plot!(mu_range, ecdf(sample(df[:, :mu], 10000))(mu_range),
     lab="Particles samples")
 	savefig("$ProjDir/Fig-34-36.1.png")

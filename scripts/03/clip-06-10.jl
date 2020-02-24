@@ -2,7 +2,8 @@
 
 # Load Julia packages (libraries) needed for clip
 
-using StatisticalRethinking, Distributions, Optim, StatsBase, MCMCChains
+using StatisticalRethinking
+using MCMCChains
 #gr(size=(600,600));
 
 # ### snippet 3.2

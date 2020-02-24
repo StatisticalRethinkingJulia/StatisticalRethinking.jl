@@ -2,7 +2,7 @@
 # `scripts/03/intro_stan/intro-part-2.jl` and 
 # `scripts/03/intro_stan/intro-part-3.jl` (in that order)
 
-using MonteCarloMeasurements, Optim, KernelDensity
+using StatisticalRethinking, Optim
 
 # This scripts shows a number of different ways to estimate
 # a quadratic approximation.

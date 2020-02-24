@@ -1,5 +1,7 @@
 using StatisticalRethinking, DynamicHMC
 using LogDensityProblems, TransformVariables
+using Parameters
+using MCMCChains
 
 ProjDir = @__DIR__
 cd(ProjDir)

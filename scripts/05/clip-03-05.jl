@@ -1,9 +1,7 @@
 # Load Julia packages (libraries) needed.
 
 using StatisticalRethinking
-using StanSample, CSV, DataFrames
-using StatsPlots, Statistics
-using KernelDensity, MonteCarloMeasurements
+using StatsPlots
 
 ProjDir = @__DIR__
 
@@ -61,7 +59,7 @@ if success(rc)
   plot(xlab="Medium age marriage (scaled)", ylab="Divorce rate (scaled)",
     title="Showing 50 regression lines")
   for i in 1:50
-    yi = mean(dfs[i, :a]) .+ dfs[i, :bA] .* xi
+    local yi = mean(dfs[i, :a]) .+ dfs[i, :bA] .* xi
     plot!(xi, yi, color=:lightgrey, leg=false)
   end
 

@@ -1,4 +1,5 @@
-using StatisticalRethinking, StanSample, CSV, MCMCChains
+using StatisticalRethinking
+using MCMCChains
 
 ProjDir = @__DIR__
 

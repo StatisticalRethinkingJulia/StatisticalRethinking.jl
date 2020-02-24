@@ -1,6 +1,4 @@
-using StatisticalRethinking, StanSample
-using DataFrames, CSV, StatsBase
-using KernelDensity, MonteCarloMeasurements
+using StatisticalRethinking
 using MCMCChains
 using StatsPlots, LaTeXStrings
 

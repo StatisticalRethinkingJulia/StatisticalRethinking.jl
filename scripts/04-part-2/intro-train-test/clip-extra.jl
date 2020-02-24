@@ -7,7 +7,7 @@
 
 # We begin by importing all the necessary libraries.
 
-using StatisticalRethinking, StanSample, GLM, DataFrames, CSV, GLM
+using StatisticalRethinking, GLM, MCMCChains
 
 ProjDir = rel_path("..", "scripts", "04")
 

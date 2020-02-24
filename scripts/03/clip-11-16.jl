@@ -2,7 +2,8 @@
 
 # Load Julia packages (libraries) needed for clip
 
-using StatisticalRethinking, Distributions, Optim, StanSample, MCMCChains, StatsPlots, StatsBase
+using StatisticalRethinking
+using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 

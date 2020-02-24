@@ -1,8 +1,7 @@
 # Load Julia packages (libraries) needed for clip
 
-using StatisticalRethinking, DataFrames
-using Distributions, StatsBase
-using KernelDensity, StatsPlots
+using StatisticalRethinking
+using StatsPlots
 
 ProjDir = @__DIR__
 

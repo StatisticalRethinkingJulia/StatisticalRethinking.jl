@@ -1,8 +1,6 @@
 # Load Julia packages (libraries) needed for clip
 
-using StatisticalRethinking, StanSample, LinearAlgebra
-using DataFrames, CSV
-using KernelDensity, MonteCarloMeasurements
+using StatisticalRethinking
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -43,8 +41,7 @@ rc = stan_sample(sm, data=heightsdata);
 
 if success(rc)
 	println()
-	df = read_samples(sm; output_format=:dataframe)
-	q = quap(df)
+	q = read_samples(sm; output_format=:particles)
   q |> display
 end
 

@@ -23,3 +23,7 @@ end
    start=1)
    Chains(a3d, cnames, sections; start=start)
  end
+
+export
+  convert_a3d,
+  create_mcmcchains

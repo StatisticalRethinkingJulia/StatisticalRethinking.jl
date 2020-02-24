@@ -1,8 +1,6 @@
 # Load Julia packages (libraries) needed for clip
 
 using StatisticalRethinking
-using CSV, StanSample, DataFrames, Statistics
-using KernelDensity, MonteCarloMeasurements
 using StatsPlots
 
 ProjDir = @__DIR__
@@ -12,7 +10,7 @@ include("m5.2.jl")
 if success(rc)
 
   # Describe the draws
-  dfs = read_samples(sm; output_format=:dataframe)
+  dfs = read_samples(m5_2s; output_format=:dataframe)
   println("\nSample Particles summary:"); p_m_5_2 = Particles(dfs); p_m_5_2 |> display
   println("\nQuap Particles estimate:"); q_m_5_2 = quap(dfs); display(q_m_5_2)
 

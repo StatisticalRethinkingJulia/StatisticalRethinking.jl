@@ -98,7 +98,7 @@ This means that much earlier on than in the book, StatisticalRethinking.jl intro
 
 To help out with this, in the subdirectory `scripts/03/intro-stan` the Stan language is introduced and the execution of Stan language programs illustrated. Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5).
 
-Chapter 9 of the book contains a nice introduction to translating the `alist` R models to the Stan language (just before section 9.5).
+To check the chains produced MCMCChains.jl can be used, e.g. see the scripts in chapter 5.
 
 2. The equivalent of the R function `quap()` in StatisticalRethinking.jl v2.0 uses the MAP density of the Stan samples as the mean of the Normal distribution and reports the approximation as a NamedTuple. e.g. from `scripts/04-part-1/clip-31.jl`:
 ```
@@ -112,14 +112,25 @@ returns:
 ```
 (mu = 178.0 ± 0.1, sigma = 24.5 ± 0.94)
 ```
+
+The above call to read_samples(...) appends all chains in a single dataframe. To retrieve the chains in separate dataframes ( `Vector{DataFrames}` ) use:
+```
+df = read_samples(sm; output-Format=:dataframes)
+```
+
 To obtain the mu quap:
 ```
 q.mu
 ```
-Examples and comparisons of different ways of computing a quap approximation can be found in `scripts/03/intro-stan/intro-part-4.jl`. 
- 
 
-3. In `scripts/04` an additional section has been added, `intro-logpdf` which introduces an alternative way to compute the MAP (quap) using Optim.jl. This kind of builds on the logpdf formulation introduced in `scripts/03/intro-stan/intro-part-4.jl`
+To obtain the samples:
+```
+q.mu.particles
+```
+
+Examples and comparisons of different ways of computing a quap approximation can be found in `scripts/03/intro-stan/intro-part-4.jl`.
+
+3. In `scripts/04-part-1` an additional section has been added, `intro-logpdf` which introduces an alternative way to compute the MAP (quap) using Optim.jl. This kind of builds on the logpdf formulation introduced in `scripts/03/intro-stan/intro-part-4.jl`
 
 4. In `scripts/09` an additional intro section has been included, `scripts/09/intro-dhmc`. It is envisage that a future version of StatisticalRethinking.jl will be based on DynamicHMC.jl. No time line has been set for this work.
 
@@ -140,11 +151,11 @@ If you want to use this package as an easy way to access the dataset samples, th
 
 ```julia
 
-using StatisticalRethinking, CSV
+using StatisticalRethinking
 
 # for example, grabbing the `Howell1` dataset used in Chapter 4
 datapath = rel_path("..", "data/","Howell1.csv") 
-CSV.read(datapath)
+df = DataFrame(CSV.read(datapath))
 ```
 
 ## Other packages in the StatisticalRethinkingJulia Github organization

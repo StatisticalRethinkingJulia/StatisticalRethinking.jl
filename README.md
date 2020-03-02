@@ -21,6 +21,12 @@ Over the next 2 months (probably until Apr '20) I'm planning to update Statistic
 
 ## Versions
 
+### Version 2.1.1
+
+Updated src/require/plotcoef.jl (and made plotcoef() more general). Plotcoef() reuires StatsPlots to be loaded.
+
+Added Stan reults for the first example in R's dagitty package using the above mentioned plotcoef() function (see scripts/05/dagitty-example).
+
 ### Version 2.1.0
 
 This version adds [Particles](https://baggepinnen.github.io/MonteCarloMeasurements.jl/latest/) based summaries, quap() and several more plot examples.

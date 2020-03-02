@@ -1,7 +1,3 @@
-using .StatsPlots
-
-import .StanSample: SampleModel
-
 function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::AbstractString; 
   func=nothing, title="")
 
@@ -68,6 +64,3 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::Abstra
   savefig(fig)
   s
 end
-
-export
-  plotcoef

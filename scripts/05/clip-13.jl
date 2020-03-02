@@ -30,7 +30,7 @@ end
 if success(rc)
 
   r1 = plotcoef([m5_1s, m5_2s, m5_3s], [:bA, :bM], "$(ProjDir)/Fig-13a.png";
-    title="Particles estimates")
+    title="Particles (Normal) estimates")
   display(r1)
 
   println()

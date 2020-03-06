@@ -54,7 +54,7 @@ if success(rc)
 
   # Describe the draws
 
-  dfa = read_samples(m5_3s; output_format=:dataframe)
+  dfa3 = read_samples(m5_3s; output_format=:dataframe)
 
   # Rethinking results
 
@@ -66,6 +66,6 @@ if success(rc)
     sigma  0.79 0.08  0.66  0.91
   ";
 
-  Particles(dfa)
+  Particles(dfa3)
 
 end

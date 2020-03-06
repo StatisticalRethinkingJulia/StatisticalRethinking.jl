@@ -2,6 +2,38 @@ using .StatsPlots
 
 import .StanSample: SampleModel
 
+"""
+
+# plotcoef
+
+Multiple regression coefficient plot.
+
+Note: See the node in TODO about the a possible dagitty.jl.
+
+$(SIGNATURES)
+
+### Required arguments
+```julia
+* `models`                        : Vector of `SampleModel`s to compare
+* `pars`                          : Vector of parameters to include in comparison
+* `fig`                           : File to store the produce plot
+* `func`                          : Optional funtion to apply to sample dataframe
+* `title`                         : Title for plot
+```
+Currently the only function available is `quap`.
+
+The function will be called with a single argument, a dataframe constructed from all
+samples in all chains in the SampleModels. It should return a Partcles type NamedTuple. e.g.:
+```julia
+(a = 0.000527 ± 0.1, bM = -0.0628 ± 0.16, bA = -0.608 ± 0.16, sigma = 0.828 ± 0.089)
+```
+Examples can be found in `scipts/05/clip-13.jl` and in `scripts/05/dagitty-example`.
+
+### Return values
+```julia
+* `result::NamedTuple`            : Vector{NamedTuple} of estimates (Particles or Quap)
+```
+"""
 function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::AbstractString; 
   func=nothing, title="")
 
@@ -36,9 +68,13 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::Abstra
   append!(ylabs, ["        "])
   for j in 1:length(models)
     for i in 1:length(pars)
-      append!(ylabs, ["      " * String(pars[i])])
+      l = length(String(pars[i]))
+      str = repeat(" ", 9-l) * String(pars[i])
+      append!(ylabs, [str])
     end
-    append!(ylabs, [models[j].name * "       "])
+    l = length(models[j].name)
+    str = models[j].name * repeat(" ", 9-l)
+    append!(ylabs, [str])
   end
   append!(ylabs, ["        "])
 

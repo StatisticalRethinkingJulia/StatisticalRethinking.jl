@@ -1,9 +1,6 @@
 # Load Julia packages (libraries) needed.
 
 using StatisticalRethinking
-using CSV, DataFrames
-using StanSample, MonteCarloMeasurements
-using StatsPlots
 
 ProjDir = @__DIR__
 
@@ -70,11 +67,4 @@ if success(rc)
   println("Quap estimates:")
   quap(dfa7) |> display
 
-  r1 = plotcoef([m5_5s, m5_6s, m5_7s], [:a, :bN, :bM], "$(ProjDir)/Fig-38a.png",
-    title="bN & bM Normal estimates")
-  r1 |> display
-
-  r2 = plotcoef([m5_5s, m5_6s, m5_7s], [:a, :bN, :bM], "$(ProjDir)/Fig-38a.png",
-    func=quap, title="bN & bM Normal estimates")
-  r2 |> display
 end

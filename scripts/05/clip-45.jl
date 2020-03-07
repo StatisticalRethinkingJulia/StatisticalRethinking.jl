@@ -9,6 +9,7 @@ ProjDir = @__DIR__
 println()
 df = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';');
 df = filter(row -> row[:age] > 18, df)
+
 scale!(df, [:height, :weight])
 
 m_5_8 = "
@@ -22,6 +23,7 @@ data{
 }
 parameters{
     vector[2] a;
+    vector[2] bA;
     real<lower=0,upper=50> sigma;
 }
 model{
@@ -29,7 +31,7 @@ model{
     sigma ~ uniform( 0 , 50 );
     a ~ normal( 178 , 20 );
     for ( i in 1:N ) {
-        mu[i] = a[sex[i]];
+        mu[i] = a[sex[i]] + bA[sex[i]] * weight[i];
     }
     height ~ normal( mu , sigma );
 }
@@ -47,7 +49,7 @@ df_m = filter(row -> row[:sex] == 2, df)
 df_f = filter(row -> row[:sex] == 1, df)
 
 m5_8_data = Dict("N" => size(df, 1), "male" => df[:, :male],
-    "weight" => df[:, :weight], "height" => df[:, :height], 
+    "weight" => df[:, :weight_s], "height" => df[:, :height], 
     "age" => df[:, :age], "sex" => df[:, :sex])
 
 # Sample using StanSample
@@ -63,14 +65,15 @@ if success(rc)
   p = Particles(dfa)
   p |> display
   println("Quap estimates:")
-  q = quap(dfa)
-  q |> display
+  quap(dfa) |> display
 
-  plot(title="Densities by sex")
-  density!(df_m[:, :height], lab="Male")
-  density!(df_f[:, :height], lab="Female")
-  vline!([mean(p[Symbol("a.1")])], lab="Female mean estimate")
-  vline!([mean(p[Symbol("a.2")])], lab="Male mean estimate")
-  vline!([mean(q[Symbol("a.2")])], lab="Male (quap) mean estimate")
-  savefig("$(ProjDir)/Fig-44.png")
+  x = -2:0.01:2
+  plot(title="Intercepts and slopes by sex")
+  plot!(x, mean(p[Symbol("a.1")]) .+ mean(p[Symbol("bA.1")]) * x, lab="Female")
+  plot!(x, mean(p[Symbol("a.2")]) .+ mean(p[Symbol("bA.2")]) * x, lab="Male")
+  scatter!(df_m[:, :weight_s], df_m[:, :height], lab="Male data")
+  scatter!(df_f[:, :weight_s], df_f[:, :height], lab="Female data")
+
+  savefig("$(ProjDir)/Fig-45.png")
+
 end

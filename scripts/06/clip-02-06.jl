@@ -43,7 +43,8 @@ model {
 }
 ";
 
-m6_1s = SampleModel("m6.1s", m_6_1)
+m6_1s = SampleModel("m6.1s", m_6_1,
+  method=StanSample.Sample(num_samples=1000))
 
 m_6_1_data = Dict(
   :H => df[:, :height],
@@ -60,22 +61,26 @@ if success(rc)
   display(p)
 
   plotcoef(m6_1s, [:a, :bL, :bR, :sigma], "$(ProjDir)/Fig-02-06.1.png",
-    "Multicollinearity")
+    "Multicollinearity between bL and bR")
 
   dfa = read_samples(m6_1s, output_format=:dataframe)
 
   # Fit a linear regression of distance on speed
 
   m = lm(@formula(bL ~ bR), dfa)
+  display(m)
 
   # estimated coefficients from the model
 
   coefs = coef(m)
 
-  p1 = plot(p.bR.particles, coefs[1] .+ coefs[2] .* p.bR.particles, lab="bL ~ bR")
+  p1 = plot(xlabel="bR", ylabel="bL", lab="bL ~ bR")
+  #for i in 1:size(dfa, 1)
+    #plot!(p1, p.bR.particles, coefs[1] .+ coefs[2] .* p.bR.particles)
+  plot!(p1, dfa[:, :bR], dfa[:, :bL])
   p2 = density(p.bR.particles + p.bL.particles, xlabel="sum of bL and bR",
     ylabel="Density", lab="bL + bR")
-  plot(p1, p2, layout=(1,2))
+  plot(p1, p2, layout=(1, 2))
   savefig("$(ProjDir)/Fig-02-06.2.png")
 
 end

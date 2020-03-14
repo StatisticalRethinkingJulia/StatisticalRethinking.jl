@@ -75,12 +75,11 @@ if success(rc)
   coefs = coef(m)
 
   p1 = plot(xlabel="bR", ylabel="bL", lab="bL ~ bR")
-  #for i in 1:size(dfa, 1)
-    #plot!(p1, p.bR.particles, coefs[1] .+ coefs[2] .* p.bR.particles)
   plot!(p1, dfa[:, :bR], dfa[:, :bL])
   p2 = density(p.bR.particles + p.bL.particles, xlabel="sum of bL and bR",
     ylabel="Density", lab="bL + bR")
   plot(p1, p2, layout=(1, 2))
+  
   savefig("$(ProjDir)/Fig-02-06.2.png")
 
 end

@@ -56,8 +56,17 @@ if success(rc)
   p = Particles(dfa)
   p |> display
 
-  r1 = plotcoef(m6_5s, [:a, :bF, :bL, :sigma], "$(ProjDir)/Fig-10.png",
+  r1 = plotcoef(m6_5s, [:a, :bF, :bL, :sigma], "$(ProjDir)/Fig-10-12.1.png",
     "Multicollinearity for milk model using quap()", quap)
   r1 |> display
+
+  # Snippet 6.11
+  
+  pairsplot(df, [:kcal_per_g, :perc_fat, :perc_lactose], "$(ProjDir)/Fig-10-12.2.png")
+
+  # Snippet 6.12
+
+  cor(df[:, :perc_fat], df[:, :perc_lactose]) |> display
+
 
 end

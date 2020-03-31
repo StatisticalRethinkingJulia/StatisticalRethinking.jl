@@ -20,11 +20,9 @@ df = CSV.read(rel_path("..", "scripts", "05", "dagitty-ex01", "sports.csv"), del
 scatter(df[:, :TM], df[:, :WUE])
 savefig("$(ProjDir)/sports_01.png")
 
-r1 = plotcoef(models, pars, "$(ProjDir)/sports_02.png";
-  title="Normal (Particles) estimates")
+r1 = plotcoef(models, pars, "$(ProjDir)/sports_02.png", "Normal (Particles) estimates")
 display(r1)
 
 println()
-r2 = plotcoef(models, pars, "$(ProjDir)/sports_03.png"; 
-  func=quap, title="Quap estimates")
+r2 = plotcoef(models, pars, "$(ProjDir)/sports_03.png", "Quap estimates", quap)
 display(r2)

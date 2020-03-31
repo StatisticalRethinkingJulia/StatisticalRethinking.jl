@@ -1,7 +1,7 @@
 # Install all packages needed in StatisticalRethinking scripts
 
 # MCMCChains                           # includes glue code
-Pkg.add("MCMCChains")                  # StatsPlots for plot(chns)
+Pkg.add("MCMCChains")                  # for e.g. plot(chns)
 
 # Alternative ways of computing quap estimates
 Pkg.add("Optim")

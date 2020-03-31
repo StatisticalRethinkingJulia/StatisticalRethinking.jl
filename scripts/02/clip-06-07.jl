@@ -33,10 +33,6 @@ posterior = posterior / sum(posterior);
 
 N = 10000
 samples = sample(p_grid, Weights(posterior), N);
-
-# In StatisticalRethinkingJulia samples will always be stored
-# in an MCMCChains.Chains object. 
-
 chn = MCMCChains.Chains(reshape(samples, N, 1, 1), ["toss"]);
 
 # Describe the chain
@@ -73,26 +69,33 @@ opt
 quapfit = [qmap[1], std(samples, mean=qmap[1])]
 
 p = Vector{Plots.Plot{Plots.GRBackend}}(undef, 4)
-p[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
+#p[1] = scatter(1:length(p_grid), samples, markersize = 2, ylim=(0.0, 1.3), lab="Draws")
 
 # analytical calculation
 
 w = 6
 n = 9
 x = 0:0.01:1
+p[1] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
+density!(p[1], samples, lab="Sample density")
+
+# quadratic approximation using Optim
+
 p[2] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
-density!(p[2], samples, lab="Sample density")
+plot!( p[2], x, pdf.(Normal( quapfit[1], quapfit[2] ) , x ), lab="Quap approximation")
 
-# quadratic approximation
+# quadratic approximation using StatisticalRethinking.jl quap()
 
+df = DataFrame(:toss => samples)
+q = quap(df)
 p[3] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
-plot!( p[3], x, pdf.(Normal( quapfit[1], quapfit[2] ) , x ), lab="Quap approximation")
-
+plot!( p[3], x, pdf.(Normal(mean(q.toss), std(q.toss) ) , x ), lab="quap() approximation")
 # ### snippet 2.7
 
 w = 6; n = 9; x = 0:0.01:1
 p[4] = plot( x, pdf.(Beta( w+1 , n-w+1 ) , x ), lab="Conjugate solution")
-plot!(p[4], x, pdf.(Normal( 0.67 , 0.16 ) , x ), lab="Normal approximation")
+f = fit(Normal, samples)
+plot!(p[4], x, pdf.(Normal( f.μ , f.σ ) , x ), lab="Normal approximation")
 plot(p..., layout=(2, 2))
 savefig("$ProjDir/fig-06-07.2.png")
 

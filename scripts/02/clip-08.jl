@@ -34,7 +34,7 @@ chns = MCMCChains.Chains(a3d, ["toss"])
 
 # Describe the chain
 
-MCMCChains.describe(chns)
+MCMCChains.show(chns)
 
 # Plot the chain
 

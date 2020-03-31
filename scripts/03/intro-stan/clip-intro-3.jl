@@ -1,4 +1,4 @@
-# Execute this script after `scripts/03/intro_stan/intro-part-1.jl`
+# Execute this script after `scripts/03/intro_stan/clip-intro-1.jl`
 
 using StanOptimize
 
@@ -24,4 +24,4 @@ if success(rc)
   display(optim_stan)
 end
 
-# End of `intro/intro-part-3.jl`
+# End of `intro/clip-intro-3.jl`

@@ -3,7 +3,7 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking
-using MCMCChains
+using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 cd(ProjDir)

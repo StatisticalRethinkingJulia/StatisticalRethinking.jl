@@ -1,4 +1,4 @@
-# Execute this script after `scripts/03/intro_stan/intro-part-1.jl`
+# Execute this script after `scripts/03/intro_stan/clip-intro-1.jl`
 
 using StatisticalRethinking
 
@@ -37,4 +37,4 @@ if success(rc)
 
 end
 
-# End of `intro/intro-part-2.jl`
+# End of `intro/clip-intro-2.jl`

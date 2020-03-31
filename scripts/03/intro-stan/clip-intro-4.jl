@@ -1,6 +1,6 @@
-# Execute this script after `scripts/03/intro_stan/intro-part-1.jl`
-# `scripts/03/intro_stan/intro-part-2.jl` and 
-# `scripts/03/intro_stan/intro-part-3.jl` (in that order)
+# Execute this script after `scripts/03/intro_stan/clip-intro-1.jl`
+# `scripts/03/intro_stan/clip-intro-2.jl` and 
+# `scripts/03/intro_stan/clip-intro-3.jl` (in that order)
 
 using StatisticalRethinking, Optim
 
@@ -110,4 +110,4 @@ savefig(joinpath(@__DIR__, "Fig-part-4.png"))
 # actual Stan samples, quap() uses this to fit a Normal
 # distribution with mean equal to the sample MAP.
 
-# End of `intro/intro-part-4.jl`
+# End of `intro-stan/clip-intro-4.jl`

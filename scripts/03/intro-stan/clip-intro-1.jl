@@ -116,9 +116,10 @@ if success(rc)
 
   # Display the stansummary result
 
+  println()
   sdf = read_summary(sm)
   display(sdf)
 
 end
 
-# End of `intro/intro-part-1.jl`
+# End of `intro/clip-intro-1.jl`

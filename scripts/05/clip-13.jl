@@ -11,13 +11,13 @@ end
 
 if success(rc)
 
-  r1 = plotcoef([m5_1s, m5_2s, m5_3s], [:bA, :bM], "$(ProjDir)/Fig-13a.png";
-    title="Particles (Normal) estimates")
+  r1 = plotcoef([m5_1s, m5_2s, m5_3s], [:bA, :bM], "$(ProjDir)/Fig-13a.png",
+    "Particles (Normal) estimates")
   display(r1)
 
   println()
-  r2 = plotcoef([m5_1s, m5_2s, m5_3s], [:bA, :bM], "$(ProjDir)/Fig-13b.png"; 
-    func=quap, title="Quap estimates")
+  r2 = plotcoef([m5_1s, m5_2s, m5_3s], [:bA, :bM], "$(ProjDir)/Fig-13b.png",
+    "Quap estimates", quap)
   display(r2)
 
 end

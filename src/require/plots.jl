@@ -3,36 +3,28 @@ using .StatsPlots
 import .StanSample: SampleModel
 
 """
-
 # plotcoef
-
 Multiple regression coefficient plot.
-
 Note: See the node in TODO about the a possible dagitty.jl.
-
 $(SIGNATURES)
-
 ### Required arguments
 ```julia
 * `models`                        : Vector of `SampleModel`s to compare
 * `pars`                          : Vector of parameters to include in comparison
 * `fig`                           : File to store the produce plot
 ```
-
 ### Optional arguments
 ```julia
 * `title=""`                      : Title for plot
 * `func=nothing`                  : Optional funtion to apply to sample dataframe
 ```
 Currently the only function available is `quap`.
-
 The function will be called with a single argument, a dataframe constructed from all
 samples in all chains in the SampleModels. It should return a Partcles type NamedTuple. e.g.:
 ```julia
 (a = 0.000527 ± 0.1, bM = -0.0628 ± 0.16, bA = -0.608 ± 0.16, sigma = 0.828 ± 0.089)
 ```
 Examples can be found in `scipts/05/clip-13.jl` and in `scripts/05/dagitty-example`.
-
 ### Return values
 ```julia
 * `result::NamedTuple`            : Vector{NamedTuple} of estimates (Particles or Quap)
@@ -42,7 +34,7 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::Abstra
   title="", func=nothing)
 
   mnames = [models[i].name for i in 1:length(models)]
-  levels = length(models) * (length(pars) + 1) + 2
+  levels = length(models) * (length(pars) + 1)
   colors = [:blue, :red, :green, :darkred, :black]
 
   s = Vector{NamedTuple}(undef, length(models))
@@ -69,7 +61,6 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::Abstra
   end
 
   ylabs = String[]
-  append!(ylabs, ["        "])
   for j in 1:length(models)
     for i in 1:length(pars)
       l = length(String(pars[i]))
@@ -80,12 +71,11 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::Abstra
     str = models[j].name * repeat(" ", 9-l)
     append!(ylabs, [str])
   end
-  append!(ylabs, ["        "])
 
   ys = [string(ylabs[i]) for i = 1:length(ylabs)]
-  plot(xlims=(xmin, xmax), ys, leg=false, framestyle=:grid)
+  plot(xlims=(xmin, xmax), leg=false, framestyle=:grid)
   title!(title)
-  yran = range(0, stop=length(ylabs)-1, length=length(ylabs))
+  yran = range(1, stop=length(ylabs), length=length(ys))
   yticks!(yran, ys)
 
   line = 0
@@ -101,7 +91,6 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::Abstra
         sp = std(s[mindx][Symbol(par)])
         plot!([mp-sp, mp+sp], [ypos, ypos], leg=false, color=colors[pindx])
         scatter!([mp], [ypos], color=colors[pindx])
-        #println([mnames[mindx], par, syms, mp, ypos])
       end
     end
   end
@@ -109,35 +98,29 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::Abstra
   s
 end
 
+
 """
-
 # plotcoef
-
 Multiple regression coefficient plot.
-
 $(SIGNATURES)
-
 ### Required arguments
 ```julia
 * `model`                         : SampleModel to display
 * `pars`                          : Vector of parameters to include in comparison
 * `fig`                           : File to store the produce plot
 ```
-
 ### Optional arguments
 ```julia
 * `title=""`                      : Title for plot
 * `func=nothing`                  : Optional funtion to apply to sample dataframe
 ```
 Currently the only function available is `quap`.
-
 The function will be called with a single argument, a dataframe constructed from all
 samples in all chains in the SampleModels. It should return a Partcles type NamedTuple. e.g.:
 ```julia
 (a = 0.000527 ± 0.1, bM = -0.0628 ± 0.16, bA = -0.608 ± 0.16, sigma = 0.828 ± 0.089)
 ```
 An examples can be found in `scipts/06/clip-12-05.jl`.
-
 ### Return values
 ```julia
 * `result::NamedTuple`            : NamedTuple of estimates (Particles or Quap)
@@ -217,3 +200,4 @@ end
 export
   plotcoef,
   pairsplot
+  

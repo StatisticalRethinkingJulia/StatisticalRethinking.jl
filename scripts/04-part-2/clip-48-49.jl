@@ -98,7 +98,7 @@ if success(rc)
 
       for j in 1:N
         yi = sample_df[j, :alpha] .+ sample_df[j, :beta]*xi
-        plot!(p[i], xi, yi, title="N = $N")
+        plot!(p[i], xi, yi, color=:grey, title="N = $N")
       end
 
     end

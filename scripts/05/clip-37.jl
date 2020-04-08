@@ -65,38 +65,13 @@ if success(rc)
   p = Particles(dfa6)
   quap(dfa6) |> display
 
-  xbar = mean(df[:, :lmass])
-  xstd = std(df[:, :lmass])
-  ybar = mean(df[:, :kcal_per_g])
-  ystd = std(df[:, :kcal_per_g])
-
-  xi = minimum(df[:, :lmass_s]):0.01:maximum(df[:, :lmass_s])
-  yi = mean(dfa6[:, :a]) .+ mean(dfa6[:, :bM]) .* xi
-  mu = link(dfa6, [:a, :bM], xi)
-  mu_r = [rescale(mu[i], ybar, ystd) for i in 1:length(xi)]
-  mu_means_r = [mean(mu_r[i]) for i in 1:length(xi)]
-
-  bnds_range = [[minimum(mu_r[i]), maximum(mu_r[i])] for i in 1:length(xi)]
-  bnds_quantile = [quantile(mu_r[i], [0.055, 0.945]) for i in 1:length(xi)]
-  bnds_hpd = [hpdi(mu_r[i], alpha=0.11) for i in 1:length(xi)];
-  
   title = "Kcal_per_g vs. log mass" * "\nshowing sample and hpd range"
-  plot(xlab="log mass", ylab="Kcal_per_g",
-    title=title)
+  plotbounds(
+    df, :lmass, :kcal_per_g,
+    dfs, [:a, :bM];
+    fig="$(ProjDir)/Fig-37.png",
+    title=title,
+    colors=[:lightgrey, :darkgrey]
+  )
 
-  x_r = rescale(xi, xbar, xstd)
-  for i in 1:length(xi)
-    plot!([x_r[i], x_r[i]], bnds_range[i],
-      color=:lightgrey, leg=false)
-  end
-
-  for i in 1:length(xi)
-    plot!([x_r[i], x_r[i]], bnds_hpd[i],
-      color=:grey, leg=false)
-  end
-
-  plot!(x_r , mu_means_r, color=:black)
-  scatter!(df[:, :lmass], df[:, :kcal_per_g], leg=false, color=:darkblue)
-
-  savefig("$(ProjDir)/Fig-37.png")
 end

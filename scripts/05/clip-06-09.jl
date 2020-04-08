@@ -23,40 +23,14 @@ if success(rc)
     sigma 0.91 0.09  0.77  1.05
   ";
 
-  xbar = mean(df[:, :Marriage])
-  xstd = std(df[:, :Marriage])
-  ybar = mean(df[:, :Divorce])
-  ystd = std(df[:, :Divorce])
-
-  xi = minimum(df[:, :Marriage_s]):0.01:maximum(df[:, :Marriage_s])
-  yi = mean(dfs[:, :a]) .+ mean(dfs[:, :bM]) .* xi
-  mu = link(dfs, [:a, :bM], xi)
-  mu_r = [rescale(mu[i], ybar, ystd) for i in 1:length(xi)]
-  mu_means_r = [mean(mu_r[i]) for i in 1:length(xi)]
-
-  bnds_range = [[minimum(mu_r[i]), maximum(mu_r[i])] for i in 1:length(xi)]
-  bnds_quantile = [quantile(mu_r[i], [0.055, 0.945]) for i in 1:length(xi)]
-  bnds_hpd = [hpdi(mu_r[i], alpha=0.11) for i in 1:length(xi)];
-  
   title = "Divorce rate vs. Marriage rate" * "\nshowing sample and hpd range"
-  plot(xlab="Marriage age", ylab="Divorce rate",
-    title=title)
-
-  x_r = rescale(xi, xbar, xstd)
-  for i in 1:length(xi)
-    plot!([x_r[i], x_r[i]], bnds_range[i],
-      color=:lightgrey, leg=false)
-  end
-
-  for i in 1:length(xi)
-    plot!([x_r[i], x_r[i]], bnds_hpd[i],
-      color=:grey, leg=false)
-  end
-
-  plot!(x_r , mu_means_r, color=:black)
-  scatter!(df[:, :Marriage], df[:, :Divorce], leg=false, color=:darkblue)
-
-  savefig("$ProjDir/Fig-06-09.png")
+  plotbounds(
+    df, :Marriage, :Divorce,
+    dfs, [:a, :bM];
+    fig="$ProjDir/Fig-06-09.png",
+    title=title,
+    colors=[:lightgrey, :darkgrey]
+  )
 
 end
 

@@ -197,7 +197,71 @@ function pairsplot(df::DataFrame, vars::Vector{Symbol}, fig::AbstractString)
 
 end
 
+function plotbounds(
+  df::DataFrame, 
+  xvar::Symbol, 
+  yvar::Symbol, 
+  dfs::DataFrame, 
+  linkvars::Vector{Symbol};
+  fig::AbstractString="",
+  bounds::Vector{Symbol}=[:range, :hpdi],
+  title::AbstractString="",
+  xlab::AbstractString=String(xvar),
+  ylab::AbstractString=String(yvar),
+  alpha::Float64=0.11,
+  colors::Vector{Symbol}=[:lightgrey, :grey],
+  stepsize::Float64=0.01
+)
+  
+  xbar = mean(df[:, xvar]); xstd = std(df[:, xvar])
+  ybar = mean(df[:, yvar]); ystd = std(df[:, yvar])
+  
+  xvar_s = Symbol(String(xvar)*"_s")
+  yvar_s = Symbol(String(yvar)*"_s")
+
+  xi = minimum(df[:, xvar_s]):stepsize:maximum(df[:, xvar_s])
+  yi = mean(dfs[:, linkvars[1]]) .+ mean(dfs[:, linkvars[2]]) .* xi
+  mu = link(dfs, linkvars, xi)
+  mu_r = [rescale(mu[i], ybar, ystd) for i in 1:length(xi)]
+  mu_means_r = [mean(mu_r[i]) for i in 1:length(xi)]
+
+  p = plot(xlab=xlab, ylab=ylab, title=title)
+  x_r = rescale(xi, xbar, xstd)
+
+  if :range in bounds
+    bnds_range = [[minimum(mu_r[i]), maximum(mu_r[i])] for i in 1:length(xi)]
+    for i in 1:length(xi)
+      plot!([x_r[i], x_r[i]], bnds_range[i], color=colors[1], leg=false)
+    end
+  end
+   
+  if :quantile in bounds
+    bnds_quantile = [quantile(mu_r[i], [alpha/2, 1-alpha/2]) for i in 1:length(xi)]
+    for i in 1:length(xi)
+      plot!([x_r[i], x_r[i]], bnds_quantile[i], color=colors[2], leg=false)
+    end
+  end
+  
+  if :hpdi in bounds
+    bnds_hpd = [hpdi(mu_r[i], alpha=alpha) for i in 1:length(xi)]
+    for i in 1:length(xi)
+      plot!([x_r[i], x_r[i]], bnds_hpd[i], color=colors[2], leg=false)
+    end
+  end
+
+  plot!(x_r , mu_means_r, color=:black)
+  scatter!(df[:, xvar], df[:, yvar], leg=false, color=:darkblue)
+
+  if fig == ""
+    return(p)
+  else
+    savefig(p, fig)
+  end
+
+end
+
 export
   plotcoef,
-  pairsplot
+  pairsplot,
+  plotbounds
   

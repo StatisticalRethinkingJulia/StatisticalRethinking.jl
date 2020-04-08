@@ -81,18 +81,24 @@ if success(rc)
   # ### Snippet 4.55
 
   q = Vector{Plots.Plot{Plots.GRBackend}}(undef, 2)
-  q[1] = plot(xlab="weight", ylab="heght")
+  q[1] = plot(xlab="weight", ylab="height")
   for (indx, mu_val) in enumerate(mu_range)
     for j in 1:length(mu_range)
-      scatter!(q[1], [mu_val], [mu[indx][j]], leg=false, color=:lightblue)
+      scatter!(q[1], [mu_val], [mu[indx][j]], markersize=3, leg=false, color=:lightblue)
     end
   end
 
   # ### Snippets 4.56
 
-  q[2] = plot(xlab="weight", ylab="heght")
-  scatter!(q[2], df[:, :weight], df[:, :height], lab="Observations")
-  plot!(q[2], mu_range, [mean(mu[i]) for i in 1:length(mu_range)], lab="Means of mu")
+  mu_range = 30:0.1:60
+  xbar = mean(df[:, :weight])
+  mu = link(dfa, [:alpha, :beta], mu_range, xbar);
+  q[2] = plot(xlab="weight", ylab="height", legend=:topleft)
+  scatter!(q[2], df[:, :weight], df[:, :height], markersize=2, lab="Observations")
+  for (ind, m) in enumerate(mu_range)
+    plot!(q[2], [m, m], quantile(mu[ind], [0.055, 0.945]), color=:grey, leg=false)
+  end
+  plot!(q[2], mu_range, [mean(mu[i]) for i in 1:length(mu_range)], color=:red, lab="Means of mu")
 
   plot(q..., layout=(2,1))
   savefig("$(ProjDir)/Fig-53-58.png")

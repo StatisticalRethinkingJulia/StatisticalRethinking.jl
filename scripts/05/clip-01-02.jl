@@ -30,40 +30,24 @@ if success(rc)
 
   # Plot regression line using means and observations
 
-  xbar = mean(df[:, :MedianAgeMarriage])
-  xstd = std(df[:, :MedianAgeMarriage])
-  ybar = mean(df[:, :Divorce])
-  ystd = std(df[:, :Divorce])
+  title = "Divorce rate vs. median age at marriage" * "\nshowing sample and quantile range"
+  p1 = plotbounds(
+    df, :MedianAgeMarriage, :Divorce,
+    dfs, [:a, :bA];
+    bounds=[:range, :quantile],
+    title=title,
+    colors=[:yellow, :darkgrey]
+  )
+  title = "Divorce rate vs. median age at marriage" * "\nshowing sample and hpdi range"
+  p2 = plotbounds(
+    df, :MedianAgeMarriage, :Divorce,
+    dfs, [:a, :bA];
+    title=title,
+    colors=[:pink, :darkgrey]
+  )
 
-  xi = minimum(df[:, :MedianAgeMarriage_s]):0.01:maximum(df[:, :MedianAgeMarriage_s])
-  yi = mean(dfs[:, :a]) .+ mean(dfs[:, :bA]) .* xi
-  mu = link(dfs, [:a, :bA], xi)
-  mu_r = [rescale(mu[i], ybar, ystd) for i in 1:length(xi)]
-  mu_means_r = [mean(mu_r[i]) for i in 1:length(xi)]
-
-  bnds_range = [[minimum(mu_r[i]), maximum(mu_r[i])] for i in 1:length(xi)]
-  bnds_quantile = [quantile(mu_r[i], [0.055, 0.945]) for i in 1:length(xi)]
-  bnds_hpd = [hpdi(mu_r[i], alpha=0.11) for i in 1:length(xi)]
-  
-  title = "Divorce rate vs. median age at marriage" * "\nshowing sample and hpd range"
-  plot(xlab="Median age at marriage", ylab="Divorce rate",
-    title=title)
-  x_r = rescale(xi, xbar, xstd)
-
-  for i in 1:length(xi)
-    plot!([x_r[i], x_r[i]], bnds_range[i],
-      color=:lightgrey, leg=false)
-  end
-
-  for i in 1:length(xi)
-    plot!([x_r[i], x_r[i]], bnds_hpd[i],
-      color=:grey, leg=false)
-  end
-
-  plot!(x_r , mu_means_r, color=:black)
-  scatter!(df[:, :MedianAgeMarriage], df[:, :Divorce], color=:darkblue)
-
-  savefig("$ProjDir/Fig-01-02.png")
+  p = plot(p1, p2, layout=(2,1))
+  savefig(p, "$ProjDir/Fig-01-02.png")
 
 end
 

@@ -12,7 +12,7 @@ df = DataFrame(
 )
 df[!, :s] = df[:, :tw] + df[:, :nw]
 
-q = quantile(s, 1-p)
+q = quantile(df[!, :s], 1-p)
 
 selected_df = filter(row -> row.s > q, df)
 unselected_df = filter(row -> row.s <= q, df)

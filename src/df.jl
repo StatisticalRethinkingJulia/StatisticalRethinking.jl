@@ -36,8 +36,7 @@ function sample(df::DataFrame, n; replace=true, ordered=false)
   df[indxs, :]
 end
 
-function sample(rng::AbstractRNG, df::DataFrame, n;
-    replace=true, ordered=false)
+function sample(rng::AbstractRNG, df::DataFrame, n; replace=true, ordered=false)
   indxs = sample(rng,
     1:size(df,1), 
     n,

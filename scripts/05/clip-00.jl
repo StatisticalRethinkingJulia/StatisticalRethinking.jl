@@ -62,9 +62,10 @@ if success(rc)
 
   plotbounds(
     df, :WaffleHouses, :Divorce,
-    dfs, [:a, :bA];
+    dfs, [:a, :bA, :sigma];
+    bounds=[:predicted, :sample, :hpdi],
     fig="$ProjDir/Fig-00.png",
-    title="Divorce rate vs. waffle houses per million" * "\nshowing sample and hpd range",
+    title="Divorce rate vs. waffle houses per million" * "\nshowing predicted and hpd range",
     xlab="WaffleHouses per million",
     ylab="Divorce rate"
   )

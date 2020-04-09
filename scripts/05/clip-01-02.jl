@@ -33,17 +33,18 @@ if success(rc)
   title = "Divorce rate vs. median age at marriage" * "\nshowing sample and quantile range"
   p1 = plotbounds(
     df, :MedianAgeMarriage, :Divorce,
-    dfs, [:a, :bA];
-    bounds=[:range, :quantile],
+    dfs, [:a, :bA, :sigma];
     title=title,
-    colors=[:yellow, :darkgrey]
+    colors=[:yellow, :darkgrey],
+    bounds=[:predicted, :hpdi]
   )
-  title = "Divorce rate vs. median age at marriage" * "\nshowing sample and hpdi range"
+  title = "Divorce rate vs. median age at marriage" * "\nshowing predicted and hpdi range"
   p2 = plotbounds(
     df, :MedianAgeMarriage, :Divorce,
-    dfs, [:a, :bA];
+    dfs, [:a, :bA, :sigma];
     title=title,
-    colors=[:pink, :darkgrey]
+    colors=[:pink, :darkgrey],
+    bounds=[:predicted, :hpdi]
   )
 
   p = plot(p1, p2, layout=(2,1))

@@ -24,13 +24,15 @@ if success(rc)
     sigma  0.79 0.08  0.66  0.91
   ";
 
-  title = "Divorce rate vs. Marriage rate" * "\nshowing sample and hpd range"
+  title = "Divorce rate vs. Marriage rate" * "\nshowing predicted and hpd range"
   plotbounds(
     df, :Marriage, :Divorce,
-    dfs, [:a, :bM];
+    dfs, [:a, :bM, :sigma];
     fig="$ProjDir/Fig-10-12.png",
     title=title,
-    colors=[:lightgrey, :darkgrey]
+    colors=[:lightgrey, :darkgrey],
+    bounds=[:predicted, :hpdi]
+
   )
 
 end

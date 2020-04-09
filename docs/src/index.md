@@ -7,51 +7,48 @@ CurrentModule = StatisticalRethinking
 rel_path(parts...)
 ```
 
-## `link`
+## link
 ```@docs
-link(dfa::DataFrame, vars, xrange)
-link(dfa::DataFrame, vars, xrange, xbar) 
-link(dfa::DataFrame, vars, xrange, xbar, ybar) 
+link 
 ```
 
 
-## `rescale`
+## rescale
 ```@docs
-rescale(x::Vector{Float64}, xbar::Float64, xstd::Float64)
+rescale
 ```
 
-## `quap`
+## quap
 ```@docs
 quap(df::DataFrame)
 ```
 
-## `sample`
+## sample
 ```@docs
-sample(df::DataFrame, n; replace=true, ordered=false)
-sample(rng::AbstractRNG, df::DataFrame, n; replace=true, ordered=false)
+sample
 ```
 
-##`hpdi`
+## hpdi
 ```@docs
-hpdi(x::Vector{T}; alpha::Real=0.05) where {T<:Real}
+hpdi
 ```
 
-##`plotcoef`
+## plotcoef
 ```@docs
-plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::AbstractString, "", nothing)
-plotcoef(model::SampleModel, pars::Vector{Symbol}, fig::AbstractString, "", nothing)```
-
-##`pairsplot`
-```@docs
-pairsplot(df::DataFrame, vars::Vector{Symbol}, fig::AbstractString)
+plotcoef
 ```
 
-##`plotbounds`
+## pairsplot
+```@docs
+pairsplot
+```
+
+## plotbounds
 ```@docs
 plotbounds
 ```
 
-##`convert_a3d`
+## `convert_a3d`
 ```@docs
 convert_a3d(a3d_array, cnames, ::Val{:dataframe})
 convert_a3d(a3d_array, cnames, ::Val{:dataframes})

@@ -1,7 +1,7 @@
 """
 # pairsplot
 
-Multiple regression coefficient plotSimple version of StatsPlots cornerplot.
+A simple version of StatsPlots' `cornerplot`.
 
 $(SIGNATURES)
 
@@ -11,6 +11,7 @@ $(SIGNATURES)
 * `vars`                               : Vector of variables to include in plot
 * `fig`                                : File to store the produced plot
 ```
+
 """
 function pairsplot(df::DataFrame, vars::Vector{Symbol}, fig::AbstractString)
 

@@ -7,14 +7,14 @@ $(SIGNATURES)
 
 ### Required arguments
 ```julia
-* `models`                        : Vector of `SampleModel`s to compare
-* `pars`                          : Vector of parameters to include in comparison
-* `fig`                           : File to store the produce plot
+* `models`                             : Vector of `SampleModel`s to compare
+* `pars`                               : Vector of parameters to include in comparison
+* `fig`                                : File to store the produce plot
 ```
 ### Optional arguments
 ```julia
-* `title=""`                      : Title for plot
-* `func=nothing`                  : Optional funtion to apply to sample dataframe
+* `title=""`                           : Title for plot
+* `func=nothing`                       : Optional funtion to apply to sample dataframe
 ```
 Currently the only function available is `quap`.
 
@@ -29,7 +29,7 @@ An example can be found in `scipts/05/clip-13.jl`.
 
 ### Return values
 ```julia
-* `result::NamedTuple`            : Vector{NamedTuple} of estimates (Particles or Quap)
+* `result::NamedTuple`                 : Vector{NamedTuple} of estimates (Particles or Quap)
 ```
 
 """

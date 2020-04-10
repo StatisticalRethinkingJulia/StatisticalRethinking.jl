@@ -26,7 +26,6 @@ quap(df::DataFrame)
 ## sample
 ```@docs
 sample(df::DataFrame, n; replace=true, ordered=false)
-sample(rng::AbstractRNG, df::DataFrame, n; replace=true, ordered=false)
 ```
 
 ## hpdi

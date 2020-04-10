@@ -8,8 +8,8 @@ Pkg.add("Optim")
 Pkg.add("StanOptimize")
 
 # For plotting
-Pkg.add("StatsPlots")
-Pkg.add("LaTexStrings")                # For greek characters
+#Pkg.add("StatsPlots")
+#Pkg.add("LaTexStrings")                # For greek characters
                                        # E.g. 04-part-2/clip-37-44a.jl
 # Used occasionally
 Pkg.add("GLM")

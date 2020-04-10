@@ -8,7 +8,7 @@ It is not intended to show how to use Stan (yet)!
 
 =#
 
-using StatisticalRethinking, StatsPlots
+using StatisticalRethinking
 
 ProjDir = @__DIR__
 

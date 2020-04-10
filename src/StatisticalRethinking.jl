@@ -5,11 +5,12 @@ using Reexport, Requires
 @reexport using StanSample, StatsBase, Statistics
 @reexport using CSV, DataFrames, Random, Distributions
 @reexport using KernelDensity, MonteCarloMeasurements
+@reexport using StatsPlots, LaTeXStrings
 
 import StatsBase: sample
 
 function __init__()
-  @require StatsPlots="f3b207a7-027a-5e70-b257-86293d7955fd" include("require/plots.jl")
+  #@require StatsPlots="f3b207a7-027a-5e70-b257-86293d7955fd" include("require/plots.jl")
   @require MCMCChains="c7f686f2-ff18-58e9-bc7b-31028e88f75d" include("require/chns.jl")
   @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require/hmc.jl")
 end
@@ -39,6 +40,9 @@ include("a3d_utils.jl")
 include("hpdi.jl")
 include("df.jl")
 include("quap.jl")
+include("plotcoef.jl")
+include("pairsplot.jl")
+include("plotbounds.jl")
 
 export
 	rel_path,

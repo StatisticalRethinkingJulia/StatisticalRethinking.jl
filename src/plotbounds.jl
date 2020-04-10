@@ -31,8 +31,9 @@ the quantile or hpdi region around the mean line. This is specified using the `b
 keyword argument, e.g. `bounds = [:predicted, :hpdi]`.
 
 For the prediction interval, a 3rd parameter needs to be present in the Stan sample
-DataFrame (dfs) indication the σ value. For other options 2 parameters suffice typically
-the itercept and slope parameters.
+DataFrame (dfs) indication the σ value. This symbolneeds to be added to `linkvars`.
+
+For other options 2 parameters suffice typically the itercept and slope parameters.
 """
 function plotbounds(
   df::DataFrame, 
@@ -67,13 +68,6 @@ function plotbounds(
 
   p = plot(xlab=xlab, ylab=ylab, title=title)
 
-  if :range in bounds
-    bnds_range = [[minimum(y[i]), maximum(y[i])] for i in 1:length(x)]
-    for i in 1:length(x)
-      plot!([x[i], x[i]], bnds_range[i], color=colors[1], leg=false)
-    end
-  end
-   
   if :predicted in bounds
     predictions = zeros(length(x), nrow(dfs))
     for i in 1:length(x)

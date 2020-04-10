@@ -2,7 +2,7 @@
 
 # link
 
-Compute the link function for standadized vars.
+Compute the link function for standardized variables.
 
 $(SIGNATURES)
 
@@ -10,19 +10,19 @@ $(SIGNATURES)
 
 ### Required arguments
 ```julia
-* `df::DataFrame`               : Chain samples converted to a DataFrame
-* `vars::Vector{Symbol}`        : Variables in DataFrame (2 variables)
-* `xrange::range`               : Range over which link values are computed
+* `df::DataFrame`                      : Chain samples converted to a DataFrame
+* `vars::Vector{Symbol}`               : Variables in DataFrame (2 variables)
+* `xrange::range`                      : Range over which link values are computed
 ```
 
 ### Optional arguments
 ```julia
-* `xbar::Float64`               : Mean value of observed predictor
-* `ybar::Float64`               : Mean value of observed outcome (requires xbar argument)
+* `xbar::Float64`                      : Mean value of observed predictor
+* `ybar::Float64`                      : Mean value of observed outcome (requires xbar argument)
 ```
 ### Return values
 ```julia
-* `result`                      : Vector of link values
+* `result`                             : Vector of link values
 ```
 
 """

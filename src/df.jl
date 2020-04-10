@@ -11,20 +11,20 @@ sample(df, n; replace, ordered)
 
 ### Required arguments
 ```julia
-* `df::DataFrame`               : DataFrame
-* `n::Int`                      : Number of samples
+* `df::DataFrame`                      : DataFrame
+* `n::Int`                             : Number of samples
 ```
 
 ### Optional argument
 ```julia
-* `rng::AbstractRNG`            : Random number generator
-* `replace::Bool=true`          : Sample with replace 
-* `ordered::Bool=false`         : Sort sample 
+* `rng::AbstractRNG`                   : Random number generator
+* `replace::Bool=true`                 : Sample with replace 
+* `ordered::Bool=false`                : Sort sample 
 ```
 
 ### Return values
 ```julia
-* `result`                      : Array of samples
+* `result`                             : Array of samples
 ```
 
 """
@@ -48,7 +48,9 @@ end
 """
 # convert_a3d
 
-# Convert the output file(s) created by cmdstan to a single DataFrame.
+$(SIGNATURES)
+
+# Convert the output file(s) created by `stan_sample()` to a single DataFrame.
 
 """
 function convert_a3d(a3d_array, cnames, ::Val{:dataframe})
@@ -66,7 +68,9 @@ end
 
 # convert_a3d
 
-# Convert the output file(s) created by cmdstan to a Vector{DataFrame).
+$(SIGNATURES)
+
+# Convert the output file(s) created by `stan_sample()` to a Vector{DataFrame).
 
 """
 function convert_a3d(a3d_array, cnames, ::Val{:dataframes})

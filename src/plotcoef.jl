@@ -17,19 +17,23 @@ $(SIGNATURES)
 * `func=nothing`                  : Optional funtion to apply to sample dataframe
 ```
 Currently the only function available is `quap`.
+
 The function will be called with a single argument, a dataframe constructed from all
-samples in all chains in the SampleModels. It should return a Partcles type NamedTuple. e.g.:
+samples in all chains in the SampleModels. 
+
+It return a Partcles type NamedTuple. e.g.:
 ```julia
 (a = 0.000527 ± 0.1, bM = -0.0628 ± 0.16, bA = -0.608 ± 0.16, sigma = 0.828 ± 0.089)
 ```
-Examples can be found in `scipts/05/clip-13.jl` and in `scripts/05/dagitty-example`.
+An example can be found in `scipts/05/clip-13.jl`.
+
 ### Return values
 ```julia
 * `result::NamedTuple`            : Vector{NamedTuple} of estimates (Particles or Quap)
 ```
+
 """
-function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::AbstractString, 
-  title="", func=nothing)
+function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::AbstractString, title="", func=nothing)
 
   mnames = [models[i].name for i in 1:length(models)]
   levels = length(models) * (length(pars) + 1)
@@ -105,29 +109,33 @@ $(SIGNATURES)
 
 ### Required arguments
 ```julia
-* `model`                         : SampleModel to display
-* `pars`                          : Vector of parameters to include in comparison
-* `fig`                           : File to store the produced plot
+* `model`                              : SampleModel to display
+* `pars`                               : Vector of parameters to include in comparison
+* `fig`                                : File to store the produced plot
 ```
 ### Optional arguments
 ```julia
-* `title=""`                      : Title for plot
-* `func=nothing`                  : Optional funtion to apply to sample dataframe
+* `title=""`                           : Title for plot
+* `func=nothing`                       : Optional funtion to apply to sample dataframe
 ```
 Currently the only function available is `quap`.
+
 The function will be called with a single argument, a dataframe constructed from all
-samples in all chains in the SampleModels. It should return a Partcles type NamedTuple. e.g.:
+samples in all chains in the SampleModel.
+
+It returns a Particles type NamedTuple. e.g.:
 ```julia
 (a = 0.000527 ± 0.1, bM = -0.0628 ± 0.16, bA = -0.608 ± 0.16, sigma = 0.828 ± 0.089)
 ```
 An examples can be found in `scipts/06/clip-12-05.jl`.
+
 ### Return values
 ```julia
 * `result::NamedTuple`            : NamedTuple of estimates (Particles or Quap)
 ```
+
 """
-function plotcoef(model::SampleModel, pars::Vector{Symbol}, fig::AbstractString, 
-  title="", func=nothing)
+function plotcoef(model::SampleModel, pars::Vector{Symbol}, fig::AbstractString, title="", func=nothing)
 
   mname = model.name
   levels = length(pars)

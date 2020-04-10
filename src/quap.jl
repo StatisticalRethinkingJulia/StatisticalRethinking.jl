@@ -11,12 +11,12 @@ quap(df)
 
 ### Required arguments
 ```julia
-* `df::DataFrame`               : Dataframe generated from a chain
+* `df::DataFrame`                      : Dataframe generated from samples (chains)
 ```
 
 ### Return values
 ```julia
-* `result::NamedTuple`          : NamedTuple representing the quadratic approximation
+* `result::NamedTuple`                 : NamedTuple representing the quadratic approximation
 ```
 
 To convert to a Dict use:

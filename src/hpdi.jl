@@ -6,8 +6,12 @@ Compute high density region.
 
 $(SIGNATURES)
 
+Derived from `hpd` in MCMCChains.jl.
+
+Alpha represents the 2-sided tail area, i.e. p < 0.055% and p > 0.945%.
+
 """
-function hpdi(x::Vector{T}; alpha::Real=0.05) where {T<:Real}
+function hpdi(x::Vector{T}; alpha::Real=0.11) where {T<:Real}
     n = length(x)
     m = max(1, ceil(Int, alpha * n))
 

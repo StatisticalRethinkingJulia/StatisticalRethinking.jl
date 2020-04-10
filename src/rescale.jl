@@ -3,7 +3,7 @@
 
 # rescale
 
-Rescale a vector or an array to "un-standardize", the opposite of scale!()
+Rescale a vector to "un-standardize", the opposite of scale!().
 
 $(SIGNATURES)
 
@@ -18,8 +18,9 @@ $(SIGNATURES)
 
 ### Return values
 ```julia
-* `result::AbstractVector`            : Rescaled vector
+* `result::AbstractVector`             : Rescaled vector
 ```
+
 """
 function rescale(x::AbstractVector, xbar::Float64, xstd::Float64)
   x .* xstd .+ xbar

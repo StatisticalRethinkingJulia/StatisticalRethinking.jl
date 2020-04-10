@@ -7,7 +7,6 @@ Compute high density region.
 $(SIGNATURES)
 
 """
-Compute high density
 function hpdi(x::Vector{T}; alpha::Real=0.05) where {T<:Real}
     n = length(x)
     m = max(1, ceil(Int, alpha * n))

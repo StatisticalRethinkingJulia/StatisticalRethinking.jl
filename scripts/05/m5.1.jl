@@ -1,8 +1,6 @@
 # Load Julia packages (libraries) needed.
 
 using StatisticalRethinking
-using CSV, DataFrames
-using StanSample, MonteCarloMeasurements
 
 ProjDir = @__DIR__
 

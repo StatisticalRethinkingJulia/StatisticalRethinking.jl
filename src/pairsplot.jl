@@ -7,9 +7,9 @@ $(SIGNATURES)
 
 ### Required arguments
 ```julia
-* `df`                                 : DataFrame containing the variables (as columns)
-* `vars`                               : Vector of variables to include in plot
-* `fig`                                : File to store the produced plot
+* `df::DataFrame`                      : DataFrame containing the variables (as columns)
+* `vars::Vector{Symbol}`               : Vector of variables to include in plot
+* `fig::AbstractString`                : File to store the produced plot
 ```
 
 """

@@ -1,7 +1,6 @@
 # Load Julia packages (libraries) needed for clip
 
 using StatisticalRethinking
-using StatsPlots
 
 ProjDir = @__DIR__
 
@@ -26,7 +25,7 @@ if success(rc)
   title = "Divorce rate vs. Marriage rate" * "\nshowing sample and hpd range"
   plotbounds(
     df, :Marriage, :Divorce,
-    dfs, [:a, :bM];
+    dfs, [:a, :bM, :sigma];
     fig="$ProjDir/Fig-06-09.png",
     title=title,
     colors=[:lightgrey, :darkgrey]

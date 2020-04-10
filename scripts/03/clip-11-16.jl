@@ -3,7 +3,6 @@
 # Load Julia packages (libraries) needed for clip
 
 using StatisticalRethinking
-using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 

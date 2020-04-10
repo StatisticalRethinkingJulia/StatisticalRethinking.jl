@@ -1,9 +1,6 @@
 # Load Julia packages (libraries) needed.
 
 using StatisticalRethinking
-using CSV, DataFrames
-using StanSample, MonteCarloMeasurements
-using StatsPlots
 
 ProjDir = @__DIR__
 
@@ -65,13 +62,12 @@ if success(rc)
   p = Particles(dfa5)
   quap(dfa5) |> display
 
-  title = "Kcal_per_g vs. neocortex_perc" * "\nshowing sample and hpd range"
+  title = "Kcal_per_g vs. neocortex_perc" * "\nshowing predicted and hpd range"
   plotbounds(
     df, :neocortex_perc, :kcal_per_g,
-    dfa5, [:a, :bN];
+    dfa5, [:a, :bN, :sigma];
     fig="$ProjDir/Fig-34-36.png",
-    title=title,
-    colors=[:lightgrey, :darkgrey]
+    title=title
   )
 
 end

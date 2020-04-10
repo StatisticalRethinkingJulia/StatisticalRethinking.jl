@@ -1,7 +1,6 @@
 # Load Julia packages (libraries) needed.
 
 using StatisticalRethinking
-using CSV, DataFrames
 
 ProjDir = @__DIR__
 

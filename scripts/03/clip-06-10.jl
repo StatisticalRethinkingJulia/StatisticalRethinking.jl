@@ -3,8 +3,6 @@
 # Load Julia packages (libraries) needed for clip
 
 using StatisticalRethinking
-using MCMCChains
-#gr(size=(600,600));
 
 # ### snippet 3.2
 

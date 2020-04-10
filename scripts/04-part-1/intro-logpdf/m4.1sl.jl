@@ -1,5 +1,4 @@
 using StatisticalRethinking
-using MCMCChains
 
 ProjDir = @__DIR__
 

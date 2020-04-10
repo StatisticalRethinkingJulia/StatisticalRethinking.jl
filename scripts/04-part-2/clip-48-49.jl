@@ -1,7 +1,6 @@
 # Load Julia packages (libraries) needed for clip
 
 using StatisticalRethinking
-using StatsPlots
 
 ProjDir = @__DIR__
 cd(ProjDir) do

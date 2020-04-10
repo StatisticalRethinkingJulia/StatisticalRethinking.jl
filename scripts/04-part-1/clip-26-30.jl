@@ -1,7 +1,6 @@
 # Load Julia packages (libraries) needed for clip4
 
 using StatisticalRethinking
-using StatsPlots
 
 # ### Snippet 4.26
 

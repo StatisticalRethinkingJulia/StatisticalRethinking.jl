@@ -1,5 +1,4 @@
 using StatisticalRethinking
-using StatsPlots, LaTeXStrings
 
 ProjDir = @__DIR__
 

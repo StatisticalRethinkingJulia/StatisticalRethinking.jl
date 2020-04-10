@@ -1,9 +1,6 @@
 # Load Julia packages (libraries) needed.
 
 using StatisticalRethinking
-using CSV, DataFrames
-using StanSample, MonteCarloMeasurements
-using StatsPlots
 
 ProjDir = @__DIR__
 
@@ -65,13 +62,12 @@ if success(rc)
   p = Particles(dfa6)
   quap(dfa6) |> display
 
-  title = "Kcal_per_g vs. log mass" * "\nshowing sample and hpd range"
+  title = "Kcal_per_g vs. log mass" * "\nshowing 89% predicted and hpd range"
   plotbounds(
     df, :lmass, :kcal_per_g,
-    dfs, [:a, :bM];
+    dfs, [:a, :bM, :sigma];
     fig="$(ProjDir)/Fig-37.png",
-    title=title,
-    colors=[:lightgrey, :darkgrey]
+    title=title
   )
 
 end

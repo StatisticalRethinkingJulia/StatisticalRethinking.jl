@@ -1,6 +1,5 @@
 using StatisticalRethinking
 using MCMCChains
-using StatsPlots, LaTeXStrings
 
 ProjDir = @__DIR__
 

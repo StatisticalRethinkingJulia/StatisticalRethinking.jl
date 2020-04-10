@@ -1,7 +1,6 @@
 # Introduction to a Stan Language program
 
 using StatisticalRethinking
-using MCMCChains, StatsPlots
 
 ProjDir = @__DIR__
 

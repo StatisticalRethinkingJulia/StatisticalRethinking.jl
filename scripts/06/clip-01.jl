@@ -1,5 +1,5 @@
 
-using StatisticalRethinking, StatsPlots
+using StatisticalRethinking
 
 ProjDir = @__DIR__
 

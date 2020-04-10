@@ -1,7 +1,6 @@
 # Load Julia packages (libraries) needed for clip
 
-@time using StatisticalRethinking
-@time using StatsPlots
+using StatisticalRethinking
 
 # ### Snippet 4.26
 

@@ -21,6 +21,16 @@ Over the next 2 months (probably until Apr '20) I'm planning to update Statistic
 
 ## Versions
 
+### Version 2.2.0
+
+Added StatsPlots.jl to dependencies.
+
+Updated plotcoef and plotbounds.
+
+Updated documentation.
+
+Moved dagitty example to StructuralCausalModels.jl (WIP!).
+
 ### Version 2.1.1
 
 Updated src/require/plotcoef.jl (and made plotcoef() more general). Plotcoef() reuires StatsPlots to be loaded.

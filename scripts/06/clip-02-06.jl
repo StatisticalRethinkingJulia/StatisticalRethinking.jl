@@ -1,5 +1,5 @@
 using StatisticalRethinking
-using GLM, StatsPlots
+using GLM
 
 ProjDir = @__DIR__
 

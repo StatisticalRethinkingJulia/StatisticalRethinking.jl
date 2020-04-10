@@ -131,7 +131,7 @@ An examples can be found in `scipts/06/clip-12-05.jl`.
 
 ### Return values
 ```julia
-* `result::NamedTuple`            : NamedTuple of estimates (Particles or Quap)
+* `result::NamedTuple`                 : NamedTuple of estimates (Particles or Quap)
 ```
 
 """

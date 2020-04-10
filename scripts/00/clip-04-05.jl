@@ -3,7 +3,7 @@
 # ### snippet 0.5 is replaced by below `using StatisticalRethinking`.
 
 using StatisticalRethinking
-using GLM, StatsPlots
+using GLM
 
 ProjDir = @__DIR__
 
@@ -25,7 +25,7 @@ coef(m)
 # Plot residuals against speed
 
 scatter( df2[!, :height], residuals(m), xlab="Height",
-ylab="Model residual values", lab="Model residuals")
+  ylab="Model residual values", lab="Model residuals", leg=:bottomright)
 savefig("$ProjDir/Fig-04-05.png")
 
 # End of `00/clip-04-05.jl`

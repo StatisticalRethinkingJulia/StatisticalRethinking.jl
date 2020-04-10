@@ -35,8 +35,9 @@ hpdi(x::Vector{T}; alpha::Real=0.05) where {T<:Real}
 
 ## plotcoef
 ```@docs
-plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::AbstractString, "", nothing)
-plotcoef(model::SampleModel, pars::Vector{Symbol}, fig::AbstractString, "", nothing)```
+plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::AbstractString, title="", func=nothing)
+plotcoef(model::SampleModel, pars::Vector{Symbol}, fig::AbstractString, title="", func=nothing)
+```
 
 ## pairsplot
 ```@docs

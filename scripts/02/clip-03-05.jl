@@ -1,17 +1,8 @@
 # Load Julia packages (libraries) needed
 
 using StatisticalRethinking
-using StatsPlots
 
 ProjDir = @__DIR__
-
-# ### snippet 2.3, 2.4
-
-scatter( p_grid , posterior,
-    xlab="probability of water" , ylab="posterior probability",
-    lab = "computed", title="5 points", legend=:topleft)
-plot!( p_grid , posterior , lab="approximated")
-savefig("$ProjDir/Fig-03-05.1.png")
 
 # ### snippet 2.5
 

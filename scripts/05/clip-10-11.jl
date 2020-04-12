@@ -27,7 +27,7 @@ if success(rc)
   plotbounds(
     df, :Marriage, :Divorce,
     dfs, [:a, :bM, :sigma];
-    fig="$ProjDir/Fig-10-12.png",
+    fig="$ProjDir/Fig-10-11.png",
     title=title,
     colors=[:lightgrey, :darkgrey],
     bounds=[:predicted, :hpdi]

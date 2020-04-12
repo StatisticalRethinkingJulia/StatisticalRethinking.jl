@@ -4,51 +4,59 @@ using StatisticalRethinking
 
 ProjDir = @__DIR__
 
-df = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
-scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
+df1 = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
+
+df = DataFrame(
+  :A => df1[:, :MedianAgeMarriage],
+  :M => df1[:, :Marriage],
+  :D => df1[:, :Divorce]
+ )
+
+scale!(df, [:M, :A, :D])
 
 # Define the Stan language model
 
 m_5_4 = "
 data {
   int N;
-  vector[N] medianagemarriage_s;
-  vector[N] marriage_s;
+  vector[N] A;
+  vector[N] M;
 }
 parameters {
   real a;
-  real bAM;
+  real bMA;
   real<lower=0> sigma;
 }
 model {
-  vector[N] mu = a + bAM * medianagemarriage_s;
+  vector[N] mu = a + bMA * A;
   a ~ normal( 0 , 0.2 );
-  bAM ~ normal( 0 , 0.5 );
+  bMA ~ normal( 0 , 0.5 );
   sigma ~ exponential( 1 );
-  marriage_s ~ normal( mu , sigma );
+  M ~ normal( mu , sigma );
 }
 ";
 
 # Define the SampleModel
-m5_4s = SampleModel("m5.4", m_5_4);
+tmpdir=ProjDir*"/tmp"
+m5_4_MA = SampleModel("m5.4", m_5_4, tmpdir=tmpdir);
 
 # Input data
 
 m5_4_data = Dict(
   "N" => size(df, 1), 
-  "marriage_s" => df[:, :Marriage_s],
-  "medianagemarriage_s" => df[:, :MedianAgeMarriage_s] 
+  "M" => df[:, :M_s],
+  "A" => df[:, :A_s] 
 );
 
 # Sample using cmdstan
 
-rc = stan_sample(m5_4s, data=m5_4_data);
+rc = stan_sample(m5_4_MA, data=m5_4_data);
 
 if success(rc)
 
   # Describe the draws
 
-  dfa4 = read_samples(m5_4s; output_format=:dataframe)
+  dfs_MA = read_samples(m5_4_MA; output_format=:dataframe)
 
   # Rethinking results
 
@@ -59,7 +67,9 @@ if success(rc)
     sigma  0.68 0.07  0.57  0.79
   ";
 
-  Particles(dfa4)
-  quap(dfa4)
+  p_MA = Particles(dfs_MA)
+  q_MA = quap(dfs_MA)
+
+  p_MA |> display
 
 end

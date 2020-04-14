@@ -14,7 +14,7 @@ if success(rc)
   pAM = plotbounds(df, :A, :M, dfs_AM, [:a, :bAM, :sigma])
 
   plot(pAM, pMA, layout=(1, 2))
-  savefig("$(ProjDir)/Fig-13a.png")
+  savefig("$(ProjDir)/Fig-13-14a.png")
 
   # Compute standardized residuals
 
@@ -71,7 +71,7 @@ if success(rc)
   annotate!([(res_AM[9]-0.1, df[9, :D_s], Plots.text("DC", 6, :red, :right))])
 
   plot(p..., layout=(2,2))
-  savefig("$(ProjDir)/Fig-13b.png")
+  savefig("$(ProjDir)/Fig-13-14b.png")
 
 end
 

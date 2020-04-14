@@ -37,8 +37,7 @@ model {
 ";
 
 # Define the SampleModel
-tmpdir=ProjDir*"/tmp"
-m5_4_MA = SampleModel("m5.4", m_5_4, tmpdir=tmpdir);
+m5_4_MA = SampleModel("m5.4", m_5_4);
 
 # Input data
 

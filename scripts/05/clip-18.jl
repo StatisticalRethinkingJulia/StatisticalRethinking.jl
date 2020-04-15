@@ -32,7 +32,7 @@ if success(rc)
   r = -2.0:0.1:3.0
   mu_SR = mean(p_SR.a) .+ mean(p_SR.bSR)*r
 
-  p[1] = plot(xlab="R (std)", ylab="S (std)", leg=false)
+  p[2] = plot(xlab="R (std)", ylab="S (std)", leg=false)
   plot!(r, mu_SR)
   scatter!(df[:, :S_s], df[:, :R_s])
   
@@ -42,7 +42,7 @@ if success(rc)
   s = -2.0:0.1:3.0
   mu_RS = mean(p_RS.a) .+ mean(p_RS.bRS)*s
 
-  p[2] = plot(xlab="S (std)", ylab="R (std)", leg=false)
+  p[1] = plot(xlab="S (std)", ylab="R (std)", leg=false)
   plot!(s, mu_RS)
   scatter!(df[:, :R_s], df[:, :S_s])
   
@@ -55,9 +55,9 @@ if success(rc)
   )
 
   m1 = lm(@formula(y ~ r), df2)
-  coef(m1) |> display
+  #coef(m1) |> display
 
-  p[3] = plot(xlab="R residuals", ylab="Y (std)", leg=false)
+  p[4] = plot(xlab="R residuals", ylab="Y (std)", leg=false)
   plot!(s, coef(m1)[1] .+ coef(m1)[2]*s)
   scatter!(res_RS, df[:, :Y_s])
   vline!([0.0], line=:dash, color=:black)
@@ -71,9 +71,9 @@ if success(rc)
   )
 
   m2 = lm(@formula(y ~ s), df3)
-  coef(m2) |> display
+  #coef(m2) |> display
 
-  p[4] = plot(xlab="S residuals", ylab="Y (std)", leg=false)
+  p[3] = plot(xlab="S residuals", ylab="Y (std)", leg=false)
   plot!(r, coef(m2)[1] .+ coef(m2)[2]*r)
   scatter!(res_SR, df[:, :Y_s])
   vline!([0.0], line=:dash, color=:black)

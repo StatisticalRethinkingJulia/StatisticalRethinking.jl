@@ -41,6 +41,7 @@ include("quap.jl")
 include("plotcoef.jl")
 include("pairsplot.jl")
 include("plotbounds.jl")
+include("simulate.jl")
 
 export
 	rel_path,

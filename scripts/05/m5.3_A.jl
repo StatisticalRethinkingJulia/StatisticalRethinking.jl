@@ -65,20 +65,6 @@ if success(rc)
   # Describe the draws
 
   dfa = read_samples(m5_3_As; output_format=:dataframe)
-
-  # Rethinking results
-
-  rethinking_results = "
-             mean   sd  5.5% 94.5%
-    a        0.00 0.10 -0.16  0.16
-    bM      -0.07 0.15 -0.31  0.18
-    bA      -0.61 0.15 -0.85 -0.37
-    sigma    0.79 0.08  0.66  0.91
-    aM       0.00 0.09 -0.14  0.14
-    bAM     -0.69 0.10 -0.85 -0.54
-    sigma_M  0.68 0.07  0.57  0.79
-  ";
-
   Particles(dfa)
 
 end

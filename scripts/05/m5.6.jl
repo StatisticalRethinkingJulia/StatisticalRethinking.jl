@@ -62,4 +62,11 @@ if success(rc)
   p = Particles(dfa6)
   quap(dfa6) |> display
 
+  rethinking = "
+             mean   sd  5.5% 94.5%
+    a      0.05 0.15 -0.20  0.29
+    bM    -0.28 0.19 -0.59  0.03
+    sigma  0.95 0.16  0.70  1.20
+  "
+
 end

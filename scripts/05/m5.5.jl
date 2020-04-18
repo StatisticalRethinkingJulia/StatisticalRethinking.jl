@@ -62,4 +62,11 @@ if success(rc)
   p = Particles(dfa5)
   quap(dfa5) |> display
 
+  retinking = "
+            mean   sd  5.5% 94.5%
+    a     0.04 0.15 -0.21  0.29
+    bN    0.13 0.22 -0.22  0.49
+    sigma 1.00 0.16  0.74  1.26
+  "
+
 end

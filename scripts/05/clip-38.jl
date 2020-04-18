@@ -8,17 +8,10 @@ for i in 5:6
   include("$(ProjDir)/m5.$i.jl")
 end
 
-# ### snippet 5.29
-
-println()
 df = CSV.read(rel_path("..", "data", "milk.csv"), delim=';');
 df = filter(row -> !(row[:neocortex_perc] == "NA"), df);
 df[!, :neocortex_perc] = parse.(Float64, df[:, :neocortex_perc])
 df[!, :lmass] = log.(df[:, :mass])
-#first(df, 5) |> display
-
-# ### snippet 5.1
-
 scale!(df, [:kcal_per_g, :neocortex_perc, :lmass])
 println()
 
@@ -72,10 +65,10 @@ if success(rc)
   quap(dfa7) |> display
 
   r1 = plotcoef([m5_5s, m5_6s, m5_7s], [:a, :bN, :bM], "$(ProjDir)/Fig-38a.png",
-    "bN & bM Normal estimates")
+    "Masked relationships: bN & bM Normal estimates")
   r1 |> display
 
-  r2 = plotcoef([m5_5s, m5_6s, m5_7s], [:a, :bN, :bM], "$(ProjDir)/Fig-38a.png",
-    "bN & bM Normal estimates", quap)
+  r2 = plotcoef([m5_5s, m5_6s, m5_7s], [:a, :bN, :bM], "$(ProjDir)/Fig-38b.png",
+    "Masked relationships: bN & bM Quap estimates", quap)
   r2 |> display
 end

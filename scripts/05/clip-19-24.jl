@@ -37,7 +37,7 @@ m_sim, d_sim = simulate(dfa, [:aM, :bAM, :sigma_M], a_seq, [:bM, :sigma])
 
 # Snippet 5.24
 
-plot(xlab="Manipulated A", ylab="Counterfactual D",
+p1 = plot(xlab="Manipulated A", ylab="Counterfactual D",
   title="Total counterfactual effect of A on D")
 plot!(a_seq, mean(d_sim, dims=1)[1, :], leg=false)
 hpdi_array = zeros(length(a_seq), 2)
@@ -45,4 +45,15 @@ for i in 1:length(a_seq)
   hpdi_array[i, :] =  hpdi(d_sim[i, :])
 end
 plot!(a_seq, mean(d_sim, dims=1)[1, :]; ribbon=(hpdi_array[:, 1], -hpdi_array[:, 2]))
+
+p2 = plot(xlab="Manipulated A", ylab="Counterfactual M",
+  title="Counterfactual effect of A on M")
+plot!(a_seq, mean(m_sim, dims=1)[1, :], leg=false)
+hpdi_array = zeros(length(a_seq), 2)
+for i in 1:length(a_seq)
+  hpdi_array[i, :] =  hpdi(m_sim[i, :])
+end
+plot!(a_seq, mean(m_sim, dims=1)[1, :]; ribbon=(hpdi_array[:, 1], -hpdi_array[:, 2]))
+
+plot(p1, p2, layout=(1, 2))
 savefig("$(ProjDir)/Fig-19-24.png")

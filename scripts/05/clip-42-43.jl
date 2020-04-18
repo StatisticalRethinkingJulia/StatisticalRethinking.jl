@@ -1,21 +1,21 @@
-# Load Julia packages (libraries) needed.
+# Load Julia packages (libraries) needed for clip
 
-using StatisticalRethinking
+using StatisticalRethinking, GLM
 
 ProjDir = @__DIR__
 
-df1 = CSV.read(rel_path("..", "data", "milk.csv"), delim=';');
-df1 = filter(row -> !(row[:neocortex_perc] == "NA"), df1);
+# Include snippets 5.42-5.43
 
-df = DataFrame()
-df[!, :NC] = parse.(Float64, df1[:, :neocortex_perc])
-df[!, :M] = log.(df1[:, :mass])
-df[!, :K] = df1[:, :kcal_per_g]
-first(df, 5) |> display
-scale!(df, [:K, :NC, :M])
-println()
+n = 100
+df = DataFrame(
+  :M => rand(Normal(), n),
+)
+df[!, :NC] = [rand(Normal(df[i, :M]), 1)[1] for i in 1:n]
+df[!, :K] = [rand(Normal(df[i, :NC] - df[i, :M]), 1)[1] for i in 1:n]
 
-include("$(ProjDir)/m5.7_A.jl")
+scale!(df, [:K, :M, :NC])
+
+include(rel_path("..", "scripts", "05", "m5.7_A.jl"))
 
 first(dfa, 5) |> display
 println()
@@ -26,6 +26,8 @@ display(p)
 # Snippet 5.22
 
 a_seq = range(-2, stop=2, length=100)
+
+# Snippet 5.23
 
 m_sim, d_sim = simulate(dfa, [:aNC, :bMNC, :sigma_NC], a_seq, [:bM, :sigma])
 
@@ -39,5 +41,5 @@ for i in 1:length(a_seq)
   hpdi_array[i, :] =  hpdi(d_sim[i, :])
 end
 plot!(a_seq, mean(d_sim, dims=1)[1, :]; ribbon=(hpdi_array[:, 1], -hpdi_array[:, 2]))
-savefig("$(ProjDir)/Fig-41b.png")
+savefig("$(ProjDir)/Fig-42-43.png")
 

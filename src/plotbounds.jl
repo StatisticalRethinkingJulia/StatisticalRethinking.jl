@@ -53,7 +53,8 @@ function plotbounds(
   ylab::AbstractString=String(yvar),
   alpha::Float64=0.11,
   colors::Vector{Symbol}=[:lightgrey, :grey],
-  stepsize::Float64=0.01
+  stepsize::Float64=0.01,
+  rescale_axis=true
 )
   
   xbar = mean(df[:, xvar])
@@ -67,8 +68,18 @@ function plotbounds(
   x_s = minimum(df[:, xvar_s]):stepsize:maximum(df[:, xvar_s])
   y_s = link(dfs, linkvars, x_s);
 
-  x = rescale(x_s, xbar, xstd)
-  y = [rescale(y_s[i], ybar, ystd) for i in 1:length(x)]
+  if rescale_axis
+    x = rescale(x_s, xbar, xstd)
+    y = [rescale(y_s[i], ybar, ystd) for i in 1:length(x)]
+  else
+    x = x_s
+    y = y_s
+    xbar = 0.0
+    xstd = 1.0
+    ybar = 0.0
+    ystd = 1.0
+  end
+
   mu = [mean(y[i]) for i in 1:length(x)]
 
   p = plot(xlab=xlab, ylab=ylab, title=title)
@@ -102,7 +113,11 @@ function plotbounds(
   end
 
   plot!(x, mu, color=:black)
-  scatter!(df[:, xvar], df[:, yvar], leg=false, color=:darkblue)
+  if rescale_axis
+    scatter!(df[:, xvar], df[:, yvar], leg=false, color=:darkblue)
+  else
+    scatter!(df[:, xvar_s], df[:, yvar_s], leg=false, color=:darkblue)
+  end
 
   if fig == ""
     return(p)

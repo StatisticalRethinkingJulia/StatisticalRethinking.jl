@@ -60,12 +60,13 @@ if success(rc)
 
   dfa6 = read_samples(m5_6s; output_format=:dataframe)
   p = Particles(dfa6)
+  p |> display
   quap(dfa6) |> display
 
   title = "Kcal_per_g vs. log mass" * "\nshowing 89% predicted and hpd range"
   plotbounds(
     df, :lmass, :kcal_per_g,
-    dfs, [:a, :bM, :sigma];
+    dfa6, [:a, :bM, :sigma];
     fig="$(ProjDir)/Fig-37.png",
     title=title
   )

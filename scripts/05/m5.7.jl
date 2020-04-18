@@ -67,4 +67,12 @@ if success(rc)
   println("Quap estimates:")
   quap(dfa7) |> display
 
+  rethinking = "
+             mean   sd  5.5% 94.5%
+    a      0.07 0.13 -0.15  0.28
+    bN     0.68 0.25  0.28  1.07
+    bM    -0.70 0.22 -1.06 -0.35
+    sigma  0.74 0.13  0.53  0.95
+  "
+
 end

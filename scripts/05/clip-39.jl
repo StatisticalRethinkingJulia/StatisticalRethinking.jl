@@ -13,11 +13,11 @@ end
 if success(rc)
 
   r1 = plotcoef([m5_5s, m5_6s, m5_7s], [:a, :bN, :bM], "$(ProjDir)/Fig-39a.png",
-    "bN & bM Normal estimates")
+    "Masked relationships: bN & bM Normal estimates")
   r1 |> display
 
-  r2 = plotcoef([m5_5s, m5_6s, m5_7s], [:a, :bN, :bM], "$(ProjDir)/Fig-39a.png",
-    "bN & bM Normal estimates", quap)
+  r2 = plotcoef([m5_5s, m5_6s, m5_7s], [:a, :bN, :bM], "$(ProjDir)/Fig-39b.png",
+    "Masked relationships: bN & bM Normal estimates", quap)
   r2 |> display
 
 end

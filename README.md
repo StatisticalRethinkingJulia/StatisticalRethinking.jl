@@ -21,6 +21,13 @@ Over the next 2 months (probably until Apr '20) I'm planning to update Statistic
 
 ## Versions
 
+### Version 2.2.1 (in preparation)
+
+Document simulate() and update plotbounds() (using ribbons?).
+Chapter 6 scripts
+Further refinements/alignments to src/*.jl
+Integration of SCM.jl??
+
 ### Version 2.2.0
 
 Added StatsPlots.jl and MCMCChains.jl to the dependencies.

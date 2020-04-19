@@ -11,6 +11,7 @@ df = DataFrame(
   tw = rand(Normal(), N)
 )
 df[!, :s] = df[:, :tw] + df[:, :nw]
+scale!(df, [:s, :nw, :tw])
 
 q = quantile(df[!, :s], 1-p)
 
@@ -45,8 +46,8 @@ model {
 m6_0s = SampleModel("m6.0s", m_6_0)
 
 m_6_0_data = Dict(
-  :nw => selected_df[:, :nw],
-  :tw => selected_df[:, :tw],
+  :nw => selected_df[:, :nw_s],
+  :tw => selected_df[:, :tw_s],
   :N => size(selected_df, 1)
 )
 
@@ -63,8 +64,12 @@ if success(rc)
   scatter!(selected_df[:, :nw], selected_df[:, :tw], color=:blue, lab="selected")
   scatter!(unselected_df[:, :nw], unselected_df[:, :tw], color=:lightgrey, lab="unselected")
   plot!(x, mean(p.a) .+ mean(p.aS) .* x, lab="Regression line")
-
-
   savefig("$(ProjDir)/Fig-01.png")
+
+  dfa = read_samples(m6_0s, output_format=:dataframe)
+  p1 = plotbounds(df, :nw, :tw, dfa , [:a, :aS, :sigma])
+  scatter!(p1, unselected_df[:, :nw], unselected_df[:, :tw], color=:lightgrey, lab="unselected")
+  
+  savefig("$(ProjDir)/Fig-01a.png")
 
 end

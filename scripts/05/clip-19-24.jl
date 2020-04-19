@@ -55,5 +55,24 @@ for i in 1:length(a_seq)
 end
 plot!(a_seq, mean(m_sim, dims=1)[1, :]; ribbon=(hpdi_array[:, 1], -hpdi_array[:, 2]))
 
-plot(p1, p2, layout=(1, 2))
+# M -> D
+m_seq = range(-2, stop=2, length=100)
+md_sim = zeros(size(dfa, 1), length(m_seq))
+for j in 1:size(dfa, 1)
+  for i in 1:length(m_seq)
+    d = Normal(dfa[j, :a] + dfa[j, :bM] * m_seq[i], dfa[j, :sigma])
+    md_sim[j, i] = rand(d, 1)[1]
+  end
+end
+p3 = plot(xlab="Manipulated M", ylab="Counterfactual D",
+  title="Counterfactual effect of M on D")
+plot!(m_seq, mean(md_sim, dims=1)[1, :], leg=false)
+hpdi_array = zeros(length(m_seq), 2)
+for i in 1:length(m_seq)
+  hpdi_array[i, :] =  hpdi(md_sim[i, :])
+end
+plot!(m_seq, mean(md_sim, dims=1)[1, :]; ribbon=(hpdi_array[:, 1], -hpdi_array[:, 2]))
+
+
+plot(p1, p2, p3, layout=(3, 1))
 savefig("$(ProjDir)/Fig-19-24.png")

@@ -8,6 +8,10 @@ df = CSV.read(rel_path("..", "data", "milk.csv"), delim=';');
 scale!(df, [:kcal_per_g, :perc_fat, :perc_lactose])
 println()
 
+for f in ["$(ProjDir)/clip-08.jl", "$(ProjDir)/clip-09.jl"]
+  include(f)
+end
+
 m_6_5 = "
 data{
   int <lower=1> N;              // Sample size
@@ -52,11 +56,12 @@ if success(rc)
 
   # Describe the draws
 
-  dfa = read_samples(m6_5s; output_format=:dataframe)
-  p = Particles(dfa)
+  dfa6_5 = read_samples(m6_5s; output_format=:dataframe)
+  p = Particles(dfa6_5)
   p |> display
 
-  r1 = plotcoef(m6_5s, [:a, :bF, :bL, :sigma], "$(ProjDir)/Fig-10-12.1.png",
+  println()
+  r1 = plotcoef([m6_3s, m6_4s, m6_5s], [:a, :bF, :bL, :sigma], "$(ProjDir)/Fig-10-12.1.png",
     "Multicollinearity for milk model using quap()", quap)
   r1 |> display
 
@@ -66,7 +71,7 @@ if success(rc)
 
   # Snippet 6.12
 
-  cor(df[:, :perc_fat], df[:, :perc_lactose]) |> display
+  println("Correlation: $(cor(df[:, :perc_fat], df[:, :perc_lactose]))")
 
 
 end

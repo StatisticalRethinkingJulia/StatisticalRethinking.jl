@@ -22,6 +22,9 @@ function chart(N::Int)
   plot(p..., layout=Plots.GridLayout(N, N), legend=false, yaxis=true, tickfontsize=6)
   savefig("$(ProjDir)/chart.png")
 
+  plot(density(rand(Gamma(3, 15), 10000)), lab="Gamma(3, 15)")
+  savefig("$(ProjDir)/chart_a.png")
+
 end
 
 chart(6)

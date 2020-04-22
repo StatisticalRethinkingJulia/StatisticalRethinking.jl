@@ -32,7 +32,7 @@ parameters {
 model {
   vector[N] mu;
   mu = a + bL * LL;
-  a ~ normal(2, 10);
+  a ~ normal(10, 100);
   bL ~ normal(2, 10);
   sigma ~ exponential(1);
   H ~ normal(mu, sigma);

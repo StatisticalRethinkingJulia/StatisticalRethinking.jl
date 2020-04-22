@@ -1,3 +1,23 @@
+"""
+# simulate
+
+Used for counterfactual simulations.
+
+$(SIGNATURES)
+
+### Required arguments
+```julia
+* `df`                                 : DataFrame with coefficient samples
+* `coefs`                              : Vector of coefficients
+* `var_seq`                            : Input values for simulated effect
+```
+
+### Return values
+```julia
+* `m_sim::NamedTuple`                  : Array with predictions
+```
+
+"""
 function simulate(df, coefs, var_seq)
   m_sim = zeros(size(df, 1), length(var_seq));
   for j in 1:size(df, 1)
@@ -9,6 +29,27 @@ function simulate(df, coefs, var_seq)
   m_sim
 end  
 
+"""
+# plotcoef
+
+Counterfactual predictions after manipulating a variable.
+
+$(SIGNATURES)
+
+### Required arguments
+```julia
+* `df`                                 : DataFrame with coefficient samples
+* `coefs`                              : Vector of coefficients
+* `var_seq`                            : Input values for simulated effect
+* `ext_coefs`                          : Vector of simulated variable coefficients
+```
+
+### Return values
+```julia
+* `(m_sim, d_sim)`                     : Arrays with predictions
+```
+
+"""
 function simulate(df, coefs, var_seq, coefs_ext)
   m_sim = simulate(df, coefs, var_seq)
   d_sim = zeros(size(df, 1), length(var_seq));

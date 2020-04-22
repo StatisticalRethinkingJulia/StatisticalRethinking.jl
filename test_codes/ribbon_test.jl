@@ -15,7 +15,7 @@ include("$(ProjDir)/m5.7_A.jl")
 first(dfa, 5) |> display
 println()
 
-plotbounds(df, :NC, :K, dfa, [])
+#plotbounds(df, :NC, :K, dfa, [:a, :bN, :sigma])
 
 p = Particles(dfa)
 a_seq = range(-2, stop=2, length=100)

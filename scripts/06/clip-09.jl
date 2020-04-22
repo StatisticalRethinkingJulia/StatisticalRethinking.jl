@@ -49,9 +49,9 @@ if success(rc)
 
   # Describe the draws
 
-  dfa = read_samples(m6_4s; output_format=:dataframe)
-  p = Particles(dfa)
-  q = quap(dfa)
+  dfa6_4 = read_samples(m6_4s; output_format=:dataframe)
+  p = Particles(dfa6_4)
+  q = quap(dfa6_4)
   q |> display
   hpdi(p.bL.particles, alpha=0.11) |> display
 

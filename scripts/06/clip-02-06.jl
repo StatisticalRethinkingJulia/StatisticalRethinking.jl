@@ -1,5 +1,6 @@
 using StatisticalRethinking
 using GLM
+gr(size=(600,500))
 
 ProjDir = @__DIR__
 
@@ -35,7 +36,7 @@ parameters {
 model {
   vector[N] mu;
   mu = a + bL * LL + bR * LR;
-  a ~ normal(2, 10);
+  a ~ normal(10, 100);
   bL ~ normal(2, 10);
   bR ~ normal(2, 10);
   sigma ~ exponential(1);
@@ -65,8 +66,9 @@ if success(rc)
 
   dfa = read_samples(m6_1s, output_format=:dataframe)
 
-  # Fit a linear regression of distance on speed
+  # Fit a linear regression
 
+  println()
   m = lm(@formula(bL ~ bR), dfa)
   display(m)
 

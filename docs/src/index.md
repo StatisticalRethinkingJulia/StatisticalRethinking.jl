@@ -63,6 +63,12 @@ plotbounds(
 )
 ```
 
+## simulate
+```@docs
+simulate(df, coefs, var_seq)
+simulate(df, coefs, var_seq, coefs_ext)
+```
+
 ##`convert_a3d`
 ```@docs
 convert_a3d(a3d_array, cnames, ::Val{:dataframe})

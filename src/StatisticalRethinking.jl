@@ -6,6 +6,10 @@ using Reexport, Requires
 @reexport using CSV, DataFrames, Random, Distributions
 @reexport using KernelDensity, MonteCarloMeasurements
 @reexport using MCMCChains, StatsPlots, LaTeXStrings
+@reexport using NamedArrays
+
+#using UnicodePlots
+using StatsFuns: logistic, logit
 
 import StatsBase: sample
 
@@ -42,6 +46,8 @@ include("plotcoef.jl")
 include("pairsplot.jl")
 include("plotbounds.jl")
 include("simulate.jl")
+include("precis.jl")
+include("sim_happiness.jl")
 
 export
 	rel_path,

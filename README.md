@@ -23,10 +23,9 @@ Over the next 2 months (probably until Apr '20) I'm planning to update Statistic
 
 ### Version 2.2.1 (in preparation)
 
-Document simulate() and update plotbounds() (using ribbons?).
+Document simulate().
 Chapter 6 scripts
-Further refinements/alignments to src/*.jl
-Integration of SCM.jl??
+Integration of SCM.jl likely not until after rel 2.5?
 
 ### Version 2.2.0
 

@@ -42,7 +42,7 @@ function unicode_histogram(data, nbins = 12)
   # result in indices 0:8 which breaks things
   scaled = f.weights .* (length(BARS) / maximum(f.weights) - eps())
   indices = floor.(Int, scaled) .+ 1
-  return join((bars[i] for i in indices))
+  return join((BARS[i] for i in indices))
 end
 
 

@@ -12,13 +12,21 @@ function precis(df::DataFrame; digits=3, depth=Inf, alpha=0.11)
   # kwarg `depth` is intended to allow filtering of levels,
   # e.g. if α[1], α[2], depth=1 would suppress printing of α.
 
+  # Is PrettyTables useful here?
+
+  # pretty_table(df, 
+  #  formatters = ft_printf("%.2f", [2, 3, 5]), 
+  #  highlighters = (hl_lt(0.2), hl_gt(0.8)))
+
+  # Is Unicode.histogram useful here?
+
+  # for col in eachcol(df)
+  #   printprintln(unicode_histogram(col))
+  # end
+
+  # if printsummary=true, print line by line?
+
   NamedArray(
-
-    # Is PrettyTables usefulu here?
-    #pretty_table(df, 
-    #  formatters = ft_printf("%.2f", [2, 3, 5]), 
-    #  highlighters = (hl_lt(0.2), hl_gt(0.8)))
-
     round.(m, digits=digits), 
     (names(df), ["mean", "sd", "5.5%", "50%", "94.5%"]), 
     ("Rows", "Cols")

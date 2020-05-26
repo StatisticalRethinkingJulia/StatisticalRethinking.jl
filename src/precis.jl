@@ -1,3 +1,5 @@
+using StatsBase
+
 function precis(df::DataFrame; digits=3, depth=Inf, alpha=0.11)
   m = zeros(length(names(df)), 5)
   for (indx, col) in enumerate(names(df))
@@ -37,6 +39,20 @@ end
 function precis(m::SampleModel)
   precis(read_samples(m; output_format=:dataframe))
 end
+
+
+const BARS = collect("▁▂▃▄▅▆▇█")
+
+function unicode_histogram(data, nbins = 12)
+  f = fit(Histogram, data, nbins = nbins)  # nbins: more like a guideline than a rule, really
+  # scale weights between 1 and 8 (length(BARS)) to fit the indices in BARS
+  # eps is needed so indices are in the interval [0, 8) instead of [0, 8] which could
+  # result in indices 0:8 which breaks things
+  scaled = f.weights .* (length(BARS) / maximum(f.weights) - eps())
+  indices = floor.(Int, scaled) .+ 1
+  return join((BARS[i] for i in indices))
+end
+
 
 export
   precis

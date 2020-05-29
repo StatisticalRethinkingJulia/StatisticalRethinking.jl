@@ -20,7 +20,7 @@ function precis(df::DataFrame; digits=3, depth=Inf, alpha=0.11)
   #  formatters = ft_printf("%.2f", [2, 3, 5]), 
   #  highlighters = (hl_lt(0.2), hl_gt(0.8)))
 
-  # Is Unicode.histogram useful here?
+  # Incorporate unicode.histogram
 
   # for col in eachcol(df)
   #   printprintln(unicode_histogram(col))

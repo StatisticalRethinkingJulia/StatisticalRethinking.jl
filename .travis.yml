@@ -25,14 +25,17 @@ git:
   
 jobs:
   include:
-    - stage: "TestLatest"
+    - stage: "TestPrevious"
       julia: 1.4
+      os: linux
+    - stage: "TestLatest"
+      julia: 1.5
       os: linux
     - stage: "TestNightly"
       julia: nightly
       os: linux
     - stage: "Documentation"
-      julia: 1.4
+      julia: 1.5
       os: linux
       script:
        - julia --project=docs -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'

@@ -94,6 +94,18 @@ if success(rc)
     end
   end
   scatter!(df[:, :weight_s], df[:, :height])
+  savefig("$(ProjDir)/Fig-64-68a.png")
+
+  plot(xlab="weight_s", ylab="height", leg=:bottomright)
+  fheight(weight, a, b1, b2) = a + weight * b1 + weight^2 * b2
+  testweights = -2:0.01:2
+  arr = [fheight.(w, dfa.alpha, dfa.beta1, dfa.beta2) for w in testweights]
+  m = [mean(v) for v in arr]
+  quantiles = [quantile(v, [0.055, 0.945]) for v in arr]
+  lower = [q[1] - m for (q, m) in zip(quantiles, m)]
+  upper = [q[2] - m for (q, m) in zip(quantiles, m)]
+  scatter!(df[:, :weight_s], df[:, :height], lab="Observations")
+  plot!(testweights, m, ribbon = [lower, upper], lab="(0.055, 0.945) quantiles of mean")
   savefig("$(ProjDir)/Fig-64-68.png")
 
 end

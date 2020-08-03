@@ -7,13 +7,13 @@ os:
   - linux
   
 env:
-  - JULIA_CMDSTAN_HOME="$HOME/cmdstan-2.23.0/"
+  - JULIA_CMDSTAN_HOME="$HOME/cmdstan-2.24.0/"
   
 before_install:
   - OLDWD=`pwd`
   - cd ~
-  - wget https://github.com/stan-dev/cmdstan/releases/download/v2.23.0/cmdstan-2.23.0.tar.gz
-  - tar -xzpf cmdstan-2.23.0.tar.gz
+  - wget https://github.com/stan-dev/cmdstan/releases/download/v2.24.0/cmdstan-2.24.0.tar.gz
+  - tar -xzpf cmdstan-2.24.0.tar.gz
   - make -C $JULIA_CMDSTAN_HOME build
   - cd $OLDWD
   
@@ -25,9 +25,6 @@ git:
   
 jobs:
   include:
-    - stage: "TestPrevious"
-      julia: 1.4
-      os: linux
     - stage: "TestLatest"
       julia: 1.5
       os: linux

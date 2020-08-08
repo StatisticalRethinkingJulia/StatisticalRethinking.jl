@@ -16,7 +16,7 @@ for l in 1:3            # Different priors
         local prior = zeros(N[i])
 
         if l == 1
-            prior = [pdf.(Uniform(0, 1), p_grid)]
+            prior = pdf.(Uniform(0, 1), p_grid)
         elseif l == 2
             prior = [[p < 0.5 ? 0 : 1 for p in p_grid]]
         else

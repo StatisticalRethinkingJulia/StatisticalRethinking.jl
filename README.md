@@ -41,6 +41,10 @@ I have started to map out how I would like StatisticalRethinking v3 to be struct
 
 Any feedback is appreciated. Please open an issue.
 
+### Version 2.2.5
+
+Thanks to Joe Wagner a bug in 02/script-03-05.jl has been fixed.
+
 ### Version 2.2.1-4
 
 Document simulate().

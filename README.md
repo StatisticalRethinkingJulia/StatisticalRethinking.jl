@@ -17,27 +17,20 @@ As stated many times by the author in his [online lectures](https://www.youtube.
 
 ## Versions
 
-### Version 3.0.0 (in preparation)
+### Version 2.3.0 (in preparation)
 
-I have started to map out how I would like StatisticalRethinking v3 to be structured. This is strongly influence by the approach [karajan9](https://github.com/karajan9/statisticalrethinking) is taking and will be a breaking change. The basics:
+The directory structure of StatisticalRethinking.jl v2.3 will be expanded to fit DrWatson.jl. To this end, four new subdirectories will be added:
 
-1. StatisticalRethinking.jl v3 will contain the common components which are independent of the used mcmc flavor, i.e. common package dependencies, new functions and data.
+1. `models`: Will contain just the Stan models used in all chapters.
+2. `notebooks`: This (experimental) subdirectory will contain Pluto.jl notebooks.
+3. `research`: Will contain small programming tests.
+4. `plots`: The intenstion is to reduce the number of plats stored in the repository as more Pluto notebooks become available. The remaining plots will be stored in the `plots` subdirectory. At some point `plots` might be added to the .gitignore file.
 
-2. Most of the current scripts in the current StatisticalRethinking.jl v2 (using Stan) will move to a new package StatisticalRethinkingStan.jl.
+DrWatson.jl and Pluto.jl will be added as dependencies in StatisticalRethinking.jl v2.3.
 
-3. This will make StatisticalRethinking.jl v3 agnostic to specific mcmc packages/flavors in Julia, e.g. Stan, Turing and DynamicHMC.
+The current StatisticalRethinking.jl v2.x is compatible with the 2nd edition of the book. Expanded coverage of chapters 7 and beyond will likely happen while working on StatisticalRethinking.jl v2.3 (as I got seriously sidetracked working on [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl)). StructuralCausalModels.jl will be introduced as en experimental dependency in StatisticalRethinking v2.3.
 
-4. Mcmc flavors, e.g. StatisticalRethinkingTuring.jl, StatisticalRethinkingStan.jl and possibly others, might take slightly different approaches how snippets are organized. I think this is fine as there is no single way to do this right.
-
-5. There will be common components that can be found in the src directory of the mcmc flavor packages, e.g. quap() in Turing will be a very different implementations from quap() in Stan (or DynamicHMC). These functions will imported from StatisticalRethinking.jl and new methods added using multiple dispatch.
-
-6. StatisticalRethinking.jl v3 will not be a lightweight package as it will depend on MCMCChains.jl, StatsPlots.jl, DataFrames.jl, CSV.jl, etc. But the idea is that for normal work it will only need compilation once.
-
-7. StanModels.jl v3 will continue to be just the models although for Stan at least I'm hoping to get to a setup where I can create a model once and use for multiple simulations. This is more important for Stan as a Stan Language program needs to be translated to a C++ program and subsequently compiled.
-
-8. It is too early to tell if the same route will be followed for e.g. Turing.
-
-9.The current StatisticalRethinking.jl v2 is compatible with the 2nd edition of the book. Expanded coverage of chapters 7 and beyond will likely happen while working on StatisticalRethinking.jl v3 as I got seriously sidetracked working on [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl).
+My original intention was to go directly to a v3 of StatisticalRethinking which would be independent of the underlying mcmc package. For now I have dropped that idea as the "shared components" might look very different for e.g. Turing (this is strongly influence by the approach karajan9 is taking). 
 
 Any feedback is appreciated. Please open an issue.
 

@@ -50,11 +50,11 @@ include("precis.jl")
 include("sim_happiness.jl")
 
 export
-	rel_path,
-	link,
- 	scale!,
+  rel_path,
+  link,
+  scale!,
   rescale,
- 	sample,
+  sample,
   hpdi,
   convert_a3d,
   quap

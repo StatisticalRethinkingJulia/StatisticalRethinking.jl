@@ -24,9 +24,7 @@ The directory structure of StatisticalRethinking.jl v2.3 will be expanded to fit
 1. `models`: Will contain just the Stan models used in all chapters.
 2. `notebooks`: This (experimental) subdirectory will contain Pluto.jl notebooks.
 3. `research`: Will contain small programming tests.
-4. `plots`: The intenstion is to reduce the number of plats stored in the repository as more Pluto notebooks become available. The remaining plots will be stored in the `plots` subdirectory. At some point `plots` might be added to the .gitignore file.
-
-DrWatson.jl and Pluto.jl will be added as dependencies in StatisticalRethinking.jl v2.3.
+4. `plots`: The intenstion is to reduce the number of plots stored in the repository as more Pluto notebooks become available. The remaining plots will be stored in the `plots` subdirectory. At some point `plots` might be added to the .gitignore file.
 
 The current StatisticalRethinking.jl v2.x is compatible with the 2nd edition of the book. Expanded coverage of chapters 7 and beyond will likely happen while working on StatisticalRethinking.jl v2.3 (as I got seriously sidetracked working on [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl)). StructuralCausalModels.jl will be introduced as en experimental dependency in StatisticalRethinking v2.3.
 

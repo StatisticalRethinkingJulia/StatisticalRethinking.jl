@@ -17,22 +17,10 @@ As stated many times by the author in his [online lectures](https://www.youtube.
 
 ## Versions
 
-### Version 2.3.0 (in preparation)
+### Version 2.2.6
 
-The directory structure of StatisticalRethinking.jl v2.3 will be expanded to fit DrWatson.jl. To this end, four new subdirectories will be added:
-
-1. `models`: Will contain just the Stan models used in all chapters.
-2. `notebooks`: This (experimental) subdirectory will contain Pluto.jl notebooks.
-3. `research`: Will contain small programming tests.
-4. `plots`: The intenstion is to reduce the number of plats stored in the repository as more Pluto notebooks become available. The remaining plots will be stored in the `plots` subdirectory. At some point `plots` might be added to the .gitignore file.
-
-DrWatson.jl and Pluto.jl will be added as dependencies in StatisticalRethinking.jl v2.3.
-
-The current StatisticalRethinking.jl v2.x is compatible with the 2nd edition of the book. Expanded coverage of chapters 7 and beyond will likely happen while working on StatisticalRethinking.jl v2.3 (as I got seriously sidetracked working on [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl)). StructuralCausalModels.jl will be introduced as en experimental dependency in StatisticalRethinking v2.3.
-
-My original intention was to go directly to a v3 of StatisticalRethinking which would be independent of the underlying mcmc package. For now I have dropped that idea as the "shared components" might look very different for e.g. Turing (this is strongly influence by the approach karajan9 is taking). 
-
-Any feedback is appreciated. Please open an issue.
+Removed unused subdirs.
+Removed hints on SR v2.3
 
 ### Version 2.2.5
 

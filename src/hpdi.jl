@@ -22,3 +22,6 @@ function hpdi(x::Vector{T}; alpha::Real=0.11) where {T<:Real}
 
     return [a[i], b[i]]
 end
+
+export
+  hpdi

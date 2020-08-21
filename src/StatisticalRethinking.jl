@@ -41,17 +41,10 @@ include("quap.jl")
 include("pairsplot.jl")
 include("plotbounds.jl")
 include("simulate.jl")
-#include("precis.jl")
 include("tools.jl")
 include("sim_happiness.jl")
 
 export
-  sr_path,
-  link,
-  scale!,
-  rescale,
-  sample,
-  hpdi,
-  quap
+  sr_path
 
 end # module

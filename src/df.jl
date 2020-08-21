@@ -44,3 +44,5 @@ function sample(rng::AbstractRNG, df::DataFrame, n; replace=true, ordered=false)
   df[indxs, :]
 end
 
+export
+  sample

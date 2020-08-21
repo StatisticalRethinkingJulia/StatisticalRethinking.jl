@@ -1,7 +1,7 @@
 using StatisticalRethinking, Documenter
 
-DOC_ROOT = rel_path("..", "docs")
-DocDir =  rel_path("..", "docs", "src")
+DOC_ROOT = sr_path("..", "docs")
+DocDir =  sr_path("..", "docs", "src")
 
 page_list = Array{Pair{String, Any}, 1}();
 append!(page_list, [Pair("StatisticalRethinkingJulia", "srgithub.md")])
@@ -21,6 +21,6 @@ makedocs(
 deploydocs(
     root = DOC_ROOT,
     repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
-    devbranch = "v2.3.0",
+    devbranch = "v3.0.0",
     push_preview = true,
  )

@@ -18,11 +18,6 @@ link(dfa::DataFrame, vars, xrange)
 rescale(x::Vector{Float64}, xbar::Float64, xstd::Float64)
 ```
 
-## quap
-```@docs
-quap(df::DataFrame)
-```
-
 ## sample
 ```@docs
 sample(df::DataFrame, n; replace=true, ordered=false)

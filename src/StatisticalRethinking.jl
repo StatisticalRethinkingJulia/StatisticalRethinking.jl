@@ -45,6 +45,7 @@ include("tools.jl")
 include("sim_happiness.jl")
 
 export
-  sr_path
+  sr_path,
+  SR
 
 end # module

@@ -30,7 +30,7 @@ function simulate(df, coefs, var_seq)
 end  
 
 """
-# plotcoef
+# simulate
 
 Counterfactual predictions after manipulating a variable.
 

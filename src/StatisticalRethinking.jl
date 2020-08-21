@@ -1,21 +1,17 @@
 module StatisticalRethinking
 
-using Reexport, Requires
+using Reexport
 
-@reexport using StanSample, StatsBase, Statistics
-@reexport using CSV, DataFrames, Random, Distributions
-@reexport using KernelDensity, MonteCarloMeasurements
-@reexport using MCMCChains, StatsPlots, LaTeXStrings
+@reexport using StatsBase, Statistics, Random, Distributions
+@reexport using CSV, DataFrames
+@reexport using KernelDensity, StatsPlots, LaTeXStrings
 @reexport using NamedArrays
+@reexport using MCMCChains
 
 #using UnicodePlots
 using StatsFuns: logistic, logit
 
 import StatsBase: sample
-
-function __init__()
-  @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require/hmc.jl")
-end
 
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
@@ -38,15 +34,14 @@ rel_path(parts...) = normpath(joinpath(src_path, parts...))
 include("scale.jl")
 include("rescale.jl")
 include("link.jl")
-include("a3d_utils.jl")
 include("hpdi.jl")
 include("df.jl")
 include("quap.jl")
-include("plotcoef.jl")
 include("pairsplot.jl")
 include("plotbounds.jl")
 include("simulate.jl")
-include("precis.jl")
+#include("precis.jl")
+include("tools.jl")
 include("sim_happiness.jl")
 
 export
@@ -56,7 +51,6 @@ export
   rescale,
   sample,
   hpdi,
-  convert_a3d,
   quap
 
 end # module

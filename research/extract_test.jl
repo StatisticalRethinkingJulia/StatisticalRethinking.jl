@@ -48,11 +48,11 @@ vars = length(cnames_dummy)
 chains = 2
 chns_dummy = randn(draws, vars, chains)
 ex_dict = extract(chns_dummy, cnames_dummy)
+nt = (x = ex_dict["x"], y = ex_dict["y"], z = ex_dict["z"])
 
 @testset "extract" begin
     # Write your tests here.
     
-
     @test size(ex_dict["x"]) == (draws, chains)
     @test size(ex_dict["y"]) == (2, draws, chains)
     @test size(ex_dict["z"]) == (3, 2, draws, chains)
@@ -62,4 +62,8 @@ ex_dict = extract(chns_dummy, cnames_dummy)
     @test ex_dict["y"][2,3,2] == chns_dummy[3, key_to_idx["y.2"], 2]
     @test ex_dict["z"][3, 1, 10, 1] == chns_dummy[10, key_to_idx["z.3.1"], 1]
     @test ex_dict["k"][1,1,1,1,1,draws,2] == chns_dummy[draws, key_to_idx["k.1.1.1.1.1"], 2]
+
+    @test size(values(nt.z)) == (3, 2, 100, 2)
+    @test size(nt.z) == (3, 2, 100, 2)
+
 end

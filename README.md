@@ -5,10 +5,6 @@
 |:-------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
 |![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][travis-img]][travis-url] |
 
-## Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/StatisticalRethinkingJulia/StatisticalRethinking.jl.svg)](https://starchart.cc/StatisticalRethinkingJulia/StatisticalRethinking.jl)
-
 ## Purpose of this package
 
 This `package` contains common components for Julia versions of selected `code snippets` and `mcmc models` contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
@@ -32,12 +28,7 @@ To install the package (from the REPL):
 ] add StatisticalRethinking
 ```
 
-or, easier in some cases to use from within an editor:
-
-```
-] dev StatisticalRethinking
-```
-
+but in most cases this package will be a dependency of another package, e.g. 
 All scripts contain in fact examples. A good initial introduction to running a Stan language program is in `scripts/03/intro-stan/intro-part-1.jl`.
 
 

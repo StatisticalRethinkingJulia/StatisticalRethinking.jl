@@ -4,11 +4,7 @@ DOC_ROOT = rel_path("..", "docs")
 DocDir =  rel_path("..", "docs", "src")
 
 page_list = Array{Pair{String, Any}, 1}();
-append!(page_list, [Pair("Introduction", "intro.md")]);
-append!(page_list, [Pair("Installation", "installation.md")]);
-append!(page_list, [Pair("Layout", "layout.md")])
 append!(page_list, [Pair("StatisticalRethinkingJulia", "srgithub.md")])
-append!(page_list, [Pair("Future", "future.md")])
 append!(page_list, [Pair("Acknowledgements", "acknowledgements.md")]);
 append!(page_list, [Pair("References", "references.md")])
 append!(page_list, [Pair("Functions", "index.md")])

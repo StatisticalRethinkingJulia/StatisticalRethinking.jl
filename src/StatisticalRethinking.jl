@@ -16,20 +16,21 @@ import StatsBase: sample
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 const src_path = @__DIR__
+const SR = StatisticalRethinking
 
 """
 
-# rel_path
+# sr_path
 
 Relative path using the StatisticalRethinking src/ directory.
 
 ### Example to get access to the data subdirectory
 ```julia
-rel_path("..", "data")
+sr_path("..", "data")
 ```
 
 """
-rel_path(parts...) = normpath(joinpath(src_path, parts...))
+sr_path(parts...) = normpath(joinpath(src_path, parts...))
 
 include("scale.jl")
 include("rescale.jl")
@@ -45,7 +46,7 @@ include("tools.jl")
 include("sim_happiness.jl")
 
 export
-  rel_path,
+  sr_path,
   link,
   scale!,
   rescale,

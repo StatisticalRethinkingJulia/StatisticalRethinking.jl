@@ -20,6 +20,4 @@ There is no shortage of additional good books on Bayesian statistics. A few of m
 
 8. [Causal Inference in Statistics - A Primer](https://www.wiley.com/en-us/Causal+Inference+in+Statistics%3A+A+Primer-p-9781119186847)
 
-and a great read (and implementation in DynamicHMC.jl):
-
 9. [Betancourt: A Conceptual Introduction to Hamiltonian Monte Carlo](https://arxiv.org/abs/1701.02434)

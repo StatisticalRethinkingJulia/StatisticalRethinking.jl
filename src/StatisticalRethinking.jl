@@ -5,12 +5,11 @@ using Reexport
 @reexport using StatsBase, Statistics, Random, Distributions
 @reexport using CSV, DataFrames
 @reexport using KernelDensity, StatsPlots, LaTeXStrings
-@reexport using NamedArrays
-@reexport using MCMCChains
+@reexport using NamedArrays, StatsFuns
+@reexport using MCMCChains, MonteCarloMeasurements
+@reexport using BSplines, Optim
 
-#using UnicodePlots
 using StatsFuns: logistic, logit
-
 import StatsBase: sample
 
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF

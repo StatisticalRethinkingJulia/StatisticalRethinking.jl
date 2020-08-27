@@ -1,3 +1,5 @@
+import MonteCarloMeasurements:Particles
+
 """
 
 # sample
@@ -44,5 +46,19 @@ function sample(rng::AbstractRNG, df::DataFrame, n; replace=true, ordered=false)
   df[indxs, :]
 end
 
+function Particles(df::DataFrame)
+
+  d = Dict{Symbol, typeof(Particles(size(df, 1), Normal(0.0, 1.0)))}()
+
+  for var in Symbol.(names(df))
+    d[var] = Particles(df[:, var])
+  end
+
+  (;d...)
+
+end
+
+
 export
-  sample
+  sample,
+  Particles

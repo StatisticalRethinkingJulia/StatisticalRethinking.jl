@@ -8,11 +8,12 @@ using Reexport
 @reexport using NamedArrays, StatsFuns
 @reexport using MCMCChains, MonteCarloMeasurements
 @reexport using BSplines, Optim
-@reexport using PrettyTables, Unicode
+@reexport using GLM, PrettyTables, Unicode
+
+import StatsBase: sample
+import MonteCarloMeasurements:Particles
 
 using StatsFuns: logistic, logit
-import StatsBase: sample
-
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 const src_path = @__DIR__

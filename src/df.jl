@@ -1,5 +1,3 @@
-import MonteCarloMeasurements:Particles
-
 """
 
 # sample

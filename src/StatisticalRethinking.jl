@@ -8,6 +8,7 @@ using Reexport
 @reexport using NamedArrays, StatsFuns
 @reexport using MCMCChains, MonteCarloMeasurements
 @reexport using BSplines, Optim
+@reexport using PrettyTables, Unicode
 
 using StatsFuns: logistic, logit
 import StatsBase: sample
@@ -38,6 +39,7 @@ include("link.jl")
 include("hpdi.jl")
 include("df.jl")
 include("quap.jl")
+include("precis.jl")
 include("pairsplot.jl")
 include("plotbounds.jl")
 include("simulate.jl")

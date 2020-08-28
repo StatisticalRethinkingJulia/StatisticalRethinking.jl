@@ -11,6 +11,13 @@ function unicode_histogram(data, nbins = 12)
     return join((BARS[i] for i in indices))
 end
 
+"""
+
+# precis
+
+$(SIGNATURES)
+
+"""
 function precis(df::DataFrame; io = stdout, digits = 2, depth = Inf, alpha = 0.11)
     d = DataFrame()
     d.param = names(df)
@@ -19,8 +26,8 @@ function precis(df::DataFrame; io = stdout, digits = 2, depth = Inf, alpha = 0.1
     d[:, "5.5%"] = quantile.(eachcol(df), alpha/2)
     d[:, "50%"] = quantile.(eachcol(df), 0.5)
     d[:, "94.5%"] = quantile.(eachcol(df), 1 - alpha/2)
-    u = unicode_histogram.(eachcol(df))
-    d.histogram = unicode_histogram.(eachcol(df))
+    u = unicode_histogram.(eachcol(df), min(size(df, 1), 12))
+    d.histogram = unicode_histogram.(eachcol(df), min(size(df, 1), 12))
 
     for col in ["mean", "std", "5.5%", "50%", "94.5%"]
         d[:, col] .= round.(d[:, col], digits = digits)

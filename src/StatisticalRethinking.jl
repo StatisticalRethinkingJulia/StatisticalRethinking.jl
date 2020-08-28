@@ -30,6 +30,7 @@ sr_path("..", "data")
 
 """
 sr_path(parts...) = normpath(joinpath(src_path, parts...))
+srdatadir() = sr_path("..", "data")
 
 include("scale.jl")
 include("rescale.jl")
@@ -40,11 +41,12 @@ include("quap.jl")
 include("pairsplot.jl")
 include("plotbounds.jl")
 include("simulate.jl")
-include("tools.jl")
+include("srtools.jl")
 include("sim_happiness.jl")
 
 export
   sr_path,
+  srdatadir,
   SR
 
 end # module

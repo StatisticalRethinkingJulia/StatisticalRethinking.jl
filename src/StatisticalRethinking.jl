@@ -7,7 +7,8 @@ using Reexport
 @reexport using KernelDensity, StatsPlots, LaTeXStrings
 @reexport using NamedArrays, StatsFuns
 @reexport using MCMCChains, MonteCarloMeasurements
-@reexport using BSplines, Optim
+@reexport using BSplines
+@reexport using Optim
 @reexport using GLM, PrettyTables, Unicode
 
 import StatsBase: sample

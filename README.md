@@ -5,21 +5,33 @@
 |:-------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
 |![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][travis-img]][travis-url] |
 
+## Important note
+
+This is a breaking change from previous versions of StatisticalRethinking.jl.
+
+The huge progress made by the Turing.jl team over the last 2 years, the availability of Julia `projects` in addition to Julia `packages` and the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) were a few of the ideas that triggered exploring a new setup for the StatisticalRethinkingJulia.
+
 ## Purpose of this package
 
-Given that Julia provides several very capable packages that support mcmc simulations, it seems more appropiate to make StatisticalRethinking mcmc implementation independent.
+Given that Julia provides several very capable packages that support mcmc simulations, it seemed appropiate to make StatisticalRethinking mcmc implementation independent.
 
 This `package` contains preliminary "common components" for Julia versions of selected `functions` contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
 To work through the StatisticalRethinking book using Julia and Stan, install `project` StatisticalRethinkingStan.jl.
 
-A parallel [effort](https://github.com/karajan9/statisticalrethinking) is under development using Turing.jl.
+To work through the StatisticalRethinking book using Julia and Turing, install `project` StatisticalRethinkingTuring.jl.
+
+Time permitting I would love to see a StatisticalRethinkingDhmc.jl which would be a combination of Soss.jl and DynamicHMC.jl. If interested, please contact me!
+
+As stated above, the [work](https://github.com/karajan9/statisticalrethinking) by Karajan has been a major source of inspiration for the new setup of all of StatisticalRethinkingJulia.
 
 ## Versions
 
-### Version 3.0.0 (in preparation)
+### Version 3.0.0 (in preparation, Oct 2020)
 
-StatisticalRethinking.jl v3 is independent of the underlying mcmc package. 
+StatisticalRethinking.jl v3 is independent of the underlying mcmc package.
+
+All scripts holding the clips have been moved to above mcmc specific repositories.
 
 Any feedback is appreciated. Please open an issue.
 

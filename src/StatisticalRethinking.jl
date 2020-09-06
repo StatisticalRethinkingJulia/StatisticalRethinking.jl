@@ -1,6 +1,6 @@
 module StatisticalRethinking
 
-using Reexport
+using Reexport, Requires
 
 @reexport using StatsBase, Statistics, Random, Distributions
 @reexport using CSV, DataFrames
@@ -16,6 +16,13 @@ import MonteCarloMeasurements:Particles
 
 using StatsFuns: logistic, logit
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
+
+function __init__()
+  @require Turing="fce5fe82-541a-59a6-adf8-730c64b5f9a0" include("require/turing.jl")
+  @require StanSample="c1514b29-d3a0-5178-b312-660c88baa699" include("require/stan.jl")
+  @require StanOptimize="fbd8da12-e93d-5a64-9231-612a0707ab99" include("require/stan.jl")
+  @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require/hmc.jl")
+end
 
 const src_path = @__DIR__
 const SR = StatisticalRethinking
@@ -33,6 +40,8 @@ sr_path("..", "data")
 
 """
 sr_path(parts...) = normpath(joinpath(src_path, parts...))
+
+# DrWatson extension
 srdatadir() = sr_path("..", "data")
 
 include("scale.jl")
@@ -43,10 +52,10 @@ include("df.jl")
 include("quap.jl")
 include("precis.jl")
 include("pairsplot.jl")
-include("plotbounds.jl")
 include("simulate.jl")
 include("srtools.jl")
 include("sim_happiness.jl")
+include("convert_a3d.jl")
 
 export
   sr_path,

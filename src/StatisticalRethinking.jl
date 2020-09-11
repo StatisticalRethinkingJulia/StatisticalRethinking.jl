@@ -56,6 +56,7 @@ include("simulate.jl")
 include("srtools.jl")
 include("sim_happiness.jl")
 include("convert_a3d.jl")
+include("plot_density_interval.jl")
 
 export
   sr_path,

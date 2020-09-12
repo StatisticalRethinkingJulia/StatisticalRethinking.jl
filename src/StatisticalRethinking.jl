@@ -42,7 +42,7 @@ sr_path("..", "data")
 sr_path(parts...) = normpath(joinpath(src_path, parts...))
 
 # DrWatson extension
-srdatadir() = sr_path("..", "data")
+sr_datadir(parts...) = sr_path("..", "data", parts...)
 
 include("scale.jl")
 include("rescale.jl")
@@ -60,7 +60,7 @@ include("plot_density_interval.jl")
 
 export
   sr_path,
-  srdatadir,
+  sr_datadir,
   SR
 
 end # module

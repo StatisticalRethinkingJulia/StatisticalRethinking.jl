@@ -9,7 +9,7 @@
 
 This is a breaking change from previous versions of StatisticalRethinking.jl.
 
-The huge progress made by the Turing.jl team over the last 2 years, the availability of Julia `projects` in addition to Julia `packages` and the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) were a few of the ideas that triggered exploring a new setup for the StatisticalRethinkingJulia.
+The huge progress made by the Turing.jl team over the last 2 years, the availability of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) were a few of the ideas that triggered exploring a new setup for StatisticalRethinkingJulia.
 
 ## Purpose of this package
 
@@ -17,9 +17,9 @@ Given that Julia provides several very capable packages that support mcmc simula
 
 This `package` contains preliminary "common components" for Julia versions of selected `functions` contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
-To work through the StatisticalRethinking book using Julia and Stan, install `project` StatisticalRethinkingStan.jl.
+To work through the StatisticalRethinking book using Julia and Stan, download `project` StatisticalRethinkingStan.jl.
 
-To work through the StatisticalRethinking book using Julia and Turing, install `project` StatisticalRethinkingTuring.jl.
+To work through the StatisticalRethinking book using Julia and Turing, download `project` StatisticalRethinkingTuring.jl.
 
 Time permitting I would love to see a StatisticalRethinkingDhmc.jl which would be a combination of Soss.jl and DynamicHMC.jl. If interested, please contact me!
 
@@ -31,7 +31,7 @@ As stated above, the [work](https://github.com/karajan9/statisticalrethinking) b
 
 StatisticalRethinking.jl v3 is independent of the underlying mcmc package.
 
-All scripts holding the clips have been moved to above mcmc specific repositories.
+All scripts holding the clips have been moved to above mcmc specific project repositories.
 
 Any feedback is appreciated. Please open an issue.
 

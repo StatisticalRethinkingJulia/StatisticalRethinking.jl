@@ -7,7 +7,7 @@
 
 ## Important note
 
-This is a breaking change from previous versions of StatisticalRethinking.jl.
+This is a breaking change from previous versions of StatisticalRethinking.jl. I expect the first stage of this work to be completed (and merged) by late Oct 2020.
 
 Given that Julia provides several very capable packages that support mcmc simulations, it only seemed appropiate to make StatisticalRethinking mcmc implementation independent.
 

@@ -9,15 +9,13 @@
 
 This is a breaking change from previous versions of StatisticalRethinking.jl.
 
-Given that Julia provides several very capable packages that support mcmc simulations, it seemed appropiate to make StatisticalRethinking mcmc implementation independent.
+Given that Julia provides several very capable packages that support mcmc simulations, it only seemed appropiate to make StatisticalRethinking mcmc implementation independent.
 
 The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) were a few of the ideas that triggered exploring a new setup for StatisticalRethinkingJulia.
 
 An early, experimental version of StructuralCausalModels.jl is also included as e dependency in the StatisticalRethinking.jl v3.0.0 package.
 
 ## Purpose of this package
-
-Given that Julia provides several very capable packages that support mcmc simulations, it only seemed appropiate to make StatisticalRethinking mcmc implementation independent.
 
 The StatisticalRethinking.jl v3 `package` contains preliminary "common functions" similar to the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath. These functions are used in the Pluto notebooks in `projects`.
 

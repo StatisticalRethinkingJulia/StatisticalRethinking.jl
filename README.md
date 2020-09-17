@@ -9,21 +9,51 @@
 
 This is a breaking change from previous versions of StatisticalRethinking.jl.
 
-The huge progress made by the Turing.jl team over the last 2 years, the availability of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) were a few of the ideas that triggered exploring a new setup for StatisticalRethinkingJulia.
+Given that Julia provides several very capable packages that support mcmc simulations, it seemed appropiate to make StatisticalRethinking mcmc implementation independent.
+
+The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) were a few of the ideas that triggered exploring a new setup for StatisticalRethinkingJulia.
+
+An early, experimental version of StructuralCausalModels.jl is also included as e dependency in the StatisticalRethinking.jl v3.0.0 package.
 
 ## Purpose of this package
 
-Given that Julia provides several very capable packages that support mcmc simulations, it seemed appropiate to make StatisticalRethinking mcmc implementation independent.
+Given that Julia provides several very capable packages that support mcmc simulations, it only seemed appropiate to make StatisticalRethinking mcmc implementation independent.
 
-This `package` contains preliminary "common components" for Julia versions of selected `functions` contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
+The StatisticalRethinking.jl v3 `package` contains preliminary "common functions" similar to the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath. These functions are used in the Pluto notebooks in `projects`.
 
-To work through the StatisticalRethinking book using Julia and Stan, download `project` StatisticalRethinkingStan.jl.
+Thus, to work through the StatisticalRethinking book using Julia and Stan, download `project` [StatisticalRethinkingStan.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and open one of the chapter Pluto notebooks.
 
-To work through the StatisticalRethinking book using Julia and Turing, download `project` StatisticalRethinkingTuring.jl.
+Or, to work through the StatisticalRethinking book using Julia and Turing, download `project` [StatisticalRethinkingTuring.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl) and open a Pluto notebook.
 
-Time permitting I would love to see a StatisticalRethinkingDhmc.jl which would be a combination of Soss.jl and DynamicHMC.jl. If interested, please contact me!
+Time permitting I would love to see a StatisticalRethinkingDhmc.jl which could be a combination of Soss.jl and DynamicHMC.jl. If interested, please contact me!
 
-As stated above, the [work](https://github.com/karajan9/statisticalrethinking) by Karajan has been a major source of inspiration for the new setup of all of StatisticalRethinkingJulia.
+## Usage
+
+StatisticalRethinking.jl uses `Requires.jl` to import mcmc dependent components. This leads to a typical set of opening lines in each script or notebook:
+```
+using Pkg, DrWatson
+
+# Note: Below sequence is important. First activate the project
+# followed by `using` or `import` statements. Pretty much all
+# scripts use StatisticalRethinkingStan. If mcmc sampling is
+# needed, it must be loaded before StatisticalRethinking:
+
+@quickactivate "StatisticalRethinkingStan"
+
+# Optional mcmc packages
+
+using StanSample              # If Stan is used
+using Turing                  # If Turing is used
+using LogDensityProblems      # If DynamicHMC is used
+
+# Nearly always needed
+
+using StatisticalRethinking
+
+# To access e.g. the Howell1.csv data file:
+d = CSV.read(sr_datadir("Howell1.csv"), DataFrame)
+d2 = d[d.age .>= 18, :]
+```
 
 ## Versions
 
@@ -32,6 +62,8 @@ As stated above, the [work](https://github.com/karajan9/statisticalrethinking) b
 StatisticalRethinking.jl v3 is independent of the underlying mcmc package.
 
 All scripts holding the clips have been moved to above mcmc specific project repositories.
+
+It is the intention to develop tests for StatisticalRethinking.jl that work across the different mcmc implementations. This will be limited to the `test/PProject.toml`.
 
 Any feedback is appreciated. Please open an issue.
 

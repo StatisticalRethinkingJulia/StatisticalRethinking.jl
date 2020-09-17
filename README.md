@@ -1,4 +1,4 @@
-# StatisticalRethinking
+# StatisticalRethinking v2
 
 
 | **Project Status**                                                               |  **Documentation**                                                               | **Build Status**                                                                                |

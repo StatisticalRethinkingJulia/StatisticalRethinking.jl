@@ -59,11 +59,9 @@ StatisticalRethinking.jl v3 does not declare `Pkg`, `DrWatson`, `Pluto`, `PlutoU
 
 ### Version 3.0.0 (in preparation, Oct 2020)
 
-StatisticalRethinking.jl v3 is independent of the underlying mcmc package.
+StatisticalRethinking.jl v3 is independent of the underlying mcmc package. All scripts previously in StatisticalRethinking.jl v2 holding the snippets have been replaced by Pluto notebooks in the above mentioned mcmc specific `project` repositories.
 
-All scripts holding the clips have been moved to above mcmc specific project repositories.
-
-It is the intention to develop tests for StatisticalRethinking.jl that work across the different mcmc implementations. This will be limited to the `test/PProject.toml`.
+It is the intention to develop tests for StatisticalRethinking.jl that work across the different mcmc implementations. This will limit dependencies to the `test/Project.toml`.
 
 Any feedback is appreciated. Please open an issue.
 

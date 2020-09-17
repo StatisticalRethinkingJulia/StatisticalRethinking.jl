@@ -17,7 +17,7 @@ An early, experimental version of StructuralCausalModels.jl is also included as 
 
 ## Purpose of this package
 
-The StatisticalRethinking.jl v3 `package` contains preliminary "common functions" similar to the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath. These functions are used in the Pluto notebooks in `projects`.
+The StatisticalRethinking.jl v3 `package` contains functions comparable to the functions in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath. These functions are used in the Pluto notebooks in `projects`.
 
 Thus, to work through the StatisticalRethinking book using Julia and Stan, download `project` [StatisticalRethinkingStan.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and open one of the chapter Pluto notebooks.
 
@@ -52,6 +52,8 @@ using StatisticalRethinking
 d = CSV.read(sr_datadir("Howell1.csv"), DataFrame)
 d2 = d[d.age .>= 18, :]
 ```
+
+StatisticalRethinking.jl v3 does not declare `Pkg`, `DrWatson`, `Pluto`, `PlutoUI` or any of the above mcmc options as a dependency. They need to be `add`-ed separatedly.
 
 ## Versions
 

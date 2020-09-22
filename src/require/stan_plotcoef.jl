@@ -75,7 +75,7 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::Abstra
   end
 
   ys = [string(ylabs[i]) for i = 1:length(ylabs)]
-  plot(xlims=(xmin, xmax), leg=false, framestyle=:grid)
+  p = plot(xlims=(xmin, xmax), leg=false, framestyle=:grid)
   title!(title)
   yran = range(1, stop=length(ylabs), length=length(ys))
   yticks!(yran, ys)
@@ -96,8 +96,10 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::Abstra
       end
     end
   end
-  savefig(fig)
-  s
+  if length(fig) > 0
+    savefig(p, fig)
+  end
+  (s, p)
 end
 
 """

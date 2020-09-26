@@ -9,31 +9,26 @@ $(SIGNATURES)
 ```julia
 * `models`                             : Vector of `SampleModel`s to compare
 * `pars`                               : Vector of parameters to include in comparison
-* `fig`                                : File to store the produce plot
 ```
 ### Optional arguments
 ```julia
+* `fig`                                : File to store plot
 * `title=""`                           : Title for plot
-* `func=nothing`                       : Optional funtion to apply to sample dataframe
+* `func=nothing`                       : Funtion to apply to sample df
 ```
 Currently the only function available is `quap`.
 
 The function will be called with a single argument, a dataframe constructed from all
 samples in all chains in the SampleModels. 
 
-It return a Partcles type NamedTuple. e.g.:
-```julia
-(a = 0.000527 ± 0.1, bM = -0.0628 ± 0.16, bA = -0.608 ± 0.16, sigma = 0.828 ± 0.089)
-```
-An example can be found in `scipts/05/clip-13.jl`.
-
 ### Return values
 ```julia
-* `result::NamedTuple`                 : Vector{NamedTuple} of estimates (Particles or Quap)
+* `(s, f)`                             : (particles, plot)
 ```
 
 """
-function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol}, fig::AbstractString, title="", func=nothing)
+function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol};
+  fig="", title="", func=nothing)
 
   mnames = [models[i].name for i in 1:length(models)]
   levels = length(models) * (length(pars) + 1)
@@ -118,26 +113,21 @@ $(SIGNATURES)
 ### Optional arguments
 ```julia
 * `title=""`                           : Title for plot
-* `func=nothing`                       : Optional funtion to apply to sample dataframe
+* `func=nothing`                       : Funtion to apply to sample dataframe
 ```
 Currently the only function available is `quap`.
 
 The function will be called with a single argument, a dataframe constructed from all
 samples in all chains in the SampleModel.
 
-It returns a Particles type NamedTuple. e.g.:
-```julia
-(a = 0.000527 ± 0.1, bM = -0.0628 ± 0.16, bA = -0.608 ± 0.16, sigma = 0.828 ± 0.089)
-```
-An examples can be found in `scipts/06/clip-12-05.jl`.
-
 ### Return values
 ```julia
-* `result::NamedTuple`                 : NamedTuple of estimates (Particles or Quap)
+* `(s, f)`                             : (particles, plot)
 ```
 
 """
-function plotcoef(model::SampleModel, pars::Vector{Symbol}, fig::AbstractString, title="", func=nothing)
+function plotcoef(model::SampleModel, pars::Vector{Symbol};
+  fig="", title="", func=nothing)
 
   mname = model.name
   levels = length(pars)
@@ -166,8 +156,8 @@ function plotcoef(model::SampleModel, pars::Vector{Symbol}, fig::AbstractString,
    append!(ys, [String(pars[i])])
   end
 
-  plot(xlims=(xmin, xmax), leg=false, framestyle=:grid)
-  title!(title)
+  p = plot(xlims=(xmin, xmax), leg=false, framestyle=:grid)
+  length(title) > 0 && title!(title)
   yran = range(0, stop=length(ys)-1, length=length(ys))
   yticks!(yran, ys)
 
@@ -181,8 +171,10 @@ function plotcoef(model::SampleModel, pars::Vector{Symbol}, fig::AbstractString,
       scatter!([mp], [lineno], color=colors[pindx])
     end
   end
-  savefig(fig)
-  s
+  if length(fig) > 0
+    savefig(p, fig)
+  end
+  (s, p)
 end
 
 export

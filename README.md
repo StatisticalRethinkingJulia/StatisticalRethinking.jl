@@ -9,7 +9,7 @@
 
 This is a breaking change from previous versions of StatisticalRethinking.jl. I expect the first stage of this work to be completed by late Oct 2020.
 
-Given that Julia provides several very capable packages that support mcmc simulations, it only seemed appropiate to make StatisticalRethinking mcmc implementation independent.
+Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropiate to make StatisticalRethinking mcmc implementation independent.
 
 The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) were a few of the ideas that triggered exploring a new setup for StatisticalRethinkingJulia.
 
@@ -19,9 +19,9 @@ An early, experimental version of StructuralCausalModels.jl is also included as 
 
 The StatisticalRethinking.jl v3 `package` contains functions comparable to the functions in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath. These functions are used in the Pluto notebooks in `projects`.
 
-Thus, to work through the StatisticalRethinking book using Julia and Stan, download `project` [StatisticalRethinkingStan.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and open one of the chapter Pluto notebooks.
+To work through the StatisticalRethinking book using Julia and Stan, download `project` [StatisticalRethinkingStan.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and open one of the chapter Pluto notebooks.
 
-Or, to work through the StatisticalRethinking book using Julia and Turing, download `project` [StatisticalRethinkingTuring.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl) and open a Pluto notebook.
+To work through the StatisticalRethinking book using Julia and Turing, download `project` [StatisticalRethinkingTuring.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl) and open a Pluto notebook.
 
 Time permitting I would love to see a StatisticalRethinkingDhmc.jl, which could be a combination of Soss.jl and DynamicHMC.jl, and a StatisticalRethinkingMamba.jl!
 
@@ -40,12 +40,11 @@ using Pkg, DrWatson
 
 @quickactivate "StatisticalRethinkingStan"
 
-# Optional mcmc packages
+# Optional mcmc packages if needed
 
 using StanSample              # Only if Stan is used
 using Turing                  # Only if Turing is used
 using LogDensityProblems      # Only if DynamicHMC is used
-using Mamba                   # Future work!
 
 # Nearly always needed
 
@@ -78,7 +77,7 @@ To install the package (from the REPL):
 ] add StatisticalRethinking
 ```
 
-but in most cases this package will be a dependency of another package, e.g. StatisticalRethinkingStan.jl.
+but in most cases this package will be a dependency of another package or project, e.g. StatisticalRethinkingStan.jl or StatisticalRethinkingTuring.jl.
 
 ## Documentation
 
@@ -87,7 +86,7 @@ but in most cases this package will be a dependency of another package, e.g. Sta
 
 ## Acknowledgements
 
-Of course, without this excellent textbook by Richard McElreath, this package would not have been possible. The author has also been supportive of this work and gave permission to use the datasets.
+Of course, without the excellent textbook by Richard McElreath, this package would not have been possible. The author has also been supportive of this work and gave permission to use the datasets.
 
 ## Questions and issues
 

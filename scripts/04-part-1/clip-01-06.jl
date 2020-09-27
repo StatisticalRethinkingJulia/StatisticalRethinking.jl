@@ -19,13 +19,14 @@ mx = minimum(csum) * 0.9
 
 # Plot and annotate the random walks
 
-p1 = plot(csum, leg=false, title="Random walks ($(noofwalks))")
-plot!(p1, csum[:, Int(floor(noofwalks/2))], leg=false, 
-title="Random walks ($(noofwalks))", color=:black)
+p1 = plot(csum, leg=false)
+title!("No of random walks = $(noofwalks)", color=:black)
+plot!(p1, csum[:, Int(floor(noofwalks/2))], leg=false)
 xtick_pos = [5,9,17]
-xtick_labels = ("step 4","step 8","step16")
-p1 = plot(csum, leg=false, xticks=(xtick_pos,xtick_labels), title="Random walks ($(noofwalks))")
-plot!(p1, csum[:, Int(floor(noofwalks/2))], leg=false, title="Random walks ($(noofwalks))",         color=:black)
+xtick_labels = ("step 4", "step 8", "step 16")
+p1 = plot(csum, leg=false, xticks=(xtick_pos,xtick_labels))
+title!("No of random walks = $(noofwalks)", color=:black)
+plot!(p1, csum[:, Int(floor(noofwalks/2))], leg=false, color=:black)
 for (i,pos) in enumerate(xtick_pos)
   plot!(p1, [pos], seriestype="vline")
 end

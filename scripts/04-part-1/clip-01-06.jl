@@ -19,17 +19,17 @@ mx = minimum(csum) * 0.9
 
 # Plot and annotate the random walks
 
-p1 = plot(csum, leg=false, title="Random walks ($(noofwalks))",
-  xticks=false)
+p1 = plot(csum, leg=false, title="Random walks ($(noofwalks))")
 plot!(p1, csum[:, Int(floor(noofwalks/2))], leg=false, 
-  title="Random walks ($(noofwalks))", color=:black)
-#xticks!(["4", "8", "12", "16"])
-plot!(p1, [5], seriestype="vline")
-annotate!(5, mx, text("step 4", f, :left))
-plot!(p1, [9], seriestype="vline")
-annotate!(9, mx, text("step 8", f, :left))
-plot!(p1, [17], seriestype="vline")
-annotate!(17, mx, text("step 16", f, :left))
+title="Random walks ($(noofwalks))", color=:black)
+xtick_pos = [5,9,17]
+xtick_labels = ("step 4","step 8","step16")
+p1 = plot(csum, leg=false, xticks=(xtick_pos,xtick_labels), title="Random walks ($(noofwalks))")
+plot!(p1, csum[:, Int(floor(noofwalks/2))], leg=false, title="Random walks ($(noofwalks))",         color=:black)
+for (i,pos) in enumerate(xtick_pos)
+  plot!(p1, [pos], seriestype="vline")
+end
+
 savefig("$ProjDir/Fig-01-06.1.png")
 
 # Generate 3 plots of densities at 3 different step numbers (4, 8 and 16)

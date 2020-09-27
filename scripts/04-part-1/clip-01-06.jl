@@ -11,7 +11,7 @@ ProjDir = @__DIR__
 noofsteps = 20;
 noofwalks = 15;
 pos = Array{Float64, 2}(rand(Uniform(-1, 1), noofsteps, noofwalks));
-pos[1, :] .= zeros(noofwalks);
+pos[1, :] = zeros(noofwalks);
 csum = cumsum(pos, dims=1);
 
 f = Plots.font("DejaVu Sans", 6)
@@ -19,14 +19,17 @@ mx = minimum(csum) * 0.9
 
 # Plot and annotate the random walks
 
-p1 = plot(csum, leg=false, title="Random walks ($(noofwalks))")
-plot!(p1, csum[:, Int(floor(noofwalks/2))], leg=false, title="Random walks ($(noofwalks))", color=:black)
-plot!(p1, [4], seriestype="vline")
-annotate!(4, mx, text("step 4", f, :left))
-plot!(p1, [8], seriestype="vline")
-annotate!(8, mx, text("step 8", f, :left))
-plot!(p1, [16], seriestype="vline")
-annotate!(16, mx, text("step 16", f, :left))
+p1 = plot(csum, leg=false, title="Random walks ($(noofwalks))",
+  xticks=false)
+plot!(p1, csum[:, Int(floor(noofwalks/2))], leg=false, 
+  title="Random walks ($(noofwalks))", color=:black)
+#xticks!(["4", "8", "12", "16"])
+plot!(p1, [5], seriestype="vline")
+annotate!(5, mx, text("step 4", f, :left))
+plot!(p1, [9], seriestype="vline")
+annotate!(9, mx, text("step 8", f, :left))
+plot!(p1, [17], seriestype="vline")
+annotate!(17, mx, text("step 16", f, :left))
 savefig("$ProjDir/Fig-01-06.1.png")
 
 # Generate 3 plots of densities at 3 different step numbers (4, 8 and 16)

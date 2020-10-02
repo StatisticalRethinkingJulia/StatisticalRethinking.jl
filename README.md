@@ -9,7 +9,7 @@
 
 This is a breaking change from previous versions of StatisticalRethinking.jl. I expect the first stage of this work to be completed by late Oct 2020.
 
-Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropiate to make StatisticalRethinking mcmc implementation independent.
+Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropriate to make StatisticalRethinking mcmc implementation independent.
 
 The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) were a few of the ideas that triggered exploring a new setup for StatisticalRethinkingJulia.
 

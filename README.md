@@ -15,6 +15,7 @@ The availablility of DynamicHMC, the huge progress made by the Turing.jl team ov
 
 An early, experimental version of StructuralCausalModels.jl is also included as a dependency in the StatisticalRethinking.jl v3 package.
 
+
 ## Purpose of this package
 
 The StatisticalRethinking.jl v3 `package` contains functions comparable to the functions in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath. These functions are used in the Pluto notebooks in `projects`.

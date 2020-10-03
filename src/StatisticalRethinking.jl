@@ -32,6 +32,9 @@ Relative path using the StatisticalRethinking src/ directory.
 rel_path("..", "data")
 ```
 
+Note that in the projects, e.g. StatisticalRethinkingStan.jl and StatisticalRethinkingTuring.jl, the
+DrWatson approach is a better choics, i.e: `sr_datadir(filename)`
+
 """
 rel_path(parts...) = normpath(joinpath(src_path, parts...))
 

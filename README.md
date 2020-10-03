@@ -25,7 +25,16 @@ Time permitting I would love to see a StatisticalRethinkingDhmc.jl, which could 
 
 If interested in either of the last 2 projects, please contact me!
 
-Late Oct 2020 is the target date to merge StatisticalRethinking.jl v3 into the Julia package repository. I plan to maintain (but not further develop) v2 for at least 2 more years. Come late Oct 2020 StatisticalRethinkingStan.jl v3 should cover the same material as StatisticalRethinking.jl v2.
+Late Oct 2020 is the target date to merge StatisticalRethinking.jl v3 into the Julia package repository. Come late Oct 2020 StatisticalRethinkingStan.jl v3 should cover the same material as StatisticalRethinking.jl v2.
+
+I plan to maintain (but not further develop) v2 for at least 2 more years. To revert back to StatisticalRethinking.jl v2, do:
+```
+] add StatisticalRethinking@2.2.6
+```
+
+### Version 2.2.7 (in preparation)
+
+Latest release of StatisticalRethinking v2 (once SR v3 is released)
 
 ### Version 2.2.6
 

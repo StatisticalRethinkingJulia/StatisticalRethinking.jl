@@ -2,7 +2,8 @@ module StatisticalRethinking
 
 using Reexport, Requires
 
-@reexport using StatsBase, Statistics, Random, Distributions
+@reexport using StatsBase, Statistics
+@reexport using LinearAlgebra, Random, Distributions
 @reexport using CSV, DataFrames
 @reexport using KernelDensity, StatsPlots, LaTeXStrings
 @reexport using NamedArrays, StatsFuns

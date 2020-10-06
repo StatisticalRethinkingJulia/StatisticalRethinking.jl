@@ -20,6 +20,6 @@ $(SIGNATURES)
 """
 function precis(m::DynamicPPL.Model; io = stdout, digits = 2, depth = Inf, alpha = 0.11)
     chns = mapreduce(c -> sample(m, NUTS(0.65), 2000), chainscat, 1:4)
-    df = DataFrame(chns)
+    df = DataFrame(Array(chns), names(chns, [:parameters]))
     precis(df)
 end

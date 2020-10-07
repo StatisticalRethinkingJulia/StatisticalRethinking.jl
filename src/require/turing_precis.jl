@@ -18,8 +18,10 @@ end
 $(SIGNATURES)
 
 """
-function precis(m::DynamicPPL.Model; io = stdout, digits = 2, depth = Inf, alpha = 0.11)
-    chns = mapreduce(c -> sample(m, NUTS(0.65), 2000), chainscat, 1:4)
+function precis(m::DynamicPPL.Model; 
+  io = stdout, digits = 2, depth = Inf, alpha = 0.11,
+  sampler=NUTS(0.65), nsamples=2000, nchains=4)
+    chns = mapreduce(c -> sample(m, sampler, nsamples), chainscat, 1:nchains)
     df = DataFrame(Array(chns), names(chns, [:parameters]))
     Text(precis(df; io=String))
 end

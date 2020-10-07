@@ -29,10 +29,10 @@ samples in all chains in the SampleModels.
 """
 function plotcoef(
   models::Vector{T},
-  mnames::Vector{AbstractString},
+  mnames::Vector{String},
   pars::Vector{Symbol};
   fig="", title="", func=nothing,
-  sampler=NUTS(0.65), nsamples=2000, nchains=4)  where {T <: DynamicPPL.Model}
+  sampler=NUTS(0.65), nsamples=2000, nchains=4) where {T <: DynamicPPL.Model}
 
   levels = length(models) * (length(pars) + 1)
   colors = [:blue, :red, :green, :darkred, :black]
@@ -52,6 +52,8 @@ function plotcoef(
     end
   end
 
+  println(s)
+  
   xmin = 0; xmax = 0.0
   for i in 1:length(s)
     for par in pars

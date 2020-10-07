@@ -1,7 +1,7 @@
 """
 # plotcoef
 
-Multiple regression coefficient plot.
+Multiple regression coefficient plot for Turing models.
 
 $(SIGNATURES)
 
@@ -34,26 +34,34 @@ function plotcoef(
   fig="", title="", func=nothing,
   sampler=NUTS(0.65), nsamples=2000, nchains=4) where {T <: DynamicPPL.Model}
 
+  # mnames = [nameof(m) for m in models]
   levels = length(models) * (length(pars) + 1)
   colors = [:blue, :red, :green, :darkred, :black]
 
   s = Vector{NamedTuple}(undef, length(models))
   for (mindx, mdl) in enumerate(models)
     if isnothing(func)
-      chns = mapreduce(c -> sample(mdl, sampler, nsamples),
-        chainscat, 1:nchains)
-      df = DataFrame(Array(chns), names(chns, [:parameters]))
-      s[mindx] = Particles(df)
+        chns = mapreduce(c -> sample(mdl, sampler, nsamples),
+            chainscat, 1:nchains)
+        df = DataFrame(Array(chns), names(chns, [:parameters]))
+        m, l, u = estimparam(df)
+        d = Dict{Symbol, NamedTuple}()
+        for (indx, par) in enumerate(names(chns, [:parameters]))
+            d[par] = (mean=m[indx], lower=l[indx], upper=u[indx])
+        end
+        s[mindx] =   (; d...)
     else
-      quap_mdl = quap(mdl)
-      post = rand(quap_mdl.distr, 10_000)
-      df = DataFrame(post', [keys(nt.coef)...])
-      s[mindx] = Particles(df)
+        quap_mdl = quap(mdl)
+        post = rand(quap_mdl.distr, 10_000)
+        df = DataFrame(post', [keys(quap_mdl.coef)...])
+        m, l, u = estimparam(df)
+        d = Dict{Symbol, NamedTuple}()
+        for (indx, par) in enumerate(names(chns, [:parameters]))
+            d[par] = (mean=m[indx], lower=l[indx], upper=u[indx])
+        end
+        s[mindx] =   (; d...)
     end
   end
-
-  println(s)
-  
   xmin = 0; xmax = 0.0
   for i in 1:length(s)
     for par in pars
@@ -74,8 +82,8 @@ function plotcoef(
       str = repeat(" ", 9-l) * String(pars[i])
       append!(ylabs, [str])
     end
-    l = length(models[j].name)
-    str = models[j].name * repeat(" ", 9-l)
+    l = length(mnames[j])
+    str = mnames[j] * repeat(" ", 9-l)
     append!(ylabs, [str])
   end
 
@@ -110,7 +118,7 @@ end
 """
 # plotcoef
 
-Multiple regression coefficient plot.
+Multiple regression coefficient plot for a single Turing model.
 
 $(SIGNATURES)
 
@@ -143,19 +151,30 @@ function plotcoef(
   fig="", title="", func=nothing,
   sampler=NUTS(0.65), nsamples=2000, nchains=4)
 
+  # mname = nameof(mdl)
   levels = length(pars)
   colors = [:blue, :red, :green, :darkred, :black]
 
   if isnothing(func)
-    chns = mapreduce(c -> sample(mdl, sampler, nsamples),
-      chainscat, 1:nchains)
-    df = DataFrame(Array(chns), names(chns, [:parameters]))
-    s = Particles(df)
+      chns = mapreduce(c -> sample(mdl, sampler, nsamples),
+          chainscat, 1:nchains)
+      df = DataFrame(Array(chns), names(chns, [:parameters]))
+      m, l, u = estimparam(df)
+      d = Dict{Symbol, NamedTuple}()
+      for (indx, par) in enumerate(names(chns, [:parameters]))
+          d[par] = (mean=m[indx], lower=l[indx], upper=u[indx])
+      end
+      s[mindx] =   (; d...)
   else
-    quap_mdl = quap(mdl)
-    post = rand(quap_mdl.distr, 10_000)
-    df = DataFrame(post', [keys(nt.coef)...])
-    s = Particles(df)
+      quap_mdl = quap(mdl)
+      post = rand(quap_mdl.distr, 10_000)
+      df = DataFrame(post', [keys(quap_mdl.coef)...])
+      m, l, u = estimparam(df)
+      d = Dict{Symbol, NamedTuple}()
+      for (indx, par) in enumerate(names(chns, [:parameters]))
+          d[par] = (mean=m[indx], lower=l[indx], upper=u[indx])
+      end
+      s[mindx] =   (; d...)
   end
 
   xmin = 0; xmax = 0.0

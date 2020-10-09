@@ -29,12 +29,11 @@ samples in all chains in the SampleModels.
 """
 function plotcoef(
   models::Vector{T},
-  mnames::Vector{String},
   pars::Vector{Symbol};
   fig="", title="", func=nothing,
   sampler=NUTS(0.65), nsamples=2000, nchains=4) where {T <: DynamicPPL.Model}
 
-  # mnames = [nameof(m) for m in models]
+  mnames = String.(nameof.(models))
   levels = length(models) * (length(pars) + 1)
   colors = [:blue, :red, :green, :darkred, :black]
 
@@ -147,11 +146,11 @@ samples in all chains in the SampleModel.
 """
 function plotcoef(
   mdl::DynamicPPL.Model,
-  mname::AbstractString,
   pars::Vector{Symbol};
   fig="", title="", func=nothing,
   sampler=NUTS(0.65), nsamples=2000, nchains=4)
-
+  
+  mname = String(nameof(mdl))
   plotcoef([mdl], [mname], pars;
     fig, title, func, sampler, nsamples, nchains)
 

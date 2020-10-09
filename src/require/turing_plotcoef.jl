@@ -12,26 +12,29 @@ $(SIGNATURES)
 ```
 ### Optional arguments
 ```julia
-* `fig`                                : File to store plot
+* `fig=""`                             : File to store plot
 * `title=""`                           : Title for plot
+* `samples=NUTS(0.65)`                 : Sampler used for sampling
+* `nsamples=2000`                      : No of samples (1000 warmup, 1000 used)
+* `nchains=4`                          : No of chains used
 * `func=nothing`                       : Funtion to apply to sample df
+* `quap_samples=10000`                 : Default no of quap simulation samples
 ```
-Currently the only function available is `quap`.
-
-The function will be called with a single argument, a dataframe constructed from all
-samples in all chains in the SampleModels. 
+Currently the only function available is `quap` which will constrct
+a quap model and simulate 10000 draws.
 
 ### Return values
 ```julia
-* `(s, f)`                             : (particles, plot)
+* `(res, fig)`                         : (particles, plot)
 ```
 
 """
 function plotcoef(
   models::Vector{T},
   pars::Vector{Symbol};
-  fig="", title="", func=nothing,
-  sampler=NUTS(0.65), nsamples=2000, nchains=4) where {T <: DynamicPPL.Model}
+  fig="", title="",
+  sampler=NUTS(0.65), nsamples=2000, nchains=4,
+  func=nothing, quap_samples=10000) where {T <: DynamicPPL.Model}
 
   mnames = String.(nameof.(models))
   levels = length(models) * (length(pars) + 1)
@@ -130,28 +133,31 @@ $(SIGNATURES)
 ```
 ### Optional arguments
 ```julia
+* `fig=""`                             : File to store plot
 * `title=""`                           : Title for plot
-* `func=nothing`                       : Funtion to apply to sample dataframe
+* `samples=NUTS(0.65)`                 : Sampler used for sampling
+* `nsamples=2000`                      : No of samples (1000 warmup, 1000 used)
+* `nchains=4`                          : No of chains used
+* `func=nothing`                       : Funtion to apply to sample df
 ```
-Currently the only function available is `quap`.
-
-The function will be called with a single argument, a dataframe constructed from all
-samples in all chains in the SampleModel.
+Currently the only function available is `quap` which will constrct
+a quap model and simulate 10000 draws.
 
 ### Return values
 ```julia
-* `(s, f)`                             : (particles, plot)
+* `(res, fig)`                         : (particles, plot)
 ```
 
 """
 function plotcoef(
   mdl::DynamicPPL.Model,
   pars::Vector{Symbol};
-  fig="", title="", func=nothing,
-  sampler=NUTS(0.65), nsamples=2000, nchains=4)
+  fig="", title="",
+  sampler=NUTS(0.65), nsamples=2000, nchains=4,
+  func=nothing, quap_samples=10000)
   
   plotcoef([mdl], pars;
-    fig, title, func, sampler, nsamples, nchains)
+    fig, title, sampler, nsamples, nchains, func, quap_samples)
 
  end
 

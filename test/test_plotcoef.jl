@@ -1,12 +1,11 @@
-# Not quite sure yet how to do these cross mcmc tests inside SR's test dir.
 
 using Markdown
 using InteractiveUtils
-using Test
-using Pkg, DrWatson
+
+using DrWatson
 
 begin
-  #@quickactivate "StatisticalRethinking"
+  @quickactivate "StatisticalRethinkingTuring"
   using Turing
   using StatisticalRethinking
 end
@@ -87,14 +86,137 @@ begin
         (mu5_1_A_Mt.mean .- mu5_1_A_Mt.lower, mu5_1_A_Mt.upper .- mu5_1_A_Mt.mean))
 end
 
-s, p = plotcoef(
-    [m5_1_At, m5_1_Mt, m5_1_A_Mt], 
-    ["m5_1_At", "m5_1_Mt", "m5_1_A_Mt"], 
-    [:a, :bM, :bA, :σ]
+function plotcoef1(
+  models::Vector{T},
+  mnames::Vector{String},
+  pars::Vector{Symbol};
+  fig="", title="", func=nothing,
+  sampler=NUTS(0.65), nsamples=2000, nchains=4) where {T <: DynamicPPL.Model}
 
+  # mnames = [nameof(m) for m in models]
+  levels = length(models) * (length(pars) + 1)
+  colors = [:blue, :red, :green, :darkred, :black]
+
+  s = Vector{NamedTuple}(undef, length(models))
+  for (mindx, mdl) in enumerate(models)
+    if isnothing(func)
+        chns = mapreduce(c -> sample(mdl, sampler, nsamples),
+            chainscat, 1:nchains)
+        df = DataFrame(Array(chns), names(chns, [:parameters]))
+        m, l, u = estimparam(df)
+        d = Dict{Symbol, NamedTuple}()
+        for (indx, par) in enumerate(names(chns, [:parameters]))
+            d[par] = (mean=m[indx], lower=l[indx], upper=u[indx])
+        end
+        s[mindx] =   (; d...)
+    else
+        quap_mdl = quap(mdl)
+        post = rand(quap_mdl.distr, 10_000)
+        df = DataFrame(post', [keys(quap_mdl.coef)...])
+        m, l, u = estimparam(df)
+        d = Dict{Symbol, NamedTuple}()
+        for (indx, par) in enumerate([keys(quap_mdl.coef)...])
+            d[par] = (mean=m[indx], lower=l[indx], upper=u[indx])
+        end
+        s[mindx] =   (; d...)
+    end
+  end
+
+  xmin = 0; xmax = 0.0
+  for i in 1:length(s)
+    for par in pars
+      syms = Symbol.(keys(s[i]))
+      if Symbol(par) in syms
+        mp = s[i][par].mean
+        xmin = min(xmin, s[i][par].lower)
+        xmax = max(xmax, s[i][par].upper)
+      end
+    end
+  end
+
+  ylabs = String[]
+  for j in 1:length(models)
+    for i in 1:length(pars)
+      l = length(String(pars[i]))
+      str = repeat(" ", 9-l) * String(pars[i])
+      append!(ylabs, [str])
+    end
+    l = length(mnames[j])
+    str = mnames[j] * repeat(" ", 9-l)
+    append!(ylabs, [str])
+  end
+
+  ys = [string(ylabs[i]) for i = 1:length(ylabs)]
+  p = plot(xlims=(xmin, xmax), leg=false, framestyle=:grid)
+  title!(title)
+  yran = range(1, stop=length(ylabs), length=length(ys))
+  yticks!(yran, ys)
+
+  line = 0
+  for (mindx, model) in enumerate(models)
+    line += 1
+    hline!([line] .+ length(pars), color=:darkgrey, line=(2, :dash))
+    for (pindx, par) in enumerate(pars)
+      line += 1
+      syms = Symbol.(keys(s[mindx]))
+      if Symbol(par) in syms
+        ypos = (line - 1)
+        mp = s[mindx][Symbol(par)].mean
+        lower = s[mindx][Symbol(par)].lower
+        upper = s[mindx][Symbol(par)].upper
+        plot!([lower, upper], [ypos, ypos], leg=false, color=colors[pindx])
+        scatter!([mp], [ypos], color=colors[pindx])
+      end
+    end
+  end
+  if length(fig) > 0
+    savefig(p, fig)
+  end
+  (s, p)
+end
+
+s1, p1 = plotcoef(
+    [m5_1_At, m5_1_Mt, m5_1_A_Mt], 
+    [:a, :bM, :bA, :σ]
 )
 
-@test length(s) == 3
-@test s[1].a.mean ≈ 0.0 atol=0.01
-@test s[1].bA.mean = -0.56 atol=0.01
+s1 |> display
 
+plot(p1)
+
+gui()
+
+s2, p2 = plotcoef(
+    [m5_1_At, m5_1_Mt, m5_1_A_Mt], 
+    [:a, :bM, :bA, :σ];
+    func=quap
+)
+
+s2 |> display
+
+plot(p2)
+
+gui()
+
+s3, p3 = plotcoef(
+    [m5_1_At], 
+    [:a, :bM, :bA, :σ]
+)
+
+s3 |> display
+
+plot(p3)
+
+gui()
+
+s4, p4 = plotcoef(
+    m5_1_At, 
+    [:a, :bM, :bA, :σ];
+    func=quap
+)
+
+s4 |> display
+
+plot(p4)
+
+gui()

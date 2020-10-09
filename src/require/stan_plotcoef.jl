@@ -12,7 +12,7 @@ $(SIGNATURES)
 ```
 ### Optional arguments
 ```julia
-* `fig`                                : File to store plot
+* `fig=""`                             : File to store plot
 * `title=""`                           : Title for plot
 * `func=nothing`                       : Funtion to apply to sample df
 ```
@@ -27,8 +27,11 @@ samples in all chains in the SampleModels.
 ```
 
 """
-function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol};
-  fig="", title="", func=nothing)
+function plotcoef(
+  models::Vector{SampleModel}, 
+  pars::Vector{Symbol};
+  fig="", title="", 
+  func=nothing)
 
   mnames = [models[i].name for i in 1:length(models)]
   levels = length(models) * (length(pars) + 1)
@@ -37,10 +40,25 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol};
   s = Vector{NamedTuple}(undef, length(models))
   for (mindx, mdl) in enumerate(models)
     if isnothing(func)
-      s[mindx] = read_samples(mdl; output_format=:particles)
+      df = read_samples(mdl; output_format=:dataframe)
+      m, l, u = estimparam(df)
+      d = Dict{Symbol, NamedTuple}()
+      for (indx, par) in enumerate(names(df))
+          d[par] = (mean=m[indx], lower=l[indx], upper=u[indx])
+      end
+      s[mindx] =   (; d...)
     else
-      dfs = read_samples(mdl; output_format=:dataframe)      
-      s[mindx] = func(dfs)
+      df = read_samples(mdl; output_format=:dataframe) 
+      m, l, u = estimparam(df)
+      d = Dict{Symbol, NamedTuple}()
+      for (indx, par) in enumerate(names(df))
+          d[par] = (mean=m[indx], lower=l[indx], upper=u[indx])
+      end
+
+      # TODO: Implement quap simulation
+
+      #s[mindx] = func(dfs)
+      s[mindx] =   (; d...)
     end
   end
 
@@ -49,10 +67,9 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol};
     for par in pars
       syms = Symbol.(keys(s[i]))
       if Symbol(par) in syms
-        mp = mean(s[i][Symbol(par)])
-        sp = std(s[i][Symbol(par)])
-        xmin = min(xmin, mp - sp)
-        xmax = max(xmax, mp + sp)
+        mp = s[i][par].mean
+        xmin = min(xmin, s[i][par].lower)
+        xmax = max(xmax, s[i][par].upper)
       end
     end
   end
@@ -64,8 +81,8 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol};
       str = repeat(" ", 9-l) * String(pars[i])
       append!(ylabs, [str])
     end
-    l = length(models[j].name)
-    str = models[j].name * repeat(" ", 9-l)
+    l = length(mnames[j])
+    str = mnames[j] * repeat(" ", 9-l)
     append!(ylabs, [str])
   end
 
@@ -84,9 +101,10 @@ function plotcoef(models::Vector{SampleModel}, pars::Vector{Symbol};
       syms = Symbol.(keys(s[mindx]))
       if Symbol(par) in syms
         ypos = (line - 1)
-        mp = mean(s[mindx][Symbol(par)])
-        sp = std(s[mindx][Symbol(par)])
-        plot!([mp-sp, mp+sp], [ypos, ypos], leg=false, color=colors[pindx])
+        mp = s[mindx][Symbol(par)].mean
+        lower = s[mindx][Symbol(par)].lower
+        upper = s[mindx][Symbol(par)].upper
+        plot!([lower, upper], [ypos, ypos], leg=false, color=colors[pindx])
         scatter!([mp], [ypos], color=colors[pindx])
       end
     end
@@ -129,52 +147,8 @@ samples in all chains in the SampleModel.
 function plotcoef(model::SampleModel, pars::Vector{Symbol};
   fig="", title="", func=nothing)
 
-  mname = model.name
-  levels = length(pars)
-  colors = [:blue, :red, :green, :darkred, :black]
+  plotcoef([model], pars; fig, title, func)
 
-  if isnothing(func)
-    s = read_samples(model; output_format=:particles)
-  else
-    dfs = read_samples(model; output_format=:dataframe)      
-    s = func(dfs)
-  end
-
-  xmin = 0; xmax = 0.0
-  for par in pars
-    syms = Symbol.(keys(s))
-    if Symbol(par) in syms
-      mp = mean(s[Symbol(par)])
-      sp = std(s[Symbol(par)])
-      xmin = min(xmin, mp - sp)
-      xmax = max(xmax, mp + sp)
-    end
-  end
-
-  ys = String[""]
-  for i in 1:length(pars)
-   append!(ys, [String(pars[i])])
-  end
-
-  p = plot(xlims=(xmin, xmax), leg=false, framestyle=:grid)
-  length(title) > 0 && title!(title)
-  yran = range(0, stop=length(ys)-1, length=length(ys))
-  yticks!(yran, ys)
-
-  for (pindx, par) in enumerate(pars)
-    syms = Symbol.(keys(s))
-    if Symbol(par) in syms
-      lineno = pindx
-      mp = mean(s[Symbol(par)])
-      sp = std(s[Symbol(par)])
-      plot!([mp-sp, mp+sp], [lineno, lineno], leg=false, color=colors[pindx])
-      scatter!([mp], [lineno], color=colors[pindx])
-    end
-  end
-  if length(fig) > 0
-    savefig(p, fig)
-  end
-  (s, p)
 end
 
 export

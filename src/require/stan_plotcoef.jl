@@ -16,10 +16,7 @@ $(SIGNATURES)
 * `title=""`                           : Title for plot
 * `func=nothing`                       : Funtion to apply to sample df
 ```
-Currently the only function available is `quap`.
-
-The function will be called with a single argument, a dataframe constructed from all
-samples in all chains in the SampleModels. 
+Currently the only function available is `quap`. NOT YET IMPLEMENTED.
 
 ### Return values
 ```julia
@@ -44,7 +41,7 @@ function plotcoef(
       m, l, u = estimparam(df)
       d = Dict{Symbol, NamedTuple}()
       for (indx, par) in enumerate(names(df))
-          d[par] = (mean=m[indx], lower=l[indx], upper=u[indx])
+          d[Symbol(par)] = (mean=m[indx], lower=l[indx], upper=u[indx])
       end
       s[mindx] =   (; d...)
     else
@@ -52,7 +49,7 @@ function plotcoef(
       m, l, u = estimparam(df)
       d = Dict{Symbol, NamedTuple}()
       for (indx, par) in enumerate(names(df))
-          d[par] = (mean=m[indx], lower=l[indx], upper=u[indx])
+          d[Symbol(par)] = (mean=m[indx], lower=l[indx], upper=u[indx])
       end
 
       # TODO: Implement quap simulation
@@ -133,10 +130,7 @@ $(SIGNATURES)
 * `title=""`                           : Title for plot
 * `func=nothing`                       : Funtion to apply to sample dataframe
 ```
-Currently the only function available is `quap`.
-
-The function will be called with a single argument, a dataframe constructed from all
-samples in all chains in the SampleModel.
+Currently the only function available is `quap`. NOT YET IMPLEMENTED.
 
 ### Return values
 ```julia

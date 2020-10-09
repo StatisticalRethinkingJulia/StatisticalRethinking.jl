@@ -150,8 +150,7 @@ function plotcoef(
   fig="", title="", func=nothing,
   sampler=NUTS(0.65), nsamples=2000, nchains=4)
   
-  mname = String(nameof(mdl))
-  plotcoef([mdl], [mname], pars;
+  plotcoef([mdl], pars;
     fig, title, func, sampler, nsamples, nchains)
 
  end

@@ -18,7 +18,7 @@ end
 $(SIGNATURES)
 
 """
-function precis(df::DataFrame; io = stdout, digits = 2, depth = Inf, alpha = 0.11)
+function precis(df::DataFrame; io = stdout, digits = 4, depth = Inf, alpha = 0.11)
     d = DataFrame()
     d.param = names(df)
     d.mean = mean.(eachcol(df))

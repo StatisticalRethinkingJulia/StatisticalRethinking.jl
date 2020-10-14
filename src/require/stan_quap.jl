@@ -1,3 +1,7 @@
+import StatsBase: sample
+import MonteCarloMeasurements:Particles
+import StatisticalRethinking: quap
+
 """
 
 # QuapModel
@@ -22,7 +26,7 @@ function quap(sm::SampleModel)
   QuapModel(sm, n, p, c, v)
 end
 
-function Particles(qm::QuapModel; nsamples=10000)
+function Particles(qm::T; nsamples=10000) where {T <: QuapModel}
   d = Dict{Symbol, Particles}()
   p = Particles(nsamples, MvNormal(qm.coef, qm.vcov))
   for (ind, key) in enumerate(qm.names)
@@ -31,17 +35,17 @@ function Particles(qm::QuapModel; nsamples=10000)
   (;d...)
 end
 
-function precis(qm::QuapModel; nsamples=10000)
+function sample(qm::QuapModel; nsamples=10000)
   d = DataFrame()
   p = Particles(qm; nsamples)
   for key in qm.names
     d[key] = p[key].particles
   end
-  precis(d)
+  d
 end
 
 export
   QuapModel,
   quap,
   Particles,
-  precis
+  sample

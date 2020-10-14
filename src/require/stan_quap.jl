@@ -41,4 +41,7 @@ function precis(qm::QuapModel; nsamples=10000)
 end
 
 export
-  QuapModel
+  QuapModel,
+  quap,
+  Particles,
+  precis

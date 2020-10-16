@@ -56,7 +56,7 @@ include("pairsplot.jl")
 include("simulate.jl")
 include("srtools.jl")
 include("sim_happiness.jl")
-!isdefined(Main, :convert_a3d) && include("convert_a3d.jl")
+include("convert_a3d.jl")
 include("plot_density_interval.jl")
 include("plotbounds.jl")
 

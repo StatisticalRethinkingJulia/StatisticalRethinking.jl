@@ -56,7 +56,10 @@ include("pairsplot.jl")
 include("simulate.jl")
 include("srtools.jl")
 include("sim_happiness.jl")
-include("convert_a3d.jl")
+#if isdefined(Main, :StanSample)
+#  import StanSample: convert_a3d
+#end
+#include("convert_a3d.jl")
 include("plot_density_interval.jl")
 include("plotbounds.jl")
 

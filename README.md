@@ -43,20 +43,22 @@ using Pkg, DrWatson
 
 # Optional mcmc packages if needed
 
-using StanSample              # Only if Stan is used
-using Turing                  # Only if Turing is used
-using LogDensityProblems      # Only if DynamicHMC is used
+using Turing                   # Only needed if Turing is used
+#using StanSample              # Only needed if Stan is used
+#using LogDensityProblems      # Only needed if DynamicHMC is used
 
-# Nearly always needed
+# Nearly alway (also includes the data sets):
 
 using StatisticalRethinking
 
 # To access e.g. the Howell1.csv data file:
-d = CSV.read(sr_datadir("Howell1.csv"), DataFrame)
-d2 = d[d.age .>= 18, :]
+df = CSV.read(sr_datadir("Howell1.csv"), DataFrame)
+df = df[df.age .>= 18, :]
 ```
 
-StatisticalRethinking.jl v3 does not declare `Pkg`, `DrWatson`, `Pluto`, `PlutoUI` or any of the above mcmc options as a dependency. They need to be `add`-ed separatedly.
+StatisticalRethinking.jl v3 does not declare `Pkg`, `DrWatson`, `Pluto` or `PlutoUI` as a dependency. They need to be `add`-ed separatedly.
+
+The projects include the mcmc option used as a dependency, i.e. StatisticalRethinkingTurings's Project.toml includes Turing.jl as a dependency.
 
 ## Versions
 
@@ -67,8 +69,6 @@ StatisticalRethinking.jl v3 is independent of the underlying mcmc package. All s
 Initially StatisticalRethinkingTuring.jl will lag StatisticalRethinkingStan.jl somewhat but later this year both will cover the same chapters.
 
 It is the intention to develop *tests* for StatisticalRethinking.jl v3 that work across the different mcmc implementations. This will limit dependencies to the `test/Project.toml`.
-
-Any feedback is appreciated. Please open an issue.
 
 ## Installation
 

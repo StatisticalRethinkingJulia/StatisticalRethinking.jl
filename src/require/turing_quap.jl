@@ -1,7 +1,6 @@
 using LinearAlgebra
 import StatisticalRethinking: quap
 
-
 #      Run like
 # using Turing
 # @model height(heights) = begin

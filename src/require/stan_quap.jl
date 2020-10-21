@@ -6,7 +6,6 @@ import StatisticalRethinking: quap
 
 # QuapModel
 
-
 """
 struct QuapModel
   sm::SampleModel

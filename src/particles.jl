@@ -1,5 +1,7 @@
 using MonteCarloMeasurements, MCMCChains, AxisArrays
 
+# This is copied and shortened from Turing2MonteCarloChains.jl!
+
 function MonteCarloMeasurements.Particles(t::NTuple{N, <:AxisArrays.AxisArray}; start=0) where N
     [adapted_particles(t[i].data[start+1:end,:]) for i in 1:N]
 end
@@ -7,7 +9,6 @@ end
 function MonteCarloMeasurements.Particles(a::AxisArrays.AxisArray; start=0)
     adapted_particles(a.data[start+1:end,:])
 end
-
 
 """
     Particles(chain::Chains; start=0)

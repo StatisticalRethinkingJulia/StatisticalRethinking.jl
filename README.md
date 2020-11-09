@@ -15,9 +15,7 @@ The availablility of DynamicHMC, the huge progress made by the Turing.jl team ov
 
 An early, experimental version of StructuralCausalModels.jl is also included as a dependency in the StatisticalRethinking.jl v3 package. In the meantime I will definitely keep my eyes on Omega.jl and CausalInference.jl. StructuralCausalModels does provide ways to convert DAGs to Daggity and ggm formats.
 
-Finally, for a good while I have been looking for a great statistics book using Julia as kind of an introductory text to StatisticalRethinking and I believe an upcoming book [Statistics with Julia](https://statisticswithjulia.org/index.html) by Yoni Nazarathy and Hayden Klok is exactly that.
-
-As [StatisticalRethinking](https://github.com/StatisticalRethinkingJulia) v3 is also (DrWatson & Pkg) project based and will use Pluto notebooks, I have converted the book `listings` in the first 3 chapters to Pluto Notebooks as a proof of concept in a new repository in StatisticalRethinkingJulia, i.e. [StatisticsWithJuliaPlutoNotebooks](https://github.com/StatisticalRethinkingJulia/StatisticsWithJuliaPlutoNotebooks.jl).
+Finally, for a good while I have been looking for a great statistics book using Julia as kind of an introductory text to StatisticalRethinking and I believe an upcoming book [Statistics with Julia](https://statisticswithjulia.org/index.html) by Yoni Nazarathy and Hayden Klok is exactly that. As [StatisticalRethinking](https://github.com/StatisticalRethinkingJulia) v3 is also (DrWatson & Pkg) project based and will use Pluto notebooks, I have converted the book `listings` in the first 3 chapters to Pluto Notebooks as a proof of concept in a new repository in StatisticalRethinkingJulia, i.e. [StatisticsWithJuliaPlutoNotebooks](https://github.com/StatisticalRethinkingJulia/StatisticsWithJuliaPlutoNotebooks.jl).
 
 ## Purpose of this package
 

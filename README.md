@@ -19,17 +19,27 @@ As stated many times by the author in his [online lectures](https://www.youtube.
 
 ### Version 3
 
-A version 3 of StatisticalRethinking.jl is under development. This is a major change from version 2 as StatisticalRethinking.jl v3 is mcmc implementation independent and all clips are moved to Pluto notebooks. The Pluto notebooks are contained in Julia `project`s, e.g. [StatisticalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) or [StatisticalRethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl).
+A version 3 of StatisticalRethinking.jl is under development.
+
+This is a breaking change from previous versions of StatisticalRethinking.jl. I expect the first stage of this work to be completed by late Nov 2020.
+
+Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropriate to make StatisticalRethinking mcmc implementation independent.
+
+The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) were a few of the ideas that triggered exploring a new setup for StatisticalRethinkingJulia.
+
+An early, experimental version of StructuralCausalModels.jl is also included as a dependency in the StatisticalRethinking.jl v3 package. In the meantime I will definitely keep my eyes on Omega.jl and CausalInference.jl. StructuralCausalModels does provide ways to convert DAGs to Daggity and ggm formats.
+
+Finally, for a good while I have been looking for a great statistics book using Julia as kind of an introductory text to StatisticalRethinking and I believe an upcoming book [Statistics with Julia](https://statisticswithjulia.org/index.html) by Yoni Nazarathy and Hayden Klok is exactly that. As [StatisticalRethinking](https://github.com/StatisticalRethinkingJulia) v3 is also (DrWatson & Pkg) project based and will use Pluto notebooks, I have converted the book `listings` in the first 3 chapters to Pluto Notebooks as a proof of concept in a new repository in StatisticalRethinkingJulia, i.e. [StatisticsWithJuliaPlutoNotebooks](https://github.com/StatisticalRethinkingJulia/StatisticsWithJuliaPlutoNotebooks.jl).
 
 Time permitting I would love to see a StatisticalRethinkingDhmc.jl, which could be a combination of Soss.jl and DynamicHMC.jl, and a StatisticalRethinkingMamba.jl!
 
 If interested in either of the last 2 projects, please contact me!
 
-Late Oct 2020 is the target date to merge StatisticalRethinking.jl v3 into the Julia package repository. Come late Oct 2020 StatisticalRethinkingStan.jl v3 should cover the same material as StatisticalRethinking.jl v2.
+Late Nov 2020 is the target date to merge StatisticalRethinking.jl v3 into the Julia package repository. Come late Oct 2020 StatisticalRethinkingStan.jl v3 should cover the same material as StatisticalRethinking.jl v2.
 
 I plan to maintain (but not further develop) v2 for at least 2 more years. To revert back to StatisticalRethinking.jl v2, do:
 ```
-] add StatisticalRethinking@2.2.6
+] add StatisticalRethinking@2.2.7
 ```
 
 ### Version 2.2.7 (in preparation)

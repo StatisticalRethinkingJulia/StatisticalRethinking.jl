@@ -1,3 +1,16 @@
+
+import DataFrames: DataFrame
+
+function DataFrame(m::MCMCChains.Chains)
+    a = Array(m, :parameters)
+    if size(a, 2) == 1
+        return DataFrame([a], names(m, :parameters))
+    else
+        return DataFrame(a, names(m, :parameters))
+    end
+end
+
+
 """
 
 # sample

@@ -38,7 +38,7 @@ function sample(qm::QuapModel; nsamples=10000)
   d = DataFrame()
   p = Particles(qm; nsamples)
   for key in qm.names
-    d[key] = p[key].particles
+    d[!, key] = p[key].particles
   end
   d
 end

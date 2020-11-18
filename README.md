@@ -1,4 +1,4 @@
-# StatisticalRethinking v2.2.8
+# StatisticalRethinking v2.2.9
 
 
 | **Project Status**                                                               |  **Documentation**                                                               | **Build Status**                                                                                |

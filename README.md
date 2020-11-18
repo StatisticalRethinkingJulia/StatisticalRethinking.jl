@@ -7,7 +7,7 @@
 
 ## Important note on StatisticalRethinking v3
 
-This is a breaking change from previous versions of StatisticalRethinking.jl. I expect the first stage of this work to be completed by late Nov 2020.
+This is a breaking change from v2 of StatisticalRethinking.jl. I expect the first stage of this work to be completed by late Nov 2020.
 
 Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropriate to make StatisticalRethinking mcmc implementation independent.
 
@@ -32,38 +32,6 @@ To work through the StatisticalRethinking book using Julia and Turing, download 
 Time permitting I would love to see a StatisticalRethinkingDhmc.jl, which could be a combination of Soss.jl and DynamicHMC.jl, and a StatisticalRethinkingMamba.jl!
 
 If interested in either of the last 2 projects, please contact me!
-
-## Usage
-
-StatisticalRethinking.jl uses `Requires.jl` to import mcmc dependent components. This leads to a typical set of opening lines in each script or notebook:
-```
-using Pkg, DrWatson
-
-# Note: Below sequence is important. First activate the project
-# followed by `using` or `import` statements. Pretty much all
-# scripts use StatisticalRethinkingStan. If mcmc sampling is
-# needed, it must be loaded before StatisticalRethinking:
-
-@quickactivate "StatisticalRethinkingStan"
-
-# Optional mcmc packages if needed
-
-using Turing                   # Only needed if Turing is used
-#using StanSample              # Only needed if Stan is used
-#using LogDensityProblems      # Only needed if DynamicHMC is used
-
-# Nearly alway (also includes the data sets):
-
-using StatisticalRethinking
-
-# To access e.g. the Howell1.csv data file:
-df = CSV.read(sr_datadir("Howell1.csv"), DataFrame)
-df = df[df.age .>= 18, :]
-```
-
-StatisticalRethinking.jl v3 does not declare `Pkg`, `DrWatson`, `Pluto` or `PlutoUI` as a dependency. They need to be `add`-ed separatedly.
-
-The projects include the mcmc option used as a dependency, i.e. StatisticalRethinkingTurings's Project.toml includes Turing.jl as a dependency.
 
 ## Versions
 

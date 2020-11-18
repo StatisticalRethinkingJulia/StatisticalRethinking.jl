@@ -1,5 +1,5 @@
 # To do
 
-1. Dagitty.jl? - Running dagitty in NodeJS.jl
-2. StructuralCausalModels.jl - Experimental version, under development.
-3. 
+1. StructuralCausalModels.jl - Experimental version, under development.
+2. Statistics With Julia in Pluto notebooks
+3. Additional models and chapters

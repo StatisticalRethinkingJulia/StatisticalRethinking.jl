@@ -20,7 +20,7 @@ StatisticalRethinking.jl v2.x.y contains the setup as has been around for the la
 
 To continue using version 2 after v3 is released, you can add it by:
 ```
-] add StatisticalRethinking@2.2.8
+] add StatisticalRethinking@2.x.y
 ```
 New development work and additional chapters will happen in v3.
 

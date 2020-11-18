@@ -13,7 +13,12 @@ As stated many times by the author in his online lectures, this package is not i
 
 ## Current release of StatisticalRethinking: 2.2.9
 
-StatisticalRethinking.jl v2.x.y contains the setup as has been around for the last 2 years. I'm planning on maintaining it until late 2021. To continue using the version you can add it by:
+StatisticalRethinking.jl v2.x.y contains the setup as has been around for the last 2 years. I'm planning on maintaining it until late 2021. To install:
+```
+] add StatisticalRethinking
+```
+
+To continue using version 2 after v3 is released, you can add it by:
 ```
 ] add StatisticalRethinking@2.2.8
 ```

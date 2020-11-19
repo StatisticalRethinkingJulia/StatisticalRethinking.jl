@@ -7,11 +7,11 @@
 
 ## Purpose of this package
 
-This package contains Julia versions of selected code snippets and mcmc models contained in the R package "rethinking" associated with the book Statistical Rethinking by Richard McElreath.
+This package contains Julia versions of selected code snippets and mcmc models contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
 
 As stated many times by the author in his online lectures, this package is not intended to take away the hands-on component of the course. The clips are just meant to get you going but learning means experimenting, in this case using Julia and Stan.
 
-## Current release of StatisticalRethinking: 2.2.9
+## StatisticalRethinking: 2.2.9
 
 StatisticalRethinking.jl v2.x.y contains the setup as has been around for the last 2 years. I'm planning on maintaining it until late 2021. To install:
 ```
@@ -24,7 +24,7 @@ To continue using version 2 after v3 is released, you can add it by:
 ```
 New development work and additional chapters will happen in v3.
 
-## Important note on StatisticalRethinking v3 (under development)
+## StatisticalRethinking v3
 
 Version 3 will be a breaking change from previous versions of StatisticalRethinking.jl. I expect the first stage of this work to be completed by late Nov 2020.
 
@@ -34,17 +34,13 @@ The availablility of DynamicHMC, the huge progress made by the Turing.jl team ov
 
 ## Versions
 
-### Version 2.2.8
+### Version 3.0.0
+
+Project and notebook based version of StatisticalRethinking.
+
+### Version 2.2.9
 
 Latest released version. 
-
-## Installation
-
-To install the package (from the REPL):
-
-```
-] add StatisticalRethinking
-```
 
 ## Documentation
 

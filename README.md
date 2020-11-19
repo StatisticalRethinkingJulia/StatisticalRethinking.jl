@@ -40,7 +40,7 @@ Project and notebook based version of StatisticalRethinking.
 
 ### Version 2.2.9
 
-Latest released version. 
+Latest released version using the 'old', scripts and package based setup. 
 
 ## Documentation
 

@@ -39,7 +39,7 @@ After chapter 4, `Statistics with Julia` follows the frequentionist approach whi
 
 ## Versions
 
-### Version 3.0.0 (in preparation, Oct 2020)
+### Version 3.0.0
 
 StatisticalRethinking.jl v3 is independent of the underlying mcmc package. All scripts previously in StatisticalRethinking.jl v2 holding the snippets have been replaced by Pluto notebooks in the above mentioned mcmc specific `project` repositories.
 

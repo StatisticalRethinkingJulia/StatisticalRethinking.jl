@@ -1,3 +1,16 @@
+
+import DataFrames: DataFrame
+
+function DataFrame(m::MCMCChains.Chains)
+    a = Array(m, :parameters)
+    if size(a, 2) == 1
+        return DataFrame([a], names(m, :parameters))
+    else
+        return DataFrame(a, names(m, :parameters))
+    end
+end
+
+
 """
 
 # sample
@@ -44,42 +57,19 @@ function sample(rng::AbstractRNG, df::DataFrame, n; replace=true, ordered=false)
   df[indxs, :]
 end
 
+function Particles(df::DataFrame)
 
-"""
-# convert_a3d
+  d = Dict{Symbol, typeof(Particles(size(df, 1), Normal(0.0, 1.0)))}()
 
-$(SIGNATURES)
-
-# Convert the output file(s) created by `stan_sample()` to a single DataFrame.
-
-"""
-function convert_a3d(a3d_array, cnames, ::Val{:dataframe})
-  # Inital DataFrame
-  df = DataFrame(a3d_array[:, :, 1], Symbol.(cnames))
-
-  # Append the other chains
-  for j in 2:size(a3d_array, 3)
-    df = vcat(df, DataFrame(a3d_array[:, :, j], Symbol.(cnames)))
-  end
-  df
-end
-
-"""
-
-# convert_a3d
-
-$(SIGNATURES)
-
-# Convert the output file(s) created by `stan_sample()` to a Vector{DataFrame).
-
-"""
-function convert_a3d(a3d_array, cnames, ::Val{:dataframes})
-
-  dfa = Vector{DataFrame}(undef, size(a3d_array, 3))
-  for j in 1:size(a3d_array, 3)
-    dfa[j] = DataFrame(a3d_array[:, :, j], Symbol.(cnames))
+  for var in Symbol.(names(df))
+    d[var] = Particles(df[:, var])
   end
 
-  dfa
+  (;d...)
+
 end
 
+
+export
+  sample,
+  Particles

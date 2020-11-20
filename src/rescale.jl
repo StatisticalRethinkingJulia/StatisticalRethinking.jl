@@ -25,3 +25,6 @@ $(SIGNATURES)
 function rescale(x::AbstractVector, xbar::Float64, xstd::Float64)
   x .* xstd .+ xbar
 end
+
+export
+  rescale

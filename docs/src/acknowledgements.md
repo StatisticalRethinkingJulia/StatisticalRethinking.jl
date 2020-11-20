@@ -10,4 +10,4 @@ The TuringLang team and #turing contributors on Slack have been extremely helpfu
 
 The increasing use of Particles to represent quap approximations is possible thanks to the package [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl). [Soss.jl](https://github.com/cscherrer/Soss.jl) and [related write-ups](https://cscherrer.github.io) introduced me to that option.
 
-The initial approach of using Literate.jl to generate .md files and Jupyter notebooks has been dropped in this version. Please let me know if that functionality is missed.
+Developing `rethinking` must have been an on-going process over several years, `StatisticalRethinking.jl` and associated packages will likely follow a similar path.

@@ -8,10 +8,10 @@ $(SIGNATURES)
 
 Derived from `hpd` in MCMCChains.jl.
 
-Alpha represents the 2-sided tail area, i.e. p < 0.055% and p > 0.945%.
+By default alpha=0.11 for a 2-sided tail area of p < 0.055% and p > 0.945%.
 
 """
-function hpdi(x::Vector{T}; alpha::Real=0.11) where {T<:Real}
+function hpdi(x::Vector{T}; alpha=0.11) where {T<:Real}
     n = length(x)
     m = max(1, ceil(Int, alpha * n))
 
@@ -22,3 +22,6 @@ function hpdi(x::Vector{T}; alpha::Real=0.11) where {T<:Real}
 
     return [a[i], b[i]]
 end
+
+export
+  hpdi

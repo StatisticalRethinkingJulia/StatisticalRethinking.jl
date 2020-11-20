@@ -37,3 +37,6 @@ end
 function link(dfa::DataFrame, vars, xrange, xbar, ybar) 
   [ybar .+ dfa[:, vars[1]] + dfa[:, vars[2]] * (x - xbar) for x in xrange]
 end
+
+export
+  link

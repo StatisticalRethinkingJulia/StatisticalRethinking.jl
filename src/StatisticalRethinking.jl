@@ -8,7 +8,7 @@ using Reexport, Requires
 @reexport using KernelDensity, StatsPlots, LaTeXStrings
 @reexport using NamedArrays, StatsFuns
 @reexport using MCMCChains, MonteCarloMeasurements
-@reexport using BSplines
+@reexport using BSplines, GLM
 @reexport using Optim
 @reexport using GLM, PrettyTables, Unicode
 

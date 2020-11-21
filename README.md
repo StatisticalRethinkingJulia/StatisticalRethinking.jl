@@ -23,7 +23,7 @@ If interested in either of the last 2 projects, please contact me!
 
 This is a breaking change from v2 of StatisticalRethinking.jl. I expect the first stage of this work to be completed by late Nov 2020.
 
-If you prefer to use v2, you can use `] add StatisticalRethinkingv2.x.y` where 2.x.y is the latest released version for v2.
+If you prefer to use v2, you can use `] add StatisticalRethinking@v2.x.y` where 2.x.y is the latest released version for v2.
 
 Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropriate to make StatisticalRethinking on Julia mcmc implementation independent.
 

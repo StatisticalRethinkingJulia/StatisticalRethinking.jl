@@ -25,7 +25,7 @@ function quap(sm::SampleModel)
   QuapModel(sm, n, p, c, v)
 end
 
-function Particles(qm::T; nsamples=10000) where {T <: QuapModel}
+function Particles(qm::T; nsamples=4000) where {T <: QuapModel}
   d = Dict{Symbol, Particles}()
   p = Particles(nsamples, MvNormal(qm.coef, qm.vcov))
   for (ind, key) in enumerate(qm.names)
@@ -34,7 +34,7 @@ function Particles(qm::T; nsamples=10000) where {T <: QuapModel}
   (;d...)
 end
 
-function sample(qm::QuapModel; nsamples=10000)
+function sample(qm::QuapModel; nsamples=4000)
   d = DataFrame()
   p = Particles(qm; nsamples)
   for key in qm.names

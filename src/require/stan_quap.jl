@@ -2,27 +2,23 @@ import StatsBase: sample
 import MonteCarloMeasurements:Particles
 import StatisticalRethinking: quap
 
-"""
-
-# QuapModel
-
-"""
-struct QuapModel
-  sm::SampleModel
-  names::Vector{Symbol}
-  particles::NamedTuple
-  coef::Vector{Float64}
-  vcov::Matrix{Float64}
-end
-
 function quap(sm::SampleModel)
   s = read_samples(sm; output_format=:dataframe)
+  ntnames = (:coef, :vcov, :converged, :distr, :params)
   n = Symbol.(names(s))
+  coefnames = tuple(n...,)
   p = quap(s)
   c = [mean(p[k]) for k in n]
   cvals = reshape(c, 1, length(n))
+  coefvalues = tuple(cvals...,)
   v = Statistics.covm(Array(s), cvals)
-  QuapModel(sm, n, p, c, v)
+
+  ntvalues = tuple(
+    namedtuple(coefnames, coefvalues),
+    v, true, MvNormal(c, v), n
+  )
+
+  namedtuple(ntnames, ntvalues)
 end
 
 function Particles(qm::T; nsamples=4000) where {T <: QuapModel}

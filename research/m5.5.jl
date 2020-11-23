@@ -1,19 +1,20 @@
 # Load Julia packages (libraries) needed.
 
+using Pkg, DrWatson
+
+@quickactivate "StstisticalRethinkingStan"
+using StanSample
 using StatisticalRethinking
 
-ProjDir = @__DIR__
-
-df = CSV.read(rel_path("..", "data", "milk.csv"), delim=';');
+df = DataFrame(CSV.File(sr_datadir("milk.csv")))
 df = filter(row -> !(row[:neocortex_perc] == "NA"), df);
 df[!, :neocortex_perc] = parse.(Float64, df[:, :neocortex_perc])
 df[!, :lmass] = log.(df[:, :mass])
 scale!(df, [:kcal_per_g, :neocortex_perc, :lmass])
-println()
 
 # ### snippet 5.35
 
-m_5_5 = "
+stan5_5 = "
 data {
  int < lower = 1 > N; // Sample size
  vector[N] K; // Outcome
@@ -38,7 +39,7 @@ model {
 
 # Define the SampleModel and set the output format to :mcmcchains.
 
-m5_5s = SampleModel("m5.5", m_5_5);
+m5_5s = SampleModel("m5.5", stan5_5);
 
 # Input data for cmdstan
 
@@ -47,14 +48,14 @@ m5_5_data = Dict("N" => size(df, 1), "NC" => df[!, :neocortex_perc_s],
 
 # Sample using StanSample
 
-rc = stan_sample(m5_5s, data=m5_5_data);
+rc5_5s = stan_sample(m5_5s, data=m5_5_data);
 
-if success(rc)
+if success(rc5_5s)
 
   # Describe the draws
 
-  dfa5 = read_samples(m5_5s; output_format=:dataframe)
-  p = Particles(dfa5)
-  quap(dfa5) |> display
+  post5_5s_df = read_samples(m5_5s; output_format=:dataframe)
+  part5_5s = read_samples(m5_5s; output_format=:particles)
+  quap(m5_5s).particles |> display
 
 end

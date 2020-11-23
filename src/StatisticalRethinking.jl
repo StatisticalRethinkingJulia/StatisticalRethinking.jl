@@ -48,7 +48,8 @@ sr_path(parts...) = normpath(joinpath(src_path, parts...))
 # DrWatson extension
 sr_datadir(parts...) = sr_path("..", "data", parts...)
 
-include("scale.jl")
+include("scale.jl")             # Rename to standardize of zscore?
+#include("center.jl")            # Center columns of a df, todo.
 include("rescale.jl")
 include("link.jl")
 include("hpdi.jl")
@@ -60,10 +61,6 @@ include("pairsplot.jl")
 include("simulate.jl")
 include("srtools.jl")
 include("sim_happiness.jl")
-#if isdefined(Main, :StanSample)
-#  import StanSample: convert_a3d
-#end
-#include("convert_a3d.jl")
 include("plot_density_interval.jl")
 include("plotbounds.jl")
 include("pluto_helpers.jl")

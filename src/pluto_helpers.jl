@@ -16,14 +16,14 @@ function Base.show(io::IO, ::MIME"test/plain", qm::QuapModel)
     write(io, qm)
 end
 
-PRECIS(df::DataFrame) = Text(precis(quap2_0t_df; io=String))
+PRECIS(df::DataFrame) = Text(precis(df; io=String))
 
 CHNS(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", chns))
 
-HPD(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", hpd(chns))
+HPD(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", hpd(chns)))
 
 export
-    QM
-    PRECIS
-    CHNS
+    QM,
+    PRECIS,
+    CHNS,
     HPD

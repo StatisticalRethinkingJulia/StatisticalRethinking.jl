@@ -23,6 +23,7 @@ CHNS(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", chns))
 HPD(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", hpd(chns)))
 
 export
+    QuapModel,
     QM,
     PRECIS,
     CHNS,

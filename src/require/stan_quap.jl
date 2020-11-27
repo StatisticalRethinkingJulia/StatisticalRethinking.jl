@@ -10,7 +10,7 @@ function quap(sm::SampleModel)
   p = mode_estimates(s)
   c = [mean(p[k]) for k in n]
   cvals = reshape(c, 1, length(n))
-  coefvalues = tuple(cvals...,)
+  coefvalues = reshape(c, length(n))
   v = Statistics.covm(Array(s), cvals)
 
   distr = if length(coefnames) == 1
@@ -29,8 +29,9 @@ end
 
 function sample(qm::NamedTuple; nsamples=4000)
   df = DataFrame()
-  for coef in qm.params
-    df[!, coef] = Particles(nsamples, qm.distr).particles
+  p = Particles(nsamples, qm.distr)
+  for (indx, coef) in enumerate(qm.params)
+    df[!, coef] = p[indx].particles
   end
   df
 end

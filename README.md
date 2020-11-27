@@ -3,7 +3,7 @@
 
 | **Project Status**                                                               |  **Documentation**                                                               | **Build Status**                                                                                |
 |:-------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
-|![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][CI]][CI-build] |
+|![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][CI-build] |
 
 ## Purpose of this package
 

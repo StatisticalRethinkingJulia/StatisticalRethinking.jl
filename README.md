@@ -3,7 +3,7 @@
 
 | **Project Status**                                                               |  **Documentation**                                                               | **Build Status**                                                                                |
 |:-------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
-|![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][travis-img]][travis-url] |
+|![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][CI]][CI-build] |
 
 ## Purpose of this package
 
@@ -84,8 +84,11 @@ Question and contributions are very welcome, as are feature requests and suggest
 [docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
 [docs-stable-url]: https://statisticalrethinkingjulia.github.io/StatisticalRethinking.jl/stable
 
-[travis-img]: https://travis-ci.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.svg?branch=master
-[travis-url]: https://travis-ci.com/StatisticalRethinkingJulia/StatisticalRethinking.jl
+[CI-build]: https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/workflows/CI/badge.svg?branch=master
+
+[![codecov](https://codecov.io/gh/StatisticalRethinkingJulia/StatisticalRethinking.jl/branch/master/graph/badge.svg?token=TFxRFbKONS)](https://codecov.io/gh/StatisticalRethinkingJulia/StatisticalRethinking.jl)
+
+[![Coverage Status](https://coveralls.io/repos/github/StatisticalRethinkingJulia/StatisticalRethinking.jl/badge.svg?branch=master)](https://coveralls.io/github/StatisticalRethinkingJulia/StatisticalRethinking.jl?branch=master)
 
 [codecov-img]: https://codecov.io/gh/StatisticalRethinkingJulia/StatisticalRethinking.jl/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/StatisticalRethinkingJulia/StatisticalRethinking.jl

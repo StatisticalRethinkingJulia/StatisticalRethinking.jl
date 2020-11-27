@@ -33,8 +33,13 @@ function quap(model::Turing.Model, args...; kwargs...)
     params = StatsBase.params(model)
     params_tuple = tuple(Symbol.(params)...)
 
-    (coef = NamedTuple{params_tuple}(coef), vcov = sym_var_cov_matrix, converged = converged,
-        distr = distr, params = [params...])
+    (
+        coef = NamedTuple{params_tuple}(coef), 
+        vcov = sym_var_cov_matrix,
+        converged = converged,
+        distr = distr, 
+        params = [params...]
+    )
 end
 
 function StatsBase.params(model::Turing.Model)

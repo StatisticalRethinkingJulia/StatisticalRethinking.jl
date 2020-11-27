@@ -1,3 +1,19 @@
+using NamedTupleTools
+
+function mode_estimates(df::DataFrame)
+
+  d = Dict{Symbol, typeof(Particles(size(df,1), Normal(0.9, 1.0)))}()
+
+  for var in Symbol.(names(df))
+    dens = kde(df[:, var])
+    mu = collect(dens.x)[findmax(dens.density)[2]]
+    sigma = std(df[:, var], mean=mu)
+    d[var] = Particles(size(df, 1), Normal(mu, sigma))
+  end
+
+  (;d...)
+end
+
 """
 
 # quap
@@ -39,21 +55,31 @@ end
 ```
 
 """
-function quap(df::DataFrame)
+function quap(s::DataFrame)
+  ntnames = (:coef, :vcov, :converged, :distr, :params)
+  n = Symbol.(names(s))
+  coefnames = tuple(n...,)
+  p = mode_estimates(s)
+  c = [mean(p[k]) for k in n]
+  cvals = reshape(c, 1, length(n))
+  coefvalues = tuple(cvals...,)
+  v = Statistics.covm(Array(s), cvals)
 
-  d = Dict{Symbol, typeof(Particles(size(df, 1), Normal(0.0, 1.0)))}()
-
-  for var in Symbol.(names(df))
-    dens = kde(df[:, var])
-    mu = collect(dens.x)[findmax(dens.density)[2]]
-    sigma = std(df[:, var], mean=mu)
-    d[var] = Particles(size(df, 1), Normal(mu, sigma))
+  distr = if length(coefnames) == 1
+    Normal(coefvalues[1], √v[1])  # Normal expects stddev
+  else
+    MvNormal(coefvalues, v)       # MvNormal expects variance matrix
   end
 
-  (; d...)
+  ntvalues = tuple(
+    namedtuple(coefnames, coefvalues),
+    v, true, distr, n
+  )
 
+  namedtuple(ntnames, ntvalues)
 end
 
 export
-	quap
+	quap,
+  mode_estimates
 	

@@ -1,50 +1,42 @@
 import StatsBase: sample
 import MonteCarloMeasurements:Particles
-import StatisticalRethinking: quap
-
-"""
-
-# QuapModel
-
-"""
-struct QuapModel
-  sm::SampleModel
-  names::Vector{Symbol}
-  particles::NamedTuple
-  coef::Vector{Float64}
-  vcov::Matrix{Float64}
-end
+import StatisticalRethinking: quap, mode_estimates
 
 function quap(sm::SampleModel)
   s = read_samples(sm; output_format=:dataframe)
+  ntnames = (:coef, :vcov, :converged, :distr, :params)
   n = Symbol.(names(s))
-  p = quap(s)
+  coefnames = tuple(n...,)
+  p = mode_estimates(s)
   c = [mean(p[k]) for k in n]
   cvals = reshape(c, 1, length(n))
+  coefvalues = reshape(c, length(n))
   v = Statistics.covm(Array(s), cvals)
-  QuapModel(sm, n, p, c, v)
+
+  distr = if length(coefnames) == 1
+    Normal(coefvalues[1], √v[1])  # Normal expects stddev
+  else
+    MvNormal(coefvalues, v)       # MvNormal expects variance matrix
+  end
+
+  ntvalues = tuple(
+    namedtuple(coefnames, coefvalues),
+    v, true, distr, n
+  )
+
+  namedtuple(ntnames, ntvalues)
 end
 
-function Particles(qm::T; nsamples=10000) where {T <: QuapModel}
-  d = Dict{Symbol, Particles}()
-  p = Particles(nsamples, MvNormal(qm.coef, qm.vcov))
-  for (ind, key) in enumerate(qm.names)
-    d[key] = p[ind]
+function sample(qm::NamedTuple; nsamples=4000)
+  df = DataFrame()
+  p = Particles(nsamples, qm.distr)
+  for (indx, coef) in enumerate(qm.params)
+    df[!, coef] = p[indx].particles
   end
-  (;d...)
-end
-
-function sample(qm::QuapModel; nsamples=10000)
-  d = DataFrame()
-  p = Particles(qm; nsamples)
-  for key in qm.names
-    d[!, key] = p[key].particles
-  end
-  d
+  df
 end
 
 export
-  QuapModel,
   quap,
   Particles,
   sample

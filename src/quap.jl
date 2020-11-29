@@ -62,7 +62,7 @@ function quap(s::DataFrame)
   p = mode_estimates(s)
   c = [mean(p[k]) for k in n]
   cvals = reshape(c, 1, length(n))
-  coefvalues = tuple(cvals...,)
+  coefvalues = reshape(c, length(n))
   v = Statistics.covm(Array(s), cvals)
 
   distr = if length(coefnames) == 1
@@ -79,7 +79,18 @@ function quap(s::DataFrame)
   namedtuple(ntnames, ntvalues)
 end
 
+function sample(qm::NamedTuple; nsamples=4000)
+  df = DataFrame()
+  p = Particles(nsamples, qm.distr)
+  for (indx, coef) in enumerate(qm.params)
+    df[!, coef] = p[indx].particles
+  end
+  df
+end
+
+
 export
-	quap,
-  mode_estimates
+  mode_estimates,
+  quap,
+  samples
 	

@@ -1,5 +1,4 @@
 import StatsBase: sample
-import MonteCarloMeasurements:Particles
 import StatisticalRethinking: quap, mode_estimates
 
 function quap(sm::SampleModel)
@@ -27,16 +26,5 @@ function quap(sm::SampleModel)
   namedtuple(ntnames, ntvalues)
 end
 
-function sample(qm::NamedTuple; nsamples=4000)
-  df = DataFrame()
-  p = Particles(nsamples, qm.distr)
-  for (indx, coef) in enumerate(qm.params)
-    df[!, coef] = p[indx].particles
-  end
-  df
-end
-
 export
-  quap,
-  Particles,
-  sample
+  quap

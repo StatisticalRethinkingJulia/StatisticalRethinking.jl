@@ -21,6 +21,6 @@ makedocs(
 deploydocs(
     root = DOC_ROOT,
     repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
-    devbranch = "v3.0.0",
+    devbranch = "master",
     push_preview = true,
  )

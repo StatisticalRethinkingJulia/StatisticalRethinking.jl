@@ -1,4 +1,3 @@
-import StatsBase: sample
 import StatisticalRethinking: quap, mode_estimates
 
 function quap(sm::SampleModel)

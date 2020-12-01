@@ -2,9 +2,14 @@
 CurrentModule = StatisticalRethinking
 ```
 
-## `rel_path`
+## `sr_path`
 ```@docs
 sr_path(parts...)
+```
+
+## `sr_datadir`
+```@docs
+sr_datadir(parts...)
 ```
 
 ## link

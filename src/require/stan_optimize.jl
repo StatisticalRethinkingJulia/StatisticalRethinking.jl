@@ -10,8 +10,7 @@ function quap(sm_sam::SampleModel, sm_opt::OptimizeModel)
     ntnames = (:coef, :vcov, :converged, :distr, :params)
     n = Symbol.(names(samples))
     coefnames = tuple(n...,)
-    p = mode_estimates(s)
-    c = [mean(p[k]) for k in n]
+    c = [optim[String(coefname)][1] for coefname in coefnames]
     cvals = reshape(c, 1, length(n))
     coefvalues = reshape(c, length(n))
     v = Statistics.covm(Array(samples), cvals)
@@ -22,9 +21,15 @@ function quap(sm_sam::SampleModel, sm_opt::OptimizeModel)
         MvNormal(coefvalues, v)       # MvNormal expects variance matrix
     end
 
+    converged = true
+    for coefname in coefnames
+        v = optim[String(coefname)]
+        converged = abs(sum(v) - 4 * v[1]) < 0.001 * v[1]
+        !converged && break
+    end
     ntvalues = tuple(
         namedtuple(coefnames, coefvalues),
-            v, true, distr, n
+            v, converged, distr, n
     )
     
     namedtuple(ntnames, ntvalues)

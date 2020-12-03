@@ -9,11 +9,10 @@ $(SIGNATURES)
 ```julia
 * `df::DataFrame`                      : DataFrame containing the variables (as columns)
 * `vars::Vector{Symbol}`               : Vector of variables to include in plot
-* `fig::AbstractString`                : File to store the produced plot
 ```
 
 """
-function pairsplot(df::DataFrame, vars::Vector{Symbol}, fig::AbstractString)
+function pairsplot(df::DataFrame, vars::Vector{Symbol})
 
   l = length(vars)
   pmat = Matrix{Plots.Plot{Plots.GRBackend}}(undef, l, l)
@@ -31,7 +30,6 @@ function pairsplot(df::DataFrame, vars::Vector{Symbol}, fig::AbstractString)
     end
   end
   plot(pmat..., layout=(l, l))
-  savefig(fig)
 
 end
 

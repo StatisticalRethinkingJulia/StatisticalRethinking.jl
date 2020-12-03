@@ -23,8 +23,8 @@ function quap(sm_sam::SampleModel, sm_opt::OptimizeModel)
 
     converged = true
     for coefname in coefnames
-        v = optim[String(coefname)]
-        converged = abs(sum(v) - 4 * v[1]) < 0.001 * v[1]
+        o = optim[String(coefname)]
+        converged = abs(sum(o) - 4 * o[1]) < 0.001 * o[1]
         !converged && break
     end
     ntvalues = tuple(

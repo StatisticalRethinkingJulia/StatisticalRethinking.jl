@@ -6,8 +6,8 @@ ProjDir = @__DIR__
 
 n = 100
 df = DataFrame(:M => rand(Normal(), n));
-df[!, :NC] = [rand(Normal(df[i, :M]), 1)[1] for i in 1:n];
-df[!, :K] = [rand(Normal(df[i, :NC] - df[i, :M]), 1)[1] for i in 1:n];
+df[!, :NC] = [rand(Normal(df[i, :M])) for i in 1:n];
+df[!, :K] = [rand(Normal(df[i, :NC] - df[i, :M])) for i in 1:n];
 scale!(df, [:K, :M, :NC])
 
 include("$(ProjDir)/m5.7_A.jl") 

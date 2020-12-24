@@ -90,7 +90,7 @@ function plotbounds(
     for i in 1:length(x)
       for j in 1:nrow(dfs)
         predictions[i, j] = 
-          ybar .+ rand(Normal(dfs[j, linkvars[1]] + ystd/xstd * dfs[j, linkvars[2]] * (x[i] - xbar), ystd*dfs[j, linkvars[3]]), 1)[1] 
+          ybar .+ rand(Normal(dfs[j, linkvars[1]] + ystd/xstd * dfs[j, linkvars[2]] * (x[i] - xbar), ystd*dfs[j, linkvars[3]]))
       end
     end
     pred_hpd = [hpdi(predictions[i, :], alpha=alpha) for i in 1:length(x)]

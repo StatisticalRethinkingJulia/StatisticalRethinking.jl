@@ -56,7 +56,7 @@ function plotbounds_ribbons(
       for j in 1:nrow(dfs)
         p_sim[i, j] = 
           ybar .+ rand(Normal(dfs[j, linkvars[1]] + ystd/xstd * dfs[j, 
-            linkvars[2]] * (x[i] - xbar), ystd*dfs[j, linkvars[3]]), 1)[1]
+            linkvars[2]] * (x[i] - xbar), ystd*dfs[j, linkvars[3]]))
       end
     end
 

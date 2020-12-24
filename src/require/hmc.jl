@@ -57,7 +57,7 @@ function HMC(model, grad, epsilon, L, current_q)
   # Return either position at the end or initial position
   local accept = 0
   local new_q
-  if rand(Uniform(0, 1), 1)[1] < exp(dH)
+  if rand(Uniform(0, 1)) < exp(dH)
     new_q = q # Accept
     accept = 1
   else

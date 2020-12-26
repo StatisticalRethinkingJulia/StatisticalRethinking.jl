@@ -55,7 +55,8 @@ function plotbounds(
   alpha::Float64=0.11,
   colors::Vector{Symbol}=[:lightgrey, :grey],
   stepsize::Float64=0.01,
-  rescale_axis=true
+  rescale_axis=true,
+  kwargs...
 )
   
   xbar = mean(df[:, xvar])
@@ -83,7 +84,7 @@ function plotbounds(
 
   mu = [mean(y[i]) for i in 1:length(x)]
 
-  p = plot(xlab=xlab, ylab=ylab, title=title)
+  p = plot(;xlab=xlab, ylab=ylab, title=title, kwargs...)
 
   if :predicted in bounds
     predictions = zeros(length(x), nrow(dfs))

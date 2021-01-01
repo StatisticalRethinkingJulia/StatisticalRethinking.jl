@@ -39,9 +39,22 @@ After chapter 4, `Statistics with Julia` follows the frequentionist approach whi
 
 ## Versions
 
+### Versions v3.1.1 - 3.1.8
+
+- Updates from CompatHelper
+- Switch to Github actions (CI, Documenter)
+- Updates from Rik Huijzer
+- Redo quap() based on StanOptimize
+- Start Updating notebooks in ch 2-8 using new quap()
+- Redoing and updating the models in the models subdirectory
+
+Note 1: It is my intention to moce (stan based) quap() into a separate package StanQuap.jl once I'm satified with its features and stability. Likely in v3.3.
+
+Note 2: Once all models are updated this will be released as v3.2.0. At the same time StanModels.jl will be updated.
+
 ### Version 3.1.0
 
-Align stan_quap with Turing quap. quap() now returns a NamedTuple that includes a field `distr` which represents the quadratic Normal (MvNormal) approximation.
+Align (stanbased) quap with Turing quap. quap() now returns a NamedTuple that includes a field `distr` which represents the quadratic Normal (MvNormal) approximation.
 
 ### Version 3.0.0
 

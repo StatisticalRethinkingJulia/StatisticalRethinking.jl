@@ -43,7 +43,7 @@ After chapter 4, `Statistics with Julia` follows the frequentionist approach whi
 
 - Updates from CompatHelper
 - Switch to Github actions (CI, Documenter)
-- Updates from Rik Huijzer
+- Updates from Rik Huijzer (link function)
 - Redo quap() based on StanOptimize
 - Start Updating notebooks in ch 2-8 using new quap()
 - Redoing and updating the models in the models subdirectory

@@ -34,11 +34,11 @@ function quap(
   
     ntnames = (:coef, :vcov, :converged, :distr, :params)
     dct = Dict(kwargs)
-    if :init in keys(dct)
-        n = Symbol.(keys(dct[:init]))
-    else
+    #if :init in keys(dct)
+    #    n = Symbol.(keys(dct[:init]))
+    #else
         n = Symbol.(names(samples))
-    end
+    #end
     coefnames = tuple(n...,)
     c = [optim[String(coefname)][1] for coefname in coefnames]
     cvals = reshape(c, 1, length(n))
@@ -55,7 +55,7 @@ function quap(
     converged = true
     for coefname in coefnames
         o = optim[String(coefname)]
-        converged = abs(sum(o) - 4 * o[1]) < 0.001 * o[1]
+        converged = abs(sum(o) - 4 * o[1]) < 0.001 * abs(o[1])
         !converged && break
     end
     ntvalues = tuple(

@@ -179,7 +179,8 @@ function plotbounds(
     stepsize=0.01,
     rescale_axis=true,
     lab::AbstractString="",
-    title::AbstractString="")
+    title::AbstractString="",
+    kwargs...)
 
     xbar = mean(df[:, xvar])
     xstd = std(df[:, xvar])
@@ -189,8 +190,8 @@ function plotbounds(
     xvar_s = Symbol(String(xvar)*"_s")
     yvar_s = Symbol(String(yvar)*"_s")
 
-    minx = minimum(df[!, xvar_s])
-    maxx = maximum(df[!, xvar_s])
+    minx = minimum(df[!, xvar_s]) - 0.1
+    maxx = maximum(df[!, xvar_s]) + 0.1
     x_s = minx:stepsize:maxx
 
     k = size(nt[Symbol(linkvars[2])], 1)
@@ -199,7 +200,7 @@ function plotbounds(
     y_s .+= nt[Symbol(linkvars[1])]'
     mul = meanlowerupper(y_s)
 
-    p = plot(;title)
+    p = plot(;title, kwargs...)
     if rescale_axis
         xrange = rescale(x_s, xbar, xstd)
         mm = rescale(mul.mean, ybar, ystd)

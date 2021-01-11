@@ -31,8 +31,28 @@ function lin(a, b, c, x...)
     return result
 end
 
+function create_observation_matrix(x::Vector, k::Int)
+    n = length(x)
+    m = reshape(x, n, 1)
+    for i in 2:k
+        m = hcat(m, x.^i)
+    end
+    m
+end
+
+var2(x) = mean(x.^2) .- mean(x)^2
+
+function r2_is_bad(model::NamedTuple, df::DataFrame)
+    s = mean(model.mu, dims=2)
+    r = s - df.brain_s
+    round(1 - var2(r) / var2(df.brain_s), digits=2)
+end
+
 export
     zscore_transform,
     meanlowerupper,
     estimparam,
-    lin
+    lin,
+    var2,
+    create_observation_matrix,
+    r2_is_bad

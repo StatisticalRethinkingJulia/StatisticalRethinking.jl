@@ -74,6 +74,7 @@ include("srtools.jl")
 include("sim_happiness.jl")
 include("plot_density_interval.jl")
 include("plotbounds.jl")
+include("plotlines.jl")
 include("pluto_helpers.jl")
 
 export

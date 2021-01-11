@@ -39,6 +39,12 @@ After chapter 4, `Statistics with Julia` follows the frequentionist approach whi
 
 ## Versions
 
+### Version 3.2.0
+
+- Option to retieve sampling results as a NamedTuple
+- Added new method to plotbounds() to handle NamedTuples
+- Added plotlines()
+
 ### Versions v3.1.1 - 3.1.8
 
 - Updates from CompatHelper

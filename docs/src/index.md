@@ -35,7 +35,12 @@ hpdi(x::Vector{T}; alpha::Real=0.05) where {T<:Real}
 
 ## pairsplot
 ```@docs
-pairsplot(df::DataFrame, vars::Vector{Symbol}, fig::AbstractString)
+pairsplot(df::DataFrame, vars::Vector{Symbol})
+```
+
+## meanlowerupper
+```@docs
+meanlowerupper(data, PI = (0.055, 0.945))
 ```
 
 ## plotbounds

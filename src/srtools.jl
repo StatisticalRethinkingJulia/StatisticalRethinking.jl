@@ -31,6 +31,14 @@ function lin(a, b, c, x...)
     return result
 end
 
+"""
+# pairsplot
+
+Create a polynomial observation matrix.
+
+$(SIGNATURES)
+
+"""
 function create_observation_matrix(x::Vector, k::Int)
     n = length(x)
     m = reshape(x, n, 1)
@@ -40,8 +48,24 @@ function create_observation_matrix(x::Vector, k::Int)
     m
 end
 
+"""
+# var2
+
+Variance without n-1 correction.
+
+$(SIGNATURES)
+
+"""
 var2(x) = mean(x.^2) .- mean(x)^2
 
+"""
+# r2_is_bad
+
+Compute R^2 values.
+
+$(SIGNATURES)
+
+"""
 function r2_is_bad(model::NamedTuple, df::DataFrame)
     s = mean(model.mu, dims=2)
     r = s - df.brain_s

@@ -15,7 +15,7 @@ using Reexport, Requires
 import StatsBase: sample
 import MonteCarloMeasurements:Particles
 
-using StatsFuns: logistic, logit
+#using StatsFuns: logistic, logit, logsumexp
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 function __init__()

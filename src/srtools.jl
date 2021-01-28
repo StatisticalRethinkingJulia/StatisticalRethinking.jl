@@ -85,6 +85,5 @@ export
     meanlowerupper,
     estimparam,
     lin,
-    var2,
     create_observation_matrix,
     r2_is_bad

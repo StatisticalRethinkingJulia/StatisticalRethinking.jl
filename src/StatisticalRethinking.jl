@@ -77,6 +77,7 @@ include("plot_density_interval.jl")
 include("plotbounds.jl")
 include("plotlines.jl")
 include("pluto_helpers.jl")
+include("sim_train_test.jl")
 
 export
   sr_path,

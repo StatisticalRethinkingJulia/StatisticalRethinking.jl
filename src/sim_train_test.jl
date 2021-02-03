@@ -1,8 +1,9 @@
 function sim_train_test(;
     N = 20,
-    K = 3,
+    K = 2,
     rho = [0.15, -0.4]) 
-
+    
+    K += 1 # Add observations column
     n_dim = 1 + length(rho)
     n_dim = n_dim < K ? K : n_dim
     

@@ -78,6 +78,7 @@ include("plotbounds.jl")
 include("plotlines.jl")
 include("pluto_helpers.jl")
 include("sim_train_test.jl")
+include("lppd.jl")
 
 export
   sr_path,

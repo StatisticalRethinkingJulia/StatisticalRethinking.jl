@@ -79,6 +79,7 @@ include("plotlines.jl")
 include("pluto_helpers.jl")
 include("sim_train_test.jl")
 include("lppd.jl")
+include("logprob.jl")
 
 export
   sr_path,

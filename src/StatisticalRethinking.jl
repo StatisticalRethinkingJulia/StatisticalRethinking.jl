@@ -80,6 +80,7 @@ include("pluto_helpers.jl")
 include("sim_train_test.jl")
 include("lppd.jl")
 include("logprob.jl")
+include("compare_models.jl")
 
 export
   sr_path,

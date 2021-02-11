@@ -9,12 +9,14 @@ using Reexport, Requires
 @reexport using KernelDensity, StatsPlots, LaTeXStrings
 @reexport using NamedArrays, StatsFuns
 @reexport using MCMCChains, MonteCarloMeasurements
-@reexport using BSplines, GLM
+@reexport using BSplines
 @reexport using Optim
-@reexport using GLM, PrettyTables, Unicode
+@reexport using PrettyTables, Unicode
 
 import StatsBase: sample
 import MonteCarloMeasurements:Particles
+
+using GLM: lm
 
 #using StatsFuns: logistic, logit, logsumexp
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF

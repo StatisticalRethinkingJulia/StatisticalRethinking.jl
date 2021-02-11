@@ -1,7 +1,7 @@
 """
-# plotcoef
+# plot_model_coef
 
-Multiple regression coefficient plot.
+Multiple regression coefficient plot for multiple models.
 
 $(SIGNATURES)
 
@@ -14,9 +14,7 @@ $(SIGNATURES)
 ```julia
 * `fig=""`                             : File to store plot
 * `title=""`                           : Title for plot
-* `func=nothing`                       : Funtion to apply to sample df
 ```
-Currently the only function available is `quap`. NOT YET IMPLEMENTED.
 
 ### Return values
 ```julia
@@ -24,40 +22,28 @@ Currently the only function available is `quap`. NOT YET IMPLEMENTED.
 ```
 
 """
-function plotcoef(
-  models::Vector{SampleModel}, 
-  pars::Vector{Symbol};
-  fig="", title="", 
-  func=nothing)
+function plot_model_coef(models::Vector{SampleModel}, 
+  pars::Vector{Symbol}; fig="", title="")
 
   mnames = [models[i].name for i in 1:length(models)]
+  for i in 1:length(mnames)
+    if length(mnames[i]) > 9
+      mnames[i] = mnames[i][1:9]
+    end
+  end
   levels = length(models) * (length(pars) + 1)
   colors = [:blue, :red, :green, :darkred, :black]
 
   s = Vector{NamedTuple}(undef, length(models))
   for (mindx, mdl) in enumerate(models)
-    if isnothing(func)
-      df = read_samples(mdl; output_format=:dataframe)
-      m, l, u = estimparam(df)
-      d = Dict{Symbol, NamedTuple}()
-      for (indx, par) in enumerate(names(df))
-          d[Symbol(par)] = (mean=m[indx], lower=l[indx], upper=u[indx])
-      end
-      s[mindx] =   (; d...)
-    else
-      df = read_samples(mdl; output_format=:dataframe) 
-      m, l, u = estimparam(df)
-      d = Dict{Symbol, NamedTuple}()
-      for (indx, par) in enumerate(names(df))
-          d[Symbol(par)] = (mean=m[indx], lower=l[indx], upper=u[indx])
-      end
-
-      # TODO: Implement quap simulation
-
-      #s[mindx] = func(dfs)
-      s[mindx] =   (; d...)
+    df = read_samples(mdl; output_format=:dataframe)
+    m, l, u = estimparam(df)
+    d = Dict{Symbol, NamedTuple}()
+    for (indx, par) in enumerate(names(df))
+        d[Symbol(par)] = (mean=m[indx], lower=l[indx], upper=u[indx])
     end
-  end
+    s[mindx] =   (; d...)
+ end
 
   xmin = 0; xmax = 0.0
   for i in 1:length(s)
@@ -113,9 +99,9 @@ function plotcoef(
 end
 
 """
-# plotcoef
+# plot_model_coef
 
-Multiple regression coefficient plot.
+Multiple regression coefficient plot for a single model.
 
 $(SIGNATURES)
 
@@ -128,9 +114,7 @@ $(SIGNATURES)
 ### Optional arguments
 ```julia
 * `title=""`                           : Title for plot
-* `func=nothing`                       : Funtion to apply to sample dataframe
 ```
-Currently the only function available is `quap`. NOT YET IMPLEMENTED.
 
 ### Return values
 ```julia
@@ -138,12 +122,25 @@ Currently the only function available is `quap`. NOT YET IMPLEMENTED.
 ```
 
 """
+function plot_model_coef(model::SampleModel, pars::Vector{Symbol};
+  fig="", title="")
+  plotcoef([model], pars; fig, title, func)
+end
+
+function plotcoef(model::Vector{SampleModel}, pars::Vector{Symbol};
+  fig="", title="", func=nothing)
+
+  @warn "plotcoef() is deprecated, please use plot_model_coef instead"
+  plot_model_coef(model, pars; fig=fig, title=title)
+end
+
 function plotcoef(model::SampleModel, pars::Vector{Symbol};
   fig="", title="", func=nothing)
 
-  plotcoef([model], pars; fig, title, func)
-
+  @warn "plotcoef() is deprecated, please use plot_model_coef instead"
+  plot_model_coef(model, pars; fig=fig, title=title)
 end
 
 export
+  plot_model_coef,
   plotcoef

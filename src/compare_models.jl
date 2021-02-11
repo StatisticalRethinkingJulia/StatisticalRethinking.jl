@@ -6,6 +6,16 @@ Compare waic and psis values for models.
 
 $(SIGNATURES)
 
+### Required arguments
+```julia
+* `models`                             : Vector of logprob matrices
+* `criterium`                          : Either ::Val{:waic} or ::Val{:psis}
+```
+### Return values
+```julia
+* `df`                                 : DataFrame with statistics
+```
+
 """
 function compare(m::Vector{Matrix{Float64}}, ::Val{:waic})
     df = DataFrame()

@@ -8,7 +8,7 @@ function quap(
     model::AbstractString;
     kwargs...)
 
-    sm = SampleModel(name*"_sample", model)
+    sm = SampleModel(name, model)
     rc = stan_sample(sm; kwargs...)
     if success(rc)
         om = OptimizeModel(name*"_opt", model)

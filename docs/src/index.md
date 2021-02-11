@@ -17,7 +17,6 @@ sr_datadir(parts...)
 link(dfa::DataFrame, vars, xrange)
 ```
 
-
 ## rescale
 ```@docs
 rescale(x::Vector{Float64}, xbar::Float64, xstd::Float64)
@@ -95,6 +94,11 @@ plotlines(
   title::AbstractString="",
   kwargs...
 )
+```
+
+## compare
+```@docs
+compare(m::Vector{Matrix{Float64}}, ::Val{:waic})
 ```
 
 ## `create_observation_matrix`

@@ -12,7 +12,7 @@ $(SIGNATURES)
 * `criterium`                          : Either ::Val{:waic} or ::Val{:psis}
 ```
 
-### Required arguments
+### Optional argument
 ```julia
 * `mnames::Vector{Symbol}`             : Vector of model names
 ```

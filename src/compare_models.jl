@@ -11,13 +11,21 @@ $(SIGNATURES)
 * `models`                             : Vector of logprob matrices
 * `criterium`                          : Either ::Val{:waic} or ::Val{:psis}
 ```
+
+### Required arguments
+```julia
+* `mnames::Vector{Symbol}`             : Vector of model names
+```
+
 ### Return values
 ```julia
 * `df`                                 : DataFrame with statistics
 ```
 
 """
-function compare(m::Vector{Matrix{Float64}}, ::Val{:waic})
+function compare(m::Vector{Matrix{Float64}}, ::Val{:waic};
+    mnames=[])
+
     df = DataFrame()
     
     waics = Vector{NamedTuple}(undef, length(m))
@@ -34,6 +42,9 @@ function compare(m::Vector{Matrix{Float64}}, ::Val{:waic})
         waics_pw[i] = waic(mods[i]; pointwise=true).WAIC
     end
     
+    if length(mnames) > 0
+        df.models = Symbol.(mnames[ind])
+    end
     df.WAIC = round.([waics[i].WAIC for i in 1:length(waics)], digits=1)
     df.SE = round.([waics[i].std_err for i in 1:length(waics)], digits=2)
     
@@ -51,7 +62,7 @@ function compare(m::Vector{Matrix{Float64}}, ::Val{:waic})
     df.pWAIC = round.([sum(waics[i].penalty) for i in 1:length(waics)],
         digits=2)
     weights = ones(length(m))
-    sumval = sum([exp(-0.5df[i, :WAIC]) for i in 1:3])
+    sumval = sum([exp(-0.5df[i, :WAIC]) for i in 1:length(waics)])
     for i in 1:length(m)
         weights[i] = exp(-0.5df[i, :WAIC])/sumval
     end
@@ -59,7 +70,9 @@ function compare(m::Vector{Matrix{Float64}}, ::Val{:waic})
     df
 end
 
-function compare(m::Vector{Matrix{Float64}}, ::Val{:psis})
+function compare(m::Vector{Matrix{Float64}}, ::Val{:psis};
+    mnames=[])
+
     df = DataFrame()
     loo = Vector{Float64}(undef, length(m))
     loos = Vector{Vector{Float64}}(undef, length(m))
@@ -72,6 +85,10 @@ function compare(m::Vector{Matrix{Float64}}, ::Val{:psis})
     loo = loo[ind]
     loos = loos[ind]
     pk = pk[ind]
+
+    if length(mnames) > 0
+        df.models = Symbol.(mnames[ind])
+    end
 
     df.PSIS = round.([-2loo[i] for i in 1:length(loo)], digits=1)
     df.SE = round.([sqrt(size(m[i], 2)*var2(-2loos[i])) for i in 1:length(loos)],
@@ -98,8 +115,8 @@ function compare(m::Vector{Matrix{Float64}}, ::Val{:psis})
     df
 end
 
-compare(m::Vector{Matrix{Float64}}, type::Symbol) =
-    compare(m, Val(type))
+compare(m::Vector{Matrix{Float64}}, type::Symbol; mnames=[]) =
+    compare(m, Val(type); mnames=Symbol.(mnames))
 
 export
     compare

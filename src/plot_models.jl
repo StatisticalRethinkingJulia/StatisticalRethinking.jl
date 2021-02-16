@@ -1,5 +1,6 @@
 function  plot_models(df::DataFrame, type = :waic;
     fig = "", title)
+
     models = size(df, 1)
     colors = [:blue, :red, :green, :darkred, :black]
 
@@ -45,7 +46,7 @@ function  plot_models(df::DataFrame, type = :waic;
                 lower = oos - r.SE
                 upper = oos + r.SE
                 plot!([lower, upper], [ypos, ypos], leg=false, color=:black)
-                scatter!([oos], [ypos], color=:darkred)
+                scatter!([oos], [ypos], color=:darkred, markersize=8)
                 scatter!([r.lppd], [ypos], color=:darkblue)
             else
                 syms = Symbol.(pars[i])
@@ -55,8 +56,8 @@ function  plot_models(df::DataFrame, type = :waic;
                 upper = is + r.dSE
                 if r.dSE > 0
                     plot!([lower, upper], [ypos, ypos], leg=false, color=:grey)
-                    scatter!([is], [ypos], color=:darkred,
-                        marker = ([:hex], 12, 0.8, Plots.stroke(3, :gray)))
+                    scatter!([is], [ypos], color=:lightgrey,
+                        marker = ([:utriangle], 8, 0.8, Plots.stroke(3, :gray)))
                 end
             end
         end

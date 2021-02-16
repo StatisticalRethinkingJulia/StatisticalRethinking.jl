@@ -83,6 +83,7 @@ include("sim_train_test.jl")
 include("lppd.jl")
 include("logprob.jl")
 include("compare_models.jl")
+include("plot_models.jl")
 
 export
   sr_path,

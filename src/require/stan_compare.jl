@@ -18,12 +18,12 @@ $(SIGNATURES)
 
 """
 function compare(models::Vector{SampleModel}, type::Symbol)
-    mnames = Symbol[]
+    mnames = AbstractString[]
     lps = Matrix{Float64}[]
     for m in models
         nt = read_samples(m)
         if :log_lik in keys(nt)
-            append!(mnames, [Symbol(m.name)])
+            append!(mnames, [m.name])
             append!(lps, [Matrix(nt.log_lik')])
         else
             @warn "Model $(m.name) does not produce a log_lik matrix."

@@ -22,10 +22,10 @@ using GLM: lm
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 function __init__()
-  @require Turing="fce5fe82-541a-59a6-adf8-730c64b5f9a0" include("require/turing.jl")
-  @require StanSample="c1514b29-d3a0-5178-b312-660c88baa699" include("require/stan_sample.jl")
-  @require StanOptimize="fbd8da12-e93d-5a64-9231-612a0707ab99" include("require/stan_optimize.jl")
-  @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require/hmc.jl")
+  @require Turing="fce5fe82-541a-59a6-adf8-730c64b5f9a0" include("require/turing/turing.jl")
+  @require StanSample="c1514b29-d3a0-5178-b312-660c88baa699" include("require/stan/sample.jl")
+  @require StanOptimize="fbd8da12-e93d-5a64-9231-612a0707ab99" include("require/stan/optimize.jl")
+  @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require/dhmc/hmc.jl")
 end
 
 const src_path = @__DIR__

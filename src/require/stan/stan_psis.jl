@@ -1,4 +1,4 @@
-import ParetoSmoothedImportanceSampling: psisloo, waic
+import StatsModelComparisons: psisloo, waic
 
 function psisloo(m::SampleModel, wcpp::Int64=20, wtrunc::Float64=3/4)
     nt = read_samples(m)

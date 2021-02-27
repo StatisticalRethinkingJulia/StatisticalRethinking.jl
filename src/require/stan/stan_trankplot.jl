@@ -2,7 +2,6 @@ using Parameters
 
 function rank_matrix(x::Array{Float64, 2}, nt_args::NamedTuple)
     @unpack n_draws, n_pars, n_chains = nt_args
-    println([n_draws, n_pars, n_chains])
     xc = zeros(Int, n_draws, n_pars, n_chains)
     for i in 1:n_pars
         ranked = Int.(ordinalrank(x[:, i]))
@@ -15,7 +14,6 @@ function rank_matrix(x::Array{Float64, 2}, nt_args::NamedTuple)
     xc
 end
 
-# ╔═╡ 9c97d57e-76a8-11eb-1126-7f934e864857
 function trankplot(model::SampleModel, param::Symbol; bins=40)
     nt = read_samples(model)
     n_draws = model.method.num_samples
@@ -43,7 +41,11 @@ function trankplot(model::SampleModel, param::Symbol; bins=40)
     n_eff = dfs[indexin(params, dfs[:, :parameters]), :ess]
 
     nt_args = (n_draws=n_draws, n_pars=n_pars, n_chains=n_chains)
-    ranks = rank_matrix(Matrix(nt[param]'), nt_args)
+    if length(params) > 1
+        ranks = rank_matrix(Matrix(nt[param]'), nt_args)
+    else
+        ranks = rank_matrix(reshape(nt[param], length(nt[param]), 1), nt_args)
+    end    
 
     figs = Vector{Plots.Plot{Plots.GRBackend}}(undef, length(params))
     for i in 1:length(params)

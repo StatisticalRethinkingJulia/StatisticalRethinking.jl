@@ -41,6 +41,8 @@ After chapter 4, `Statistics with Julia` follows the frequentionist approach whi
 
 ## Versions
 
+A v4.0.0 is under development but will rely on changes in the StanJulia set of packages.
+
 ### Version 3.2.0
 
 - Option to retieve sampling results as a NamedTuple
@@ -55,10 +57,6 @@ After chapter 4, `Statistics with Julia` follows the frequentionist approach whi
 - Redo quap() based on StanOptimize
 - Start Updating notebooks in ch 2-8 using new quap()
 - Redoing and updating the models in the models subdirectory
-
-Note 1: It is my intention to moce (stan based) quap() into a separate package StanQuap.jl once I'm satified with its features and stability. Likely in v3.3.
-
-Note 2: Once all models are updated this will be released as v3.2.0. At the same time StanModels.jl will be updated.
 
 ### Version 3.1.0
 

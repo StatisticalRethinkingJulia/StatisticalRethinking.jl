@@ -2,50 +2,73 @@ using Distributions
 
 # ### snippet 9.6
 
-function HMC2(model, grad, epsilon, L, current_q)
+# u() needs to return neg-log-probability
+function u(q, x, y; a=0, b=1, k=0, d=1)
+
+    # muy == q[1], mux == q[2]
+
+    u = sum(logpdf(Normal(q[1], 1), y)) + sum(logpdf(Normal(q[2], 1), x)) +
+    logpdf(Normal(a, b), q[1]) + logpdf(Normal(k, d), q[2])
+    -u
+end
+
+# need vector of partial derivatives of U with respect to vector q
+function ugrad( q, x, y; a=0 , b=1 , k=0 , d=1 )
+ muy = q[1]
+ mux = q[2]
+ g1 = sum( y .- muy ) .+ (a - muy) / b^2  # dU/dmuy
+ g2 = sum( x .- mux ) .+ (k - mux) / d^2  #d U/dmux
+ [-g1 , -g2]                            # negative bc energy is neg-log-prob
+end
+
+function stan_hmc(x, y, u, ugrad, epsilon, L, current_q)
   q = current_q
   p = rand(Normal(0, 1), length(q)) # random flick - p is momentum
-  #p = [0.96484367, -0.06740435]
   current_p = p
+
   # Make a half step for momentum at the beginning
-  v, g = logdensity_and_gradient(grad, q)
-  value_U = -v; grad_U = -g
-  p = p - epsilon .* grad_U / 2.0
+  v = u(q, x, y)
+  g = ugrad(q, x, y)
+  p = p - epsilon .* g / 2.0
+
   # Initialize bookkeeping
   qtraj = zeros(L+1, length(q)+3)
-  qtraj[1, :] = [q[1], q[2], value_U, grad_U[1], grad_U[2]]
+  qtraj[1, :] = [q[1], q[2], v, g[1], g[2]]
 
   ptraj = zeros(L+1, length(q))
   ptraj[1, :] = p
-  
-  # ### snippet 9.7
   
   # Alternate full steps for position and momentum
   
   for i in 1:L
     # Full position step
     q = q + epsilon .* p
+
     # Full step for momentum,, except for last step
     if i !== L
-      v, g = logdensity_and_gradient(grad, q)
-      value_U = -v; grad_U = -g
-      p = p - epsilon .* grad_U
+      v - u(q, x, y)
+      g = ugrad(q, x, y)
+      p = p - epsilon .* g
       ptraj[i+1, :] = p
     end
-    qtraj[i+1, :] = [q[1], q[2], value_U, grad_U[1], grad_U[2]]
+
+    # Bookkeeping
+    qtraj[i+1, :] = [q[1], q[2], v, g[1], g[2]]
   end
-  
-  # ### snippet 9.8
   
   # Make a halfstep for momentum at the end
   
-  v, g = logdensity_and_gradient(grad, q)
+  v = u(q, x, y)
+  g = ugrad(q, x, y)
   value_U = -v; grad_U = -g
-  p = p - epsilon .* grad_U / 2.0
+  p = p - epsilon .* g / 2.0
+
   ptraj[L+1, :] = p
+
   # Negate momentum to make proposal symmatric
   p = -p
-  # Evaluate potential and kinetic energies ate beginning and end
+
+  # Evaluate potential and kinetic energies at beginning and end
   current_U = -logdensity(grad, [current_q[1], current_q[2]])
   current_K = sum(current_p .^ 2) / 2
   proposed_U = -logdensity(grad, [q[1], q[2]])

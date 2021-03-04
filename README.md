@@ -41,7 +41,14 @@ After chapter 4, `Statistics with Julia` follows the frequentionist approach whi
 
 ## Versions
 
-A v4.0.0 is under development but will rely on changes in the StanJulia set of packages.
+### Versions 3.2.1 -3.2.8
+
+- Introduction of StatsModelCoparisons.jl for PSIS and WAIC.
+- Removed dependencied on DynamicHMC (will be covered in StatisticalRethinkingDHMC)
+- Added trankplot.jl
+- Further separation of methods needed to convert output of mcmc package to SR inputs
+- Add compare() and plot_models() abstractions.
+- Manifest.toml updates.
 
 ### Version 3.2.0
 

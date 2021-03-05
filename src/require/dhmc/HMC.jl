@@ -1,4 +1,6 @@
 using Distributions
+using .LogDensityProblems, .TransformVariables
+using .DynamicHMC
 
 # ### snippet 9.6
 

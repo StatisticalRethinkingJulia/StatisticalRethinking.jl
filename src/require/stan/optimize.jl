@@ -66,5 +66,3 @@ function quap(
     namedtuple(ntnames, ntvalues)
 end
 
-export
-  quap

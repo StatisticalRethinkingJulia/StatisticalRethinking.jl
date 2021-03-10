@@ -95,5 +95,6 @@ end
 
 export
   mode_estimates,
+  quap,
   sample
 	

@@ -18,9 +18,13 @@ makedocs(
     pages = page_list,
 )
 
+devurl = "dev"
 deploydocs(
     root = DOC_ROOT,
     repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
     devbranch = "master",
     push_preview = true,
- )
+    devurl=devurl,
+    versions = ["stable"=> "v^", "v#.#",
+                "latest"=>devurl]
+)

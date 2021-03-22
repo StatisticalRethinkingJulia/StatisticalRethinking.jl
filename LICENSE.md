@@ -1,4 +1,4 @@
-The code in this repo is available under the GPL-v3 license shown below.
+GPL-v3 License
 
 ### Origin of these programs
 

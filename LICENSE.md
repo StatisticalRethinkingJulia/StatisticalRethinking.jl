@@ -1,4 +1,4 @@
-GPL-v3 License
+GNU GENERAL PUBLIC LICENSE Version 3
 
 ### Origin of these programs
 

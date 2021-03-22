@@ -1,18 +1,4 @@
-GNU GENERAL PUBLIC LICENSE Version 3
-
-### Origin of these programs
-
-StatisticalRethinking.jl is based on the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath.
-
-The Julia versions have been developed by Rob Goedman and are contained in the in github organization [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia). 
-
-The associated R packages `rethinking` by Richard McElreath has been released under the GPL v3+ license, e.g. see https://www.gnu.org/licenses/gpl-3.0.en.html.
-
-### Permission to publish a Julia version
-
-The author has given permission to publish this Julia version and in particular expressed acceptance of repackaging the data used in the examples.
-
-### GNU GENERAL PUBLIC LICENSE
+GNU GENERAL PUBLIC LICENSE
 
 Version 3, 29 June 2007
 

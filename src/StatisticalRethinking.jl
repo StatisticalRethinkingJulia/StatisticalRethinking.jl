@@ -86,6 +86,8 @@ include("compare_models.jl")
 include("plot_models.jl")
 include("trankplot.jl")
 include("hmc.jl")
+include("plot_model_coef.jl")
+include("plot_logistic_coef.jl")
 
 export
   sr_path,

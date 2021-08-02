@@ -3,6 +3,7 @@ module StatisticalRethinking
 using Reexport, Requires
 
 @reexport using StatsBase, Statistics
+@reexport using ParetoSmooth
 @reexport using StatsModelComparisons, StructuralCausalModels
 @reexport using LinearAlgebra, Random, Distributions
 @reexport using CSV, DataFrames
@@ -16,7 +17,7 @@ using Reexport, Requires
 import StatsBase: sample
 import MonteCarloMeasurements:Particles
 
-using GLM: lm
+using GLM: lm, @formula
 
 #using StatsFuns: logistic, logit, logsumexp
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
@@ -88,6 +89,8 @@ include("trankplot.jl")
 include("hmc.jl")
 include("plot_model_coef.jl")
 include("plot_logistic_coef.jl")
+include("pk_utilities.jl")
+include("waic.jl")
 
 export
   sr_path,

@@ -4,22 +4,21 @@ using Reexport, Requires
 
 @reexport using StatsBase, Statistics
 @reexport using ParetoSmooth
-@reexport using StatsModelComparisons, StructuralCausalModels
+@reexport using StructuralCausalModels
 @reexport using LinearAlgebra, Random, Distributions
 @reexport using CSV, DataFrames
-@reexport using KernelDensity, StatsPlots, LaTeXStrings
+@reexport using KernelDensity
+@reexport using StatsPlots, LaTeXStrings
 @reexport using NamedArrays, StatsFuns
 @reexport using MCMCChains, MonteCarloMeasurements
-@reexport using BSplines
-@reexport using Optim
+@reexport using BSplines, GLM
+@reexport using Optim, NamedTupleTools
 @reexport using PrettyTables, Unicode
+@reexport using Makie, AlgebraOfGraphics
 
 import StatsBase: sample
 import MonteCarloMeasurements:Particles
 
-using GLM: lm, @formula
-
-#using StatsFuns: logistic, logit, logsumexp
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 function __init__()

@@ -7,7 +7,7 @@ end
 
 @userplot Pk_Plot
 
-@recipe function f(p::Pk_Plot)
+StatsPlots.@recipe function f(p::Pk_Plot)
     if length(p.args) != 1 || !(p.args[1] isa AbstractVector{<:Real})
         error("PSIS diagnostic plots should be given one vector. Got: ", typeof(p.args))
     end

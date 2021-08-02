@@ -1,4 +1,4 @@
-# StatisticalRethinking v3
+# StatisticalRethinking v4
 
 
 | **Project Status**                                                               |  **Documentation**                                                               | **Build Status**                                                                                |
@@ -21,7 +21,7 @@ If interested in either of these projects, please contact me!
 
 ## Important note on StatisticalRethinking v4
 
-This is a breaking change from v3 of StatisticalRethinking.jl. Breakage may occur because over time more and better options become available to express the material covered in Statistical Rethinking. Examples are the recently developed ParetoSmooth.jl for PSIS related examples, KeyedArrays as introduced in AxisKeys.jl for the representation of mcmc chains and the new graphics option with Makie.jl and AlgebraOfGraphics.jl. Also, an attempt is made to make StatisticalRethinking.jl sufficient for most chapters. This also fits better in the new setup of Pluto notebooks which keep track of used package versions in the notebooks themselves ([see](https://github.com/fonsp/Pluto.jl/wiki/🎁-Package-management))
+This is a breaking change from v3 of StatisticalRethinking.jl. Breakage may occur because over time more and better options become available to express the material covered in Statistical Rethinking. Examples are the recently developed ParetoSmooth.jl for PSIS related examples, KeyedArrays as introduced in AxisKeys.jl for the representation of mcmc chains and the new graphics option with Makie.jl and AlgebraOfGraphics.jl. Also, an attempt is made to make StatisticalRethinking.jl sufficient for most chapters. This also fits better in the new setup of Pluto notebooks which keep track of used package versions in the notebooks themselves ([see here](https://github.com/fonsp/Pluto.jl/wiki/🎁-Package-management))
 
 If you prefer to use v3, you can use `] add StatisticalRethinking@v3.x.y` where 3.x.y is the latest released version for v3. 
 
@@ -29,9 +29,9 @@ Given that Julia provides several very capable packages that support mcmc simula
 
 The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) were a few of the ideas that triggered exploring a new setup for StatisticalRethinking.jl and the 'course' projects [StatistcalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and [StatisticalrethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl)
 
-An early, experimental version of [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl) is also included as a dependency in the StatisticalRethinking.jl v3 package. In the meantime I will definitely keep my eyes on [Omega.jl](https://github.com/zenna/Omega.jl) and [CausalInference.jl](https://github.com/mschauer/CausalInference.jl). StructuralCausalModels does provide ways to convert DAGs to Daggity and ggm formats.
+An early, experimental version of [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl) is also included as a dependency in the StatisticalRethinking.jl package. In the meantime I will definitely keep my eyes on [Omega.jl](https://github.com/zenna/Omega.jl) and [CausalInference.jl](https://github.com/mschauer/CausalInference.jl). StructuralCausalModels does provide ways to convert DAGs to Daggity and ggm formats.
 
-The in v3 added dependency [StatsModelComparisons.jl](https://github.com/StatisticalRethinkingJulia/StatsModelComparisons.jl) which provides PSIS and WAIC statistics is deprecated in v4. For PSIS and LOO ParetoSmooth.jl is being used and WAIC has been moved to StatisticalRethinking.jl
+The in v3 added dependency [StatsModelComparisons.jl](https://github.com/StatisticalRethinkingJulia/StatsModelComparisons.jl) which provides PSIS and WAIC statistics for model selection is deprecated in v4. For PSIS and LOO ParetoSmooth.jl is now used and WAIC has been moved to StatisticalRethinking.jl
 
 Finally, for a good while I have been looking for a great statistics book using Julia as kind of an introductory text to StatisticalRethinking and I believe the first couple of chapters in an upcoming book [Statistics with Julia](https://statisticswithjulia.org/index.html) by Yoni Nazarathy and Hayden Klok are exactly that.
 

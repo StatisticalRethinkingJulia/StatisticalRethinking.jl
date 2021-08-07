@@ -24,7 +24,7 @@ function loo_compare(models::Vector{SampleModel};
     ll = Vector{Array{Float64, 3}}(undef, nmodels)
 
     for i in 1:length(models)
-        ka[i] = read_samples(models[i]; output_format=:keyedarray)
+        ka[i] = read_samples(models[i], :keyedarray)
         ll[i] = permutedims(Array(matrix(ka[i], loglikelihood_name)), [3, 1, 2])
     end
 

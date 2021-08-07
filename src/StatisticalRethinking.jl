@@ -10,11 +10,12 @@ using Reexport, Requires
 @reexport using KernelDensity
 @reexport using StatsPlots, LaTeXStrings
 @reexport using NamedArrays, StatsFuns
-@reexport using MCMCChains, MonteCarloMeasurements
+@reexport using MCMCChains
+@reexport using MonteCarloMeasurements
 @reexport using BSplines, GLM
 @reexport using Optim, NamedTupleTools
 @reexport using PrettyTables, Unicode
-@reexport using Makie, AlgebraOfGraphics
+#@reexport using Makie, AlgebraOfGraphics, CairoMakie
 
 import StatsBase: sample
 import MonteCarloMeasurements:Particles

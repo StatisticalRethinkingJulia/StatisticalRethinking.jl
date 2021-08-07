@@ -2,7 +2,7 @@ using Parameters
 import StatisticalRethinking: trankplot
 
 function trankplot(model::SampleModel, param::Symbol; bins=40)
-    nt = read_samples(model)
+    nt = read_samples(model, :namedtuple)
     n_draws = model.method.num_samples
     n_chains = model.n_chains[1]
 

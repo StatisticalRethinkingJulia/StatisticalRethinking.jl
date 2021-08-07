@@ -1,5 +1,3 @@
-var2(x) = mean(x.^2) .- mean(x)^2
-
 """
     waic(ll::AbstractArray{<:Real}; pointwise=false, log_lik="log_lik, kwargs...)
 

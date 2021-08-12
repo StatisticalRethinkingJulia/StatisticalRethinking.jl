@@ -1,7 +1,7 @@
 import ParetoSmooth: loo_compare
 
 function waic(m::SampleModel; pointwise=false)
-    nt = read_samples(m)
+    nt = read_samples(m, :namedtuple)
     if :log_lik in keys(nt)
         lp = Matrix(nt.log_lik')
     else

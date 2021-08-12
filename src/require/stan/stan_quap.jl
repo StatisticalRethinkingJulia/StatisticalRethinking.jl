@@ -1,7 +1,7 @@
 import StatisticalRethinking: quap, mode_estimates
 
 function quap(sm::SampleModel)
-  s = read_samples(sm; output_format=:dataframe)
+  s = read_samples(sm, :dataframe)
   ntnames = (:coef, :vcov, :converged, :distr, :params)
   n = Symbol.(names(s))
   coefnames = tuple(n...,)

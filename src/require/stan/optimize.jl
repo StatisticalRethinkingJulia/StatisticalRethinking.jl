@@ -29,7 +29,7 @@ function quap(
     sm_opt::OptimizeModel;
     kwargs...)
 
-    samples = read_samples(sm_sam; output_format=:dataframe)
+    samples = read_samples(sm_sam, :dataframe)
     optim, cnames = read_optimize(sm_opt)
   
     ntnames = (:coef, :vcov, :converged, :distr, :params)
@@ -66,3 +66,5 @@ function quap(
     namedtuple(ntnames, ntvalues)
 end
 
+export
+    quap

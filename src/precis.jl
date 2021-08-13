@@ -20,14 +20,16 @@ $(SIGNATURES)
 """
 function precis(df::DataFrame; io = stdout, digits = 4, depth = Inf, alpha = 0.11)
     d = DataFrame()
+    cols = collect.(skipmissing.(eachcol(df)))
     d.param = names(df)
-    d.mean = mean.(eachcol(df))
-    d.std = std.(eachcol(df))
-    d[:, "5.5%"] = quantile.(eachcol(df), alpha/2)
-    d[:, "50%"] = quantile.(eachcol(df), 0.5)
-    d[:, "94.5%"] = quantile.(eachcol(df), 1 - alpha/2)
-    u = unicode_histogram.(eachcol(df), min(size(df, 1), 12))
-    d.histogram = unicode_histogram.(eachcol(df), min(size(df, 1), 12))
+    d.mean = mean.(cols)
+    d.std = std.(cols)
+    quants = quantile.(cols, ([alpha/2, 0.5, 1-alpha/2], ))
+    quants = hcat(quants...)
+    d[:, "5.5%"] = quants[1,:]
+    d[:, "50%"] = quants[2,:]
+    d[:, "94.5%"] = quants[3,:]
+    d.histogram = unicode_histogram.(cols, min(size(df, 1), 12))
 
     for col in ["mean", "std", "5.5%", "50%", "94.5%"]
         d[:, col] .= round.(d[:, col], digits = digits)

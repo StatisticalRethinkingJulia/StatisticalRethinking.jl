@@ -24,9 +24,11 @@ function precis(df::DataFrame; io = stdout, digits = 4, depth = Inf, alpha = 0.1
     d.param = names(df)
     d.mean = mean.(cols)
     d.std = std.(cols)
-    d[:, "5.5%"] = quantile.(cols, alpha/2)
-    d[:, "50%"] = quantile.(cols, 0.5)
-    d[:, "94.5%"] = quantile.(cols, 1 - alpha/2)
+    quants = quantile.(cols, ([alpha/2, 0.5, 1-alpha/2], ))
+    quants = hcat(quants...)
+    d[:, "5.5%"] = quants[1,:]
+    d[:, "50%"] = quants[2,:]
+    d[:, "94.5%"] = quants[3,:]
     d.histogram = unicode_histogram.(cols, min(size(df, 1), 12))
 
     for col in ["mean", "std", "5.5%", "50%", "94.5%"]

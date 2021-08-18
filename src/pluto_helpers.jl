@@ -18,13 +18,13 @@ end
 
 PRECIS(df::DataFrame) = Text(precis(df; io=String))
 
-CHNS(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", chns))
+#CHNS(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", chns))
 
-HPD(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", hpd(chns)))
+#HPD(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", hpd(chns)))
 
 export
     QuapModel,
     QM,
-    PRECIS,
-    CHNS,
-    HPD
+    PRECIS
+    #CHNS,
+    #HPD

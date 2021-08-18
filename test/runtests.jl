@@ -117,26 +117,24 @@ using Test
             nt5_1s = read_samples(m5_1s, :particles)
             NamedTupleTools.select(nt5_1s, (:a, :bA, :sigma)) |> display
             println()
+
             nt5_2s = read_samples(m5_2s, :particles)
             NamedTupleTools.select(nt5_2s, (:a, :bM, :sigma)) |> display
             println()
+
             nt5_3s = read_samples(m5_3s, :particles)
             NamedTupleTools.select(nt5_3s, (:a, :bA, :bM, :sigma)) |> display
-            println()
+            println("\n")
 
             models = [m5_1s, m5_2s, m5_3s]
-            loglikelihood_name = :log_lik
+
+            # Show PsisLoo estimates and if applicable pareto_k warnings
+
             loo_comparison = loo_compare(models)
             println()
 
-            for (i, psis) in enumerate(loo_comparison.psis)
-                println()
-                psis |> display
-                pk_plot(psis.pointwise(:pareto_k))
-                savefig(joinpath(@__DIR__, "m5.$(i)s.png"))
-            end
-            println()
             loo_comparison |> display
+            
         end
         #=
         With SR/ulam():

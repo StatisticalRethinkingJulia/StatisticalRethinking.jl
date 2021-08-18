@@ -91,6 +91,7 @@ include("plot_model_coef.jl")
 include("plot_logistic_coef.jl")
 include("pk_utilities.jl")
 include("waic.jl")
+include("coeftab_plot.jl")
 
 export
   sr_path,

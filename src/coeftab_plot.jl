@@ -16,11 +16,9 @@ $(SIGNATURES)
 coeftab_plots(m5_1_df, m5_2_df, m5_3_df; pars=(:bA, :bM), names=["m5.1", "m5.2", "m5.3"])
 ```
 """
-using Base.Iterators: Iterators
-
 function coeftab_plot(dfs::DataFrame...; pars=missing, names=missing)::Plots.Plot
     if ismissing(pars)
-        pars = unique(Iterators.flatten(propertynames.(dfs)))
+        pars = unique(Base.Iterators.flatten(propertynames.(dfs)))
         sort!(pars)
     end
     if ismissing(names)

@@ -33,7 +33,7 @@ function coeftab_plot(dfs::DataFrame...; pars=missing, names=missing, perc_prob=
         for (name, df) ∈ zip(names, dfs)
             p ∈ propertynames(df) || continue
             μ = mean(df[!,p])
-            err = abs.(PI(df[!,p], perc_prob) .- μ)
+            err = abs.(PI(df[!,p], prob=perc_prob) .- μ)
             pushfirst!(x, μ)
             pushfirst!(y, "$p: $name")
             pushfirst!(xerr, Tuple(err))

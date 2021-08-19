@@ -80,10 +80,26 @@ function r2_is_bad(model::NamedTuple, df::DataFrame)
     round(1 - var2(r) / var2(df.brain_s), digits=2)
 end
 
+
+"""
+# PI
+
+Compute percentile central interval of data. Returns vector of bounds.
+
+$(SIGNATURES)
+
+"""
+function PI(data; prob=0.89)
+    d = (1-prob)/2
+    quantile(data, [d, 1-d])
+end
+
+
 export
     zscore_transform,
     meanlowerupper,
     estimparam,
     lin,
     create_observation_matrix,
-    r2_is_bad
+    r2_is_bad,
+    PI

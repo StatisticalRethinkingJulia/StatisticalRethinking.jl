@@ -28,14 +28,12 @@ function coeftab_plot(dfs::DataFrame...; pars=missing, names=missing, perc_prob=
 
     x = Vector{Float64}()
     xerr = Vector{Tuple{Float64,Float64}}()
-    d = 50*(1-0.89)
-    perc_range = [d, 100-d]
     y = Vector{String}()
     for p ∈ pars
         for (name, df) ∈ zip(names, dfs)
             p ∈ propertynames(df) || continue
             μ = mean(df[!,p])
-            err = abs.(percentile(df[!,p], perc_range) .- μ)
+            err = abs.(PI(df[!,p], prob=perc_prob) .- μ)
             pushfirst!(x, μ)
             pushfirst!(y, "$p: $name")
             pushfirst!(xerr, Tuple(err))

@@ -12,13 +12,14 @@ $(SIGNATURES)
 - `pars_names`: list of strings to be used instead of column names
 - `names`: list of dataframe names to be used in plot. If not given, "1", "2", "3"... will be used
 - `perc_prob`: probability for confidence interval calculation
+- `kwargs`: rest of arguments will be passed to the scatter function
 
 # Examples
 ```julia
 coeftab_plots(m5_1_df, m5_2_df, m5_3_df; pars=(:bA, :bM), names=["m5.1", "m5.2", "m5.3"])
 ```
 """
-function coeftab_plot(dfs::DataFrame...; pars=missing, pars_names=missing, names=missing, perc_prob=0.89)::Plots.Plot
+function coeftab_plot(dfs::DataFrame...; pars=missing, pars_names=missing, names=missing, perc_prob=0.89, kwargs...)::Plots.Plot
     if ismissing(pars)
         pars = unique(Iterators.flatten(propertynames.(dfs)))
         sort!(pars)
@@ -44,7 +45,7 @@ function coeftab_plot(dfs::DataFrame...; pars=missing, pars_names=missing, names
             pushfirst!(xerr, Tuple(err))
         end
     end
-    scatter(x, y; xerr=xerr)
+    scatter(x, y; xerr=xerr, kwargs...)
 end
 
 export

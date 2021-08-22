@@ -176,7 +176,7 @@ function loo_compare1(models::Vector{SampleModel};
     table = KeyedArray(
         data,
         model = mnames,
-        statistic = [:elpd_diff, :se_diff, :weight],
+        statistic = [:cv_est, :se_diff, :weight],
     )
 
     # Return LooCompare object

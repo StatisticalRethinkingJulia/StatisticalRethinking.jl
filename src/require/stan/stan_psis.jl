@@ -38,6 +38,7 @@ function loo_compare(models::Vector{SampleModel};
     loo_compare(psis...; model_names=mnames, sort_models)
 end
 
+#=
 import Base.show
 
 
@@ -145,7 +146,7 @@ function loo_compare(
     table = KeyedArray(
         data,
         model = mnames,
-        statistic = [:elpd_diff, :se_diff, :weight],
+        statistic = [:cv, :cv_diff, :weight],
     )
 
     # Return LooCompare object

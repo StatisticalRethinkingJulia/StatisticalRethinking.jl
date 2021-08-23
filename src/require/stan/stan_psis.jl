@@ -154,7 +154,6 @@ function loo_compare(
     LooCompare(psis, table)
 
 end
-=#
 
 function Base.show(io::IO, ::MIME"text/plain", loo_compare::LooCompare)
     table = loo_compare.table
@@ -171,6 +170,7 @@ end
 export
     LooCompare,
   
+=#
 
 export
     psisloo,

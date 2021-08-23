@@ -2,7 +2,16 @@ using StanSample
 using StatisticalRethinking
 using Test
 
+
+tests = ["srtools"]
+
 @testset "StatisticalRethinking.jl" begin
+    for t ∈ tests
+        @testset "$t" begin
+            include("test_$t.jl")
+        end
+    end
+
     @testset "WaffleDivorce" begin
         using Random
         #Random.seed!(129111)

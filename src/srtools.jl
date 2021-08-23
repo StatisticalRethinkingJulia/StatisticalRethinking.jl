@@ -86,4 +86,5 @@ export
     estimparam,
     lin,
     create_observation_matrix,
-    r2_is_bad
+    r2_is_bad,
+    PI

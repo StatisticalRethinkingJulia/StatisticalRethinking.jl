@@ -1,15 +1,15 @@
 module StatisticalRethinking
 
-using Reexport, Requires
+using Requires
 
-@reexport using StatsBase, Statistics
-@reexport using LinearAlgebra, Random
-@reexport using DataFrames
-@reexport using NamedArrays, StatsFuns
-@reexport using NamedTupleTools
-@reexport using PrettyTables, Unicode
-@reexport using ParetoSmooth, StructuralCausalModels
-@reexport using MonteCarloMeasurements
+using StatsBase, Statistics
+using LinearAlgebra, Random
+using DataFrames
+using NamedArrays, StatsFuns
+using NamedTupleTools
+using PrettyTables, Unicode
+using ParetoSmooth, StructuralCausalModels
+using MonteCarloMeasurements
 
 import StatsBase: sample
 import DataFrames: DataFrame

@@ -1,5 +1,6 @@
 using StanSample, ParetoSmooth
-using StatisticalRethinking, Test
+using StatisticalRethinking
+using StatisticalRethinkingPlots, Test
 
 df = CSV.read(sr_datadir("WaffleDivorce.csv"), DataFrame);
 scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])

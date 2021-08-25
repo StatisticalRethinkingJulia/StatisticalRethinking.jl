@@ -1,4 +1,5 @@
 using StanSample, ParetoSmooth
+using AxisKeys, NamedTupleTools
 using StatisticalRethinking
 using StatisticalRethinkingPlots, Test
 

@@ -1,4 +1,4 @@
-using StanSample
+using StanSample, NamedTupleTools
 using StatisticalRethinking
 using Test
 

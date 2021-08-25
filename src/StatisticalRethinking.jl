@@ -4,7 +4,7 @@ using Requires
 
 using StatsBase, Statistics
 using LinearAlgebra, Random
-using DataFrames
+using AxisKeys, DataFrames
 using NamedArrays, StatsFuns
 using NamedTupleTools
 using PrettyTables, Unicode

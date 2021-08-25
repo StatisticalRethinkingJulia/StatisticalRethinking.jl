@@ -18,7 +18,7 @@ end
 
 PRECIS(df::DataFrame) = Text(precis(df; io=String))
 
-#CHNS(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", chns))
+CHNS(chns::KeyedArray) = Text(sprint(show, "text/plain", chns))
 
 #HPD(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", hpd(chns)))
 

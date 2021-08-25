@@ -33,3 +33,10 @@ if !isdefined(Main, :Turing)
     end
 
 end
+
+# Pluto helper
+
+HPD(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", hpd(chns)))
+
+export
+    HPD

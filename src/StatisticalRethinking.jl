@@ -10,6 +10,7 @@ using NamedTupleTools
 using PrettyTables, Unicode
 using ParetoSmooth, StructuralCausalModels
 using MonteCarloMeasurements
+using KernelDensity
 
 import StatsBase: sample
 import DataFrames: DataFrame
@@ -76,6 +77,7 @@ include("hmc.jl")
 include("pk_qualify.jl")
 include("waic.jl")
 include("sample_quaptuple.jl")
+include("stan_quap.jl")
 
 export
   sr_path,

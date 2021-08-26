@@ -45,10 +45,10 @@ meanlowerupper(data, PI = (0.055, 0.945))
 ## plotbounds
 ```@docs
 plotbounds(
-  df::DataFrame, 
+  df::DataFrame,
   xvar::Symbol,
-  yvar::Symbol, 
-  dfs::DataFrame, 
+  yvar::Symbol,
+  dfs::DataFrame,
   linkvars::Vector{Symbol};
   fnc = link,
   fig::AbstractString="",
@@ -66,8 +66,8 @@ plotbounds(
   df::DataFrame,
   xvar::Symbol,
   yvar::Symbol,
-  nt::NamedTuple, 
-  linkvars::Vector{Symbol}; 
+  nt::NamedTuple,
+  linkvars::Vector{Symbol};
   fnc::Function=link,
   fig::AbstractString="",
   stepsize=0.01,
@@ -84,9 +84,9 @@ plotlines(
   df::DataFrame,
   xvar::Symbol,
   yvar::Symbol,
-  nt::NamedTuple, 
+  nt::NamedTuple,
   linkvars::Vector{Symbol},
-  fig=nothing; 
+  fig=nothing;
   fnc::Function=link,
   stepsize=0.01,
   rescale_axis=true,
@@ -102,7 +102,7 @@ compare(m::Vector{Matrix{Float64}}, ::Val{:waic})
 ```
 
 ## `create_observation_matrix`
-```@docs 
+```@docs
 create_observation_matrix(x::Vector, k::Int)
 ```
 
@@ -120,4 +120,9 @@ var2(x)
 ```@docs
 simulate(df, coefs, var_seq)
 simulate(df, coefs, var_seq, coefs_ext)
+```
+
+## sim_happiness
+```@docs
+sim_happiness
 ```

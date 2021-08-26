@@ -108,6 +108,85 @@ rc5_2s = stan_sample(m5_2s; data)
 m5_3s = SampleModel("m5.3s", stan5_3)
 rc5_3s = stan_sample(m5_3s; data)
 
+struct LooCompare
+    psis::Vector{PsisLoo}
+    table::KeyedArray
+end
+
+function loo_compare1(models::Vector{SampleModel}; 
+    loglikelihood_name="log_lik",
+    model_names=nothing,
+    sort_models=true, 
+    show_psis=true)
+
+    nmodels = length(models)
+    mnames = [models[i].name for i in 1:nmodels]
+
+    ka = Vector{KeyedArray}(undef, nmodels)
+    ll = Vector{Array{Float64, 3}}(undef, nmodels)
+    psis = Vector{PsisLoo{Float64, Array{Float64, 3},
+        Vector{Float64}, Int64, Vector{Int64}}}(undef, nmodels)
+
+    for i in 1:length(models)
+        ka[i] = read_samples(models[i], :keyedarray)
+        ll[i] = permutedims(Array(matrix(ka[i], loglikelihood_name)), [3, 1, 2])
+        psis[i] = psis_loo(ll[i])
+        show_psis && psis[i] |> display
+    end
+
+    psis_values = Vector{Float64}(undef, nmodels)
+    se_values = Vector{Float64}(undef, nmodels)
+    loos = Vector{Vector{Float64}}(undef, nmodels)
+
+    for i in 1:nmodels
+        psis_values[i] = psis[i].estimates(:cv_est, :total)
+        se_values[i] = psis[i].estimates(:cv_est, :se_total)
+        loos[i] = psis[i].pointwise(:cv_est)
+    end
+
+    if sort_models
+        ind = sortperm([psis_values[i][1] for i in 1:nmodels]; rev=true)
+        psis = psis[ind]
+        psis_values = psis_values[ind]
+        se_values = se_values[ind]
+        loos = loos[ind]
+        mnames = mnames[ind]
+    end
+
+    # Setup comparison vectors
+
+    elpd_diff = zeros(nmodels)
+    se_diff = zeros(nmodels)
+    weight = ones(nmodels)
+
+    # Compute comparison values
+
+    for i in 2:nmodels
+        elpd_diff[i] = psis_values[i] - psis_values[1]
+        diff = loos[1] - loos[i]
+        se_diff[i] = √(length(loos[i]) * var(diff; corrected=false))
+    end
+    data = elpd_diff
+    data = hcat(data, se_diff)
+
+    sumval = sum([exp(psis_values[i]) for i in 1:nmodels])
+    @. weight = exp(psis_values) / sumval
+    data = hcat(data, weight)
+    
+    # Create KeyedArray object
+
+    table = KeyedArray(
+        data,
+        model = mnames,
+        statistic = [:cv_est, :se_diff, :weight],
+    )
+
+    # Return LooCompare object
+    
+    LooCompare(psis, table)
+
+end
+
 function Base.show(io::IO, ::MIME"text/plain", loo_compare::LooCompare)
     table = loo_compare.table
     return pretty_table(
@@ -132,8 +211,15 @@ if success(rc5_1s) && success(rc5_2s) && success(rc5_3s)
 
     models = [m5_1s, m5_2s, m5_3s]
     loglikelihood_name = :log_lik
-    loo_comparison = loo_compare(models)
+    loo_comparison = loo_compare1(models)
     println()
+    #=
+    for i in 1:size(loo_comparison.pointwise, 3)
+        pw = loo_comparison.pointwise[:, :, i]
+        pk_plot(pw(:pareto_k))
+        savefig(joinpath(@__DIR__, "m5.$(i)s.png"))
+    end
+    =#
     loo_comparison |> display
 end
 #=

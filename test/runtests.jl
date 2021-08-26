@@ -12,7 +12,7 @@ tests = ["srtools"]
         end
     end
 
-    @testset "WaffleDivorce" begin
+    @testset "WaffleDivorce loo_compare" begin
         using Random
         #Random.seed!(129111)
 

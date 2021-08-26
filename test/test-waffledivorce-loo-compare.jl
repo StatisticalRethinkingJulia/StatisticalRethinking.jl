@@ -108,18 +108,6 @@ rc5_2s = stan_sample(m5_2s; data)
 m5_3s = SampleModel("m5.3s", stan5_3)
 rc5_3s = stan_sample(m5_3s; data)
 
-function Base.show(io::IO, ::MIME"text/plain", loo_compare::LooCompare)
-    table = loo_compare.table
-    return pretty_table(
-        table;
-        compact_printing=false,
-        header=table.statistic,
-        row_names=table.model,
-        formatters=ft_printf("%5.2f"),
-        alignment=:r,
-    )
-end
-
 if success(rc5_1s) && success(rc5_2s) && success(rc5_3s)
 
     nt5_1s = read_samples(m5_1s, :particles)

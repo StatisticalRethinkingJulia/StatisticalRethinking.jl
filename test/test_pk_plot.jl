@@ -1,5 +1,7 @@
+
 using StanSample, ParetoSmooth
 using AxisKeys, NamedTupleTools
+using PrettyTables, StatsPlots
 using StatisticalRethinking
 using StatisticalRethinkingPlots, Test
 
@@ -108,9 +110,13 @@ rc5_2s = stan_sample(m5_2s; data)
 m5_3s = SampleModel("m5.3s", stan5_3)
 rc5_3s = stan_sample(m5_3s; data)
 
-struct LooCompare
+struct LooCompare1
     psis::Vector{PsisLoo}
     table::KeyedArray
+end
+
+function to_paretosmooth(ll, pd = [3,1, 2])
+    permutedims(ll, [3, 1, 2])
 end
 
 function loo_compare1(models::Vector{SampleModel}; 
@@ -122,16 +128,15 @@ function loo_compare1(models::Vector{SampleModel};
     nmodels = length(models)
     mnames = [models[i].name for i in 1:nmodels]
 
-    ka = Vector{KeyedArray}(undef, nmodels)
-    ll = Vector{Array{Float64, 3}}(undef, nmodels)
-    psis = Vector{PsisLoo{Float64, Array{Float64, 3},
-        Vector{Float64}, Int64, Vector{Int64}}}(undef, nmodels)
+    chains_vec = read_samples.(models)
+    ll_vec = Array.(matrix.(chains_vec, loglikelihood_name))
+    ll_vecp = map(to_paretosmooth, ll_vec)
+    psis_vec = psis_loo.(ll_vecp)
 
-    for i in 1:length(models)
-        ka[i] = read_samples(models[i], :keyedarray)
-        ll[i] = permutedims(Array(matrix(ka[i], loglikelihood_name)), [3, 1, 2])
-        psis[i] = psis_loo(ll[i])
-        show_psis && psis[i] |> display
+    if show_psis
+        for i in 1:nmodels
+            psis_vec[i] |> display
+        end
     end
 
     psis_values = Vector{Float64}(undef, nmodels)
@@ -139,14 +144,14 @@ function loo_compare1(models::Vector{SampleModel};
     loos = Vector{Vector{Float64}}(undef, nmodels)
 
     for i in 1:nmodels
-        psis_values[i] = psis[i].estimates(:cv_est, :total)
-        se_values[i] = psis[i].estimates(:cv_est, :se_total)
-        loos[i] = psis[i].pointwise(:cv_est)
+        psis_values[i] = psis_vec[i].estimates(:cv_est, :total)
+        se_values[i] = psis_vec[i].estimates(:cv_est, :se_total)
+        loos[i] = psis_vec[i].pointwise(:cv_est)
     end
 
     if sort_models
         ind = sortperm([psis_values[i][1] for i in 1:nmodels]; rev=true)
-        psis = psis[ind]
+        psis_vec = psis_vec[ind]
         psis_values = psis_values[ind]
         se_values = se_values[ind]
         loos = loos[ind]
@@ -183,11 +188,12 @@ function loo_compare1(models::Vector{SampleModel};
 
     # Return LooCompare object
     
-    LooCompare(psis, table)
+    LooCompare1(psis_vec, table)
 
 end
 
-function Base.show(io::IO, ::MIME"text/plain", loo_compare::LooCompare)
+
+function Base.show(io::IO, ::MIME"text/plain", loo_compare::LooCompare1)
     table = loo_compare.table
     return pretty_table(
         table;
@@ -198,6 +204,7 @@ function Base.show(io::IO, ::MIME"text/plain", loo_compare::LooCompare)
         alignment=:r,
     )
 end
+
 
 if success(rc5_1s) && success(rc5_2s) && success(rc5_3s)
 
@@ -210,16 +217,15 @@ if success(rc5_1s) && success(rc5_2s) && success(rc5_3s)
     println()
 
     models = [m5_1s, m5_2s, m5_3s]
-    loglikelihood_name = :log_lik
     loo_comparison = loo_compare1(models)
     println()
-    #=
-    for i in 1:size(loo_comparison.pointwise, 3)
-        pw = loo_comparison.pointwise[:, :, i]
+    
+    for i in 1:length(models)
+        pw = loo_comparison.psis[i].pointwise
         pk_plot(pw(:pareto_k))
         savefig(joinpath(@__DIR__, "m5.$(i)s.png"))
     end
-    =#
+    
     loo_comparison |> display
 end
 #=

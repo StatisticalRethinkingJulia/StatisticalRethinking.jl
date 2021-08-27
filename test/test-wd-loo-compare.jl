@@ -119,7 +119,6 @@ if success(rc5_1s) && success(rc5_2s) && success(rc5_3s)
     println()
 
     models = [m5_1s, m5_2s, m5_3s]
-    loglikelihood_name = :log_lik
     loo_comparison = loo_compare(models)
     println()
     loo_comparison |> display

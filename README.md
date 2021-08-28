@@ -52,7 +52,7 @@ After chapter 4, `Statistics with Julia` follows the frequentionist approach whi
 - Switch to ParetoSmooth.jl
 - Switch to AxisKeys.jl for mcmc chains if Stan(Sample) is used.
 - Enable a switch to Makie.jl and AlgebraOfGraphics.jl by moving all graphics to StatisticalRethinkingPlots and StatisticalRethinkingMakie (in the near future).
-- Use projects to set up the needed Julia environment using a project, e.g. StatisticalRethinkingStan and StatisticalRethinkingTuring.
+- Use projects to set up the needed Julia environment to run the examples, e.g. StatisticalRethinkingStan and StatisticalRethinkingTuring.
 - Refine 'tailoring' StatisticalRethinking.jl and the graphics packages based on the availability of StanSample, Turing.jl, etc. using Requires.jl.
 
 ### Versions 3.2.1 - 3.3.4

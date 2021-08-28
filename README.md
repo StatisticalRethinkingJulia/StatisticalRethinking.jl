@@ -17,14 +17,13 @@ These functions are used in the Pluto notebook `projects` specifically intended 
 
 To work through the StatisticalRethinking book using Julia and Stan, download `project` [StatisticalRethinkingStan.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and open one of the chapter Pluto notebooks.
 
-A start has been made with a similar [project](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl) using Julia and Turing, but unfortunately only the first 5 chapters have been completed. I just don't have the time to continue to work on that project. Luckily there is an excellent other package, [TuringModels.jl](https://github.com/StatisticalRethinkingJulia/TuringModels.jl) that contains a selection of the Statistical Rethinking models in Turing.jl's PPL. There is also [this setup](https://github.com/Shmuma/rethinking-2ed-julia) which is another good starting point to use Turing.jl. These packages 
-should form a good starting point for further exploration.
+A start has been made with a similar [project](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl) using Julia and Turing, but unfortunately only the first 5 chapters have been completed. I just don't have the time to continue to work and complete that project. Luckily there is an excellent other package, [TuringModels.jl](https://github.com/StatisticalRethinkingJulia/TuringModels.jl) that contains a selection of the Statistical Rethinking models in Turing.jl's PPL. There is also [this setup](https://github.com/Shmuma/rethinking-2ed-julia) which is another good starting point to use Turing.jl.
 
 Along similar lines, I would love to see a StatisticalRethinkingDhmc.jl, which could be a combination of Soss.jl and DynamicHMC.jl, and a StatisticalRethinkingMamba.jl!
 
 If interested in either of these projects, please contact me!
 
-## Important note on StatisticalRethinking v4
+## StatisticalRethinking v4
 
 This is a breaking change from v3 of StatisticalRethinking.jl. Breakage may occur because over time more and better options become available to express the material covered in Statistical Rethinking. Examples are the recently developed ParetoSmooth.jl for PSIS related examples, KeyedArrays as introduced in AxisKeys.jl for the representation of mcmc chains and the new graphics option with Makie.jl and AlgebraOfGraphics.jl. Also, an attempt is made to make StatisticalRethinking.jl fit better with the new setup of Pluto notebooks which keep track of used package versions in the notebooks themselves ([see here](https://github.com/fonsp/Pluto.jl/wiki/🎁-Package-management))
 

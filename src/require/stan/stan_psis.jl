@@ -1,4 +1,4 @@
-import ParetoSmooth: loo_compare
+import ParetoSmooth: psis_loo, loo_compare
 
 function waic(m::SampleModel; pointwise=false)
     nt = read_samples(m, :namedtuple)
@@ -9,6 +9,17 @@ function waic(m::SampleModel; pointwise=false)
     end
 
     waic(lp; pointwise)
+end
+
+function psis_loo(model::SampleModel; loglikelihood_name="log_lik")
+    chains = read_samples(model) # Obtain KeyedArray chains
+    psis_loo(chains; loglikelihood_name)
+end
+
+function psis_loo(chains::T; loglikelihood_name="log_lik") where {T <: KeyedArray}
+    ll = Array(matrix(chains, loglikelihood_name)) # Extract log_lik matrix
+    ll_p = to_paretosmooth(ll) # Permute dims for ParetoSmooth
+    psis = psis_loo(ll_p) # Compute PsisLoo for model
 end
 
 # KeyedArray chains are [draws, chains, params] while ParetoSmooth
@@ -54,4 +65,5 @@ end
 export
     to_paretosmooth,
     waic,
+    psis_loo,
     loo_compare

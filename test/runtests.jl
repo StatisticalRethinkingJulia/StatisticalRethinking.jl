@@ -135,6 +135,10 @@ tests = ["srtools"]
             NamedTupleTools.select(nt5_3s, (:a, :bA, :bM, :sigma)) |> display
             println("\n")
 
+            chns = read_samples(m5_1s)
+            psis_loo(chns) |> display
+            println()
+
             models = [m5_1s, m5_2s, m5_3s]
 
             # Show PsisLoo estimates and if applicable pareto_k warnings

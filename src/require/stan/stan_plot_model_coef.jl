@@ -34,7 +34,7 @@ function plot_model_coef(models::Vector{SampleModel},
 
   s = Vector{NamedTuple}(undef, length(models))
   for (mindx, mdl) in enumerate(models)
-    df = read_samples(mdl; output_format=:dataframe)
+    df = read_samples(mdl, :dataframe)
     m, l, u = estimparam(df)
     d = Dict{Symbol, NamedTuple}()
     for (indx, par) in enumerate(names(df))

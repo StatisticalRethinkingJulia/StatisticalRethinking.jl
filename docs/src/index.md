@@ -116,6 +116,12 @@ r2_is_bad(model::NamedTuple, df::DataFrame)
 var2(x)
 ```
 
+## sim_happiness
+```docs
+sim_happiness(; seed=nothing, n_years=1000, max_age=65, n_births=20, aom=18)
+```
+
+```
 ## simulate
 ```@docs
 simulate(df, coefs, var_seq)

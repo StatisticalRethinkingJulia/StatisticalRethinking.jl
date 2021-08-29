@@ -1,32 +1,28 @@
 module StatisticalRethinking
 
-using Reexport, Requires
+using Requires
 
-@reexport using StatsBase, Statistics
-@reexport using ParetoSmooth
-@reexport using StatsModelComparisons, StructuralCausalModels
-@reexport using LinearAlgebra, Random, Distributions
-@reexport using CSV, DataFrames
-@reexport using KernelDensity, StatsPlots, LaTeXStrings
-@reexport using NamedArrays, StatsFuns
-@reexport using MCMCChains, MonteCarloMeasurements
-@reexport using BSplines
-@reexport using Optim
-@reexport using PrettyTables, Unicode
+using StatsBase, Statistics
+using LinearAlgebra, Random
+using AxisKeys, DataFrames
+using NamedArrays, StatsFuns
+using NamedTupleTools
+using PrettyTables, Unicode
+using ParetoSmooth, StructuralCausalModels
+using MonteCarloMeasurements
+using KernelDensity
 
 import StatsBase: sample
-import MonteCarloMeasurements:Particles
+import DataFrames: DataFrame
+import MonteCarloMeasurements: Particles
 
-using GLM: lm, @formula
-
-#using StatsFuns: logistic, logit, logsumexp
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 function __init__()
   @require Turing="fce5fe82-541a-59a6-adf8-730c64b5f9a0" include("require/turing/turing.jl")
-  @require StanSample="c1514b29-d3a0-5178-b312-660c88baa699" include("require/stan/sample.jl")
-  #@require StanOptimize="fbd8da12-e93d-5a64-9231-612a0707ab99" include("require/stan/optimize.jl")
+  @require StanSample="c1514b29-d3a0-5178-b312-660c88baa699" include("require/stan/stan.jl")
   @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require/dhmc/dhmc.jl")
+  @require MCMCChains="c7f686f2-ff18-58e9-bc7b-31028e88f75d" include("require/mcmcchains/mcmcchains.jl")
 end
 
 const src_path = @__DIR__
@@ -63,35 +59,25 @@ df = CSV.read(sr_datadir("Howell1.csv"), DataFrame)
 """
 sr_datadir(parts...) = sr_path("..", "data", parts...)
 
-include("scale.jl")             # Rename to standardize of zscore?
-#include("center.jl")            # Center columns of a df, todo.
+include("scale.jl")                    # Rename to standardize of zscore?
 include("rescale.jl")
 include("link.jl")
 include("hpdi.jl")
-include("df.jl")
-include("quap.jl")
-include("particles.jl")
+include("sample_dataframe.jl")
 include("precis.jl")
-include("pairsplot.jl")
 include("simulate.jl")
 include("srtools.jl")
 include("sim_happiness.jl")
-include("plot_density_interval.jl")
-include("plotbounds.jl")
-include("plotlines.jl")
 include("pluto_helpers.jl")
 include("sim_train_test.jl")
 include("lppd.jl")
 include("logprob.jl")
 include("compare_models.jl")
-include("plot_models.jl")
-include("trankplot.jl")
 include("hmc.jl")
-include("plot_model_coef.jl")
-include("plot_logistic_coef.jl")
-include("pk_utilities.jl")
+include("pk_qualify.jl")
 include("waic.jl")
-include("coeftab_plot.jl")
+include("sample_quaptuple.jl")
+include("stan_quap.jl")
 
 export
   sr_path,

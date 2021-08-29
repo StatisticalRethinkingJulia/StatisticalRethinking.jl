@@ -12,11 +12,8 @@ function unicode_histogram(data, nbins = 12)
 end
 
 """
-
 # precis
-
 $(SIGNATURES)
-
 """
 function precis(df::DataFrame; io = stdout, digits = 4, depth = Inf, alpha = 0.11)
     d = DataFrame()

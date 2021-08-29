@@ -1,6 +1,3 @@
-using LinearAlgebra
-import StatisticalRethinking: quap
-
 #      Run like
 # using Turing
 # @model height(heights) = begin
@@ -16,7 +13,7 @@ import StatisticalRethinking: quap
 # might be pretty good, on the other hand, just because the solver converged that
 # doesn't mean you got the point you are looking for; this isn't even global
 # optimization. In any case, trying other optimization methods might help.
-function quap(model::Turing.Model, args...; kwargs...)
+function turing_quap(model::Turing.Model, args...; kwargs...)
     opt = optimize(model, MAP(), args...; kwargs...)
 
     coef = opt.values.array
@@ -58,4 +55,4 @@ function StatsBase.params(model::Turing.Model)
 end
 
 export
-    quap
+    turing_quap

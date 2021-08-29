@@ -21,7 +21,7 @@ function compare(models::Vector{SampleModel}, type::Symbol)
     mnames = AbstractString[]
     lps = Matrix{Float64}[]
     for m in models
-        nt = read_samples(m)
+        nt = read_samples(m, :namedtuple)
         if :log_lik in keys(nt)
             append!(mnames, [m.name])
             append!(lps, [Matrix(nt.log_lik')])

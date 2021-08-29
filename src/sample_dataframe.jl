@@ -1,16 +1,4 @@
 using OrderedCollections
-import DataFrames: DataFrame
-
-function DataFrame(m::MCMCChains.Chains)
-    a = Array(m, :parameters)
-    params = names(m)[1:length(names(m, :parameters))]
-    if size(a, 2) == 1
-        return DataFrame([a], params)
-    else
-        return DataFrame(a, params)
-    end
-end
-
 
 """
 
@@ -72,5 +60,4 @@ end
 
 
 export
-  sample,
-  Particles
+  sample

@@ -6,6 +6,9 @@ on:
       - master
   pull_request:
 
+env:
+  JULIA_CMDSTAN_HOME: "/home/worker/cmdstan-2.27.0/"
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -28,6 +31,23 @@ jobs:
           - os: macOS-latest
             arch: x86
     steps:
+      - name: Install extra dependency on main branch
+        shell: julia --project=. {0}
+        run: |
+          println(pwd())
+          println(ENV["JULIA_CMDSTAN_HOME"])
+          println(ENV["HOME"])
+      - run: |
+          OLDWD=`pwd`
+          cd ~
+          pwd
+          wget https://github.com/stan-dev/cmdstan/releases/download/v2.27.0/cmdstan-2.27.0.tar.gz
+          tar -xzpf cmdstan-2.27.0.tar.gz
+          ls -lia .
+          make -C $JULIA_CMDSTAN_HOME build
+          cd $OLDWD
+        env:
+          JULIA_CMDSTAN_HOME: "/home/runner/cmdstan-2.27.0/"
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@v1
         with:

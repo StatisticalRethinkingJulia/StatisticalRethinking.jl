@@ -7,7 +7,7 @@
 
 ## Note: Version 4 is under development and breaking in many respects.
 
-Version 4 has a very different setup (see below under versions). For now v3.3.4 is more complete in conjunction with the StatisticalRethinkingStan (v3) and StatisticalRethinkingTuring (v1) projects.
+Version 4 has a very different setup (see below under versions). For now v3.3.6 is more complete in conjunction with the StatisticalRethinkingStan (v3) and StatisticalRethinkingTuring (v1) projects.
 
 ## Purpose of this package
 

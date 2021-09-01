@@ -16,7 +16,9 @@ end
 
 """
 # quap
-Quadratic approximation of a posterior distribution
+
+Quadratic approximation of a posterior distribution in a DataFrame
+
 ### Method
 ```julia
 quap(df) 
@@ -43,7 +45,7 @@ if success(rc)
 end
 ```
 """
-function stan_quap(s::DataFrame)
+function quap(s::DataFrame)
   ntnames = (:coef, :vcov, :converged, :distr, :params)
   n = Symbol.(names(s))
   coefnames = tuple(n...,)
@@ -83,5 +85,5 @@ end
 
 export
   mode_estimates,
-  stan_quap,
-  sample
+  sample,
+  quap

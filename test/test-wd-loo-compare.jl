@@ -1,7 +1,6 @@
 using StanSample, ParetoSmooth
-using AxisKeys, NamedTupleTools
+using NamedTupleTools, Test
 using StatisticalRethinking
-using StatisticalRethinkingPlots, Test
 
 df = CSV.read(sr_datadir("WaffleDivorce.csv"), DataFrame);
 scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
@@ -123,12 +122,17 @@ if success(rc5_1s) && success(rc5_2s) && success(rc5_3s)
     println()
     loo_comparison |> display
 end
-#=
-With SR/ulam():
-```
-       PSIS    SE dPSIS  dSE pPSIS weight
-m5.1u 126.0 12.83   0.0   NA   3.7   0.67
-m5.3u 127.4 12.75   1.4 0.75   4.7   0.33
-m5.2u 139.5  9.95  13.6 9.33   3.0   0.00
-```
-=#
+
+@testset "loo_compare" begin
+    @test loo_comparison.estimates(Symbol("m5.1s"), :cv_elpd) ≈ 0 atol=0.01
+    @test loo_comparison.estimates(Symbol("m5.1s"), :cv_avg) ≈ 0 atol=0.01
+    @test loo_comparison.estimates(Symbol("m5.1s"), :weight) ≈ 0.7 atol=0.06
+
+    @test loo_comparison.estimates(Symbol("m5.2s"), :cv_elpd) ≈ -6.9 atol=0.6
+    @test loo_comparison.estimates(Symbol("m5.2s"), :cv_avg) ≈ -0.13 atol=0.02
+    @test loo_comparison.estimates(Symbol("m5.2s"), :weight) ≈ 0.0 atol=0.06
+    
+    @test loo_comparison.estimates(Symbol("m5.3s"), :cv_elpd) ≈ -0.65 atol=0.6
+    @test loo_comparison.estimates(Symbol("m5.3s"), :cv_avg) ≈ -0.01 atol=0.01
+    @test loo_comparison.estimates(Symbol("m5.3s"), :weight) ≈ 0.34 atol=0.06
+end

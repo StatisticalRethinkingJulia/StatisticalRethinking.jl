@@ -23,7 +23,7 @@ Over time more and better options become available to express the material cover
 
 But other examples are the recently developed [ParetoSmooth.jl](https://github.com/TuringLang/ParetoSmooth.jl) used in the PSIS related examples and the preliminary work by [SHMUMA](https://github.com/Shmuma/Dagitty.jl) on a better Dagitty.jl (vs. StructuralCausalModels.jl)
 
-While StatisticalRethinking v3 focused on making StatisticalRethinking.jl mcmc package independendent, StatisticalRethinking v4 aims at decoupling it from a specific graphical package and thus enables new choices for graphics, e.g. using Makie.jl and AlgebraOfGraphics.jl. 
+While StatisticalRethinking v3 focused on making StatisticalRethinking.jl mcmc package independendent, StatisticalRethinking v4 is decoupled from a specific graphical package and thus enables new choices for graphics, e.g. using Makie.jl and AlgebraOfGraphics.jl. 
 
 Also, an attempt has been made to make StatisticalRethinking.jl fit better with the new setup of Pluto notebooks which keep track of used package versions in the notebooks themselves ([see here](https://github.com/fonsp/Pluto.jl/wiki/🎁-Package-management)).
 
@@ -55,7 +55,7 @@ Both projects create a Julia environment where most needed packages are availabl
 
 In addition to providing a Julia package environment, these also contain chapter by chapter Pluto notebooks to work through the Statistical Rethinking book. 
 
-In order to keep environment packages relatively simple (i.e. have a limited set of dependenies on other Julia packages) StatisticalRethinking consists of 2 layers, a top layer containing mcmc dependent methods (e.g. a model comparison method taking Turing.jl or StanSample.jl derived objects) which in turn call common methods in the bottom layer. The same applies for the graphic packages. This feature relies on Requires.jl and the mcmc dependent methods can be found in `src/require` directories.
+In order to keep environment packages relatively simple (i.e. have a limited set of dependencies on other Julia packages) StatisticalRethinking consists of 2 layers, a top layer containing mcmc dependent methods (e.g. a model comparison method taking Turing.jl or StanSample.jl derived objects) which in turn call common methods in the bottom layer. The same applies for the graphic packages. This feature relies on Requires.jl and the mcmc dependent methods can be found in `src/require` directories.
 
 To tailor StatisticalRethinking.jl for Stan, use (in that order!):
 ```
@@ -73,7 +73,7 @@ See the notebook examples.
 
 ## Structure of StatisticalRethinkingJulia (v4):
 
-On a high level, the StatisticalRethinkingJulia eco system contains 4 layers:
+On a high level, the StatisticalRethinkingJulia ecosystem contains 4 layers:
 
 1. The lowest layer provides mcmc methods, currently Turing.jl and StanSample.jl.
 

@@ -11,13 +11,13 @@ The StatisticalRethinking.jl `package` contains functions comparable to the func
 
 These functions are used in the Pluto notebook `projects` specifically intended for hands-on use while studying the book or taking the course.
 
-## Note: Version 4 is under development and breaking in many respects.
+## *Note: Version 4 is under development and breaking in many respects.*
 
 Version 4 has a very different setup and is a breaking change from v3 of StatisticalRethinking.jl. See below for what has changed.
 
 For now StatisticalRethinking v3.3.6 is more complete in conjunction with the StatisticalRethinkingStan (v3) and StatisticalRethinkingTuring (v1-3) projects.
 
-## Why StatisticalRethinking v4?
+## Why a StatisticalRethinking v4?
 
 Over time more and better options become available to express the material covered in Statistical Rethinking. The most important (in my opinion!) is the use of KeyedArrays (provided by AxisKeys.jl) for the representation of mcmc chains.
 
@@ -33,7 +33,7 @@ Also, an attempt has been made to make StatisticalRethinking.jl fit better with 
 
 2. Define the mcmc model, e.g. using StanSample.jl or Turing.jl, and obtain draws from the model.
 
-3. Capture the draws for further processing. In Turing that is ususally done using MCMCChains.jl, in StanSample.jl v4 it's mostly in the form of KeyedArray chains as derived from AxisKeys.jl.
+3. Capture the draws for further processing. In Turing that is ususally done using MCMCChains.jl, in StanSample.jl v4 it's mostly in the form of KeyedArray chains (as stated above, obtained from AxisKeys.jl).
 
 4. Inspect the chains using statistical and visual methods. In many cases this will need one or more statistical packages and one of the graphical options.
 

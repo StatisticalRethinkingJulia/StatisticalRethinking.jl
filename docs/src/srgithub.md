@@ -4,7 +4,7 @@ StatisticalRethinking.jl is part of the broader [StatisticalRethinkingJulia](htt
 
 Implementations of most models using Stan, DynamicHMC and Turing can currently be found in [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
 
-## Why StatisticalRethinking v4?
+## Why a StatisticalRethinking v4?
 
 Over time more and better options become available to express the material covered in Statistical Rethinking. The most important (in my opinion!) is the use of KeyedArrays (provided by AxisKeys.jl) for the representation of mcmc chains.
 
@@ -20,7 +20,7 @@ Also, an attempt has been made to make StatisticalRethinking.jl fit better with 
 
 2. Define the mcmc model, e.g. using StanSample.jl or Turing.jl, and obtain draws from the model.
 
-3. Capture the draws for further processing. In Turing that is ususally done using MCMCChains.jl, in StanSample.jl v4 it's mostly in the form of KeyedArray chains as derived from AxisKeys.jl.
+3. Capture the draws for further processing. In Turing that is ususally done using MCMCChains.jl, in StanSample.jl v4 it's mostly in the form of KeyedArray chains (as stated above, obtained from AxisKeys.jl).
 
 4. Inspect the chains using statistical and visual methods. In many cases this will need one or more statistical packages and one of the graphical options.
 

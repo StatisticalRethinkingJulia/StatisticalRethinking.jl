@@ -21,7 +21,7 @@ For now StatisticalRethinking v3.3.6 is more complete in conjunction with the St
 
 Over time more and better options become available to express the material covered in Statistical Rethinking. The most important (in my opinion!) is the use of KeyedArrays (provided by AxisKeys.jl) for the representation of mcmc chains.
 
-But other examples are the recently developed [ParetoSmooth.jl](https://github.com/TuringLang/ParetoSmooth.jl) used in the PSIS related examples and the preliminary work by [SHMUMA](https://github.com/Shmuma/Dagitty.jl) on a better Dagitty.jl (vs. StructuralCausalModels.jl)
+But other examples are the recently developed [ParetoSmooth.jl](https://github.com/TuringLang/ParetoSmooth.jl) used in the PSIS related examples and the preliminary work by [SHMUMA](https://github.com/Shmuma/Dagitty.jl) on a better Dagitty.jl (vs. StructuralCausalModels.jl).
 
 While StatisticalRethinking v3 focused on making StatisticalRethinking.jl mcmc package independendent, StatisticalRethinking v4 aims at decoupling it from a specific graphical package and thus enables new choices for graphics, e.g. using Makie.jl and AlgebraOfGraphics.jl. 
 
@@ -55,7 +55,7 @@ Both projects create a Julia environment where most needed packages are availabl
 
 In addition to providing a Julia package environment, these also contain chapter by chapter Pluto notebooks to work through the Statistical Rethinking book. 
 
-In order to keep environment packages relatively simple (i.e. have a limited set of dependenies on other Julia packages) StatisticalRethinking consists of 2 layers, a top layer containing mcmc dependent methods (e.g. a model comparison method taking Turing.jl or StanSample.jl derived objects) which in turn call common methods in the bottom layer. The same applies for the graphic packages. This feature relies on Requires.jl and the mcmc dependent methods can be found in `src/require` directories.
+In order to keep environment packages relatively simple (i.e. have a limited set of dependencies on other Julia packages) StatisticalRethinking consists of 2 layers, a top layer containing mcmc dependent methods (e.g. a model comparison method taking Turing.jl or StanSample.jl derived objects) which in turn call common methods in the bottom layer. The same applies for the graphic packages. This feature relies on Requires.jl and the mcmc dependent methods can be found in `src/require` directories.
 
 To tailor StatisticalRethinking.jl for Stan, use (in that order!):
 ```
@@ -73,7 +73,7 @@ See the notebook examples.
 
 ## Structure of StatisticalRethinkingJulia (v4):
 
-On a high level, the StatisticalRethinkingJulia eco system contains 4 layers:
+On a high level, the StatisticalRethinkingJulia ecosystem contains 4 layers:
 
 1. The lowest layer provides mcmc methods, currently Turing.jl and StanSample.jl.
 
@@ -105,7 +105,7 @@ Finally, for a good while I have been looking for a great statistics book using 
 
 As [StatisticalRethinking](https://github.com/StatisticalRethinkingJulia) v3/4 is also (DrWatson & Pkg) project based and uses Pluto notebooks, I have converted the book `listings` in the first 5 chapters to Pluto Notebooks in a new repository in StatisticalRethinkingJulia, i.e. [StatisticsWithJuliaPlutoNotebooks](https://github.com/StatisticalRethinkingJulia/StatisticsWithJuliaPlutoNotebooks.jl). 
 
-After chapter 4, `Statistics with Julia` follows the frequentionist approach while `Statistical Rethinking` opts for the Bayesian approach. Most of the material in chapters 5 and 6 of `Statistics with Julia` is therefore also covered using a more Bayesian perspective in the early chapters of the notebook projects [StatisticalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and [StatisticalRethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl). 
+After chapter 4, `Statistics with Julia` follows the frequentist approach while `Statistical Rethinking` opts for the Bayesian approach. Most of the material in chapters 5 and 6 of `Statistics with Julia` is therefore also covered using a more Bayesian perspective in the early chapters of the notebook projects [StatisticalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and [StatisticalRethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl). 
 
 ## Versions
 
@@ -122,26 +122,26 @@ After chapter 4, `Statistics with Julia` follows the frequentionist approach whi
 
 - Improvements by Max Lapan.
 - Introduction of StatsModelCoparisons.jl for PSIS and WAIC.
-- Removed dependencied on DynamicHMC (will be covered in StatisticalRethinkingDHMC)
-- Added trankplot.jl
-- Further separation of methods needed to convert output of mcmc package to SR inputs
+- Removed dependencied on DynamicHMC (will be covered in StatisticalRethinkingDHMC).
+- Added trankplot.jl.
+- Further separation of methods needed to convert output of mcmc package to SR inputs.
 - Add compare() and plot_models() abstractions.
 - Manifest.toml updates.
 
 ### Version 3.2.0
 
-- Option to retieve sampling results as a NamedTuple
-- Added new method to plotbounds() to handle NamedTuples
-- Added plotlines()
+- Option to retieve sampling results as a NamedTuple.
+- Added new method to plotbounds() to handle NamedTuples.
+- Added plotlines().
 
 ### Versions v3.1.1 - 3.1.8
 
-- Updates from CompatHelper
-- Switch to Github actions (CI, Documenter)
-- Updates from Rik Huijzer (link function)
-- Redo quap() based on StanOptimize
-- Start Updating notebooks in ch 2-8 using new quap()
-- Redoing and updating the models in the models subdirectory
+- Updates from CompatHelper.
+- Switch to Github actions (CI, Documenter).
+- Updates from Rik Huijzer (link function).
+- Redo quap() based on StanOptimize.
+- Start Updating notebooks in ch 2-8 using new quap().
+- Redoing and updating the models in the models subdirectory.
 
 ### Version 3.1.0
 

@@ -47,9 +47,23 @@ To work through the StatisticalRethinking book using Julia and Turing, download 
 
 Both projects create a Julia environment where most needed packages are available.
 
-In addition to providing an environment these also contain chapter by chapter Pluto notebooks to work through the Statistical Rethinking book. 
+In addition to providing a Julia package environment, these also contain chapter by chapter Pluto notebooks to work through the Statistical Rethinking book. 
 
 In order to keep environment packages relatively simple (i.e. have a limited set of dependenies on other Julia packages) StatisticalRethinking consists of 2 layers, a top layer containing mcmc dependent methods (e.g. a model comparison method taking Turing.jl or StanSample.jl derived objects) which in turn call common methods in the bottom layer. The same applies for the graphic packages. This feature relies on Requires.jl and the mcmc dependent methods can be found in `src/require` directories.
+
+To tailor StatisticalRethinking.jl for Stan, use (in that order!):
+```
+using StanSample
+using StatisticalRethinking
+```
+
+or, for Turing:
+```
+using Turing
+using StatisticalRethinking
+```
+
+See the notebook examples.
 
 ## Structure of StatisticalRethinkingJulia (v4):
 

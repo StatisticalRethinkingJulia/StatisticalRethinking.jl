@@ -29,7 +29,7 @@ Also, an attempt has been made to make StatisticalRethinking.jl fit better with 
 
 ## Workflow of StatisticalRethinkingJulia (v4):
 
-1. Data preparation, typically using CSV.jl, DataFrames.jl and some statistical methods from StatsBase.jl and Statistics.jl. In some cases simulations are used and need Distributions.jl and a few special methods available in StatisticalRethinking.jl.
+1. Data preparation, typically using CSV.jl, DataFrames.jl and some statistical methods from StatsBase.jl and Statistics.jl. In some cases simulations are used which need Distributions.jl and a few special methods (available in StatisticalRethinking.jl).
 
 2. Define the mcmc model, e.g. using StanSample.jl or Turing.jl, and obtain draws from the model.
 

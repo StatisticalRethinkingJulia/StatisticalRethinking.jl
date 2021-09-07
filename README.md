@@ -105,7 +105,7 @@ Finally, for a good while I have been looking for a great statistics book using 
 
 As [StatisticalRethinking](https://github.com/StatisticalRethinkingJulia) v3/4 is also (DrWatson & Pkg) project based and uses Pluto notebooks, I have converted the book `listings` in the first 5 chapters to Pluto Notebooks in a new repository in StatisticalRethinkingJulia, i.e. [StatisticsWithJuliaPlutoNotebooks](https://github.com/StatisticalRethinkingJulia/StatisticsWithJuliaPlutoNotebooks.jl). 
 
-After chapter 4, `Statistics with Julia` follows the frequentionist approach while `Statistical Rethinking` opts for the Bayesian approach. Most of the material in chapters 5 and 6 of `Statistics with Julia` is therefore also covered using a more Bayesian perspective in the early chapters of the notebook projects [StatisticalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and [StatisticalRethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl). 
+After chapter 4, `Statistics with Julia` follows the frequentist approach while `Statistical Rethinking` opts for the Bayesian approach. Most of the material in chapters 5 and 6 of `Statistics with Julia` is therefore also covered using a more Bayesian perspective in the early chapters of the notebook projects [StatisticalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and [StatisticalRethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl). 
 
 ## Versions
 
@@ -122,26 +122,26 @@ After chapter 4, `Statistics with Julia` follows the frequentionist approach whi
 
 - Improvements by Max Lapan.
 - Introduction of StatsModelCoparisons.jl for PSIS and WAIC.
-- Removed dependencied on DynamicHMC (will be covered in StatisticalRethinkingDHMC)
-- Added trankplot.jl
-- Further separation of methods needed to convert output of mcmc package to SR inputs
+- Removed dependencied on DynamicHMC (will be covered in StatisticalRethinkingDHMC).
+- Added trankplot.jl.
+- Further separation of methods needed to convert output of mcmc package to SR inputs.
 - Add compare() and plot_models() abstractions.
 - Manifest.toml updates.
 
 ### Version 3.2.0
 
-- Option to retieve sampling results as a NamedTuple
-- Added new method to plotbounds() to handle NamedTuples
-- Added plotlines()
+- Option to retieve sampling results as a NamedTuple.
+- Added new method to plotbounds() to handle NamedTuples.
+- Added plotlines().
 
 ### Versions v3.1.1 - 3.1.8
 
-- Updates from CompatHelper
-- Switch to Github actions (CI, Documenter)
-- Updates from Rik Huijzer (link function)
-- Redo quap() based on StanOptimize
-- Start Updating notebooks in ch 2-8 using new quap()
-- Redoing and updating the models in the models subdirectory
+- Updates from CompatHelper.
+- Switch to Github actions (CI, Documenter).
+- Updates from Rik Huijzer (link function).
+- Redo quap() based on StanOptimize.
+- Start Updating notebooks in ch 2-8 using new quap().
+- Redoing and updating the models in the models subdirectory.
 
 ### Version 3.1.0
 

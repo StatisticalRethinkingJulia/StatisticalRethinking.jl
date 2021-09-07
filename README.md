@@ -5,17 +5,65 @@
 |:-------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
 |![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | ![][CI-build] |
 
-## Note: Version 4 is under development and breaking in many respects.
-
-Version 4 has a very different setup (see below under versions). For now v3.3.6 is more complete in conjunction with the StatisticalRethinkingStan (v3) and StatisticalRethinkingTuring (v1) projects.
-
 ## Purpose of this package
 
-The StatisticalRethinking.jl v4 `package` contains functions comparable to the functions in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath. 
+The StatisticalRethinking.jl `package` contains functions comparable to the functions in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath. 
 
 These functions are used in the Pluto notebook `projects` specifically intended for hands-on use while studying the book or taking the course.
 
-To work through the StatisticalRethinking book using Julia and Stan, download `project` [StatisticalRethinkingStan.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and open one of the chapter Pluto notebooks.
+## Note: Version 4 is under development and breaking in many respects.
+
+Version 4 has a very different setup and is a breaking change from v3 of StatisticalRethinking.jl. See below for what has changed.
+
+For now StatisticalRethinking v3.3.6 is more complete in conjunction with the StatisticalRethinkingStan (v3) and StatisticalRethinkingTuring (v1-3) projects.
+
+## Why StatisticalRethinking v4?
+
+Over time more and better options become available to express the material covered in Statistical Rethinking. Examples are KeyedArrays as introduced in AxisKeys.jl for the representation of mcmc chains, the recently developed ParetoSmooth.jl for PSIS related examples and the preliminary work by [SHMUMA](https://github.com/Shmuma/Dagitty.jl) on a better Dagitty.jl (vs. StructuralCausalModels.jl)
+
+While StatisticalRethinking v3 focused on making StatisticalRethinking.jl mcmc package independendent, StatisticalRethinking v4 is decoupled from a specific graphical package and thus enables new choices for graphics, e.g. using Makie.jl and AlgebraOfGraphics.jl. 
+
+Also, an attempt has been made to make StatisticalRethinking.jl fit better with the new setup of Pluto notebooks which keep track of used package versions in the notebooks themselves ([see here](https://github.com/fonsp/Pluto.jl/wiki/🎁-Package-management)).
+
+## Workflow of StatisticalRethinkingJulia (v4):
+
+1. Data preparation, typically using CSV.jl, DataFrames.jl and some statistical methods from StatsBase.jl and Statistics.jl. In some cases simulations are used and need Distributions.jl and a few special methods available in StatisticalRethinking.jl.
+
+2. Define the mcmc model, e.g. using StanSample.jl or Turing.jl, and obtain draws from the model.
+
+3. Capture the draws for further processing. In Turing that is ususally done using MCMCChains.jl, in StanSample.jl v4 it's mostly in the form of KeyedArray chains as derived from AxisKeys.jl.
+
+4. Inspect the chains using statistical and visual methods. In many cases this will need one or more statistical packages and one of the graphical options. Currently most visual options are StatsPlots/Plots based, e.g. in MCMCChains.jl and StatisticalRethinkingPlots.jl. The setup of StatisticalRethinking v4 enables the future introduction of a new package, StatisticalRethinkingMakie which will be based on Makie.jl and AlgebraOfGraphics.jl.
+
+5. The above 4 items could all be done by just using StanSample.jl or Turing.jl. The book Statistical Rethinking studies how models compare, how models can help (or mislead) and why multilevel modeling might help in some cases.
+
+6. For this, additional packages are available, explained and demonstrated, e.g. StructuralCausalModels.jl, ParetoSmooth.jl and quite a few more.
+
+### Using StatisticalRethinking v4
+
+To work through the StatisticalRethinking book using Julia and Stan, download `project` [StatisticalRethinkingStan.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl). 
+
+To work through the StatisticalRethinking book using Julia and Turing, download `project` [StatisticalRethinkingTuring.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl). 
+
+Both projects create a Julia environment where most needed packages are available.
+
+In addition to providing an environment these also contain chapter by chapter Pluto notebooks to work through the Statistical Rethinking book. 
+
+In order to keep environment packages relatively simple (i.e. have a limited set of dependenies on other Julia packages) StatisticalRethinking consists of 2 layers, a top layer containing mcmc dependent methods (e.g. a model comparison method taking Turing.jl or StanSample.jl derived objects) which in turn call common methods in the bottom layer. The same applies for the graphic packages. This feature relies on Requires.jl and the mcmc dependent methods can be found in `src/require` directories.
+
+## Structure of StatisticalRethinkingJulia (v4):
+
+On a high level, the StatisticalRethinkingJulia eco system contains 4 layers:
+
+1. The lowest layer provides mcmc methods, currently Turing.jl and StanSample.jl.
+
+2. Common (mcmc independent) bottom layer in StatisticalRethinking (and StatisticalRethinkingPlots).
+
+3. MCMC dependent top layer in StatisticalRethinking (and StatisticalRethinkingPlots).
+
+4. Chapter by chapter notebooks.
+
+## Future possible projects
 
 A start has been made with a similar [project](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl) using Julia and Turing, but unfortunately only the first 5 chapters have been completed. I just don't have the time to continue to work and complete that project. Luckily there is an excellent other package, [TuringModels.jl](https://github.com/StatisticalRethinkingJulia/TuringModels.jl) that contains a selection of the Statistical Rethinking models in Turing.jl's PPL. There is also [Shuma](https://github.com/Shmuma/rethinking-2ed-julia) which is another good starting point to use Turing.jl.
 
@@ -23,13 +71,9 @@ Along similar lines, I would love to see a StatisticalRethinkingDhmc.jl, which c
 
 If interested in either of these projects, please contact me!
 
-## StatisticalRethinking v4
+## Some background info on previuos versions
 
-This is a breaking change from v3 of StatisticalRethinking.jl. Breakage occurs because over time more and better options become available to express the material covered in Statistical Rethinking. Examples are the recently developed ParetoSmooth.jl for PSIS related examples, KeyedArrays as introduced in AxisKeys.jl for the representation of mcmc chains and the new graphics option with Makie.jl and AlgebraOfGraphics.jl. Also, an attempt is made to make StatisticalRethinking.jl fit better with the new setup of Pluto notebooks which keep track of used package versions in the notebooks themselves ([see here](https://github.com/fonsp/Pluto.jl/wiki/🎁-Package-management))
-
-If you prefer to continue using v3, you can use `] add StatisticalRethinking@v3.x.y` where 3.x.y is the latest released version for v3. 
-
-Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropriate to make StatisticalRethinking on Julia mcmc implementation independent.
+Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropriate to make StatisticalRethinking (v3) on Julia mcmc implementation independent.
 
 The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) and currently [Shuma](https://github.com/Shmuma/rethinking-2ed-julia) were a few of the ideas that triggered exploring a new setup for StatisticalRethinking.jl and the 'course' projects [StatistcalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and [StatisticalrethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl)
 

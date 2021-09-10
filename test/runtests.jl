@@ -4,7 +4,7 @@ using Test
 
 
 tests = ["srtools", "link", "simulate"]
-stan_tests = ["wd-loo-compare", "wd-loo-compare2"]
+stan_tests = ["wd-loo-compare",]
 
 stan_exists()::Bool = "JULIA_CMDSTAN_HOME" in keys(ENV)
 

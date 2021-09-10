@@ -6,7 +6,7 @@ using Test
 tests = ["srtools", "link", "simulate"]
 stan_tests = ["wd-loo-compare", "wd-loo-compare2"]
 
-stan_exists()::Bool = "CMDSTAN_HOME" in keys(ENV)
+stan_exists()::Bool = "JULIA_CMDSTAN_HOME" in keys(ENV)
 
 
 for t ∈ tests

@@ -127,13 +127,13 @@ end
 @testset "loo_compare" begin
     @test loo_comparison.estimates(Symbol("m5.1s"), :cv_elpd) ≈ 0 atol=0.01
     @test loo_comparison.estimates(Symbol("m5.1s"), :cv_avg) ≈ 0 atol=0.01
-    @test loo_comparison.estimates(Symbol("m5.1s"), :weight) ≈ 0.7 atol=0.06
+    @test loo_comparison.estimates(Symbol("m5.1s"), :weight) ≈ 0.7 atol=0.1
 
     @test loo_comparison.estimates(Symbol("m5.2s"), :cv_elpd) ≈ -6.9 atol=0.6
     @test loo_comparison.estimates(Symbol("m5.2s"), :cv_avg) ≈ -0.13 atol=0.02
-    @test loo_comparison.estimates(Symbol("m5.2s"), :weight) ≈ 0.0 atol=0.06
+    @test loo_comparison.estimates(Symbol("m5.2s"), :weight) ≈ 0.0 atol=0.1
 
     @test loo_comparison.estimates(Symbol("m5.3s"), :cv_elpd) ≈ -0.65 atol=0.6
     @test loo_comparison.estimates(Symbol("m5.3s"), :cv_avg) ≈ -0.01 atol=0.02
-    @test loo_comparison.estimates(Symbol("m5.3s"), :weight) ≈ 0.34 atol=0.06
+    @test loo_comparison.estimates(Symbol("m5.3s"), :weight) ≈ 0.34 atol=0.1
 end

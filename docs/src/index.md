@@ -63,7 +63,7 @@ var2(x)
 ```
 
 ## sim\_happiness
-```docs
+```@docs
 sim_happiness
 ```
 

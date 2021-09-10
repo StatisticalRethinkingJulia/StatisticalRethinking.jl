@@ -109,7 +109,7 @@ After chapter 4, `Statistics with Julia` follows the frequentist approach while 
 
 ## Versions
 
-### Version 4.0.0 (under construction!)
+### Version 4 (under construction!)
 
 - Drop the heavy use of @reexport.
 - Switch to ParetoSmooth.jl
@@ -117,6 +117,7 @@ After chapter 4, `Statistics with Julia` follows the frequentist approach while 
 - Enable a switch to Makie.jl and AlgebraOfGraphics.jl by moving all graphics to StatisticalRethinkingPlots and StatisticalRethinkingMakie (in the near future).
 - Use projects to set up the needed Julia environment to run the examples, e.g. StatisticalRethinkingStan and StatisticalRethinkingTuring.
 - Refine 'tailoring' StatisticalRethinking.jl and the graphics packages based on the availability of StanSample, Turing.jl, etc. using Requires.jl.
+- Many more improvements by Max Lapan (@shmuma).
 
 ### Versions 3.2.1 - 3.3.6
 

@@ -64,17 +64,10 @@ var2(x)
 
 ## sim\_happiness
 ```docs
-sim_happiness(; seed=nothing, n_years=1000, max_age=65, n_births=20, aom=18)
+sim_happiness
 ```
 
-```
 ## simulate
 ```@docs
-simulate(df, coefs, var_seq)
-simulate(df, coefs, var_seq, coefs_ext)
-```
-
-## sim_happiness
-```@docs
-sim_happiness
+simulate
 ```

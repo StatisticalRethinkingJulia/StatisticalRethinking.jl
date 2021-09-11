@@ -112,8 +112,10 @@ if success(rc5_1s) && success(rc5_2s) && success(rc5_3s)
 
     nt5_1s = read_samples(m5_1s, :particles)
     NamedTupleTools.select(nt5_1s, (:a, :bA, :sigma)) |> display
+    println()
     nt5_2s = read_samples(m5_2s, :particles)
     NamedTupleTools.select(nt5_2s, (:a, :bM, :sigma)) |> display
+    println()
     nt5_3s = read_samples(m5_3s, :particles)
     NamedTupleTools.select(nt5_3s, (:a, :bA, :bM, :sigma)) |> display
     println()

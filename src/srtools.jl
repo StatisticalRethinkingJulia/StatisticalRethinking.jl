@@ -102,7 +102,7 @@ julia> PI(1:10)
  1.495
  9.505
 
-julia> PI(1:10, prob=0.1)
+julia> PI(1:10; prob=0.1)
 2-element Vector{Float64}:
  5.05
  5.95

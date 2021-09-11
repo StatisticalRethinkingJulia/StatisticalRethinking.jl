@@ -91,7 +91,7 @@ Along similar lines, I would love to see a StatisticalRethinkingDHMC.jl, which c
 
 If interested in either of these projects, please contact me!
 
-## Some background info on previuos versions
+## Some background info on previous versions
 
 Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropriate to make StatisticalRethinking (v3) on Julia mcmc implementation independent.
 

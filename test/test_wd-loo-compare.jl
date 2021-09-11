@@ -110,6 +110,7 @@ rc5_3s = stan_sample(m5_3s; data)
 
 if success(rc5_1s) && success(rc5_2s) && success(rc5_3s)
 
+    println()
     nt5_1s = read_samples(m5_1s, :particles)
     NamedTupleTools.select(nt5_1s, (:a, :bA, :sigma)) |> display
     println()
@@ -118,12 +119,13 @@ if success(rc5_1s) && success(rc5_2s) && success(rc5_3s)
     println()
     nt5_3s = read_samples(m5_3s, :particles)
     NamedTupleTools.select(nt5_3s, (:a, :bA, :bM, :sigma)) |> display
-    println()
+    println("\n")
 
     models = [m5_1s, m5_2s, m5_3s]
     loo_comparison = loo_compare(models)
     println()
     loo_comparison |> display
+    println()
 end
 
 @testset "loo_compare" begin

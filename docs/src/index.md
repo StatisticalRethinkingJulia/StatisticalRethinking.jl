@@ -17,6 +17,11 @@ sr_datadir(parts...)
 link
 ```
 
+## lppd
+```@docs
+lppd
+```
+
 ## rescale
 ```@docs
 rescale(x::Vector{Float64}, xbar::Float64, xstd::Float64)

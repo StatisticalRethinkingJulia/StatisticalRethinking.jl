@@ -11,5 +11,5 @@ res_dist = [
 
 fun = (r, x) -> Normal(r.mu + x, r.sigma)
 
-@test simulate(d, fun, 0:1, seed=1) ≈ res atol=0.4
+@test simulate(d, fun, 0:1, seed=1) ≈ res atol=0.6
 @test simulate(d, fun, 0:1, seed=1, return_dist=true) == res_dist

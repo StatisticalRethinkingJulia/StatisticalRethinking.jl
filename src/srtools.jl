@@ -109,8 +109,8 @@ julia> PI(1:10; prob=0.1)
 
 ```
 """
-function PI(data; prob::Float64=0.89)
-    d = (1-prob)/2
+function PI(data; perc_prob::Float64=0.89)
+    d = (1-perc_prob)/2
     quantile(data, [d, 1-d])
 end
 

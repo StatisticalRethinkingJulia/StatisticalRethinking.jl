@@ -20,6 +20,15 @@ PRECIS(df::DataFrame) = Text(precis(df; io=String))
 
 CHNS(chns::KeyedArray) = Text(sprint(show, "text/plain", chns))
 
+#=
+# Pluto helper
+
+HPD(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", hpd(chns)))
+
+export
+    HPD
+=#
+
 export
     QuapModel,
     QM,

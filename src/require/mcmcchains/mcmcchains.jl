@@ -1,7 +1,7 @@
 using .MCMCChains
 using .AxisArrays
 
-if !isdefined(Main, :Turing)
+if isdefined(Main, :MCMCChains)
 
     # This is copied and shortened from Turing2MonteCarloChains.jl!
 
@@ -33,10 +33,3 @@ if !isdefined(Main, :Turing)
     end
 
 end
-
-# Pluto helper
-
-HPD(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", hpd(chns)))
-
-export
-    HPD

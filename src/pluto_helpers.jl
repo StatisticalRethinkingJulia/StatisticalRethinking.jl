@@ -21,7 +21,7 @@ PRECIS(df::DataFrame) = Text(precis(df; io=String))
 CHNS(chns::KeyedArray) = Text(sprint(show, "text/plain", chns))
 
 #=
-# Pluto helper
+# Pluto helpers for MCMCChains
 
 HPD(chns::MCMCChains.Chains) = Text(sprint(show, "text/plain", hpd(chns)))
 

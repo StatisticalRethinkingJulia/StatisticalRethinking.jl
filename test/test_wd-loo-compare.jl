@@ -1,5 +1,5 @@
 using StanSample, ParetoSmooth, StatsBase
-using NamedTupleTools, Test
+using CSV, DataFrames, NamedTupleTools, Distributions, Test
 using StatisticalRethinking
 
 df = CSV.read(sr_datadir("WaffleDivorce.csv"), DataFrame);

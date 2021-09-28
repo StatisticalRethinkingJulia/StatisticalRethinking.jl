@@ -1,3 +1,5 @@
+using DataFrames, Distributions
+
 d = DataFrame(:mu => [1.0, 2.0], :sigma => [0.1, 0.2])
 res = [
     [1.0297287984535461, 2.0382395967790607],

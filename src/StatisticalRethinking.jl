@@ -1,14 +1,19 @@
 module StatisticalRethinking
 
+using Reexport
 using Requires
 
-using StatsBase, Statistics
+@reexport using CSV, DataFrames
+@reexport using StatsBase, StatsFuns, Statistics
+
 using LinearAlgebra, Random
-using AxisKeys, DataFrames
-using NamedArrays, StatsFuns
+using AxisKeys
+using NamedArrays
 using NamedTupleTools
-using PrettyTables, Unicode
-using ParetoSmooth, StructuralCausalModels
+using PrettyTables
+using Unicode
+using ParetoSmooth
+using StructuralCausalModels
 using MonteCarloMeasurements
 using KernelDensity
 

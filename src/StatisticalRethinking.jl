@@ -14,7 +14,7 @@ using PrettyTables
 using Unicode
 using ParetoSmooth
 using StructuralCausalModels
-using StatsModelComparisons
+using ParetoSmoothedImportanceSampling
 using MonteCarloMeasurements
 using KernelDensity
 
@@ -82,7 +82,6 @@ include("logprob.jl")
 include("compare_models.jl")
 include("hmc.jl")
 include("pk_qualify.jl")
-include("waic.jl")
 include("quap.jl")
 
 export

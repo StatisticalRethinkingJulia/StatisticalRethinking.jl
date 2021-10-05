@@ -1,5 +1,5 @@
 import ParetoSmooth: psis_loo, loo_compare
-import StatsModelComparisons: psisloo, waic
+import ParetoSmoothedImportanceSampling: psisloo, waic
 
 function psisloo(m::SampleModel, wcpp::Int64=20, wtrunc::Float64=3/4)
     nt = read_samples(m, :namedtuple)

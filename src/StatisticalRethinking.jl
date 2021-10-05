@@ -14,6 +14,7 @@ using PrettyTables
 using Unicode
 using ParetoSmooth
 using StructuralCausalModels
+using StatsModelComparisons
 using MonteCarloMeasurements
 using KernelDensity
 

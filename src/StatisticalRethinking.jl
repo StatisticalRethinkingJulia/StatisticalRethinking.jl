@@ -7,12 +7,12 @@ using Requires
 @reexport using StatsBase, StatsFuns, Statistics
 
 using LinearAlgebra, Random
-using AxisKeys
+#using AxisKeys
 using NamedArrays
 using NamedTupleTools
 using PrettyTables
 using Unicode
-using ParetoSmooth
+#using ParetoSmooth
 using StructuralCausalModels
 using ParetoSmoothedImportanceSampling
 using MonteCarloMeasurements
@@ -83,6 +83,7 @@ include("compare_models.jl")
 include("hmc.jl")
 include("pk_qualify.jl")
 include("quap.jl")
+include("dataframe.jl")
 
 export
   sr_path,

@@ -1,4 +1,4 @@
-using StanSample, ParetoSmooth, StatsBase
+using AxisKeys, StanSample, ParetoSmooth, StatsBase
 using CSV, DataFrames, NamedTupleTools, Distributions, Test
 using StatisticalRethinking
 

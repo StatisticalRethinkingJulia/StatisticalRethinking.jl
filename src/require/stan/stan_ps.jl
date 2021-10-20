@@ -1,3 +1,4 @@
+using AxisKeys
 import ParetoSmooth: psis_loo, loo_compare
 
 function psis_loo(model::SampleModel; loglikelihood_name="log_lik")
@@ -26,7 +27,7 @@ function loo_compare(models::Vector{SampleModel};
     nmodels = length(models)
     model_names = [models[i].name for i in 1:nmodels]
 
-    chains_vec = read_samples.(models) # Obtain KeyedArray chains
+    chains_vec = read_samples.(models, :keyedarray) # Obtain KeyedArray chains
     loo_compare(chains_vec; loglikelihood_name, model_names, sort_models, show_psis)
 end
 

@@ -1,6 +1,8 @@
-using AxisKeys, StanSample, ParetoSmooth, StatsBase
-using CSV, DataFrames, NamedTupleTools, Distributions, Test
+using ParetoSmooth, AxisKeys
+using NamedTupleTools, Distributions
+using StanSample
 using StatisticalRethinking
+using Test
 
 df = CSV.read(sr_datadir("WaffleDivorce.csv"), DataFrame);
 df[!, :M] = zscore(df.Marriage)

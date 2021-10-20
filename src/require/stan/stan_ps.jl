@@ -1,8 +1,8 @@
-using AxisKeys
+using .AxisKeys
 import ParetoSmooth: psis_loo, loo_compare
 
 function psis_loo(model::SampleModel; loglikelihood_name="log_lik")
-    chains = read_samples(model) # Obtain KeyedArray chains
+    chains = read_samples(model, :keyedarray) # Obtain KeyedArray chains
     psis_loo(chains; loglikelihood_name)
 end
 

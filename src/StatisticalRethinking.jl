@@ -7,12 +7,10 @@ using Requires
 @reexport using StatsBase, StatsFuns, Statistics
 
 using LinearAlgebra, Random
-#using AxisKeys
 using NamedArrays
 using NamedTupleTools
 using PrettyTables
 using Unicode
-#using ParetoSmooth
 using StructuralCausalModels
 using ParetoSmoothedImportanceSampling
 using MonteCarloMeasurements
@@ -25,6 +23,7 @@ import MonteCarloMeasurements: Particles
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 function __init__()
+  @require AxisKeys="94b1ba4f-4ee9-5380-92f1-94cde586c3c5" include("require/axiskeys/axiskeys.jl")
   @require Turing="fce5fe82-541a-59a6-adf8-730c64b5f9a0" include("require/turing/turing.jl")
   @require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("require/turing/turing_optim_sample.jl")
   @require StanSample="c1514b29-d3a0-5178-b312-660c88baa699" include("require/stan/stan.jl")

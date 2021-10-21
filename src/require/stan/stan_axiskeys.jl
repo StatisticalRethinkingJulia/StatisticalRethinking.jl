@@ -1,5 +1,4 @@
-using .AxisKeys
-import ParetoSmooth: psis_loo, loo_compare
+using AxisKeys
 
 function psis_loo(model::SampleModel; loglikelihood_name="log_lik")
     chains = read_samples(model, :keyedarray) # Obtain KeyedArray chains
@@ -52,7 +51,10 @@ function loo_compare(chains_vec::Vector{<: KeyedArray};
     loo_compare(psis_vec...; model_names, sort_models)
 end
 
+CHNS(chns::KeyedArray) = Text(sprint(show, "text/plain", chns))
+
 export
     to_paretosmooth,
     psis_loo,
-    loo_compare
+    loo_compare,
+    CHNS

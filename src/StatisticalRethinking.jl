@@ -12,6 +12,7 @@ using NamedTupleTools
 using PrettyTables
 using Unicode
 using StructuralCausalModels
+using ParetoSmooth
 using ParetoSmoothedImportanceSampling
 using MonteCarloMeasurements
 using KernelDensity
@@ -19,14 +20,11 @@ using KernelDensity
 import StatsBase: sample
 import DataFrames: DataFrame
 import MonteCarloMeasurements: Particles
+import ParetoSmooth: psis_loo, loo_compare
 
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 function __init__()
-  @require ParetoSmooth="a68b5a21-f429-434e-8bfa-46b447300aac" begin
-    @require AxisKeys="94b1ba4f-4ee9-5380-92f1-94cde586c3c5" include("require/axiskeys/axiskeys.jl")
-  end
-
   @require Turing="fce5fe82-541a-59a6-adf8-730c64b5f9a0" include("require/turing/turing.jl")
   @require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("require/turing/turing_optim_sample.jl")
 

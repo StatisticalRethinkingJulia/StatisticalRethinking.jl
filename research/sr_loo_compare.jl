@@ -3,7 +3,7 @@
 # work well in Pluto and is nit convenient for SR. Here I'm experimenten
 # with a more elaborate version.
 #
-# This script needs the StatisticalRethinkingStan project environment.
+# This script needs the SR2StanPluto project environment.
 #
 
 using StanSample, ParetoSmooth

@@ -21,7 +21,7 @@ Currently `SR2TuringJupyter.jl` has not yet been renamed. This will be done afte
 
 2. The [SR2TuringPluto.jl](https://github.com/StatisticalRethinkingJulia/SR2TuringPluto.jl) project, also Turing.jl based but using Pluto.jl instead of Jupyter. It will be completely based on Max Lapan's work above, but only in Pluto.
 
-3. The [StatisticalRethinkingStan.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) project, which uses Stan as implemented in StanSample.jl and StanQuap.jl. See [StanJulia](https://github.com/StanJulia).
+3. The [SR2StanPluto.jl](https://github.com/StatisticalRethinkingJulia/SR2StanPluto.jl) project, which uses Stan as implemented in StanSample.jl and StanQuap.jl. See [StanJulia](https://github.com/StanJulia).
 
 There is a fourth option to study the (Turing.jl) models in the Statistical Rethinking book which is in the form of a package and Franklin web pages: [TuringModels.jl](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
 
@@ -29,7 +29,7 @@ There is a fourth option to study the (Turing.jl) models in the Statistical Reth
 
 Version 4 has a very different setup and is a breaking change from v3 of StatisticalRethinking.jl. See below for what has changed.
 
-For now StatisticalRethinking v3.3.6 is more complete in conjunction with the StatisticalRethinkingStan (v3) and StatisticalRethinkingTuring (v1-3) projects.
+For now StatisticalRethinking v3.3.6 is more complete in conjunction with the SR2StanPluto (v3) and SR2TuringPluto (v1-3) projects.
 
 ### *Note 3: Large size issue of StatisticalRethinking when `dev`-ed.*
 
@@ -111,7 +111,7 @@ If interested in either of these projects, please contact me!
 
 Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropriate to make StatisticalRethinking (v3) on Julia mcmc implementation independent.
 
-The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) and currently [Shuma](https://github.com/Shmuma/rethinking-2ed-julia) were a few of the ideas that triggered exploring a new setup for StatisticalRethinking.jl and the 'course' projects [StatistcalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and [StatisticalrethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl),
+The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) and currently [Shuma](https://github.com/Shmuma/rethinking-2ed-julia) were a few of the ideas that triggered exploring a new setup for StatisticalRethinking.jl and the 'course' projects [StatistcalRethinkingStan](https://github.com/StatisticalRethinkingJulia/SR2StanPluto.jl) and [StatisticalrethinkingTuring](https://github.com/StatisticalRethinkingJulia/SR2TuringPluto.jl),
 
 An early, experimental version of [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl) is also included as a dependency in the StatisticalRethinking.jl package. In the meantime I will definitely keep my eyes on [Dagitty.jl](https://github.com/Shmuma/Dagitty.jl), [Omega.jl](https://github.com/zenna/Omega.jl) and [CausalInference.jl](https://github.com/mschauer/CausalInference.jl). In particular Dagitty.jl has very similar objectives as StructuralCausalModels.jl and over time might replace it in the StatisticalRethinkingJulia ecosystem. For now, StructuralCausalModels does provide ways to convert DAGs to Dagitty and ggm formats.
 
@@ -121,7 +121,7 @@ Finally, for a good while I have been looking for a great statistics book using 
 
 As [StatisticalRethinking](https://github.com/StatisticalRethinkingJulia) v3/4 is also (DrWatson & Pkg) project based and uses Pluto notebooks, I have converted the book `listings` in the first 5 chapters to Pluto Notebooks in a new repository in StatisticalRethinkingJulia, i.e. [StatisticsWithJuliaPlutoNotebooks](https://github.com/StatisticalRethinkingJulia/StatisticsWithJuliaPlutoNotebooks.jl). 
 
-After chapter 4, `Statistics with Julia` follows the frequentist approach while `Statistical Rethinking` opts for the Bayesian approach. Most of the material in chapters 5 and 6 of `Statistics with Julia` is therefore also covered using a more Bayesian perspective in the early chapters of the notebook projects [StatisticalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and [StatisticalRethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl). 
+After chapter 4, `Statistics with Julia` follows the frequentist approach while `Statistical Rethinking` opts for the Bayesian approach. Most of the material in chapters 5 and 6 of `Statistics with Julia` is therefore also covered using a more Bayesian perspective in the early chapters of the notebook projects [SR2StanPluto](https://github.com/StatisticalRethinkingJulia/SR2StanPluto.jl) and [SR2TuringPluto](https://github.com/StatisticalRethinkingJulia/SR2TuringPluto.jl). 
 
 ## Versions
 
@@ -168,7 +168,7 @@ Align (stanbased) quap with Turing quap. quap() now returns a NamedTuple that in
 
 StatisticalRethinking.jl v3 is independent of the underlying mcmc package. All scripts previously in StatisticalRethinking.jl v2 holding the snippets have been replaced by Pluto notebooks in the above mentioned mcmc specific `project` repositories.
 
-Initially StatisticalRethinkingTuring.jl will lag StatisticalRethinkingStan.jl somewhat but later this year both will cover the same chapters.
+Initially SR2TuringPluto.jl will lag SR2StanPluto.jl somewhat but later this year both will cover the same chapters.
 
 It is the intention to develop *tests* for StatisticalRethinking.jl v3 that work across the different mcmc implementations. This will limit dependencies to the `test/Project.toml`.
 
@@ -184,7 +184,7 @@ To install the package (from the REPL):
 ] add StatisticalRethinking
 ```
 
-but in most cases this package will be a dependency of another package or project, e.g. StatisticalRethinkingStan.jl or StatisticalRethinkingTuring.jl.
+but in most cases this package will be a dependency of another package or project, e.g. SR2StanPluto.jl or SR2TuringPluto.jl.
 
 ## Documentation
 

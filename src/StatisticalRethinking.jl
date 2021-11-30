@@ -16,6 +16,9 @@ using ParetoSmooth
 using ParetoSmoothedImportanceSampling
 using MonteCarloMeasurements
 using KernelDensity
+using Optim
+using MCMCChains
+using Dates
 
 import StatsBase: sample
 import DataFrames: DataFrame
@@ -26,7 +29,7 @@ using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 function __init__()
   @require Turing="fce5fe82-541a-59a6-adf8-730c64b5f9a0" include("require/turing/turing.jl")
-  @require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("require/turing/turing_optim_sample.jl")
+  #@require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("require/turing/turing_optim_sample.jl")
 
   @require StanSample="c1514b29-d3a0-5178-b312-660c88baa699" include("require/stan/stan.jl")
 
@@ -49,7 +52,7 @@ Relative path using the StatisticalRethinking src/ directory.
 sr_path("..", "data")
 ```
 
-Note that in the projects, e.g. StatisticalRethinkingStan.jl and StatisticalRethinkingTuring.jl, the
+Note that in the projects, e.g. SR2StanPluto.jl and SR2TuringPluto.jl, the
 DrWatson approach is a better choics, i.e: `sr_datadir(filename)`
 
 """

@@ -2,8 +2,6 @@
 
 StatisticalRethinking.jl is part of the broader [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization.
 
-Implementations of most models using Stan, DynamicHMC and Turing can currently be found in [StanModels](https://github.com/StatisticalRethinkingJulia/StanModels.jl), [DynamicHMCModels](https://github.com/StatisticalRethinkingJulia/DynamicHMCModels.jl) and [TuringModels](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
-
 ## Why a StatisticalRethinking v4?
 
 Over time more and better options become available to express the material covered in Statistical Rethinking. The most important (in my opinion!) is the use of KeyedArrays (provided by [AxisKeys.jl](https://github.com/JuliaArrays/AxisArrays.jl)) for the representation of mcmc chains.
@@ -34,9 +32,9 @@ Currently most visual options are StatsPlots/Plots based, e.g. in MCMCChains.jl 
 
 ### Using StatisticalRethinking v4
 
-To work through the StatisticalRethinking book using Julia and Stan, download `project` [StatisticalRethinkingStan.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl). 
+To work through the StatisticalRethinking book using Julia and Stan, download `project` [SR2StanPluto.jl](https://github.com/StatisticalRethinkingJulia/SR2StanPluto.jl). 
 
-To work through the StatisticalRethinking book using Julia and Turing, download `project` [StatisticalRethinkingTuring.jl](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl). 
+To work through the StatisticalRethinking book using Julia and Turing, download `project` [SR2TuringPluto.jl](https://github.com/StatisticalRethinkingJulia/SR2TuringPluto.jl). 
 
 Both projects create a Julia environment where most needed packages are available.
 
@@ -72,7 +70,7 @@ On a high level, the StatisticalRethinkingJulia ecosystem contains 4 layers:
 
 ## Future possible projects
 
-A start has been made with a similar [project](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl) using Julia and Turing, but unfortunately only the first 5 chapters have been completed. I just don't have the time to continue to work and complete that project. Luckily there is an excellent other package, [TuringModels.jl](https://github.com/StatisticalRethinkingJulia/TuringModels.jl) that contains a selection of the Statistical Rethinking models in Turing.jl's PPL. There is also [Shuma](https://github.com/Shmuma/rethinking-2ed-julia) which is another good starting point to use Turing.jl.
+A start has been made with a similar [project](https://github.com/StatisticalRethinkingJulia/SR2TuringPluto.jl) using Julia and Turing, but unfortunately only the first 5 chapters have been completed. I just don't have the time to continue to work and complete that project. Luckily there is an excellent other package, [TuringModels.jl](https://github.com/StatisticalRethinkingJulia/TuringModels.jl) that contains a selection of the Statistical Rethinking models in Turing.jl's PPL. There is also [Shuma](https://github.com/Shmuma/rethinking-2ed-julia) which is another good starting point to use Turing.jl.
 
 Along similar lines, I would love to see a StatisticalRethinkingDHMC.jl, which could be a combination of Soss.jl and DynamicHMC.jl, and a StatisticalRethinkingMamba.jl!
 
@@ -82,7 +80,7 @@ If interested in either of these projects, please contact me!
 
 Given that Julia provides several very capable packages that support mcmc simulation, it only seemed appropriate to make StatisticalRethinking (v3) on Julia mcmc implementation independent.
 
-The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) and currently [Shuma](https://github.com/Shmuma/rethinking-2ed-julia) were a few of the ideas that triggered exploring a new setup for StatisticalRethinking.jl and the 'course' projects [StatistcalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and [StatisticalrethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl).
+The availablility of DynamicHMC, the huge progress made by the Turing.jl team over the last 2 years, the introduction of Julia `projects` in addition to Julia `packages`, the novel approach to notebooks in Pluto.jl and the work by [Karajan](https://github.com/karajan9/statisticalrethinking) and currently [Shuma](https://github.com/Shmuma/rethinking-2ed-julia) were a few of the ideas that triggered exploring a new setup for StatisticalRethinking.jl and the 'course' projects [StatistcalRethinkingStan](https://github.com/StatisticalRethinkingJulia/SR2StanPluto.jl) and [StatisticalrethinkingTuring](https://github.com/StatisticalRethinkingJulia/SR2TuringPluto.jl).
 
 An early, experimental version of [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl) is also included as a dependency in the StatisticalRethinking.jl package. In the meantime I will definitely keep my eyes on [Dagitty.jl](https://github.com/Shmuma/Dagitty.jl), [Omega.jl](https://github.com/zenna/Omega.jl) and [CausalInference.jl](https://github.com/mschauer/CausalInference.jl). In particular Dagitty.jl has very similar objectives as StructuralCausalModels.jl and over time might replace it in the StatisticalRethinkingJulia ecosystem. For now, StructuralCausalModels does provide ways to convert DAGs to Dagitty and ggm formats.
 
@@ -92,4 +90,4 @@ Finally, for a good while I have been looking for a great statistics book using 
 
 As [StatisticalRethinking](https://github.com/StatisticalRethinkingJulia) v3/4 is also (DrWatson & Pkg) project based and uses Pluto notebooks, I have converted the book `listings` in the first 5 chapters to Pluto Notebooks in a new repository in StatisticalRethinkingJulia, i.e. [StatisticsWithJuliaPlutoNotebooks](https://github.com/StatisticalRethinkingJulia/StatisticsWithJuliaPlutoNotebooks.jl). 
 
-After chapter 4, `Statistics with Julia` follows the frequentionist approach while `Statistical Rethinking` opts for the Bayesian approach. Most of the material in chapters 5 and 6 of `Statistics with Julia` is therefore also covered using a more Bayesian perspective in the early chapters of the notebook projects [StatisticalRethinkingStan](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingStan.jl) and [StatisticalRethinkingTuring](https://github.com/StatisticalRethinkingJulia/StatisticalRethinkingTuring.jl). 
+After chapter 4, `Statistics with Julia` follows the frequentionist approach while `Statistical Rethinking` opts for the Bayesian approach. Most of the material in chapters 5 and 6 of `Statistics with Julia` is therefore also covered using a more Bayesian perspective in the early chapters of the notebook projects [SR2StanPluto](https://github.com/StatisticalRethinkingJulia/SR2StanPluto.jl) and [SR2TuringPluto](https://github.com/StatisticalRethinkingJulia/SR2TuringPluto.jl). 

@@ -32,7 +32,7 @@ function __init__()
 
   @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require/dhmc/dhmc.jl")
 
-  @require MCMCChains="c7f686f2-ff18-58e9-bc7b-31028e88f75d" include("require/mcmcchains/mcmcchains.jl")
+  #@require MCMCChains="c7f686f2-ff18-58e9-bc7b-31028e88f75d" include("require/mcmcchains/mcmcchains.jl")
 end
 
 const src_path = @__DIR__

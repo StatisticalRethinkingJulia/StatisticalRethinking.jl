@@ -1,7 +1,5 @@
-using Optim
-using Dates
 import StatsBase: sample
-import Turing: ModeResult
+import .Turing: ModeResult
 import LinearAlgebra: Symmetric
 
 """

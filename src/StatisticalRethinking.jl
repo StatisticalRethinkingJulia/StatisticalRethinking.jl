@@ -29,10 +29,7 @@ using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 function __init__()
   @require Turing="fce5fe82-541a-59a6-adf8-730c64b5f9a0" include("require/turing/turing.jl")
-  #@require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("require/turing/turing_optim_sample.jl")
-
   @require StanSample="c1514b29-d3a0-5178-b312-660c88baa699" include("require/stan/stan.jl")
-
   @require LogDensityProblems="6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c" include("require/dhmc/dhmc.jl")
 
   #@require MCMCChains="c7f686f2-ff18-58e9-bc7b-31028e88f75d" include("require/mcmcchains/mcmcchains.jl")
@@ -90,6 +87,7 @@ include("hmc.jl")
 include("pk_qualify.jl")
 include("quap.jl")
 include("dataframe.jl")
+#include("particles_mcmcchains.jl")
 
 export
   sr_path,

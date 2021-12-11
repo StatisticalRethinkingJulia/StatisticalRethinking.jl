@@ -48,9 +48,9 @@ For this, additional packages are available, explained and demonstrated, e.g. St
 
 ## How to use StatisticalRethinking.jl
 
-To work through the StatisticalRethinking book using Julia and Turing, download either of the `projects` [SRTuringJupyter.jl](https://github.com/StatisticalRethinkingJulia/SRTuringJupyter.jl) or [SRTuringPluto.jl](https://github.com/StatisticalRethinkingJulia/SRTuringPluto.jl).
+To work through the StatisticalRethinking book using Julia and Turing, download either of the `projects` [SR2TuringJupyter.jl](https://github.com/StatisticalRethinkingJulia/SR2TuringJupyter.jl) or [SR2TuringPluto.jl](https://github.com/StatisticalRethinkingJulia/SR2TuringPluto.jl).
 
-To work through the StatisticalRethinking book using Julia and Stan, download `project` [SRStanPluto.jl](https://github.com/StatisticalRethinkingJulia/SRStanPluto.jl). 
+To work through the StatisticalRethinking book using Julia and Stan, download `project` [SR2StanPluto.jl](https://github.com/StatisticalRethinkingJulia/SR2StanPluto.jl). 
 
 All three projects create a Julia environment where most needed packages are available and can be imported.
 

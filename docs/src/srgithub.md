@@ -40,11 +40,11 @@ Also, an attempt has been made to make StatisticalRethinking.jl fit better with 
 
 Currently visual options are StatsPlots/Plots based, e.g. in MCMCChains.jl and StatisticalRethinkingPlots.jl.
 
-5. The above 4 items could all be done by just using StanSample.jl or Turing.jl.
+The above 4 items could all be done by just using StanSample.jl or Turing.jl.
 
 **The book Statistical Rethinking has a different objective and studies how models compare, how models can help (or mislead) and why multilevel modeling might help in some cases.**
 
-6. For this, additional packages are available, explained and demonstrated, e.g. StructuralCausalModels.jl, ParetoSmoothedImportanceSampling.jl and quite a few more.
+For this, additional packages are available, explained and demonstrated, e.g. StructuralCausalModels.jl, ParetoSmoothedImportanceSampling.jl and quite a few more.
 
 ## How to use StatisticalRethinking.jl
 

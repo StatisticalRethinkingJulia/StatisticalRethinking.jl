@@ -10,9 +10,7 @@ There is no shortage of additional good books on Bayesian statistics. A few of m
 
 3. [Bolstad: Understanding Computational Bayesian Statistics](http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470046090.html)
 
-4.a [Gelman, Hill: Data Analysis Using Regression and Multilevel/Hierarchical Models](http://www.stat.columbia.edu/~gelman/arm/)
-
-4.b [Gelman, Hill, Vehtari: Rgression and other stories](https://www.cambridge.org/highereducation/books/regression-and-other-stories/DD20DD6C9057118581076E54E40C372C#overview)
+4. [Gelman, Hill: Data Analysis Using Regression and Multilevel/Hierarchical Models](http://www.stat.columbia.edu/~gelman/arm/)
 
 5. [Kruschke: Doing Bayesian Data Analysis](https://sites.google.com/site/doingbayesiandataanalysis/what-s-new-in-2nd-ed)
 
@@ -25,3 +23,9 @@ There is no shortage of additional good books on Bayesian statistics. A few of m
 9. [Betancourt: A Conceptual Introduction to Hamiltonian Monte Carlo](https://arxiv.org/abs/1701.02434)
 
 10. [Pearl, Mackenzie: The Book of Why](https://www.basicbooks.com/titles/judea-pearl/the-book-of-why/9780465097616/)
+
+Special mention is appropriate for the new book:
+
+11. [Gelman, Hill, Vehtari: Rgression and other stories](https://www.cambridge.org/highereducation/books/regression-and-other-stories/DD20DD6C9057118581076E54E40C372C#overview)
+
+which in a sense is a major update to item 4. above.

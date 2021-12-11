@@ -192,5 +192,5 @@ Question and contributions are very welcome, as are feature requests and suggest
 
 [issues-url]: https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/issues
 
-[project-status-img]: https://img.shields.io/badge/lifecycle-wip-orange.svg
+[project-status-img]: https://img.shields.io/badge/lifecycle-stable-green.svg
 

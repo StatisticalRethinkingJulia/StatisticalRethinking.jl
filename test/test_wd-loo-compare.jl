@@ -141,5 +141,5 @@ end
 
     @test loo_comparison.estimates(Symbol("m5.3s"), :cv_elpd) ≈ -0.65 atol=0.6
     @test loo_comparison.estimates(Symbol("m5.3s"), :cv_avg) ≈ -0.01 atol=0.02
-    @test loo_comparison.estimates(Symbol("m5.3s"), :weight) ≈ 0.34 atol=0.1
+    @test loo_comparison.estimates(Symbol("m5.3s"), :weight) ≈ 0.3 atol=0.1
 end

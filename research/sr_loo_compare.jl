@@ -122,7 +122,7 @@ struct LooCompare1
     table::KeyedArray
 end
 
-function to_paretosmooth(ll, pd = [3,1, 2])
+function to_paretosmooth(ll, pd = [3, 1, 2])
     permutedims(ll, [3, 1, 2])
 end
 
@@ -235,6 +235,7 @@ if success(rc5_1s) && success(rc5_2s) && success(rc5_3s)
     
     loo_comparison |> display
 end
+
 #=
 With SR/ulam():
 ```

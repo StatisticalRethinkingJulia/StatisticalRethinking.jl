@@ -53,7 +53,7 @@ Currently visual options are StatsPlots/Plots based, e.g. in MCMCChains.jl and S
 
 ## Using StatisticalRethinking v4
 
-To work through the StatisticalRethinking book using Julia and Turing or Stan, download either one of the above mentioned `projects` and start Pluto.
+To work through the StatisticalRethinking book using Julia and Turing or Stan, download either one of the above mentioned `projects` and start Pluto (or Jupyter).
 
 An early, experimental version of [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl) is also included as a dependency in the StatisticalRethinking.jl package.
 

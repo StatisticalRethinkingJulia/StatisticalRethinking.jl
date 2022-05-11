@@ -19,9 +19,7 @@ Currently there are 3 of these notebook projects:
 
 3. The [SR2StanPluto.jl](https://github.com/StatisticalRethinkingJulia/SR2StanPluto.jl) project, which uses Stan as implemented in StanSample.jl and StanQuap.jl. See [StanJulia](https://github.com/StanJulia).
 
-There is a fourth option to study the (Turing.jl) models in the Statistical Rethinking book which is in the form of a package and Franklin web pages: [TuringModels.jl](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
-
-As listed in issue [#145](https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/issues/145#issue-1064657635) recently it was noticed that some very old Jupyter notebook files are still present which makes an inital download, e.g. when `dev`-ing the package, rather long. This is not a problem when you just `add` the package.
+There is a fourth option to study the Turing.jl versions of the models in the Statistical Rethinking book which is in the form of a package and Franklin web pages: [TuringModels.jl](https://github.com/StatisticalRethinkingJulia/TuringModels.jl).
 
 ## Why a StatisticalRethinking v4?
 
@@ -64,6 +62,10 @@ In the meantime I will definitely keep my eyes on [Dagitty.jl](https://github.co
 Similarly, a dependency [ParetoSmoothedImportanceSampling.jl](https://github.com/StatisticalRethinkingJulia/ParetoSmoothedImportanceSampling.jl) is used which provides PSIS and WAIC statistics for model comparison.
 
 ## Versions
+
+As listed in issue [#145](https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/issues/145#issue-1064657635) recently it was noticed that some very old Jupyter notebook files are still present which makes an inital download, e.g. when `dev`-ing the package, rather long. This is not a problem when you just `add` the package.
+
+I am planning to address that in v5.
 
 ### Version 4
 

@@ -23,13 +23,13 @@ There is a fourth option to study the Turing.jl versions of the models in the St
 
 ## Why a StatisticalRethinking v4?
 
-Over time more and better options become available to express the material covered in Statistical Rethinking, e.g. the use of KeyedArrays (provided by [AxisKeys.jl](https://github.com/JuliaArrays/AxisArrays.jl)) for the representation of mcmc chains. 
+Over time more options become available to express the material covered in Statistical Rethinking, e.g. the use of KeyedArrays (provided by [AxisKeys.jl](https://github.com/JuliaArrays/AxisArrays.jl)) for the representation of mcmc chains. 
 
 Other examples are the recently developed [ParetoSmooth.jl](https://github.com/TuringLang/ParetoSmooth.jl) which could be used in the PSIS related examples as a replacement for ParetoSmoothedImportanceSampling.jl and the preliminary work by [SHMUMA](https://github.com/Shmuma/Dagitty.jl) on Dagitty.jl (a potential replacement for StructuralCausalModels.jl).
 
 While StatisticalRethinking v3 focused on making StatisticalRethinking.jl mcmc package independent, StatisticalRethinking v4 aims at de-coupling it from a specific graphical package and thus enables new choices for graphics, e.g. using Makie.jl and AlgebraOfGraphics.jl.
 
-StatisticalRethinking.jl v4 fits better with the new setup of Pluto notebooks which keep track of used package versions in the notebooks themselves ([see here](https://github.com/fonsp/Pluto.jl/wiki/🎁-Package-management)).
+StatisticalRethinking.jl v4 also fits better with the new setup of Pluto notebooks which keep track of used package versions in the notebooks themselves ([see here](https://github.com/fonsp/Pluto.jl/wiki/🎁-Package-management)).
 
 ## Workflow of StatisticalRethinkingJulia (v4):
 
@@ -39,7 +39,7 @@ StatisticalRethinking.jl v4 fits better with the new setup of Pluto notebooks wh
 
 3. Capture the draws for further processing. In Turing that is ususally done using MCMCChains.jl, in StanSample.jl v4 it's mostly in the form of a DataFrame, a StanTable, a KeyedArray chains (obtained from AxisKeys.jl).
 
-4. For further processing, these projects nearly always convert chains to a DataFrame.
+4. For further processing, the projects nearly always convert chains to a DataFrame.
 
 5. Inspect the chains using statistical and visual methods. In many cases this will need one or more statistical packages and one of the graphical options.
 

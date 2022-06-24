@@ -34,7 +34,7 @@ Also, an attempt has been made to make StatisticalRethinking.jl fit better with 
 
 2. Define the mcmc model, e.g. using StanSample.jl or Turing.jl, and obtain draws from the model.
 
-3. Capture the draws for further processing. In Turing that is ususally done using MCMCChains.jl, in StanSample.jl v4 it's mostly in the form of a DataFrame, a StanTable, a KeyedArray chains (obtained from AxisKeys.jl).
+3. Capture the draws for further processing. In Turing that is usually done using MCMCChains.jl, in StanSample.jl v4 it's mostly in the form of a DataFrame, a StanTable, a KeyedArray chains (obtained from AxisKeys.jl).
 
 4. Inspect the chains using statistical and visual methods. In many cases this will need one or more statistical packages and one of the graphical options.
 

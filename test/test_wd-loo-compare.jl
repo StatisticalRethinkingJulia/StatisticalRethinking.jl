@@ -33,9 +33,9 @@ model {
     D ~ normal(mu , sigma);     // Likelihood
 }
 generated quantities {
-    vector[N] log_lik;
+    vector[N] loglik;
     for (i in 1:N)
-        log_lik[i] = normal_lpdf(D[i] | mu[i], sigma);
+        loglik[i] = normal_lpdf(D[i] | mu[i], sigma);
 }
 ";
 
@@ -63,9 +63,9 @@ model {
     D ~ normal( mu , sigma );
 }
 generated quantities {
-    vector[N] log_lik;
+    vector[N] loglik;
     for (i in 1:N)
-        log_lik[i] = normal_lpdf(D[i] | mu[i], sigma);
+        loglik[i] = normal_lpdf(D[i] | mu[i], sigma);
 }
 ";
 
@@ -95,9 +95,9 @@ model {
   D ~ normal( mu , sigma );
 }
 generated quantities{
-    vector[N] log_lik;
+    vector[N] loglik;
     for (i in 1:N)
-        log_lik[i] = normal_lpdf(D[i] | mu[i], sigma);
+        loglik[i] = normal_lpdf(D[i] | mu[i], sigma);
 }
 ";
 

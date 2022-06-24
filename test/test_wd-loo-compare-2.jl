@@ -33,9 +33,9 @@ model {
     D ~ normal(mu , sigma);     // Likelihood
 }
 generated quantities {
-    vector[N] log_lik;
+    vector[N] loglik;
     for (i in 1:N)
-        log_lik[i] = normal_lpdf(D[i] | mu[i], sigma);
+        loglik[i] = normal_lpdf(D[i] | mu[i], sigma);
 }
 ";
 
@@ -63,9 +63,9 @@ model {
     D ~ normal( mu , sigma );
 }
 generated quantities {
-    vector[N] log_lik;
+    vector[N] loglik;
     for (i in 1:N)
-        log_lik[i] = normal_lpdf(D[i] | mu[i], sigma);
+        loglik[i] = normal_lpdf(D[i] | mu[i], sigma);
 }
 ";
 
@@ -95,9 +95,9 @@ model {
   D ~ normal( mu , sigma );
 }
 generated quantities{
-    vector[N] log_lik;
+    vector[N] loglik;
     for (i in 1:N)
-        log_lik[i] = normal_lpdf(D[i] | mu[i], sigma);
+        loglik[i] = normal_lpdf(D[i] | mu[i], sigma);
 }
 ";
 
@@ -111,7 +111,7 @@ m5_3s = SampleModel("m5.3s", stan5_3)
 rc5_3s = stan_sample(m5_3s; data)
 
 function loo_compare2(models::Vector{SampleModel}; 
-    loglikelihood_name="log_lik",
+    loglikelihood_name="loglik",
     model_names=nothing,
     sort_models=true, 
     show_psis=true)
@@ -120,7 +120,7 @@ function loo_compare2(models::Vector{SampleModel};
     model_names = [models[i].name for i in 1:nmodels]
 
     chains_vec = read_samples.(models, :dataframe) # Obtain KeyedArray chains
-    chains_vec = DataFrame.(chains_vec, :log_lik)
+    chains_vec = DataFrame.(chains_vec, :loglik)
     chains_vec = Array.(chains_vec)
     println(length(chains_vec))
     println(typeof(chains_vec[1]))
@@ -140,14 +140,14 @@ function loo_compare2(models::Vector{SampleModel};
 end
 
 function loo_compare2(ll_vec::Vector{<: Array}; 
-    loglikelihood_name="log_lik",
+    loglikelihood_name="loglik",
     model_names=nothing,
     sort_models=true, 
     show_psis=true)
 
     nmodels = length(ll_vec)
 
-    #ll_vec = Array.(matrix.(chains_vec, loglikelihood_name)) # Extract log_lik matrix
+    #ll_vec = Array.(matrix.(chains_vec, loglikelihood_name)) # Extract loglik matrix
     #ll_vecp = map(to_paretosmooth, ll_vec) # Permute dims for ParetoSmooth
     psis_vec = psis_loo.(ll_vec) # Compute PsisLoo for all models
 

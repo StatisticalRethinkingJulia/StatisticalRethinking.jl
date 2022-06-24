@@ -40,9 +40,9 @@ model {
     D ~ normal(mu , sigma);     // Likelihood
 }
 generated quantities {
-    vector[N] log_lik;
+    vector[N] loglik;
     for (i in 1:N)
-        log_lik[i] = normal_lpdf(D[i] | mu[i], sigma);
+        loglik[i] = normal_lpdf(D[i] | mu[i], sigma);
 }
 ";
 
@@ -70,9 +70,9 @@ model {
     D ~ normal( mu , sigma );
 }
 generated quantities {
-    vector[N] log_lik;
+    vector[N] loglik;
     for (i in 1:N)
-        log_lik[i] = normal_lpdf(D[i] | mu[i], sigma);
+        loglik[i] = normal_lpdf(D[i] | mu[i], sigma);
 }
 ";
 
@@ -102,9 +102,9 @@ model {
   D ~ normal( mu , sigma );
 }
 generated quantities{
-    vector[N] log_lik;
+    vector[N] loglik;
     for (i in 1:N)
-        log_lik[i] = normal_lpdf(D[i] | mu[i], sigma);
+        loglik[i] = normal_lpdf(D[i] | mu[i], sigma);
 }
 ";
 
@@ -127,7 +127,7 @@ function to_paretosmooth(ll, pd = [3, 1, 2])
 end
 
 function loo_compare1(models::Vector{SampleModel}; 
-    loglikelihood_name="log_lik",
+    loglikelihood_name="loglik",
     model_names=nothing,
     sort_models=true, 
     show_psis=true)

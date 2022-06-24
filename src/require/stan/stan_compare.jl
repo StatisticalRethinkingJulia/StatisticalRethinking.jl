@@ -22,11 +22,11 @@ function compare(models::Vector{SampleModel}, type::Symbol)
     lps = Matrix{Float64}[]
     for m in models
         nt = read_samples(m, :namedtuple)
-        if :log_lik in keys(nt)
+        if :loglik in keys(nt)
             append!(mnames, [m.name])
-            append!(lps, [Matrix(nt.log_lik')])
+            append!(lps, [Matrix(nt.loglik')])
         else
-            @warn "Model $(m.name) does not produce a log_lik matrix."
+            @warn "Model $(m.name) does not produce a loglik matrix."
         end
     end
     compare(lps, type; mnames)

@@ -1,12 +1,12 @@
 using AxisKeys
 
-function psis_loo(model::SampleModel; loglikelihood_name="log_lik")
+function psis_loo(model::SampleModel; loglikelihood_name="loglik")
     chains = read_samples(model, :keyedarray) # Obtain KeyedArray chains
     psis_loo(chains; loglikelihood_name)
 end
 
-function psis_loo(chains::T; loglikelihood_name="log_lik") where {T <: KeyedArray}
-    ll = Array(matrix(chains, loglikelihood_name)) # Extract log_lik matrix
+function psis_loo(chains::T; loglikelihood_name="loglik") where {T <: KeyedArray}
+    ll = Array(matrix(chains, loglikelihood_name)) # Extract loglik matrix
     ll_p = to_paretosmooth(ll) # Permute dims for ParetoSmooth
     psis = psis_loo(ll_p) # Compute PsisLoo for model
 end
@@ -18,7 +18,7 @@ function to_paretosmooth(ll, pd = [3, 1, 2])
 end
 
 function loo_compare(models::Vector{SampleModel}; 
-    loglikelihood_name="log_lik",
+    loglikelihood_name="loglik",
     model_names=nothing,
     sort_models=true, 
     show_psis=true)
@@ -31,14 +31,14 @@ function loo_compare(models::Vector{SampleModel};
 end
 
 function loo_compare(chains_vec::Vector{<: KeyedArray}; 
-    loglikelihood_name="log_lik",
+    loglikelihood_name="loglik",
     model_names=nothing,
     sort_models=true, 
     show_psis=true)
 
     nmodels = length(chains_vec)
 
-    ll_vec = Array.(matrix.(chains_vec, loglikelihood_name)) # Extract log_lik matrix
+    ll_vec = Array.(matrix.(chains_vec, loglikelihood_name)) # Extract loglik matrix
     ll_vecp = map(to_paretosmooth, ll_vec) # Permute dims for ParetoSmooth
     psis_vec = psis_loo.(ll_vecp) # Compute PsisLoo for all models
 

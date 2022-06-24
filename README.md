@@ -37,7 +37,7 @@ StatisticalRethinking.jl v4 also fits better with the new setup of Pluto noteboo
 
 2. Define the mcmc model, e.g. using StanSample.jl or Turing.jl, and obtain draws from the model.
 
-3. Capture the draws for further processing. In Turing that is ususally done using MCMCChains.jl, in StanSample.jl v4 it's mostly in the form of a DataFrame, a StanTable, a KeyedArray chains (obtained from AxisKeys.jl).
+3. Capture the draws for further processing. In Turing that is usually done using MCMCChains.jl, in StanSample.jl v4 it's mostly in the form of a DataFrame, a StanTable, a KeyedArray chains (obtained from AxisKeys.jl).
 
 4. For further processing, the projects nearly always convert chains to a DataFrame.
 
@@ -63,7 +63,7 @@ Similarly, a dependency [ParetoSmoothedImportanceSampling.jl](https://github.com
 
 ## Versions
 
-As listed in issue [#145](https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/issues/145#issue-1064657635) recently it was noticed that some very old Jupyter notebook files are still present which makes an inital download, e.g. when `dev`-ing the package, rather long. This is not a problem when you just `add` the package.
+As listed in issue [#145](https://github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl/issues/145#issue-1064657635) recently it was noticed that some very old Jupyter notebook files are still present which makes an initial download, e.g. when `dev`-ing the package, rather long. This is not a problem when you just `add` the package.
 
 I am planning to address that in v5.
 

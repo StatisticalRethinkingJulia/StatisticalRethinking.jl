@@ -1,4 +1,5 @@
 using ParetoSmooth, AxisKeys
+import ParetoSmooth: psis_loo, loo_compare
 using NamedTupleTools, Distributions
 using StanSample
 using StatisticalRethinking

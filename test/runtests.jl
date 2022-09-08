@@ -18,7 +18,7 @@ end
 if stan_exists()
     for t ∈ stan_tests
         @testset "$t" begin
-            include("test_$t.jl")
+            #include("test_$t.jl")
         end
     end
 end

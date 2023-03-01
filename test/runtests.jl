@@ -2,7 +2,6 @@ using StanSample, NamedTupleTools
 using StatisticalRethinking
 using Test
 
-
 tests = ["srtools", "link", "simulate", "lppd"]
 stan_tests = ["wd-loo-compare",]
 

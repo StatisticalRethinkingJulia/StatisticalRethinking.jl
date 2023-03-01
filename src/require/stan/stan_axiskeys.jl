@@ -1,4 +1,5 @@
 using AxisKeys
+import ParetoSmooth: loo_compare
 
 function psis_loo(model::SampleModel; loglikelihood_name="loglik")
     chains = read_samples(model, :keyedarray) # Obtain KeyedArray chains

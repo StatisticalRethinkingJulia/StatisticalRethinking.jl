@@ -91,7 +91,7 @@ $(SIGNATURES)
 * `data`: iterable over data values
 
 ## Optional arguments
-* `prob::Float64=0.89`: percentile interval to calculate
+* `perc_prob::Float64=0.89`: percentile interval to calculate
 
 ## Examples
 ```jldoctest
@@ -102,7 +102,7 @@ julia> PI(1:10)
  1.495
  9.505
 
-julia> PI(1:10; prob=0.1)
+julia> PI(1:10; perc_prob=0.1)
 2-element Vector{Float64}:
  5.05
  5.95

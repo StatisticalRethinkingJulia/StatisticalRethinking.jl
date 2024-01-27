@@ -1,5 +1,6 @@
 import StatsBase: sample
-import .Turing: ModeResult
+using Optim
+import .TuringOptimExt: ModeResult
 import LinearAlgebra: Symmetric
 
 """

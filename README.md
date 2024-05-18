@@ -5,6 +5,14 @@
 |:-------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
 |![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | ![][CI-build] |
 
+## Note
+
+After many years I have decided to step away from my work with Stan and Julia. My plan is to be around until the end of 2024 for support if someone decides to step in and take over further development and maintenance work.
+
+At the end of 2024 I'll archive the different packages and projects included in the Github organisations StanJulia, StatisticalRethingJulia and RegressionAndOtherStoriesJulia if no one is interested (and time-wise able!) to take on this work.
+
+I have thoroughly enjoyed working on both Julia and Stan and see both projects mature during the last 15 or so years. And I will always be grateful for the many folks who have helped me on numerous occasions. Both the Julia and the Stan community are awesome to work with! Thanks a lot!
+
 ## Purpose of this package
 
 The StatisticalRethinking.jl `package` contains functions comparable to the functions in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath. 

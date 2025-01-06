@@ -32,7 +32,7 @@ function precis(df::DataFrame; io = stdout, digits = 4, depth = Inf, alpha = 0.1
         d[:, col] .= round.(d[:, col], digits = digits)
     end
 
-    pretty_table(io, d, nosubheader = true, vlines = [0, 1, 7])
+    pretty_table(io, d, show_subheader = false, vlines = [0, 1, 7])
 end
 
 export
